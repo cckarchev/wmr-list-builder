@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ChevronMark from '../ui/ChevronMark';
+import { focusRing } from '../../theme/focusRing';
 
 const Bar = styled.header`
   display: flex;
@@ -22,6 +23,8 @@ const Brand = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.color.accent};
   }
+
+  ${focusRing}
 `;
 
 const BrandMark = styled.span`
@@ -40,6 +43,8 @@ const BackLink = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.color.text.strong};
   }
+
+  ${focusRing}
 `;
 
 const BackChevron = styled.span`

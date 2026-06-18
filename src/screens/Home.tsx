@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { armyIndex } from '../data/armyIndex';
 import SectionLabel from '../components/ui/SectionLabel';
+import { focusRing } from '../theme/focusRing';
 
 const Page = styled.main`
   max-width: 1100px;
@@ -17,6 +18,10 @@ const Heading = styled.h1`
   color: ${({ theme }) => theme.color.text.strong};
   margin-top: ${({ theme }) => `${theme.space[2]}px`};
   margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
+
+  @media (max-width: ${({ theme }) => theme.breakpoint.sm}) {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 const Intro = styled.p`
@@ -73,10 +78,7 @@ const ArmyCard = styled(Link)`
     transform: translateX(2px);
   }
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.color.accent};
-    outline-offset: 2px;
-  }
+  ${focusRing}
 `;
 
 export default function Home() {

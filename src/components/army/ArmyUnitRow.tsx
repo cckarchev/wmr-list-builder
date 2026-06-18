@@ -4,6 +4,7 @@ import { useArmyStore } from '../../store/useArmyStore';
 import Stepper from '../ui/Stepper';
 import ChevronMark from '../ui/ChevronMark';
 import CornerBrackets from '../ui/CornerBrackets';
+import { focusRing } from '../../theme/focusRing';
 import UpgradeRow from './UpgradeRow';
 
 interface ArmyUnitRowProps {
@@ -62,6 +63,8 @@ const UpgradesToggle = styled.button`
     border-color: ${({ theme }) => theme.color.border.hover};
     color: ${({ theme }) => theme.color.text.strong};
   }
+
+  ${focusRing}
 `;
 
 const Caret = styled.span<{ $open: boolean }>`

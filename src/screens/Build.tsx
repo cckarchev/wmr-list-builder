@@ -17,8 +17,9 @@ const Page = styled.main`
 
 const Toolbar = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
 `;

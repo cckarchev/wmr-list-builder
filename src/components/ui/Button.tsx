@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { focusRing } from '../../theme/focusRing';
 
 interface ButtonProps {
   $variant?: 'primary' | 'ghost';
@@ -19,6 +20,8 @@ const Button = styled.button<ButtonProps>`
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.15s, border-color 0.15s, background 0.15s;
+
+  ${focusRing}
 
   ${({ $variant = 'primary', theme }) =>
     $variant === 'primary'

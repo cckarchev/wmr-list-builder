@@ -7,8 +7,9 @@ const Bar = styled.div`
   top: 0;
   z-index: 10;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
