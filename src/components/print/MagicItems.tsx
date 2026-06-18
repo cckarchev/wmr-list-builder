@@ -1,16 +1,7 @@
 import { marked } from 'marked';
 import { useArmyStore } from '../../store/useArmyStore';
-import { magicItems } from '../../data/magicItems';
+import { magicItems, MAGIC_ITEM_TYPES } from '../../data/magicItems';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
-
-const MAGIC_ITEM_TYPES = new Set([
-  'Magic Standard',
-  'Magic Weapon',
-  'Device of Power',
-  'Bannière Magique',
-  'Arme Magique',
-  'Objet Enchanté',
-]);
 
 interface MagicItemsProps {
   used?: boolean;

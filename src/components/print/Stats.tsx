@@ -4,15 +4,7 @@ import { pointsCost, unitCount, usedUnits as getUsedUnits } from '../../store/se
 import { resolveUpgradePoints } from '../../store/storeHelpers';
 import type { UnitState, UpgradeState } from '../../store/storeHelpers';
 import type { UsedUnit } from '../../store/selectors';
-
-const MAGIC_ITEM_TYPES = new Set([
-  'Magic Standard',
-  'Magic Weapon',
-  'Device of Power',
-  'Bannière Magique',
-  'Arme Magique',
-  'Objet Enchanté',
-]);
+import { MAGIC_ITEM_TYPES } from '../../data/magicItems';
 
 const TableWrapper = styled.div`
   overflow-x: auto;

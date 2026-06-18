@@ -6,3 +6,10 @@ import type { MagicItemsFile } from './types';
  * so consumers don't each repeat the `as MagicItemsFile` assertion.
  */
 export const magicItems = magicItemsFile as MagicItemsFile;
+
+/** Upgrade `type` values that count as magic items. */
+export const MAGIC_ITEM_TYPES = new Set([
+  'Magic Standard',
+  'Magic Weapon',
+  'Device of Power',
+]);
