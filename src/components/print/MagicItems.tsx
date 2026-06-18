@@ -1,10 +1,7 @@
 import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import magicItemsFile from '../../data/magic-items.revolution.json';
-import type { MagicItemsFile } from '../../data/types';
-
-const magicItems = magicItemsFile as MagicItemsFile;
+import { magicItems } from '../../data/magicItems';
 
 const MAGIC_ITEM_TYPES = new Set([
   'Magic Standard',

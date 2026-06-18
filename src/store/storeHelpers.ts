@@ -136,15 +136,7 @@ export function buildUnits(
       ? [...source.upgrades]
       : undefined;
 
-    for (const constraint of upgradeConstraints) {
-      const c = constraint as {
-        unitType: string[];
-        unitArmour?: string[];
-        unitHits?: (string | number)[];
-        upgrades: string[];
-        magic?: boolean;
-      };
-
+    for (const c of upgradeConstraints) {
       if (
         c.unitType.includes(source.type) &&
         (c.unitArmour === undefined || c.unitArmour.includes(source.armour || '-')) &&

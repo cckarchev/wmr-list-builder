@@ -70,7 +70,17 @@ export interface Spell {
   text: string[];
 }
 
-export interface UpgradeConstraint { [key: string]: unknown; }
+/**
+ * Rule that grants a set of upgrades to any unit matching the given criteria.
+ * Applied in `buildUnits` when assembling each unit's available upgrades.
+ */
+export interface UpgradeConstraint {
+  unitType: string[];
+  unitArmour?: string[];
+  unitHits?: (string | number)[];
+  upgrades: string[];
+  magic?: boolean;
+}
 
 export interface Army {
   name: string;

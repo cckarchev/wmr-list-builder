@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 import { loadArmy } from '../data/loadArmy';
-import magicItemsFile from '../data/magic-items.revolution.json';
-import type { Army, MagicItemsFile, Spell, UpgradeConstraint, ValidationError } from '../data/types';
+import { magicItems } from '../data/magicItems';
+import type { Army, Spell, UpgradeConstraint, ValidationError } from '../data/types';
 import {
   buildUnits,
   buildUpgrades,
@@ -13,8 +13,6 @@ import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import { validate } from './validation';
 
 export type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
-
-const magicItems = magicItemsFile as MagicItemsFile;
 
 export interface PrintableItem {
   abbr: string;
