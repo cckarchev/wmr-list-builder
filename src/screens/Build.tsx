@@ -71,15 +71,18 @@ export default function Build() {
   const { armyId } = useParams<{ armyId: string }>();
 
   const army = useArmyStore((s) => s.army);
+  const armyIdInStore = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
   const setArmy = useArmyStore((s) => s.setArmy);
 
+  // Only (re)initialize when switching to a different army, so returning to the
+  // roster (e.g. back from Print) keeps the current selections.
   useEffect(() => {
-    if (armyId) {
+    if (armyId && armyIdInStore !== armyId) {
       setArmy(armyId);
     }
-  }, [armyId, setArmy]);
+  }, [armyId, armyIdInStore, setArmy]);
 
   if (!army) return null;
 

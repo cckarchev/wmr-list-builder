@@ -62,19 +62,28 @@ const BackChevron = styled.span`
 
 export default function Nav() {
   const { pathname } = useLocation();
-  const showBack = pathname !== '/';
+  const [section, armyId] = pathname.split('/').filter(Boolean);
+
+  // From the print sheet, "back" returns to that army's roster (preserving the
+  // build); from the roster it returns to the army list.
+  const back =
+    section === 'print' && armyId
+      ? { to: `/build/${armyId}`, label: 'Back to roster' }
+      : pathname !== '/'
+        ? { to: '/', label: 'All armies' }
+        : null;
 
   return (
     <Bar className="no-print">
       <Brand to="/">
         Warmaster <BrandMark>Revolution</BrandMark> <ToolName>· List Builder</ToolName>
       </Brand>
-      {showBack && (
-        <BackLink to="/">
+      {back && (
+        <BackLink to={back.to}>
           <BackChevron>
             <ChevronMark size={10} color="currentColor" />
           </BackChevron>
-          All armies
+          {back.label}
         </BackLink>
       )}
     </Bar>

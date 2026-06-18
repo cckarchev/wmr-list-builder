@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from './test/renderWithProviders';
 import App from './App';
@@ -54,6 +54,26 @@ describe('App routing', () => {
     const controls = await screen.findByText(/check the sections you want/i);
     expect(controls).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
+  });
+
+  it('preserves the roster when returning to Build from Print', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<App />, { routerProps: { initialEntries: ['/build/goblin'] } });
+
+    await screen.findByText('Goblin');
+    await user.click(screen.getByRole('button', { name: 'increase Goblins' }));
+    expect(within(screen.getByTestId('points-bar')).getByTestId('points-total')).toHaveTextContent(
+      '30',
+    );
+
+    // Go to Print, then back to the roster via the nav.
+    await user.click(screen.getByRole('link', { name: 'Print' }));
+    await screen.findByText(/check the sections/i);
+    await user.click(screen.getByRole('link', { name: /roster/i }));
+
+    // The 30-point selection must survive the round trip.
+    const bar = await screen.findByTestId('points-bar');
+    expect(within(bar).getByTestId('points-total')).toHaveTextContent('30');
   });
 
   it('shows a back link to the army list on inner screens', async () => {
