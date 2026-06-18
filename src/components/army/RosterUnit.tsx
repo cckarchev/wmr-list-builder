@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveBounds } from '../../store/forceLimits';
+import { minMaxBadge, explainMinMax } from '../../store/minMax';
 import Stepper from '../ui/Stepper';
 import StatLine from '../ui/StatLine';
+import Tooltip from '../ui/Tooltip';
 
 interface RosterUnitProps {
   unitId: string;
@@ -58,12 +60,18 @@ export default function RosterUnit({ unitId }: RosterUnitProps) {
   if (!unit) return null;
 
   const { min, max } = resolveBounds(unit, gameSize);
+  const badge = minMaxBadge(unit, gameSize);
+  const rule = explainMinMax(unit, gameSize);
 
   return (
     <Card>
       <Header>
         <UnitName>{unitId}</UnitName>
-        {unit.minMax && <MinMax>min/max: {unit.minMax}</MinMax>}
+        {badge && rule && (
+          <Tooltip label={rule}>
+            <MinMax>{badge}</MinMax>
+          </Tooltip>
+        )}
       </Header>
       <StatLine
         type={unit.type}

@@ -102,6 +102,27 @@ describe('inline validation', () => {
   });
 });
 
+describe('min/max in plain language', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('shows terse resolved badges with the full rule in a tooltip', async () => {
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    // Goblins carry min 4 per 1,000 pts; at the default 2,000-pt game that's 8+.
+    expect(screen.getByText('8+')).toBeInTheDocument();
+    // ...with the full rule available in a tooltip bubble.
+    expect(screen.getByText('min 4 per 1,000 pts (≈ 8+ at this size)')).toBeInTheDocument();
+    // The Goblin Warboss is armyMin 1 / armyMax 1 → a bare "1" badge + rule.
+    expect(screen.getByText('exactly 1 per army')).toBeInTheDocument();
+    // The cryptic raw token form is gone.
+    expect(screen.queryByText(/min\/max:/)).not.toBeInTheDocument();
+  });
+});
+
 describe('persistence', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();

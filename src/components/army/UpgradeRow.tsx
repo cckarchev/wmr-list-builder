@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveUpgradePoints } from '../../store/storeHelpers';
 import { errorsForTarget } from '../../store/selectors';
+import { minMaxBadge, explainMinMax } from '../../store/minMax';
 import Stepper from '../ui/Stepper';
+import Tooltip from '../ui/Tooltip';
 import InlineErrors from './InlineErrors';
 
 interface UpgradeRowProps {
@@ -42,10 +44,17 @@ const UpgradePoints = styled.span`
   white-space: nowrap;
 `;
 
+const Limit = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
 export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrade = useArmyStore((s) => s.upgrades[upgradeId]);
   const setUnitUpgradeNumber = useArmyStore((s) => s.setUnitUpgradeNumber);
+  const gameSize = useArmyStore((s) => s.gameSize);
   const errors = useArmyStore((s) => s.errors);
 
   if (!unit || !upgrade) return null;
@@ -55,6 +64,8 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
   const unitUpgrade = unit.upgrades?.[upgradeId];
   const count = unitUpgrade?.number ?? 0;
   const maxCount = unit.number;
+  const badge = minMaxBadge(upgrade, gameSize);
+  const rule = explainMinMax(upgrade, gameSize);
 
   // Resolve points display: pointsValue means variable pricing
   const price = resolveUpgradePoints(upgrade, unit);
@@ -65,6 +76,11 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
     <Row $invalid={upgradeErrors.length > 0}>
       <RowMain>
         <UpgradeName>{upgradeId}</UpgradeName>
+        {badge && rule && (
+          <Tooltip label={rule}>
+            <Limit>{badge}</Limit>
+          </Tooltip>
+        )}
         <UpgradePoints>{pointsDisplay}</UpgradePoints>
         <Stepper
           value={count}
