@@ -85,6 +85,58 @@ export function globalErrors(errors: ValidationError[]): ValidationError[] {
   return errors.filter((e) => e.targets.length === 0);
 }
 
+const CHARACTER_TYPES = ['General', 'Hero', 'Wizard'];
+const TROOP_TYPE_ORDER = [
+  'Infantry',
+  'Cavalry',
+  'Chariot',
+  'Monster',
+  'Artillery',
+  'Machine',
+  'Special',
+];
+
+export interface RosterGroup {
+  label: string;
+  unitIds: string[];
+}
+
+/**
+ * Group roster units for display: a single "Characters" group
+ * (General/Hero/Wizard) first, then troop groups in canonical type order.
+ * Order within each group follows the units map's existing order. An optional
+ * case-insensitive `query` filters by unit id (its display name); groups left
+ * empty by the filter are dropped.
+ */
+export function groupRosterUnits(units: Record<string, UnitState>, query = ''): RosterGroup[] {
+  const q = query.trim().toLowerCase();
+  const matches = (id: string) => !q || id.toLowerCase().includes(q);
+
+  const characters: string[] = [];
+  const troops: Record<string, string[]> = {};
+
+  for (const id of Object.keys(units)) {
+    if (!matches(id)) continue;
+    const type = units[id].type;
+    if (CHARACTER_TYPES.includes(type)) {
+      characters.push(id);
+    } else {
+      (troops[type] ??= []).push(id);
+    }
+  }
+
+  const groups: RosterGroup[] = [];
+  if (characters.length) groups.push({ label: 'Characters', unitIds: characters });
+  for (const type of TROOP_TYPE_ORDER) {
+    if (troops[type]?.length) groups.push({ label: type, unitIds: troops[type] });
+  }
+  // Surface any unforeseen type so units are never silently hidden.
+  for (const type of Object.keys(troops)) {
+    if (!TROOP_TYPE_ORDER.includes(type)) groups.push({ label: type, unitIds: troops[type] });
+  }
+  return groups;
+}
+
 /** Port of getters.js `usedUpgrades`: global upgrades with number > 0. */
 export function usedUpgrades(state: Pick<ArmyState, 'upgrades'>): Record<string, UpgradeState> {
   return Object.keys(state.upgrades).reduce<Record<string, UpgradeState>>((acc, upgradeID) => {

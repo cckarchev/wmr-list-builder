@@ -8,8 +8,19 @@ import {
   usedUpgrades,
   errorsForTarget,
   globalErrors,
+  groupRosterUnits,
 } from './selectors';
+import type { UnitState } from './storeHelpers';
 import type { ValidationError } from '../data/types';
+
+/** Build a minimal units map keyed in insertion order; only `type` matters here. */
+function unitsOf(entries: [string, string][]): Record<string, UnitState> {
+  const map: Record<string, UnitState> = {};
+  for (const [id, type] of entries) {
+    map[id] = { type } as UnitState;
+  }
+  return map;
+}
 
 const get = () => useArmyStore.getState();
 
@@ -93,5 +104,60 @@ describe('usedUnits / usedUpgrades', () => {
     expect(Object.keys(used)).toContain('Battle Banner');
     expect(used['Battle Banner'].number).toBe(1);
     expect(used.Griffon).toBeUndefined();
+  });
+});
+
+describe('groupRosterUnits', () => {
+  const units = unitsOf([
+    ['Goblin Warboss', 'General'],
+    ['Goblin Bigboss', 'Hero'],
+    ['Shaman', 'Wizard'],
+    ['Goblins', 'Infantry'],
+    ['Spider Riders', 'Infantry'],
+    ['Wolf Riders', 'Cavalry'],
+    ['Wolf Chariots', 'Chariot'],
+    ['Giant', 'Monster'],
+    ['Doom Diver', 'Artillery'],
+    ['Pump Wagon', 'Machine'],
+  ]);
+
+  it('groups characters first, then troop types in canonical order', () => {
+    const groups = groupRosterUnits(units);
+    expect(groups.map((g) => g.label)).toEqual([
+      'Characters',
+      'Infantry',
+      'Cavalry',
+      'Chariot',
+      'Monster',
+      'Artillery',
+      'Machine',
+    ]);
+  });
+
+  it('folds General/Hero/Wizard into one Characters group, preserving order', () => {
+    const groups = groupRosterUnits(units);
+    const characters = groups.find((g) => g.label === 'Characters');
+    expect(characters?.unitIds).toEqual(['Goblin Warboss', 'Goblin Bigboss', 'Shaman']);
+  });
+
+  it('preserves existing order within a troop group', () => {
+    const groups = groupRosterUnits(units);
+    const infantry = groups.find((g) => g.label === 'Infantry');
+    expect(infantry?.unitIds).toEqual(['Goblins', 'Spider Riders']);
+  });
+
+  it('filters by a case-insensitive name query, dropping now-empty groups', () => {
+    const groups = groupRosterUnits(units, 'wolf');
+    expect(groups.map((g) => g.label)).toEqual(['Cavalry', 'Chariot']);
+    expect(groups.flatMap((g) => g.unitIds)).toEqual(['Wolf Riders', 'Wolf Chariots']);
+  });
+
+  it('returns no groups when the query matches nothing', () => {
+    expect(groupRosterUnits(units, 'dragon')).toEqual([]);
+  });
+
+  it('ignores surrounding whitespace in the query', () => {
+    const groups = groupRosterUnits(units, '  giant  ');
+    expect(groups.map((g) => g.label)).toEqual(['Monster']);
   });
 });

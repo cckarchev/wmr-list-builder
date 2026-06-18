@@ -123,6 +123,39 @@ describe('min/max in plain language', () => {
   });
 });
 
+describe('roster organization', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('groups the roster under type headers', async () => {
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    expect(within(roster).getByRole('heading', { name: 'Characters' })).toBeInTheDocument();
+    expect(within(roster).getByRole('heading', { name: 'Monster' })).toBeInTheDocument();
+  });
+
+  it('filters units by a name search and shows a zero-result message', async () => {
+    const user = userEvent.setup();
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const box = screen.getByRole('searchbox', { name: 'Search units' });
+    await user.type(box, 'giant');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    expect(within(roster).getByText('Giant')).toBeInTheDocument();
+    expect(within(roster).queryByText('Wolf Riders')).not.toBeInTheDocument();
+
+    await user.clear(box);
+    await user.type(box, 'zzz');
+    expect(within(roster).getByText(/No units match/i)).toBeInTheDocument();
+  });
+});
+
 describe('persistence', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();

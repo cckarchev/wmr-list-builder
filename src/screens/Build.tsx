@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
+import { groupRosterUnits } from '../store/selectors';
+import { focusRing } from '../theme/focusRing';
 import { loadList, saveList, decodeList } from '../store/persistence';
 import { snapshotOf } from '../store/snapshot';
 import CopyShareLinkButton from '../components/army/CopyShareLinkButton';
@@ -64,6 +66,58 @@ const EmptyArmy = styled.p`
   font-style: italic;
 `;
 
+const SearchInput = styled.input`
+  width: 100%;
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  background: ${({ theme }) => theme.color.bg.surface};
+  border: 1px solid ${({ theme }) => theme.color.border.default};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  color: ${({ theme }) => theme.color.text.body};
+  font-family: ${({ theme }) => theme.font.body};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.text.dim};
+  }
+
+  ${focusRing}
+`;
+
+const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+
+  &:not(:first-of-type) {
+    margin-top: ${({ theme }) => `${theme.space[3]}px`};
+  }
+`;
+
+const GroupHeading = styled.h3`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: ${({ theme }) => theme.tracking.labelWide};
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.color.tealBright};
+
+  &::before {
+    content: '';
+    width: ${({ theme }) => `${theme.space[3]}px`};
+    height: 2px;
+    background: ${({ theme }) => theme.color.accent};
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: ${({ theme }) => theme.color.border.divider};
+  }
+`;
+
 export default function Build() {
   const { armyId } = useParams<{ armyId: string }>();
 
@@ -92,10 +146,13 @@ export default function Build() {
     if (armyIdInStore) saveList(armyIdInStore, snapshotOf({ gameSize, units }));
   }, [armyIdInStore, gameSize, units]);
 
+  const [search, setSearch] = useState('');
+
   if (!army) return null;
 
   const allUnitIds = Object.keys(units);
   const usedUnitIds = allUnitIds.filter((id) => units[id].number > 0);
+  const rosterGroups = groupRosterUnits(units, search);
 
   return (
     <Page>
@@ -108,9 +165,25 @@ export default function Build() {
       <Grid>
         <Section aria-label="Roster">
           <SectionHeading>Roster</SectionHeading>
-          {allUnitIds.map((id) => (
-            <RosterUnit key={id} unitId={id} />
-          ))}
+          <SearchInput
+            type="search"
+            placeholder="Search units…"
+            aria-label="Search units"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {rosterGroups.length === 0 ? (
+            <EmptyArmy>No units match “{search}”.</EmptyArmy>
+          ) : (
+            rosterGroups.map((group) => (
+              <Group key={group.label}>
+                <GroupHeading>{group.label}</GroupHeading>
+                {group.unitIds.map((id) => (
+                  <RosterUnit key={id} unitId={id} />
+                ))}
+              </Group>
+            ))
+          )}
         </Section>
         <Section aria-label="Your Army">
           <SectionHeading>Your Army</SectionHeading>
