@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useArmyStore } from './useArmyStore';
 import { pointsCost } from './selectors';
+import { resolveBounds } from './forceLimits';
 
 const get = () => useArmyStore.getState();
 
@@ -9,7 +10,7 @@ beforeEach(() => {
 });
 
 describe('setArmy', () => {
-  it('loads an army with all unit/upgrade numbers at 0 and pointsCost 0', () => {
+  it('loads an army with units at their armyMin floor (force limits)', () => {
     get().setArmy('empire');
     const state = get();
 
@@ -18,14 +19,21 @@ describe('setArmy', () => {
     expect(state.magic).toBe(true);
     expect(state.label).toBe('');
 
+    let expectedTotal = 0;
     for (const unit of Object.values(state.units)) {
-      expect(unit.number).toBe(0);
-      expect(unit.pointsCost).toBe(0);
+      // Each unit auto-includes at its resolved hard minimum (armyMin plus any
+      // point-scaled min at the default cap).
+      const floor = resolveBounds(unit, state.gameSize).min;
+      expect(unit.number).toBe(floor);
+      expect(unit.pointsCost).toBe(floor * +unit.points);
+      expectedTotal += unit.pointsCost;
     }
     for (const upgrade of Object.values(state.upgrades)) {
       expect(upgrade.number).toBe(0);
     }
-    expect(pointsCost(state)).toBe(0);
+    // The General (armyMin 1) is auto-included, so the base is non-zero.
+    expect(state.units.General.number).toBe(1);
+    expect(pointsCost(state)).toBe(expectedTotal);
   });
 
   it('merges magic-item upgrades into the global upgrades map', () => {
@@ -63,30 +71,33 @@ describe('upgradeConstraints auto-attach', () => {
 describe('setUnitNumber', () => {
   it('computes pointsCost = number * points and reflects it in the total', () => {
     get().setArmy('goblin');
-    get().setUnitNumber('Goblins', 3);
+    get().setUnitNumber('Goblins', 10); // above the min floor (8 at 2,000)
 
-    expect(get().units.Goblins.number).toBe(3);
-    expect(get().units.Goblins.pointsCost).toBe(90); // 3 * 30
-    expect(pointsCost(get())).toBe(90);
+    expect(get().units.Goblins.number).toBe(10);
+    expect(get().units.Goblins.pointsCost).toBe(300); // 10 * 30
+    // The total sums every unit's cost, including auto-included minimums.
+    const total = Object.values(get().units).reduce((sum, u) => sum + u.pointsCost, 0);
+    expect(pointsCost(get())).toBe(total);
   });
 
-  it('clamps negative numbers to 0', () => {
+  it('clamps a below-floor number up to the force-limit minimum', () => {
     get().setArmy('goblin');
     get().setUnitNumber('Goblins', -5);
-    expect(get().units.Goblins.number).toBe(0);
+    const floor = resolveBounds(get().units.Goblins, get().gameSize).min;
+    expect(get().units.Goblins.number).toBe(floor); // 8 at 2,000
   });
 });
 
 describe('setUnitUpgradeNumber - plain +N points', () => {
   it('folds the upgrade cost into the unit and updates the global total', () => {
     get().setArmy('empire');
-    get().setUnitNumber('Halberdiers', 3);
+    get().setUnitNumber('Halberdiers', 5); // >= min floor (4 at 2,000)
     get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
 
     const unit = get().units.Halberdiers;
     expect(unit.upgrades!['Battle Banner'].number).toBe(1);
     expect(unit.upgrades!['Battle Banner'].pointsCost).toBe(30); // +30
-    expect(unit.pointsCost).toBe(3 * 45 + 30); // 165
+    expect(unit.pointsCost).toBe(5 * 45 + 30); // 255
     expect(get().upgrades['Battle Banner'].number).toBe(1); // global total
   });
 });
@@ -107,23 +118,23 @@ describe('setUnitUpgradeNumber - variable pricing', () => {
 describe('clamping and cascades', () => {
   it('clamps a unit-upgrade number to the unit number', () => {
     get().setArmy('empire');
-    get().setUnitNumber('Halberdiers', 2);
-    get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 5);
+    get().setUnitNumber('Halberdiers', 5);
+    get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 9);
 
-    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(2);
-    expect(get().upgrades['Battle Banner'].number).toBe(2);
+    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(5);
+    expect(get().upgrades['Battle Banner'].number).toBe(5);
   });
 
   it('reducing the unit number reduces over-limit upgrades and keeps the global total in sync', () => {
     get().setArmy('empire');
-    get().setUnitNumber('Halberdiers', 5);
-    get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 3);
-    expect(get().upgrades['Battle Banner'].number).toBe(3);
+    get().setUnitNumber('Halberdiers', 6);
+    get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 6);
+    expect(get().upgrades['Battle Banner'].number).toBe(6);
 
-    get().setUnitNumber('Halberdiers', 1);
-    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(1);
-    expect(get().upgrades['Battle Banner'].number).toBe(1);
-    expect(get().units.Halberdiers.pointsCost).toBe(1 * 45 + 30); // 75
+    get().setUnitNumber('Halberdiers', 4); // == min floor at 2,000
+    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(4);
+    expect(get().upgrades['Battle Banner'].number).toBe(4);
+    expect(get().units.Halberdiers.pointsCost).toBe(4 * 45 + 4 * 30); // 300
   });
 });
 
@@ -159,5 +170,18 @@ describe('applyList', () => {
     expect(s.gameSize).toBe(1000);
     expect(s.units.Knights.number).toBe(2);
     expect(s.units.NotAUnit).toBeUndefined();
+  });
+});
+
+describe('force limits', () => {
+  it('locks the General at 1 (armyMin == armyMax == 1)', () => {
+    get().setArmy('goblin');
+    expect(get().units['Goblin Warboss'].number).toBe(1);
+
+    get().setUnitNumber('Goblin Warboss', 0); // try to remove
+    expect(get().units['Goblin Warboss'].number).toBe(1);
+
+    get().setUnitNumber('Goblin Warboss', 5); // try to exceed armyMax
+    expect(get().units['Goblin Warboss'].number).toBe(1);
   });
 });

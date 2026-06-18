@@ -30,30 +30,47 @@ function upgrade(partial: Partial<UpgradeState>): UpgradeState {
 }
 
 describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', () => {
-  it('flags a missing armyMin General on a fresh list, and clears it once taken', () => {
+  it('auto-includes the armyMin General; validation still flags it when absent', () => {
     get().setArmy('goblin');
-    expect(messages()).toContain('Minimum of 1 Goblin Warboss per army.');
-    expect(get().errors.map((e) => e.message)).toContain('Minimum of 1 Goblin Warboss per army.');
-
-    get().setUnitNumber('Goblin Warboss', 1);
+    // Force limit auto-includes the Warboss at its armyMin, so it is never missing.
+    expect(get().units['Goblin Warboss'].number).toBe(1);
     expect(messages()).not.toContain('Minimum of 1 Goblin Warboss per army.');
-    expect(get().errors.map((e) => e.message)).not.toContain(
-      'Minimum of 1 Goblin Warboss per army.',
-    );
+
+    // The underlying validation logic still flags a missing armyMin unit.
+    const absent = validate(
+      { 'Goblin Warboss': unit({ number: 0, armyMin: 1, points: 80 }) },
+      {},
+      2000,
+    ).map((e) => e.message);
+    expect(absent).toContain('Minimum of 1 Goblin Warboss per army.');
   });
 
-  it('flags exceeding armyMax', () => {
+  it('hard-clamps a unit to its armyMax; validation backstops the logic', () => {
     get().setArmy('goblin');
+    // Force limit prevents exceeding armyMax through the store.
     get().setUnitNumber('Goblin Warboss', 2);
-    expect(messages()).toContain('Maximum of 1 Goblin Warboss per army.');
+    expect(get().units['Goblin Warboss'].number).toBe(1);
+
+    // The underlying validation logic still flags an over-max state.
+    const over = validate(
+      { 'Goblin Warboss': unit({ number: 2, armyMax: 1, points: 80 }) },
+      {},
+      2000,
+    ).map((e) => e.message);
+    expect(over).toContain('Maximum of 1 Goblin Warboss per army.');
   });
 });
 
 describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () => {
   it('flags Goblins below min*size at the default 2,000 cap', () => {
-    get().setArmy('goblin');
-    get().setUnitNumber('Goblins', 1); // 30 pts; cap 2000 -> size 2 -> min 8
-    expect(messages()).toContain('Minimum of 8 Goblins per 2,000 points.');
+    // The store force-includes Goblins at their minimum, so a short count is
+    // only reachable through the validation logic directly.
+    const errors = validate(
+      { Goblins: unit({ number: 1, min: 4, points: 30 }) },
+      {},
+      2000,
+    ).map((e) => e.message);
+    expect(errors).toContain('Minimum of 8 Goblins per 2,000 points.');
   });
 
   it('ignores the minimum when the cap is below 1,000', () => {
@@ -66,9 +83,14 @@ describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () 
 
 describe('numeric max scales with the game-size cap (goblin Trolls max 4)', () => {
   it('flags Trolls above max*size at the default 2,000 cap', () => {
-    get().setArmy('goblin');
-    get().setUnitNumber('Trolls', 9); // 990 pts; cap 2000 -> size 2 -> max 8
-    expect(messages()).toContain('Maximum of 8 Trolls per 2,000 points.');
+    // The store hard-clamps Trolls to max*size, so an over-max count is only
+    // reachable through the validation logic directly.
+    const errors = validate(
+      { Trolls: unit({ number: 9, max: 4, points: 110, type: 'Monster' }) },
+      {},
+      2000,
+    ).map((e) => e.message);
+    expect(errors).toContain('Maximum of 8 Trolls per 2,000 points.');
   });
 });
 
@@ -123,8 +145,14 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
       (id) => (get().units[id] as UnitState).augendUnits,
     )!;
     const augends = (get().units[augendUnitID] as UnitState).augendUnits!;
-    get().setUnitNumber(augendUnitID, 1); // 1 augend, 0 base units
-    expect(messages()).toContain(`1 ${augendUnitID} requires at least 1 ${toSentence(augends)}.`);
+    // The store auto-includes the base units at their minimums, so test the
+    // augend logic directly with the base units empty.
+    const units: Record<string, UnitState> = {
+      [augendUnitID]: unit({ number: 1, augendUnits: augends }),
+    };
+    for (const a of augends) units[a] = unit({ number: 0 });
+    const errors = validate(units, {}, 2000).map((e) => e.message);
+    expect(errors).toContain(`1 ${augendUnitID} requires at least 1 ${toSentence(augends)}.`);
   });
 });
 
@@ -588,10 +616,12 @@ describe('size derives from the cap, not current points', () => {
 describe('setGameSize recomputes errors', () => {
   it('changes scaled minimum errors when the cap changes', () => {
     get().setArmy('goblin');
-    get().setUnitNumber('Goblins', 4);
-    get().setGameSize(1000); // size 1 -> min 4 satisfied
+    get().setGameSize(1000); // size 1 -> min 4
+    get().setUnitNumber('Goblins', 4); // exactly the minimum at this cap
     expect(messages().some((m) => /Minimum of \d+ Goblins/.test(m))).toBe(false);
 
+    // Raising the cap does NOT auto-adjust the existing list; the soft error
+    // surfaces so the user can correct it.
     get().setGameSize(2000); // size 2 -> min 8, now 4 is short
     expect(messages()).toContain('Minimum of 8 Goblins per 2,000 points.');
   });

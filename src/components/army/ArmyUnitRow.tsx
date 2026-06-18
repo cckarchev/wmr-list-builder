@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
+import { resolveBounds } from '../../store/forceLimits';
 import Stepper from '../ui/Stepper';
 import ChevronMark from '../ui/ChevronMark';
 import CornerBrackets from '../ui/CornerBrackets';
@@ -91,10 +92,13 @@ const UpgradesSection = styled.div`
 export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
+  const gameSize = useArmyStore((s) => s.gameSize);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
 
   if (!unit || unit.number === 0) return null;
+
+  const { min, max } = resolveBounds(unit, gameSize);
 
   const upgradeIds = unit.upgrades ? Object.keys(unit.upgrades) : [];
   const selectedCount = unit.upgrades
@@ -111,7 +115,8 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
         <Stepper
           value={unit.number}
           onChange={(n) => setUnitNumber(unitId, n)}
-          min={0}
+          min={min}
+          max={max}
           label={unitId}
         />
       </Header>

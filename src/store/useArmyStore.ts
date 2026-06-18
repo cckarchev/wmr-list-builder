@@ -6,6 +6,7 @@ import type { Army, Spell, UpgradeConstraint, ValidationError } from '../data/ty
 import { buildUnits, buildUpgrades, unitPointsCost, unitUpgradePointsCost } from './storeHelpers';
 import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import { validate } from './validation';
+import { resolveBounds, applyForceMinimums } from './forceLimits';
 import type { ListSnapshot } from './persistence';
 
 export const DEFAULT_GAME_SIZE = 2000;
@@ -119,7 +120,7 @@ function initializeState(id: string): InitialData {
 
   // upgrades are needed by units, so build them first
   const upgrades = buildUpgrades(army.upgrades, magic ? magicItems.upgrades : undefined);
-  const units = buildUnits(army.units, upgradeConstraints);
+  const units = applyForceMinimums(buildUnits(army.units, upgradeConstraints), DEFAULT_GAME_SIZE);
 
   return {
     armyId: id,
@@ -147,15 +148,19 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
   },
 
   setUnitNumber: (unitID, number) => {
-    // clamp to >= 0 (port of actions.js setUnitNumber, sans validation)
-    let n = +number;
-    if (n < 0) n = 0;
-
     set((state) => {
       const units = { ...state.units };
       const upgrades = { ...state.upgrades };
+      const existing = units[unitID];
 
-      const unit: UnitState = { ...units[unitID], number: n };
+      // clamp to the unit's resolved hard force limits at the current cap.
+      let n = +number;
+      if (!Number.isFinite(n) || n < 0) n = 0;
+      const { min, max } = existing ? resolveBounds(existing, state.gameSize) : { min: 0, max: undefined };
+      if (n < min) n = min;
+      if (max !== undefined && n > max) n = max;
+
+      const unit: UnitState = { ...existing, number: n };
 
       // reduce any of this unit's upgrades whose number exceeds the new unit
       // number, keeping the global upgrade total in sync.

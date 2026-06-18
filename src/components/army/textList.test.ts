@@ -26,14 +26,17 @@ describe('buildTextList', () => {
       version: state.version,
     });
 
+    // Goblin force-includes its minimums: 8 Goblins, 4 Wolf Riders, and the
+    // Goblin Warboss (armyMin 1). Requested counts below those floors clamp up.
     const expected =
-      'Goblin, 120 points\n' +
+      'Goblin, 560 points\n' +
       'Warmaster Revolution\n' +
       '--------------------------------\n' +
-      ' 60 - 2 Goblins\n' +
-      ' 60 - 1 Wolf Riders\n' +
+      '240 - 8 Goblins\n' +
+      '240 - 4 Wolf Riders\n' +
+      ' 80 - 1 Goblin Warboss\n' +
       '--------------------------------\n' +
-      '120 - 3/2';
+      '560 - 13/7';
 
     expect(result).toBe(expected);
   });

@@ -48,17 +48,20 @@ describe('Build screen', () => {
     const bar = screen.getByTestId('points-bar');
     const pointsTotal = within(bar).getByTestId('points-total');
 
-    expect(pointsTotal).toHaveTextContent('0');
+    // Goblin force-includes its minimums: Warboss 80 + 8 Goblins (240) +
+    // 4 Wolf Riders (240) = 560.
+    expect(pointsTotal.textContent).toBe('560');
 
-    // Add one Goblins unit (30 pts each)
-    const increaseBtn = screen.getByRole('button', { name: 'increase Goblins' });
+    // Add one more Goblins unit (30 pts each), taking them from 8 to 9. Goblins
+    // is auto-included, so it has a stepper in both columns; use the roster one.
+    const increaseBtn = screen.getAllByRole('button', { name: 'increase Goblins' })[0];
     await user.click(increaseBtn);
 
-    expect(pointsTotal).toHaveTextContent('30');
+    expect(pointsTotal.textContent).toBe('590');
 
-    // Add another Goblins unit (60 pts total)
+    // And another.
     await user.click(increaseBtn);
-    expect(pointsTotal).toHaveTextContent('60');
+    expect(pointsTotal.textContent).toBe('620');
   });
 });
 

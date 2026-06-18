@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
+import { resolveBounds } from '../../store/forceLimits';
 import Stepper from '../ui/Stepper';
 import StatLine from '../ui/StatLine';
 
@@ -52,8 +53,11 @@ const Footer = styled.div`
 export default function RosterUnit({ unitId }: RosterUnitProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
+  const gameSize = useArmyStore((s) => s.gameSize);
 
   if (!unit) return null;
+
+  const { min, max } = resolveBounds(unit, gameSize);
 
   return (
     <Card>
@@ -75,7 +79,8 @@ export default function RosterUnit({ unitId }: RosterUnitProps) {
         <Stepper
           value={unit.number}
           onChange={(n) => setUnitNumber(unitId, n)}
-          min={0}
+          min={min}
+          max={max}
           label={unitId}
         />
       </Footer>
