@@ -42,6 +42,9 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[3]}px`};
+  /* Allow the grid column to shrink so the chip row's overflow-x scrolls
+     instead of stretching the whole track. */
+  min-width: 0;
 `;
 
 const SectionHeading = styled.h2`
@@ -78,6 +81,36 @@ const SearchInput = styled.input`
 
   &::placeholder {
     color: ${({ theme }) => theme.color.text.dim};
+  }
+
+  ${focusRing}
+`;
+
+const Filters = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
+const FilterChip = styled.button<{ $active?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  background: ${({ theme, $active }) =>
+    $active ? theme.alpha(theme.rgb.accent, 0.15) : theme.color.bg.tint};
+  color: ${({ theme, $active }) => ($active ? theme.color.accent : theme.color.text.dim)};
+  border: 1px solid
+    ${({ theme, $active }) => ($active ? theme.color.border.accent : theme.color.border.divider)};
+
+  &:hover {
+    border-color: ${({ theme }) => theme.color.border.hover};
   }
 
   ${focusRing}
@@ -147,12 +180,19 @@ export default function Build() {
   }, [armyIdInStore, gameSize, units]);
 
   const [search, setSearch] = useState('');
+  const [activeType, setActiveType] = useState<string | null>(null);
 
   if (!army) return null;
 
   const allUnitIds = Object.keys(units);
   const usedUnitIds = allUnitIds.filter((id) => units[id].number > 0);
-  const rosterGroups = groupRosterUnits(units, search);
+  const allGroups = groupRosterUnits(units);
+  const rosterGroups = groupRosterUnits(units, search).filter(
+    (g) => activeType === null || g.label === activeType,
+  );
+
+  const toggleType = (label: string) =>
+    setActiveType((prev) => (prev === label ? null : label));
 
   return (
     <Page>
@@ -172,8 +212,21 @@ export default function Build() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <Filters role="group" aria-label="Filter by type">
+            {allGroups.map((group) => (
+              <FilterChip
+                key={group.label}
+                type="button"
+                $active={activeType === group.label}
+                aria-pressed={activeType === group.label}
+                onClick={() => toggleType(group.label)}
+              >
+                {group.label}
+              </FilterChip>
+            ))}
+          </Filters>
           {rosterGroups.length === 0 ? (
-            <EmptyArmy>No units match “{search}”.</EmptyArmy>
+            <EmptyArmy>No units match the current filters.</EmptyArmy>
           ) : (
             rosterGroups.map((group) => (
               <Group key={group.label}>

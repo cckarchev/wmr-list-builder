@@ -154,6 +154,25 @@ describe('roster organization', () => {
     await user.type(box, 'zzz');
     expect(within(roster).getByText(/No units match/i)).toBeInTheDocument();
   });
+
+  it('toggles a type filter to show only that group', async () => {
+    const user = userEvent.setup();
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    const cavalryChip = within(roster).getByRole('button', { name: 'Cavalry', pressed: false });
+    await user.click(cavalryChip);
+
+    // Only the Cavalry group remains.
+    expect(within(roster).getByRole('heading', { name: 'Cavalry' })).toBeInTheDocument();
+    expect(within(roster).queryByRole('heading', { name: 'Monster' })).not.toBeInTheDocument();
+    expect(cavalryChip).toHaveAttribute('aria-pressed', 'true');
+
+    // Toggling it off restores the full roster.
+    await user.click(cavalryChip);
+    expect(within(roster).getByRole('heading', { name: 'Monster' })).toBeInTheDocument();
+  });
 });
 
 describe('persistence', () => {
