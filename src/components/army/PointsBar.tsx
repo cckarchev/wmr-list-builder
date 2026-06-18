@@ -22,10 +22,11 @@ const Stat = styled.div`
 `;
 
 const StatLabel = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
 `;
 
 const StatValue = styled.span`
@@ -41,9 +42,10 @@ interface ValidIndicatorProps {
 
 const ValidIndicator = styled.span<ValidIndicatorProps>`
   margin-left: auto;
+  font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
   text-transform: uppercase;
   color: ${({ $valid, theme }) =>
     $valid ? theme.color.semantic.success : theme.color.semantic.error};

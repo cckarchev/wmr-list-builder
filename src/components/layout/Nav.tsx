@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import ChevronMark from '../ui/ChevronMark';
 
 const Bar = styled.header`
   display: flex;
@@ -28,6 +29,9 @@ const BrandMark = styled.span`
 `;
 
 const BackLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.dim};
@@ -36,6 +40,11 @@ const BackLink = styled(Link)`
   &:hover {
     color: ${({ theme }) => theme.color.text.strong};
   }
+`;
+
+const BackChevron = styled.span`
+  display: inline-block;
+  transform: rotate(180deg);
 `;
 
 export default function Nav() {
@@ -47,7 +56,14 @@ export default function Nav() {
       <Brand to="/">
         Warmaster <BrandMark>Revolution</BrandMark>
       </Brand>
-      {showBack && <BackLink to="/">‹ All armies</BackLink>}
+      {showBack && (
+        <BackLink to="/">
+          <BackChevron>
+            <ChevronMark size={10} color="currentColor" />
+          </BackChevron>
+          All armies
+        </BackLink>
+      )}
     </Bar>
   );
 }

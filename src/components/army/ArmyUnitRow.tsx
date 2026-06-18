@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import Stepper from '../ui/Stepper';
+import ChevronMark from '../ui/ChevronMark';
+import CornerBrackets from '../ui/CornerBrackets';
 import UpgradeRow from './UpgradeRow';
 
 interface ArmyUnitRowProps {
@@ -9,14 +11,14 @@ interface ArmyUnitRowProps {
 }
 
 const Card = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px`};
-  background: ${({ theme }) => theme.color.bg.surface};
+  background: ${({ theme }) => theme.color.bg.panel};
   border: 1px solid ${({ theme }) => theme.color.border.accent};
   border-radius: ${({ theme }) => theme.radius.md};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
 `;
 
 const Header = styled.div`
@@ -63,7 +65,8 @@ const UpgradesToggle = styled.button`
 `;
 
 const Caret = styled.span<{ $open: boolean }>`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   transition: transform 0.12s;
   transform: rotate(${({ $open }) => ($open ? '90deg' : '0deg')});
 `;
@@ -84,6 +87,7 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
 
   if (!unit || unit.number === 0) return null;
 
@@ -95,6 +99,7 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
 
   return (
     <Card>
+      <CornerBrackets accent={theme.color.border.accent} />
       <Header>
         <UnitName>{unitId}</UnitName>
         <PointsCost>{unit.pointsCost} pts</PointsCost>
@@ -113,7 +118,9 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
             aria-controls={panelId}
             onClick={() => setOpen((v) => !v)}
           >
-            <Caret $open={open}>›</Caret>
+            <Caret $open={open}>
+              <ChevronMark size={11} color="currentColor" />
+            </Caret>
             Upgrades
             {selectedCount > 0 && <SelectedBadge>({selectedCount})</SelectedBadge>}
           </UpgradesToggle>

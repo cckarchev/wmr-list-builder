@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { armyIndex } from '../data/armyIndex';
+import SectionLabel from '../components/ui/SectionLabel';
 
 const Page = styled.main`
   max-width: 1100px;
@@ -14,6 +15,7 @@ const Heading = styled.h1`
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: ${({ theme }) => theme.color.text.strong};
+  margin-top: ${({ theme }) => `${theme.space[2]}px`};
   margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
 `;
 
@@ -80,6 +82,7 @@ const ArmyCard = styled(Link)`
 export default function Home() {
   return (
     <Page>
+      <SectionLabel label="List Builder" />
       <Heading>Warmaster Revolution List Builder</Heading>
       <Intro>Choose an army to start building your roster.</Intro>
       <Grid>

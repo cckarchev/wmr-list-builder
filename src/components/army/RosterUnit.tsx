@@ -12,9 +12,14 @@ const Card = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px`};
-  background: ${({ theme }) => theme.color.bg.surface};
+  background: ${({ theme }) => theme.color.bg.panel};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.md};
+  transition: border-color 0.15s;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.color.border.hover};
+  }
 `;
 
 const Header = styled.div`
