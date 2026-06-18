@@ -1,18 +1,7 @@
 import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-
-const Wrapper = styled.div`
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Heading = styled.h3`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  color: ${({ theme }) => theme.color.text.strong};
-  text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
-`;
+import { PrintSection, PrintHeading } from './printSection';
 
 const Content = styled.div`
   font-size: ${({ theme }) => theme.fontSize.sm};
@@ -27,9 +16,9 @@ export default function ArmyRules() {
   const html = marked(army.armyRules.join('\n')) as string;
 
   return (
-    <Wrapper>
-      <Heading>Army Rules</Heading>
+    <PrintSection>
+      <PrintHeading>Army Rules</PrintHeading>
       <Content dangerouslySetInnerHTML={{ __html: html }} />
-    </Wrapper>
+    </PrintSection>
   );
 }

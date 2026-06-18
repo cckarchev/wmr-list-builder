@@ -1,38 +1,7 @@
 import { marked } from 'marked';
-import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import type { SpecialRule } from '../../data/types';
-
-const Wrapper = styled.div`
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Heading = styled.h3`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  color: ${({ theme }) => theme.color.text.strong};
-  text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
-`;
-
-const Dl = styled.dl`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-`;
-
-const Dt = styled.dt`
-  font-weight: 600;
-  color: ${({ theme }) => theme.color.text.strong};
-  margin-top: ${({ theme }) => `${theme.space[3]}px`};
-
-  &:first-child {
-    margin-top: 0;
-  }
-`;
-
-const Dd = styled.dd`
-  margin: 0;
-  line-height: 1.6;
-`;
+import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
 
 interface SpecialRulesProps {
   used?: boolean;
@@ -93,19 +62,19 @@ export default function SpecialRules({ used = false }: SpecialRulesProps) {
   if (sorted.length === 0) return null;
 
   return (
-    <Wrapper>
-      <Heading>Special Rules{used ? ' Used' : ''}</Heading>
-      <Dl>
+    <PrintSection>
+      <PrintHeading>Special Rules{used ? ' Used' : ''}</PrintHeading>
+      <DefList>
         {sorted.flatMap(([name, rule]) => {
           const html = rule.text ? (marked(rule.text.join('\n')) as string) : '';
           return [
-            <Dt key={`dt_${name}`}>
+            <DefTerm key={`dt_${name}`}>
               {rule.order != null ? `${rule.order}. ` : ''}{name}
-            </Dt>,
-            <Dd key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />,
+            </DefTerm>,
+            <DefDesc key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />,
           ];
         })}
-      </Dl>
-    </Wrapper>
+      </DefList>
+    </PrintSection>
   );
 }

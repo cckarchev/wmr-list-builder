@@ -1,7 +1,7 @@
 import { marked } from 'marked';
-import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { magicItems } from '../../data/magicItems';
+import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
 
 const MAGIC_ITEM_TYPES = new Set([
   'Magic Standard',
@@ -11,37 +11,6 @@ const MAGIC_ITEM_TYPES = new Set([
   'Arme Magique',
   'Objet Enchanté',
 ]);
-
-const Wrapper = styled.div`
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Heading = styled.h3`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  color: ${({ theme }) => theme.color.text.strong};
-  text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
-`;
-
-const Dl = styled.dl`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-`;
-
-const Dt = styled.dt`
-  font-weight: 600;
-  color: ${({ theme }) => theme.color.text.strong};
-  margin-top: ${({ theme }) => `${theme.space[3]}px`};
-
-  &:first-child {
-    margin-top: 0;
-  }
-`;
-
-const Dd = styled.dd`
-  margin: 0;
-  line-height: 1.6;
-`;
 
 interface MagicItemsProps {
   used?: boolean;
@@ -68,19 +37,19 @@ export default function MagicItems({ used = false }: MagicItemsProps) {
   if (entries.length === 0) return null;
 
   return (
-    <Wrapper>
-      <Heading>Magic Items{used ? ' Used' : ''}</Heading>
-      <Dl>
+    <PrintSection>
+      <PrintHeading>Magic Items{used ? ' Used' : ''}</PrintHeading>
+      <DefList>
         {entries.map(([name, item]) => {
           const html = marked(item.text.join('\n')) as string;
           return (
             <>
-              <Dt key={`dt_${name}`}>{name}</Dt>
-              <Dd key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />
+              <DefTerm key={`dt_${name}`}>{name}</DefTerm>
+              <DefDesc key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />
             </>
           );
         })}
-      </Dl>
-    </Wrapper>
+      </DefList>
+    </PrintSection>
   );
 }
