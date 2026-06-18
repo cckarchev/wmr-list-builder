@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { armyIndex } from '../data/armyIndex';
-import SectionLabel from '../components/ui/SectionLabel';
 import { focusRing } from '../theme/focusRing';
 
 const Page = styled.main`
@@ -16,25 +15,18 @@ const Heading = styled.h1`
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: ${({ theme }) => theme.color.text.strong};
-  margin-top: ${({ theme }) => `${theme.space[2]}px`};
-  margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space[5]}px`};
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sm}) {
     font-size: ${({ theme }) => theme.fontSize.xl};
   }
 `;
 
-const Intro = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.dim};
-  margin-bottom: ${({ theme }) => `${theme.space[6]}px`};
-`;
-
 const Grid = styled.ul`
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: ${({ theme }) => `${theme.space[4]}px`};
 `;
 
 const ArmyCard = styled(Link)`
@@ -43,7 +35,7 @@ const ArmyCard = styled(Link)`
   justify-content: space-between;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   min-height: 72px;
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[5]}px`};
   border-radius: ${({ theme }) => theme.radius.md};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-left: 3px solid ${({ theme }) => theme.color.border.default};
@@ -84,9 +76,7 @@ const ArmyCard = styled(Link)`
 export default function Home() {
   return (
     <Page>
-      <SectionLabel label="List Builder" />
-      <Heading>Warmaster Revolution List Builder</Heading>
-      <Intro>Choose an army to start building your roster.</Intro>
+      <Heading>Choose Your Army</Heading>
       <Grid>
         {armyIndex.map(({ id, name }) => (
           <li key={id}>

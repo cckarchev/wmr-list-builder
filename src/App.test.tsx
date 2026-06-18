@@ -14,7 +14,7 @@ describe('App routing', () => {
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
 
     expect(
-      screen.getByRole('heading', { name: /list builder/i }),
+      screen.getByRole('heading', { name: /choose your army/i }),
     ).toBeInTheDocument();
     // The Goblin army card links to its build route.
     const link = screen.getByRole('link', { name: 'Goblin' });
@@ -41,7 +41,7 @@ describe('App routing', () => {
     });
 
     expect(
-      screen.getByRole('heading', { name: /list builder/i }),
+      screen.getByRole('heading', { name: /choose your army/i }),
     ).toBeInTheDocument();
   });
 

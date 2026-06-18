@@ -31,6 +31,14 @@ const BrandMark = styled.span`
   color: ${({ theme }) => theme.color.accent};
 `;
 
+const ToolName = styled.span`
+  color: ${({ theme }) => theme.color.text.dim};
+
+  @media (max-width: ${({ theme }) => theme.breakpoint.sm}) {
+    display: none;
+  }
+`;
+
 const BackLink = styled(Link)`
   display: inline-flex;
   align-items: center;
@@ -59,7 +67,7 @@ export default function Nav() {
   return (
     <Bar className="no-print">
       <Brand to="/">
-        Warmaster <BrandMark>Revolution</BrandMark>
+        Warmaster <BrandMark>Revolution</BrandMark> <ToolName>· List Builder</ToolName>
       </Brand>
       {showBack && (
         <BackLink to="/">
