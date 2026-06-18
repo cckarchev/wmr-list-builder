@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+
+# Build output
+/dist
+dist-ssr
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Test / coverage
+/coverage
+
+# Vite / local
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Deploy
+.netlify
+.vercel
