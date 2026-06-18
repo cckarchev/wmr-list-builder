@@ -98,4 +98,10 @@ export interface Army {
 
 export interface ValidationError {
   message: string;
+  /**
+   * Ids of the unit(s)/upgrade(s) this error is attributed to, so it can be
+   * rendered inline on the offending row. Empty for list-level (global) errors
+   * such as the points ceiling.
+   */
+  targets: string[];
 }

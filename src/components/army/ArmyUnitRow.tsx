@@ -2,24 +2,28 @@ import { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveBounds } from '../../store/forceLimits';
+import { errorsForTarget } from '../../store/selectors';
 import Stepper from '../ui/Stepper';
 import ChevronMark from '../ui/ChevronMark';
 import CornerBrackets from '../ui/CornerBrackets';
 import { focusRing } from '../../theme/focusRing';
 import UpgradeRow from './UpgradeRow';
+import InlineErrors from './InlineErrors';
+import { unitDomId } from './unitDomId';
 
 interface ArmyUnitRowProps {
   unitId: string;
 }
 
-const Card = styled.div`
+const Card = styled.div<{ $invalid?: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px`};
   background: ${({ theme }) => theme.color.bg.panel};
-  border: 1px solid ${({ theme }) => theme.color.border.accent};
+  border: 1px solid
+    ${({ theme, $invalid }) => ($invalid ? theme.color.semantic.error : theme.color.border.accent)};
   border-radius: ${({ theme }) => theme.radius.md};
 `;
 
@@ -93,12 +97,14 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
   const gameSize = useArmyStore((s) => s.gameSize);
+  const errors = useArmyStore((s) => s.errors);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
 
   if (!unit || unit.number === 0) return null;
 
   const { min, max } = resolveBounds(unit, gameSize);
+  const unitErrors = errorsForTarget(errors, unitId);
 
   const upgradeIds = unit.upgrades ? Object.keys(unit.upgrades) : [];
   const selectedCount = unit.upgrades
@@ -107,8 +113,10 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
   const panelId = `upgrades-${unitId.replace(/\W+/g, '-')}`;
 
   return (
-    <Card>
-      <CornerBrackets accent={theme.color.border.accent} />
+    <Card id={unitDomId(unitId)} $invalid={unitErrors.length > 0}>
+      <CornerBrackets
+        accent={unitErrors.length > 0 ? theme.color.semantic.error : theme.color.border.accent}
+      />
       <Header>
         <UnitName>{unitId}</UnitName>
         <PointsCost>{unit.pointsCost} pts</PointsCost>
@@ -120,6 +128,7 @@ export default function ArmyUnitRow({ unitId }: ArmyUnitRowProps) {
           label={unitId}
         />
       </Header>
+      <InlineErrors errors={unitErrors} label={`${unitId} errors`} />
       {upgradeIds.length > 0 && (
         <>
           <UpgradesToggle

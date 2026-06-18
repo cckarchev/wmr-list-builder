@@ -65,6 +65,43 @@ describe('Build screen', () => {
   });
 });
 
+describe('inline validation', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+  });
+
+  it('shows an error on the offending unit row instead of a bottom list', async () => {
+    // A 1-model Goblin Warboss carrying two mounts violates the mount cap.
+    const store = useArmyStore.getState();
+    store.setArmy('goblin');
+    store.setUnitUpgradeNumber('Goblin Warboss', 'Wolf Chariot', 1); // Chariot Mount
+    store.setUnitUpgradeNumber('Goblin Warboss', 'Wyvern', 1); // Monstrous Mount
+
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    // The error renders inline (attributed to the Goblin Warboss row)...
+    expect(screen.getByText(/may only have 1 mount/i)).toBeInTheDocument();
+    // ...and the old detached bottom list is gone.
+    expect(screen.queryByRole('list', { name: /validation errors/i })).not.toBeInTheDocument();
+
+    // The points bar summarizes invalidity with a clickable control.
+    expect(screen.getByTestId('invalid-indicator')).toBeInTheDocument();
+  });
+
+  it('shows the points-cap error globally in the points bar', async () => {
+    const store = useArmyStore.getState();
+    store.setArmy('goblin');
+    store.setGameSize(500); // base goblin list (560) now exceeds the cap
+
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const bar = screen.getByTestId('points-bar');
+    expect(within(bar).getByText(/points over the 500 cap/i)).toBeInTheDocument();
+  });
+});
+
 describe('persistence', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();

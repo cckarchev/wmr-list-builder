@@ -1,6 +1,15 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useArmyStore } from './useArmyStore';
-import { pointsCost, armySize, unitCount, usedUnits, usedUpgrades } from './selectors';
+import {
+  pointsCost,
+  armySize,
+  unitCount,
+  usedUnits,
+  usedUpgrades,
+  errorsForTarget,
+  globalErrors,
+} from './selectors';
+import type { ValidationError } from '../data/types';
 
 const get = () => useArmyStore.getState();
 
@@ -39,6 +48,24 @@ describe('unitCount', () => {
     // Adding a counted unit does.
     get().setUnitNumber('Halberdiers', get().units.Halberdiers.number + 3);
     expect(unitCount(get().units)).toBe(before + 3);
+  });
+});
+
+describe('errorsForTarget / globalErrors', () => {
+  const errors: ValidationError[] = [
+    { message: 'over cap', targets: [] },
+    { message: 'too few A', targets: ['A'] },
+    { message: 'A or B issue', targets: ['A', 'B'] },
+  ];
+
+  it('errorsForTarget returns every error naming the id', () => {
+    expect(errorsForTarget(errors, 'A').map((e) => e.message)).toEqual(['too few A', 'A or B issue']);
+    expect(errorsForTarget(errors, 'B').map((e) => e.message)).toEqual(['A or B issue']);
+    expect(errorsForTarget(errors, 'C')).toEqual([]);
+  });
+
+  it('globalErrors returns only errors with no targets', () => {
+    expect(globalErrors(errors).map((e) => e.message)).toEqual(['over cap']);
   });
 });
 

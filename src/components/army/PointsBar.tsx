@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount } from '../../store/selectors';
+import { pointsCost, unitCount, globalErrors } from '../../store/selectors';
+import { unitDomId } from './unitDomId';
+import { focusRing } from '../../theme/focusRing';
 
 const Bar = styled.div`
   position: sticky;
@@ -68,6 +70,34 @@ const ValidIndicator = styled.span<ValidIndicatorProps>`
     $valid ? theme.color.semantic.success : theme.color.semantic.error};
 `;
 
+const InvalidButton = styled.button`
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.color.semantic.error};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-weight: 600;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.color.semantic.error};
+  cursor: pointer;
+
+  ${focusRing}
+`;
+
+const GlobalError = styled.p`
+  flex-basis: 100%;
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.body};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.semantic.error};
+`;
+
 export default function PointsBar() {
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
@@ -78,6 +108,16 @@ export default function PointsBar() {
   const count = unitCount(units);
   const isValid = errors.length === 0;
   const over = total > gameSize;
+  const globals = globalErrors(errors);
+
+  // Jump to the first invalid unit shown in "Your Army" (a used unit).
+  const firstTarget = errors.flatMap((e) => e.targets).find((id) => units[id]?.number > 0);
+  const goToFirstError = () => {
+    if (!firstTarget) return;
+    document
+      .getElementById(unitDomId(firstTarget))
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   return (
     <Bar className="no-print" data-testid="points-bar">
@@ -105,7 +145,23 @@ export default function PointsBar() {
         <StatLabel>Units</StatLabel>
         <StatValue>{count}</StatValue>
       </Stat>
-      <ValidIndicator $valid={isValid}>{isValid ? 'Valid' : 'Invalid'}</ValidIndicator>
+      {isValid ? (
+        <ValidIndicator $valid data-testid="valid-indicator">
+          Valid
+        </ValidIndicator>
+      ) : (
+        <InvalidButton
+          type="button"
+          onClick={goToFirstError}
+          data-testid="invalid-indicator"
+          aria-label={`${errors.length} issue${errors.length === 1 ? '' : 's'} — go to first`}
+        >
+          {errors.length} issue{errors.length === 1 ? '' : 's'}
+        </InvalidButton>
+      )}
+      {globals.map((e, i) => (
+        <GlobalError key={i}>{e.message}</GlobalError>
+      ))}
     </Bar>
   );
 }

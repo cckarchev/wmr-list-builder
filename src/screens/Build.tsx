@@ -9,7 +9,6 @@ import RosterUnit from '../components/army/RosterUnit';
 import ArmyUnitRow from '../components/army/ArmyUnitRow';
 import PointsBar from '../components/army/PointsBar';
 import CopyListButton from '../components/army/CopyListButton';
-import ErrorList from '../components/ui/ErrorList';
 
 const Page = styled.main`
   display: flex;
@@ -65,17 +64,12 @@ const EmptyArmy = styled.p`
   font-style: italic;
 `;
 
-const ErrorSection = styled.div`
-  padding: ${({ theme }) => `0 ${theme.space[4]}px ${theme.space[4]}px`};
-`;
-
 export default function Build() {
   const { armyId } = useParams<{ armyId: string }>();
 
   const army = useArmyStore((s) => s.army);
   const armyIdInStore = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
-  const errors = useArmyStore((s) => s.errors);
   const gameSize = useArmyStore((s) => s.gameSize);
   const setArmy = useArmyStore((s) => s.setArmy);
   const applyList = useArmyStore((s) => s.applyList);
@@ -127,11 +121,6 @@ export default function Build() {
           )}
         </Section>
       </Grid>
-      {errors.length > 0 && (
-        <ErrorSection>
-          <ErrorList errors={errors} />
-        </ErrorSection>
-      )}
     </Page>
   );
 }

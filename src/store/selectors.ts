@@ -1,5 +1,6 @@
 import type { ArmyState } from './useArmyStore';
 import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
+import type { ValidationError } from '../data/types';
 
 const COUNTABLE_UNITS = [
   'Artillery',
@@ -72,6 +73,16 @@ export function usedUnits(state: Pick<ArmyState, 'units' | 'upgrades'>): Record<
     }
     return acc;
   }, {});
+}
+
+/** Errors attributed to a given unit/upgrade id, for inline rendering. */
+export function errorsForTarget(errors: ValidationError[], id: string): ValidationError[] {
+  return errors.filter((e) => e.targets.includes(id));
+}
+
+/** List-level errors with no specific target (e.g. the points ceiling). */
+export function globalErrors(errors: ValidationError[]): ValidationError[] {
+  return errors.filter((e) => e.targets.length === 0);
 }
 
 /** Port of getters.js `usedUpgrades`: global upgrades with number > 0. */

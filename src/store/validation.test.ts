@@ -576,6 +576,41 @@ describe('independent violations stack on a single item (synthetic)', () => {
   });
 });
 
+describe('error attribution (targets)', () => {
+  it('tags the list-level points error as global (empty targets)', () => {
+    const units = { A: unit({ number: 1, pointsCost: 1200 }) };
+    const capErr = validate(units, {}, 1000).find((e) => /points over the/.test(e.message))!;
+    expect(capErr.targets).toEqual([]);
+  });
+
+  it('attributes a numeric-min error to the offending unit id', () => {
+    const minErr = validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).find(
+      (e) => /Minimum of 8 Goblins/.test(e.message),
+    )!;
+    expect(minErr.targets).toEqual(['Goblins']);
+  });
+
+  it('attributes a homologous error to every homologous id', () => {
+    const units = {
+      A: unit({ armyMax: 1, number: 1, homologousUnits: ['B'] }),
+      B: unit({ number: 1 }),
+    };
+    const maxErr = validate(units, {}, 1000).find((e) =>
+      /Maximum of 1 A or B per army/.test(e.message),
+    )!;
+    expect(maxErr.targets).toEqual(['A', 'B']);
+  });
+
+  it('attributes an upgrade error to the upgrade id', () => {
+    const upgrades = {
+      A: upgrade({ number: 1, requiredUpgrades: ['B'] }),
+      B: upgrade({ number: 0 }),
+    };
+    const err = validate({}, upgrades, 1000).find((e) => /A must be taken with B/.test(e.message))!;
+    expect(err.targets).toEqual(['A']);
+  });
+});
+
 describe('over-cap (points ceiling)', () => {
   it('flags a list whose points exceed the cap', () => {
     const units = { A: unit({ number: 1, pointsCost: 1200 }) };
