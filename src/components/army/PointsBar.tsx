@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, armySize, unitCount } from '../../store/selectors';
+import { pointsCost, unitCount } from '../../store/selectors';
 
 const Bar = styled.div`
   position: sticky;
@@ -37,6 +37,22 @@ const StatValue = styled.span`
   font-weight: 500;
 `;
 
+const SizeInput = styled.input`
+  width: 6ch;
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: 500;
+  color: ${({ theme }) => theme.color.text.strong};
+  background: ${({ theme }) => theme.color.bg.panel};
+  border: 1px solid ${({ theme }) => theme.color.border.default};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+`;
+
+const PointsValue = styled(StatValue)<{ $over: boolean }>`
+  color: ${({ $over, theme }) => ($over ? theme.color.semantic.error : theme.color.text.strong)};
+`;
+
 interface ValidIndicatorProps {
   $valid: boolean;
 }
@@ -55,21 +71,35 @@ const ValidIndicator = styled.span<ValidIndicatorProps>`
 export default function PointsBar() {
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
+  const gameSize = useArmyStore((s) => s.gameSize);
+  const setGameSize = useArmyStore((s) => s.setGameSize);
 
   const total = pointsCost({ units });
-  const size = armySize(total);
   const count = unitCount(units);
   const isValid = errors.length === 0;
+  const over = total > gameSize;
 
   return (
     <Bar className="no-print" data-testid="points-bar">
       <Stat>
         <StatLabel>Points</StatLabel>
-        <StatValue data-testid="points-total">{total}</StatValue>
+        <PointsValue $over={over} data-testid="points-total">
+          {total}
+        </PointsValue>
       </Stat>
       <Stat>
-        <StatLabel>Army Size</StatLabel>
-        <StatValue>{size}</StatValue>
+        <StatLabel as="label" htmlFor="game-size">
+          Game Size
+        </StatLabel>
+        <SizeInput
+          id="game-size"
+          data-testid="game-size"
+          type="number"
+          min={0}
+          step={500}
+          value={gameSize}
+          onChange={(e) => setGameSize(e.target.valueAsNumber)}
+        />
       </Stat>
       <Stat>
         <StatLabel>Units</StatLabel>

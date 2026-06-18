@@ -68,7 +68,7 @@ function checkValidations(
   item: ValidatableItem,
   units: Record<string, UnitState>,
   upgrades: Record<string, UpgradeState>,
-  points: number,
+  gameSize: number,
   size: number,
   errors: ValidationError[],
 ): void {
@@ -180,7 +180,7 @@ function checkValidations(
         requiredSentence +
         '.',
     });
-  } else if (points >= 1000 && item.number + homologousCount < (item.min as number) * size) {
+  } else if (gameSize >= 1000 && item.number + homologousCount < (item.min as number) * size) {
     errors.push({
       message:
         'Minimum of ' + (item.min as number) * size + ' ' + id + ' per ' + size + ',000 points.',
@@ -357,13 +357,26 @@ function checkValidations(
 export function validate(
   units: Record<string, UnitState>,
   upgrades: Record<string, UpgradeState>,
+  gameSize: number,
 ): ValidationError[] {
   const errors: ValidationError[] = [];
   const points = pointsCost({ units });
-  const size = armySize(points);
+  const size = armySize(gameSize);
+
+  // List-level points ceiling. Pushed first so it heads the error list.
+  if (points > gameSize) {
+    errors.push({
+      message:
+        'List is ' +
+        (points - gameSize) +
+        ' points over the ' +
+        gameSize.toLocaleString('en-US') +
+        ' cap.',
+    });
+  }
 
   for (const unit in units) {
-    checkValidations(unit, units[unit] as ValidatableItem, units, upgrades, points, size, errors);
+    checkValidations(unit, units[unit] as ValidatableItem, units, upgrades, gameSize, size, errors);
   }
 
   for (const upgrade in upgrades) {
@@ -372,7 +385,7 @@ export function validate(
       upgrades[upgrade] as ValidatableItem,
       units,
       upgrades,
-      points,
+      gameSize,
       size,
       errors,
     );

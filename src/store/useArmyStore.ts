@@ -7,6 +7,8 @@ import { buildUnits, buildUpgrades, unitPointsCost, unitUpgradePointsCost } from
 import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import { validate } from './validation';
 
+export const DEFAULT_GAME_SIZE = 2000;
+
 export type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 
 export interface PrintableItem {
@@ -29,12 +31,14 @@ export interface ArmyState {
   printItems: PrintableItem[];
   printableItems: PrintableItem[];
   errors: ValidationError[];
+  gameSize: number;
 
   // actions
   setArmy: (id: string) => void;
   setUnitNumber: (unitID: string, number: number) => void;
   setUnitUpgradeNumber: (unitID: string, upgradeID: string, number: number) => void;
   setLabel: (label: string) => void;
+  setGameSize: (n: number) => void;
   addPrintItem: (index: number) => void;
   removePrintItem: (index: number) => void;
   reset: () => void;
@@ -54,6 +58,7 @@ interface InitialData {
   printItems: PrintableItem[];
   printableItems: PrintableItem[];
   errors: ValidationError[];
+  gameSize: number;
 }
 
 function emptyData(): InitialData {
@@ -71,6 +76,7 @@ function emptyData(): InitialData {
     printItems: [],
     printableItems: [],
     errors: [],
+    gameSize: DEFAULT_GAME_SIZE,
   };
 }
 
@@ -126,7 +132,8 @@ function initializeState(id: string): InitialData {
     label: '',
     printItems: [],
     printableItems,
-    errors: validate(units, upgrades),
+    errors: validate(units, upgrades, DEFAULT_GAME_SIZE),
+    gameSize: DEFAULT_GAME_SIZE,
   };
 }
 
@@ -163,7 +170,7 @@ export const useArmyStore = create<ArmyState>((set) => ({
       unit.pointsCost = unitPointsCost(unit);
       units[unitID] = unit;
 
-      return { units, upgrades, errors: validate(units, upgrades) };
+      return { units, upgrades, errors: validate(units, upgrades, state.gameSize) };
     });
   },
 
@@ -181,11 +188,18 @@ export const useArmyStore = create<ArmyState>((set) => ({
       unit.pointsCost = unitPointsCost(unit);
       units[unitID] = unit;
 
-      return { units, upgrades, errors: validate(units, upgrades) };
+      return { units, upgrades, errors: validate(units, upgrades, state.gameSize) };
     });
   },
 
   setLabel: (label) => set({ label }),
+
+  setGameSize: (n) =>
+    set((state) => {
+      let next = Math.floor(+n);
+      if (!Number.isFinite(next) || next < 0) next = 0;
+      return { gameSize: next, errors: validate(state.units, state.upgrades, next) };
+    }),
 
   addPrintItem: (index) =>
     set((state) => {
