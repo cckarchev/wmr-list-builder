@@ -235,4 +235,276 @@ describe('unit-upgrades cap (synthetic - no Revolution unit has 2+ unit-type upg
       '1 A may only have 1 upgrade.',
     );
   });
+
+  it('flags a 2-model unit carrying 3 unit-type upgrades (plural message)', () => {
+    const units = {
+      A: unit({
+        number: 2,
+        upgrades: {
+          U1: { number: 2, pointsCost: 0 },
+          U2: { number: 1, pointsCost: 0 },
+        },
+      }),
+    };
+    const upgrades = {
+      U1: upgrade({ type: 'Infantry' }),
+      U2: upgrade({ type: 'Cavalry' }),
+    };
+    expect(validate(units, upgrades).map((e) => e.message)).toContain(
+      '2 A may only have 2 upgrades.',
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Upgrade-side constraints: homologousUpgrades / requiredUpgrades /
+// prohibitedUnits / prohibitedUpgrades are ABSENT from every Revolution army
+// JSON (verified by grep), so the branches that read them are reachable only
+// via synthetic state. They also exercise the upgrades loop in `validate`,
+// which no real-data test reaches (every Revolution constraint lives on a unit).
+// ---------------------------------------------------------------------------
+describe('homologousUpgrades (synthetic - not present in Revolution data)', () => {
+  it('sums homologous upgrade counts and builds the id sentence', () => {
+    const upgrades = {
+      A: upgrade({ number: 1, homologousUpgrades: ['B'], armyMax: 1 }),
+      B: upgrade({ number: 1 }),
+    };
+    expect(validate({}, upgrades).map((e) => e.message)).toContain('Maximum of 1 A or B per army.');
+  });
+});
+
+describe('requiredUpgrades (synthetic - not present in Revolution data)', () => {
+  it('feeds the keyword-min requiredCount via upgrades', () => {
+    const upgrades = {
+      A: upgrade({ min: 'As B', number: 1, requiredUpgrades: ['B'] }),
+      B: upgrade({ number: 3 }),
+    };
+    expect(validate({}, upgrades).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
+  });
+
+  it('flags an upgrade taken without its requiredUpgrades ("must be taken with")', () => {
+    const upgrades = {
+      A: upgrade({ number: 1, requiredUpgrades: ['B'] }),
+      B: upgrade({ number: 0 }),
+    };
+    const msgs = validate({}, upgrades).map((e) => e.message);
+    expect(msgs).toContain('A must be taken with B.');
+
+    upgrades.B.number = 1;
+    expect(validate({}, upgrades).map((e) => e.message)).not.toContain('A must be taken with B.');
+  });
+});
+
+describe('prohibited constraints (synthetic - not present in Revolution data)', () => {
+  it('flags prohibitedUnits ("cannot be taken with")', () => {
+    const units = {
+      A: unit({ number: 1, prohibitedUnits: ['B'] }),
+      B: unit({ number: 1 }),
+    };
+    const msgs = validate(units, {}).map((e) => e.message);
+    expect(msgs).toContain('A cannot be taken with B.');
+
+    units.B.number = 0;
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('A cannot be taken with B.');
+  });
+
+  it('flags prohibitedUpgrades ("cannot be taken with")', () => {
+    const upgrades = {
+      A: upgrade({ number: 1, prohibitedUpgrades: ['B'] }),
+      B: upgrade({ number: 1 }),
+    };
+    expect(validate({}, upgrades).map((e) => e.message)).toContain('A cannot be taken with B.');
+  });
+});
+
+describe("min 'Half or All' second branch (synthetic - the > ceil(req/2) sub-condition)", () => {
+  it('flags a count between half and all (not exactly half, not all)', () => {
+    // req = 4 -> ceil(4/2) = 2; number 3 is > 2 and < 4 -> violates "half or all".
+    const units = {
+      A: unit({ min: 'Half or All', number: 3, requiredUnits: ['B'] }),
+      B: unit({ number: 4 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).toContain(
+      'Half or all B must be upgraded to A.',
+    );
+  });
+
+  it('does NOT flag exactly all upgraded', () => {
+    const units = {
+      A: unit({ min: 'Half or All', number: 4, requiredUnits: ['B'] }),
+      B: unit({ number: 4 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain(
+      'Half or all B must be upgraded to A.',
+    );
+  });
+});
+
+describe('magic-items / mounts caps plural message (synthetic)', () => {
+  it('pluralizes the magic-item cap for a multi-model unit', () => {
+    const units = {
+      A: unit({
+        number: 2,
+        upgrades: { M1: { number: 2, pointsCost: 0 }, M2: { number: 1, pointsCost: 0 } },
+      }),
+    };
+    const upgrades = {
+      M1: upgrade({ type: 'Magic Weapon' }),
+      M2: upgrade({ type: 'Holy Item' }),
+    };
+    expect(validate(units, upgrades).map((e) => e.message)).toContain(
+      '2 A may only have 2 magic items.',
+    );
+  });
+
+  it('pluralizes the mount cap for a multi-model unit', () => {
+    const units = {
+      A: unit({
+        number: 2,
+        upgrades: { M1: { number: 2, pointsCost: 0 }, M2: { number: 1, pointsCost: 0 } },
+      }),
+    };
+    const upgrades = {
+      M1: upgrade({ type: 'Chariot Mount' }),
+      M2: upgrade({ type: 'Monstrous Mount' }),
+    };
+    expect(validate(units, upgrades).map((e) => e.message)).toContain(
+      '2 A may only have 2 mounts.',
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Size scaling: armySize = max(1, floor(points/1000)). EVERY other test runs
+// at size 1, so the `min*size` / `max*size` / `size-1` arithmetic is only ever
+// multiplied by 1. These drive size 2 (via a 2,000-point filler) so a refactor
+// of armySize or the scaling math is caught.
+// ---------------------------------------------------------------------------
+describe('numeric min/max scale with army size (synthetic, size 2)', () => {
+  it('scales the numeric min by size (min 2 -> 4 at 2,000 points)', () => {
+    const units = {
+      A: unit({ min: 2, number: 1, pointsCost: 0 }),
+      Filler: unit({ number: 1, pointsCost: 2000 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).toContain(
+      'Minimum of 4 A per 2,000 points.',
+    );
+  });
+
+  it('scales the numeric max by size (max 4 -> 8 at 2,000 points)', () => {
+    const units = {
+      A: unit({ max: 4, number: 9, pointsCost: 0 }),
+      Filler: unit({ number: 1, pointsCost: 2000 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).toContain(
+      'Maximum of 8 A per 2,000 points.',
+    );
+  });
+
+  it("scales the 'elite' max by size (size-1 = 1 at 2,000 points)", () => {
+    const units = {
+      A: unit({ max: 'elite', number: 2, pointsCost: 0 }),
+      Filler: unit({ number: 1, pointsCost: 2000 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).toContain(
+      'Maximum of 1 A per 2,000 points.',
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// army min/max sum homologousCount alongside item.number. The real-data
+// homologous test only reaches the per-1,000 max branch, so the armyMin/armyMax
+// + homologous interaction (and the "A or B" id sentence on those messages) is
+// otherwise untested.
+// ---------------------------------------------------------------------------
+describe('armyMin/armyMax include homologousUnits count (synthetic)', () => {
+  it('flags an armyMin shortfall across homologous units, and clears it', () => {
+    const units = {
+      A: unit({ armyMin: 3, number: 1, homologousUnits: ['B'] }),
+      B: unit({ number: 1 }),
+    };
+    expect(validate(units, {}).map((e) => e.message)).toContain(
+      'Minimum of 3 A or B per army.',
+    );
+
+    units.B.number = 2; // 1 + 2 = 3 -> satisfies armyMin
+    expect(validate(units, {}).map((e) => e.message)).not.toContain(
+      'Minimum of 3 A or B per army.',
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Boundary guards: the min/max keyword arms use strict comparisons, so an
+// off-by-one refactor (< vs <=) would only surface as a FALSE POSITIVE exactly
+// at the threshold. None of the positive-case tests pin that edge.
+// ---------------------------------------------------------------------------
+describe('keyword min/max do not false-positive at the boundary (synthetic)', () => {
+  it("'All or None' is clean when fully upgraded, and when none are taken", () => {
+    const all = { A: unit({ min: 'All or None', number: 3, requiredUnits: ['B'] }), B: unit({ number: 3 }) };
+    expect(validate(all, {}).map((e) => e.message)).not.toContain('Minimum of 3 A per 3 B.');
+    const none = { A: unit({ min: 'All or None', number: 0, requiredUnits: ['B'] }), B: unit({ number: 3 }) };
+    expect(validate(none, {}).map((e) => e.message)).not.toContain('Minimum of 3 A per 3 B.');
+  });
+
+  it("'Half or More' is clean at exactly half (3 of 6)", () => {
+    const units = { A: unit({ min: 'Half or More', number: 3, requiredUnits: ['B'] }), B: unit({ number: 6 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Minimum of 3 A per 6 B.');
+  });
+
+  it("'Half or None' min is clean at exactly half (3 of 6)", () => {
+    const units = { A: unit({ min: 'Half or None', number: 3, requiredUnits: ['B'] }), B: unit({ number: 6 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Minimum of 3 A per 6 B.');
+  });
+
+  it("min /^As / is clean when number equals requiredCount", () => {
+    const units = { A: unit({ min: 'As B', number: 3, requiredUnits: ['B'] }), B: unit({ number: 3 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Minimum of 3 A per 3 B.');
+  });
+
+  it("max 'Half or None' is clean at exactly ceil(half) (3 of 5)", () => {
+    const units = { A: unit({ max: 'Half or None', number: 3, requiredUnits: ['B'] }), B: unit({ number: 5 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Maximum of 3 A per 5 B.');
+  });
+
+  it("max 'Up to Half' is clean at exactly floor(half) (2 of 4)", () => {
+    const units = { A: unit({ max: 'Up to Half', number: 2, requiredUnits: ['B'] }), B: unit({ number: 4 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Maximum of 2 A per 4 B.');
+  });
+
+  it("max /^As / is clean when number equals requiredCount", () => {
+    const units = { A: unit({ max: 'As B', number: 2, requiredUnits: ['B'] }), B: unit({ number: 2 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Maximum of 2 A per 2 B.');
+  });
+
+  it("max 'elite' is clean at exactly size-1 (1 unit, size 2)", () => {
+    const units = { A: unit({ max: 'elite', number: 1, pointsCost: 0 }), Filler: unit({ number: 1, pointsCost: 2000 }) };
+    expect(validate(units, {}).map((e) => e.message)).not.toContain('Maximum of 1 A per 2,000 points.');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Independent violations are separate `if`s (not an else-if chain), so one item
+// can report several at once. A refactor that accidentally chains them would
+// drop errors silently; this pins that they coexist.
+// ---------------------------------------------------------------------------
+describe('independent violations stack on a single item (synthetic)', () => {
+  it('reports the magic-item cap AND a missing requiredUnit together', () => {
+    const units = {
+      A: unit({
+        number: 1,
+        requiredUnits: ['B'],
+        upgrades: { M1: { number: 1, pointsCost: 0 }, M2: { number: 1, pointsCost: 0 } },
+      }),
+      B: unit({ number: 0 }),
+    };
+    const upgrades = {
+      M1: upgrade({ type: 'Magic Weapon' }),
+      M2: upgrade({ type: 'Holy Item' }),
+    };
+    const msgs = validate(units, upgrades).map((e) => e.message);
+    expect(msgs).toContain('1 A may only have 1 magic item.');
+    expect(msgs).toContain('A must be taken with B.');
+  });
 });
