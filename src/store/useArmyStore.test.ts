@@ -146,3 +146,18 @@ describe('print items + label', () => {
     expect(get().label).toBe('My List');
   });
 });
+
+describe('applyList', () => {
+  it('restores counts and gameSize, ignoring unknown ids', () => {
+    get().setArmy('empire');
+    get().applyList({
+      gameSize: 1000,
+      units: { Knights: 2, NotAUnit: 9 },
+      upgrades: {},
+    });
+    const s = get();
+    expect(s.gameSize).toBe(1000);
+    expect(s.units.Knights.number).toBe(2);
+    expect(s.units.NotAUnit).toBeUndefined();
+  });
+});

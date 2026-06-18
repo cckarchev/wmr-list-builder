@@ -61,3 +61,27 @@ describe('Build screen', () => {
     expect(pointsTotal).toHaveTextContent('60');
   });
 });
+
+describe('persistence', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('restores the saved list after a store reset (simulated reload)', async () => {
+    const user = userEvent.setup();
+    const first = renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    await user.click(screen.getAllByRole('button', { name: /increase Goblins/i })[0]);
+    const afterAdd = screen.getByTestId('points-total').textContent;
+    expect(afterAdd).not.toBe('0');
+
+    first.unmount();
+    useArmyStore.getState().reset();
+
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+    expect(screen.getByTestId('points-total').textContent).toBe(afterAdd);
+  });
+});

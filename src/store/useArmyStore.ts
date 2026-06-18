@@ -6,6 +6,7 @@ import type { Army, Spell, UpgradeConstraint, ValidationError } from '../data/ty
 import { buildUnits, buildUpgrades, unitPointsCost, unitUpgradePointsCost } from './storeHelpers';
 import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import { validate } from './validation';
+import type { ListSnapshot } from './persistence';
 
 export const DEFAULT_GAME_SIZE = 2000;
 
@@ -39,6 +40,7 @@ export interface ArmyState {
   setUnitUpgradeNumber: (unitID: string, upgradeID: string, number: number) => void;
   setLabel: (label: string) => void;
   setGameSize: (n: number) => void;
+  applyList: (snap: ListSnapshot) => void;
   addPrintItem: (index: number) => void;
   removePrintItem: (index: number) => void;
   reset: () => void;
@@ -137,7 +139,7 @@ function initializeState(id: string): InitialData {
   };
 }
 
-export const useArmyStore = create<ArmyState>((set) => ({
+export const useArmyStore = create<ArmyState>((set, get) => ({
   ...emptyData(),
 
   setArmy: (id) => {
@@ -200,6 +202,20 @@ export const useArmyStore = create<ArmyState>((set) => ({
       if (!Number.isFinite(next) || next < 0) next = 0;
       return { gameSize: next, errors: validate(state.units, state.upgrades, next) };
     }),
+
+  applyList: (snap) => {
+    const { setGameSize, setUnitNumber, setUnitUpgradeNumber, units } = get();
+    setGameSize(snap.gameSize);
+    for (const [unitID, n] of Object.entries(snap.units)) {
+      if (units[unitID]) setUnitNumber(unitID, n);
+    }
+    for (const [unitID, ups] of Object.entries(snap.upgrades)) {
+      if (!units[unitID]) continue;
+      for (const [upgradeID, n] of Object.entries(ups)) {
+        if (get().upgrades[upgradeID]) setUnitUpgradeNumber(unitID, upgradeID, n);
+      }
+    }
+  },
 
   addPrintItem: (index) =>
     set((state) => {

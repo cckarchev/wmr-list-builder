@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
+import { loadList, saveList, decodeList } from '../store/persistence';
+import { snapshotOf } from '../store/snapshot';
+import CopyShareLinkButton from '../components/army/CopyShareLinkButton';
 import RosterUnit from '../components/army/RosterUnit';
 import ArmyUnitRow from '../components/army/ArmyUnitRow';
 import PointsBar from '../components/army/PointsBar';
@@ -73,15 +76,27 @@ export default function Build() {
   const armyIdInStore = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
+  const gameSize = useArmyStore((s) => s.gameSize);
   const setArmy = useArmyStore((s) => s.setArmy);
+  const applyList = useArmyStore((s) => s.applyList);
+  const [searchParams] = useSearchParams();
 
   // Only (re)initialize when switching to a different army, so returning to the
-  // roster (e.g. back from Print) keeps the current selections.
+  // roster (e.g. back from Print) keeps the current selections. On a fresh load,
+  // restore from the URL (?list= wins) or from localStorage.
   useEffect(() => {
-    if (armyId && armyIdInStore !== armyId) {
-      setArmy(armyId);
-    }
+    if (!armyId || armyIdInStore === armyId) return;
+    setArmy(armyId);
+    const fromUrl = searchParams.get('list');
+    const snap = (fromUrl && decodeList(fromUrl)) || loadList(armyId);
+    if (snap) applyList(snap);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [armyId, armyIdInStore, setArmy]);
+
+  // Auto-save the current list whenever it changes.
+  useEffect(() => {
+    if (armyIdInStore) saveList(armyIdInStore, snapshotOf({ gameSize, units }));
+  }, [armyIdInStore, gameSize, units]);
 
   if (!army) return null;
 
@@ -93,6 +108,7 @@ export default function Build() {
       <PointsBar />
       <Toolbar className="no-print">
         <CopyListButton />
+        <CopyShareLinkButton />
       </Toolbar>
       <ArmyName>{army.name}</ArmyName>
       <Grid>
