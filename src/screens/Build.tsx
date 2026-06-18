@@ -17,6 +17,11 @@ const Page = styled.main`
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  /* Tooltip bubbles on right-edge badges are absolutely positioned and extend
+     past the viewport while hidden; clip horizontally so they can't add a
+     page-wide scrollbar. clip (not hidden) avoids creating a scroll container,
+     so the sticky points bar keeps working. */
+  overflow-x: clip;
 `;
 
 const Toolbar = styled.div`
