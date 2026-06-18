@@ -7,6 +7,7 @@ import { focusRing } from '../theme/focusRing';
 import { loadList, saveList, decodeList } from '../store/persistence';
 import { snapshotOf } from '../store/snapshot';
 import CopyShareLinkButton from '../components/army/CopyShareLinkButton';
+import ChevronMark from '../components/ui/ChevronMark';
 import RosterUnit from '../components/army/RosterUnit';
 import ArmyUnitRow from '../components/army/ArmyUnitRow';
 import PointsBar from '../components/army/PointsBar';
@@ -42,17 +43,62 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[3]}px`};
-  /* Allow the grid column to shrink so the chip row's overflow-x scrolls
-     instead of stretching the whole track. */
+  /* Allow the grid column to shrink rather than stretch the track. */
   min-width: 0;
 `;
 
-const SectionHeading = styled.h2`
+const SectionHeading = styled.h2<{ $flush?: boolean }>`
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.color.text.strong};
+  padding-bottom: ${({ theme, $flush }) => ($flush ? '0' : `${theme.space[2]}px`)};
+  border-bottom: ${({ theme, $flush }) =>
+    $flush ? 'none' : `1px solid ${theme.color.border.divider}`};
+`;
+
+const RosterHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
   padding-bottom: ${({ theme }) => `${theme.space[2]}px`};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
+`;
+
+const FilterToggle = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  flex: 0 0 auto;
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  background: none;
+  border: 1px solid ${({ theme }) => theme.color.border.divider};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  color: ${({ theme }) => theme.color.text.dim};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.color.border.hover};
+    color: ${({ theme }) => theme.color.text.body};
+  }
+
+  ${focusRing}
+`;
+
+const Caret = styled.span<{ $open: boolean }>`
+  display: inline-flex;
+  transition: transform 0.15s;
+  transform: rotate(${({ $open }) => ($open ? '90deg' : '0deg')});
+`;
+
+const FiltersPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
 `;
 
 const ArmyName = styled.h1`
@@ -181,6 +227,7 @@ export default function Build() {
 
   const [search, setSearch] = useState('');
   const [activeType, setActiveType] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   if (!army) return null;
 
@@ -194,6 +241,8 @@ export default function Build() {
   const toggleType = (label: string) =>
     setActiveType((prev) => (prev === label ? null : label));
 
+  const filtersActive = search.trim() !== '' || activeType !== null;
+
   return (
     <Page>
       <PointsBar />
@@ -204,27 +253,46 @@ export default function Build() {
       <ArmyName>{army.name}</ArmyName>
       <Grid>
         <Section aria-label="Roster">
-          <SectionHeading>Roster</SectionHeading>
-          <SearchInput
-            type="search"
-            placeholder="Search units…"
-            aria-label="Search units"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Filters role="group" aria-label="Filter by type">
-            {allGroups.map((group) => (
-              <FilterChip
-                key={group.label}
-                type="button"
-                $active={activeType === group.label}
-                aria-pressed={activeType === group.label}
-                onClick={() => toggleType(group.label)}
-              >
-                {group.label}
-              </FilterChip>
-            ))}
-          </Filters>
+          <RosterHeader>
+            <SectionHeading $flush as="h2">
+              Roster
+            </SectionHeading>
+            <FilterToggle
+              type="button"
+              aria-expanded={filtersOpen}
+              aria-controls="roster-filters"
+              onClick={() => setFiltersOpen((open) => !open)}
+            >
+              <Caret $open={filtersOpen}>
+                <ChevronMark size={12} />
+              </Caret>
+              {filtersActive ? 'Filters •' : 'Filters'}
+            </FilterToggle>
+          </RosterHeader>
+          {filtersOpen && (
+            <FiltersPanel id="roster-filters">
+              <SearchInput
+                type="search"
+                placeholder="Search units…"
+                aria-label="Search units"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Filters role="group" aria-label="Filter by type">
+                {allGroups.map((group) => (
+                  <FilterChip
+                    key={group.label}
+                    type="button"
+                    $active={activeType === group.label}
+                    aria-pressed={activeType === group.label}
+                    onClick={() => toggleType(group.label)}
+                  >
+                    {group.label}
+                  </FilterChip>
+                ))}
+              </Filters>
+            </FiltersPanel>
+          )}
           {rosterGroups.length === 0 ? (
             <EmptyArmy>No units match the current filters.</EmptyArmy>
           ) : (

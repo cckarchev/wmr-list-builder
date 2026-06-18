@@ -143,6 +143,7 @@ describe('roster organization', () => {
     renderBuild('/build/goblin');
     await screen.findByText('Goblin');
 
+    await user.click(screen.getByRole('button', { name: /filters/i }));
     const box = screen.getByRole('searchbox', { name: 'Search units' });
     await user.type(box, 'giant');
 
@@ -161,6 +162,7 @@ describe('roster organization', () => {
     await screen.findByText('Goblin');
 
     const roster = screen.getByRole('region', { name: 'Roster' });
+    await user.click(within(roster).getByRole('button', { name: /filters/i }));
     const cavalryChip = within(roster).getByRole('button', { name: 'Cavalry', pressed: false });
     await user.click(cavalryChip);
 
