@@ -132,9 +132,7 @@ export function buildUnits(
     const noUpgrades = (source as { noUpgrades?: boolean }).noUpgrades;
 
     // start from the source upgrade-id array (if any)
-    let upgradeIDs: string[] | undefined = source.upgrades
-      ? [...source.upgrades]
-      : undefined;
+    let upgradeIDs: string[] | undefined = source.upgrades ? [...source.upgrades] : undefined;
 
     for (const c of upgradeConstraints) {
       if (
@@ -201,10 +199,7 @@ function unitStat(unit: object, key: string): StatValue | undefined {
  * value for that stat. Returns undefined when the price can't be resolved
  * (missing map entry, or a variable upgrade with no unit context).
  */
-export function resolveUpgradePoints(
-  upgrade: PricedUpgrade,
-  unit?: object,
-): StatValue | undefined {
+export function resolveUpgradePoints(upgrade: PricedUpgrade, unit?: object): StatValue | undefined {
   if (upgrade.pointsValue !== undefined) {
     if (!unit || typeof upgrade.points !== 'object') return undefined;
     const key = String(unitStat(unit, upgrade.pointsValue) ?? '-');

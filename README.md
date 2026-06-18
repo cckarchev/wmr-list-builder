@@ -26,15 +26,15 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 
 ## Scripts
 
-| Command             | What it does                                            |
-| ------------------- | ------------------------------------------------------- |
-| `npm run dev`       | Start the Vite dev server                               |
-| `npm run build`     | Type-check and build the production bundle to `dist/`   |
-| `npm run preview`   | Serve the built `dist/` locally                         |
-| `npm test`          | Run the test suite once                                 |
-| `npm run test:watch`| Run tests in watch mode                                 |
-| `npm run lint`      | Lint `src/`                                             |
-| `npm run typecheck` | Type-check without emitting                             |
+| Command              | What it does                                          |
+| -------------------- | ----------------------------------------------------- |
+| `npm run dev`        | Start the Vite dev server                             |
+| `npm run build`      | Type-check and build the production bundle to `dist/` |
+| `npm run preview`    | Serve the built `dist/` locally                       |
+| `npm test`           | Run the test suite once                               |
+| `npm run test:watch` | Run tests in watch mode                               |
+| `npm run lint`       | Lint `src/`                                           |
+| `npm run typecheck`  | Type-check without emitting                           |
 
 ## Project layout
 

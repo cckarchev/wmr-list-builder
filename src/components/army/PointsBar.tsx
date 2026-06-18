@@ -75,9 +75,7 @@ export default function PointsBar() {
         <StatLabel>Units</StatLabel>
         <StatValue>{count}</StatValue>
       </Stat>
-      <ValidIndicator $valid={isValid}>
-        {isValid ? 'Valid' : 'Invalid'}
-      </ValidIndicator>
+      <ValidIndicator $valid={isValid}>{isValid ? 'Valid' : 'Invalid'}</ValidIndicator>
     </Bar>
   );
 }

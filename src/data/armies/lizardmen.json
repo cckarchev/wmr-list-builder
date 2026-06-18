@@ -23,9 +23,7 @@
       "size": 3,
       "points": 80,
       "min": 2,
-      "specialRules": [
-        "Reptilian"
-      ]
+      "specialRules": ["Reptilian"]
     },
     "Temple Guard": {
       "order": 2,
@@ -36,9 +34,7 @@
       "size": 3,
       "points": 110,
       "max": 1,
-      "specialRules": [
-        "Reptilian"
-      ]
+      "specialRules": ["Reptilian"]
     },
     "Salamanders": {
       "order": 3,
@@ -49,9 +45,7 @@
       "size": "+1",
       "points": 20,
       "max": 2,
-      "augendUnits": [
-        "Skinks"
-      ],
+      "augendUnits": ["Skinks"],
       "noCount": true,
       "noMagic": true
     },
@@ -64,9 +58,7 @@
       "size": 3,
       "points": 135,
       "max": 2,
-      "specialRules": [
-        "Reptilian"
-      ]
+      "specialRules": ["Reptilian"]
     },
     "Cold One Riders": {
       "order": 5,
@@ -77,9 +69,7 @@
       "size": 3,
       "points": 140,
       "max": 2,
-      "specialRules": [
-        "Reptilian"
-      ]
+      "specialRules": ["Reptilian"]
     },
     "Terradons": {
       "order": 6,
@@ -129,9 +119,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Carnosaur"
-      ]
+      "upgrades": ["Carnosaur"]
     },
     "Skink Hero": {
       "order": 10,

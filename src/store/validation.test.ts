@@ -16,7 +16,14 @@ beforeEach(() => {
 // `src/data/armies/*.json` is numeric, and no unit carries 2+ unit-type
 // upgrades). These build minimal state objects to exercise the ported logic.
 function unit(partial: Partial<UnitState>): UnitState {
-  return { order: 0, type: 'Infantry', points: 100, number: 0, pointsCost: 0, ...partial } as UnitState;
+  return {
+    order: 0,
+    type: 'Infantry',
+    points: 100,
+    number: 0,
+    pointsCost: 0,
+    ...partial,
+  } as UnitState;
 }
 function upgrade(partial: Partial<UpgradeState>): UpgradeState {
   return { order: 0, type: 'Infantry', number: 0, ...partial } as UpgradeState;
@@ -30,7 +37,9 @@ describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', 
 
     get().setUnitNumber('Goblin Warboss', 1);
     expect(messages()).not.toContain('Minimum of 1 Goblin Warboss per army.');
-    expect(get().errors.map((e) => e.message)).not.toContain('Minimum of 1 Goblin Warboss per army.');
+    expect(get().errors.map((e) => e.message)).not.toContain(
+      'Minimum of 1 Goblin Warboss per army.',
+    );
   });
 
   it('flags exceeding armyMax', () => {
@@ -115,9 +124,7 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
     )!;
     const augends = (get().units[augendUnitID] as UnitState).augendUnits!;
     get().setUnitNumber(augendUnitID, 1); // 1 augend, 0 base units
-    expect(messages()).toContain(
-      `1 ${augendUnitID} requires at least 1 ${toSentence(augends)}.`,
-    );
+    expect(messages()).toContain(`1 ${augendUnitID} requires at least 1 ${toSentence(augends)}.`);
   });
 });
 
@@ -144,9 +151,7 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'All or None', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Minimum of 3 A per 3 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
   });
 
   it("min 'Half or All'", () => {
@@ -164,9 +169,7 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'Half or More', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Minimum of 3 A per 6 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Minimum of 3 A per 6 B.');
   });
 
   it("min 'Half or None'", () => {
@@ -174,27 +177,21 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'Half or None', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Minimum of 3 A per 6 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Minimum of 3 A per 6 B.');
   });
 
-  it("min /^As /", () => {
+  it('min /^As /', () => {
     const units = {
       A: unit({ min: 'As B', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Minimum of 3 A per 3 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
   });
 
   it("max 'elite'", () => {
     // size = max(1, floor(points/1000)); 1 unit @ 100 pts -> size 1 -> max 0
     const units = { A: unit({ max: 'elite', number: 1, points: 100 }) };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Maximum of 0 A per 1,000 points.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Maximum of 0 A per 1,000 points.');
   });
 
   it("max 'Half or None'", () => {
@@ -202,9 +199,7 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ max: 'Half or None', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 2 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Maximum of 1 A per 2 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Maximum of 1 A per 2 B.');
   });
 
   it("max 'Up to Half'", () => {
@@ -212,26 +207,25 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ max: 'Up to Half', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Maximum of 2 A per 4 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Maximum of 2 A per 4 B.');
   });
 
-  it("max /^As /", () => {
+  it('max /^As /', () => {
     const units = {
       A: unit({ max: 'As B', number: 4, requiredUnits: ['B'] }),
       B: unit({ number: 2 }),
     };
-    expect(validate(units, {}).map((e) => e.message)).toContain(
-      'Maximum of 2 A per 2 B.',
-    );
+    expect(validate(units, {}).map((e) => e.message)).toContain('Maximum of 2 A per 2 B.');
   });
 });
 
 describe('unit-upgrades cap (synthetic - no Revolution unit has 2+ unit-type upgrades)', () => {
   it('flags a 1-model unit carrying 2 unit-type upgrades', () => {
     const units = {
-      A: unit({ number: 1, upgrades: { U1: { number: 1, pointsCost: 0 }, U2: { number: 1, pointsCost: 0 } } }),
+      A: unit({
+        number: 1,
+        upgrades: { U1: { number: 1, pointsCost: 0 }, U2: { number: 1, pointsCost: 0 } },
+      }),
     };
     const upgrades = {
       U1: upgrade({ type: 'Infantry' }),

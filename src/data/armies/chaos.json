@@ -123,10 +123,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Chaos Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Chaos Dragon", "Chariot"]
     },
     "Hero": {
       "order": 12,
@@ -136,10 +133,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Chaos Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Chaos Dragon", "Chariot"]
     },
     "Sorcerer": {
       "order": 13,
@@ -149,10 +143,7 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": [
-        "Chaos Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Chaos Dragon", "Chariot"]
     }
   },
   "upgrades": {
@@ -193,9 +184,7 @@
     },
     "Dragon Ogres": {
       "order": 4,
-      "text": [
-        "Dragon Ogres are immune to terror."
-      ]
+      "text": ["Dragon Ogres are immune to terror."]
     },
     "Chaos Spawn": {
       "order": 5,

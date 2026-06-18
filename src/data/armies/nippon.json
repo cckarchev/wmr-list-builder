@@ -42,9 +42,7 @@
       "points": 80,
       "min": 2,
       "max": 4,
-      "specialRules": [
-        "Bushido"
-      ]
+      "specialRules": ["Bushido"]
     },
     "Mikata (Ronin & Monks)": {
       "order": 4,
@@ -54,9 +52,7 @@
       "size": 3,
       "points": 70,
       "max": 2,
-      "specialRules": [
-        "Mikata"
-      ]
+      "specialRules": ["Mikata"]
     },
     "Ninja": {
       "order": 5,
@@ -78,9 +74,7 @@
       "size": 3,
       "points": 110,
       "max": 1,
-      "specialRules": [
-        "Temple Daemons"
-      ]
+      "specialRules": ["Temple Daemons"]
     },
     "Samurai Cavalry": {
       "order": 7,
@@ -91,9 +85,7 @@
       "size": 3,
       "points": 110,
       "max": 3,
-      "specialRules": [
-        "Bushido"
-      ]
+      "specialRules": ["Bushido"]
     },
     "Komainu": {
       "order": 8,
@@ -103,9 +95,7 @@
       "size": 3,
       "points": 40,
       "max": 3,
-      "specialRules": [
-        "Temple Daemons"
-      ]
+      "specialRules": ["Temple Daemons"]
     },
     "Tengu": {
       "order": 9,
@@ -116,9 +106,7 @@
       "size": 3,
       "points": 80,
       "max": 1,
-      "specialRules": [
-        "Temple Daemons"
-      ]
+      "specialRules": ["Temple Daemons"]
     },
     "Shogun": {
       "order": 10,
@@ -129,9 +117,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Tatsu"
-      ]
+      "upgrades": ["Tatsu"]
     },
     "Daimyo": {
       "order": 11,
@@ -141,9 +127,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Tatsu"
-      ]
+      "upgrades": ["Tatsu"]
     },
     "Shugenja": {
       "order": 12,
@@ -153,11 +137,7 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": [
-        "Tatsu",
-        "Shrine",
-        "Scroll of Dispelling"
-      ]
+      "upgrades": ["Tatsu", "Shrine", "Scroll of Dispelling"]
     }
   },
   "upgrades": {

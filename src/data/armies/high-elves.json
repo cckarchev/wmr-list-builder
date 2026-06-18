@@ -76,9 +76,7 @@
       "size": 1,
       "points": 270,
       "max": 1,
-      "specialRules": [
-        "Dragons"
-      ]
+      "specialRules": ["Dragons"]
     },
     "Elven Bolt Thrower": {
       "order": 7,
@@ -99,11 +97,7 @@
       "points": 180,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Giant Eagle",
-        "Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
     },
     "Hero": {
       "order": 9,
@@ -113,11 +107,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Giant Eagle",
-        "Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
     },
     "Wizard": {
       "order": 10,
@@ -127,11 +117,7 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": [
-        "Giant Eagle",
-        "Dragon",
-        "Chariot"
-      ]
+      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
     }
   },
   "upgrades": {
@@ -149,9 +135,7 @@
       "range": "20cm",
       "points": "+100",
       "max": 1,
-      "specialRules": [
-        "Dragons"
-      ]
+      "specialRules": ["Dragons"]
     },
     "Chariot": {
       "order": 2,
@@ -171,9 +155,7 @@
     },
     "Giant Eagles": {
       "order": 2,
-      "text": [
-        "Eagles can fly."
-      ]
+      "text": ["Eagles can fly."]
     },
     "Dragons": {
       "order": 3,

@@ -86,11 +86,7 @@ function resolveSpecial(
 function StatRow({ name, troop, used, isUpgrade = false, parentUnit, specialRules }: StatRowProps) {
   const t = troop as UnitState & UpgradeState;
 
-  const pointsCostDisplay = used
-    ? isUpgrade
-      ? `(${t.pointsCost})`
-      : String(t.pointsCost)
-    : null;
+  const pointsCostDisplay = used ? (isUpgrade ? `(${t.pointsCost})` : String(t.pointsCost)) : null;
 
   return (
     <tr>
@@ -219,7 +215,9 @@ export default function Stats({ used = false }: StatsProps) {
             <tfoot>
               <tr>
                 <Td>{total}</Td>
-                <Td>{count}/{Math.ceil(count / 2)}</Td>
+                <Td>
+                  {count}/{Math.ceil(count / 2)}
+                </Td>
                 <Td colSpan={11}>{isValid ? '' : 'INVALID'}</Td>
               </tr>
             </tfoot>

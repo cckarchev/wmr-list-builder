@@ -18,7 +18,7 @@ export default function ChevronMark({ color, size = 14, strokeWidth = 2.4 }: Che
       style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
       aria-hidden="true"
     >
-      <path d="M3 2 L9 8 L3 14" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="square" />
+      <path d="M5 2 L11 8 L5 14" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="square" />
     </svg>
   );
 }

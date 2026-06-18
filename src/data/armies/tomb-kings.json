@@ -83,9 +83,7 @@
       "size": 1,
       "points": 85,
       "max": 1,
-      "specialRules": [
-        "Stone Thrower"
-      ]
+      "specialRules": ["Stone Thrower"]
     },
     "Bone Thrower": {
       "order": 8,
@@ -96,9 +94,7 @@
       "size": 2,
       "points": 65,
       "max": 1,
-      "specialRules": [
-        "Bolt Thrower"
-      ]
+      "specialRules": ["Bolt Thrower"]
     },
     "Tomb King": {
       "order": 9,
@@ -109,10 +105,7 @@
       "points": 130,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Zombie Dragon",
-        "Liche Chariot"
-      ]
+      "upgrades": ["Zombie Dragon", "Liche Chariot"]
     },
     "Liche Priest": {
       "order": 10,
@@ -122,10 +115,7 @@
       "size": 1,
       "points": 90,
       "max": 2,
-      "upgrades": [
-        "Zombie Dragon",
-        "Liche Chariot"
-      ]
+      "upgrades": ["Zombie Dragon", "Liche Chariot"]
     }
   },
   "upgrades": {

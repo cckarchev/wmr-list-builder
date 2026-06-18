@@ -34,10 +34,7 @@
       "size": "+1",
       "points": 25,
       "max": 4,
-      "augendUnits": [
-        "Glade Guard",
-        "Eternal Guard"
-      ],
+      "augendUnits": ["Glade Guard", "Eternal Guard"],
       "noCount": true,
       "noMagic": true
     },
@@ -60,9 +57,7 @@
       "size": 3,
       "points": 60,
       "min": 1,
-      "specialRules": [
-        "Forest Spirits"
-      ]
+      "specialRules": ["Forest Spirits"]
     },
     "Glade Riders": {
       "order": 5,
@@ -84,9 +79,7 @@
       "size": 3,
       "points": 110,
       "max": 2,
-      "specialRules": [
-        "Forest Spirits"
-      ]
+      "specialRules": ["Forest Spirits"]
     },
     "Warhawk Riders": {
       "order": 7,
@@ -108,9 +101,7 @@
       "size": 3,
       "points": 110,
       "max": 2,
-      "specialRules": [
-        "Forest Spirits"
-      ]
+      "specialRules": ["Forest Spirits"]
     },
     "Treeman": {
       "order": 9,
@@ -121,9 +112,7 @@
       "size": 1,
       "points": 130,
       "max": 1,
-      "specialRules": [
-        "Forest Spirits"
-      ]
+      "specialRules": ["Forest Spirits"]
     },
     "General": {
       "order": 10,
@@ -134,11 +123,7 @@
       "points": 155,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Giant Stag",
-        "Warhawk",
-        "Forest Dragon"
-      ]
+      "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
     },
     "Noble": {
       "order": 11,
@@ -148,11 +133,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Giant Stag",
-        "Warhawk",
-        "Forest Dragon"
-      ]
+      "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
     },
     "Treeman Ancient": {
       "order": 12,
@@ -182,12 +163,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Giant Stag",
-        "Unicorn",
-        "Warhawk",
-        "Forest Dragon"
-      ]
+      "upgrades": ["Giant Stag", "Unicorn", "Warhawk", "Forest Dragon"]
     }
   },
   "upgrades": {

@@ -43,7 +43,9 @@ export function buildTextList({
 
     if (unit.upgrades) {
       for (const [upgradeName, upgrade] of Object.entries(unit.upgrades)) {
-        lines.push(`${padLeft(' ', pad)} - ${upgrade.number} ${upgradeName} (${upgrade.pointsCost})`);
+        lines.push(
+          `${padLeft(' ', pad)} - ${upgrade.number} ${upgradeName} (${upgrade.pointsCost})`,
+        );
       }
     }
   }

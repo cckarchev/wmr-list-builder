@@ -131,9 +131,7 @@
       "size": 1,
       "points": 70,
       "max": 2,
-      "upgrades": [
-        "Rat Ogre Bodyguard"
-      ]
+      "upgrades": ["Rat Ogre Bodyguard"]
     },
     "Warlock": {
       "order": 12,
@@ -143,9 +141,7 @@
       "size": 1,
       "points": 30,
       "max": 1,
-      "upgrades": [
-        "Rat Ogre Bodyguard"
-      ]
+      "upgrades": ["Rat Ogre Bodyguard"]
     }
   },
   "upgrades": {

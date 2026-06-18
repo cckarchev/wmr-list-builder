@@ -19,7 +19,9 @@ export default function MagicItems({ used = false }: MagicItemsProps) {
     ? Object.fromEntries(
         Object.entries(allMagicItems).filter(([id]) => {
           const globalUpgrade = upgrades[id];
-          return globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type);
+          return (
+            globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type)
+          );
         }),
       )
     : allMagicItems;

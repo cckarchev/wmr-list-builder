@@ -19,7 +19,10 @@ const Button = styled.button<ButtonProps>`
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[5]}px`};
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.15s, border-color 0.15s, background 0.15s;
+  transition:
+    opacity 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 
   ${focusRing}
 

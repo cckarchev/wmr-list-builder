@@ -34,9 +34,7 @@
       "points": 30,
       "max": 4,
       "noCount": true,
-      "upgrades": [
-        "Grail Reliquae"
-      ]
+      "upgrades": ["Grail Reliquae"]
     },
     "Squires": {
       "order": 3,
@@ -70,9 +68,7 @@
       "size": 3,
       "points": 120,
       "max": 1,
-      "specialRules": [
-        "Knights"
-      ]
+      "specialRules": ["Knights"]
     },
     "Pegasus Knights": {
       "order": 6,
@@ -83,9 +79,7 @@
       "size": 3,
       "points": 80,
       "max": 1,
-      "specialRules": [
-        "Knights"
-      ]
+      "specialRules": ["Knights"]
     },
     "Trebuchet": {
       "order": 7,
@@ -107,10 +101,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Pegasus",
-        "Hippogriff"
-      ]
+      "upgrades": ["Pegasus", "Hippogriff"]
     },
     "Hero": {
       "order": 9,
@@ -120,9 +111,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Pegasus"
-      ]
+      "upgrades": ["Pegasus"]
     },
     "Enchantress": {
       "order": 10,
@@ -132,10 +121,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Unicorn",
-        "Pegasus"
-      ]
+      "upgrades": ["Unicorn", "Pegasus"]
     }
   },
   "upgrades": {
@@ -192,9 +178,7 @@
     },
     "Pegasus Knights": {
       "order": 4,
-      "text": [
-        "Pegasus Knights can fly."
-      ]
+      "text": ["Pegasus Knights can fly."]
     },
     "Trebuchet": {
       "order": 5,

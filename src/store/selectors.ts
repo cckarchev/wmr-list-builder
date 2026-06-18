@@ -75,9 +75,7 @@ export function usedUnits(state: Pick<ArmyState, 'units' | 'upgrades'>): Record<
 }
 
 /** Port of getters.js `usedUpgrades`: global upgrades with number > 0. */
-export function usedUpgrades(
-  state: Pick<ArmyState, 'upgrades'>,
-): Record<string, UpgradeState> {
+export function usedUpgrades(state: Pick<ArmyState, 'upgrades'>): Record<string, UpgradeState> {
   return Object.keys(state.upgrades).reduce<Record<string, UpgradeState>>((acc, upgradeID) => {
     if (state.upgrades[upgradeID].number > 0) {
       acc[upgradeID] = { ...state.upgrades[upgradeID] };

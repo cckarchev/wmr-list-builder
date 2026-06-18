@@ -25,10 +25,26 @@ export default function CornerBrackets({
   const line = `${thickness}px solid ${color}`;
   return (
     <>
-      <span data-testid="corner-bracket" aria-hidden="true" style={{ ...base, top: inset, left: inset, borderTop: line, borderLeft: line }} />
-      <span data-testid="corner-bracket" aria-hidden="true" style={{ ...base, top: inset, right: inset, borderTop: line, borderRight: line }} />
-      <span data-testid="corner-bracket" aria-hidden="true" style={{ ...base, bottom: inset, left: inset, borderBottom: line, borderLeft: line }} />
-      <span data-testid="corner-bracket" aria-hidden="true" style={{ ...base, bottom: inset, right: inset, borderBottom: line, borderRight: line }} />
+      <span
+        data-testid="corner-bracket"
+        aria-hidden="true"
+        style={{ ...base, top: inset, left: inset, borderTop: line, borderLeft: line }}
+      />
+      <span
+        data-testid="corner-bracket"
+        aria-hidden="true"
+        style={{ ...base, top: inset, right: inset, borderTop: line, borderRight: line }}
+      />
+      <span
+        data-testid="corner-bracket"
+        aria-hidden="true"
+        style={{ ...base, bottom: inset, left: inset, borderBottom: line, borderLeft: line }}
+      />
+      <span
+        data-testid="corner-bracket"
+        aria-hidden="true"
+        style={{ ...base, bottom: inset, right: inset, borderBottom: line, borderRight: line }}
+      />
     </>
   );
 }

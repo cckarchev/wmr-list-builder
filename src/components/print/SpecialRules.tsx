@@ -69,7 +69,8 @@ export default function SpecialRules({ used = false }: SpecialRulesProps) {
           const html = rule.text ? (marked(rule.text.join('\n')) as string) : '';
           return [
             <DefTerm key={`dt_${name}`}>
-              {rule.order != null ? `${rule.order}. ` : ''}{name}
+              {rule.order != null ? `${rule.order}. ` : ''}
+              {name}
             </DefTerm>,
             <DefDesc key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />,
           ];

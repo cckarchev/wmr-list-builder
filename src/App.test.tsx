@@ -13,9 +13,7 @@ describe('App routing', () => {
   it('shows the Home army picker at "/"', () => {
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
 
-    expect(
-      screen.getByRole('heading', { name: /choose your army/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
     // The Goblin army card links to its build route.
     const link = screen.getByRole('link', { name: 'Goblin' });
     expect(link).toHaveAttribute('href', '/build/goblin');
@@ -29,10 +27,7 @@ describe('App routing', () => {
 
     // Build screen shows the points bar and a Print action.
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Print' })).toHaveAttribute(
-      'href',
-      '/print/goblin',
-    );
+    expect(screen.getByRole('link', { name: 'Print' })).toHaveAttribute('href', '/print/goblin');
   });
 
   it('redirects an unknown army id back to Home', () => {
@@ -40,9 +35,7 @@ describe('App routing', () => {
       routerProps: { initialEntries: ['/build/does-not-exist'] },
     });
 
-    expect(
-      screen.getByRole('heading', { name: /choose your army/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
   });
 
   it('renders the Print screen for a valid army', async () => {
@@ -76,12 +69,23 @@ describe('App routing', () => {
     expect(within(bar).getByTestId('points-total')).toHaveTextContent('30');
   });
 
-  it('shows a back link to the army list on inner screens', async () => {
+  it('uses the brand as the home link on Build, with no redundant army-list link', () => {
     renderWithProviders(<App />, {
       routerProps: { initialEntries: ['/build/goblin'] },
     });
 
-    const back = screen.getByRole('link', { name: /all armies/i });
-    expect(back).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: /warmaster revolution/i })).toHaveAttribute(
+      'href',
+      '/',
+    );
+    expect(screen.queryByRole('link', { name: /all armies/i })).not.toBeInTheDocument();
+  });
+
+  it('shows a prominent back-to-roster link on the print sheet', () => {
+    renderWithProviders(<App />, {
+      routerProps: { initialEntries: ['/print/goblin'] },
+    });
+
+    expect(screen.getByRole('link', { name: /back/i })).toHaveAttribute('href', '/build/goblin');
   });
 });

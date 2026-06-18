@@ -44,7 +44,16 @@ function stat(value: StatValue | undefined): string {
   return value !== undefined && value !== '' ? String(value) : '-';
 }
 
-export default function StatLine({ type, attack, range, hits, armour, command, size, points }: StatLineProps) {
+export default function StatLine({
+  type,
+  attack,
+  range,
+  hits,
+  armour,
+  command,
+  size,
+  points,
+}: StatLineProps) {
   const cells: Array<{ label: string; value: string }> = [];
 
   if (type !== undefined) cells.push({ label: 'Type', value: stat(type) });

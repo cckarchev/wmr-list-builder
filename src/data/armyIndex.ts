@@ -2,7 +2,10 @@ import type { Army } from './types';
 
 const modules = import.meta.glob<Army>('./armies/*.json', { eager: true, import: 'default' });
 
-export interface ArmyIndexEntry { id: string; name: string; }
+export interface ArmyIndexEntry {
+  id: string;
+  name: string;
+}
 
 export const armiesById: Record<string, Army> = Object.fromEntries(
   Object.entries(modules).map(([path, army]) => [idFromPath(path), army]),

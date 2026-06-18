@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
 import RosterUnit from '../components/army/RosterUnit';
 import ArmyUnitRow from '../components/army/ArmyUnitRow';
 import PointsBar from '../components/army/PointsBar';
 import CopyListButton from '../components/army/CopyListButton';
-import Button from '../components/ui/Button';
 import ErrorList from '../components/ui/ErrorList';
 
 const Page = styled.main`
@@ -94,9 +93,6 @@ export default function Build() {
       <PointsBar />
       <Toolbar className="no-print">
         <CopyListButton />
-        <Button as={Link} to={`/print/${armyId}`} $variant="primary">
-          Print
-        </Button>
       </Toolbar>
       <ArmyName>{army.name}</ArmyName>
       <Grid>
@@ -111,9 +107,7 @@ export default function Build() {
           {usedUnitIds.length === 0 ? (
             <EmptyArmy>No units selected yet. Add units from the Roster.</EmptyArmy>
           ) : (
-            usedUnitIds.map((id) => (
-              <ArmyUnitRow key={id} unitId={id} />
-            ))
+            usedUnitIds.map((id) => <ArmyUnitRow key={id} unitId={id} />)
           )}
         </Section>
       </Grid>

@@ -57,7 +57,9 @@ const UpgradesToggle = styled.button`
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  transition: border-color 0.12s, color 0.12s;
+  transition:
+    border-color 0.12s,
+    color 0.12s;
 
   &:hover {
     border-color: ${({ theme }) => theme.color.border.hover};

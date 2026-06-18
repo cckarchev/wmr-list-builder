@@ -13,9 +13,7 @@
       "size": 3,
       "points": 60,
       "min": 2,
-      "specialRules": [
-        "Gor/Ungor"
-      ]
+      "specialRules": ["Gor/Ungor"]
     },
     "Ungor": {
       "order": 1,
@@ -26,9 +24,7 @@
       "size": 3,
       "points": 45,
       "min": 2,
-      "specialRules": [
-        "Gor/Ungor"
-      ]
+      "specialRules": ["Gor/Ungor"]
     },
     "Bestigors": {
       "order": 2,
@@ -119,9 +115,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Tuskgor Chariot"
-      ]
+      "upgrades": ["Tuskgor Chariot"]
     },
     "Doombull": {
       "order": 11,
@@ -140,9 +134,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Tuskgor Chariot"
-      ]
+      "upgrades": ["Tuskgor Chariot"]
     },
     "Bray Shaman": {
       "order": 13,
@@ -198,9 +190,7 @@
     },
     "Dragon Ogres": {
       "order": 4,
-      "text": [
-        "Dragon Ogres are immune to terror."
-      ]
+      "text": ["Dragon Ogres are immune to terror."]
     },
     "Chaos Spawn": {
       "order": 5,

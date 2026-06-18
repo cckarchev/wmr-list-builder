@@ -11,11 +11,11 @@ describe('buildTextList', () => {
   it('produces the correct plain-text roster for a goblin army with two unit types', () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 2);       // 2 × 30 = 60 pts
-    store.setUnitNumber('Wolf Riders', 1);   // 1 × 60 = 60 pts
+    store.setUnitNumber('Goblins', 2); // 2 × 30 = 60 pts
+    store.setUnitNumber('Wolf Riders', 1); // 1 × 60 = 60 pts
 
     const state = useArmyStore.getState();
-    const points = pointsCost(state);        // 120
+    const points = pointsCost(state); // 120
     const used = getUsedUnits(state);
 
     const result = buildTextList({

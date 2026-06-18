@@ -47,13 +47,19 @@ const ArmyCard = styled(Link)`
   letter-spacing: 0.03em;
   line-height: 1.1;
   text-decoration: none;
-  transition: transform 0.12s, border-color 0.12s, background 0.12s, box-shadow 0.12s;
+  transition:
+    transform 0.12s,
+    border-color 0.12s,
+    background 0.12s,
+    box-shadow 0.12s;
 
   &::after {
     content: '›';
     font-size: ${({ theme }) => theme.fontSize.xl};
     color: ${({ theme }) => theme.color.text.dim};
-    transition: color 0.12s, transform 0.12s;
+    transition:
+      color 0.12s,
+      transform 0.12s;
   }
 
   &:hover {

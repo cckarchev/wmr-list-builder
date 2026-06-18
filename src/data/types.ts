@@ -96,4 +96,6 @@ export interface Army {
   armyRules?: string[];
 }
 
-export interface ValidationError { message: string; }
+export interface ValidationError {
+  message: string;
+}

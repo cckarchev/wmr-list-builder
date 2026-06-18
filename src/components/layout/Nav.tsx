@@ -1,12 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ChevronMark from '../ui/ChevronMark';
+import Icon from '../ui/Icon';
 import { focusRing } from '../../theme/focusRing';
 
 const Bar = styled.header`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[3]}px`};
+  /* Fixed height so the bar never reflows when the right-hand action chip
+     appears or changes between screens. */
+  min-height: 64px;
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
@@ -39,38 +43,46 @@ const ToolName = styled.span`
   }
 `;
 
-const BackLink = styled(Link)`
+// Shared right-hand action chip: Build → Print, Print → back to roster.
+const NavAction = styled(Link)`
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px`};
-  font-family: ${({ theme }) => theme.font.body};
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[3]}px`};
+  font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.dim};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.button};
+  color: ${({ theme }) => theme.color.text.body};
   text-decoration: none;
+  border: 1px solid ${({ theme }) => theme.color.border.default};
 
   &:hover {
-    color: ${({ theme }) => theme.color.text.strong};
+    color: ${({ theme }) => theme.color.accent};
+    border-color: ${({ theme }) => theme.color.border.accent};
   }
 
   ${focusRing}
 `;
 
-const BackChevron = styled.span`
-  display: inline-block;
-  transform: rotate(180deg);
+const Chev = styled.span<{ $flip?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  ${({ $flip }) => $flip && 'transform: rotate(180deg);'}
 `;
 
 export default function Nav() {
   const { pathname } = useLocation();
   const [section, armyId] = pathname.split('/').filter(Boolean);
 
-  // From the print sheet, "back" returns to that army's roster (preserving the
-  // build); from the roster it returns to the army list.
-  const back =
-    section === 'print' && armyId
-      ? { to: `/build/${armyId}`, label: 'Back to roster' }
-      : pathname !== '/'
-        ? { to: '/', label: 'All armies' }
+  // The brand links home; the right-hand chip is the screen's primary nav.
+  // Build → Print, Print → back to that army's roster (preserving the build).
+  const action =
+    section === 'build' && armyId
+      ? { to: `/print/${armyId}`, label: 'Print', back: false }
+      : section === 'print' && armyId
+        ? { to: `/build/${armyId}`, label: 'Back', back: true }
         : null;
 
   return (
@@ -78,13 +90,17 @@ export default function Nav() {
       <Brand to="/">
         Warmaster <BrandMark>Revolution</BrandMark> <ToolName>· List Builder</ToolName>
       </Brand>
-      {back && (
-        <BackLink to={back.to}>
-          <BackChevron>
-            <ChevronMark size={10} color="currentColor" />
-          </BackChevron>
-          {back.label}
-        </BackLink>
+      {action && (
+        <NavAction to={action.to}>
+          {action.back ? (
+            <Chev $flip>
+              <ChevronMark size={10} color="currentColor" />
+            </Chev>
+          ) : (
+            <Icon name="print" size={14} />
+          )}
+          {action.label}
+        </NavAction>
       )}
     </Bar>
   );
