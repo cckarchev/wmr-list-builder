@@ -38,7 +38,7 @@ const StatValue = styled.span`
 `;
 
 const SizeInput = styled.input`
-  width: 6ch;
+  width: 10ch;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: 500;
@@ -82,12 +82,6 @@ export default function PointsBar() {
   return (
     <Bar className="no-print" data-testid="points-bar">
       <Stat>
-        <StatLabel>Points</StatLabel>
-        <PointsValue $over={over} data-testid="points-total">
-          {total}
-        </PointsValue>
-      </Stat>
-      <Stat>
         <StatLabel as="label" htmlFor="game-size">
           Game Size
         </StatLabel>
@@ -100,6 +94,12 @@ export default function PointsBar() {
           value={gameSize}
           onChange={(e) => setGameSize(e.target.valueAsNumber)}
         />
+      </Stat>
+      <Stat>
+        <StatLabel>Points</StatLabel>
+        <PointsValue $over={over} data-testid="points-total">
+          {total}
+        </PointsValue>
       </Stat>
       <Stat>
         <StatLabel>Units</StatLabel>
