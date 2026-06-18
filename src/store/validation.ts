@@ -31,6 +31,20 @@ type ValidatableItem = {
   upgrades?: Record<string, UnitUpgradeEntry>;
 };
 
+/** Sum the per-unit counts of `item`'s upgrades whose type matches `match`. */
+function countUpgradesOfType(
+  item: ValidatableItem,
+  upgrades: Record<string, UpgradeState>,
+  match: (type: string) => boolean,
+): number {
+  const ups = item.upgrades;
+  if (!ups) return 0;
+  return Object.keys(ups).reduce(
+    (count, id) => (match(upgrades[id].type) ? count + ups[id].number : count),
+    0,
+  );
+}
+
 /**
  * Faithful 1:1 port of `checkValidations` (actions.js 194-340). Pushes a
  * `{ message }` for each violation found on `item` (a unit or an upgrade).
@@ -128,38 +142,17 @@ function checkValidations(
   }
 
   // magic items upgrades can't exceed number
-  if (item.upgrades &&
-      item.number < Object.keys(item.upgrades).reduce((count, upgradeID) => {
-        if (MAGIC_ITEM_TYPES.includes(upgrades[upgradeID].type)) {
-          count += item.upgrades![upgradeID].number;
-        }
-
-        return count;
-      }, 0)) {
+  if (item.number < countUpgradesOfType(item, upgrades, (type) => MAGIC_ITEM_TYPES.includes(type))) {
     errors.push({ message: item.number + ' ' + id + ' may only have ' + item.number + ' magic item' + (item.number > 1 ? 's.' : '.') });
   }
 
   // mounts upgrades can't exceed number
-  if (item.upgrades &&
-      item.number < Object.keys(item.upgrades).reduce((count, upgradeID) => {
-        if (/Mount$/.test(upgrades[upgradeID].type)) {
-          count += item.upgrades![upgradeID].number;
-        }
-
-        return count;
-      }, 0)) {
+  if (item.number < countUpgradesOfType(item, upgrades, (type) => /Mount$/.test(type))) {
     errors.push({ message: item.number + ' ' + id + ' may only have ' + item.number + ' mount' + (item.number > 1 ? 's.' : '.') });
   }
 
   // unit upgrades can't exceed number
-  if (item.upgrades &&
-      item.number < Object.keys(item.upgrades).reduce((count, upgradeID) => {
-        if (UNIT_TYPES.includes(upgrades[upgradeID].type)) {
-          count += item.upgrades![upgradeID].number;
-        }
-
-        return count;
-      }, 0)) {
+  if (item.number < countUpgradesOfType(item, upgrades, (type) => UNIT_TYPES.includes(type))) {
     errors.push({ message: item.number + ' ' + id + ' may only have ' + item.number + ' upgrade' + (item.number > 1 ? 's.' : '.') });
   }
 
