@@ -188,6 +188,39 @@ export function unitPointsCost(unit: UnitState): number {
   return Object.values(unit.upgrades).reduce((sum, u) => sum + u.pointsCost, base);
 }
 
+/** Minimal shape needed to price an upgrade — satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
+interface PricedUpgrade {
+  points?: StatValue | Record<string, string>;
+  pointsValue?: string;
+}
+
+/**
+ * Read a data-driven stat field off a unit. The key comes from
+ * `upgrade.pointsValue` at runtime, so this dynamic index is the single,
+ * localized spot where we step outside the static unit shape.
+ */
+function unitStat(unit: object, key: string): StatValue | undefined {
+  return (unit as Record<string, StatValue | undefined>)[key];
+}
+
+/**
+ * Resolve the per-item points price of an upgrade for a unit, handling variable
+ * pricing: when `pointsValue` is set, `points` is a map keyed by the unit's
+ * value for that stat. Returns undefined when the price can't be resolved
+ * (missing map entry, or a variable upgrade with no unit context).
+ */
+export function resolveUpgradePoints(
+  upgrade: PricedUpgrade,
+  unit?: object,
+): StatValue | undefined {
+  if (upgrade.pointsValue !== undefined) {
+    if (!unit || typeof upgrade.points !== 'object') return undefined;
+    const key = String(unitStat(unit, upgrade.pointsValue) ?? '-');
+    return upgrade.points[key];
+  }
+  return typeof upgrade.points === 'object' ? undefined : upgrade.points;
+}
+
 /**
  * Port of the points calculation in `SET_UNIT_UPGRADE_NUMBER_AND_POINTS_COST`
  * (mutations.js 83-87), including variable pricing via `pointsValue`.
@@ -197,10 +230,5 @@ export function unitUpgradePointsCost(
   unit: UnitState,
   number: number,
 ): number {
-  if (upgrade.pointsValue !== undefined) {
-    const points = upgrade.points as Record<string, string>;
-    const lookup = (unit as unknown as Record<string, StatValue | undefined>)[upgrade.pointsValue] || '-';
-    return number * +points[String(lookup)];
-  }
-  return number * +(upgrade.points as StatValue);
+  return number * Number(resolveUpgradePoints(upgrade, unit));
 }

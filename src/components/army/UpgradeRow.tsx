@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
+import { resolveUpgradePoints } from '../../store/storeHelpers';
 import Stepper from '../ui/Stepper';
 
 interface UpgradeRowProps {
@@ -44,14 +45,9 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
   const maxCount = unit.number;
 
   // Resolve points display: pointsValue means variable pricing
-  let pointsDisplay: string;
-  if (upgrade.pointsValue !== undefined) {
-    const lookup = (unit as unknown as Record<string, unknown>)[upgrade.pointsValue];
-    const pts = (upgrade.points as Record<string, string>)?.[String(lookup ?? '-')];
-    pointsDisplay = pts !== undefined ? `${pts}pts` : '?pts';
-  } else {
-    pointsDisplay = upgrade.points !== undefined ? `${upgrade.points}pts` : '—';
-  }
+  const price = resolveUpgradePoints(upgrade, unit);
+  const pointsDisplay =
+    price !== undefined ? `${price}pts` : upgrade.pointsValue !== undefined ? '?pts' : '—';
 
   return (
     <Row>

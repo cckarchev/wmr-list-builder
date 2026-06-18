@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { pointsCost, unitCount, usedUnits as getUsedUnits } from '../../store/selectors';
+import { resolveUpgradePoints } from '../../store/storeHelpers';
 import type { UnitState, UpgradeState } from '../../store/storeHelpers';
 import type { UsedUnit } from '../../store/selectors';
 
@@ -61,13 +62,8 @@ function resolvePoints(
   troop: UnitState | UpgradeState | (UsedUnit & { pointsCost: number; number: number }),
   parentUnit?: UnitState,
 ): string {
-  const t = troop as UpgradeState;
-  if (t.pointsValue !== undefined && parentUnit) {
-    const key = String((parentUnit as unknown as Record<string, unknown>)[t.pointsValue] ?? '-');
-    const pts = t.points as Record<string, string>;
-    return String(pts[key] ?? '-');
-  }
-  return t.points !== undefined ? String(t.points) : '-';
+  const price = resolveUpgradePoints(troop, parentUnit);
+  return price !== undefined ? String(price) : '-';
 }
 
 function resolveSpecial(
