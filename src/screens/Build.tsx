@@ -6,12 +6,10 @@ import { groupRosterUnits } from '../store/selectors';
 import { focusRing } from '../theme/focusRing';
 import { loadList, saveList, decodeList } from '../store/persistence';
 import { snapshotOf } from '../store/snapshot';
-import CopyShareLinkButton from '../components/army/CopyShareLinkButton';
 import ChevronMark from '../components/ui/ChevronMark';
 import RosterUnit from '../components/army/RosterUnit';
 import ArmyUnitRow from '../components/army/ArmyUnitRow';
-import PointsBar from '../components/army/PointsBar';
-import CopyListButton from '../components/army/CopyListButton';
+import BuildHeader from '../components/army/BuildHeader';
 
 const Page = styled.main`
   display: flex;
@@ -22,15 +20,6 @@ const Page = styled.main`
      page-wide scrollbar. clip (not hidden) avoids creating a scroll container,
      so the sticky points bar keeps working. */
   overflow-x: clip;
-`;
-
-const Toolbar = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
 const Grid = styled.div`
@@ -104,14 +93,6 @@ const FiltersPanel = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[3]}px`};
-`;
-
-const ArmyName = styled.h1`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  color: ${({ theme }) => theme.color.accent};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
 const EmptyArmy = styled.p`
@@ -250,12 +231,7 @@ export default function Build() {
 
   return (
     <Page>
-      <PointsBar />
-      <Toolbar className="no-print">
-        <CopyListButton />
-        <CopyShareLinkButton />
-      </Toolbar>
-      <ArmyName>{army.name}</ArmyName>
+      <BuildHeader />
       <Grid>
         <Section aria-label="Roster">
           <RosterHeader>

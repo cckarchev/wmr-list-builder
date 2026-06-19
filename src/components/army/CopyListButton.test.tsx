@@ -31,7 +31,7 @@ describe('CopyListButton', () => {
 
     renderWithProviders(<CopyListButton />);
 
-    await user.click(screen.getByRole('button', { name: 'Copy List' }));
+    await user.click(screen.getByRole('button', { name: 'Copy' }));
 
     expect(mockWriteText).toHaveBeenCalledOnce();
     const text = mockWriteText.mock.calls[0][0] as string;
@@ -45,7 +45,7 @@ describe('CopyListButton', () => {
 
     renderWithProviders(<CopyListButton />);
 
-    await user.click(screen.getByRole('button', { name: 'Copy List' }));
+    await user.click(screen.getByRole('button', { name: 'Copy' }));
 
     await waitFor(() => {
       expect(screen.getByText('Copied!')).toBeInTheDocument();
@@ -54,6 +54,6 @@ describe('CopyListButton', () => {
 
   it('is disabled when no army is loaded', () => {
     renderWithProviders(<CopyListButton />);
-    expect(screen.getByRole('button', { name: 'Copy List' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Copy' })).toBeDisabled();
   });
 });

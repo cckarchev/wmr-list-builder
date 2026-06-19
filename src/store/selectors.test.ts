@@ -4,6 +4,7 @@ import {
   pointsCost,
   armySize,
   unitCount,
+  breakPoint,
   usedUnits,
   usedUpgrades,
   errorsForTarget,
@@ -59,6 +60,26 @@ describe('unitCount', () => {
     // Adding a counted unit does.
     get().setUnitNumber('Halberdiers', get().units.Halberdiers.number + 3);
     expect(unitCount(get().units)).toBe(before + 3);
+  });
+});
+
+describe('breakPoint', () => {
+  it('is 0 for an empty army', () => {
+    expect(breakPoint({})).toBe(0);
+  });
+
+  it('is half the counted units, rounded up', () => {
+    get().setArmy('goblin');
+    get().setUnitNumber('Goblins', 5); // counted units
+    const count = unitCount(get().units);
+    expect(breakPoint(get().units)).toBe(Math.ceil(count / 2));
+  });
+
+  it('tracks unitCount (ignores noCount units)', () => {
+    get().setArmy('empire');
+    const before = breakPoint(get().units);
+    get().setUnitNumber('Skirmishers', get().units.Skirmishers.number + 2); // noCount
+    expect(breakPoint(get().units)).toBe(before);
   });
 });
 
