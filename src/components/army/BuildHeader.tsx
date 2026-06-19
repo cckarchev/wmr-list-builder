@@ -217,7 +217,7 @@ export default function BuildHeader() {
             onClick={() => setMenuOpen((o) => !o)}
           >
             Export
-            <Icon name="copy" size={14} />
+            <Icon name="export" size={14} />
           </Button>
           {menuOpen && (
             <MenuPanel role="menu">
