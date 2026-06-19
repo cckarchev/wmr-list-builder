@@ -7,6 +7,8 @@ interface PopoverProps {
   label: string;
   /** Visible content of the trigger button. */
   trigger: ReactNode;
+  /** Widen the panel for prose-heavy content (e.g. special-rule text). */
+  wide?: boolean;
   /** Panel content shown while open. */
   children: ReactNode;
 }
@@ -39,13 +41,13 @@ const Trigger = styled.button`
   ${focusRing}
 `;
 
-const Panel = styled.div`
+const Panel = styled.div<{ $wide: boolean }>`
   position: absolute;
   top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
   left: 0;
   z-index: 30;
   width: max-content;
-  max-width: min(320px, 80vw);
+  max-width: ${({ $wide }) => ($wide ? 'min(520px, 92vw)' : 'min(320px, 80vw)')};
   max-height: 60vh;
   overflow-y: auto;
   padding: ${({ theme }) => `${theme.space[3]}px`};
@@ -56,7 +58,7 @@ const Panel = styled.div`
   text-align: left;
 `;
 
-export default function Popover({ label, trigger, children }: PopoverProps) {
+export default function Popover({ label, trigger, wide = false, children }: PopoverProps) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -102,7 +104,7 @@ export default function Popover({ label, trigger, children }: PopoverProps) {
         {trigger}
       </Trigger>
       {open && (
-        <Panel id={panelId} ref={panelRef} role="dialog" aria-label={label} tabIndex={-1}>
+        <Panel id={panelId} ref={panelRef} role="dialog" aria-label={label} tabIndex={-1} $wide={wide}>
           {children}
         </Panel>
       )}

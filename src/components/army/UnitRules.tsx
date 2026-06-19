@@ -44,7 +44,7 @@ export default function UnitRules({ unitId }: UnitRulesProps) {
   if (rules.length === 0) return null;
 
   return (
-    <Popover label={`${unitId} special rules`} trigger="Rules">
+    <Popover label={`${unitId} special rules`} trigger="Rules" wide>
       {rules.map(({ name, rule }) => (
         <Rule key={name}>
           <RuleName>{name}</RuleName>

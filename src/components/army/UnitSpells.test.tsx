@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import UnitSpells from './UnitSpells';
@@ -14,7 +14,10 @@ describe('UnitSpells', () => {
     renderWithProviders(<UnitSpells unitId="Goblin Shaman" />);
     await user.click(screen.getByRole('button', { name: 'Spells' }));
     const dialog = screen.getByRole('dialog', { name: 'Spells' });
-    expect(dialog).toHaveTextContent(/to cast/i);
+    // Compact grid: spell name, difficulty-to-cast roll, and range.
+    expect(within(dialog).getByText('Waaagh!')).toBeInTheDocument();
+    expect(within(dialog).getByText('4+')).toBeInTheDocument();
+    expect(within(dialog).getByText('60cm')).toBeInTheDocument();
   });
 
   it('renders nothing for a non-Wizard unit', () => {
