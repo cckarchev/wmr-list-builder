@@ -4,6 +4,7 @@ import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import BuildHeader from './BuildHeader';
 import { useArmyStore } from '../../store/useArmyStore';
+import { breakPoint } from '../../store/selectors';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
@@ -19,9 +20,11 @@ describe('BuildHeader', () => {
   it('shows a break-point stat equal to ceil(units / 2)', () => {
     useArmyStore.getState().setArmy('goblin');
     useArmyStore.getState().setUnitNumber('Goblins', 5);
+    const expected = breakPoint(useArmyStore.getState().units);
+    expect(expected).toBeGreaterThan(0);
     renderWithProviders(<BuildHeader />);
     const stat = screen.getByTestId('break-point');
-    expect(stat).toHaveTextContent(/^[0-9]+$/);
+    expect(stat).toHaveTextContent(String(expected));
   });
 
   it('renders Copy, Share, and Print inline actions', () => {
