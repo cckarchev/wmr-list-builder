@@ -67,7 +67,7 @@ const MenuPanel = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   padding: ${({ theme }) => `${theme.space[2]}px`};
-  background: ${({ theme }) => theme.color.bg.panel};
+  background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
   box-shadow: ${({ theme }) => theme.shadow.panel};
@@ -203,8 +203,8 @@ export default function BuildHeader() {
           <CopyListButton />
           <CopyShareLinkButton />
           {armyId && (
-            <Button as={Link} to={`/print/${armyId}`} $variant="ghost">
-              <Icon name="print" size={14} />
+            <Button as={Link} to={`/print/${armyId}`} $variant="ghost" $size="sm">
+              <Icon name="print" size={16} />
               Print
             </Button>
           )}
@@ -213,20 +213,21 @@ export default function BuildHeader() {
           <Button
             type="button"
             $variant="ghost"
+            $size="sm"
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
           >
             Export
-            <Icon name="export" size={14} />
+            <Icon name="export" size={16} />
           </Button>
           {menuOpen && (
             <MenuPanel role="menu">
               <CopyListButton />
               <CopyShareLinkButton />
               {armyId && (
-                <Button as={Link} to={`/print/${armyId}`} $variant="ghost">
-                  <Icon name="print" size={14} />
+                <Button as={Link} to={`/print/${armyId}`} $variant="ghost" $size="sm">
+                  <Icon name="print" size={16} />
                   Print
                 </Button>
               )}

@@ -3,6 +3,8 @@ import { focusRing } from '../../theme/focusRing';
 
 interface ButtonProps {
   $variant?: 'primary' | 'ghost';
+  /** 'sm' is the compact size used for inline action rows. */
+  $size?: 'md' | 'sm';
 }
 
 const Button = styled.button<ButtonProps>`
@@ -16,7 +18,11 @@ const Button = styled.button<ButtonProps>`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: ${({ theme }) => theme.tracking.button};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[5]}px`};
+  white-space: nowrap;
+  padding: ${({ $size = 'md', theme }) =>
+    $size === 'sm'
+      ? `${theme.space[2]}px ${theme.space[3]}px`
+      : `${theme.space[3]}px ${theme.space[5]}px`};
   text-decoration: none;
   cursor: pointer;
   transition:

@@ -32,8 +32,8 @@ describe('BuildHeader', () => {
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<BuildHeader />);
     const inline = within(screen.getByTestId('actions-inline'));
-    expect(inline.getByRole('button', { name: 'Copy List' })).toBeInTheDocument();
-    expect(inline.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
+    expect(inline.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    expect(inline.getByRole('button', { name: 'Share' })).toBeInTheDocument();
     expect(inline.getByRole('link', { name: /print/i })).toBeInTheDocument();
   });
 });
@@ -50,8 +50,8 @@ describe('BuildHeader export menu', () => {
 
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    expect(menu.getByRole('button', { name: 'Copy List' })).toBeInTheDocument();
-    expect(menu.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: 'Share' })).toBeInTheDocument();
     expect(menu.getByRole('link', { name: /print/i })).toBeInTheDocument();
   });
 

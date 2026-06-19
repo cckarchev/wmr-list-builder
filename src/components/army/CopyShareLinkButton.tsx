@@ -36,9 +36,15 @@ export default function CopyShareLinkButton() {
 
   return (
     <Wrapper>
-      <Button $variant="ghost" onClick={handleCopy} disabled={!armyId}>
-        <Icon name="share" size={14} />
-        Copy share link
+      <Button
+        $variant="ghost"
+        $size="sm"
+        onClick={handleCopy}
+        disabled={!armyId}
+        title="Copy share link"
+      >
+        <Icon name="share" size={16} />
+        Share
       </Button>
       {copied && <CopiedLabel>Link copied!</CopiedLabel>}
     </Wrapper>

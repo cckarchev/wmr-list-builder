@@ -50,9 +50,15 @@ export default function CopyListButton() {
 
   return (
     <Wrapper>
-      <Button $variant="ghost" onClick={handleCopy} disabled={!army}>
-        <Icon name="copy" size={14} />
-        Copy List
+      <Button
+        $variant="ghost"
+        $size="sm"
+        onClick={handleCopy}
+        disabled={!army}
+        title="Copy list as text"
+      >
+        <Icon name="copy" size={16} />
+        Copy
       </Button>
       {copied && <CopiedLabel>Copied!</CopiedLabel>}
     </Wrapper>
