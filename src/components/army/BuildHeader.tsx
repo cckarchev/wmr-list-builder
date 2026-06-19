@@ -71,6 +71,16 @@ const MenuPanel = styled.div`
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
   box-shadow: ${({ theme }) => theme.shadow.panel};
+
+  /* Give every action a uniform full width. Copy/Share are wrapped in an
+     inline-flex span, so stretch the wrappers and let the inner buttons grow
+     to fill (the Print button is a direct child and stretches on its own). */
+  & > * {
+    width: 100%;
+  }
+  & button {
+    flex: 1;
+  }
 `;
 
 const Strip = styled.div`
@@ -97,14 +107,30 @@ const StatLabel = styled.span`
 `;
 
 const StatValue = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Match SizeInput's box height (padding + border) so every value row lines
+     up despite the input being taller than plain text. */
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  border: 1px solid transparent;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.color.text.strong};
   font-weight: 500;
+  text-align: center;
+`;
+
+const GameSizeLabel = styled(StatLabel)`
+  text-align: center;
 `;
 
 const SizeInput = styled.input`
-  width: 10ch;
+  /* Stretch to the column (label) width; the small size attr keeps the input's
+     intrinsic width from inflating the column. */
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: 500;
@@ -237,15 +263,16 @@ export default function BuildHeader() {
       </TitleZone>
       <Strip>
         <Stat>
-          <StatLabel as="label" htmlFor="game-size">
+          <GameSizeLabel as="label" htmlFor="game-size">
             Game Size
-          </StatLabel>
+          </GameSizeLabel>
           <SizeInput
             id="game-size"
             data-testid="game-size"
             type="number"
             min={0}
             step={500}
+            size={5}
             value={gameSize}
             onChange={(e) => setGameSize(e.target.valueAsNumber)}
           />
@@ -261,7 +288,7 @@ export default function BuildHeader() {
           <StatValue>{count}</StatValue>
         </Stat>
         <Stat>
-          <StatLabel>Break Point</StatLabel>
+          <StatLabel>Break</StatLabel>
           <StatValue data-testid="break-point">{breaks}</StatValue>
         </Stat>
         {isValid ? (
