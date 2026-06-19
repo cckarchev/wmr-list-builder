@@ -54,4 +54,20 @@ describe('BuildHeader export menu', () => {
     expect(menu.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
     expect(menu.getByRole('link', { name: /print/i })).toBeInTheDocument();
   });
+
+  it('closes when clicking outside the menu', async () => {
+    const user = userEvent.setup();
+    useArmyStore.getState().setArmy('goblin');
+    renderWithProviders(<BuildHeader />);
+
+    const menu = within(screen.getByTestId('actions-menu'));
+    const toggle = menu.getByRole('button', { name: /export/i });
+
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(document.body);
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(menu.queryByRole('menu')).not.toBeInTheDocument();
+  });
 });
