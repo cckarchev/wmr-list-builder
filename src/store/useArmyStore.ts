@@ -156,7 +156,9 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
       // clamp to the unit's resolved hard force limits at the current cap.
       let n = +number;
       if (!Number.isFinite(n) || n < 0) n = 0;
-      const { min, max } = existing ? resolveBounds(existing, state.gameSize) : { min: 0, max: undefined };
+      const { min, max } = existing
+        ? resolveBounds(existing, state.gameSize)
+        : { min: 0, max: undefined };
       if (n < min) n = min;
       if (max !== undefined && n > max) n = max;
 

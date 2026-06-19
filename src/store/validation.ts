@@ -335,7 +335,10 @@ function checkValidations(
     item.number > 0 &&
     1 > item.requiredUnits.reduce((count, unitID) => count + units[unitID].number, 0)
   ) {
-    errors.push({ targets, message: id + ' must be taken with ' + toSentence(item.requiredUnits) + '.' });
+    errors.push({
+      targets,
+      message: id + ' must be taken with ' + toSentence(item.requiredUnits) + '.',
+    });
   }
 
   // upgrades required by a unit/upgrade
@@ -344,7 +347,10 @@ function checkValidations(
     item.number > 0 &&
     1 > item.requiredUpgrades.reduce((count, upgradeID) => count + upgrades[upgradeID].number, 0)
   ) {
-    errors.push({ targets, message: id + ' must be taken with ' + toSentence(item.requiredUpgrades) + '.' });
+    errors.push({
+      targets,
+      message: id + ' must be taken with ' + toSentence(item.requiredUpgrades) + '.',
+    });
   }
 
   // units prohibited by a unit/upgrade

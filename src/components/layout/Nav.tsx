@@ -80,9 +80,7 @@ export default function Nav() {
   // Print → back to that army's roster (preserving the build).
   // On the Build screen, BuildHeader owns the Print action — no chip here.
   const action =
-    section === 'print' && armyId
-      ? { to: `/build/${armyId}`, label: 'Back', back: true }
-      : null;
+    section === 'print' && armyId ? { to: `/build/${armyId}`, label: 'Back', back: true } : null;
 
   return (
     <Bar className="no-print">

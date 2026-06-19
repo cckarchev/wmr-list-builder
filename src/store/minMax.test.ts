@@ -16,9 +16,7 @@ describe('explainMinMax', () => {
 
     it('explains a max-only constraint', () => {
       // Ogres: max 2 per 1,000 pts. At 2,000 pts → up to 4.
-      expect(explainMinMax({ max: 2 }, 2000)).toBe(
-        'max 2 per 1,000 pts (≈ up to 4 at this size)',
-      );
+      expect(explainMinMax({ max: 2 }, 2000)).toBe('max 2 per 1,000 pts (≈ up to 4 at this size)');
     });
 
     it('explains a min-only constraint', () => {

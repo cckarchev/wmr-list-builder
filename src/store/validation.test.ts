@@ -65,11 +65,9 @@ describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () 
   it('flags Goblins below min*size at the default 2,000 cap', () => {
     // The store force-includes Goblins at their minimum, so a short count is
     // only reachable through the validation logic directly.
-    const errors = validate(
-      { Goblins: unit({ number: 1, min: 4, points: 30 }) },
-      {},
-      2000,
-    ).map((e) => e.message);
+    const errors = validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).map(
+      (e) => e.message,
+    );
     expect(errors).toContain('Minimum of 8 Goblins per 2,000 points.');
   });
 

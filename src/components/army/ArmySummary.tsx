@@ -124,9 +124,7 @@ export default function ArmySummary() {
   const over = total > gameSize;
 
   const jumpTo = (id: string) =>
-    document
-      .getElementById(unitDomId(id))
-      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById(unitDomId(id))?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   return (
     <Aside aria-label="Your Army">

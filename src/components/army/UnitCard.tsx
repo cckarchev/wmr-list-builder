@@ -229,9 +229,7 @@ export default function UnitCard({ unitId }: UnitCardProps) {
   return (
     <Card id={unitDomId(unitId)} $selected={selected} $invalid={invalid}>
       {selected && (
-        <CornerBrackets
-          accent={invalid ? theme.color.semantic.error : theme.color.border.accent}
-        />
+        <CornerBrackets accent={invalid ? theme.color.semantic.error : theme.color.border.accent} />
       )}
       <Top>
         <Identity>

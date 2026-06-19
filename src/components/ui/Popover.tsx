@@ -1,11 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useId,
-  type ReactNode,
-} from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useId, type ReactNode } from 'react';
 import styled from 'styled-components';
 import { focusRing } from '../../theme/focusRing';
 

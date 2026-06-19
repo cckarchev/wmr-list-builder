@@ -287,8 +287,7 @@ export default function Build() {
     }))
     .filter((g) => g.unitIds.length > 0);
 
-  const toggleType = (label: string) =>
-    setActiveType((prev) => (prev === label ? null : label));
+  const toggleType = (label: string) => setActiveType((prev) => (prev === label ? null : label));
 
   const filtersActive = search.trim() !== '' || activeType !== null;
 

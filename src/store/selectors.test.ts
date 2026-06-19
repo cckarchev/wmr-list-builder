@@ -92,7 +92,10 @@ describe('errorsForTarget / globalErrors', () => {
   ];
 
   it('errorsForTarget returns every error naming the id', () => {
-    expect(errorsForTarget(errors, 'A').map((e) => e.message)).toEqual(['too few A', 'A or B issue']);
+    expect(errorsForTarget(errors, 'A').map((e) => e.message)).toEqual([
+      'too few A',
+      'A or B issue',
+    ]);
     expect(errorsForTarget(errors, 'B').map((e) => e.message)).toEqual(['A or B issue']);
     expect(errorsForTarget(errors, 'C')).toEqual([]);
   });

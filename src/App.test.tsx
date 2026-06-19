@@ -57,9 +57,9 @@ describe('App routing', () => {
     // Goblins auto-includes, so it has a stepper in both columns; use the roster one.
     await user.click(screen.getAllByRole('button', { name: 'increase Goblins' })[0]);
     // Force-included goblin base (560) + 30 for taking Goblins from 8 to 9 = 590.
-    expect(
-      within(screen.getByTestId('points-bar')).getByTestId('points-total').textContent,
-    ).toBe('590');
+    expect(within(screen.getByTestId('points-bar')).getByTestId('points-total').textContent).toBe(
+      '590',
+    );
 
     // Go to Print, then back to the roster via the nav "Back" chip.
     await user.click(screen.getByRole('link', { name: 'Print' }));
