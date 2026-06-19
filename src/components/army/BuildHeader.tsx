@@ -9,6 +9,7 @@ import Button from '../ui/Button';
 import Icon from '../ui/Icon';
 import CopyListButton from './CopyListButton';
 import CopyShareLinkButton from './CopyShareLinkButton';
+import ResetListButton from './ResetListButton';
 
 const Header = styled.header`
   position: sticky;
@@ -295,6 +296,7 @@ export default function BuildHeader() {
               Print
             </Button>
           )}
+          <ResetListButton />
         </InlineActions>
         <MenuActions data-testid="actions-menu" ref={menuRef}>
           <Button
@@ -318,6 +320,7 @@ export default function BuildHeader() {
                   Print
                 </Button>
               )}
+              <ResetListButton />
             </MenuPanel>
           )}
         </MenuActions>
