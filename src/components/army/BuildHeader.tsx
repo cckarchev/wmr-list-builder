@@ -42,8 +42,9 @@ const Actions = styled.div`
 `;
 
 const InlineActions = styled(Actions)`
-  /* The mobile menu (Task 4) takes over below md. */
-  @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
+  /* The mobile menu takes over below md. Stop just short of md so this and
+     MenuActions' min-width rule are strict complements (no dead zone at md). */
+  @media (max-width: ${({ theme }) => `calc(${theme.breakpoint.md} - 0.02px)`}) {
     display: none;
   }
 `;
