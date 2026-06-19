@@ -48,6 +48,11 @@ export function unitCount(units: Record<string, UnitState>): number {
   return skirmishCount > count - skirmishCount ? count : count - unarmouredSkirmishCount;
 }
 
+/** Units an army can lose before it must withdraw: half its countable units, rounded up. */
+export function breakPoint(units: Record<string, UnitState>): number {
+  return Math.ceil(unitCount(units) / 2);
+}
+
 export type UsedUnit = Omit<UnitState, 'upgrades'> & {
   upgrades?: Record<string, UpgradeState & UnitUpgradeEntry>;
 };
