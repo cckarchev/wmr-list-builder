@@ -5,6 +5,7 @@ import Icon from '../ui/Icon';
 import { useArmyStore } from '../../store/useArmyStore';
 import { encodeList } from '../../store/persistence';
 import { snapshotOf } from '../../store/snapshot';
+import { getEmbedBase } from '../../store/embed';
 
 const Wrapper = styled.span`
   position: relative;
@@ -40,7 +41,18 @@ export default function CopyShareLinkButton() {
   const handleCopy = () => {
     if (!armyId) return;
     const encoded = encodeList(snapshotOf({ gameSize, units }));
-    const url = `${window.location.origin}/build/${armyId}?list=${encoded}`;
+    const base = getEmbedBase();
+    let url: string;
+    if (base) {
+      // Embedded on the cckarchev site: share a link back to that page so the
+      // recipient lands on cckarchev (which re-embeds the iframe with the list).
+      const u = new URL(base);
+      u.searchParams.set('army', armyId);
+      u.searchParams.set('list', encoded);
+      url = u.toString();
+    } else {
+      url = `${window.location.origin}/build/${armyId}?list=${encoded}`;
+    }
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
