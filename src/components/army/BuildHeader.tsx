@@ -1,21 +1,59 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount, globalErrors } from '../../store/selectors';
+import { pointsCost, unitCount, breakPoint, globalErrors } from '../../store/selectors';
 import { unitDomId } from './unitDomId';
 import { focusRing } from '../../theme/focusRing';
+import Button from '../ui/Button';
+import Icon from '../ui/Icon';
+import CopyListButton from './CopyListButton';
+import CopyShareLinkButton from './CopyShareLinkButton';
 
-const Bar = styled.div`
+const Header = styled.header`
   position: sticky;
   top: 0;
   z-index: 10;
+  background: ${({ theme }) => theme.color.bg.deep};
+  border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
+  box-shadow: ${({ theme }) => theme.shadow.panel};
+`;
+
+const TitleZone = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
-  background: ${({ theme }) => theme.color.bg.deep};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
+`;
+
+const ArmyName = styled.h1`
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.display};
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  color: ${({ theme }) => theme.color.accent};
+`;
+
+const Actions = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
+const InlineActions = styled(Actions)`
+  /* The mobile menu (Task 4) takes over below md. */
+  @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
+    display: none;
+  }
+`;
+
+const Strip = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  border-top: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
 const Stat = styled.div`
@@ -55,11 +93,7 @@ const PointsValue = styled(StatValue)<{ $over: boolean }>`
   color: ${({ $over, theme }) => ($over ? theme.color.semantic.error : theme.color.text.strong)};
 `;
 
-interface ValidIndicatorProps {
-  $valid: boolean;
-}
-
-const ValidIndicator = styled.span<ValidIndicatorProps>`
+const ValidIndicator = styled.span<{ $valid: boolean }>`
   margin-left: auto;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
@@ -98,7 +132,9 @@ const GlobalError = styled.p`
   color: ${({ theme }) => theme.color.semantic.error};
 `;
 
-export default function PointsBar() {
+export default function BuildHeader() {
+  const army = useArmyStore((s) => s.army);
+  const armyId = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
   const gameSize = useArmyStore((s) => s.gameSize);
@@ -106,6 +142,7 @@ export default function PointsBar() {
 
   const total = pointsCost({ units });
   const count = unitCount(units);
+  const breaks = breakPoint(units);
   const isValid = errors.length === 0;
   const over = total > gameSize;
   const globals = globalErrors(errors);
@@ -120,48 +157,67 @@ export default function PointsBar() {
   };
 
   return (
-    <Bar className="no-print" data-testid="points-bar">
-      <Stat>
-        <StatLabel as="label" htmlFor="game-size">
-          Game Size
-        </StatLabel>
-        <SizeInput
-          id="game-size"
-          data-testid="game-size"
-          type="number"
-          min={0}
-          step={500}
-          value={gameSize}
-          onChange={(e) => setGameSize(e.target.valueAsNumber)}
-        />
-      </Stat>
-      <Stat>
-        <StatLabel>Points</StatLabel>
-        <PointsValue $over={over} data-testid="points-total">
-          {total}
-        </PointsValue>
-      </Stat>
-      <Stat>
-        <StatLabel>Units</StatLabel>
-        <StatValue>{count}</StatValue>
-      </Stat>
-      {isValid ? (
-        <ValidIndicator $valid data-testid="valid-indicator">
-          Valid
-        </ValidIndicator>
-      ) : (
-        <InvalidButton
-          type="button"
-          onClick={goToFirstError}
-          data-testid="invalid-indicator"
-          aria-label={`${errors.length} issue${errors.length === 1 ? '' : 's'} — go to first`}
-        >
-          {errors.length} issue{errors.length === 1 ? '' : 's'}
-        </InvalidButton>
-      )}
-      {globals.map((e, i) => (
-        <GlobalError key={i}>{e.message}</GlobalError>
-      ))}
-    </Bar>
+    <Header className="no-print" data-testid="points-bar">
+      <TitleZone>
+        <ArmyName>{army?.name}</ArmyName>
+        <InlineActions data-testid="actions-inline">
+          <CopyListButton />
+          <CopyShareLinkButton />
+          {armyId && (
+            <Button as={Link} to={`/print/${armyId}`} $variant="ghost">
+              <Icon name="print" size={14} />
+              Print
+            </Button>
+          )}
+        </InlineActions>
+      </TitleZone>
+      <Strip>
+        <Stat>
+          <StatLabel as="label" htmlFor="game-size">
+            Game Size
+          </StatLabel>
+          <SizeInput
+            id="game-size"
+            data-testid="game-size"
+            type="number"
+            min={0}
+            step={500}
+            value={gameSize}
+            onChange={(e) => setGameSize(e.target.valueAsNumber)}
+          />
+        </Stat>
+        <Stat>
+          <StatLabel>Points</StatLabel>
+          <PointsValue $over={over} data-testid="points-total">
+            {total}
+          </PointsValue>
+        </Stat>
+        <Stat>
+          <StatLabel>Units</StatLabel>
+          <StatValue>{count}</StatValue>
+        </Stat>
+        <Stat>
+          <StatLabel>Break Point</StatLabel>
+          <StatValue data-testid="break-point">{breaks}</StatValue>
+        </Stat>
+        {isValid ? (
+          <ValidIndicator $valid data-testid="valid-indicator">
+            Valid
+          </ValidIndicator>
+        ) : (
+          <InvalidButton
+            type="button"
+            onClick={goToFirstError}
+            data-testid="invalid-indicator"
+            aria-label={`${errors.length} issue${errors.length === 1 ? '' : 's'} — go to first`}
+          >
+            {errors.length} issue{errors.length === 1 ? '' : 's'}
+          </InvalidButton>
+        )}
+        {globals.map((e, i) => (
+          <GlobalError key={i}>{e.message}</GlobalError>
+        ))}
+      </Strip>
+    </Header>
   );
 }

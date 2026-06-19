@@ -77,13 +77,12 @@ export default function Nav() {
   const [section, armyId] = pathname.split('/').filter(Boolean);
 
   // The brand links home; the right-hand chip is the screen's primary nav.
-  // Build → Print, Print → back to that army's roster (preserving the build).
+  // Print → back to that army's roster (preserving the build).
+  // On the Build screen, BuildHeader owns the Print action — no chip here.
   const action =
-    section === 'build' && armyId
-      ? { to: `/print/${armyId}`, label: 'Print', back: false }
-      : section === 'print' && armyId
-        ? { to: `/build/${armyId}`, label: 'Back', back: true }
-        : null;
+    section === 'print' && armyId
+      ? { to: `/build/${armyId}`, label: 'Back', back: true }
+      : null;
 
   return (
     <Bar className="no-print">
