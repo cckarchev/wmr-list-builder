@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import { within } from '@testing-library/react';
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../test/renderWithProviders';
@@ -34,5 +35,23 @@ describe('BuildHeader', () => {
     expect(inline.getByRole('button', { name: 'Copy List' })).toBeInTheDocument();
     expect(inline.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
     expect(inline.getByRole('link', { name: /print/i })).toBeInTheDocument();
+  });
+});
+
+describe('BuildHeader export menu', () => {
+  it('toggles a menu containing Copy, Share, and Print', async () => {
+    const user = userEvent.setup();
+    useArmyStore.getState().setArmy('goblin');
+    renderWithProviders(<BuildHeader />);
+
+    const menu = within(screen.getByTestId('actions-menu'));
+    const toggle = menu.getByRole('button', { name: /export/i });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(menu.getByRole('button', { name: 'Copy List' })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: 'Copy share link' })).toBeInTheDocument();
+    expect(menu.getByRole('link', { name: /print/i })).toBeInTheDocument();
   });
 });

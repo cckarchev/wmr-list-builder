@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
@@ -45,6 +46,30 @@ const InlineActions = styled(Actions)`
   @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
     display: none;
   }
+`;
+
+const MenuActions = styled(Actions)`
+  position: relative;
+
+  /* Inline buttons take over at md and up. */
+  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
+    display: none;
+  }
+`;
+
+const MenuPanel = styled.div`
+  position: absolute;
+  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px`};
+  background: ${({ theme }) => theme.color.bg.panel};
+  border: 1px solid ${({ theme }) => theme.color.border.default};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  box-shadow: ${({ theme }) => theme.shadow.panel};
 `;
 
 const Strip = styled.div`
@@ -147,6 +172,19 @@ export default function BuildHeader() {
   const over = total > gameSize;
   const globals = globalErrors(errors);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [menuOpen]);
+
   // Jump to the first invalid unit shown in "Your Army" (a used unit).
   const firstTarget = errors.flatMap((e) => e.targets).find((id) => units[id]?.number > 0);
   const goToFirstError = () => {
@@ -170,6 +208,30 @@ export default function BuildHeader() {
             </Button>
           )}
         </InlineActions>
+        <MenuActions data-testid="actions-menu" ref={menuRef}>
+          <Button
+            type="button"
+            $variant="ghost"
+            aria-haspopup="menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            Export
+            <Icon name="copy" size={14} />
+          </Button>
+          {menuOpen && (
+            <MenuPanel role="menu">
+              <CopyListButton />
+              <CopyShareLinkButton />
+              {armyId && (
+                <Button as={Link} to={`/print/${armyId}`} $variant="ghost">
+                  <Icon name="print" size={14} />
+                  Print
+                </Button>
+              )}
+            </MenuPanel>
+          )}
+        </MenuActions>
       </TitleZone>
       <Strip>
         <Stat>
