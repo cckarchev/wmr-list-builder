@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import type { StatValue } from '../../data/types';
 
 export interface StatLineProps {
-  type?: string;
   attack?: StatValue;
   range?: string;
   hits?: StatValue;
@@ -13,12 +12,10 @@ export interface StatLineProps {
 }
 
 const StatTable = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: end;
 `;
 
 const StatCell = styled.span`
@@ -26,26 +23,34 @@ const StatCell = styled.span`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[1]}px`};
+  padding: ${({ theme }) => `0 ${theme.space[1]}px`};
+  text-align: center;
+
+  & + & {
+    border-left: 1px solid ${({ theme }) => theme.color.border.divider};
+  }
 `;
 
 const StatLabel = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 `;
 
 const StatValue = styled.span`
-  color: ${({ theme }) => theme.color.text.body};
-  font-weight: 500;
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.color.text.strong};
+  font-weight: 600;
 `;
 
 function stat(value: StatValue | undefined): string {
-  return value !== undefined && value !== '' ? String(value) : '-';
+  return value !== undefined && value !== '' ? String(value) : '–';
 }
 
 export default function StatLine({
-  type,
   attack,
   range,
   hits,
@@ -56,12 +61,13 @@ export default function StatLine({
 }: StatLineProps) {
   const cells: Array<{ label: string; value: string }> = [];
 
-  if (type !== undefined) cells.push({ label: 'Type', value: stat(type) });
+  // Always render every column (filling absent stats with "–") so the grid
+  // lines up consistently across units regardless of which stats they have.
   cells.push({ label: 'Att', value: stat(attack) });
-  if (range !== undefined) cells.push({ label: 'Range', value: stat(range) });
+  cells.push({ label: 'Range', value: stat(range) });
   cells.push({ label: 'Hits', value: stat(hits) });
   cells.push({ label: 'Armour', value: stat(armour) });
-  if (command !== undefined) cells.push({ label: 'Cmd', value: stat(command) });
+  cells.push({ label: 'Cmd', value: stat(command) });
   cells.push({ label: 'Size', value: stat(size) });
   cells.push({ label: 'Pts', value: stat(points) });
 

@@ -24,8 +24,8 @@ const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
   background: ${({ theme }) => theme.color.bg.panel};
   border: 1px solid
     ${({ theme, $selected, $invalid }) =>
@@ -47,51 +47,82 @@ const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
   }
 `;
 
-const Header = styled.div`
+const Top = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+`;
+
+const Identity = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  min-width: 0;
+`;
+
+const Eyebrow = styled.div`
+  display: flex;
+  align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px`};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
+const Sep = styled.span`
+  color: ${({ theme }) => theme.color.border.default};
+`;
+
+const MinMax = styled.span`
+  color: ${({ theme }) => theme.color.tealBright};
 `;
 
 const UnitName = styled.span`
   font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-weight: 600;
+  line-height: 1.1;
   color: ${({ theme }) => theme.color.text.strong};
 `;
 
-const MinMax = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  flex-shrink: 0;
 `;
 
-const Footer = styled.div`
+const PointsCost = styled.span<{ $visible: boolean }>`
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.color.tealBright};
+  /* Always occupy the line so selecting/deselecting a unit doesn't resize the
+     controls column and shift the layout. */
+  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
+`;
+
+/* Holds the Rules/Spells popovers and the Upgrades toggle. UnitRules and
+   UnitSpells render nothing when they don't apply, so when the whole row is
+   empty `:empty` removes it (and its parent gap) entirely. */
+const Meta = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px`};
-  margin-top: ${({ theme }) => `${theme.space[1]}px`};
-`;
 
-const Meta = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-`;
-
-const PointsCost = styled.span`
-  margin-left: auto;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.tealBright};
+  &:empty {
+    display: none;
+  }
 `;
 
 const UpgradesToggle = styled.button`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px`};
-  align-self: flex-start;
   padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
   background: transparent;
   border: 1px solid ${({ theme }) => theme.color.border.default};
@@ -101,6 +132,7 @@ const UpgradesToggle = styled.button`
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  cursor: pointer;
   transition:
     border-color 0.12s,
     color 0.12s;
@@ -129,7 +161,6 @@ const UpgradesSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[1]}px`};
-  margin-top: ${({ theme }) => `${theme.space[1]}px`};
 `;
 
 export default function UnitCard({ unitId }: UnitCardProps) {
@@ -153,6 +184,7 @@ export default function UnitCard({ unitId }: UnitCardProps) {
   const selectedCount = unit.upgrades
     ? Object.values(unit.upgrades).filter((u) => u.number > 0).length
     : 0;
+  const hasUpgrades = selected && upgradeIds.length > 0;
   const panelId = `upgrades-${unitId.replace(/\W+/g, '-')}`;
 
   return (
@@ -162,16 +194,35 @@ export default function UnitCard({ unitId }: UnitCardProps) {
           accent={invalid ? theme.color.semantic.error : theme.color.border.accent}
         />
       )}
-      <Header>
-        <UnitName>{unitId}</UnitName>
-        {badge && rule && (
-          <Tooltip label={rule}>
-            <MinMax>{badge}</MinMax>
-          </Tooltip>
-        )}
-      </Header>
+      <Top>
+        <Identity>
+          <Eyebrow>
+            <span>{unit.type}</span>
+            {badge && rule && (
+              <>
+                <Sep aria-hidden>·</Sep>
+                <Tooltip label={rule}>
+                  <MinMax>{badge}</MinMax>
+                </Tooltip>
+              </>
+            )}
+          </Eyebrow>
+          <UnitName>{unitId}</UnitName>
+        </Identity>
+        <Controls>
+          <Stepper
+            value={unit.number}
+            onChange={(n) => setUnitNumber(unitId, n)}
+            min={min}
+            max={max}
+            label={unitId}
+          />
+          <PointsCost $visible={selected} aria-hidden={!selected}>
+            {unit.pointsCost} pts
+          </PointsCost>
+        </Controls>
+      </Top>
       <StatLine
-        type={unit.type}
         attack={unit.attack}
         range={unit.range}
         hits={unit.hits}
@@ -180,23 +231,10 @@ export default function UnitCard({ unitId }: UnitCardProps) {
         size={unit.size}
         points={unit.points}
       />
-      <Footer>
-        <Meta>
-          <UnitRules unitId={unitId} />
-          <UnitSpells unitId={unitId} />
-        </Meta>
-        {selected && <PointsCost>{unit.pointsCost} pts</PointsCost>}
-        <Stepper
-          value={unit.number}
-          onChange={(n) => setUnitNumber(unitId, n)}
-          min={min}
-          max={max}
-          label={unitId}
-        />
-      </Footer>
-      {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
-      {selected && upgradeIds.length > 0 && (
-        <>
+      <Meta>
+        <UnitRules unitId={unitId} />
+        <UnitSpells unitId={unitId} />
+        {hasUpgrades && (
           <UpgradesToggle
             type="button"
             aria-expanded={open}
@@ -209,14 +247,15 @@ export default function UnitCard({ unitId }: UnitCardProps) {
             Upgrades
             {selectedCount > 0 && <SelectedBadge>({selectedCount})</SelectedBadge>}
           </UpgradesToggle>
-          {open && (
-            <UpgradesSection id={panelId}>
-              {upgradeIds.map((upgradeId) => (
-                <UpgradeRow key={upgradeId} unitId={unitId} upgradeId={upgradeId} />
-              ))}
-            </UpgradesSection>
-          )}
-        </>
+        )}
+      </Meta>
+      {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
+      {hasUpgrades && open && (
+        <UpgradesSection id={panelId}>
+          {upgradeIds.map((upgradeId) => (
+            <UpgradeRow key={upgradeId} unitId={unitId} upgradeId={upgradeId} />
+          ))}
+        </UpgradesSection>
       )}
     </Card>
   );
