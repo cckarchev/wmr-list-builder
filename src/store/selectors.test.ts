@@ -10,6 +10,7 @@ import {
   errorsForTarget,
   globalErrors,
   groupRosterUnits,
+  isCharacter,
 } from './selectors';
 import type { UnitState } from './storeHelpers';
 import type { ValidationError } from '../data/types';
@@ -180,5 +181,38 @@ describe('groupRosterUnits', () => {
   it('ignores surrounding whitespace in the query', () => {
     const groups = groupRosterUnits(units, '  giant  ');
     expect(groups.map((g) => g.label)).toEqual(['Monster']);
+  });
+
+  it('floats mandatory units (resolved min > 0) to the top of their group when a gameSize is given', () => {
+    const mandatoryUnits: Record<string, UnitState> = {
+      Goblins: { type: 'Infantry' } as UnitState,
+      'Goblin Horde': { type: 'Infantry', armyMin: 1 } as UnitState,
+      'Spider Riders': { type: 'Infantry' } as UnitState,
+    };
+    const infantry = groupRosterUnits(mandatoryUnits, '', 2000).find((g) => g.label === 'Infantry');
+    expect(infantry?.unitIds).toEqual(['Goblin Horde', 'Goblins', 'Spider Riders']);
+  });
+
+  it('keeps the units-map order when no gameSize is given', () => {
+    const mandatoryUnits: Record<string, UnitState> = {
+      Goblins: { type: 'Infantry' } as UnitState,
+      'Goblin Horde': { type: 'Infantry', armyMin: 1 } as UnitState,
+    };
+    const infantry = groupRosterUnits(mandatoryUnits).find((g) => g.label === 'Infantry');
+    expect(infantry?.unitIds).toEqual(['Goblins', 'Goblin Horde']);
+  });
+});
+
+describe('isCharacter', () => {
+  it('is true for General, Hero, and Wizard', () => {
+    expect(isCharacter('General')).toBe(true);
+    expect(isCharacter('Hero')).toBe(true);
+    expect(isCharacter('Wizard')).toBe(true);
+  });
+
+  it('is false for troop types', () => {
+    expect(isCharacter('Infantry')).toBe(false);
+    expect(isCharacter('Cavalry')).toBe(false);
+    expect(isCharacter('Monster')).toBe(false);
   });
 });

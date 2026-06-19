@@ -9,6 +9,8 @@ export interface StatLineProps {
   command?: number;
   size?: number;
   points?: StatValue;
+  /** Whether to render the Cmd column. Only characters carry a Command value. */
+  showCommand?: boolean;
 }
 
 const StatTable = styled.div`
@@ -58,16 +60,19 @@ export default function StatLine({
   command,
   size,
   points,
+  showCommand = true,
 }: StatLineProps) {
   const cells: Array<{ label: string; value: string }> = [];
 
   // Always render every column (filling absent stats with "–") so the grid
   // lines up consistently across units regardless of which stats they have.
+  // Cmd is the exception: only characters carry a Command value, so it's
+  // omitted entirely for everyone else.
   cells.push({ label: 'Att', value: stat(attack) });
   cells.push({ label: 'Range', value: stat(range) });
   cells.push({ label: 'Hits', value: stat(hits) });
   cells.push({ label: 'Armour', value: stat(armour) });
-  cells.push({ label: 'Cmd', value: stat(command) });
+  if (showCommand) cells.push({ label: 'Cmd', value: stat(command) });
   cells.push({ label: 'Size', value: stat(size) });
   cells.push({ label: 'Pts', value: stat(points) });
 

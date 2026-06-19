@@ -271,7 +271,7 @@ export default function Build() {
   if (!army) return null;
 
   const allGroups = groupRosterUnits(units);
-  const rosterGroups = groupRosterUnits(units, search)
+  const rosterGroups = groupRosterUnits(units, search, gameSize)
     .filter((g) => activeType === null || g.label === activeType)
     .map((g) => ({
       ...g,

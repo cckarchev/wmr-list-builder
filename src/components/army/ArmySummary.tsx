@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount } from '../../store/selectors';
+import { pointsCost, unitCount, groupRosterUnits } from '../../store/selectors';
 import { unitDomId } from './unitDomId';
 import { focusRing } from '../../theme/focusRing';
 
@@ -114,7 +114,11 @@ export default function ArmySummary() {
   const gameSize = useArmyStore((s) => s.gameSize);
   const [open, setOpen] = useState(false);
 
-  const selected = Object.keys(units).filter((id) => units[id].number > 0);
+  // List selected units in the same grouped order as the roster (Characters
+  // first, then troop types; mandatory units floated to the top of each group).
+  const selected = groupRosterUnits(units, '', gameSize)
+    .flatMap((g) => g.unitIds)
+    .filter((id) => units[id].number > 0);
   const total = pointsCost({ units });
   const count = unitCount(units);
   const over = total > gameSize;

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveBounds } from '../../store/forceLimits';
-import { errorsForTarget } from '../../store/selectors';
+import { errorsForTarget, isCharacter } from '../../store/selectors';
+import { groupUpgradeIds } from '../../store/groupUpgrades';
 import { minMaxBadge, explainMinMax } from '../../store/minMax';
 import Stepper from '../ui/Stepper';
 import StatLine from '../ui/StatLine';
@@ -78,6 +79,13 @@ const Sep = styled.span`
 
 const MinMax = styled.span`
   color: ${({ theme }) => theme.color.tealBright};
+`;
+
+const NameRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  min-width: 0;
 `;
 
 const UnitName = styled.span`
@@ -163,8 +171,28 @@ const UpgradesSection = styled.div`
   gap: ${({ theme }) => `${theme.space[1]}px`};
 `;
 
+const UpgradeGroupBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+
+  & + & {
+    margin-top: ${({ theme }) => `${theme.space[2]}px`};
+  }
+`;
+
+const UpgradeGroupLabel = styled.h5`
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
 export default function UnitCard({ unitId }: UnitCardProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
+  const upgrades = useArmyStore((s) => s.upgrades);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
   const gameSize = useArmyStore((s) => s.gameSize);
   const errors = useArmyStore((s) => s.errors);
@@ -185,6 +213,10 @@ export default function UnitCard({ unitId }: UnitCardProps) {
     ? Object.values(unit.upgrades).filter((u) => u.number > 0).length
     : 0;
   const hasUpgrades = selected && upgradeIds.length > 0;
+  const upgradeGroups = groupUpgradeIds(upgradeIds, upgrades);
+  // Only label the categories when there's more than one — a single-category
+  // list reads cleaner as a plain list with no heading.
+  const showUpgradeLabels = upgradeGroups.length > 1;
   const panelId = `upgrades-${unitId.replace(/\W+/g, '-')}`;
 
   return (
@@ -207,7 +239,11 @@ export default function UnitCard({ unitId }: UnitCardProps) {
               </>
             )}
           </Eyebrow>
-          <UnitName>{unitId}</UnitName>
+          <NameRow>
+            <UnitName>{unitId}</UnitName>
+            <UnitRules unitId={unitId} />
+            <UnitSpells unitId={unitId} />
+          </NameRow>
         </Identity>
         <Controls>
           <Stepper
@@ -230,10 +266,9 @@ export default function UnitCard({ unitId }: UnitCardProps) {
         command={unit.command}
         size={unit.size}
         points={unit.points}
+        showCommand={isCharacter(unit.type)}
       />
       <Meta>
-        <UnitRules unitId={unitId} />
-        <UnitSpells unitId={unitId} />
         {hasUpgrades && (
           <UpgradesToggle
             type="button"
@@ -252,8 +287,13 @@ export default function UnitCard({ unitId }: UnitCardProps) {
       {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
       {hasUpgrades && open && (
         <UpgradesSection id={panelId}>
-          {upgradeIds.map((upgradeId) => (
-            <UpgradeRow key={upgradeId} unitId={unitId} upgradeId={upgradeId} />
+          {upgradeGroups.map((group) => (
+            <UpgradeGroupBlock key={group.label}>
+              {showUpgradeLabels && <UpgradeGroupLabel>{group.label}</UpgradeGroupLabel>}
+              {group.upgradeIds.map((upgradeId) => (
+                <UpgradeRow key={upgradeId} unitId={unitId} upgradeId={upgradeId} />
+              ))}
+            </UpgradeGroupBlock>
           ))}
         </UpgradesSection>
       )}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
 import Popover from '../ui/Popover';
+import Icon from '../ui/Icon';
 
 interface UnitRulesProps {
   unitId: string;
@@ -44,7 +45,7 @@ export default function UnitRules({ unitId }: UnitRulesProps) {
   if (rules.length === 0) return null;
 
   return (
-    <Popover label={`${unitId} special rules`} trigger="Rules" wide>
+    <Popover label={`${unitId} special rules`} trigger={<Icon name="rules" size={16} />} wide>
       {rules.map(({ name, rule }) => (
         <Rule key={name}>
           <RuleName>{name}</RuleName>

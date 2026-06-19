@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import Popover from '../ui/Popover';
+import Icon from '../ui/Icon';
 
 interface UnitSpellsProps {
   unitId: string;
@@ -53,7 +54,7 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
   if (!unit || unit.type !== 'Wizard' || !spells || spells.length === 0) return null;
 
   return (
-    <Popover label="Spells" trigger="Spells">
+    <Popover label="Spells" trigger={<Icon name="magic" size={16} />}>
       <Grid>
         {spells.map((spell, i) => (
           <SpellCard key={i}>
