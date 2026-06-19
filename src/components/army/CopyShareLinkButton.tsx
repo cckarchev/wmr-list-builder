@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
+import Icon from '../ui/Icon';
 import { useArmyStore } from '../../store/useArmyStore';
 import { encodeList } from '../../store/persistence';
 import { snapshotOf } from '../../store/snapshot';
@@ -36,6 +37,7 @@ export default function CopyShareLinkButton() {
   return (
     <Wrapper>
       <Button $variant="ghost" onClick={handleCopy} disabled={!armyId}>
+        <Icon name="share" size={14} />
         Copy share link
       </Button>
       {copied && <CopiedLabel>Link copied!</CopiedLabel>}

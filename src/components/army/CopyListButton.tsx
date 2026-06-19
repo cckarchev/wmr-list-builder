@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
+import Icon from '../ui/Icon';
 import { useArmyStore } from '../../store/useArmyStore';
 import { pointsCost, usedUnits as getUsedUnits } from '../../store/selectors';
 import { buildTextList } from './textList';
@@ -50,6 +51,7 @@ export default function CopyListButton() {
   return (
     <Wrapper>
       <Button $variant="ghost" onClick={handleCopy} disabled={!army}>
+        <Icon name="copy" size={14} />
         Copy List
       </Button>
       {copied && <CopiedLabel>Copied!</CopiedLabel>}
