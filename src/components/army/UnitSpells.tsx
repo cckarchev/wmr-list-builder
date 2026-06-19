@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
+import { isCaster } from '../../store/selectors';
 import Popover from '../ui/Popover';
 import Icon from '../ui/Icon';
 
@@ -51,7 +52,7 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const spells = useArmyStore((s) => s.spells);
 
-  if (!unit || unit.type !== 'Wizard' || !spells || spells.length === 0) return null;
+  if (!unit || !isCaster(unit) || !spells || spells.length === 0) return null;
 
   return (
     <Popover label="Spells" trigger={<Icon name="magic" size={16} />}>

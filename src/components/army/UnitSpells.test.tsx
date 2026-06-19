@@ -20,6 +20,14 @@ describe('UnitSpells', () => {
     expect(within(dialog).getByText('60cm')).toBeInTheDocument();
   });
 
+  it('renders spells for a caster-flagged unit that is not type Wizard (Grey Seer)', async () => {
+    const user = userEvent.setup();
+    useArmyStore.getState().setArmy('skaven');
+    renderWithProviders(<UnitSpells unitId="Grey Seer" />);
+    await user.click(screen.getByRole('button', { name: 'Spells' }));
+    expect(screen.getByRole('dialog', { name: 'Spells' })).toBeInTheDocument();
+  });
+
   it('renders nothing for a non-Wizard unit', () => {
     useArmyStore.getState().setArmy('goblin');
     const { container } = renderWithProviders(<UnitSpells unitId="Goblins" />);

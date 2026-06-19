@@ -98,6 +98,15 @@ export function isCharacter(type: string): boolean {
   return CHARACTER_TYPES.includes(type);
 }
 
+/**
+ * A unit can cast the army's spells if it's a Wizard or is data-flagged as a
+ * `caster` (a General/Hero granted spellcasting by a special rule, e.g. the
+ * Skaven Grey Seer).
+ */
+export function isCaster(unit: { type: string; caster?: boolean }): boolean {
+  return unit.type === 'Wizard' || unit.caster === true;
+}
+
 const TROOP_TYPE_ORDER = [
   'Infantry',
   'Cavalry',
