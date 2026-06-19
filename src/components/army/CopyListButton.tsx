@@ -7,12 +7,25 @@ import { pointsCost, usedUnits as getUsedUnits } from '../../store/selectors';
 import { buildTextList } from './textList';
 
 const Wrapper = styled.span`
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
 `;
 
+// A transient confirmation bubble. Positioned absolutely so it floats over the
+// layout instead of pushing the neighbouring action buttons aside.
 const CopiedLabel = styled.span`
+  position: absolute;
+  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  white-space: nowrap;
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  background: ${({ theme }) => theme.color.bg.surface};
+  border: 1px solid ${({ theme }) => theme.color.border.default};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  box-shadow: ${({ theme }) => theme.shadow.panel};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.semantic.success};
   font-weight: 500;
