@@ -16,9 +16,10 @@ describe('theme', () => {
     expect(theme.radius.lg).toBe('0');
     expect(theme.radius.pill).toBe('0');
   });
-  it('exposes the parent panel surface and focus-border tokens', () => {
+  it('exposes the parent panel surface and an on-brand teal focus ring', () => {
     expect(theme.color.bg.panel).toBe('rgba(13,26,31,0.6)');
-    expect(theme.color.border.focus).toBe('rgba(255,255,255,0.24)');
+    // Focus uses brand teal (not faint white) so the keyboard indicator reads.
+    expect(theme.color.border.focus).toBe('rgba(43,179,196,0.85)');
   });
   it('tokenizes the parent wide letter-spacing scale', () => {
     expect(theme.tracking.label).toBe('0.2em');
@@ -27,7 +28,7 @@ describe('theme', () => {
   });
   it('composes colors from shared rgb channels via alpha()', () => {
     expect(theme.alpha(theme.rgb.teal, 0.45)).toBe('rgba(43,179,196,0.45)');
-    expect(theme.color.ghost.borderHover).toBe('rgba(43,179,196,0.75)');
-    expect(theme.color.border.accent).toBe('rgba(212,98,62,0.65)');
+    expect(theme.color.ghost.borderHover).toBe('rgba(43,179,196,0.9)');
+    expect(theme.color.border.accent).toBe('rgba(212,98,62,0.7)');
   });
 });

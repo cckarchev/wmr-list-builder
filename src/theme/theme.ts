@@ -26,24 +26,28 @@ export const theme = {
     accentInk: '#091418',
     teal: '#1e6b78',
     tealBright: '#2bb3c4',
+    // Text alphas run higher than the cckarchev marketing site: a dense builder
+    // with small mono labels needs more contrast than a sparse landing page.
     text: {
       strong: alpha(rgb.text, 1),
-      body: alpha(rgb.text, 0.72),
-      dim: alpha(rgb.text, 0.45),
+      body: alpha(rgb.text, 0.82),
+      dim: alpha(rgb.text, 0.62),
     },
+    // Control-edge alphas are likewise bumped so panels, steppers and dividers
+    // actually read as bordered controls against the near-black surfaces.
     border: {
-      divider: alpha(rgb.white, 0.08),
-      default: alpha(rgb.white, 0.12),
-      hover: alpha(rgb.white, 0.18),
-      focus: alpha(rgb.white, 0.24),
-      active: alpha(rgb.white, 0.5),
-      accent: alpha(rgb.accent, 0.65),
+      divider: alpha(rgb.white, 0.14),
+      default: alpha(rgb.white, 0.22),
+      hover: alpha(rgb.white, 0.34),
+      focus: alpha(rgb.teal, 0.85),
+      active: alpha(rgb.white, 0.65),
+      accent: alpha(rgb.accent, 0.7),
     },
     // Ghost / teal-outline interactive states (e.g. the ghost Button variant).
     ghost: {
-      border: alpha(rgb.teal, 0.45),
-      borderHover: alpha(rgb.teal, 0.75),
-      bg: alpha(rgb.teal, 0.08),
+      border: alpha(rgb.teal, 0.6),
+      borderHover: alpha(rgb.teal, 0.9),
+      bg: alpha(rgb.teal, 0.1),
     },
     semantic: { error: '#e05555', success: '#46af73', warning: '#d9b770' },
   },
