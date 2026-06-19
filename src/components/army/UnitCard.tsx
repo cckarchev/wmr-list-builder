@@ -28,6 +28,13 @@ const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
   gap: ${({ theme }) => `${theme.space[3]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
   background: ${({ theme }) => theme.color.bg.panel};
+
+  /* More interior breathing room on wider screens, where the card has space to
+     spare; mobile stays compact. */
+  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
+    gap: ${({ theme }) => `${theme.space[4]}px`};
+    padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[5]}px`};
+  }
   border: 1px solid
     ${({ theme, $selected, $invalid }) =>
       $invalid
@@ -266,7 +273,7 @@ export default function UnitCard({ unitId }: UnitCardProps) {
         command={unit.command}
         size={unit.size}
         points={unit.points}
-        showCommand={isCharacter(unit.type)}
+        character={isCharacter(unit.type)}
       />
       <Meta>
         {hasUpgrades && (

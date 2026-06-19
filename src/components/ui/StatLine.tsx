@@ -9,14 +9,22 @@ export interface StatLineProps {
   command?: number;
   size?: number;
   points?: StatValue;
-  /** Whether to render the Cmd column. Only characters carry a Command value. */
-  showCommand?: boolean;
+  /**
+   * Whether this unit is a character (General/Hero/Wizard). Characters carry a
+   * Command value but never Range/Hits/Armour, so they show Att/Cmd/Size/Pts;
+   * everyone else shows Att/Range/Hits/Armour/Size/Pts.
+   */
+  character?: boolean;
 }
 
 const StatTable = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  /* Fixed-width columns packed from the left (rather than stretch-to-fill) so a
+     character's shorter row stays compact instead of ballooning, and the Att
+     column lines up card-to-card. */
+  grid-auto-columns: minmax(0, 3.5rem);
+  justify-content: start;
   align-items: end;
 `;
 
@@ -60,19 +68,22 @@ export default function StatLine({
   command,
   size,
   points,
-  showCommand = true,
+  character = false,
 }: StatLineProps) {
   const cells: Array<{ label: string; value: string }> = [];
 
-  // Always render every column (filling absent stats with "–") so the grid
-  // lines up consistently across units regardless of which stats they have.
-  // Cmd is the exception: only characters carry a Command value, so it's
-  // omitted entirely for everyone else.
+  // Characters and troops carry disjoint stat sets, so each shows only its own.
+  // Characters: Att / Cmd / Size / Pts (no character has Range/Hits/Armour).
+  // Troops: Att / Range / Hits / Armour / Size / Pts (no Cmd). Absent stats
+  // within a set still render as "–" so the columns line up across units.
   cells.push({ label: 'Att', value: stat(attack) });
-  cells.push({ label: 'Range', value: stat(range) });
-  cells.push({ label: 'Hits', value: stat(hits) });
-  cells.push({ label: 'Armour', value: stat(armour) });
-  if (showCommand) cells.push({ label: 'Cmd', value: stat(command) });
+  if (character) {
+    cells.push({ label: 'Cmd', value: stat(command) });
+  } else {
+    cells.push({ label: 'Range', value: stat(range) });
+    cells.push({ label: 'Hits', value: stat(hits) });
+    cells.push({ label: 'Armour', value: stat(armour) });
+  }
   cells.push({ label: 'Size', value: stat(size) });
   cells.push({ label: 'Pts', value: stat(points) });
 

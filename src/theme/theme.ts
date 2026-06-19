@@ -58,6 +58,9 @@ export const theme = {
   tracking: { label: '0.2em', labelWide: '0.28em', button: '0.12em' },
   shadow: { panel: '0 2px 8px rgba(0,0,0,0.35)' },
   breakpoint: { sm: '480px', md: '768px', lg: '1024px' },
+  // Max content width for centered page containers; beyond this the layout
+  // gutters rather than letting cards sprawl on large screens.
+  layout: { maxWidth: '1200px' },
 } as const;
 
 export type AppTheme = typeof theme;

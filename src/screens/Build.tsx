@@ -27,6 +27,11 @@ const Grid = styled.div`
   grid-template-columns: 1fr;
   gap: ${({ theme }) => `${theme.space[5]}px`};
   padding: ${({ theme }) => `${theme.space[4]}px`};
+  /* Cap and center the content so it gutters on large screens instead of the
+     (now narrower) cards sprawling edge-to-edge. */
+  width: 100%;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
+  margin-inline: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
     grid-template-columns: 1fr minmax(240px, 300px);
@@ -41,6 +46,9 @@ const Controls = styled.div`
 `;
 
 const ArmySummaryMobile = styled.div`
+  width: 100%;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
+  margin-inline: auto;
   padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[4]}px 0`};
 
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
