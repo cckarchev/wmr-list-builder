@@ -13,11 +13,6 @@ const Aside = styled.aside`
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.md};
-
-  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    position: sticky;
-    top: ${({ theme }) => `${theme.space[4]}px`};
-  }
 `;
 
 const Heading = styled.button`

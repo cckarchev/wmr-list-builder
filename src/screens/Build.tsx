@@ -48,11 +48,18 @@ const ArmySummaryMobile = styled.div`
   }
 `;
 
-const ArmySummaryDesktop = styled.div`
+const ArmySummaryDesktop = styled.div<{ $top: number }>`
   display: none;
 
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
     display: block;
+    /* Stick the rail within its grid column as the page scrolls, parked just
+       below the sticky BuildHeader (whose height varies with global errors). */
+    position: sticky;
+    align-self: start;
+    top: ${({ $top, theme }) => `${$top + theme.space[3]}px`};
+    max-height: ${({ $top, theme }) => `calc(100dvh - ${$top + theme.space[3] * 2}px)`};
+    overflow-y: auto;
   }
 `;
 
@@ -246,6 +253,21 @@ export default function Build() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedOnly, setSelectedOnly] = useState(false);
 
+  // Track the sticky header's height so the rail can park just below it. The
+  // header grows/shrinks (e.g. when global errors appear), so observe it. We
+  // observe the element directly (not via a wrapper) to avoid creating a
+  // containing block that would break the header's own `position: sticky`.
+  const [headerHeight, setHeaderHeight] = useState(0);
+  useEffect(() => {
+    const el = document.querySelector<HTMLElement>('[data-testid="points-bar"]');
+    if (!el) return;
+    const update = () => setHeaderHeight(el.offsetHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [army]);
+
   if (!army) return null;
 
   const allGroups = groupRosterUnits(units);
@@ -333,7 +355,7 @@ export default function Build() {
             ))
           )}
         </Section>
-        <ArmySummaryDesktop>
+        <ArmySummaryDesktop $top={headerHeight}>
           <ArmySummary />
         </ArmySummaryDesktop>
       </Grid>
