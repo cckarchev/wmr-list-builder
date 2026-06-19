@@ -1,6 +1,7 @@
 import { marked } from 'marked';
 import { useArmyStore } from '../../store/useArmyStore';
 import type { SpecialRule } from '../../data/types';
+import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
 
 interface SpecialRulesProps {
@@ -22,10 +23,9 @@ function collectUsedSpecialRules(
 
   for (const [unitId, unit] of Object.entries(units)) {
     if (unit.number > 0) {
-      // rule named after the unit
-      addRule(unitId);
-      // rules in the unit's specialRules array
-      unit.specialRules?.forEach(addRule);
+      for (const { name } of resolveUnitSpecialRules(unitId, unit, allSpecialRules)) {
+        result[name] = allSpecialRules[name];
+      }
     }
   }
 

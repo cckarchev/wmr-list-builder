@@ -7,8 +7,8 @@ import { focusRing } from '../theme/focusRing';
 import { loadList, saveList, decodeList } from '../store/persistence';
 import { snapshotOf } from '../store/snapshot';
 import ChevronMark from '../components/ui/ChevronMark';
-import RosterUnit from '../components/army/RosterUnit';
-import ArmyUnitRow from '../components/army/ArmyUnitRow';
+import UnitCard from '../components/army/UnitCard';
+import ArmySummary from '../components/army/ArmySummary';
 import BuildHeader from '../components/army/BuildHeader';
 
 const Page = styled.main`
@@ -29,7 +29,30 @@ const Grid = styled.div`
   padding: ${({ theme }) => `${theme.space[4]}px`};
 
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr minmax(240px, 300px);
+    align-items: start;
+  }
+`;
+
+const Controls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
+const ArmySummaryMobile = styled.div`
+  padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[4]}px 0`};
+
+  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
+    display: none;
+  }
+`;
+
+const ArmySummaryDesktop = styled.div`
+  display: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
+    display: block;
   }
 `;
 
@@ -81,6 +104,13 @@ const FilterToggle = styled.button`
   }
 
   ${focusRing}
+`;
+
+const SelectedToggle = styled(FilterToggle)<{ $active?: boolean }>`
+  background: ${({ theme, $active }) => ($active ? theme.alpha(theme.rgb.accent, 0.15) : 'none')};
+  color: ${({ theme, $active }) => ($active ? theme.color.accent : theme.color.text.dim)};
+  border-color: ${({ theme, $active }) =>
+    $active ? theme.color.border.accent : theme.color.border.divider};
 `;
 
 const Caret = styled.span<{ $open: boolean }>`
@@ -214,15 +244,18 @@ export default function Build() {
   const [search, setSearch] = useState('');
   const [activeType, setActiveType] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selectedOnly, setSelectedOnly] = useState(false);
 
   if (!army) return null;
 
-  const allUnitIds = Object.keys(units);
-  const usedUnitIds = allUnitIds.filter((id) => units[id].number > 0);
   const allGroups = groupRosterUnits(units);
-  const rosterGroups = groupRosterUnits(units, search).filter(
-    (g) => activeType === null || g.label === activeType,
-  );
+  const rosterGroups = groupRosterUnits(units, search)
+    .filter((g) => activeType === null || g.label === activeType)
+    .map((g) => ({
+      ...g,
+      unitIds: selectedOnly ? g.unitIds.filter((id) => units[id].number > 0) : g.unitIds,
+    }))
+    .filter((g) => g.unitIds.length > 0);
 
   const toggleType = (label: string) =>
     setActiveType((prev) => (prev === label ? null : label));
@@ -232,23 +265,36 @@ export default function Build() {
   return (
     <Page>
       <BuildHeader />
+      <ArmySummaryMobile>
+        <ArmySummary />
+      </ArmySummaryMobile>
       <Grid>
         <Section aria-label="Roster">
           <RosterHeader>
             <SectionHeading $flush as="h2">
               Roster
             </SectionHeading>
-            <FilterToggle
-              type="button"
-              aria-expanded={filtersOpen}
-              aria-controls="roster-filters"
-              onClick={() => setFiltersOpen((open) => !open)}
-            >
-              <Caret $open={filtersOpen}>
-                <ChevronMark size={12} />
-              </Caret>
-              {filtersActive ? 'Filters •' : 'Filters'}
-            </FilterToggle>
+            <Controls>
+              <SelectedToggle
+                type="button"
+                $active={selectedOnly}
+                aria-pressed={selectedOnly}
+                onClick={() => setSelectedOnly((v) => !v)}
+              >
+                Selected only
+              </SelectedToggle>
+              <FilterToggle
+                type="button"
+                aria-expanded={filtersOpen}
+                aria-controls="roster-filters"
+                onClick={() => setFiltersOpen((open) => !open)}
+              >
+                <Caret $open={filtersOpen}>
+                  <ChevronMark size={12} />
+                </Caret>
+                {filtersActive ? 'Filters •' : 'Filters'}
+              </FilterToggle>
+            </Controls>
           </RosterHeader>
           {filtersOpen && (
             <FiltersPanel id="roster-filters">
@@ -281,20 +327,15 @@ export default function Build() {
               <Group key={group.label}>
                 <GroupHeading>{group.label}</GroupHeading>
                 {group.unitIds.map((id) => (
-                  <RosterUnit key={id} unitId={id} />
+                  <UnitCard key={id} unitId={id} />
                 ))}
               </Group>
             ))
           )}
         </Section>
-        <Section aria-label="Your Army">
-          <SectionHeading>Your Army</SectionHeading>
-          {usedUnitIds.length === 0 ? (
-            <EmptyArmy>No units selected yet. Add units from the Roster.</EmptyArmy>
-          ) : (
-            usedUnitIds.map((id) => <ArmyUnitRow key={id} unitId={id} />)
-          )}
-        </Section>
+        <ArmySummaryDesktop>
+          <ArmySummary />
+        </ArmySummaryDesktop>
       </Grid>
     </Page>
   );

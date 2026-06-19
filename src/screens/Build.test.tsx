@@ -177,6 +177,29 @@ describe('roster organization', () => {
   });
 });
 
+describe('selected-only filter', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('limits the roster to selected units when toggled on', async () => {
+    const user = userEvent.setup();
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    // Squig Herd is not in the goblin force minimums, so it starts unselected.
+    expect(within(roster).getByText('Squig Herd')).toBeInTheDocument();
+
+    await user.click(within(roster).getByRole('button', { name: /selected only/i }));
+
+    // Auto-included Goblins remain; the unselected Squig Herd is filtered out.
+    expect(within(roster).getByText('Goblins')).toBeInTheDocument();
+    expect(within(roster).queryByText('Squig Herd')).not.toBeInTheDocument();
+  });
+});
+
 describe('persistence', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
