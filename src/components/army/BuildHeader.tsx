@@ -25,6 +25,11 @@ const TitleZone = styled.div`
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  /* The header bar is full-bleed; its content is centered to the same width as
+     the page body so the title lines up with the roster below. */
+  width: 100%;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
+  margin-inline: auto;
 `;
 
 const ArmyName = styled.h1`
@@ -90,6 +95,9 @@ const Strip = styled.div`
   gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
   border-top: 1px solid ${({ theme }) => theme.color.border.divider};
+  width: 100%;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
+  margin-inline: auto;
 `;
 
 const Stat = styled.div`

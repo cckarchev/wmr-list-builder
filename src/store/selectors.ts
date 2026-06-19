@@ -1,6 +1,7 @@
 import type { ArmyState } from './useArmyStore';
 import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import type { ValidationError } from '../data/types';
+import { resolveBounds } from './forceLimits';
 
 const COUNTABLE_UNITS = [
   'Artillery',
@@ -91,6 +92,21 @@ export function globalErrors(errors: ValidationError[]): ValidationError[] {
 }
 
 const CHARACTER_TYPES = ['General', 'Hero', 'Wizard'];
+
+/** A character is a General, Hero, or Wizard (the units that carry a Command value). */
+export function isCharacter(type: string): boolean {
+  return CHARACTER_TYPES.includes(type);
+}
+
+/**
+ * A unit can cast the army's spells if it's a Wizard or is data-flagged as a
+ * `caster` (a General/Hero granted spellcasting by a special rule, e.g. the
+ * Skaven Grey Seer).
+ */
+export function isCaster(unit: { type: string; caster?: boolean }): boolean {
+  return unit.type === 'Wizard' || unit.caster === true;
+}
+
 const TROOP_TYPE_ORDER = [
   'Infantry',
   'Cavalry',
@@ -109,11 +125,16 @@ export interface RosterGroup {
 /**
  * Group roster units for display: a single "Characters" group
  * (General/Hero/Wizard) first, then troop groups in canonical type order.
- * Order within each group follows the units map's existing order. An optional
- * case-insensitive `query` filters by unit id (its display name); groups left
- * empty by the filter are dropped.
+ * Within each group, mandatory units (those with a resolved minimum > 0 at the
+ * given `gameSize`) are floated to the top; order is otherwise stable, following
+ * the units map. An optional case-insensitive `query` filters by unit id (its
+ * display name); groups left empty by the filter are dropped.
  */
-export function groupRosterUnits(units: Record<string, UnitState>, query = ''): RosterGroup[] {
+export function groupRosterUnits(
+  units: Record<string, UnitState>,
+  query = '',
+  gameSize?: number,
+): RosterGroup[] {
   const q = query.trim().toLowerCase();
   const matches = (id: string) => !q || id.toLowerCase().includes(q);
 
@@ -130,14 +151,26 @@ export function groupRosterUnits(units: Record<string, UnitState>, query = ''): 
     }
   }
 
+  // Float mandatory units (resolved min > 0) to the top of each group. A stable
+  // partition preserves the units map's relative order within each partition.
+  const sortMandatoryFirst = (ids: string[]) => {
+    if (gameSize === undefined) return ids;
+    const mandatory = ids.filter((id) => resolveBounds(units[id], gameSize).min > 0);
+    const rest = ids.filter((id) => resolveBounds(units[id], gameSize).min === 0);
+    return [...mandatory, ...rest];
+  };
+
   const groups: RosterGroup[] = [];
-  if (characters.length) groups.push({ label: 'Characters', unitIds: characters });
+  if (characters.length)
+    groups.push({ label: 'Characters', unitIds: sortMandatoryFirst(characters) });
   for (const type of TROOP_TYPE_ORDER) {
-    if (troops[type]?.length) groups.push({ label: type, unitIds: troops[type] });
+    if (troops[type]?.length)
+      groups.push({ label: type, unitIds: sortMandatoryFirst(troops[type]) });
   }
   // Surface any unforeseen type so units are never silently hidden.
   for (const type of Object.keys(troops)) {
-    if (!TROOP_TYPE_ORDER.includes(type)) groups.push({ label: type, unitIds: troops[type] });
+    if (!TROOP_TYPE_ORDER.includes(type))
+      groups.push({ label: type, unitIds: sortMandatoryFirst(troops[type]) });
   }
   return groups;
 }

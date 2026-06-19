@@ -108,6 +108,7 @@
     "Grey Seer": {
       "order": 10,
       "type": "General",
+      "caster": true,
       "attack": "+1",
       "command": 9,
       "size": 1,

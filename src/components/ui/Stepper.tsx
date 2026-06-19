@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from './Button';
+import { focusRing } from '../../theme/focusRing';
 
 interface StepperProps {
   value: number;
@@ -11,23 +11,51 @@ interface StepperProps {
 
 const StepperWrapper = styled.div`
   display: inline-flex;
+  align-items: stretch;
+  border: 1px solid ${({ theme }) => theme.color.border.default};
+  border-radius: ${({ theme }) => theme.radius.sm};
+`;
+
+const StepButton = styled.button`
+  display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  justify-content: center;
+  min-width: ${({ theme }) => `${theme.space[6]}px`};
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  background: transparent;
+  border: none;
+  color: ${({ theme }) => theme.color.tealBright};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    color 0.12s;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.color.ghost.bg};
+  }
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  ${focusRing}
 `;
 
 const StepperValue = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5ch;
+  padding: ${({ theme }) => `0 ${theme.space[2]}px`};
+  border-left: 1px solid ${({ theme }) => theme.color.border.default};
+  border-right: 1px solid ${({ theme }) => theme.color.border.default};
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.strong};
-  min-width: 2ch;
-  text-align: center;
-  padding: ${({ theme }) => `0 ${theme.space[1]}px`};
-`;
-
-const StepButton = styled(Button)`
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
   font-size: ${({ theme }) => theme.fontSize.md};
-  line-height: 1;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color.text.strong};
 `;
 
 export default function Stepper({ value, onChange, min, max, label }: StepperProps) {
@@ -37,7 +65,6 @@ export default function Stepper({ value, onChange, min, max, label }: StepperPro
   return (
     <StepperWrapper>
       <StepButton
-        $variant="ghost"
         disabled={atMin}
         onClick={() => onChange(value - 1)}
         aria-label={`decrease ${label}`}
@@ -47,7 +74,6 @@ export default function Stepper({ value, onChange, min, max, label }: StepperPro
       </StepButton>
       <StepperValue>{value}</StepperValue>
       <StepButton
-        $variant="ghost"
         disabled={atMax}
         onClick={() => onChange(value + 1)}
         aria-label={`increase ${label}`}

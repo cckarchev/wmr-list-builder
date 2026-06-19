@@ -10,6 +10,13 @@ export interface Unit {
   command?: number;
   size?: number;
   points: number;
+  /**
+   * Marks a unit that casts the army's spells without being `type: 'Wizard'` —
+   * e.g. the Skaven Grey Seer or Vampire Lord, who are Generals granted
+   * spellcasting by a special rule. Lets the UI show spells without parsing
+   * rule text. Wizards don't need this flag; their `type` already implies it.
+   */
+  caster?: boolean;
   min?: number | string;
   max?: number | string;
   armyMin?: number;

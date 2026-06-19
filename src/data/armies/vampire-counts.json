@@ -84,6 +84,7 @@
     "Vampire Lord": {
       "order": 8,
       "type": "General",
+      "caster": true,
       "attack": "+2",
       "command": 9,
       "size": 1,

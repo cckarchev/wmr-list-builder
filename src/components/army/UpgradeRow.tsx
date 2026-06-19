@@ -63,7 +63,17 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
 
   const unitUpgrade = unit.upgrades?.[upgradeId];
   const count = unitUpgrade?.number ?? 0;
-  const maxCount = unit.number;
+
+  // A unit can't take more of an upgrade than it has stands. On top of that,
+  // upgrades with an army-wide cap (`armyMax`, e.g. Magic Standards = 1 per
+  // army) are hard-limited by how much of that allowance is still unspent
+  // elsewhere. `upgrade.number` is the army-wide total; subtract this unit's
+  // own share to get what the rest of the army has already used.
+  let maxCount = unit.number;
+  if (upgrade.armyMax !== undefined) {
+    const usedElsewhere = upgrade.number - count;
+    maxCount = Math.min(maxCount, Math.max(0, upgrade.armyMax - usedElsewhere));
+  }
   const badge = minMaxBadge(upgrade, gameSize);
   const rule = explainMinMax(upgrade, gameSize);
 
