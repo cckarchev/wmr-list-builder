@@ -230,7 +230,11 @@ const GroupHeading = styled.h3`
 `;
 
 export default function Build() {
-  const { armyId } = useParams<{ armyId: string }>();
+  const { armyId: paramArmyId } = useParams<{ armyId: string }>();
+  const [searchParams] = useSearchParams();
+  // Embedded query-only links (/?army=<id>) carry the army in the query string;
+  // the /build/:armyId route carries it in the path. Accept either.
+  const armyId = paramArmyId ?? searchParams.get('army') ?? undefined;
 
   const army = useArmyStore((s) => s.army);
   const armyIdInStore = useArmyStore((s) => s.armyId);
@@ -240,7 +244,6 @@ export default function Build() {
   const setArmy = useArmyStore((s) => s.setArmy);
   const applyList = useArmyStore((s) => s.applyList);
   const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
-  const [searchParams] = useSearchParams();
 
   // Only (re)initialize when switching to a different army, so returning to the
   // roster (e.g. back from Print) keeps the current selections. On a fresh load,

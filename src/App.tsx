@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './screens/Home';
 import Build from './screens/Build';
@@ -15,11 +15,24 @@ function RequireArmy({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
+/**
+ * The embed host (cckarchev) sends query-only links: /?army=<id>&list=<encoded>.
+ * Render that army's build directly from the root; otherwise show the picker.
+ */
+function Root() {
+  const [searchParams] = useSearchParams();
+  const armyId = searchParams.get('army');
+  if (armyId && armiesById[armyId]) {
+    return <Build />;
+  }
+  return <Home />;
+}
+
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Root />} />
         <Route
           path="/build/:armyId"
           element={

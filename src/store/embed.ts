@@ -4,12 +4,16 @@
 // which drops query params. The Share button uses it to emit a cckarchev link.
 
 const ALLOWED_HOSTS = new Set(['cckarchev.ar', 'www.cckarchev.ar']);
+// cckarchev runs on http://localhost:<port> in local dev; allow http for these
+// loopback hosts so the Share-back link works while testing the embed locally.
+const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 let embedBase: string | null = null;
 
 function validate(raw: string): string | null {
   try {
     const url = new URL(raw);
+    if (url.protocol === 'http:' && DEV_HOSTS.has(url.hostname)) return raw;
     if (url.protocol !== 'https:') return null;
     if (!ALLOWED_HOSTS.has(url.hostname)) return null;
     return raw;

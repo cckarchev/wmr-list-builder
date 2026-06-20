@@ -4,9 +4,14 @@ import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from './test/renderWithProviders';
 import App from './App';
 import { useArmyStore } from './store/useArmyStore';
+import { encodeList, buildCodeMaps } from './store/persistence';
+import { loadArmy } from './data/loadArmy';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
+  // Build auto-saves to localStorage; clear it so a list applied in one test
+  // doesn't leak into the next via loadList().
+  localStorage.clear();
 });
 
 describe('App routing', () => {
@@ -17,6 +22,41 @@ describe('App routing', () => {
     // The Goblin army card links to its build route.
     const link = screen.getByRole('link', { name: 'Goblin' });
     expect(link).toHaveAttribute('href', '/build/goblin');
+  });
+
+  it('renders Build directly at root when ?army= names a valid army', async () => {
+    renderWithProviders(<App />, { routerProps: { initialEntries: ['/?army=goblin'] } });
+
+    // Build screen (not the picker) is shown for the named army.
+    expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('heading', { name: /choose your army/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('loads a shared list from root query params', async () => {
+    // Encode a goblin list with Goblins bumped to 9 (force-min 8 + 1 = 590pts),
+    // matching the standalone Print round-trip assertion above.
+    const maps = buildCodeMaps(loadArmy('goblin'));
+    const encoded = encodeList(
+      { name: '', gameSize: 2000, units: { Goblins: 9 }, upgrades: {} },
+      maps,
+    );
+
+    renderWithProviders(<App />, {
+      routerProps: { initialEntries: ['/?army=goblin&list=' + encoded] },
+    });
+
+    const bar = await screen.findByTestId('points-bar');
+    expect(within(bar).getByTestId('points-total').textContent).toBe('590');
+  });
+
+  it('shows the army picker at root when ?army= is unknown', () => {
+    renderWithProviders(<App />, {
+      routerProps: { initialEntries: ['/?army=does-not-exist'] },
+    });
+
+    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
   });
 
   it('navigates Home → Build when an army is chosen', async () => {
