@@ -33,6 +33,7 @@ export interface UnitState extends Omit<Unit, 'upgrades'> {
  * fields the Vue store attaches in `SET_UPGRADES`.
  */
 export interface UpgradeState {
+  id?: number;
   order: string | number;
   type: string;
   points?: StatValue | Record<string, string>;

@@ -1,7 +1,7 @@
 import type { ArmyState } from './useArmyStore';
 import type { ListSnapshot } from './persistence';
 
-export function snapshotOf(state: Pick<ArmyState, 'gameSize' | 'units'>): ListSnapshot {
+export function snapshotOf(state: Pick<ArmyState, 'gameSize' | 'units' | 'label'>): ListSnapshot {
   const units: Record<string, number> = {};
   const upgrades: Record<string, Record<string, number>> = {};
   for (const [id, unit] of Object.entries(state.units)) {
@@ -13,5 +13,5 @@ export function snapshotOf(state: Pick<ArmyState, 'gameSize' | 'units'>): ListSn
       }
     }
   }
-  return { gameSize: state.gameSize, units, upgrades };
+  return { name: state.label, gameSize: state.gameSize, units, upgrades };
 }

@@ -1,32 +1,71 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { encodeList, decodeList, saveList, loadList, type ListSnapshot } from './persistence';
+import {
+  encodeList,
+  decodeList,
+  saveList,
+  loadList,
+  buildCodeMaps,
+  type ListSnapshot,
+} from './persistence';
+import { loadArmy } from '../data/loadArmy';
+
+const maps = buildCodeMaps(loadArmy('empire'));
+
+// Real empire names so they resolve in the maps. (Game-legality is irrelevant
+// to the codec; the maps map every defined name.)
+const snap: ListSnapshot = {
+  name: '',
+  gameSize: 2000,
+  units: { Halberdiers: 4, Crossbowmen: 2 },
+  upgrades: { Halberdiers: { Griffon: 1 } },
+};
 
 describe('encode/decode list', () => {
-  const snap: ListSnapshot = {
-    gameSize: 2000,
-    units: { Knights: 2, General: 1 },
-    upgrades: { General: { 'Battle Standard': 1 } },
-  };
+  it('round-trips a snapshot through ids', () => {
+    expect(decodeList(encodeList(snap, maps), maps)).toEqual(snap);
+  });
 
-  it('round-trips a snapshot', () => {
-    expect(decodeList(encodeList(snap))).toEqual(snap);
+  it('preserves the list name', () => {
+    const named = { ...snap, name: 'My Big List' };
+    expect(decodeList(encodeList(named, maps), maps)?.name).toBe('My Big List');
+  });
+
+  it('skips unknown unit/upgrade names on encode', () => {
+    const dirty: ListSnapshot = {
+      name: '',
+      gameSize: 1000,
+      units: { Halberdiers: 1, 'Not A Unit': 3 },
+      upgrades: {},
+    };
+    expect(decodeList(encodeList(dirty, maps), maps)).toEqual({
+      name: '',
+      gameSize: 1000,
+      units: { Halberdiers: 1 },
+      upgrades: {},
+    });
+  });
+
+  it('is materially shorter than the name-based encoding', () => {
+    const idBased = encodeList(snap, maps);
+    const nameBased = btoa(
+      JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: snap.units, up: snap.upgrades }),
+    );
+    expect(idBased.length).toBeLessThan(nameBased.length);
   });
 
   it('returns null for garbage', () => {
-    expect(decodeList('not-base64!!')).toBeNull();
-    expect(decodeList('')).toBeNull();
+    expect(decodeList('not-base64!!', maps)).toBeNull();
+    expect(decodeList('', maps)).toBeNull();
   });
 
   it('returns null for a wrong version', () => {
-    const bad = btoa(JSON.stringify({ v: 99, g: 2000, u: {}, up: {} }));
-    expect(decodeList(bad)).toBeNull();
+    const bad = btoa(JSON.stringify({ v: 99, n: '', g: 2000, u: {}, up: {} }));
+    expect(decodeList(bad, maps)).toBeNull();
   });
 });
 
 describe('localStorage persistence', () => {
   beforeEach(() => localStorage.clear());
-
-  const snap: ListSnapshot = { gameSize: 1000, units: { General: 1 }, upgrades: {} };
 
   it('saves and loads per army', () => {
     saveList('empire', snap);

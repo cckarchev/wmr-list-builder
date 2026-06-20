@@ -162,6 +162,7 @@ describe('applyList', () => {
   it('restores counts and gameSize, ignoring unknown ids', () => {
     get().setArmy('empire');
     get().applyList({
+      name: '',
       gameSize: 1000,
       units: { Knights: 2, NotAUnit: 9 },
       upgrades: {},

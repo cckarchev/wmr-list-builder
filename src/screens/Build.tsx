@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
 import { groupRosterUnits } from '../store/selectors';
 import { focusRing } from '../theme/focusRing';
-import { loadList, saveList, decodeList } from '../store/persistence';
+import { loadList, saveList, decodeList, buildCodeMaps } from '../store/persistence';
+import { loadArmy } from '../data/loadArmy';
 import { snapshotOf } from '../store/snapshot';
 import ChevronMark from '../components/ui/ChevronMark';
 import UnitCard from '../components/army/UnitCard';
@@ -235,6 +236,7 @@ export default function Build() {
   const armyIdInStore = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const gameSize = useArmyStore((s) => s.gameSize);
+  const label = useArmyStore((s) => s.label);
   const setArmy = useArmyStore((s) => s.setArmy);
   const applyList = useArmyStore((s) => s.applyList);
   const [searchParams] = useSearchParams();
@@ -246,15 +248,16 @@ export default function Build() {
     if (!armyId || armyIdInStore === armyId) return;
     setArmy(armyId);
     const fromUrl = searchParams.get('list');
-    const snap = (fromUrl && decodeList(fromUrl)) || loadList(armyId);
+    const maps = buildCodeMaps(loadArmy(armyId));
+    const snap = (fromUrl && decodeList(fromUrl, maps)) || loadList(armyId);
     if (snap) applyList(snap);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [armyId, armyIdInStore, setArmy]);
 
   // Auto-save the current list whenever it changes.
   useEffect(() => {
-    if (armyIdInStore) saveList(armyIdInStore, snapshotOf({ gameSize, units }));
-  }, [armyIdInStore, gameSize, units]);
+    if (armyIdInStore) saveList(armyIdInStore, snapshotOf({ gameSize, units, label }));
+  }, [armyIdInStore, gameSize, units, label]);
 
   const [search, setSearch] = useState('');
   const [activeType, setActiveType] = useState<string | null>(null);

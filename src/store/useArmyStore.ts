@@ -211,8 +211,9 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
     }),
 
   applyList: (snap) => {
-    const { setGameSize, setUnitNumber, setUnitUpgradeNumber, units } = get();
+    const { setGameSize, setLabel, setUnitNumber, setUnitUpgradeNumber, units } = get();
     setGameSize(snap.gameSize);
+    setLabel(snap.name);
     for (const [unitID, n] of Object.entries(snap.units)) {
       if (units[unitID]) setUnitNumber(unitID, n);
     }

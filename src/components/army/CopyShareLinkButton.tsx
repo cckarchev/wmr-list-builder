@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
 import { useArmyStore } from '../../store/useArmyStore';
-import { encodeList } from '../../store/persistence';
+import { encodeList, buildCodeMaps } from '../../store/persistence';
+import { loadArmy } from '../../data/loadArmy';
 import { snapshotOf } from '../../store/snapshot';
 import { getEmbedBase } from '../../store/embed';
 
@@ -36,11 +37,13 @@ export default function CopyShareLinkButton() {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
+  const label = useArmyStore((s) => s.label);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     if (!armyId) return;
-    const encoded = encodeList(snapshotOf({ gameSize, units }));
+    const maps = buildCodeMaps(loadArmy(armyId));
+    const encoded = encodeList(snapshotOf({ gameSize, units, label }), maps);
     const base = getEmbedBase();
     let url: string;
     if (base) {
