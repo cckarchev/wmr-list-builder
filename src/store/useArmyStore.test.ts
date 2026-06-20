@@ -186,3 +186,18 @@ describe('force limits', () => {
     expect(get().units['Goblin Warboss'].number).toBe(1);
   });
 });
+
+describe('loadWarning', () => {
+  it('setLoadWarning sets it and setArmy clears it', () => {
+    get().setLoadWarning('boom');
+    expect(get().loadWarning).toBe('boom');
+    get().setArmy('empire');
+    expect(get().loadWarning).toBeNull();
+  });
+
+  it('reset clears it', () => {
+    get().setLoadWarning('boom');
+    get().reset();
+    expect(get().loadWarning).toBeNull();
+  });
+});

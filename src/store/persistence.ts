@@ -86,14 +86,23 @@ export function encodeList(snap: ListSnapshot, maps: ArmyCodeMaps): string {
   return toBase64Url(JSON.stringify(wire));
 }
 
-export function decodeList(s: string, maps: ArmyCodeMaps): ListSnapshot | null {
+// Shared parse/map core for both the localStorage decoder and the share decoder.
+// Returns null only when the blob is unparseable or the wire is the wrong shape;
+// `encodedUnitCount` is the number of unit entries the wire carried (before
+// mapping), so callers can tell "wrong army" (had entries, none resolved) apart
+// from "genuinely empty".
+function parseWire(
+  s: string,
+  maps: ArmyCodeMaps,
+): { snapshot: ListSnapshot; encodedUnitCount: number } | null {
   if (!s) return null;
   try {
     const wire = JSON.parse(fromBase64Url(s)) as Wire;
     if (wire.v !== VERSION || typeof wire.g !== 'number') return null;
 
+    const wireUnits = wire.u ?? {};
     const units: Record<string, number> = {};
-    for (const [idStr, count] of Object.entries(wire.u ?? {})) {
+    for (const [idStr, count] of Object.entries(wireUnits)) {
       const name = maps.unitNameById.get(Number(idStr));
       if (name !== undefined) units[name] = count;
     }
@@ -110,10 +119,32 @@ export function decodeList(s: string, maps: ArmyCodeMaps): ListSnapshot | null {
       upgrades[unitName] = inner;
     }
 
-    return { name: wire.n ?? '', gameSize: wire.g, units, upgrades };
+    return {
+      snapshot: { name: wire.n ?? '', gameSize: wire.g, units, upgrades },
+      encodedUnitCount: Object.keys(wireUnits).length,
+    };
   } catch {
     return null;
   }
+}
+
+export function decodeList(s: string, maps: ArmyCodeMaps): ListSnapshot | null {
+  return parseWire(s, maps)?.snapshot ?? null;
+}
+
+export type DecodedShare = { ok: true; snapshot: ListSnapshot } | { ok: false };
+
+// Decode a shared (?list=) blob, distinguishing corrupt input from a valid one.
+// Corrupt = unparseable/wrong-version (parseWire null) OR the wire carried unit
+// entries but none resolved against this army (wrong-army link). A genuinely
+// empty shared list (no unit entries) is ok.
+export function decodeShare(s: string, maps: ArmyCodeMaps): DecodedShare {
+  const r = parseWire(s, maps);
+  if (!r) return { ok: false };
+  if (r.encodedUnitCount > 0 && Object.keys(r.snapshot.units).length === 0) {
+    return { ok: false };
+  }
+  return { ok: true, snapshot: r.snapshot };
 }
 
 export function saveList(armyId: string, snap: ListSnapshot): void {

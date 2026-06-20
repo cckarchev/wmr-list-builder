@@ -8,6 +8,8 @@ import { render } from '@testing-library/react';
 import { theme } from '../theme/theme';
 import Build from './Build';
 import { useArmyStore } from '../store/useArmyStore';
+import { encodeList, buildCodeMaps, saveList } from '../store/persistence';
+import { loadArmy } from '../data/loadArmy';
 
 function renderBuild(path = '/build/goblin') {
   return render(
@@ -197,6 +199,41 @@ describe('selected-only filter', () => {
     // Auto-included Goblins remain; the unselected Squig Herd is filtered out.
     expect(within(roster).getByText('Goblins')).toBeInTheDocument();
     expect(within(roster).queryByText('Squig Herd')).not.toBeInTheDocument();
+  });
+});
+
+describe('corrupt shared list', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('warns and ignores the saved list when ?list= is corrupt', async () => {
+    // Seed a saved list that, if applied, would change the points away from the
+    // goblin force-minimum default (560).
+    saveList('goblin', { name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} });
+
+    renderBuild('/build/goblin?list=notjson');
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(/couldn.t be loaded/i);
+    const bar = screen.getByTestId('points-bar');
+    // 560 = goblin default force-minimum; neither the corrupt blob nor the saved
+    // 20-Goblins list was applied.
+    expect(within(bar).getByTestId('points-total').textContent).toBe('560');
+  });
+
+  it('applies a valid ?list= without warning', async () => {
+    const maps = buildCodeMaps(loadArmy('goblin'));
+    const blob = encodeList({ name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} }, maps);
+
+    renderBuild(`/build/goblin?list=${blob}`);
+
+    await screen.findByText('Goblin');
+    expect(screen.queryByRole('alert')).toBeNull();
+    const bar = screen.getByTestId('points-bar');
+    // Goblins raised to 20 → points differ from the 560 default, proving the
+    // shared list was applied.
+    expect(within(bar).getByTestId('points-total').textContent).not.toBe('560');
   });
 });
 

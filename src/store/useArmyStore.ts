@@ -34,6 +34,7 @@ export interface ArmyState {
   printableItems: PrintableItem[];
   errors: ValidationError[];
   gameSize: number;
+  loadWarning: string | null;
 
   // actions
   setArmy: (id: string) => void;
@@ -41,6 +42,7 @@ export interface ArmyState {
   setUnitUpgradeNumber: (unitID: string, upgradeID: string, number: number) => void;
   setLabel: (label: string) => void;
   setGameSize: (n: number) => void;
+  setLoadWarning: (msg: string | null) => void;
   applyList: (snap: ListSnapshot) => void;
   addPrintItem: (index: number) => void;
   removePrintItem: (index: number) => void;
@@ -62,6 +64,7 @@ interface InitialData {
   printableItems: PrintableItem[];
   errors: ValidationError[];
   gameSize: number;
+  loadWarning: string | null;
 }
 
 function emptyData(): InitialData {
@@ -80,6 +83,7 @@ function emptyData(): InitialData {
     printableItems: [],
     errors: [],
     gameSize: DEFAULT_GAME_SIZE,
+    loadWarning: null,
   };
 }
 
@@ -137,6 +141,7 @@ function initializeState(id: string): InitialData {
     printableItems,
     errors: validate(units, upgrades, DEFAULT_GAME_SIZE),
     gameSize: DEFAULT_GAME_SIZE,
+    loadWarning: null,
   };
 }
 
@@ -202,6 +207,8 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
   },
 
   setLabel: (label) => set({ label }),
+
+  setLoadWarning: (loadWarning) => set({ loadWarning }),
 
   setGameSize: (n) =>
     set((state) => {

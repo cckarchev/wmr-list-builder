@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
 import { groupRosterUnits } from '../store/selectors';
 import { focusRing } from '../theme/focusRing';
-import { loadList, saveList, decodeList, buildCodeMaps } from '../store/persistence';
+import { loadList, saveList, decodeShare, buildCodeMaps } from '../store/persistence';
 import { loadArmy } from '../data/loadArmy';
 import { snapshotOf } from '../store/snapshot';
 import ChevronMark from '../components/ui/ChevronMark';
@@ -239,6 +239,7 @@ export default function Build() {
   const label = useArmyStore((s) => s.label);
   const setArmy = useArmyStore((s) => s.setArmy);
   const applyList = useArmyStore((s) => s.applyList);
+  const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
   const [searchParams] = useSearchParams();
 
   // Only (re)initialize when switching to a different army, so returning to the
@@ -246,11 +247,17 @@ export default function Build() {
   // restore from the URL (?list= wins) or from localStorage.
   useEffect(() => {
     if (!armyId || armyIdInStore === armyId) return;
-    setArmy(armyId);
+    setArmy(armyId); // also clears any prior loadWarning
     const fromUrl = searchParams.get('list');
     const maps = buildCodeMaps(loadArmy(armyId));
-    const snap = (fromUrl && decodeList(fromUrl, maps)) || loadList(armyId);
-    if (snap) applyList(snap);
+    if (fromUrl) {
+      const result = decodeShare(fromUrl, maps);
+      if (result.ok) applyList(result.snapshot);
+      else setLoadWarning('This shared list couldn’t be loaded. The link looks corrupted.');
+    } else {
+      const saved = loadList(armyId);
+      if (saved) applyList(saved);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [armyId, armyIdInStore, setArmy]);
 

@@ -246,11 +246,35 @@ const GlobalError = styled.p`
   color: ${({ theme }) => theme.color.semantic.error};
 `;
 
+const WarningBanner = styled.div`
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  margin: 0;
+  font-family: ${({ theme }) => theme.font.body};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.semantic.warning};
+`;
+
+const WarningDismiss = styled.button`
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  line-height: 1;
+  padding: 0;
+`;
+
 export default function BuildHeader() {
   const army = useArmyStore((s) => s.army);
   const armyId = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
+  const loadWarning = useArmyStore((s) => s.loadWarning);
+  const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
   const gameSize = useArmyStore((s) => s.gameSize);
   const setGameSize = useArmyStore((s) => s.setGameSize);
 
@@ -388,6 +412,18 @@ export default function BuildHeader() {
         {globals.map((e, i) => (
           <GlobalError key={i}>{e.message}</GlobalError>
         ))}
+        {loadWarning && (
+          <WarningBanner role="alert">
+            {loadWarning}
+            <WarningDismiss
+              type="button"
+              aria-label="Dismiss warning"
+              onClick={() => setLoadWarning(null)}
+            >
+              ✕
+            </WarningDismiss>
+          </WarningBanner>
+        )}
       </Strip>
     </Header>
   );
