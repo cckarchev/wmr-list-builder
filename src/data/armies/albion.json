@@ -5,6 +5,7 @@
   "order": 0,
   "units": {
     "Warriors": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Slingers": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": "2/1",
@@ -26,6 +28,7 @@
       "max": 6
     },
     "Ogres": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": 4,
@@ -36,6 +39,7 @@
       "max": 2
     },
     "Wolfhounds": {
+      "id": 3,
       "order": 3,
       "type": "Cavalry",
       "attack": 3,
@@ -45,6 +49,7 @@
       "max": 6
     },
     "Riders": {
+      "id": 4,
       "order": 4,
       "type": "Cavalry",
       "attack": 3,
@@ -55,6 +60,7 @@
       "max": 4
     },
     "Chariots": {
+      "id": 5,
       "order": 5,
       "type": "Chariot",
       "attack": 3,
@@ -66,6 +72,7 @@
       "max": 4
     },
     "Giant": {
+      "id": 6,
       "order": 6,
       "type": "Monster",
       "attack": 8,
@@ -76,6 +83,7 @@
       "max": 1
     },
     "Giant Eagles": {
+      "id": 7,
       "order": 7,
       "type": "Monster",
       "attack": 2,
@@ -86,6 +94,7 @@
       "max": 1
     },
     "Fenbeast": {
+      "id": 8,
       "order": 8,
       "type": "Monster",
       "attack": 6,
@@ -95,9 +104,12 @@
       "points": 0,
       "max": 1,
       "noCount": true,
-      "requiredUnits": ["Druid"]
+      "requiredUnits": [
+        "Druid"
+      ]
     },
     "General": {
+      "id": 9,
       "order": 9,
       "type": "General",
       "attack": "+2",
@@ -106,9 +118,12 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Chariot"]
+      "upgrades": [
+        "Chariot"
+      ]
     },
     "Hero": {
+      "id": 10,
       "order": 10,
       "type": "Hero",
       "attack": "+1",
@@ -116,9 +131,12 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Chariot"]
+      "upgrades": [
+        "Chariot"
+      ]
     },
     "Druid": {
+      "id": 11,
       "order": 11,
       "type": "Wizard",
       "attack": "+0",
@@ -126,11 +144,15 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Giant Eagle", "Chariot"]
+      "upgrades": [
+        "Giant Eagle",
+        "Chariot"
+      ]
     }
   },
   "upgrades": {
     "Giant Eagle": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -138,6 +160,7 @@
       "max": 1
     },
     "Chariot": {
+      "id": 1,
       "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -158,7 +181,9 @@
     },
     "Giant Eagles": {
       "order": 3,
-      "text": ["Giant Eagles can fly."]
+      "text": [
+        "Giant Eagles can fly."
+      ]
     },
     "Giant Eagle": {
       "order": 4,

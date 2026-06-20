@@ -5,6 +5,7 @@
   "order": 5,
   "units": {
     "Gor": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 4,
@@ -13,9 +14,12 @@
       "size": 3,
       "points": 60,
       "min": 2,
-      "specialRules": ["Gor/Ungor"]
+      "specialRules": [
+        "Gor/Ungor"
+      ]
     },
     "Ungor": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -24,9 +28,12 @@
       "size": 3,
       "points": 45,
       "min": 2,
-      "specialRules": ["Gor/Ungor"]
+      "specialRules": [
+        "Gor/Ungor"
+      ]
     },
     "Bestigors": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": 4,
@@ -37,6 +44,7 @@
       "max": 2
     },
     "Minotaurs": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 5,
@@ -46,6 +54,7 @@
       "max": 2
     },
     "Centigors": {
+      "id": 4,
       "order": 4,
       "type": "Cavalry",
       "attack": "3/1",
@@ -57,6 +66,7 @@
       "max": 2
     },
     "Chaos Hounds": {
+      "id": 5,
       "order": 5,
       "type": "Cavalry",
       "attack": 3,
@@ -66,6 +76,7 @@
       "max": 6
     },
     "Tuskgor Chariots": {
+      "id": 6,
       "order": 6,
       "type": "Chariot",
       "attack": 3,
@@ -76,6 +87,7 @@
       "max": 4
     },
     "Dragon Ogres": {
+      "id": 7,
       "order": 7,
       "type": "Monster",
       "attack": 6,
@@ -86,6 +98,7 @@
       "max": 1
     },
     "Chaos Spawn": {
+      "id": 8,
       "order": 8,
       "type": "Monster",
       "attack": "3/3",
@@ -97,6 +110,7 @@
       "max": 2
     },
     "Dragon Ogre Shaggoth": {
+      "id": 9,
       "order": 9,
       "type": "Monster",
       "attack": 8,
@@ -107,6 +121,7 @@
       "max": 1
     },
     "Beastlord": {
+      "id": 10,
       "order": 10,
       "type": "General",
       "attack": "+2",
@@ -115,9 +130,12 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Tuskgor Chariot"]
+      "upgrades": [
+        "Tuskgor Chariot"
+      ]
     },
     "Doombull": {
+      "id": 11,
       "order": 11,
       "type": "Hero",
       "attack": "+2",
@@ -127,6 +145,7 @@
       "armyMax": 1
     },
     "Wargor": {
+      "id": 12,
       "order": 12,
       "type": "Hero",
       "attack": "+1",
@@ -134,9 +153,12 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Tuskgor Chariot"]
+      "upgrades": [
+        "Tuskgor Chariot"
+      ]
     },
     "Bray Shaman": {
+      "id": 13,
       "order": 13,
       "type": "Wizard",
       "attack": "+0",
@@ -148,6 +170,7 @@
   },
   "upgrades": {
     "Tuskgor Chariot": {
+      "id": 0,
       "order": 0,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -190,7 +213,9 @@
     },
     "Dragon Ogres": {
       "order": 4,
-      "text": ["Dragon Ogres are immune to terror."]
+      "text": [
+        "Dragon Ogres are immune to terror."
+      ]
     },
     "Chaos Spawn": {
       "order": 5,

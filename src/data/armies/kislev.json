@@ -5,6 +5,7 @@
   "order": 1,
   "units": {
     "Winged Lancers": {
+      "id": 0,
       "order": 0,
       "type": "Cavalry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "max": 3
     },
     "Horse Archers": {
+      "id": 1,
       "order": 1,
       "type": "Cavalry",
       "attack": "3/1",
@@ -24,9 +26,12 @@
       "size": 3,
       "points": 75,
       "min": 2,
-      "specialRules": ["Horse Archers, Cossacks"]
+      "specialRules": [
+        "Horse Archers, Cossacks"
+      ]
     },
     "Cossacks": {
+      "id": 2,
       "order": 2,
       "type": "Cavalry",
       "attack": "3/1",
@@ -36,9 +41,12 @@
       "size": 3,
       "points": 95,
       "max": 2,
-      "specialRules": ["Horse Archers, Cossacks"]
+      "specialRules": [
+        "Horse Archers, Cossacks"
+      ]
     },
     "Bowmen": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": "3/1",
@@ -48,6 +56,7 @@
       "points": 55
     },
     "Red Guard": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": "3/1",
@@ -59,6 +68,7 @@
       "max": 1
     },
     "Axemen": {
+      "id": 5,
       "order": 5,
       "type": "Infantry",
       "attack": 3,
@@ -67,9 +77,12 @@
       "size": 3,
       "points": 45,
       "min": 2,
-      "upgrades": ["Bowmen"]
+      "upgrades": [
+        "Bowmen"
+      ]
     },
     "Bears": {
+      "id": 6,
       "order": 6,
       "type": "Infantry",
       "attack": 5,
@@ -79,6 +92,7 @@
       "max": 1
     },
     "War Wagon": {
+      "id": 7,
       "order": 7,
       "type": "Artillery",
       "attack": "4/4",
@@ -90,6 +104,7 @@
       "max": 1
     },
     "General": {
+      "id": 8,
       "order": 8,
       "type": "General",
       "attack": "+2",
@@ -98,9 +113,13 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Bear", "Tzarina"]
+      "upgrades": [
+        "Bear",
+        "Tzarina"
+      ]
     },
     "Hero": {
+      "id": 9,
       "order": 9,
       "type": "Hero",
       "attack": "+1",
@@ -108,9 +127,12 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Bear"]
+      "upgrades": [
+        "Bear"
+      ]
     },
     "Shaman": {
+      "id": 10,
       "order": 10,
       "type": "Wizard",
       "attack": "+0",
@@ -118,19 +140,26 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Bear", "Yozhin"]
+      "upgrades": [
+        "Bear",
+        "Yozhin"
+      ]
     }
   },
   "upgrades": {
     "Bear": {
+      "id": 0,
       "order": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
       "max": 1,
-      "specialRules": ["Bear Mount"]
+      "specialRules": [
+        "Bear Mount"
+      ]
     },
     "Yozhin": {
+      "id": 1,
       "order": 1,
       "type": "Special Mount",
       "attack": "+1",
@@ -138,6 +167,7 @@
       "armyMax": 1
     },
     "Tzarina": {
+      "id": 2,
       "order": 2,
       "type": "Special",
       "points": "+25",
@@ -151,6 +181,7 @@
       ]
     },
     "Bowmen": {
+      "id": 3,
       "order": 3,
       "type": "Special",
       "attack": "3/1",

@@ -5,6 +5,7 @@
   "order": 2,
   "units": {
     "Chaos Warriors": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 4,
@@ -15,6 +16,7 @@
       "min": 1
     },
     "Chaos Marauders": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": 3,
@@ -25,6 +27,7 @@
       "min": 1
     },
     "Ogres": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": 4,
@@ -35,6 +38,7 @@
       "max": 1
     },
     "Trolls": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 5,
@@ -45,6 +49,7 @@
       "max": 3
     },
     "Marauder Horsemen": {
+      "id": 4,
       "order": 4,
       "type": "Cavalry",
       "attack": 3,
@@ -55,6 +60,7 @@
       "max": 4
     },
     "Chaos Knights": {
+      "id": 5,
       "order": 5,
       "type": "Cavalry",
       "attack": 4,
@@ -65,6 +71,7 @@
       "max": 2
     },
     "Chaos Hounds": {
+      "id": 6,
       "order": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -74,6 +81,7 @@
       "max": 2
     },
     "Chaos Chariots": {
+      "id": 7,
       "order": 7,
       "type": "Chariot",
       "attack": 3,
@@ -84,6 +92,7 @@
       "max": 3
     },
     "Harpies": {
+      "id": 8,
       "order": 8,
       "type": "Monster",
       "attack": 2,
@@ -94,6 +103,7 @@
       "max": 1
     },
     "Dragon Ogres": {
+      "id": 9,
       "order": 9,
       "type": "Monster",
       "attack": 6,
@@ -104,6 +114,7 @@
       "max": 1
     },
     "Chaos Spawn": {
+      "id": 10,
       "order": 10,
       "type": "Monster",
       "attack": "3/3",
@@ -115,6 +126,7 @@
       "max": 2
     },
     "General": {
+      "id": 11,
       "order": 11,
       "type": "General",
       "attack": "+2",
@@ -123,9 +135,13 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": [
+        "Chaos Dragon",
+        "Chariot"
+      ]
     },
     "Hero": {
+      "id": 12,
       "order": 12,
       "type": "Hero",
       "attack": "+1",
@@ -133,9 +149,13 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": [
+        "Chaos Dragon",
+        "Chariot"
+      ]
     },
     "Sorcerer": {
+      "id": 13,
       "order": 13,
       "type": "Wizard",
       "attack": "+1",
@@ -143,11 +163,15 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": [
+        "Chaos Dragon",
+        "Chariot"
+      ]
     }
   },
   "upgrades": {
     "Chaos Dragon": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -155,6 +179,7 @@
       "max": 1
     },
     "Chariot": {
+      "id": 1,
       "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -184,7 +209,9 @@
     },
     "Dragon Ogres": {
       "order": 4,
-      "text": ["Dragon Ogres are immune to terror."]
+      "text": [
+        "Dragon Ogres are immune to terror."
+      ]
     },
     "Chaos Spawn": {
       "order": 5,

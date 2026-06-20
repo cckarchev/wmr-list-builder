@@ -5,6 +5,7 @@
   "order": 8,
   "units": {
     "Ashigaru": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 1
     },
     "Ashigaru Bowmen": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -24,6 +26,7 @@
       "points": 55
     },
     "Ashigaru Teppo": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -33,6 +36,7 @@
       "points": 65
     },
     "Samurai": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 4,
@@ -42,9 +46,12 @@
       "points": 80,
       "min": 2,
       "max": 4,
-      "specialRules": ["Bushido"]
+      "specialRules": [
+        "Bushido"
+      ]
     },
     "Mikata (Ronin & Monks)": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 5,
@@ -52,9 +59,12 @@
       "size": 3,
       "points": 70,
       "max": 2,
-      "specialRules": ["Mikata"]
+      "specialRules": [
+        "Mikata"
+      ]
     },
     "Ninja": {
+      "id": 5,
       "order": 5,
       "type": "Infantry",
       "attack": "3/1",
@@ -66,6 +76,7 @@
       "max": 2
     },
     "Oni": {
+      "id": 6,
       "order": 6,
       "type": "Infantry",
       "attack": 4,
@@ -74,9 +85,12 @@
       "size": 3,
       "points": 110,
       "max": 1,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": [
+        "Temple Daemons"
+      ]
     },
     "Samurai Cavalry": {
+      "id": 7,
       "order": 7,
       "type": "Cavalry",
       "attack": 4,
@@ -85,9 +99,12 @@
       "size": 3,
       "points": 110,
       "max": 3,
-      "specialRules": ["Bushido"]
+      "specialRules": [
+        "Bushido"
+      ]
     },
     "Komainu": {
+      "id": 8,
       "order": 8,
       "type": "Cavalry",
       "attack": 2,
@@ -95,9 +112,12 @@
       "size": 3,
       "points": 40,
       "max": 3,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": [
+        "Temple Daemons"
+      ]
     },
     "Tengu": {
+      "id": 9,
       "order": 9,
       "type": "Monster",
       "attack": 2,
@@ -106,9 +126,12 @@
       "size": 3,
       "points": 80,
       "max": 1,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": [
+        "Temple Daemons"
+      ]
     },
     "Shogun": {
+      "id": 10,
       "order": 10,
       "type": "General",
       "attack": "+2",
@@ -117,9 +140,12 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Tatsu"]
+      "upgrades": [
+        "Tatsu"
+      ]
     },
     "Daimyo": {
+      "id": 11,
       "order": 11,
       "type": "Hero",
       "attack": "+1",
@@ -127,9 +153,12 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Tatsu"]
+      "upgrades": [
+        "Tatsu"
+      ]
     },
     "Shugenja": {
+      "id": 12,
       "order": 12,
       "type": "Hero",
       "attack": "+1",
@@ -137,11 +166,16 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Tatsu", "Shrine", "Scroll of Dispelling"]
+      "upgrades": [
+        "Tatsu",
+        "Shrine",
+        "Scroll of Dispelling"
+      ]
     }
   },
   "upgrades": {
     "Tatsu": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -149,6 +183,7 @@
       "max": 1
     },
     "Shrine": {
+      "id": 1,
       "order": 1,
       "type": "Special",
       "points": "+30",

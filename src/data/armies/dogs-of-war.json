@@ -5,6 +5,7 @@
   "order": 6,
   "units": {
     "Pikemen": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Crossbowmen": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -23,9 +25,12 @@
       "size": 3,
       "points": 55,
       "min": 2,
-      "upgrades": ["Handgunners"]
+      "upgrades": [
+        "Handgunners"
+      ]
     },
     "Handgunners": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -36,6 +41,7 @@
       "max": 2
     },
     "Swordsmen": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 3,
@@ -46,6 +52,7 @@
       "max": 4
     },
     "Ogres": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 4,
@@ -56,6 +63,7 @@
       "max": 1
     },
     "Dwarfs": {
+      "id": 5,
       "order": 5,
       "type": "Infantry",
       "attack": 3,
@@ -66,6 +74,7 @@
       "max": 2
     },
     "Marauders": {
+      "id": 6,
       "order": 6,
       "type": "Infantry",
       "attack": 3,
@@ -76,6 +85,7 @@
       "max": 2
     },
     "Light Cavalry": {
+      "id": 7,
       "order": 7,
       "type": "Cavalry",
       "attack": "3/1",
@@ -87,6 +97,7 @@
       "max": 4
     },
     "Knights": {
+      "id": 8,
       "order": 8,
       "type": "Cavalry",
       "attack": 3,
@@ -97,6 +108,7 @@
       "max": 2
     },
     "Galloper Guns": {
+      "id": 9,
       "order": 9,
       "type": "Artillery",
       "attack": "1/2+bounce",
@@ -105,9 +117,12 @@
       "size": 2,
       "points": 85,
       "max": 1,
-      "specialRules": ["Cannon"]
+      "specialRules": [
+        "Cannon"
+      ]
     },
     "Giant": {
+      "id": 10,
       "order": 10,
       "type": "Monster",
       "attack": 8,
@@ -118,6 +133,7 @@
       "max": 1
     },
     "Birdmen": {
+      "id": 11,
       "order": 11,
       "type": "Infantry",
       "attack": "2/1",
@@ -129,6 +145,7 @@
       "max": 1
     },
     "General": {
+      "id": 12,
       "order": 12,
       "type": "General",
       "attack": "+2",
@@ -137,9 +154,12 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Griffon"]
+      "upgrades": [
+        "Griffon"
+      ]
     },
     "Hero": {
+      "id": 13,
       "order": 13,
       "type": "Hero",
       "attack": "+1",
@@ -147,9 +167,12 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Griffon"]
+      "upgrades": [
+        "Griffon"
+      ]
     },
     "Paymaster": {
+      "id": 14,
       "order": 14,
       "type": "Hero",
       "attack": "+1",
@@ -157,10 +180,15 @@
       "size": 1,
       "points": 80,
       "armyMax": 1,
-      "specialRules": ["Paymaster, Pay Wagon"],
-      "upgrades": ["Pay Wagon"]
+      "specialRules": [
+        "Paymaster, Pay Wagon"
+      ],
+      "upgrades": [
+        "Pay Wagon"
+      ]
     },
     "Wizard": {
+      "id": 15,
       "order": 15,
       "type": "Wizard",
       "attack": "+0",
@@ -168,11 +196,14 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Griffon"]
+      "upgrades": [
+        "Griffon"
+      ]
     }
   },
   "upgrades": {
     "Griffon": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -180,14 +211,18 @@
       "max": 1
     },
     "Pay Wagon": {
+      "id": 1,
       "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+20",
       "armyMax": 1,
-      "specialRules": ["Paymaster, Pay Wagon"]
+      "specialRules": [
+        "Paymaster, Pay Wagon"
+      ]
     },
     "Handgunners": {
+      "id": 2,
       "order": 2,
       "type": "Special",
       "attack": "3/1",
@@ -249,7 +284,9 @@
     },
     "Wizard": {
       "order": 9,
-      "text": ["The Wizard uses the Empire spells."]
+      "text": [
+        "The Wizard uses the Empire spells."
+      ]
     },
     "Griffon": {
       "order": 10,

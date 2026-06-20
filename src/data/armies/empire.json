@@ -5,6 +5,7 @@
   "order": 0,
   "units": {
     "Halberdiers": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Handgunners": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -25,6 +27,7 @@
       "max": 3
     },
     "Crossbowmen": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -33,9 +36,12 @@
       "size": 3,
       "points": 55,
       "min": 2,
-      "upgrades": ["Handgunners"]
+      "upgrades": [
+        "Handgunners"
+      ]
     },
     "Flagellants": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 5,
@@ -45,6 +51,7 @@
       "max": 1
     },
     "Skirmishers": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 4,
@@ -52,11 +59,17 @@
       "armour": "-/6+",
       "size": "+1",
       "points": 20,
-      "augendUnits": ["Halberdiers", "Handgunners", "Crossbowmen", "Flagellants"],
+      "augendUnits": [
+        "Halberdiers",
+        "Handgunners",
+        "Crossbowmen",
+        "Flagellants"
+      ],
       "noCount": true,
       "noMagic": true
     },
     "Knights": {
+      "id": 5,
       "order": 5,
       "type": "Cavalry",
       "attack": 3,
@@ -66,6 +79,7 @@
       "points": 110
     },
     "Pistoliers": {
+      "id": 6,
       "order": 6,
       "type": "Cavalry",
       "attack": "3/1",
@@ -77,6 +91,7 @@
       "max": 4
     },
     "Helblaster": {
+      "id": 7,
       "order": 7,
       "type": "Artillery",
       "attack": "1/8-4-2",
@@ -87,6 +102,7 @@
       "max": 1
     },
     "Cannon": {
+      "id": 8,
       "order": 8,
       "type": "Artillery",
       "attack": "1/2+bounce",
@@ -97,6 +113,7 @@
       "max": 1
     },
     "Steam Tank": {
+      "id": 9,
       "order": 9,
       "type": "Machine",
       "attack": "3/3",
@@ -108,6 +125,7 @@
       "max": 1
     },
     "General": {
+      "id": 10,
       "order": 10,
       "type": "General",
       "attack": "+2",
@@ -116,9 +134,12 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Griffon"]
+      "upgrades": [
+        "Griffon"
+      ]
     },
     "Hero": {
+      "id": 11,
       "order": 11,
       "type": "Hero",
       "attack": "+1",
@@ -126,9 +147,12 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Griffon"]
+      "upgrades": [
+        "Griffon"
+      ]
     },
     "Wizard": {
+      "id": 12,
       "order": 12,
       "type": "Wizard",
       "attack": "+0",
@@ -136,11 +160,15 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Griffon", "War Altar"]
+      "upgrades": [
+        "Griffon",
+        "War Altar"
+      ]
     }
   },
   "upgrades": {
     "Griffon": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -148,6 +176,7 @@
       "max": 1
     },
     "War Altar": {
+      "id": 1,
       "order": 1,
       "type": "Chariot Mount",
       "attack": "+2",
@@ -155,6 +184,7 @@
       "armyMax": 1
     },
     "Handgunners": {
+      "id": 2,
       "order": 2,
       "type": "Special",
       "attack": "3/1",

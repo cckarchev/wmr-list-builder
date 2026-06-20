@@ -1,6 +1,7 @@
 {
   "upgrades": {
     "Battle Banner": {
+      "id": 100,
       "order": "BB",
       "type": "Magic Standard",
       "points": "+30",
@@ -10,6 +11,7 @@
       ]
     },
     "Banner of Shielding": {
+      "id": 101,
       "order": "BSh",
       "type": "Magic Standard",
       "points": {
@@ -25,12 +27,13 @@
       ]
     },
     "Banner of Fortitude": {
+      "id": 102,
       "order": "BFd",
       "type": "Magic Standard",
       "points": {
-        "4": "+50",
+        "2": "+30",
         "3": "+30",
-        "2": "+30"
+        "4": "+50"
       },
       "pointsValue": "hits",
       "armyMax": 1,
@@ -39,6 +42,7 @@
       ]
     },
     "Banner of Steadfastness": {
+      "id": 103,
       "order": "BSt",
       "type": "Magic Standard",
       "points": {
@@ -53,6 +57,7 @@
       ]
     },
     "Banner of Fortune": {
+      "id": 104,
       "order": "BFn",
       "type": "Magic Standard",
       "points": "+15",
@@ -62,6 +67,7 @@
       ]
     },
     "Sword of Destruction": {
+      "id": 105,
       "order": "SwD",
       "type": "Magic Weapon",
       "points": "+10",
@@ -71,6 +77,7 @@
       ]
     },
     "Sword of Fate": {
+      "id": 106,
       "order": "SwF",
       "type": "Magic Weapon",
       "points": "+5",
@@ -80,6 +87,7 @@
       ]
     },
     "Sword of Cleaving": {
+      "id": 107,
       "order": "SwC",
       "type": "Magic Weapon",
       "points": "+10",
@@ -89,6 +97,7 @@
       ]
     },
     "Sword of Might": {
+      "id": 108,
       "order": "SwM",
       "type": "Magic Weapon",
       "points": "+10",
@@ -98,6 +107,7 @@
       ]
     },
     "Crown of Command": {
+      "id": 109,
       "order": "CC",
       "type": "Device of Power",
       "points": "+70",
@@ -107,6 +117,7 @@
       ]
     },
     "Helm of Dominion": {
+      "id": 110,
       "order": "HD",
       "type": "Device of Power",
       "points": "+40",
@@ -116,6 +127,7 @@
       ]
     },
     "Orb of Majesty": {
+      "id": 111,
       "order": "OM",
       "type": "Device of Power",
       "points": "+30",
@@ -127,6 +139,7 @@
       ]
     },
     "Ring of Magic": {
+      "id": 112,
       "order": "RM",
       "type": "Device of Power",
       "points": "+30",
@@ -136,6 +149,7 @@
       ]
     },
     "Staff of Spellbinding": {
+      "id": 113,
       "order": "StS",
       "type": "Device of Power",
       "points": "+30",
@@ -145,6 +159,7 @@
       ]
     },
     "Sceptre of Sovereignty": {
+      "id": 114,
       "order": "ScS",
       "type": "Device of Power",
       "points": "+30",
@@ -154,6 +169,7 @@
       ]
     },
     "Scroll of Dispelling": {
+      "id": 115,
       "order": "ScD",
       "type": "Device of Power",
       "points": "+20",
@@ -163,6 +179,7 @@
       ]
     },
     "Wand of Power": {
+      "id": 116,
       "order": "WP",
       "type": "Device of Power",
       "points": "+10",
@@ -172,6 +189,7 @@
       ]
     },
     "Rod of Repetition": {
+      "id": 117,
       "order": "RR",
       "type": "Device of Power",
       "points": "+10",
@@ -185,30 +203,71 @@
   },
   "upgradeConstraints": [
     {
-      "unitType": ["Infantry", "Cavalry", "Chariot"],
-      "upgrades": ["Battle Banner"],
+      "unitType": [
+        "Infantry",
+        "Cavalry",
+        "Chariot"
+      ],
+      "upgrades": [
+        "Battle Banner"
+      ],
       "magic": true
     },
     {
-      "unitArmour": ["-", "6+", "5+", "4+"],
-      "unitType": ["Infantry", "Cavalry", "Chariot"],
-      "upgrades": ["Banner of Shielding"],
+      "unitArmour": [
+        "-",
+        "6+",
+        "5+",
+        "4+"
+      ],
+      "unitType": [
+        "Infantry",
+        "Cavalry",
+        "Chariot"
+      ],
+      "upgrades": [
+        "Banner of Shielding"
+      ],
       "magic": true
     },
     {
-      "unitHits": [2, 3, 4],
-      "unitType": ["Infantry", "Cavalry", "Chariot"],
-      "upgrades": ["Banner of Fortitude"],
+      "unitHits": [
+        2,
+        3,
+        4
+      ],
+      "unitType": [
+        "Infantry",
+        "Cavalry",
+        "Chariot"
+      ],
+      "upgrades": [
+        "Banner of Fortitude"
+      ],
       "magic": true
     },
     {
-      "unitArmour": ["6+", "5+", "4+"],
-      "unitType": ["Infantry", "Cavalry", "Chariot"],
-      "upgrades": ["Banner of Steadfastness"],
+      "unitArmour": [
+        "6+",
+        "5+",
+        "4+"
+      ],
+      "unitType": [
+        "Infantry",
+        "Cavalry",
+        "Chariot"
+      ],
+      "upgrades": [
+        "Banner of Steadfastness"
+      ],
       "magic": true
     },
     {
-      "unitType": ["Infantry", "Cavalry", "Chariot"],
+      "unitType": [
+        "Infantry",
+        "Cavalry",
+        "Chariot"
+      ],
       "upgrades": [
         "Banner of Fortune",
         "Sword of Destruction",
@@ -219,12 +278,23 @@
       "magic": true
     },
     {
-      "unitType": ["General", "Hero", "Wizard"],
-      "upgrades": ["Sword of Destruction", "Sword of Fate", "Sword of Cleaving", "Sword of Might"],
+      "unitType": [
+        "General",
+        "Hero",
+        "Wizard"
+      ],
+      "upgrades": [
+        "Sword of Destruction",
+        "Sword of Fate",
+        "Sword of Cleaving",
+        "Sword of Might"
+      ],
       "magic": true
     },
     {
-      "unitType": ["General"],
+      "unitType": [
+        "General"
+      ],
       "upgrades": [
         "Crown of Command",
         "Helm of Dominion",
@@ -234,7 +304,9 @@
       "magic": true
     },
     {
-      "unitType": ["Wizard"],
+      "unitType": [
+        "Wizard"
+      ],
       "upgrades": [
         "Ring of Magic",
         "Staff of Spellbinding",

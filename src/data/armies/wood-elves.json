@@ -5,6 +5,7 @@
   "order": 4,
   "units": {
     "Glade Guard": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": "3/1",
@@ -16,6 +17,7 @@
       "max": 4
     },
     "Eternal Guard": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": 3,
@@ -26,6 +28,7 @@
       "max": 3
     },
     "Wardancers": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": 4,
@@ -34,11 +37,15 @@
       "size": "+1",
       "points": 25,
       "max": 4,
-      "augendUnits": ["Glade Guard", "Eternal Guard"],
+      "augendUnits": [
+        "Glade Guard",
+        "Eternal Guard"
+      ],
       "noCount": true,
       "noMagic": true
     },
     "Waywatchers": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": "1/2",
@@ -49,6 +56,7 @@
       "max": 1
     },
     "Dryads": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 4,
@@ -57,9 +65,12 @@
       "size": 3,
       "points": 60,
       "min": 1,
-      "specialRules": ["Forest Spirits"]
+      "specialRules": [
+        "Forest Spirits"
+      ]
     },
     "Glade Riders": {
+      "id": 5,
       "order": 5,
       "type": "Cavalry",
       "attack": "3/1",
@@ -71,6 +82,7 @@
       "max": 3
     },
     "Wild Riders": {
+      "id": 6,
       "order": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -79,9 +91,12 @@
       "size": 3,
       "points": 110,
       "max": 2,
-      "specialRules": ["Forest Spirits"]
+      "specialRules": [
+        "Forest Spirits"
+      ]
     },
     "Warhawk Riders": {
+      "id": 7,
       "order": 7,
       "type": "Monster",
       "attack": "2/1",
@@ -93,6 +108,7 @@
       "max": 1
     },
     "Treekin": {
+      "id": 8,
       "order": 8,
       "type": "Infantry",
       "attack": 4,
@@ -101,9 +117,12 @@
       "size": 3,
       "points": 110,
       "max": 2,
-      "specialRules": ["Forest Spirits"]
+      "specialRules": [
+        "Forest Spirits"
+      ]
     },
     "Treeman": {
+      "id": 9,
       "order": 9,
       "type": "Monster",
       "attack": 6,
@@ -112,9 +131,12 @@
       "size": 1,
       "points": 130,
       "max": 1,
-      "specialRules": ["Forest Spirits"]
+      "specialRules": [
+        "Forest Spirits"
+      ]
     },
     "General": {
+      "id": 10,
       "order": 10,
       "type": "General",
       "attack": "+2",
@@ -123,9 +145,14 @@
       "points": 155,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
+      "upgrades": [
+        "Giant Stag",
+        "Warhawk",
+        "Forest Dragon"
+      ]
     },
     "Noble": {
+      "id": 11,
       "order": 11,
       "type": "Hero",
       "attack": "+1",
@@ -133,9 +160,14 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
+      "upgrades": [
+        "Giant Stag",
+        "Warhawk",
+        "Forest Dragon"
+      ]
     },
     "Treeman Ancient": {
+      "id": 12,
       "order": 12,
       "type": "Hero",
       "attack": "+3",
@@ -146,6 +178,7 @@
       "noMagic": true
     },
     "Branchwraith": {
+      "id": 13,
       "order": 13,
       "type": "Hero",
       "attack": "+2",
@@ -156,6 +189,7 @@
       "noMagic": true
     },
     "Spell Weaver": {
+      "id": 14,
       "order": 14,
       "type": "Wizard",
       "attack": "+0",
@@ -163,11 +197,17 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Giant Stag", "Unicorn", "Warhawk", "Forest Dragon"]
+      "upgrades": [
+        "Giant Stag",
+        "Unicorn",
+        "Warhawk",
+        "Forest Dragon"
+      ]
     }
   },
   "upgrades": {
     "Giant Stag": {
+      "id": 0,
       "order": 0,
       "type": "Special Mount",
       "attack": "+1",
@@ -175,6 +215,7 @@
       "max": 1
     },
     "Unicorn": {
+      "id": 1,
       "order": 1,
       "type": "Special Mount",
       "attack": "+1",
@@ -182,6 +223,7 @@
       "max": 1
     },
     "Warhawk": {
+      "id": 2,
       "order": 2,
       "type": "Monstrous Mount",
       "attack": "+1",
@@ -189,6 +231,7 @@
       "max": 1
     },
     "Forest Dragon": {
+      "id": 3,
       "order": 3,
       "type": "Monstrous Mount",
       "attack": "+3",

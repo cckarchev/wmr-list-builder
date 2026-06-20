@@ -5,6 +5,7 @@
   "order": 5,
   "units": {
     "Skeletons": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 2,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Zombies": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": 2,
@@ -24,6 +26,7 @@
       "min": 2
     },
     "Ghouls": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": 4,
@@ -32,6 +35,7 @@
       "points": 55
     },
     "Grave Guard": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 3,
@@ -42,6 +46,7 @@
       "max": 4
     },
     "Ethereal Host": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 3,
@@ -52,6 +57,7 @@
       "noMagic": true
     },
     "Black Knights": {
+      "id": 5,
       "order": 5,
       "type": "Cavalry",
       "attack": 3,
@@ -62,6 +68,7 @@
       "max": 4
     },
     "Dire Wolves": {
+      "id": 6,
       "order": 6,
       "type": "Cavalry",
       "attack": 2,
@@ -72,6 +79,7 @@
       "noMagic": true
     },
     "Fell Bats": {
+      "id": 7,
       "order": 7,
       "type": "Monster",
       "attack": 2,
@@ -82,6 +90,7 @@
       "max": 1
     },
     "Vampire Lord": {
+      "id": 8,
       "order": 8,
       "type": "General",
       "caster": true,
@@ -102,6 +111,7 @@
       ]
     },
     "Vampire": {
+      "id": 9,
       "order": 9,
       "type": "Hero",
       "attack": "+1",
@@ -109,9 +119,13 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Winged Nightmare", "Black Coach"]
+      "upgrades": [
+        "Winged Nightmare",
+        "Black Coach"
+      ]
     },
     "Necromancer": {
+      "id": 10,
       "order": 10,
       "type": "Wizard",
       "attack": "+0",
@@ -119,11 +133,14 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Winged Nightmare"]
+      "upgrades": [
+        "Winged Nightmare"
+      ]
     }
   },
   "upgrades": {
     "Winged Nightmare": {
+      "id": 0,
       "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -131,6 +148,7 @@
       "max": 1
     },
     "Black Coach": {
+      "id": 1,
       "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",

@@ -5,6 +5,7 @@
   "order": 6,
   "units": {
     "Clanrats": {
+      "id": 0,
       "order": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Stormvermin": {
+      "id": 1,
       "order": 1,
       "type": "Infantry",
       "attack": 3,
@@ -25,6 +27,7 @@
       "max": 2
     },
     "Jezzails": {
+      "id": 2,
       "order": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -36,6 +39,7 @@
       "max": 2
     },
     "Plague Monks": {
+      "id": 3,
       "order": 3,
       "type": "Infantry",
       "attack": 5,
@@ -45,6 +49,7 @@
       "max": 2
     },
     "Rat Swarms": {
+      "id": 4,
       "order": 4,
       "type": "Infantry",
       "attack": 2,
@@ -55,6 +60,7 @@
       "noMagic": true
     },
     "Gutter Runners": {
+      "id": 5,
       "order": 5,
       "type": "Infantry",
       "attack": "3/1",
@@ -66,6 +72,7 @@
       "max": 2
     },
     "Rat Ogres": {
+      "id": 6,
       "order": 6,
       "type": "Infantry",
       "attack": 4,
@@ -76,6 +83,7 @@
       "max": 2
     },
     "Warp Lightning Cannon": {
+      "id": 7,
       "order": 7,
       "type": "Artillery",
       "attack": "1/3",
@@ -86,6 +94,7 @@
       "max": 1
     },
     "Doom Wheel": {
+      "id": 8,
       "order": 8,
       "type": "Machine",
       "attack": 5,
@@ -96,6 +105,7 @@
       "max": 1
     },
     "Screaming Bell": {
+      "id": 9,
       "order": 9,
       "type": "Machine",
       "attack": 0,
@@ -106,6 +116,7 @@
       "armyMax": 1
     },
     "Grey Seer": {
+      "id": 10,
       "order": 10,
       "type": "General",
       "caster": true,
@@ -125,6 +136,7 @@
       ]
     },
     "Hero": {
+      "id": 11,
       "order": 11,
       "type": "Hero",
       "attack": "+1",
@@ -132,9 +144,12 @@
       "size": 1,
       "points": 70,
       "max": 2,
-      "upgrades": ["Rat Ogre Bodyguard"]
+      "upgrades": [
+        "Rat Ogre Bodyguard"
+      ]
     },
     "Warlock": {
+      "id": 12,
       "order": 12,
       "type": "Wizard",
       "attack": "+0",
@@ -142,11 +157,14 @@
       "size": 1,
       "points": 30,
       "max": 1,
-      "upgrades": ["Rat Ogre Bodyguard"]
+      "upgrades": [
+        "Rat Ogre Bodyguard"
+      ]
     }
   },
   "upgrades": {
     "Rat Ogre Bodyguard": {
+      "id": 0,
       "order": 0,
       "type": "Special Mount",
       "attack": "+1",
