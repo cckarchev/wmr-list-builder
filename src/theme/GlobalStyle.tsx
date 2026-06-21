@@ -20,11 +20,6 @@ export const GlobalStyle = createGlobalStyle`
   .print-document.font-small p { font-size: 12px; }
   .print-document.font-small table { font-size: 12px; }
 
-  /* Special-rule markers (inline after the unit name) render a notch larger by
-     default to stand out; the Smaller font option drops them back to the
-     surrounding cell size. */
-  .print-document.font-small .special-marker { font-size: inherit; }
-
   /* "Condensed" print option: tighten the vertical spacing throughout for a
      more compact sheet. Applies to both the preview and the print output. */
   .print-document.condensed section { margin-bottom: 8px; padding-bottom: 6px; }
@@ -34,6 +29,9 @@ export const GlobalStyle = createGlobalStyle`
   .print-document.condensed dd,
   .print-document.condensed p { margin-bottom: 4px; }
   .print-document.condensed p { line-height: 1.35; }
+  .print-document.condensed th,
+  .print-document.condensed td { padding-top: 1px; padding-bottom: 1px; }
+  .print-document.condensed .character-table { margin-bottom: 12px; }
 
   @media print {
     @page { margin: 12mm; }
@@ -78,10 +76,5 @@ export const GlobalStyle = createGlobalStyle`
     .print-document.font-small dl,
     .print-document.font-small p { font-size: 11px; }
     .print-document.font-small table { font-size: 8px; }
-
-    /* Special-rule markers a notch above the 8px table text so they pop while
-       scanning the name column; Smaller font restores them to the cell size. */
-    .print-document .special-marker { font-size: 11px; }
-    .print-document.font-small .special-marker { font-size: inherit; }
   }
 `;

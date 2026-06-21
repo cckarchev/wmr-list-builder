@@ -28,7 +28,13 @@ const Table = styled.table`
 // Command. Only the units count toward the break point, so the totals footer
 // lives on the unit table.
 const CharacterTable = styled(Table)`
-  margin-bottom: ${({ theme }) => `${theme.space[5]}px`};
+  /* Fewer columns than the unit table, so let it size to its content and sit
+     centered with gutters on either side rather than stretching full width. The
+     min-width keeps a short roster (brief character names) from collapsing into
+     a cramped sliver. */
+  width: auto;
+  min-width: 60%;
+  margin: 0 auto ${({ theme }) => `${theme.space[5]}px`};
 `;
 
 const CHARACTER_TYPES = new Set(['General', 'Hero', 'Wizard']);
@@ -67,12 +73,10 @@ const Name = styled.span<{ $indent?: boolean }>`
 
 // Special-rule reference markers (e.g. "*1, *3") sit inline right after the unit
 // name so "this unit has special rules" is obvious while scanning the name
-// column, instead of hiding in a far-right column. Bold and a notch larger than
-// the cell text to stand out; the `.special-marker` class lets the print
-// stylesheet restore them to the cell size under the Smaller font option.
+// column, instead of hiding in a far-right column. Same size as the name but
+// bold so they stand out, pushed to the cell's right edge.
 const Special = styled.span`
   margin-left: auto;
-  font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: 700;
   white-space: nowrap;
 `;
@@ -135,7 +139,7 @@ function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: Sta
       <Td>{t.number}</Td>
       <NameCell>
         <Name $indent={isUpgrade}>{name}</Name>
-        {special !== '-' && <Special className="special-marker">{special}</Special>}
+        {special !== '-' && <Special>{special}</Special>}
       </NameCell>
       <TdLeft>{t.type || '-'}</TdLeft>
       <Td>{String(t.attack ?? '-')}</Td>
@@ -206,7 +210,7 @@ export default function Stats() {
   return (
     <TableWrapper>
       {characterEntries.length > 0 && (
-        <CharacterTable>
+        <CharacterTable className="character-table">
           <thead>
             <tr>
               <Th>#</Th>
