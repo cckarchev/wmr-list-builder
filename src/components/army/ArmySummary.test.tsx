@@ -23,6 +23,17 @@ describe('ArmySummary', () => {
     expect(within(region).getByText('Goblins')).toBeInTheDocument();
   });
 
+  it("lists a unit's selected upgrades as sub-lines with quantity", () => {
+    const store = useArmyStore.getState();
+    store.setArmy('goblin');
+    store.setUnitNumber('Goblins', 4);
+    store.setUnitUpgradeNumber('Goblins', 'Squig Herd', 2);
+    renderWithProviders(<ArmySummary />);
+    const region = screen.getByRole('complementary', { name: 'Your Army' });
+    expect(within(region).getByText('Squig Herd')).toBeInTheDocument();
+    expect(within(region).getByText('×2')).toBeInTheDocument();
+  });
+
   it('jumps to a unit card when its row is clicked', async () => {
     const user = userEvent.setup();
     const scrollSpy = vi.fn();

@@ -58,13 +58,12 @@ const Body = styled.div<{ $open: boolean }>`
 
 const Row = styled.button`
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
   width: 100%;
   padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
   background: none;
-  border: 1px solid transparent;
+  border: none;
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.color.text.body};
   font-family: ${({ theme }) => theme.font.body};
@@ -73,15 +72,44 @@ const Row = styled.button`
   cursor: pointer;
 
   &:hover {
-    border-color: ${({ theme }) => theme.color.border.hover};
+    background: ${({ theme }) => theme.color.bg.tint};
   }
 
   ${focusRing}
 `;
 
+const RowTop = styled.span`
+  display: flex;
+  align-items: baseline;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
 const Qty = styled.span`
   font-family: ${({ theme }) => theme.font.mono};
   color: ${({ theme }) => theme.color.text.dim};
+`;
+
+const Upgrades = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+`;
+
+const Upgrade = styled.span`
+  display: flex;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  padding-left: ${({ theme }) => `${theme.space[2]}px`};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.text.dim};
+
+  &::before {
+    content: '+';
+    color: ${({ theme }) => theme.color.border.default};
+  }
+`;
+
+const UpgradeQty = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
 `;
 
 const Pts = styled.span`
@@ -136,13 +164,30 @@ export default function ArmySummary() {
         {selected.length === 0 ? (
           <Empty>No units selected yet.</Empty>
         ) : (
-          selected.map((id) => (
-            <Row key={id} type="button" onClick={() => jumpTo(id)}>
-              <span>{id}</span>
-              <Qty>×{units[id].number}</Qty>
-              <Pts>{units[id].pointsCost} pts</Pts>
-            </Row>
-          ))
+          selected.map((id) => {
+            const chosenUpgrades = Object.entries(units[id].upgrades ?? {}).filter(
+              ([, u]) => u.number > 0,
+            );
+            return (
+              <Row key={id} type="button" onClick={() => jumpTo(id)}>
+                <RowTop>
+                  <span>{id}</span>
+                  <Qty>×{units[id].number}</Qty>
+                  <Pts>{units[id].pointsCost} pts</Pts>
+                </RowTop>
+                {chosenUpgrades.length > 0 && (
+                  <Upgrades>
+                    {chosenUpgrades.map(([upgradeId, u]) => (
+                      <Upgrade key={upgradeId}>
+                        <span>{upgradeId}</span>
+                        {u.number > 1 && <UpgradeQty>×{u.number}</UpgradeQty>}
+                      </Upgrade>
+                    ))}
+                  </Upgrades>
+                )}
+              </Row>
+            );
+          })
         )}
         <Total $over={over}>
           <span>

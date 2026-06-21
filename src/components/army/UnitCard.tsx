@@ -181,7 +181,8 @@ const UpgradesSection = styled.div`
 const UpgradeGroupBlock = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  /* No gap between rows so their left rules join into one continuous line. */
+  gap: 0;
 
   & + & {
     margin-top: ${({ theme }) => `${theme.space[2]}px`};
@@ -189,7 +190,7 @@ const UpgradeGroupBlock = styled.div`
 `;
 
 const UpgradeGroupLabel = styled.h5`
-  margin: 0;
+  margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   letter-spacing: ${({ theme }) => theme.tracking.label};

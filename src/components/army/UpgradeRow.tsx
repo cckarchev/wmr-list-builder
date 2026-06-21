@@ -1,10 +1,14 @@
+import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { resolveUpgradePoints } from '../../store/storeHelpers';
 import { errorsForTarget } from '../../store/selectors';
+import { resolveUpgradeRules } from '../../store/upgradeRules';
 import { minMaxBadge, explainMinMax } from '../../store/minMax';
 import Stepper from '../ui/Stepper';
 import Tooltip from '../ui/Tooltip';
+import Popover from '../ui/Popover';
+import Icon from '../ui/Icon';
 import InlineErrors from './InlineErrors';
 
 interface UpgradeRowProps {
@@ -16,11 +20,13 @@ const Row = styled.div<{ $invalid?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
   border-left: 2px solid
     ${({ theme, $invalid }) => ($invalid ? theme.color.semantic.error : theme.color.border.divider)};
-  border-radius: ${({ theme }) => `0 ${theme.radius.sm} ${theme.radius.sm} 0`};
-  background: ${({ theme }) => theme.color.bg.tint};
+
+  &:hover {
+    background: ${({ theme }) => theme.color.bg.tint};
+  }
 `;
 
 const RowMain = styled.div`
@@ -42,6 +48,10 @@ const UpgradePoints = styled.span`
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
   white-space: nowrap;
+  /* Fixed width, right-aligned, so a shorter cost (e.g. +5pts vs +30pts)
+     doesn't shift the rules icon and limit badge out of their column. */
+  min-width: 3.5rem;
+  text-align: right;
 `;
 
 const Limit = styled.span`
@@ -50,15 +60,44 @@ const Limit = styled.span`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
+const Rule = styled.div`
+  & + & {
+    margin-top: ${({ theme }) => `${theme.space[3]}px`};
+  }
+`;
+
+const RuleName = styled.h4`
+  margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+  font-family: ${({ theme }) => theme.font.display};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.color.text.strong};
+`;
+
+const RuleText = styled.div`
+  font-family: ${({ theme }) => theme.font.body};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.text.body};
+  line-height: 1.4;
+
+  & p {
+    margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+  }
+  & p:last-child {
+    margin-bottom: 0;
+  }
+`;
+
 export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrade = useArmyStore((s) => s.upgrades[upgradeId]);
   const setUnitUpgradeNumber = useArmyStore((s) => s.setUnitUpgradeNumber);
   const gameSize = useArmyStore((s) => s.gameSize);
   const errors = useArmyStore((s) => s.errors);
+  const specialRules = useArmyStore((s) => s.specialRules);
 
   if (!unit || !upgrade) return null;
 
+  const rules = resolveUpgradeRules(upgradeId, upgrade, specialRules);
   const upgradeErrors = errorsForTarget(errors, upgradeId);
 
   const unitUpgrade = unit.upgrades?.[upgradeId];
@@ -86,6 +125,22 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
     <Row $invalid={upgradeErrors.length > 0}>
       <RowMain>
         <UpgradeName>{upgradeId}</UpgradeName>
+        {rules.length > 0 && (
+          <Popover
+            label={`${upgradeId} special rules`}
+            trigger={<Icon name="rules" size={14} />}
+            wide
+          >
+            {rules.map(({ name, rule }) => (
+              <Rule key={name}>
+                <RuleName>{name}</RuleName>
+                <RuleText
+                  dangerouslySetInnerHTML={{ __html: marked(rule.text?.join('\n') ?? '') as string }}
+                />
+              </Rule>
+            ))}
+          </Popover>
+        )}
         {badge && rule && (
           <Tooltip label={rule}>
             <Limit>{badge}</Limit>

@@ -13,7 +13,9 @@ const Page = styled.main`
 const Controls = styled.div`
   position: sticky;
   top: 0;
-  z-index: 10;
+  /* Above the popover/tooltip layer (z-index 30) so open popovers scroll under
+     the controls bar rather than over it; below ConfirmDialog (z-index 100). */
+  z-index: 40;
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
