@@ -33,13 +33,6 @@ const CharacterTable = styled(Table)`
 
 const CHARACTER_TYPES = new Set(['General', 'Hero', 'Wizard']);
 
-const Caption = styled.caption`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  color: ${({ theme }) => theme.color.text.strong};
-  margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
-`;
-
 const Th = styled.th`
   padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
   white-space: nowrap;
@@ -193,11 +186,10 @@ export default function Stats() {
     <TableWrapper>
       {characterEntries.length > 0 && (
         <CharacterTable>
-          <Caption>Characters</Caption>
           <thead>
             <tr>
               <Th>#</Th>
-              <Th>Troop</Th>
+              <Th>Character</Th>
               <Th>Type</Th>
               <Th>Attack</Th>
               <Th>Command</Th>
@@ -210,7 +202,6 @@ export default function Stats() {
       )}
 
       <Table>
-        <Caption>Units</Caption>
         <thead>
           <tr>
             <Th>#</Th>
