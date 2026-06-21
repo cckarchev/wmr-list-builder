@@ -6,6 +6,9 @@ import { renderWithProviders } from '../../test/renderWithProviders';
 import BuildHeader from './BuildHeader';
 import { useArmyStore } from '../../store/useArmyStore';
 import { breakPoint } from '../../store/selectors';
+import { snapshotOf } from '../../store/snapshot';
+import { encodeList, buildCodeMaps } from '../../store/persistence';
+import { loadArmy } from '../../data/loadArmy';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
@@ -69,5 +72,41 @@ describe('BuildHeader export menu', () => {
     await user.click(document.body);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
     expect(menu.queryByRole('menu')).not.toBeInTheDocument();
+  });
+});
+
+describe('BuildHeader list name', () => {
+  it('shows the list name next to the faction when set', () => {
+    useArmyStore.getState().setArmy('bretonnia');
+    useArmyStore.getState().setLabel('Tourney List');
+    renderWithProviders(<BuildHeader />);
+    expect(screen.getByText('Tourney List')).toBeInTheDocument();
+  });
+
+  it('renders Save and Load actions', () => {
+    useArmyStore.getState().setArmy('bretonnia');
+    renderWithProviders(<BuildHeader />);
+    expect(screen.getAllByRole('button', { name: /save/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('button', { name: /load/i }).length).toBeGreaterThan(0);
+  });
+
+  it('marks the list unsaved when it diverges from the saved baseline', () => {
+    useArmyStore.getState().setArmy('bretonnia');
+    useArmyStore.getState().setLabel('Tourney List');
+    useArmyStore.getState().setSavedBaseline(null); // no baseline => dirty
+    renderWithProviders(<BuildHeader />);
+    expect(screen.getByTestId('unsaved-marker')).toBeInTheDocument();
+  });
+
+  it('hides the unsaved marker when the list matches the baseline', () => {
+    useArmyStore.getState().setArmy('bretonnia');
+    useArmyStore.getState().setLabel('Tourney List');
+    const { armyId, gameSize, units, label } = useArmyStore.getState();
+    const maps = buildCodeMaps(loadArmy(armyId!));
+    useArmyStore
+      .getState()
+      .setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));
+    renderWithProviders(<BuildHeader />);
+    expect(screen.queryByTestId('unsaved-marker')).not.toBeInTheDocument();
   });
 });

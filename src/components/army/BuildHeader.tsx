@@ -10,6 +10,9 @@ import Icon from '../ui/Icon';
 import CopyListButton from './CopyListButton';
 import CopyShareLinkButton from './CopyShareLinkButton';
 import ResetListButton from './ResetListButton';
+import SaveListButton from './SaveListButton';
+import LoadListButton from './LoadListButton';
+import { useIsDirty } from '../../store/useIsDirty';
 
 const Header = styled.header`
   position: sticky;
@@ -38,6 +41,18 @@ const ArmyName = styled.h1`
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.xl};
   color: ${({ theme }) => theme.color.accent};
+`;
+
+const ListName = styled.span`
+  display: inline-flex;
+  align-items: center;
+  color: ${({ theme }) => theme.color.text.dim};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+`;
+
+const UnsavedDot = styled.span`
+  margin-left: ${({ theme }) => `${theme.space[1]}px`};
+  color: ${({ theme }) => theme.color.semantic.warning};
 `;
 
 const Actions = styled.div`
@@ -277,6 +292,8 @@ export default function BuildHeader() {
   const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
   const gameSize = useArmyStore((s) => s.gameSize);
   const setGameSize = useArmyStore((s) => s.setGameSize);
+  const listName = useArmyStore((s) => s.label);
+  const isDirty = useIsDirty();
 
   const total = pointsCost({ units });
   const count = unitCount(units);
@@ -311,7 +328,19 @@ export default function BuildHeader() {
     <Header className="no-print" data-testid="points-bar">
       <TitleZone>
         <ArmyName>{army?.name}</ArmyName>
+        {listName && (
+          <ListName>
+            {listName}
+            {isDirty && (
+              <UnsavedDot data-testid="unsaved-marker" aria-label="unsaved changes">
+                •
+              </UnsavedDot>
+            )}
+          </ListName>
+        )}
         <InlineActions data-testid="actions-inline">
+          <SaveListButton />
+          <LoadListButton />
           <CopyListButton />
           <CopyShareLinkButton />
           {armyId && (
@@ -336,6 +365,8 @@ export default function BuildHeader() {
           </Button>
           {menuOpen && (
             <MenuPanel role="menu">
+              <SaveListButton />
+              <LoadListButton />
               <CopyListButton />
               <CopyShareLinkButton />
               {armyId && (

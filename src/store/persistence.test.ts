@@ -6,6 +6,10 @@ import {
   saveList,
   loadList,
   buildCodeMaps,
+  saveNamedList,
+  loadNamedList,
+  listSavedNames,
+  deleteNamedList,
   type ListSnapshot,
 } from './persistence';
 import { loadArmy } from '../data/loadArmy';
@@ -101,5 +105,56 @@ describe('localStorage persistence', () => {
     saveList('empire', snap);
     expect(loadList('empire')).toEqual(snap);
     expect(loadList('goblin')).toBeNull();
+  });
+});
+
+describe('named lists', () => {
+  const ARMY = 'bretonnia';
+  const named = (name: string): ListSnapshot => ({
+    name,
+    gameSize: 2000,
+    units: {},
+    upgrades: {},
+  });
+
+  beforeEach(() => localStorage.clear());
+
+  it('round-trips a saved list by name', () => {
+    saveNamedList(ARMY, 'My List', named('My List'));
+    const loaded = loadNamedList(ARMY, 'My List');
+    expect(loaded).not.toBeNull();
+    expect(loaded?.name).toBe('My List');
+    expect(loaded?.gameSize).toBe(2000);
+  });
+
+  it('lists saved names sorted case-insensitively', () => {
+    saveNamedList(ARMY, 'zeta', named('zeta'));
+    saveNamedList(ARMY, 'Alpha', named('Alpha'));
+    expect(listSavedNames(ARMY)).toEqual(['Alpha', 'zeta']);
+  });
+
+  it('overwrites a list saved under the same name', () => {
+    saveNamedList(ARMY, 'dup', { ...named('dup'), gameSize: 1000 });
+    saveNamedList(ARMY, 'dup', { ...named('dup'), gameSize: 3000 });
+    expect(listSavedNames(ARMY)).toEqual(['dup']);
+    expect(loadNamedList(ARMY, 'dup')?.gameSize).toBe(3000);
+  });
+
+  it('deletes one list and leaves the others', () => {
+    saveNamedList(ARMY, 'a', named('a'));
+    saveNamedList(ARMY, 'b', named('b'));
+    deleteNamedList(ARMY, 'a');
+    expect(listSavedNames(ARMY)).toEqual(['b']);
+    expect(loadNamedList(ARMY, 'a')).toBeNull();
+  });
+
+  it('isolates saved lists per army', () => {
+    saveNamedList(ARMY, 'shared-name', named('shared-name'));
+    expect(listSavedNames('high-elves')).toEqual([]);
+    expect(loadNamedList('high-elves', 'shared-name')).toBeNull();
+  });
+
+  it('returns [] for an army with no saved lists', () => {
+    expect(listSavedNames(ARMY)).toEqual([]);
   });
 });

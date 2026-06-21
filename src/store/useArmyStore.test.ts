@@ -201,3 +201,17 @@ describe('loadWarning', () => {
     expect(get().loadWarning).toBeNull();
   });
 });
+
+describe('savedBaseline', () => {
+  it('tracks savedBaseline and clears it on setArmy/reset', () => {
+    get().setArmy('bretonnia');
+    expect(get().savedBaseline).toBeNull();
+    get().setSavedBaseline('abc');
+    expect(get().savedBaseline).toBe('abc');
+    get().setArmy('bretonnia');
+    expect(get().savedBaseline).toBeNull();
+    get().setSavedBaseline('xyz');
+    get().reset();
+    expect(get().savedBaseline).toBeNull();
+  });
+});

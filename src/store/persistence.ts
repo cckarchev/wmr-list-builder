@@ -166,3 +166,68 @@ export function loadList(armyId: string): ListSnapshot | null {
     return null;
   }
 }
+
+const SAVED_PREFIX = 'wmr:saved:';
+
+// Read + parse the per-army map of named lists. Returns {} on any failure
+// (storage blocked, missing key, corrupt JSON) so callers stay thin.
+function readSavedMap(armyId: string): Record<string, string> {
+  try {
+    const raw = localStorage.getItem(SAVED_PREFIX + armyId);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw) as unknown;
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, string>;
+    }
+    return {};
+  } catch {
+    return {};
+  }
+}
+
+function writeSavedMap(armyId: string, map: Record<string, string>): void {
+  try {
+    if (Object.keys(map).length === 0) {
+      localStorage.removeItem(SAVED_PREFIX + armyId);
+    } else {
+      localStorage.setItem(SAVED_PREFIX + armyId, JSON.stringify(map));
+    }
+  } catch {
+    // storage blocked — degrade to no-op
+  }
+}
+
+export function saveNamedList(armyId: string, name: string, snap: ListSnapshot): void {
+  try {
+    const maps = buildCodeMaps(loadArmy(armyId));
+    const map = readSavedMap(armyId);
+    map[name] = encodeList(snap, maps);
+    writeSavedMap(armyId, map);
+  } catch {
+    // unknown army / storage blocked — degrade to no-op
+  }
+}
+
+export function loadNamedList(armyId: string, name: string): ListSnapshot | null {
+  try {
+    const encoded = readSavedMap(armyId)[name];
+    if (!encoded) return null;
+    const maps = buildCodeMaps(loadArmy(armyId));
+    return decodeList(encoded, maps);
+  } catch {
+    return null;
+  }
+}
+
+export function listSavedNames(armyId: string): string[] {
+  return Object.keys(readSavedMap(armyId)).sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: 'base' }),
+  );
+}
+
+export function deleteNamedList(armyId: string, name: string): void {
+  const map = readSavedMap(armyId);
+  if (!(name in map)) return;
+  delete map[name];
+  writeSavedMap(armyId, map);
+}
