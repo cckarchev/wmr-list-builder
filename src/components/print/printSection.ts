@@ -9,13 +9,15 @@ export const PrintSection = styled.div`
   color: ${({ theme }) => theme.color.text.body};
 `;
 
-/** Centered section title. */
+/** Centered section title. Spans the full width when a section is laid out
+ * in two columns (no effect outside a multi-column context). */
 export const PrintHeading = styled.h3`
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.color.text.strong};
   text-align: center;
   margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
+  column-span: all;
 `;
 
 /** Definition list of name/description entries. */

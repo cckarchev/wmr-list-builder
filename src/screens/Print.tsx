@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
 import PrintView from '../components/print/PrintView';
 import { availablePrintSections } from '../components/print/printSections';
+import Icon from '../components/ui/Icon';
 
 const Page = styled.main`
   min-height: 100dvh;
@@ -22,7 +23,27 @@ const Controls = styled.div`
   gap: ${({ theme }) => `${theme.space[3]}px`};
 `;
 
-const SectionToggles = styled.div`
+const Group = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+`;
+
+const GroupLabel = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
+// Forces the options onto their own row beneath the sections and print button.
+const OptionsGroup = styled(Group)`
+  flex-basis: 100%;
+`;
+
+const Toggles = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => `${theme.space[2]}px`};
@@ -43,6 +64,9 @@ const CheckInput = styled.input`
 `;
 
 const PrintButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 500;
@@ -57,12 +81,6 @@ const PrintButton = styled.button`
   &:hover {
     opacity: 0.85;
   }
-`;
-
-const Hint = styled.p`
-  width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
 `;
 
 export default function Print() {
@@ -100,6 +118,13 @@ export default function Print() {
     setSelectedIds(new Set(sections.map((s) => s.id)));
   }
 
+  // Print options (distinct from which sections to include). Both default off.
+  const [spellFluff, setSpellFluff] = useState(false);
+  const [twoColumn, setTwoColumn] = useState(false);
+  const [smallFont, setSmallFont] = useState(false);
+  const [hideTitle, setHideTitle] = useState(false);
+  const [condensed, setCondensed] = useState(false);
+
   const toggle = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
@@ -117,23 +142,81 @@ export default function Print() {
   return (
     <Page>
       <Controls className="no-print">
-        <SectionToggles>
-          {sections.map((section) => (
-            <CheckLabel key={section.id}>
+        <Group>
+          <GroupLabel>Sections</GroupLabel>
+          <Toggles>
+            {sections.map((section) => (
+              <CheckLabel key={section.id}>
+                <CheckInput
+                  type="checkbox"
+                  checked={selectedIds.has(section.id)}
+                  onChange={() => toggle(section.id)}
+                />
+                {section.title}
+              </CheckLabel>
+            ))}
+          </Toggles>
+        </Group>
+
+        <PrintButton onClick={() => window.print()}>
+          <Icon name="print" size={16} />
+          Print
+        </PrintButton>
+
+        <OptionsGroup>
+          <GroupLabel>Options</GroupLabel>
+          <Toggles>
+            {magic && (
+              <CheckLabel>
+                <CheckInput
+                  type="checkbox"
+                  checked={spellFluff}
+                  onChange={() => setSpellFluff((v) => !v)}
+                />
+                Spell fluff
+              </CheckLabel>
+            )}
+            <CheckLabel>
               <CheckInput
                 type="checkbox"
-                checked={selectedIds.has(section.id)}
-                onChange={() => toggle(section.id)}
+                checked={twoColumn}
+                onChange={() => setTwoColumn((v) => !v)}
               />
-              {section.title}
+              Two columns
             </CheckLabel>
-          ))}
-        </SectionToggles>
-        <PrintButton onClick={() => window.print()}>Print</PrintButton>
-        <Hint>Check the sections you want to include, then click Print.</Hint>
+            <CheckLabel>
+              <CheckInput
+                type="checkbox"
+                checked={smallFont}
+                onChange={() => setSmallFont((v) => !v)}
+              />
+              Smaller font
+            </CheckLabel>
+            <CheckLabel>
+              <CheckInput
+                type="checkbox"
+                checked={condensed}
+                onChange={() => setCondensed((v) => !v)}
+              />
+              Condensed
+            </CheckLabel>
+            <CheckLabel>
+              <CheckInput
+                type="checkbox"
+                checked={hideTitle}
+                onChange={() => setHideTitle((v) => !v)}
+              />
+              Hide name
+            </CheckLabel>
+          </Toggles>
+        </OptionsGroup>
       </Controls>
 
-      <PrintView sections={sections} selectedIds={selectedIds} />
+      <PrintView
+        sections={sections}
+        selectedIds={selectedIds}
+        options={{ spellFluff, twoColumn, smallFont, hideTitle, condensed }}
+      />
     </Page>
   );
 }

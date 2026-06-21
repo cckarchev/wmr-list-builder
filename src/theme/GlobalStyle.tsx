@@ -14,6 +14,21 @@ export const GlobalStyle = createGlobalStyle`
   button { font-family: inherit; cursor: pointer; }
   a { color: inherit; }
 
+  /* "Smaller font" print option: shrink the text sections only, not the stat
+     table (preview). */
+  .print-document.font-small dl,
+  .print-document.font-small p { font-size: 12px; }
+
+  /* "Condensed" print option: tighten the vertical spacing throughout for a
+     more compact sheet. Applies to both the preview and the print output. */
+  .print-document.condensed section { margin-bottom: 8px; padding-bottom: 6px; }
+  .print-document.condensed h3 { margin-bottom: 4px; }
+  .print-document.condensed dt { margin-top: 6px; }
+  .print-document.condensed dd { line-height: 1.35; }
+  .print-document.condensed dd,
+  .print-document.condensed p { margin-bottom: 4px; }
+  .print-document.condensed p { line-height: 1.35; }
+
   @media print {
     @page { margin: 12mm; }
 
@@ -52,5 +67,10 @@ export const GlobalStyle = createGlobalStyle`
     .print-document tbody tr:nth-child(even) td {
       background: #f0f0f0 !important;
     }
+
+    /* "Smaller font" option, print sizing: text sections only, leaving the
+       stat table at its print size. */
+    .print-document.font-small dl,
+    .print-document.font-small p { font-size: 11px; }
   }
 `;

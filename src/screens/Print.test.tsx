@@ -51,6 +51,15 @@ describe('Print screen', () => {
     expect(screen.queryByText(/warmaster revolution/i)).not.toBeInTheDocument();
   });
 
+  it('offers two-column and spell-fluff print options', async () => {
+    renderPrint('/print/goblin');
+    await screen.findByRole('heading', { level: 1, name: 'Goblin' });
+    const twoColumn = screen.getByRole('checkbox', { name: /two columns/i });
+    const spellFluff = screen.getByRole('checkbox', { name: /spell fluff/i });
+    expect(twoColumn).not.toBeChecked();
+    expect(spellFluff).not.toBeChecked();
+  });
+
   it('renders the spells heading for a magic army', async () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
