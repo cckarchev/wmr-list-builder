@@ -112,9 +112,7 @@
       "size": 1,
       "points": 75,
       "max": 1,
-      "specialRules": [
-        "Stone Thrower"
-      ]
+      "specialRules": ["Stone Thrower"]
     },
     "Orc General": {
       "id": 10,
@@ -126,10 +124,7 @@
       "points": 95,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Wyvern",
-        "Chariot"
-      ]
+      "upgrades": ["Wyvern", "Chariot"]
     },
     "Orc Hero": {
       "id": 11,
@@ -140,10 +135,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Wyvern",
-        "Chariot"
-      ]
+      "upgrades": ["Wyvern", "Chariot"]
     },
     "Orc Shaman": {
       "id": 12,
@@ -154,10 +146,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Wyvern",
-        "Chariot"
-      ]
+      "upgrades": ["Wyvern", "Chariot"]
     },
     "Goblin Hero": {
       "id": 13,
@@ -168,10 +157,7 @@
       "size": 1,
       "points": 45,
       "max": 2,
-      "upgrades": [
-        "Wyvern",
-        "Chariot"
-      ]
+      "upgrades": ["Wyvern", "Chariot"]
     },
     "Goblin Shaman": {
       "id": 14,
@@ -182,10 +168,7 @@
       "size": 1,
       "points": 30,
       "max": 1,
-      "upgrades": [
-        "Wyvern",
-        "Chariot"
-      ]
+      "upgrades": ["Wyvern", "Chariot"]
     }
   },
   "upgrades": {

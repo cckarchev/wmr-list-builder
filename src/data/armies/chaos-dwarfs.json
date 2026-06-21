@@ -15,9 +15,7 @@
       "points": 110,
       "min": 2,
       "max": 4,
-      "upgrades": [
-        "Blunderbusses"
-      ]
+      "upgrades": ["Blunderbusses"]
     },
     "Blunderbusses": {
       "id": 1,
@@ -72,9 +70,7 @@
       "armour": "6+",
       "size": 3,
       "points": 75,
-      "specialRules": [
-        "Hobgoblins"
-      ]
+      "specialRules": ["Hobgoblins"]
     },
     "Bull Centaurs": {
       "id": 6,
@@ -98,12 +94,8 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "specialRules": [
-        "Stone Thrower"
-      ],
-      "homologousUnits": [
-        "Death Rocket"
-      ]
+      "specialRules": ["Stone Thrower"],
+      "homologousUnits": ["Death Rocket"]
     },
     "Death Rocket": {
       "id": 8,
@@ -116,12 +108,8 @@
       "size": 1,
       "points": 60,
       "max": 1,
-      "specialRules": [
-        "Stone Thrower"
-      ],
-      "homologousUnits": [
-        "Earthshaker Cannon"
-      ]
+      "specialRules": ["Stone Thrower"],
+      "homologousUnits": ["Earthshaker Cannon"]
     },
     "Bolt Thrower": {
       "id": 9,
@@ -144,10 +132,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Great Taurus",
-        "Sorcerer Lord"
-      ]
+      "upgrades": ["Great Taurus", "Sorcerer Lord"]
     },
     "Hero": {
       "id": 11,
@@ -158,9 +143,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Great Taurus"
-      ]
+      "upgrades": ["Great Taurus"]
     },
     "Sorcerer": {
       "id": 12,
@@ -171,10 +154,7 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": [
-        "Great Taurus",
-        "Lammasu"
-      ]
+      "upgrades": ["Great Taurus", "Lammasu"]
     }
   },
   "upgrades": {

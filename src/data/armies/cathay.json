@@ -103,9 +103,7 @@
       "size": 1,
       "points": 55,
       "max": 1,
-      "specialRules": [
-        "Stone Thrower"
-      ]
+      "specialRules": ["Stone Thrower"]
     },
     "Triple Bows": {
       "id": 9,
@@ -117,9 +115,7 @@
       "size": 2,
       "points": 65,
       "max": 1,
-      "specialRules": [
-        "Bolt Thrower"
-      ]
+      "specialRules": ["Bolt Thrower"]
     },
     "General": {
       "id": 10,
@@ -131,10 +127,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Chariot",
-        "Tiger"
-      ]
+      "upgrades": ["Chariot", "Tiger"]
     },
     "Hero": {
       "id": 11,
@@ -145,10 +138,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Chariot",
-        "Tiger"
-      ]
+      "upgrades": ["Chariot", "Tiger"]
     },
     "Sorcerer": {
       "id": 12,
@@ -158,11 +148,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Chariot",
-        "Celestial Dragon",
-        "Qilin"
-      ]
+      "upgrades": ["Chariot", "Celestial Dragon", "Qilin"]
     }
   },
   "upgrades": {
@@ -239,9 +225,7 @@
     },
     "Triple Bows": {
       "order": 5,
-      "text": [
-        "Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."
-      ]
+      "text": ["Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."]
     },
     "Celestial Dragon": {
       "order": 6,
@@ -251,9 +235,7 @@
     },
     "Tiger": {
       "order": 7,
-      "text": [
-        "Tigers cannot be ridden by Sorcerers."
-      ]
+      "text": ["Tigers cannot be ridden by Sorcerers."]
     },
     "Qilin": {
       "order": 8,

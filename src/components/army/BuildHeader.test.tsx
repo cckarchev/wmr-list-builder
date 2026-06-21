@@ -30,7 +30,6 @@ describe('BuildHeader', () => {
     const stat = screen.getByTestId('break-point');
     expect(stat).toHaveTextContent(String(expected));
   });
-
 });
 
 describe('BuildHeader inline actions', () => {

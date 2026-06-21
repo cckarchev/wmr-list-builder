@@ -25,7 +25,13 @@ export default function ResetListButton() {
   };
 
   return (
-    <Button $variant="danger" $size="sm" onClick={handleReset} disabled={!armyId} title="Reset army">
+    <Button
+      $variant="danger"
+      $size="sm"
+      onClick={handleReset}
+      disabled={!armyId}
+      title="Reset army"
+    >
       <Icon name="reset" size={16} />
       Reset
     </Button>

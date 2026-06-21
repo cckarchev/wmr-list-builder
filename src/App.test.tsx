@@ -29,9 +29,7 @@ describe('App routing', () => {
 
     // Build screen (not the picker) is shown for the named army.
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
-    expect(
-      screen.queryByRole('heading', { name: /choose your army/i }),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /choose your army/i })).not.toBeInTheDocument();
   });
 
   it('loads a shared list from root query params', async () => {

@@ -203,71 +203,30 @@
   },
   "upgradeConstraints": [
     {
-      "unitType": [
-        "Infantry",
-        "Cavalry",
-        "Chariot"
-      ],
-      "upgrades": [
-        "Battle Banner"
-      ],
+      "unitType": ["Infantry", "Cavalry", "Chariot"],
+      "upgrades": ["Battle Banner"],
       "magic": true
     },
     {
-      "unitArmour": [
-        "-",
-        "6+",
-        "5+",
-        "4+"
-      ],
-      "unitType": [
-        "Infantry",
-        "Cavalry",
-        "Chariot"
-      ],
-      "upgrades": [
-        "Banner of Shielding"
-      ],
+      "unitArmour": ["-", "6+", "5+", "4+"],
+      "unitType": ["Infantry", "Cavalry", "Chariot"],
+      "upgrades": ["Banner of Shielding"],
       "magic": true
     },
     {
-      "unitHits": [
-        2,
-        3,
-        4
-      ],
-      "unitType": [
-        "Infantry",
-        "Cavalry",
-        "Chariot"
-      ],
-      "upgrades": [
-        "Banner of Fortitude"
-      ],
+      "unitHits": [2, 3, 4],
+      "unitType": ["Infantry", "Cavalry", "Chariot"],
+      "upgrades": ["Banner of Fortitude"],
       "magic": true
     },
     {
-      "unitArmour": [
-        "6+",
-        "5+",
-        "4+"
-      ],
-      "unitType": [
-        "Infantry",
-        "Cavalry",
-        "Chariot"
-      ],
-      "upgrades": [
-        "Banner of Steadfastness"
-      ],
+      "unitArmour": ["6+", "5+", "4+"],
+      "unitType": ["Infantry", "Cavalry", "Chariot"],
+      "upgrades": ["Banner of Steadfastness"],
       "magic": true
     },
     {
-      "unitType": [
-        "Infantry",
-        "Cavalry",
-        "Chariot"
-      ],
+      "unitType": ["Infantry", "Cavalry", "Chariot"],
       "upgrades": [
         "Banner of Fortune",
         "Sword of Destruction",
@@ -278,23 +237,12 @@
       "magic": true
     },
     {
-      "unitType": [
-        "General",
-        "Hero",
-        "Wizard"
-      ],
-      "upgrades": [
-        "Sword of Destruction",
-        "Sword of Fate",
-        "Sword of Cleaving",
-        "Sword of Might"
-      ],
+      "unitType": ["General", "Hero", "Wizard"],
+      "upgrades": ["Sword of Destruction", "Sword of Fate", "Sword of Cleaving", "Sword of Might"],
       "magic": true
     },
     {
-      "unitType": [
-        "General"
-      ],
+      "unitType": ["General"],
       "upgrades": [
         "Crown of Command",
         "Helm of Dominion",
@@ -304,9 +252,7 @@
       "magic": true
     },
     {
-      "unitType": [
-        "Wizard"
-      ],
+      "unitType": ["Wizard"],
       "upgrades": [
         "Ring of Magic",
         "Staff of Spellbinding",

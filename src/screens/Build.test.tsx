@@ -224,7 +224,10 @@ describe('corrupt shared list', () => {
 
   it('applies a valid ?list= without warning', async () => {
     const maps = buildCodeMaps(loadArmy('goblin'));
-    const blob = encodeList({ name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} }, maps);
+    const blob = encodeList(
+      { name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} },
+      maps,
+    );
 
     renderBuild(`/build/goblin?list=${blob}`);
 

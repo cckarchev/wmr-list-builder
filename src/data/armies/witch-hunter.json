@@ -65,12 +65,7 @@
       "hits": 3,
       "size": "+1",
       "points": 20,
-      "augendUnits": [
-        "Zealots",
-        "Handgunners",
-        "Flagellants",
-        "Pistoliers"
-      ],
+      "augendUnits": ["Zealots", "Handgunners", "Flagellants", "Pistoliers"],
       "noCount": true,
       "noMagic": true
     },

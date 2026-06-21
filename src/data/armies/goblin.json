@@ -14,9 +14,7 @@
       "size": 3,
       "points": 30,
       "min": 4,
-      "upgrades": [
-        "Squig Herd"
-      ]
+      "upgrades": ["Squig Herd"]
     },
     "Squig Herd": {
       "id": 1,
@@ -105,9 +103,7 @@
       "size": 2,
       "points": 65,
       "max": 2,
-      "specialRules": [
-        "Bolt Thrower"
-      ]
+      "specialRules": ["Bolt Thrower"]
     },
     "Goblin Warboss": {
       "id": 9,
@@ -119,10 +115,7 @@
       "points": 80,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Wolf Chariot",
-        "Wyvern"
-      ]
+      "upgrades": ["Wolf Chariot", "Wyvern"]
     },
     "Goblin Hero": {
       "id": 10,
@@ -133,10 +126,7 @@
       "size": 1,
       "points": 45,
       "max": 4,
-      "upgrades": [
-        "Wolf Chariot",
-        "Wyvern"
-      ]
+      "upgrades": ["Wolf Chariot", "Wyvern"]
     },
     "Goblin Shaman": {
       "id": 11,
@@ -147,10 +137,7 @@
       "size": 1,
       "points": 30,
       "max": 2,
-      "upgrades": [
-        "Wolf Chariot",
-        "Wyvern"
-      ]
+      "upgrades": ["Wolf Chariot", "Wyvern"]
     }
   },
   "upgrades": {

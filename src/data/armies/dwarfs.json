@@ -14,9 +14,7 @@
       "size": 3,
       "points": 110,
       "min": 2,
-      "upgrades": [
-        "Handgunners"
-      ]
+      "upgrades": ["Handgunners"]
     },
     "Miners": {
       "id": 1,
@@ -118,9 +116,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Oathstone"
-      ]
+      "upgrades": ["Oathstone"]
     },
     "Runesmith": {
       "id": 10,
@@ -131,11 +127,7 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": [
-        "Anvil",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling"
-      ]
+      "upgrades": ["Anvil", "Staff of Spellbinding", "Scroll of Dispelling"]
     }
   },
   "upgrades": {

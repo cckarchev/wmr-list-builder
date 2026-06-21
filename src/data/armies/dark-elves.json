@@ -26,9 +26,7 @@
       "size": 3,
       "points": 75,
       "min": 1,
-      "specialRules": [
-        "Crossbowmen and Dark Riders"
-      ]
+      "specialRules": ["Crossbowmen and Dark Riders"]
     },
     "Witch Elves": {
       "id": 2,
@@ -51,9 +49,7 @@
       "size": 3,
       "points": 95,
       "max": 3,
-      "specialRules": [
-        "Crossbowmen and Dark Riders"
-      ]
+      "specialRules": ["Crossbowmen and Dark Riders"]
     },
     "Cold One Knights": {
       "id": 4,
@@ -65,9 +61,7 @@
       "size": 3,
       "points": 130,
       "max": 3,
-      "specialRules": [
-        "Cold Ones Knights"
-      ]
+      "specialRules": ["Cold Ones Knights"]
     },
     "Harpies": {
       "id": 5,
@@ -102,9 +96,7 @@
       "size": 2,
       "points": 55,
       "max": 1,
-      "specialRules": [
-        "Elven Bolt Thrower"
-      ]
+      "specialRules": ["Elven Bolt Thrower"]
     },
     "General": {
       "id": 8,
@@ -116,10 +108,7 @@
       "points": 155,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Manticore",
-        "Chariot"
-      ]
+      "upgrades": ["Manticore", "Chariot"]
     },
     "Hero": {
       "id": 9,
@@ -130,10 +119,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Manticore",
-        "Chariot"
-      ]
+      "upgrades": ["Manticore", "Chariot"]
     },
     "Sorceress": {
       "id": 10,
@@ -144,11 +130,7 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": [
-        "Manticore",
-        "Chariot",
-        "Cauldron of Blood"
-      ]
+      "upgrades": ["Manticore", "Chariot", "Cauldron of Blood"]
     }
   },
   "upgrades": {
@@ -175,9 +157,7 @@
       "attack": "+2",
       "points": "+15",
       "armyMax": 1,
-      "requiredUnits": [
-        "Witch Elves"
-      ]
+      "requiredUnits": ["Witch Elves"]
     }
   },
   "magic": true,
@@ -214,9 +194,7 @@
     },
     "Bolt Thrower": {
       "order": 6,
-      "text": [
-        "The Bolt Thrower counts as an Elven Bolt Thrower."
-      ]
+      "text": ["The Bolt Thrower counts as an Elven Bolt Thrower."]
     },
     "General": {
       "order": 7,

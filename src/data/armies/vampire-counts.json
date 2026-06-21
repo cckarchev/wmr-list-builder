@@ -119,10 +119,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Winged Nightmare",
-        "Black Coach"
-      ]
+      "upgrades": ["Winged Nightmare", "Black Coach"]
     },
     "Necromancer": {
       "id": 10,
@@ -133,9 +130,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Winged Nightmare"
-      ]
+      "upgrades": ["Winged Nightmare"]
     }
   },
   "upgrades": {

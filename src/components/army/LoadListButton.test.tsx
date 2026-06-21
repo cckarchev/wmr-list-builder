@@ -15,7 +15,9 @@ const seed = (name: string, gameSize: number) =>
 const markClean = () => {
   const { armyId, gameSize, units, label } = useArmyStore.getState();
   const maps = buildCodeMaps(loadArmy(armyId!));
-  useArmyStore.getState().setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));
+  useArmyStore
+    .getState()
+    .setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));
 };
 
 describe('LoadListButton', () => {

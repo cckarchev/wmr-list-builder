@@ -25,9 +25,7 @@
       "size": 3,
       "points": 55,
       "min": 2,
-      "upgrades": [
-        "Handgunners"
-      ]
+      "upgrades": ["Handgunners"]
     },
     "Handgunners": {
       "id": 2,
@@ -117,9 +115,7 @@
       "size": 2,
       "points": 85,
       "max": 1,
-      "specialRules": [
-        "Cannon"
-      ]
+      "specialRules": ["Cannon"]
     },
     "Giant": {
       "id": 10,
@@ -154,9 +150,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Griffon"
-      ]
+      "upgrades": ["Griffon"]
     },
     "Hero": {
       "id": 13,
@@ -167,9 +161,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Griffon"
-      ]
+      "upgrades": ["Griffon"]
     },
     "Paymaster": {
       "id": 14,
@@ -180,12 +172,8 @@
       "size": 1,
       "points": 80,
       "armyMax": 1,
-      "specialRules": [
-        "Paymaster, Pay Wagon"
-      ],
-      "upgrades": [
-        "Pay Wagon"
-      ]
+      "specialRules": ["Paymaster, Pay Wagon"],
+      "upgrades": ["Pay Wagon"]
     },
     "Wizard": {
       "id": 15,
@@ -196,9 +184,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Griffon"
-      ]
+      "upgrades": ["Griffon"]
     }
   },
   "upgrades": {
@@ -217,9 +203,7 @@
       "attack": "+1",
       "points": "+20",
       "armyMax": 1,
-      "specialRules": [
-        "Paymaster, Pay Wagon"
-      ]
+      "specialRules": ["Paymaster, Pay Wagon"]
     },
     "Handgunners": {
       "id": 2,
@@ -284,9 +268,7 @@
     },
     "Wizard": {
       "order": 9,
-      "text": [
-        "The Wizard uses the Empire spells."
-      ]
+      "text": ["The Wizard uses the Empire spells."]
     },
     "Griffon": {
       "order": 10,

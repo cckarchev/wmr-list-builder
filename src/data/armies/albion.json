@@ -104,9 +104,7 @@
       "points": 0,
       "max": 1,
       "noCount": true,
-      "requiredUnits": [
-        "Druid"
-      ]
+      "requiredUnits": ["Druid"]
     },
     "General": {
       "id": 9,
@@ -118,9 +116,7 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": [
-        "Chariot"
-      ]
+      "upgrades": ["Chariot"]
     },
     "Hero": {
       "id": 10,
@@ -131,9 +127,7 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": [
-        "Chariot"
-      ]
+      "upgrades": ["Chariot"]
     },
     "Druid": {
       "id": 11,
@@ -144,10 +138,7 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": [
-        "Giant Eagle",
-        "Chariot"
-      ]
+      "upgrades": ["Giant Eagle", "Chariot"]
     }
   },
   "upgrades": {
@@ -181,9 +172,7 @@
     },
     "Giant Eagles": {
       "order": 3,
-      "text": [
-        "Giant Eagles can fly."
-      ]
+      "text": ["Giant Eagles can fly."]
     },
     "Giant Eagle": {
       "order": 4,

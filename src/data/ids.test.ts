@@ -6,11 +6,17 @@ describe('stable ids', () => {
   it('every unit and army upgrade has a unique numeric id within its army', () => {
     for (const [armyId, army] of Object.entries(armiesById)) {
       const unitIds = Object.values(army.units).map((u) => u.id);
-      expect(unitIds.every((id) => typeof id === 'number'), `${armyId} units`).toBe(true);
+      expect(
+        unitIds.every((id) => typeof id === 'number'),
+        `${armyId} units`,
+      ).toBe(true);
       expect(new Set(unitIds).size, `${armyId} unit ids unique`).toBe(unitIds.length);
 
       const upIds = Object.values(army.upgrades ?? {}).map((u) => u.id);
-      expect(upIds.every((id) => typeof id === 'number'), `${armyId} upgrades`).toBe(true);
+      expect(
+        upIds.every((id) => typeof id === 'number'),
+        `${armyId} upgrades`,
+      ).toBe(true);
       expect(new Set(upIds).size, `${armyId} upgrade ids unique`).toBe(upIds.length);
     }
   });
