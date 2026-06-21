@@ -14,10 +14,16 @@ export const GlobalStyle = createGlobalStyle`
   button { font-family: inherit; cursor: pointer; }
   a { color: inherit; }
 
-  /* "Smaller font" print option: shrink the text sections only, not the stat
-     table (preview). */
+  /* "Smaller font" print option: shrink the text sections and the stat table
+     (preview). */
   .print-document.font-small dl,
   .print-document.font-small p { font-size: 12px; }
+  .print-document.font-small table { font-size: 12px; }
+
+  /* Special-rule markers (inline after the unit name) render a notch larger by
+     default to stand out; the Smaller font option drops them back to the
+     surrounding cell size. */
+  .print-document.font-small .special-marker { font-size: inherit; }
 
   /* "Condensed" print option: tighten the vertical spacing throughout for a
      more compact sheet. Applies to both the preview and the print output. */
@@ -50,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
     /* Keep the wide stats table inside the printable page: shrink the type,
        tighten the cells, and let the text columns wrap instead of forcing a
        single nowrap line that runs off the paper. */
-    .print-document table { font-size: 8px; }
+    .print-document table { font-size: 10px; }
     .print-document th,
     .print-document td {
       padding: 1px 3px !important;
@@ -68,9 +74,14 @@ export const GlobalStyle = createGlobalStyle`
       background: #f0f0f0 !important;
     }
 
-    /* "Smaller font" option, print sizing: text sections only, leaving the
-       stat table at its print size. */
+    /* "Smaller font" option, print sizing: text sections and the stat table. */
     .print-document.font-small dl,
     .print-document.font-small p { font-size: 11px; }
+    .print-document.font-small table { font-size: 8px; }
+
+    /* Special-rule markers a notch above the 8px table text so they pop while
+       scanning the name column; Smaller font restores them to the cell size. */
+    .print-document .special-marker { font-size: 11px; }
+    .print-document.font-small .special-marker { font-size: inherit; }
   }
 `;

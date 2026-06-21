@@ -8,7 +8,7 @@ import type { UsedUnit } from '../../store/selectors';
 const TableWrapper = styled.div`
   overflow-x: auto;
   font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.body};
 `;
 
@@ -48,6 +48,14 @@ const TdLeft = styled(Td)`
   text-align: left;
 `;
 
+// The name cell lays out as a row so the special-rule marker can be pushed to
+// the cell's right edge, lining the markers into a column that's easy to scan.
+const NameCell = styled(TdLeft)`
+  display: flex;
+  align-items: baseline;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+`;
+
 // Indent attachment (upgrade) names so they read as nested under their parent
 // unit, making it easy to scan where one unit ends and the next begins. The
 // indent lives on an inner span because the print stylesheet forces a fixed
@@ -55,6 +63,18 @@ const TdLeft = styled(Td)`
 const Name = styled.span<{ $indent?: boolean }>`
   display: inline-block;
   margin-left: ${({ theme, $indent }) => ($indent ? `${theme.space[3]}px` : '0')};
+`;
+
+// Special-rule reference markers (e.g. "*1, *3") sit inline right after the unit
+// name so "this unit has special rules" is obvious while scanning the name
+// column, instead of hiding in a far-right column. Bold and a notch larger than
+// the cell text to stand out; the `.special-marker` class lets the print
+// stylesheet restore them to the cell size under the Smaller font option.
+const Special = styled.span`
+  margin-left: auto;
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: 700;
+  white-space: nowrap;
 `;
 
 const FootTd = styled(Td)`
@@ -108,13 +128,15 @@ function resolveSpecial(
 
 function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: StatRowProps) {
   const t = troop as UnitState & UpgradeState;
+  const special = resolveSpecial(name, t.specialRules, specialRules);
 
   return (
     <tr>
       <Td>{t.number}</Td>
-      <TdLeft>
+      <NameCell>
         <Name $indent={isUpgrade}>{name}</Name>
-      </TdLeft>
+        {special !== '-' && <Special className="special-marker">{special}</Special>}
+      </NameCell>
       <TdLeft>{t.type || '-'}</TdLeft>
       <Td>{String(t.attack ?? '-')}</Td>
       {kind === 'unit' && <Td>{t.range || '-'}</Td>}
@@ -123,7 +145,6 @@ function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: Sta
       {kind === 'character' && <Td>{String(t.command ?? '-')}</Td>}
       {kind === 'unit' && <Td>{String(t.size ?? '-')}</Td>}
       <Td>{resolvePoints(troop, parentUnit)}</Td>
-      <Td>{resolveSpecial(name, t.specialRules, specialRules)}</Td>
     </tr>
   );
 }
@@ -194,7 +215,6 @@ export default function Stats() {
               <Th>Attack</Th>
               <Th>Command</Th>
               <Th>Points</Th>
-              <Th>Special</Th>
             </tr>
           </thead>
           <tbody>{renderRows(characterEntries, 'character', units, srMap)}</tbody>
@@ -213,7 +233,6 @@ export default function Stats() {
             <Th>Armour</Th>
             <Th>Size</Th>
             <Th>Points</Th>
-            <Th>Special</Th>
           </tr>
         </thead>
         <tbody>{renderRows(unitEntries, 'unit', units, srMap)}</tbody>
@@ -224,7 +243,6 @@ export default function Stats() {
             </FootTd>
             <FootTd colSpan={7}>{isValid ? '' : 'INVALID'}</FootTd>
             <FootTd>{total}</FootTd>
-            <FootTd />
           </tr>
         </tfoot>
       </Table>
