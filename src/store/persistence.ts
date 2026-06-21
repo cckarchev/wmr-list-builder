@@ -225,6 +225,25 @@ export function listSavedNames(armyId: string): string[] {
   );
 }
 
+export interface SavedListSummary {
+  name: string;
+  gameSize: number;
+}
+
+// Names plus lightweight metadata (game size) for each saved list, sorted by
+// name. Decodes each stored blob once, sharing a single code-map build.
+export function listSavedSummaries(armyId: string): SavedListSummary[] {
+  try {
+    const map = readSavedMap(armyId);
+    const maps = buildCodeMaps(loadArmy(armyId));
+    return Object.keys(map)
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+      .map((name) => ({ name, gameSize: decodeList(map[name], maps)?.gameSize ?? 0 }));
+  } catch {
+    return [];
+  }
+}
+
 export function deleteNamedList(armyId: string, name: string): void {
   const map = readSavedMap(armyId);
   if (!(name in map)) return;

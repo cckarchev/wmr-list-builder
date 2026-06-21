@@ -2,15 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
+import { focusRing } from '../../theme/focusRing';
 import { useArmyStore } from '../../store/useArmyStore';
 import { useIsDirty } from '../../store/useIsDirty';
 import { snapshotOf } from '../../store/snapshot';
 import {
   loadNamedList,
-  listSavedNames,
+  listSavedSummaries,
   deleteNamedList,
   encodeList,
   buildCodeMaps,
+  type SavedListSummary,
 } from '../../store/persistence';
 import { loadArmy } from '../../data/loadArmy';
 
@@ -25,14 +27,12 @@ const Panel = styled.div`
   top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
   right: 0;
   z-index: 30;
-  width: max-content;
-  min-width: 240px;
+  width: 300px;
+  max-width: calc(100vw - ${({ theme }) => `${theme.space[4]}px`});
   max-height: 60vh;
   overflow-y: auto;
-  padding: ${({ theme }) => `${theme.space[2]}px`};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -40,31 +40,74 @@ const Panel = styled.div`
   text-align: left;
 `;
 
+const PanelTitle = styled.p`
+  margin: 0;
+  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[3]}px ${theme.space[2]}px`};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  color: ${({ theme }) => theme.color.text.dim};
+  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
+`;
+
+const Item = styled.div`
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.color.border.divider};
+  }
+`;
+
 const Row = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
 `;
 
 const NameButton = styled.button`
   flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
   text-align: left;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
   background: transparent;
-  border: 1px solid transparent;
-  border-radius: ${({ theme }) => theme.radius.sm};
+  border: none;
   color: ${({ theme }) => theme.color.text.body};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
   cursor: pointer;
+  transition:
+    background 0.12s,
+    color 0.12s;
   &:hover {
-    border-color: ${({ theme }) => theme.color.border.hover};
+    background: ${({ theme }) => theme.color.bg.tint};
     color: ${({ theme }) => theme.color.text.strong};
   }
+  ${focusRing}
+`;
+
+const ListTitle = styled.span`
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const SizeBadge = styled.span`
+  flex-shrink: 0;
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  background: ${({ theme }) => theme.color.bg.deep};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.color.text.dim};
 `;
 
 const IconButton = styled.button`
   display: inline-flex;
+  margin-right: ${({ theme }) => `${theme.space[2]}px`};
   padding: ${({ theme }) => `${theme.space[1]}px`};
   background: transparent;
   border: 1px solid transparent;
@@ -74,18 +117,27 @@ const IconButton = styled.button`
   &:hover {
     color: ${({ theme }) => theme.color.semantic.error};
   }
+  ${focusRing}
 `;
 
 const Empty = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
+const Confirm = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  background: ${({ theme }) => theme.color.bg.deep};
+`;
+
 const Note = styled.p`
+  flex: 1;
   margin: 0;
-  padding: ${({ theme }) => `0 ${theme.space[2]}px`};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
 `;
@@ -97,7 +149,7 @@ export default function LoadListButton() {
   const isDirty = useIsDirty();
 
   const [open, setOpen] = useState(false);
-  const [names, setNames] = useState<string[]>([]);
+  const [saved, setSaved] = useState<SavedListSummary[]>([]);
   const [confirmLoad, setConfirmLoad] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const wrapRef = useRef<HTMLSpanElement>(null);
@@ -119,7 +171,7 @@ export default function LoadListButton() {
   }, [open]);
 
   const openPanel = () => {
-    if (armyId) setNames(listSavedNames(armyId));
+    if (armyId) setSaved(listSavedSummaries(armyId));
     setConfirmLoad(null);
     setConfirmDelete(null);
     setOpen(true);
@@ -147,7 +199,7 @@ export default function LoadListButton() {
     if (!armyId) return;
     deleteNamedList(armyId, name);
     setConfirmDelete(null);
-    setNames(listSavedNames(armyId));
+    setSaved(listSavedSummaries(armyId));
   };
 
   return (
@@ -166,12 +218,14 @@ export default function LoadListButton() {
       </Button>
       {open && (
         <Panel role="dialog" aria-label="Load list">
-          {names.length === 0 && <Empty>No saved lists for this army yet.</Empty>}
-          {names.map((name) => (
-            <div key={name}>
+          <PanelTitle>Saved lists</PanelTitle>
+          {saved.length === 0 && <Empty>No saved lists for this army yet.</Empty>}
+          {saved.map(({ name, gameSize }) => (
+            <Item key={name}>
               <Row>
                 <NameButton type="button" onClick={() => handleLoadClick(name)}>
-                  {name}
+                  <ListTitle>{name}</ListTitle>
+                  <SizeBadge aria-hidden="true">{gameSize} pts</SizeBadge>
                 </NameButton>
                 <IconButton
                   type="button"
@@ -182,15 +236,15 @@ export default function LoadListButton() {
                 </IconButton>
               </Row>
               {confirmLoad === name && (
-                <Row>
+                <Confirm>
                   <Note>Replace current list? Unsaved changes will be lost.</Note>
                   <Button $variant="primary" $size="sm" onClick={() => doLoad(name)}>
                     Replace
                   </Button>
-                </Row>
+                </Confirm>
               )}
               {confirmDelete === name && (
-                <Row>
+                <Confirm>
                   <Note>Delete "{name}"?</Note>
                   <Button
                     $variant="ghost"
@@ -200,9 +254,9 @@ export default function LoadListButton() {
                   >
                     Confirm delete
                   </Button>
-                </Row>
+                </Confirm>
               )}
-            </div>
+            </Item>
           ))}
         </Panel>
       )}

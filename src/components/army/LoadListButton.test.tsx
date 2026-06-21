@@ -31,6 +31,14 @@ describe('LoadListButton', () => {
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
   });
 
+  it('shows each saved list game size', async () => {
+    const user = userEvent.setup();
+    seed('Saved A', 1500);
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole('button', { name: /load/i }));
+    expect(screen.getByText(/1500 pts/)).toBeInTheDocument();
+  });
+
   it('loads a saved list, replacing the current one', async () => {
     const user = userEvent.setup();
     seed('Saved A', 1500);

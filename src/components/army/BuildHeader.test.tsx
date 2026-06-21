@@ -31,47 +31,63 @@ describe('BuildHeader', () => {
     expect(stat).toHaveTextContent(String(expected));
   });
 
-  it('renders Copy, Share, and Print inline actions', () => {
+});
+
+describe('BuildHeader inline actions', () => {
+  it('shows Save and Load inline; Share, Copy, Print, Reset live under More', async () => {
+    const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<BuildHeader />);
     const inline = within(screen.getByTestId('actions-inline'));
-    expect(inline.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
-    expect(inline.getByRole('button', { name: 'Share' })).toBeInTheDocument();
-    expect(inline.getByRole('link', { name: /print/i })).toBeInTheDocument();
+    expect(inline.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(inline.getByRole('button', { name: 'Load' })).toBeInTheDocument();
+    // Share/Copy/Print/Reset are not visible until the More menu is opened.
+    expect(inline.queryByRole('button', { name: 'Share' })).not.toBeInTheDocument();
+    expect(inline.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument();
+    expect(inline.queryByRole('link', { name: /print/i })).not.toBeInTheDocument();
+
+    await user.click(inline.getByRole('button', { name: /more/i }));
+    const menu = within(inline.getByRole('menu'));
+    expect(menu.getByRole('button', { name: 'Share' })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    expect(menu.getByRole('link', { name: /print/i })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: /reset/i })).toBeInTheDocument();
   });
 });
 
-describe('BuildHeader export menu', () => {
-  it('toggles a menu containing Copy, Share, and Print', async () => {
+describe('BuildHeader mobile menu', () => {
+  it('opens a More menu containing Share, Copy, Print, and Reset', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<BuildHeader />);
 
-    const menu = within(screen.getByTestId('actions-menu'));
-    const toggle = menu.getByRole('button', { name: /export/i });
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    const actions = within(screen.getByTestId('actions-menu'));
+    expect(actions.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(actions.getByRole('button', { name: 'Load' })).toBeInTheDocument();
 
+    const toggle = actions.getByRole('button', { name: /more/i });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+
+    const menu = within(actions.getByRole('menu'));
     expect(menu.getByRole('button', { name: 'Share' })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
     expect(menu.getByRole('link', { name: /print/i })).toBeInTheDocument();
+    expect(menu.getByRole('button', { name: /reset/i })).toBeInTheDocument();
   });
 
-  it('closes when clicking outside the menu', async () => {
+  it('closes the More menu when clicking outside', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<BuildHeader />);
 
-    const menu = within(screen.getByTestId('actions-menu'));
-    const toggle = menu.getByRole('button', { name: /export/i });
-
+    const actions = within(screen.getByTestId('actions-menu'));
+    const toggle = actions.getByRole('button', { name: /more/i });
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
-
     await user.click(document.body);
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(menu.queryByRole('menu')).not.toBeInTheDocument();
   });
 });
 

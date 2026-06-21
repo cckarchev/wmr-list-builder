@@ -65,9 +65,14 @@ describe('App routing', () => {
 
     await user.click(screen.getByRole('link', { name: 'Goblin' }));
 
-    // Build screen shows the points bar and a Print action.
+    // Build screen shows the points bar and a Print action (under the More menu).
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Print' })).toHaveAttribute('href', '/print/goblin');
+    const inline = within(screen.getByTestId('actions-inline'));
+    await user.click(inline.getByRole('button', { name: /more/i }));
+    expect(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' })).toHaveAttribute(
+      'href',
+      '/print/goblin',
+    );
   });
 
   it('redirects an unknown army id back to Home', () => {
@@ -101,8 +106,10 @@ describe('App routing', () => {
       '590',
     );
 
-    // Go to Print, then back to the roster via the nav "Back" chip.
-    await user.click(screen.getByRole('link', { name: 'Print' }));
+    // Go to Print (under the More menu), then back to the roster via the nav "Back" chip.
+    const inline = within(screen.getByTestId('actions-inline'));
+    await user.click(inline.getByRole('button', { name: /more/i }));
+    await user.click(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' }));
     await screen.findByText(/check the sections/i);
     await user.click(screen.getByRole('link', { name: /back/i }));
 

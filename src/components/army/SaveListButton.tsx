@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
+import { focusRing } from '../../theme/focusRing';
 import { useArmyStore } from '../../store/useArmyStore';
 import { snapshotOf } from '../../store/snapshot';
 import { saveNamedList, listSavedNames, encodeList, buildCodeMaps } from '../../store/persistence';
@@ -18,17 +19,33 @@ const Panel = styled.div`
   top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
   right: 0;
   z-index: 30;
-  width: max-content;
-  min-width: 240px;
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  width: 280px;
+  max-width: calc(100vw - ${({ theme }) => `${theme.space[4]}px`});
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
   box-shadow: ${({ theme }) => theme.shadow.panel};
   text-align: left;
+`;
+
+const PanelTitle = styled.p`
+  margin: 0;
+  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[3]}px ${theme.space[2]}px`};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  color: ${({ theme }) => theme.color.text.dim};
+  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[3]}px`};
 `;
 
 const FieldLabel = styled.label`
@@ -40,19 +57,24 @@ const FieldLabel = styled.label`
 
 const NameInput = styled.input`
   width: 100%;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px`};
   background: ${({ theme }) => theme.color.bg.base};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.color.text.body};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
+  transition: border-color 0.12s;
+  &:hover {
+    border-color: ${({ theme }) => theme.color.border.hover};
+  }
+  ${focusRing}
 `;
 
 const Note = styled.p`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
+  color: ${({ theme }) => theme.color.semantic.error};
 `;
 
 export default function SaveListButton() {
@@ -133,24 +155,27 @@ export default function SaveListButton() {
       </Button>
       {open && (
         <Panel role="dialog" aria-label="Save list">
-          <FieldLabel htmlFor="save-list-name">List name</FieldLabel>
-          <NameInput
-            id="save-list-name"
-            value={name}
-            autoFocus
-            onChange={(e) => {
-              setName(e.target.value);
-              setError(null);
-              setConfirmingOverwrite(false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') handleSave();
-            }}
-          />
-          {error && <Note role="alert">{error}</Note>}
-          <Button $variant="primary" $size="sm" onClick={handleSave}>
-            {confirmingOverwrite ? 'Overwrite' : 'Save list'}
-          </Button>
+          <PanelTitle>Save list</PanelTitle>
+          <Body>
+            <FieldLabel htmlFor="save-list-name">List name</FieldLabel>
+            <NameInput
+              id="save-list-name"
+              value={name}
+              autoFocus
+              onChange={(e) => {
+                setName(e.target.value);
+                setError(null);
+                setConfirmingOverwrite(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSave();
+              }}
+            />
+            {error && <Note role="alert">{error}</Note>}
+            <Button $variant="primary" $size="sm" onClick={handleSave}>
+              {confirmingOverwrite ? 'Overwrite' : 'Save list'}
+            </Button>
+          </Body>
         </Panel>
       )}
     </Wrapper>
