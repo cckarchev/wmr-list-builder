@@ -17,20 +17,43 @@ const Controls = styled.div`
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
   padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  /* Two columns: the toggle groups stack on the left, the Print button is its
+     own full-height column on the right. The button never shares a line with
+     the wrapping checkboxes, so nothing flows above or below it. */
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+`;
+
+// Left column: the Sections and Options groups stacked. Wrapping happens inside
+// this column only, keeping the checkboxes clear of the Print button.
+const Stack = styled.div`
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: ${({ theme }) => `${theme.space[3]}px`};
 `;
 
 const Group = styled.div`
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  /* Top-align the label so it sits on the first line of toggles even when they
+     wrap onto multiple rows, rather than floating in the vertical center. */
+  align-items: flex-start;
   gap: ${({ theme }) => `${theme.space[2]}px`};
+  min-width: 0;
 `;
 
 const GroupLabel = styled.span`
+  flex: none;
+  /* Fixed width lines the "Sections" and "Options" labels into a column and
+     starts both sets of toggles at the same x. Wide enough to hold the longest
+     label ("SECTIONS") at its 0.2em tracking without spilling onto the first
+     toggle. */
+  width: 90px;
+  white-space: nowrap;
+  /* Nudge down to align with the toggle text on the first row. */
+  padding-top: 3px;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
@@ -38,15 +61,10 @@ const GroupLabel = styled.span`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-// Forces the options onto their own row beneath the sections and print button.
-const OptionsGroup = styled(Group)`
-  flex-basis: 100%;
-`;
-
 const Toggles = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
 `;
 
 const CheckLabel = styled.label`
@@ -64,19 +82,24 @@ const CheckInput = styled.input`
 `;
 
 const PrintButton = styled.button`
-  display: inline-flex;
+  /* Own column on the right: a tall tile with the icon over the label, centered
+     vertically against the stacked toggle groups. */
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  justify-content: center;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
+  flex: none;
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 500;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   background: ${({ theme }) => theme.color.accent};
   color: ${({ theme }) => theme.color.accentInk};
   border: none;
   border-radius: ${({ theme }) => theme.radius.sm};
   cursor: pointer;
-  margin-left: auto;
+  white-space: nowrap;
 
   &:hover {
     opacity: 0.85;
@@ -142,74 +165,76 @@ export default function Print() {
   return (
     <Page>
       <Controls className="no-print">
-        <Group>
-          <GroupLabel>Sections</GroupLabel>
-          <Toggles>
-            {sections.map((section) => (
-              <CheckLabel key={section.id}>
-                <CheckInput
-                  type="checkbox"
-                  checked={selectedIds.has(section.id)}
-                  onChange={() => toggle(section.id)}
-                />
-                {section.title}
-              </CheckLabel>
-            ))}
-          </Toggles>
-        </Group>
+        <Stack>
+          <Group>
+            <GroupLabel>Sections</GroupLabel>
+            <Toggles>
+              {sections.map((section) => (
+                <CheckLabel key={section.id}>
+                  <CheckInput
+                    type="checkbox"
+                    checked={selectedIds.has(section.id)}
+                    onChange={() => toggle(section.id)}
+                  />
+                  {section.title}
+                </CheckLabel>
+              ))}
+            </Toggles>
+          </Group>
 
-        <PrintButton onClick={() => window.print()}>
-          <Icon name="print" size={16} />
-          Print
-        </PrintButton>
-
-        <OptionsGroup>
-          <GroupLabel>Options</GroupLabel>
-          <Toggles>
-            {magic && (
+          <Group>
+            <GroupLabel>Options</GroupLabel>
+            <Toggles>
               <CheckLabel>
                 <CheckInput
                   type="checkbox"
-                  checked={spellFluff}
-                  onChange={() => setSpellFluff((v) => !v)}
+                  checked={twoColumn}
+                  onChange={() => setTwoColumn((v) => !v)}
                 />
-                Spell fluff
+                Two columns
               </CheckLabel>
-            )}
-            <CheckLabel>
-              <CheckInput
-                type="checkbox"
-                checked={twoColumn}
-                onChange={() => setTwoColumn((v) => !v)}
-              />
-              Two columns
-            </CheckLabel>
-            <CheckLabel>
-              <CheckInput
-                type="checkbox"
-                checked={smallFont}
-                onChange={() => setSmallFont((v) => !v)}
-              />
-              Smaller font
-            </CheckLabel>
-            <CheckLabel>
-              <CheckInput
-                type="checkbox"
-                checked={condensed}
-                onChange={() => setCondensed((v) => !v)}
-              />
-              Condensed
-            </CheckLabel>
-            <CheckLabel>
-              <CheckInput
-                type="checkbox"
-                checked={hideTitle}
-                onChange={() => setHideTitle((v) => !v)}
-              />
-              Hide name
-            </CheckLabel>
-          </Toggles>
-        </OptionsGroup>
+              <CheckLabel>
+                <CheckInput
+                  type="checkbox"
+                  checked={condensed}
+                  onChange={() => setCondensed((v) => !v)}
+                />
+                Condensed
+              </CheckLabel>
+              <CheckLabel>
+                <CheckInput
+                  type="checkbox"
+                  checked={smallFont}
+                  onChange={() => setSmallFont((v) => !v)}
+                />
+                Smaller font
+              </CheckLabel>
+              {magic && (
+                <CheckLabel>
+                  <CheckInput
+                    type="checkbox"
+                    checked={spellFluff}
+                    onChange={() => setSpellFluff((v) => !v)}
+                  />
+                  Spell fluff
+                </CheckLabel>
+              )}
+              <CheckLabel>
+                <CheckInput
+                  type="checkbox"
+                  checked={hideTitle}
+                  onChange={() => setHideTitle((v) => !v)}
+                />
+                Hide name
+              </CheckLabel>
+            </Toggles>
+          </Group>
+        </Stack>
+
+        <PrintButton onClick={() => window.print()}>
+          <Icon name="print" size={18} />
+          Print
+        </PrintButton>
       </Controls>
 
       <PrintView
