@@ -15,6 +15,8 @@ export const GlobalStyle = createGlobalStyle`
   a { color: inherit; }
 
   @media print {
+    @page { margin: 12mm; }
+
     body { background: #ffffff; color: #000000; }
     .no-print { display: none !important; }
 
@@ -28,6 +30,16 @@ export const GlobalStyle = createGlobalStyle`
     .print-document th,
     .print-document td {
       border-color: #888888 !important;
+    }
+
+    /* Keep the wide stats table inside the printable page: shrink the type,
+       tighten the cells, and let the text columns wrap instead of forcing a
+       single nowrap line that runs off the paper. */
+    .print-document table { font-size: 8px; }
+    .print-document th,
+    .print-document td {
+      padding: 1px 3px !important;
+      white-space: normal !important;
     }
   }
 `;

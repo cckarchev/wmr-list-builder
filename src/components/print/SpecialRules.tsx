@@ -4,10 +4,6 @@ import type { SpecialRule } from '../../data/types';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
 
-interface SpecialRulesProps {
-  used?: boolean;
-}
-
 function collectUsedSpecialRules(
   allSpecialRules: Record<string, SpecialRule>,
   units: ReturnType<typeof useArmyStore.getState>['units'],
@@ -39,7 +35,7 @@ function collectUsedSpecialRules(
   return result;
 }
 
-export default function SpecialRules({ used = false }: SpecialRulesProps) {
+export default function SpecialRules() {
   const specialRulesRaw = useArmyStore((s) => s.specialRules) as
     | Record<string, SpecialRule>
     | undefined;
@@ -48,9 +44,7 @@ export default function SpecialRules({ used = false }: SpecialRulesProps) {
 
   if (!specialRulesRaw) return null;
 
-  const rulesMap = used
-    ? collectUsedSpecialRules(specialRulesRaw, units, upgrades)
-    : specialRulesRaw;
+  const rulesMap = collectUsedSpecialRules(specialRulesRaw, units, upgrades);
 
   // sort by order
   const sorted = Object.entries(rulesMap).sort(([, a], [, b]) => {
@@ -63,7 +57,7 @@ export default function SpecialRules({ used = false }: SpecialRulesProps) {
 
   return (
     <PrintSection>
-      <PrintHeading>Special Rules{used ? ' Used' : ''}</PrintHeading>
+      <PrintHeading>Special Rules</PrintHeading>
       <DefList>
         {sorted.flatMap(([name, rule]) => {
           const html = rule.text ? (marked(rule.text.join('\n')) as string) : '';

@@ -13,11 +13,6 @@ export const DEFAULT_GAME_SIZE = 2000;
 
 export type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 
-export interface PrintableItem {
-  abbr: string;
-  title: string;
-}
-
 export interface ArmyState {
   // data
   armyId: string | null;
@@ -30,8 +25,6 @@ export interface ArmyState {
   spells: Spell[] | undefined;
   version: string;
   label: string;
-  printItems: PrintableItem[];
-  printableItems: PrintableItem[];
   errors: ValidationError[];
   gameSize: number;
   loadWarning: string | null;
@@ -46,8 +39,6 @@ export interface ArmyState {
   setLoadWarning: (msg: string | null) => void;
   setSavedBaseline: (encoded: string | null) => void;
   applyList: (snap: ListSnapshot) => void;
-  addPrintItem: (index: number) => void;
-  removePrintItem: (index: number) => void;
   reset: () => void;
 }
 
@@ -62,8 +53,6 @@ interface InitialData {
   spells: Spell[] | undefined;
   version: string;
   label: string;
-  printItems: PrintableItem[];
-  printableItems: PrintableItem[];
   errors: ValidationError[];
   gameSize: number;
   loadWarning: string | null;
@@ -82,8 +71,6 @@ function emptyData(): InitialData {
     spells: undefined,
     version: '',
     label: '',
-    printItems: [],
-    printableItems: [],
     errors: [],
     gameSize: DEFAULT_GAME_SIZE,
     loadWarning: null,
@@ -98,21 +85,6 @@ function emptyData(): InitialData {
 function initializeState(id: string): InitialData {
   const army = loadArmy(id);
 
-  const printableItems: PrintableItem[] = [
-    { abbr: 'l', title: 'Text List' },
-    { abbr: 's', title: 'Stats' },
-    { abbr: 'sl', title: 'Stats Used' },
-  ];
-
-  if (army.armyRules) {
-    printableItems.push({ abbr: 'ar', title: 'Army Rules' });
-  }
-
-  if (army.specialRules) {
-    printableItems.push({ abbr: 'sr', title: 'Special Rules' });
-    printableItems.push({ abbr: 'sru', title: 'Special Rules Used' });
-  }
-
   let upgradeConstraints: UpgradeConstraint[] = army.upgradeConstraints
     ? [...army.upgradeConstraints]
     : [];
@@ -120,10 +92,6 @@ function initializeState(id: string): InitialData {
 
   if (magic) {
     upgradeConstraints = upgradeConstraints.concat(magicItems.upgradeConstraints);
-
-    printableItems.push({ abbr: 'mi', title: 'Magic Items' });
-    printableItems.push({ abbr: 'miu', title: 'Magic Items Used' });
-    printableItems.push({ abbr: 'sp', title: 'Spells' });
   }
 
   // upgrades are needed by units, so build them first
@@ -141,8 +109,6 @@ function initializeState(id: string): InitialData {
     spells: army.spells,
     version: army.version,
     label: '',
-    printItems: [],
-    printableItems,
     errors: validate(units, upgrades, DEFAULT_GAME_SIZE),
     gameSize: DEFAULT_GAME_SIZE,
     loadWarning: null,
@@ -238,22 +204,6 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
       }
     }
   },
-
-  addPrintItem: (index) =>
-    set((state) => {
-      const printableItems = [...state.printableItems];
-      const [moved] = printableItems.splice(index, 1);
-      if (!moved) return {};
-      return { printItems: [...state.printItems, moved], printableItems };
-    }),
-
-  removePrintItem: (index) =>
-    set((state) => {
-      const printItems = [...state.printItems];
-      const [moved] = printItems.splice(index, 1);
-      if (!moved) return {};
-      return { printItems, printableItems: [...state.printableItems, moved] };
-    }),
 
   reset: () => set(emptyData()),
 }));

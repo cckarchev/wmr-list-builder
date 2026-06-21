@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../store/useArmyStore';
 import PrintView from '../components/print/PrintView';
+import { availablePrintSections } from '../components/print/printSections';
 
 const Page = styled.main`
   min-height: 100dvh;
@@ -41,21 +42,6 @@ const CheckInput = styled.input`
   accent-color: ${({ theme }) => theme.color.accent};
 `;
 
-const LabelInput = styled.input`
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.body};
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.color.border.active};
-  }
-`;
-
 const PrintButton = styled.button`
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
@@ -84,10 +70,9 @@ export default function Print() {
   const army = useArmyStore((s) => s.army);
   const armyIdInStore = useArmyStore((s) => s.armyId);
   const setArmy = useArmyStore((s) => s.setArmy);
-  const printableItems = useArmyStore((s) => s.printableItems);
-  const printItems = useArmyStore((s) => s.printItems);
-  const label = useArmyStore((s) => s.label);
-  const setLabel = useArmyStore((s) => s.setLabel);
+  const hasArmyRules = useArmyStore((s) => !!s.army?.armyRules);
+  const hasSpecialRules = useArmyStore((s) => !!s.specialRules);
+  const magic = useArmyStore((s) => s.magic);
 
   // Load army if not already loaded or if different army
   useEffect(() => {
@@ -96,30 +81,32 @@ export default function Print() {
     }
   }, [armyId, armyIdInStore, setArmy]);
 
-  // All available section items (combined from both printableItems and printItems)
-  const allItems = [...printableItems, ...printItems];
+  const sections = useMemo(
+    () => availablePrintSections({ hasArmyRules, hasSpecialRules, magic }),
+    [hasArmyRules, hasSpecialRules, magic],
+  );
 
-  // Local selection state: start with all sections selected
-  const [selectedAbbrs, setSelectedAbbrs] = useState<Set<string>>(
-    () => new Set(allItems.map((item) => item.abbr)),
+  // Local selection state: start with all available sections selected.
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(
+    () => new Set(sections.map((s) => s.id)),
   );
 
   // When the loaded army changes, reset the selection to all sections.
-  // Adjusting state during render (React's recommended pattern) instead of
-  // an effect avoids an extra render pass.
+  // Adjusting state during render (React's recommended pattern) instead of an
+  // effect avoids an extra render pass.
   const [selectionArmy, setSelectionArmy] = useState(army);
   if (army !== selectionArmy) {
     setSelectionArmy(army);
-    setSelectedAbbrs(new Set(allItems.map((item) => item.abbr)));
+    setSelectedIds(new Set(sections.map((s) => s.id)));
   }
 
-  const toggleAbbr = (abbr: string) => {
-    setSelectedAbbrs((prev) => {
+  const toggle = (id: string) => {
+    setSelectedIds((prev) => {
       const next = new Set(prev);
-      if (next.has(abbr)) {
-        next.delete(abbr);
+      if (next.has(id)) {
+        next.delete(id);
       } else {
-        next.add(abbr);
+        next.add(id);
       }
       return next;
     });
@@ -131,28 +118,22 @@ export default function Print() {
     <Page>
       <Controls className="no-print">
         <SectionToggles>
-          {allItems.map((item) => (
-            <CheckLabel key={item.abbr}>
+          {sections.map((section) => (
+            <CheckLabel key={section.id}>
               <CheckInput
                 type="checkbox"
-                checked={selectedAbbrs.has(item.abbr)}
-                onChange={() => toggleAbbr(item.abbr)}
+                checked={selectedIds.has(section.id)}
+                onChange={() => toggle(section.id)}
               />
-              {item.title}
+              {section.title}
             </CheckLabel>
           ))}
         </SectionToggles>
-        <LabelInput
-          type="text"
-          placeholder="Optional label…"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-        />
         <PrintButton onClick={() => window.print()}>Print</PrintButton>
         <Hint>Check the sections you want to include, then click Print.</Hint>
       </Controls>
 
-      <PrintView selectedAbbrs={selectedAbbrs} />
+      <PrintView sections={sections} selectedIds={selectedIds} />
     </Page>
   );
 }

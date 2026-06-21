@@ -1,17 +1,11 @@
+import { Fragment } from 'react';
 import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
+import { stripSpellFlavor } from './spellText';
 
-const SpellName = styled(DefTerm)`
-  text-transform: uppercase;
-`;
-
-const SpellMeta = styled.dd`
-  margin: 0;
-  font-style: italic;
-  color: ${({ theme }) => theme.color.text.dim};
-`;
+const SpellHeader = styled(DefTerm)``;
 
 const SpellText = styled(DefDesc)`
   margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
@@ -27,14 +21,15 @@ export default function Spells() {
       <PrintHeading>Spells</PrintHeading>
       <DefList>
         {spells.map((spell, i) => {
-          const html = marked(spell.text.join('\n')) as string;
+          const html = marked(stripSpellFlavor(spell.text).join('\n')) as string;
+          const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
+            spell.range ?? 'N/A'
+          }`;
           return (
-            <>
-              <SpellName key={`name_${i}`}>{spell.name}</SpellName>
-              <SpellMeta key={`roll_${i}`}>{spell.roll}+ to cast</SpellMeta>
-              <SpellMeta key={`range_${i}`}>Range {spell.range ?? 'N/A'}</SpellMeta>
-              <SpellText key={`text_${i}`} dangerouslySetInnerHTML={{ __html: html }} />
-            </>
+            <Fragment key={i}>
+              <SpellHeader>{header}</SpellHeader>
+              <SpellText dangerouslySetInnerHTML={{ __html: html }} />
+            </Fragment>
           );
         })}
       </DefList>

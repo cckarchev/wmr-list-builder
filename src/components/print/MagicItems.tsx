@@ -1,13 +1,10 @@
+import { Fragment } from 'react';
 import { marked } from 'marked';
 import { useArmyStore } from '../../store/useArmyStore';
 import { magicItems, MAGIC_ITEM_TYPES } from '../../data/magicItems';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
 
-interface MagicItemsProps {
-  used?: boolean;
-}
-
-export default function MagicItems({ used = false }: MagicItemsProps) {
+export default function MagicItems() {
   const upgrades = useArmyStore((s) => s.upgrades);
   const magic = useArmyStore((s) => s.magic);
 
@@ -15,31 +12,27 @@ export default function MagicItems({ used = false }: MagicItemsProps) {
 
   const allMagicItems = magicItems.upgrades;
 
-  const items = used
-    ? Object.fromEntries(
-        Object.entries(allMagicItems).filter(([id]) => {
-          const globalUpgrade = upgrades[id];
-          return (
-            globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type)
-          );
-        }),
-      )
-    : allMagicItems;
+  const items = Object.fromEntries(
+    Object.entries(allMagicItems).filter(([id]) => {
+      const globalUpgrade = upgrades[id];
+      return globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type);
+    }),
+  );
 
   const entries = Object.entries(items);
   if (entries.length === 0) return null;
 
   return (
     <PrintSection>
-      <PrintHeading>Magic Items{used ? ' Used' : ''}</PrintHeading>
+      <PrintHeading>Magic Items</PrintHeading>
       <DefList>
         {entries.map(([name, item]) => {
           const html = marked(item.text.join('\n')) as string;
           return (
-            <>
-              <DefTerm key={`dt_${name}`}>{name}</DefTerm>
-              <DefDesc key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />
-            </>
+            <Fragment key={name}>
+              <DefTerm>{name}</DefTerm>
+              <DefDesc dangerouslySetInnerHTML={{ __html: html }} />
+            </Fragment>
           );
         })}
       </DefList>

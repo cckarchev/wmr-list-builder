@@ -1,19 +1,23 @@
 import styled from 'styled-components';
-import TextList from './TextList';
-import Stats from './Stats';
-import ArmyRules from './ArmyRules';
-import SpecialRules from './SpecialRules';
-import MagicItems from './MagicItems';
-import Spells from './Spells';
+import { useArmyStore } from '../../store/useArmyStore';
+import type { PrintSectionDef } from './printSections';
 
 const Document = styled.div`
   padding: ${({ theme }) => `${theme.space[4]}px`};
   color: ${({ theme }) => theme.color.text.body};
 `;
 
+const Title = styled.h1`
+  font-family: ${({ theme }) => theme.font.display};
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  color: ${({ theme }) => theme.color.text.strong};
+  text-align: center;
+  margin-bottom: ${({ theme }) => `${theme.space[4]}px`};
+`;
+
 const Section = styled.section`
-  margin-bottom: ${({ theme }) => `${theme.space[6]}px`};
-  padding-bottom: ${({ theme }) => `${theme.space[5]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space[4]}px`};
+  padding-bottom: ${({ theme }) => `${theme.space[3]}px`};
   border-bottom: 1px dashed ${({ theme }) => theme.color.border.divider};
 
   &:last-child {
@@ -23,57 +27,23 @@ const Section = styled.section`
 `;
 
 interface PrintViewProps {
-  selectedAbbrs: Set<string>;
+  sections: PrintSectionDef[];
+  selectedIds: Set<string>;
 }
 
-export default function PrintView({ selectedAbbrs }: PrintViewProps) {
+export default function PrintView({ sections, selectedIds }: PrintViewProps) {
+  const armyName = useArmyStore((s) => s.army?.name ?? '');
+  const label = useArmyStore((s) => s.label);
+  const title = label ? `${armyName} · ${label}` : armyName;
+
   return (
     <Document className="print-document">
-      {selectedAbbrs.has('l') && (
-        <Section>
-          <TextList />
-        </Section>
-      )}
-      {selectedAbbrs.has('s') && (
-        <Section>
-          <Stats used={false} />
-        </Section>
-      )}
-      {selectedAbbrs.has('sl') && (
-        <Section>
-          <Stats used={true} />
-        </Section>
-      )}
-      {selectedAbbrs.has('ar') && (
-        <Section>
-          <ArmyRules />
-        </Section>
-      )}
-      {selectedAbbrs.has('sr') && (
-        <Section>
-          <SpecialRules used={false} />
-        </Section>
-      )}
-      {selectedAbbrs.has('sru') && (
-        <Section>
-          <SpecialRules used={true} />
-        </Section>
-      )}
-      {selectedAbbrs.has('mi') && (
-        <Section>
-          <MagicItems used={false} />
-        </Section>
-      )}
-      {selectedAbbrs.has('miu') && (
-        <Section>
-          <MagicItems used={true} />
-        </Section>
-      )}
-      {selectedAbbrs.has('sp') && (
-        <Section>
-          <Spells />
-        </Section>
-      )}
+      {armyName && <Title>{title}</Title>}
+      {sections
+        .filter((section) => selectedIds.has(section.id))
+        .map((section) => (
+          <Section key={section.id}>{section.render()}</Section>
+        ))}
     </Document>
   );
 }

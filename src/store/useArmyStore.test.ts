@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { useArmyStore } from './useArmyStore';
 import { pointsCost } from './selectors';
 import { resolveBounds } from './forceLimits';
+import { availablePrintSections } from '../components/print/printSections';
 
 const get = () => useArmyStore.getState();
 
@@ -43,11 +44,15 @@ describe('setArmy', () => {
     expect(get().upgrades['Crown of Command']).toBeDefined();
   });
 
-  it('builds the Empire printableItems list (no Army Rules, has Special Rules + Magic + Spells)', () => {
+  it('exposes Empire print sections (no Army Rules, has Special Rules + Magic + Spells)', () => {
     get().setArmy('empire');
-    const abbrs = get().printableItems.map((p) => p.abbr);
-    expect(abbrs).toEqual(['l', 's', 'sl', 'sr', 'sru', 'mi', 'miu', 'sp']);
-    expect(get().printItems).toEqual([]);
+    const s = get();
+    const ids = availablePrintSections({
+      hasArmyRules: !!s.army?.armyRules,
+      hasSpecialRules: !!s.specialRules,
+      magic: s.magic,
+    }).map((section) => section.id);
+    expect(ids).toEqual(['stats', 'specialRules', 'magicItems', 'spells']);
   });
 });
 
@@ -139,18 +144,6 @@ describe('clamping and cascades', () => {
 });
 
 describe('print items + label', () => {
-  it('moves an item between printableItems and printItems', () => {
-    get().setArmy('empire');
-    const firstTitle = get().printableItems[0].title;
-    get().addPrintItem(0);
-    expect(get().printItems.map((p) => p.title)).toContain(firstTitle);
-    expect(get().printableItems.map((p) => p.title)).not.toContain(firstTitle);
-
-    get().removePrintItem(0);
-    expect(get().printItems).toEqual([]);
-    expect(get().printableItems.map((p) => p.title)).toContain(firstTitle);
-  });
-
   it('setLabel updates the label', () => {
     get().setArmy('empire');
     get().setLabel('My List');
