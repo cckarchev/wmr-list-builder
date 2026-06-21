@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount, groupRosterUnits } from '../../store/selectors';
+import { pointsCost, unitCount, breakPoint, groupRosterUnits } from '../../store/selectors';
 import { unitDomId } from './unitDomId';
 import { focusRing } from '../../theme/focusRing';
 
@@ -38,12 +38,6 @@ const Heading = styled.button`
   }
 
   ${focusRing}
-`;
-
-const Count = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
 `;
 
 const Body = styled.div<{ $open: boolean }>`
@@ -149,6 +143,7 @@ export default function ArmySummary() {
     .filter((id) => units[id].number > 0);
   const total = pointsCost({ units });
   const count = unitCount(units);
+  const bp = breakPoint(units);
   const over = total > gameSize;
 
   const jumpTo = (id: string) =>
@@ -158,7 +153,6 @@ export default function ArmySummary() {
     <Aside aria-label="Your Army">
       <Heading type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         Your Army
-        <Count>{selected.length}</Count>
       </Heading>
       <Body $open={open}>
         {selected.length === 0 ? (
@@ -191,7 +185,7 @@ export default function ArmySummary() {
         )}
         <Total $over={over}>
           <span>
-            {count} unit{count === 1 ? '' : 's'}
+            {count} unit{count === 1 ? '' : 's'} · break {bp}
           </span>
           <span>
             {total} / {gameSize}
