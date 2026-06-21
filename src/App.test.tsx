@@ -87,8 +87,7 @@ describe('App routing', () => {
     });
 
     // The print controls expose a Print button.
-    const controls = await screen.findByText(/check the sections you want/i);
-    expect(controls).toBeInTheDocument();
+    await screen.findByRole('heading', { level: 1, name: 'Goblin' });
     expect(screen.getByRole('button', { name: 'Print' })).toBeInTheDocument();
   });
 
@@ -108,7 +107,7 @@ describe('App routing', () => {
     const inline = within(screen.getByTestId('actions-inline'));
     await user.click(inline.getByRole('button', { name: /more/i }));
     await user.click(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' }));
-    await screen.findByText(/check the sections/i);
+    await screen.findByRole('button', { name: 'Print' });
     await user.click(screen.getByRole('link', { name: /back/i }));
 
     // The selection must survive the round trip.

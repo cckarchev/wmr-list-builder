@@ -41,3 +41,5 @@ npm-debug.log*
 
 # Superpowers specs/plans (local working docs)
 /docs
+
+.superpowers/
