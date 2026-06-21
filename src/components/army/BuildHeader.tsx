@@ -28,12 +28,20 @@ const TitleZone = styled.div`
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
   /* The header bar is full-bleed; its content is centered to the same width as
      the page body so the title lines up with the roster below. */
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin-inline: auto;
+`;
+
+const TitleBlock = styled.div`
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[1]}px`};
 `;
 
 const ArmyName = styled.h1`
@@ -46,11 +54,25 @@ const ArmyName = styled.h1`
 const ListName = styled.span`
   display: inline-flex;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
   color: ${({ theme }) => theme.color.text.dim};
   font-size: ${({ theme }) => theme.fontSize.sm};
 `;
 
+const ListNameText = styled.span`
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+const Placeholder = styled.span`
+  font-style: italic;
+`;
+
 const UnsavedDot = styled.span`
+  flex-shrink: 0;
   margin-left: ${({ theme }) => `${theme.space[1]}px`};
   color: ${({ theme }) => theme.color.semantic.warning};
 `;
@@ -289,17 +311,23 @@ export default function BuildHeader() {
   return (
     <Header className="no-print" data-testid="points-bar">
       <TitleZone>
-        <ArmyName>{army?.name}</ArmyName>
-        {listName && (
+        <TitleBlock>
+          <ArmyName>{army?.name}</ArmyName>
           <ListName>
-            {listName}
-            {isDirty && (
-              <UnsavedDot data-testid="unsaved-marker" aria-label="unsaved changes">
-                •
-              </UnsavedDot>
+            {listName ? (
+              <>
+                <ListNameText>{listName}</ListNameText>
+                {isDirty && (
+                  <UnsavedDot data-testid="unsaved-marker" aria-label="unsaved changes">
+                    •
+                  </UnsavedDot>
+                )}
+              </>
+            ) : (
+              <Placeholder>Unsaved</Placeholder>
             )}
           </ListName>
-        )}
+        </TitleBlock>
         <InlineActions data-testid="actions-inline">
           <SaveListButton />
           <LoadListButton />

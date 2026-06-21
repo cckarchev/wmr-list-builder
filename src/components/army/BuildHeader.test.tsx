@@ -99,6 +99,12 @@ describe('BuildHeader list name', () => {
     expect(screen.getByText('Tourney List')).toBeInTheDocument();
   });
 
+  it('shows an "Unsaved" placeholder when the list has no name', () => {
+    useArmyStore.getState().setArmy('bretonnia');
+    renderWithProviders(<BuildHeader />);
+    expect(screen.getByText('Unsaved')).toBeInTheDocument();
+  });
+
   it('renders Save and Load actions', () => {
     useArmyStore.getState().setArmy('bretonnia');
     renderWithProviders(<BuildHeader />);
