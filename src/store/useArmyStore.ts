@@ -191,6 +191,15 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
     }),
 
   applyList: (snap) => {
+    // Start from a clean baseline so selections from a previously loaded list
+    // don't carry over into this one (the snapshot only carries non-zero
+    // entries, so anything omitted must be reset, not left as-is).
+    const armyId = get().armyId;
+    if (armyId) {
+      const fresh = initializeState(armyId);
+      set({ units: fresh.units, upgrades: fresh.upgrades });
+    }
+
     const { setGameSize, setLabel, setUnitNumber, setUnitUpgradeNumber, units } = get();
     setGameSize(snap.gameSize);
     setLabel(snap.name);

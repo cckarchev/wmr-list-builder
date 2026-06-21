@@ -165,6 +165,32 @@ describe('applyList', () => {
     expect(s.units.Knights.number).toBe(2);
     expect(s.units.NotAUnit).toBeUndefined();
   });
+
+  it('clears prior selections when loading a second list', () => {
+    get().setArmy('empire');
+    get().applyList({
+      name: 'first',
+      gameSize: 1000,
+      units: { Halberdiers: 5 },
+      upgrades: { Halberdiers: { 'Battle Banner': 1 } },
+    });
+    expect(get().units.Halberdiers.number).toBe(5);
+    expect(get().units.Halberdiers.upgrades?.['Battle Banner']?.number).toBe(1);
+
+    get().applyList({
+      name: 'second',
+      gameSize: 2000,
+      units: { Knights: 2 },
+      upgrades: {},
+    });
+
+    const s = get();
+    expect(s.units.Knights.number).toBe(2);
+    // Halberdiers (and its upgrade) were in the first list but not the second;
+    // they must not carry over.
+    expect(s.units.Halberdiers.upgrades?.['Battle Banner']?.number ?? 0).toBe(0);
+    expect(s.upgrades['Battle Banner'].number).toBe(0);
+  });
 });
 
 describe('force limits', () => {
