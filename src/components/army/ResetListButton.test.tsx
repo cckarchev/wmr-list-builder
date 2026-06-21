@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -36,32 +36,34 @@ function renderReset(path: string) {
 describe('ResetListButton', () => {
   beforeEach(() => {
     useArmyStore.getState().setArmy('goblin');
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
     useArmyStore.getState().reset();
   });
 
-  it('clears the ?list= param on reset', async () => {
+  it('clears the ?list= param after confirming the reset', async () => {
     const user = userEvent.setup();
     renderReset('/build/goblin?list=abc123');
 
     expect(screen.getByTestId('search').textContent).toBe('?list=abc123');
 
     await user.click(screen.getByRole('button', { name: /reset/i }));
+    const dialog = screen.getByRole('alertdialog');
+    await user.click(within(dialog).getByRole('button', { name: /reset/i }));
 
     expect(screen.getByTestId('search').textContent).toBe('');
   });
 
-  it('does nothing to the URL when confirm is cancelled', async () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
+  it('does nothing to the URL when the reset is cancelled', async () => {
     const user = userEvent.setup();
     renderReset('/build/goblin?list=abc123');
 
     await user.click(screen.getByRole('button', { name: /reset/i }));
+    const dialog = screen.getByRole('alertdialog');
+    await user.click(within(dialog).getByRole('button', { name: /cancel/i }));
 
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     expect(screen.getByTestId('search').textContent).toBe('?list=abc123');
   });
 });

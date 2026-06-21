@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
+import ConfirmDialog from '../ui/ConfirmDialog';
 import Icon from '../ui/Icon';
 import { focusRing } from '../../theme/focusRing';
 import { useArmyStore } from '../../store/useArmyStore';
@@ -121,6 +122,7 @@ export default function SaveListButton() {
     saveNamedList(armyId, finalName, snap);
     setLabel(finalName);
     setSavedBaseline(encodeList(snap, maps));
+    setConfirmingOverwrite(false);
     setOpen(false);
   };
 
@@ -131,8 +133,7 @@ export default function SaveListButton() {
       return;
     }
     if (!armyId) return;
-    if (!confirmingOverwrite && listSavedNames(armyId).includes(trimmed)) {
-      setError(`"${trimmed}" already exists.`);
+    if (listSavedNames(armyId).includes(trimmed)) {
       setConfirmingOverwrite(true);
       return;
     }
@@ -173,11 +174,20 @@ export default function SaveListButton() {
             />
             {error && <Note role="alert">{error}</Note>}
             <Button $variant="primary" $size="sm" onClick={handleSave}>
-              {confirmingOverwrite ? 'Overwrite' : 'Save list'}
+              Save list
             </Button>
           </Body>
         </Panel>
       )}
+      <ConfirmDialog
+        open={confirmingOverwrite}
+        title={`Overwrite "${name.trim()}"?`}
+        message="A saved list with this name already exists and will be replaced."
+        confirmLabel="Overwrite"
+        confirmVariant="primary"
+        onConfirm={() => commit(name.trim())}
+        onCancel={() => setConfirmingOverwrite(false)}
+      />
     </Wrapper>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../ui/Button';
+import ConfirmDialog from '../ui/ConfirmDialog';
 import Icon from '../ui/Icon';
 import { focusRing } from '../../theme/focusRing';
 import { useArmyStore } from '../../store/useArmyStore';
@@ -127,21 +128,6 @@ const Empty = styled.p`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-const Confirm = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
-  background: ${({ theme }) => theme.color.bg.deep};
-`;
-
-const Note = styled.p`
-  flex: 1;
-  margin: 0;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
 export default function LoadListButton() {
   const armyId = useArmyStore((s) => s.armyId);
   const applyList = useArmyStore((s) => s.applyList);
@@ -187,6 +173,7 @@ export default function LoadListButton() {
     // (applyList clamps to force limits, so it may differ from the raw snapshot).
     const { gameSize, units } = useArmyStore.getState();
     setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label: name }), maps));
+    setConfirmLoad(null);
     setOpen(false);
   };
 
@@ -235,31 +222,26 @@ export default function LoadListButton() {
                   <Icon name="trash" size={14} />
                 </IconButton>
               </Row>
-              {confirmLoad === name && (
-                <Confirm>
-                  <Note>Replace current list? Unsaved changes will be lost.</Note>
-                  <Button $variant="primary" $size="sm" onClick={() => doLoad(name)}>
-                    Replace
-                  </Button>
-                </Confirm>
-              )}
-              {confirmDelete === name && (
-                <Confirm>
-                  <Note>Delete "{name}"?</Note>
-                  <Button
-                    $variant="ghost"
-                    $size="sm"
-                    aria-label={`confirm delete ${name}`}
-                    onClick={() => doDelete(name)}
-                  >
-                    Confirm delete
-                  </Button>
-                </Confirm>
-              )}
             </Item>
           ))}
         </Panel>
       )}
+      <ConfirmDialog
+        open={confirmLoad !== null}
+        title="Replace current list?"
+        message="Unsaved changes will be lost."
+        confirmLabel="Replace"
+        onConfirm={() => confirmLoad && doLoad(confirmLoad)}
+        onCancel={() => setConfirmLoad(null)}
+      />
+      <ConfirmDialog
+        open={confirmDelete !== null}
+        title={`Delete "${confirmDelete ?? ''}"?`}
+        message="This saved list will be removed permanently."
+        confirmLabel="Delete"
+        onConfirm={() => confirmDelete && doDelete(confirmDelete)}
+        onCancel={() => setConfirmDelete(null)}
+      />
     </Wrapper>
   );
 }

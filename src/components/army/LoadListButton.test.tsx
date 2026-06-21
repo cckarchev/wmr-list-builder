@@ -59,7 +59,7 @@ describe('LoadListButton', () => {
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /^Saved B$/ }));
     expect(screen.getByText(/unsaved changes/i)).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: /replace/i }));
+    await user.click(screen.getByRole('button', { name: /^replace$/i }));
     expect(useArmyStore.getState().gameSize).toBe(1750);
   });
 
@@ -69,7 +69,7 @@ describe('LoadListButton', () => {
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /delete Saved C/i }));
-    await user.click(screen.getByRole('button', { name: /confirm delete/i }));
+    await user.click(screen.getByRole('button', { name: /^delete$/i }));
     expect(screen.queryByRole('button', { name: /^Saved C$/ })).not.toBeInTheDocument();
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
   });
