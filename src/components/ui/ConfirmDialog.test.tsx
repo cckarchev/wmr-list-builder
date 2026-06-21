@@ -27,7 +27,9 @@ describe('ConfirmDialog', () => {
   it('fires onConfirm when the confirm button is clicked', async () => {
     const onConfirm = vi.fn();
     const user = userEvent.setup();
-    renderWithTheme(<ConfirmDialog open {...baseProps} onConfirm={onConfirm} confirmLabel="Reset" />);
+    renderWithTheme(
+      <ConfirmDialog open {...baseProps} onConfirm={onConfirm} confirmLabel="Reset" />,
+    );
     await user.click(screen.getByRole('button', { name: /reset/i }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
   });

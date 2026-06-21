@@ -108,7 +108,12 @@ export default function ConfirmDialog({
         if (e.target === e.currentTarget) onCancel();
       }}
     >
-      <Card role="alertdialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={messageId}>
+      <Card
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={messageId}
+      >
         <Title id={titleId}>{title}</Title>
         <Message id={messageId}>{message}</Message>
         <Actions>
