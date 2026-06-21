@@ -22,6 +22,17 @@ const Table = styled.table`
   }
 `;
 
+// Characters (General/Hero/Wizard) and the fighting units have wildly
+// different stat profiles, so they print as two separate tables. The
+// character table drops Range/Armour and keeps Command; the unit table drops
+// Command. Only the units count toward the break point, so the totals footer
+// lives on the unit table.
+const CharacterTable = styled(Table)`
+  margin-bottom: ${({ theme }) => `${theme.space[5]}px`};
+`;
+
+const CHARACTER_TYPES = new Set(['General', 'Hero', 'Wizard']);
+
 const Caption = styled.caption`
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.lg};
@@ -44,16 +55,29 @@ const TdLeft = styled(Td)`
   text-align: left;
 `;
 
+// Indent attachment (upgrade) names so they read as nested under their parent
+// unit, making it easy to scan where one unit ends and the next begins. The
+// indent lives on an inner span because the print stylesheet forces a fixed
+// cell padding that would otherwise wipe a cell-level indent.
+const Name = styled.span<{ $indent?: boolean }>`
+  display: inline-block;
+  margin-left: ${({ theme, $indent }) => ($indent ? `${theme.space[3]}px` : '0')};
+`;
+
 const FootTd = styled(Td)`
   border-top: 2px solid currentColor;
   font-weight: 600;
 `;
+
+type StatKind = 'character' | 'unit';
 
 interface StatRowProps {
   name: string;
   troop: UnitState | UpgradeState | (UsedUnit & { pointsCost: number; number: number });
   parentUnit?: UnitState;
   specialRules: Record<string, { order?: number }>;
+  kind: StatKind;
+  isUpgrade?: boolean;
 }
 
 function resolvePoints(
@@ -89,24 +113,61 @@ function resolveSpecial(
     .join(', ');
 }
 
-function StatRow({ name, troop, parentUnit, specialRules }: StatRowProps) {
+function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: StatRowProps) {
   const t = troop as UnitState & UpgradeState;
 
   return (
     <tr>
       <Td>{t.number}</Td>
-      <TdLeft>{name}</TdLeft>
+      <TdLeft>
+        <Name $indent={isUpgrade}>{name}</Name>
+      </TdLeft>
       <TdLeft>{t.type || '-'}</TdLeft>
       <Td>{String(t.attack ?? '-')}</Td>
-      <Td>{t.range || '-'}</Td>
-      <Td>{String(t.hits ?? '-')}</Td>
-      <Td>{t.armour || '-'}</Td>
-      <Td>{String(t.command ?? '-')}</Td>
-      <Td>{String(t.size ?? '-')}</Td>
+      {kind === 'unit' && <Td>{t.range || '-'}</Td>}
+      {kind === 'unit' && <Td>{String(t.hits ?? '-')}</Td>}
+      {kind === 'unit' && <Td>{t.armour || '-'}</Td>}
+      {kind === 'character' && <Td>{String(t.command ?? '-')}</Td>}
+      {kind === 'unit' && <Td>{String(t.size ?? '-')}</Td>}
       <Td>{resolvePoints(troop, parentUnit)}</Td>
       <Td>{resolveSpecial(name, t.specialRules, specialRules)}</Td>
     </tr>
   );
+}
+
+function renderRows(
+  entries: [string, UsedUnit][],
+  kind: StatKind,
+  units: Record<string, UnitState>,
+  srMap: Record<string, { order?: number }>,
+) {
+  return entries.flatMap(([unitId, unit]) => {
+    const rows = [
+      <StatRow
+        key={`unit_${unitId}`}
+        name={unitId}
+        troop={unit}
+        specialRules={srMap}
+        kind={kind}
+      />,
+    ];
+    if (unit.upgrades) {
+      Object.entries(unit.upgrades).forEach(([upId, upg]) => {
+        rows.push(
+          <StatRow
+            key={`upgrade_${unitId}_${upId}`}
+            name={upId}
+            troop={upg}
+            parentUnit={units[unitId]}
+            specialRules={srMap}
+            kind={kind}
+            isUpgrade
+          />,
+        );
+      });
+    }
+    return rows;
+  });
 }
 
 export default function Stats() {
@@ -124,10 +185,32 @@ export default function Stats() {
 
   const isValid = errors.length === 0;
 
+  const entries = Object.entries(usedUnitsMap);
+  const characterEntries = entries.filter(([, unit]) => CHARACTER_TYPES.has(unit.type));
+  const unitEntries = entries.filter(([, unit]) => !CHARACTER_TYPES.has(unit.type));
+
   return (
     <TableWrapper>
+      {characterEntries.length > 0 && (
+        <CharacterTable>
+          <Caption>Characters</Caption>
+          <thead>
+            <tr>
+              <Th>#</Th>
+              <Th>Troop</Th>
+              <Th>Type</Th>
+              <Th>Attack</Th>
+              <Th>Command</Th>
+              <Th>Points</Th>
+              <Th>Special</Th>
+            </tr>
+          </thead>
+          <tbody>{renderRows(characterEntries, 'character', units, srMap)}</tbody>
+        </CharacterTable>
+      )}
+
       <Table>
-        <Caption>Stats</Caption>
+        <Caption>Units</Caption>
         <thead>
           <tr>
             <Th>#</Th>
@@ -137,39 +220,18 @@ export default function Stats() {
             <Th>Range</Th>
             <Th>Hits</Th>
             <Th>Armour</Th>
-            <Th>Command</Th>
             <Th>Size</Th>
             <Th>Points</Th>
             <Th>Special</Th>
           </tr>
         </thead>
-        <tbody>
-          {Object.entries(usedUnitsMap).flatMap(([unitId, unit]) => {
-            const rows = [
-              <StatRow key={`unit_${unitId}`} name={unitId} troop={unit} specialRules={srMap} />,
-            ];
-            if (unit.upgrades) {
-              Object.entries(unit.upgrades).forEach(([upId, upg]) => {
-                rows.push(
-                  <StatRow
-                    key={`upgrade_${unitId}_${upId}`}
-                    name={upId}
-                    troop={upg}
-                    parentUnit={units[unitId]}
-                    specialRules={srMap}
-                  />,
-                );
-              });
-            }
-            return rows;
-          })}
-        </tbody>
+        <tbody>{renderRows(unitEntries, 'unit', units, srMap)}</tbody>
         <tfoot>
           <tr>
             <FootTd>
               {count}/{Math.ceil(count / 2)}
             </FootTd>
-            <FootTd colSpan={8}>{isValid ? '' : 'INVALID'}</FootTd>
+            <FootTd colSpan={7}>{isValid ? '' : 'INVALID'}</FootTd>
             <FootTd>{total}</FootTd>
             <FootTd />
           </tr>

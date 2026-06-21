@@ -44,10 +44,10 @@ describe('Print screen', () => {
     expect(screen.getByRole('checkbox', { name: /stats/i })).toBeInTheDocument();
   });
 
-  it('renders the Stats section with a plain "Stats" caption (no ruleset)', async () => {
+  it('splits the stats into a Units table (no ruleset noise)', async () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
-    expect(screen.getByText('Stats', { selector: 'caption' })).toBeInTheDocument();
+    expect(screen.getByText('Units', { selector: 'caption' })).toBeInTheDocument();
     expect(screen.queryByText(/warmaster revolution/i)).not.toBeInTheDocument();
   });
 

@@ -41,5 +41,16 @@ export const GlobalStyle = createGlobalStyle`
       padding: 1px 3px !important;
       white-space: normal !important;
     }
+
+    /* Alternating row tint for readability. The transparent-background rule
+       above wins on specificity, so re-assert the fill more specifically and
+       force backgrounds to render with print-color-adjust. */
+    .print-document table {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .print-document tbody tr:nth-child(even) td {
+      background: #f0f0f0 !important;
+    }
   }
 `;
