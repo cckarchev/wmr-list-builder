@@ -10,7 +10,7 @@ import StatLine from '../ui/StatLine';
 import Tooltip from '../ui/Tooltip';
 import ChevronMark from '../ui/ChevronMark';
 import CornerBrackets from '../ui/CornerBrackets';
-import { focusRing } from '../../theme/focusRing';
+import { pillButton } from '../../theme/pillButton';
 import UpgradeRow from './UpgradeRow';
 import InlineErrors from './InlineErrors';
 import UnitRules from './UnitRules';
@@ -20,8 +20,8 @@ import { unitDomId } from './unitDomId';
 interface UnitCardProps {
   unitId: string;
   /* The roster section the card sits under. When the section is already labeled
-     with the unit's type (e.g. an "Infantry" section), we omit the type from the
-     card's eyebrow to avoid the redundant repetition. */
+     with the unit's type (e.g. an "Infantry" section), we omit the type tag from
+     the card to avoid the redundant repetition. */
   groupLabel?: string;
 }
 
@@ -66,40 +66,21 @@ const Top = styled.div`
   gap: ${({ theme }) => `${theme.space[3]}px`};
 `;
 
-const Identity = styled.div`
+// Left column: name and stat line stacked tightly. Keeping the stats here (next
+// to the name rather than below the whole header row) means the taller right-hand
+// controls column no longer pushes the stats down, closing the dead gap.
+const Main = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space[3]}px`};
   min-width: 0;
-`;
-
-// The model restriction (min/max), shown as a small leading chip beside the
-// name so it reads as a tag rather than as page chrome above the title.
-const Badge = styled.span`
-  flex-shrink: 0;
-  align-self: center;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-  border: 1px solid ${({ theme }) => theme.color.border.accent};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  line-height: 1;
-  color: ${({ theme }) => theme.color.tealBright};
-`;
-
-// The troop/character type, demoted to a subtitle under the name so the rules
-// and spells triggers in the name row stay uncluttered.
-const Subtitle = styled.div`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
+  flex: 1;
 `;
 
 const NameRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  flex-wrap: wrap;
   gap: ${({ theme }) => `${theme.space[2]}px`};
   min-width: 0;
 `;
@@ -112,6 +93,16 @@ const UnitName = styled.span`
   color: ${({ theme }) => theme.color.text.strong};
 `;
 
+// The troop/character type as a quiet inline tag after the name. Shown only when
+// it isn't already stated by the section header.
+const TypeTag = styled.span`
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  text-transform: uppercase;
+  letter-spacing: ${({ theme }) => theme.tracking.label};
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
 const Controls = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,19 +111,37 @@ const Controls = styled.div`
   flex-shrink: 0;
 `;
 
-const PointsCost = styled.span<{ $visible: boolean }>`
+/* The meta line under the stepper: points cost (when selected) and the model
+   restriction. Both are informational, never buttons. Hidden when a unit has
+   neither so the controls column doesn't reserve dead space. */
+const MetaLine = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: ${({ theme }) => `${theme.space[2]}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.tealBright};
-  /* Always occupy the line so selecting/deselecting a unit doesn't resize the
-     controls column and shift the layout. */
-  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
+
+  &:empty {
+    display: none;
+  }
 `;
 
-/* Holds the Rules/Spells popovers and the Upgrades toggle. UnitRules and
-   UnitSpells render nothing when they don't apply, so when the whole row is
-   empty `:empty` removes it (and its parent gap) entirely. */
-const Meta = styled.div`
+const Pts = styled.span`
+  color: ${({ theme }) => theme.color.tealBright};
+`;
+
+const Restriction = styled.span`
+  color: ${({ theme }) => theme.color.text.dim};
+`;
+
+const MetaSep = styled.span`
+  color: ${({ theme }) => theme.color.border.default};
+`;
+
+/* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row
+   of pill controls. Each child renders nothing when it doesn't apply, so when
+   the whole row is empty `:empty` removes it (and its parent gap) entirely. */
+const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -144,29 +153,7 @@ const Meta = styled.div`
 `;
 
 const UpgradesToggle = styled.button`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-  background: transparent;
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.color.text.body};
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition:
-    border-color 0.12s,
-    color 0.12s;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.color.border.hover};
-    color: ${({ theme }) => theme.color.text.strong};
-  }
-
-  ${focusRing}
+  ${pillButton}
 `;
 
 const Caret = styled.span<{ $open: boolean }>`
@@ -244,19 +231,22 @@ export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
         <CornerBrackets accent={invalid ? theme.color.semantic.error : theme.color.border.accent} />
       )}
       <Top>
-        <Identity>
+        <Main>
           <NameRow>
-            {badge && rule && (
-              <Tooltip label={rule}>
-                <Badge>{badge}</Badge>
-              </Tooltip>
-            )}
             <UnitName>{unitId}</UnitName>
-            <UnitRules unitId={unitId} />
-            <UnitSpells unitId={unitId} />
+            {showType && <TypeTag>{unit.type}</TypeTag>}
           </NameRow>
-          {showType && <Subtitle>{unit.type}</Subtitle>}
-        </Identity>
+          <StatLine
+            attack={unit.attack}
+            range={unit.range}
+            hits={unit.hits}
+            armour={unit.armour}
+            command={unit.command}
+            size={unit.size}
+            points={unit.points}
+            character={isCharacter(unit.type)}
+          />
+        </Main>
         <Controls>
           <Stepper
             value={unit.number}
@@ -265,22 +255,22 @@ export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
             max={max}
             label={unitId}
           />
-          <PointsCost $visible={selected} aria-hidden={!selected}>
-            {unit.pointsCost} pts
-          </PointsCost>
+          <MetaLine>
+            {selected && <Pts>{unit.pointsCost} pts</Pts>}
+            {badge && rule && (
+              <>
+                {selected && <MetaSep aria-hidden>·</MetaSep>}
+                <Tooltip label={rule}>
+                  <Restriction>{badge}</Restriction>
+                </Tooltip>
+              </>
+            )}
+          </MetaLine>
         </Controls>
       </Top>
-      <StatLine
-        attack={unit.attack}
-        range={unit.range}
-        hits={unit.hits}
-        armour={unit.armour}
-        command={unit.command}
-        size={unit.size}
-        points={unit.points}
-        character={isCharacter(unit.type)}
-      />
-      <Meta>
+      <Actions>
+        <UnitRules unitId={unitId} />
+        <UnitSpells unitId={unitId} />
         {hasUpgrades && (
           <UpgradesToggle
             type="button"
@@ -295,7 +285,7 @@ export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
             {selectedCount > 0 && <SelectedBadge>({selectedCount})</SelectedBadge>}
           </UpgradesToggle>
         )}
-      </Meta>
+      </Actions>
       {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
       {hasUpgrades && open && (
         <UpgradesSection id={panelId}>

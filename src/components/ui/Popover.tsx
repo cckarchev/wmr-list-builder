@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useLayoutEffect, useId, type ReactNode } from 'react';
 import styled from 'styled-components';
-import { focusRing } from '../../theme/focusRing';
+import { pillButton } from '../../theme/pillButton';
 
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
@@ -19,26 +19,7 @@ const Wrap = styled.div`
 `;
 
 const Trigger = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-  background: transparent;
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.color.text.body};
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.color.border.hover};
-    color: ${({ theme }) => theme.color.text.strong};
-  }
-
-  ${focusRing}
+  ${pillButton}
 `;
 
 const Panel = styled.div<{ $wide: boolean }>`

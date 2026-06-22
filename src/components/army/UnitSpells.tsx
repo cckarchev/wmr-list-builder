@@ -106,7 +106,16 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
     });
 
   return (
-    <Popover label="Spells" trigger={<Icon name="magic" size={16} />} wide>
+    <Popover
+      label="Spells"
+      trigger={
+        <>
+          <Icon name="magic" size={14} />
+          Spells
+        </>
+      }
+      wide
+    >
       <List>
         {spells.map((spell, i) => {
           const isOpen = open.has(i);
