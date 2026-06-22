@@ -240,7 +240,20 @@ export default function Build() {
     }))
     .filter((g) => g.unitIds.length > 0);
 
-  const toggleType = (label: string) => setActiveType((prev) => (prev === label ? null : label));
+  const toggleType = (label: string) =>
+    setActiveType((prev) => {
+      const next = prev === label ? null : label;
+      // When filtering to a category, make sure its section is expanded so the
+      // matching units aren't hidden behind a collapsed header.
+      if (next !== null)
+        setCollapsed((c) => {
+          if (!c.has(next)) return c;
+          const updated = new Set(c);
+          updated.delete(next);
+          return updated;
+        });
+      return next;
+    });
 
   return (
     <Page>
