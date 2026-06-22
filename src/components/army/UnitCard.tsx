@@ -19,6 +19,10 @@ import { unitDomId } from './unitDomId';
 
 interface UnitCardProps {
   unitId: string;
+  /* The roster section the card sits under. When the section is already labeled
+     with the unit's type (e.g. an "Infantry" section), we omit the type from the
+     card's eyebrow to avoid the redundant repetition. */
+  groupLabel?: string;
 }
 
 const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
@@ -69,23 +73,28 @@ const Identity = styled.div`
   min-width: 0;
 `;
 
-const Eyebrow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+// The model restriction (min/max), shown as a small leading chip beside the
+// name so it reads as a tag rather than as page chrome above the title.
+const Badge = styled.span`
+  flex-shrink: 0;
+  align-self: center;
+  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  border: 1px solid ${({ theme }) => theme.color.border.accent};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.font.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  line-height: 1;
+  color: ${({ theme }) => theme.color.tealBright};
+`;
+
+// The troop/character type, demoted to a subtitle under the name so the rules
+// and spells triggers in the name row stay uncluttered.
+const Subtitle = styled.div`
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
   letter-spacing: ${({ theme }) => theme.tracking.label};
   color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const Sep = styled.span`
-  color: ${({ theme }) => theme.color.border.default};
-`;
-
-const MinMax = styled.span`
-  color: ${({ theme }) => theme.color.tealBright};
 `;
 
 const NameRow = styled.div`
@@ -198,7 +207,7 @@ const UpgradeGroupLabel = styled.h5`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-export default function UnitCard({ unitId }: UnitCardProps) {
+export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrades = useArmyStore((s) => s.upgrades);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
@@ -210,6 +219,8 @@ export default function UnitCard({ unitId }: UnitCardProps) {
   if (!unit) return null;
 
   const selected = unit.number > 0;
+  // Skip the type in the eyebrow when the section header already states it.
+  const showType = groupLabel === undefined || unit.type !== groupLabel;
   const { min, max } = resolveBounds(unit, gameSize);
   const badge = minMaxBadge(unit, gameSize);
   const rule = explainMinMax(unit, gameSize);
@@ -234,22 +245,17 @@ export default function UnitCard({ unitId }: UnitCardProps) {
       )}
       <Top>
         <Identity>
-          <Eyebrow>
-            <span>{unit.type}</span>
-            {badge && rule && (
-              <>
-                <Sep aria-hidden>·</Sep>
-                <Tooltip label={rule}>
-                  <MinMax>{badge}</MinMax>
-                </Tooltip>
-              </>
-            )}
-          </Eyebrow>
           <NameRow>
+            {badge && rule && (
+              <Tooltip label={rule}>
+                <Badge>{badge}</Badge>
+              </Tooltip>
+            )}
             <UnitName>{unitId}</UnitName>
             <UnitRules unitId={unitId} />
             <UnitSpells unitId={unitId} />
           </NameRow>
+          {showType && <Subtitle>{unit.type}</Subtitle>}
         </Identity>
         <Controls>
           <Stepper

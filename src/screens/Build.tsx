@@ -10,6 +10,7 @@ import UnitCard from '../components/army/UnitCard';
 import ArmySummary from '../components/army/ArmySummary';
 import BuildHeader from '../components/army/BuildHeader';
 import RosterFilters from '../components/army/RosterFilters';
+import { focusRing } from '../theme/focusRing';
 
 const Page = styled.main`
   display: flex;
@@ -89,28 +90,73 @@ const Group = styled.div`
   }
 `;
 
+const GroupCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => `${theme.space[3]}px`};
+`;
+
 const GroupHeading = styled.h3`
+  margin: 0;
+`;
+
+const GroupToggle = styled.button`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => `${theme.space[2]}px`};
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   letter-spacing: ${({ theme }) => theme.tracking.labelWide};
   text-transform: uppercase;
   color: ${({ theme }) => theme.color.tealBright};
 
-  &::before {
-    content: '';
-    width: ${({ theme }) => `${theme.space[3]}px`};
-    height: 2px;
-    background: ${({ theme }) => theme.color.accent};
-  }
-
   &::after {
     content: '';
     flex: 1;
     height: 1px;
     background: ${({ theme }) => theme.color.border.divider};
+  }
+
+  ${focusRing}
+`;
+
+// The +/- toggle marker. A horizontal bar is always drawn; the vertical bar is
+// revealed only when collapsed, animating the dash into a plus.
+const ToggleMark = styled.span<{ $collapsed: boolean }>`
+  position: relative;
+  flex-shrink: 0;
+  width: ${({ theme }) => `${theme.space[3]}px`};
+  height: ${({ theme }) => `${theme.space[3]}px`};
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: ${({ theme }) => theme.color.accent};
+  }
+
+  &::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%) scaleY(${({ $collapsed }) => ($collapsed ? 1 : 0)});
+    transition: transform 0.15s;
   }
 `;
 
@@ -158,6 +204,15 @@ export default function Build() {
   const [activeType, setActiveType] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedOnly, setSelectedOnly] = useState(false);
+  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+
+  const toggleCollapsed = (label: string) =>
+    setCollapsed((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
 
   // Track the sticky header's height so the rail can park just below it. The
   // header grows/shrinks (e.g. when global errors appear), so observe it. We
@@ -209,14 +264,32 @@ export default function Build() {
           {rosterGroups.length === 0 ? (
             <EmptyArmy>No units match the current filters.</EmptyArmy>
           ) : (
-            rosterGroups.map((group) => (
-              <Group key={group.label}>
-                <GroupHeading>{group.label}</GroupHeading>
-                {group.unitIds.map((id) => (
-                  <UnitCard key={id} unitId={id} />
-                ))}
-              </Group>
-            ))
+            rosterGroups.map((group) => {
+              const isCollapsed = collapsed.has(group.label);
+              const panelId = `group-${group.label.replace(/\W+/g, '-')}`;
+              return (
+                <Group key={group.label}>
+                  <GroupHeading>
+                    <GroupToggle
+                      type="button"
+                      aria-expanded={!isCollapsed}
+                      aria-controls={panelId}
+                      onClick={() => toggleCollapsed(group.label)}
+                    >
+                      <ToggleMark $collapsed={isCollapsed} aria-hidden />
+                      {group.label}
+                    </GroupToggle>
+                  </GroupHeading>
+                  {!isCollapsed && (
+                    <GroupCards id={panelId}>
+                      {group.unitIds.map((id) => (
+                        <UnitCard key={id} unitId={id} groupLabel={group.label} />
+                      ))}
+                    </GroupCards>
+                  )}
+                </Group>
+              );
+            })
           )}
         </Section>
         <ArmySummaryDesktop $top={headerHeight}>
