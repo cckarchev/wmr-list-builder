@@ -6,7 +6,6 @@
   "units": {
     "Warriors": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Slingers": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -29,7 +27,6 @@
     },
     "Ogres": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -40,7 +37,6 @@
     },
     "Wolfhounds": {
       "id": 3,
-      "order": 3,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -50,7 +46,6 @@
     },
     "Riders": {
       "id": 4,
-      "order": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -61,7 +56,6 @@
     },
     "Chariots": {
       "id": 5,
-      "order": 5,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -73,7 +67,6 @@
     },
     "Giant": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +77,6 @@
     },
     "Giant Eagles": {
       "id": 7,
-      "order": 7,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -95,7 +87,6 @@
     },
     "Fenbeast": {
       "id": 8,
-      "order": 8,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -108,7 +99,6 @@
     },
     "General": {
       "id": 9,
-      "order": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -120,7 +110,6 @@
     },
     "Hero": {
       "id": 10,
-      "order": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -131,7 +120,6 @@
     },
     "Druid": {
       "id": 11,
-      "order": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -144,7 +132,6 @@
   "upgrades": {
     "Giant Eagle": {
       "id": 0,
-      "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+20",
@@ -152,7 +139,6 @@
     },
     "Chariot": {
       "id": 1,
-      "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
@@ -192,11 +178,9 @@
       "name": "Downpour",
       "roll": 4,
       "range": "30cm",
+      "fluff": "The Druid brings down a localised shower of fine, freezing rain upon his foes.",
       "text": [
-        "*The Druid brings down a localised shower of fine, freezing rain upon his foes.*",
-        "",
         "The spell is cast upon the Druid himself and affects all enemy units within 30cm of the stand. The spell lasts until the end of the opposing player’s following turn. The spell affects the opposing army’s ability to issue commands.",
-        "",
         "All enemy units within 30cm of the Druid suffer a −1 Command penalty. This penalty is applied when each order is issued: a unit might therefore be within 30cm of the Druid for one order but not for a second, for example."
       ]
     },
@@ -204,9 +188,8 @@
       "name": "Storm of Hail",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Druid harnesses the power of the weather to attack his enemies with enormous hailstones.",
       "text": [
-        "*The Druid harnesses the power of the weather to attack his enemies with enormous hailstones.*",
-        "",
         "The Druid targets a single enemy unit within range and that he can see. This has the effect of three shooting attacks except that it ignores any armour save the target may have. The target unit may be driven back in the same way as for shooting."
       ]
     },
@@ -214,9 +197,8 @@
       "name": "Mists of Albion",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Druid breathes out some of the mystical mist that surrounds his enigmatic homeland and envelopes his compatriots, making them hard to target by enemy troops.",
       "text": [
-        "*The Druid breathes out some of the mystical mist that surrounds his enigmatic homeland and envelopes his compatriots, making them hard to target by enemy troops.*",
-        "",
         "This spell may be cast upon a single friendly Infantry unit within range, regardless of whether the caster can see them or not. The spell lasts until the start of the caster’s next turn, or until the target unit moves in any way. The target Infantry unit counts as Defended, even if it is in open terrain."
       ]
     },
@@ -224,11 +206,9 @@
       "name": "Summon Fenbeast",
       "roll": 6,
       "range": "30cm",
+      "fluff": "The Druid performs one of the most arcane rituals known to his order, using his power over the elements to bind together the horrific creature known as the Fenbeast.",
       "text": [
-        "*The Druid performs one of the most arcane rituals known to his order, using his power over the elements to bind together the horrific creature known as the Fenbeast.*",
-        "",
         "The Druid summons forth a Fenbeast. Once summoned, the Fenbeast is under the control of the summoning player.",
-        "",
         "Since it is summoned in the Shooting phase it cannot be given orders until the following turn. It may be summoned into contact with an enemy unit only if that unit is already in combat. It may be removed from play if destroyed (like any other unit) or if the loss of a Druid character reduces the number of Druids to less than the number of Fenbeasts – the owning player chooses a Fenbeast and removes it from play. Summoning Fenbeast unit does not influence army withdrawal calculation in any way and does not have a points value. Fenbeasts may only be given orders by Druids. Fenbeasts may not be brigaded with other troops, not even other Fenbeasts. An army cannot have more summoned Fenbeasts in play than it has Druids."
       ]
     }

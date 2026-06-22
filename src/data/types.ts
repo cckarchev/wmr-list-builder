@@ -77,6 +77,7 @@ export interface Spell {
   name: string;
   roll: number;
   range?: string;
+  fluff: string;
   text: string[];
 }
 

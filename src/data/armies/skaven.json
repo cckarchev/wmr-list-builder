@@ -6,7 +6,6 @@
   "units": {
     "Clanrats": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Stormvermin": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -28,7 +26,6 @@
     },
     "Jezzails": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -40,7 +37,6 @@
     },
     "Plague Monks": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -50,7 +46,6 @@
     },
     "Rat Swarms": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": 2,
       "hits": 3,
@@ -61,7 +56,6 @@
     },
     "Gutter Runners": {
       "id": 5,
-      "order": 5,
       "type": "Infantry",
       "attack": "3/1",
       "range": "15cm",
@@ -73,7 +67,6 @@
     },
     "Rat Ogres": {
       "id": 6,
-      "order": 6,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -84,7 +77,6 @@
     },
     "Warp Lightning Cannon": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "40cm",
@@ -95,7 +87,6 @@
     },
     "Doom Wheel": {
       "id": 8,
-      "order": 8,
       "type": "Machine",
       "attack": 5,
       "hits": 4,
@@ -106,7 +97,6 @@
     },
     "Screaming Bell": {
       "id": 9,
-      "order": 9,
       "type": "Machine",
       "attack": 0,
       "hits": 4,
@@ -117,7 +107,6 @@
     },
     "Grey Seer": {
       "id": 10,
-      "order": 10,
       "type": "General",
       "caster": true,
       "attack": "+1",
@@ -137,7 +126,6 @@
     },
     "Hero": {
       "id": 11,
-      "order": 11,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -148,7 +136,6 @@
     },
     "Warlock": {
       "id": 12,
-      "order": 12,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
@@ -161,7 +148,6 @@
   "upgrades": {
     "Rat Ogre Bodyguard": {
       "id": 0,
-      "order": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
@@ -171,9 +157,7 @@
   "magic": true,
   "armyRules": [
     "__Strength in Numbers.__ Brigades may be of any size and are not restricted to the normal four unit maximum.",
-    "",
     "__Vermintide.__ Skaven units that win a round of combat can choose to pursue retreating enemy units regardless of troops type. Any Skaven units (including artillery) can pursue any enemy units (including flyers, cavalry and chariots). Although allowed to pursue regardless of enemy troop type, Skaven are still constrained by terrain and fortified status the same as other armies – e.g. they cannot pursue if fortified.",
-    "",
     "__Under the Lash.__ All Skaven characters have a Command range of 20cm whether General, Heroes or Wizards. Even Skaven Generals have a Command range of 20cm. Skaven are very good at directing their underlings - but only so long as they remain close at hand. We call it 'under the lash'."
   ],
   "specialRules": {
@@ -186,8 +170,7 @@
     "Plague Monks": {
       "order": 2,
       "text": [
-        "A unit of Plague Monks will always use its initiative to charge an enemy if possible and can’t be given orders instead. They will never use their initiative to evade. They can’t be driven back by shooting and never roll for drive backs. If victorious in combat they must pursue or advance where possible. ",
-        "",
+        "A unit of Plague Monks will always use its initiative to charge an enemy if possible and can't be given orders instead. They will never use their initiative to evade. They can't be driven back by shooting and never roll for drive backs. If victorious in combat they must pursue or advance where possible. ",
         "Plague Monks are unaffected by enemies that cause terror in combat, they do not suffer the usual -1 Attack modifier."
       ]
     },
@@ -201,10 +184,8 @@
       "order": 4,
       "text": [
         "Gutter Runners are armed with throwing stars and darts, and are therefore allowed to shoot as if they had bows, but their range is reduced to 15cm. They have 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
-        "",
-        "Gutter Runners do not have to be deployed before the game if the player does not wish to do so. Instead individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Skaven player nominates the point where he wants the Gutter Runners to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order – the character’s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player’s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order. Skaven characters may ignore the Under the Lash rule when issuing orders to Gutter Runners. Treat the character as having the normal command range for their type. The infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place.",
-        "",
-        "Gutter Runners don’t suffer the -1 Command penalty for Dense Terrain."
+        "Gutter Runners do not have to be deployed before the game if the player does not wish to do so. Instead individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Skaven player nominates the point where he wants the Gutter Runners to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order – the character's command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player's own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order. Skaven characters may ignore the Under the Lash rule when issuing orders to Gutter Runners. Treat the character as having the normal command range for their type. The infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place.",
+        "Gutter Runners don't suffer the -1 Command penalty for Dense Terrain."
       ]
     },
     "Warp Lightning Cannon": {
@@ -243,9 +224,8 @@
       "name": "Wither",
       "roll": 4,
       "range": "30cm",
+      "fluff": "Chanting a vile curse, the caster inflicts a wasting, shrinking sickness on the enemy.",
       "text": [
-        "*Chanting a vile curse, the caster inflicts a wasting, shrinking sickness on the enemy.*",
-        "",
         "This spell can be cast upon an enemy unit that is engaged in combat and which is within range. The Wizard does not have to be able to see the target to cast the spell. The spell lasts for the duration of the following Combat phase. Every stand in the unit, including characters that have joined the unit, deducts -1 from its Attacks value."
       ]
     },
@@ -253,11 +233,9 @@
       "name": "Warp Lightning",
       "roll": 5,
       "range": "30cm",
+      "fluff": "An arc of pure warp energy strikes the foe wreaking strange changes, melting flesh and twisting bone into monstrous forms.",
       "text": [
-        "*An arc of pure warp energy strikes the foe wreaking strange changes, melting flesh and twisting bone into monstrous forms.*",
-        "",
         "This spell can be cast on an enemy unit. The Wizard must be able to see his target to use this spell. The spell cannot be directed at a unit engaged in combat.",
-        "",
         "Warp Lightning is treated like three ordinary shooting attacks except that armour has no effect (all targets count as having no armour). A unit can be driven back by Warp Lightning as with ordinary shooting."
       ]
     },
@@ -265,15 +243,11 @@
       "name": "Death Frenzy",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Skaven screams a blasphemous litany to the Horned Rat driving the Skaven masses into a frenzy of warpdust fuelled destruction.",
       "text": [
-        "*The Skaven screams a blasphemous litany to the Horned Rat driving the Skaven masses into a frenzy of warpdust fuelled destruction.*",
-        "",
         "This spell can be cast upon a friendly unit that is engaged in combat and which is within range. The Wizard does not have to be able to see the target to cast the spell.",
-        "",
         "The effect lasts for the duration of the following combat phase and the indicated bonus attacks are added to the unit's total attacks each round.",
-        "",
         "The unit gains bonus Death Frenzy attacks for the following combat phase. To determine the number of bonus attacks roll one D6 at a time and add the results together. The player can roll as many D6 as he wishes up to a maximum of 1 per stand in the unit. The player always rolls one dice at a time and can decide to stop at any point. However - if the player rolls a second or subsequent dice and scores the same value as any previously rolled dice, then the total Death Frenzy attacks are directed against the targeted unit instead of its enemy. Death Frenzy attacks that rebound in this way are struck only once in the first round of combat: they are not struck each round.",
-        "",
         "Example, 1 + 4 + 6 = 11 extra attacks for the Skaven unit each round. 1+4+1 = 6 Attacks upon the Skaven unit in the first round."
       ]
     },
@@ -281,11 +255,9 @@
       "name": "Plague",
       "roll": 6,
       "range": "30cm",
+      "fluff": "A swirling could of virulence envelopes the enemy troops causing their bodies to erupt in pustules, their skins to split apart with running sores, their joints to swell with buboes and their hair to crawl with lice and fleas.",
       "text": [
-        "*A swirling could of virulence envelopes the enemy troops causing their bodies to erupt in pustules, their skins to split apart with running sores, their joints to swell with buboes and their hair to crawl with lice and fleas.*",
-        "",
         "This spell can be cast on any unengaged enemy unit within range regardless of whether the Wizard can see it or not. The spell cannot be cast on a unit engaged in combat.",
-        "",
         "The unit suffers six attacks worked out in the usual way. A unit cannot be driven back by Plague (the vile Plague erupts from within!)."
       ]
     }

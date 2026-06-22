@@ -16,7 +16,9 @@ describe('resolveUpgradeRules', () => {
       upgrade({ text: ['+1 Attack on one stand.'] }),
       {},
     );
-    expect(rules).toEqual([{ name: 'Sword of Might', rule: { text: ['+1 Attack on one stand.'] } }]);
+    expect(rules).toEqual([
+      { name: 'Sword of Might', rule: { text: ['+1 Attack on one stand.'] } },
+    ]);
   });
 
   it('resolves army-upgrade specialRules names against the rules map', () => {

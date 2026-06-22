@@ -6,7 +6,6 @@
   "units": {
     "Spearmen": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Crossbowmen": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": "3/2-1",
       "range": "30cm",
@@ -30,7 +28,6 @@
     },
     "Witch Elves": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -40,7 +37,6 @@
     },
     "Dark Riders": {
       "id": 3,
-      "order": 3,
       "type": "Cavalry",
       "attack": "3/2-1",
       "range": "30cm",
@@ -53,7 +49,6 @@
     },
     "Cold One Knights": {
       "id": 4,
-      "order": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -65,7 +60,6 @@
     },
     "Harpies": {
       "id": 5,
-      "order": 5,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -76,7 +70,6 @@
     },
     "War Hydra": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": "6/2",
       "range": "20cm",
@@ -88,7 +81,6 @@
     },
     "Bolt Thrower": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "40cm",
@@ -100,7 +92,6 @@
     },
     "General": {
       "id": 8,
-      "order": 8,
       "type": "General",
       "attack": "+2",
       "command": 10,
@@ -112,7 +103,6 @@
     },
     "Hero": {
       "id": 9,
-      "order": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -123,7 +113,6 @@
     },
     "Sorceress": {
       "id": 10,
-      "order": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 8,
@@ -136,7 +125,6 @@
   "upgrades": {
     "Manticore": {
       "id": 0,
-      "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -144,7 +132,6 @@
     },
     "Chariot": {
       "id": 1,
-      "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
@@ -152,7 +139,6 @@
     },
     "Cauldron of Blood": {
       "id": 2,
-      "order": 2,
       "type": "Special Mount",
       "attack": "+2",
       "points": "+15",
@@ -177,7 +163,7 @@
     "Cold Ones Knights": {
       "order": 3,
       "text": [
-        "Such is their unthinking instinct to take a bite out of anything that passes, Cold One Knights has an Attack value bonus of +1 in the first round of each combat when fighting to the front, i.e. the Cold One Knights’ stand has to touch the enemy in arc of sight with its frontal edge and/or frontal corners (including contact by frontal corner only). For the same reason Cold One Knights cannot form brigades except with other units of Cold One Knights."
+        "Such is their unthinking instinct to take a bite out of anything that passes, Cold One Knights has an Attack value bonus of +1 in the first round of each combat when fighting to the front, i.e. the Cold One Knights' stand has to touch the enemy in arc of sight with its frontal edge and/or frontal corners (including contact by frontal corner only). For the same reason Cold One Knights cannot form brigades except with other units of Cold One Knights."
       ]
     },
     "Harpies": {
@@ -211,7 +197,7 @@
     "Cauldron of Blood": {
       "order": 9,
       "text": [
-        "A Sorceress can have a Cauldron of Blood. A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm. The army can only ever include one Cauldron of Blood and it can only be included if there is at least 1 unit of Witch Elves in the army. The Cauldron of Blood adds +2 Attacks to the Sorceress and can be used to add +1 to the Sorceress‘ dice roll to cast a spell once per battle. The player must announce that the Cauldron of Blood’s spell bonus is being used before rolling the dice to determine if the spell is cast."
+        "A Sorceress can have a Cauldron of Blood. A Sorceress with a Cauldron of Blood suffers a movement reduction to 30cm. The army can only ever include one Cauldron of Blood and it can only be included if there is at least 1 unit of Witch Elves in the army. The Cauldron of Blood adds +2 Attacks to the Sorceress and can be used to add +1 to the Sorceress‘ dice roll to cast a spell once per battle. The player must announce that the Cauldron of Blood's spell bonus is being used before rolling the dice to determine if the spell is cast."
       ]
     },
     "Elven Bolt Thrower": {
@@ -223,11 +209,9 @@
       "name": "Doom Bolt",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A bolt of pure malicious darkness arcs from the Sorcerer's fingertip and stabs towards the foes of the Dark Elves.",
       "text": [
-        "*A bolt of pure malicious darkness arcs from the Sorcerer's fingertip and stabs towards the foes of the Dark Elves.*",
-        "",
         "Draw an imaginary line 30cm long from the Wizard's stand in any direction you wish. The line will pass through any intervening units but not beyond terrain that would normally stop a missile shot, e.g. over the crest of a hill, more than 2cm of woodland, and so forth.",
-        "",
         "Each unit under the line takes three shooting attacks worked out in the usual way. Note that this spell can easily effect several units and will affect all units that fall beneath the line (including your own). Unengaged units can be driven back by a Doombolt as with ordinary shooting (even including friends). Engaged units cannot be driven back by the Doombolt but carry over any hits scored into the first round of combat; any hits scored count as having been struck in the combat itself."
       ]
     },
@@ -235,9 +219,8 @@
       "name": "Black Horror",
       "roll": 6,
       "range": "50cm",
+      "fluff": "A whirling vortex of dark enemy surrounds and drags its victims into the infernal realms of Khaine the Lord of Murder.",
       "text": [
-        "*A whirling vortex of dark enemy surrounds and drags its victims into the infernal realms of Khaine the Lord of Murder.*",
-        "",
         "This spell can be cast upon an enemy unit the Sorceress can see and which is not engaged in combat. The units suffers 4 Attacks with no saves for Armour. A unit that takes hits from the Black Horror is not driven back as a result - the whirling vortex sucks its victims down affording them no chance to avoid it."
       ]
     },
@@ -245,13 +228,10 @@
       "name": "Dominion",
       "roll": 4,
       "range": "60cm",
+      "fluff": "Upon invoking the curse of the foul god Khaine an unnatural and unbearable agony suffuses the body of his foes.",
       "text": [
-        "*Upon invoking the curse of the foul god Khaine an unnatural and unbearable agony suffuses the body of his foes.*",
-        "",
         "This spell can be cast on any enemy unit within range regardless of whether the Sorceress can see it or not.",
-        "",
         "The spell takes affect until the end of the opposing player's next turn.",
-        "",
         "Whilst the spell lasts the unit cannot charge and if engaged in combat will not pursue or advance. Even units that are otherwise obliged to charge, pursue, or advance will not do so if affected by Dominion."
       ]
     },
@@ -259,11 +239,9 @@
       "name": "Soul Stealer",
       "roll": 5,
       "range": "Touching",
+      "fluff": "Invoking the daemons of the abyss the Sorcerer tears the very souls from his enemies.",
       "text": [
-        "*Invoking the daemons of the abyss the Sorcerer tears the very souls from his enemies.*",
-        "",
         "The Sorceress can cast this spell if she has joined a unit in combat. The spell can be cast on any single enemy unit that is touching the unit the Sorceress has joined.",
-        "",
         "The target unit takes three attacks worked out in the usual way. Targets get no armour saving throws when they suffer hits from the Soul Stealer - all Armour values count as 0. Any hits scored are carried over into the first round of combat and count as having been struck in the first round for purposes of working out combat results."
       ]
     }

@@ -6,7 +6,6 @@
   "units": {
     "Bondsmen": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Huscarls": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -29,7 +27,6 @@
     },
     "Huntsmen": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -39,7 +36,6 @@
     },
     "Berserkers": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -49,7 +45,6 @@
     },
     "Ulfwerener": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -61,7 +56,6 @@
     },
     "Hird Horsemen": {
       "id": 5,
-      "order": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -72,7 +66,6 @@
     },
     "Storm Giant": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +77,6 @@
     },
     "War Mammoth": {
       "id": 7,
-      "order": 7,
       "type": "Monster",
       "attack": 8,
       "hits": 10,
@@ -95,7 +87,6 @@
     },
     "Valkyries": {
       "id": 8,
-      "order": 8,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -106,7 +97,6 @@
     },
     "Jarl": {
       "id": 9,
-      "order": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -118,7 +108,6 @@
     },
     "Hero": {
       "id": 10,
-      "order": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -129,7 +118,6 @@
     },
     "Shaman": {
       "id": 11,
-      "order": 11,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
@@ -142,7 +130,6 @@
   "upgrades": {
     "Were Kin": {
       "id": 0,
-      "order": 0,
       "type": "Special",
       "attack": "+1",
       "points": "+40",
@@ -150,7 +137,6 @@
     },
     "Horn of Resounding": {
       "id": 1,
-      "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+20",
@@ -178,9 +164,7 @@
       "order": 4,
       "text": [
         "As the Mammoth is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front. It causes terror and may attack troops on ramparts with its trunk in the same manner as a Giant. Alternatively, it may elect to batter a wall section or gateway with its tusks in the same manner as a battering ram.",
-        "",
         "One last option available in a siege is that if a Norse War Mammoth is in base contact with a wall section, then one Norse infantry unit may assault that wall section via the Mammoth. Climbing up ladders and ropes at the rear of the Mammoth and using boarding ramps and the like to assault the fortress walls. This is not quite as effective as assaulting from a siege tower, so the enemy being assaulted only counts as defended rather than in the open, but is much better than counting it as fortified. If a unit assaults in this manner, then the War Mammoth may not attack with its trunk or batter the walls; as such action would result in attacking your own troops or bringing a wall section down from under them, not a good idea, even for the Norse troops.",
-        "",
         "If War Mammoth has accumulated 6-9 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Mammoth is badly hurt then all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 5 Hits and 4 Attacks)."
       ]
     },
@@ -208,9 +192,8 @@
       "name": "Aspect of Wulfen",
       "roll": 4,
       "range": "30cm",
+      "fluff": "The Shaman turns the friendly unit into an illusive pack of monstrous creatures entailing the fear in a hearts of enemies.",
       "text": [
-        "*The Shaman turns the friendly unit into an illusive pack of monstrous creatures entailing the fear in a hearts of enemies.*",
-        "",
         "This spell can only be cast on any friendly unit within range regardless of whether the Shaman can see it or not. The unit counts as causing terror for the duration of the Combat phase."
       ]
     },
@@ -218,22 +201,18 @@
       "name": "Thunder of Fo'Wor",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A lightning shoots from the Shaman’s outstretched arm burning all in its path.",
       "text": [
-        "A lightning shoots from the Shaman’s outstretched arm burning all in its path.",
-        "",
         "Draw an imaginary line 30cm long from the Shaman’s stand in any direction you wish. The line will pass through any intervening units but not beyond terrain that would normally stop a missile shot, e.g. over the crest of a hill, more than 2cm of woodland, and so forth.",
-        "",
         "Each unit under the line takes three shooting attacks worked out in the usual way. Note that this spell can easily affect several units and will affect all units that fall beneath the line (including your own). Unengaged units can be driven back by a Thunder of Fo’Wor as with ordinary shooting (even including friends). Engaged units cannot be driven back by the Thunder of Fo’Wor but carry over any hits scored into the first round of combat; any hits scored count as having been struck in the combat itself."
       ]
     },
     {
       "name": "Eye of the Raven",
       "roll": 5,
+      "fluff": "The Shaman sacrifices a sacred Raven over a mystical flame. Ingesting the ash that is quickly formed, giving him visions of the near future.",
       "text": [
-        "*The Shaman sacrifices a sacred Raven over a mystical flame. Ingesting the ash that is quickly formed, giving him visions of the near future.*",
-        "",
         "The Norse player may re-roll a single D6 at any time during the rest of his turn, through his opponents turn or in his following turn up to the end of his next Command phase when the effect of the spell ends if the re-roll has not already been used. The result of the re-roll cannot be changed in any way or re-rolled again, for example with an Orb of Majesty, Banner of Fortune or through other means. Likewise the re-roll from this spell cannot be used to re-roll any dice that another re-roll has already been used on. Nor can the re- roll be used in the case of a blunder of a command roll, not even mystical foresight can help avert such mishaps, but it can mitigate the effects, so can be used to re-roll the dice roll on the blunder chart. For example if the Norse player rolled for a command needing a roll of a seven and rolled a five and a three, he could re-roll the dice that came up as a five, hopefully rolling a four or less making it a successful command.",
-        "",
         "Only one Eye of the Raven spell may be in effect per turn."
       ]
     },
@@ -241,9 +220,8 @@
       "name": "Spite of Low'Key",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Shaman makes a weird enchantment calling the gods to curse the enemy with bad luck and failure.",
       "text": [
-        "*The Shaman makes a weird enchantment calling the gods to curse the enemy with bad luck and failure.*",
-        "",
         "All enemy characters within 30cm of the spell caster that roll a double have those orders count as blunders. This works on all results, from a double one, to a double five. As a result all doubles rolled not only blunder, but as with all normal blunders, it counts as a failed order. The only exception is the enemy general, as he cannot blunder. The spell lasts until the end of enemy Command phase."
       ]
     }

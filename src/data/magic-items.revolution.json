@@ -2,7 +2,6 @@
   "upgrades": {
     "Battle Banner": {
       "id": 100,
-      "order": "BB",
       "type": "Magic Standard",
       "points": "+30",
       "armyMax": 1,
@@ -12,7 +11,6 @@
     },
     "Banner of Shielding": {
       "id": 101,
-      "order": "BSh",
       "type": "Magic Standard",
       "points": {
         "4+": "+50",
@@ -28,7 +26,6 @@
     },
     "Banner of Fortitude": {
       "id": 102,
-      "order": "BFd",
       "type": "Magic Standard",
       "points": {
         "2": "+30",
@@ -43,7 +40,6 @@
     },
     "Banner of Steadfastness": {
       "id": 103,
-      "order": "BSt",
       "type": "Magic Standard",
       "points": {
         "4+": "+20",
@@ -58,7 +54,6 @@
     },
     "Banner of Fortune": {
       "id": 104,
-      "order": "BFn",
       "type": "Magic Standard",
       "points": "+15",
       "armyMax": 1,
@@ -68,7 +63,6 @@
     },
     "Sword of Destruction": {
       "id": 105,
-      "order": "SwD",
       "type": "Magic Weapon",
       "points": "+10",
       "armyMax": 1,
@@ -78,7 +72,6 @@
     },
     "Sword of Fate": {
       "id": 106,
-      "order": "SwF",
       "type": "Magic Weapon",
       "points": "+5",
       "armyMax": 1,
@@ -88,7 +81,6 @@
     },
     "Sword of Cleaving": {
       "id": 107,
-      "order": "SwC",
       "type": "Magic Weapon",
       "points": "+10",
       "armyMax": 1,
@@ -98,7 +90,6 @@
     },
     "Sword of Might": {
       "id": 108,
-      "order": "SwM",
       "type": "Magic Weapon",
       "points": "+10",
       "armyMax": 1,
@@ -108,7 +99,6 @@
     },
     "Crown of Command": {
       "id": 109,
-      "order": "CC",
       "type": "Device of Power",
       "points": "+70",
       "armyMax": 1,
@@ -118,7 +108,6 @@
     },
     "Helm of Dominion": {
       "id": 110,
-      "order": "HD",
       "type": "Device of Power",
       "points": "+40",
       "armyMax": 1,
@@ -128,19 +117,16 @@
     },
     "Orb of Majesty": {
       "id": 111,
-      "order": "OM",
       "type": "Device of Power",
       "points": "+30",
       "armyMax": 1,
       "text": [
         "If the General has this magic item he may disregard a single failed Command test and roll it again as if he had a Command value of 8. The usual adjustments are made for Command penalties but note that the previously failed roll is disregarded so it doesn’t count as a penalty. If the re-roll is successful the order is issued and the General can continuing issuing orders in the usual way with his normal Command value.",
-        "",
         "The Orb of Majesty will only work once in the entire game and only affects an order that has been issued by the General."
       ]
     },
     "Ring of Magic": {
       "id": 112,
-      "order": "RM",
       "type": "Device of Power",
       "points": "+30",
       "armyMax": 1,
@@ -150,7 +136,6 @@
     },
     "Staff of Spellbinding": {
       "id": 113,
-      "order": "StS",
       "type": "Device of Power",
       "points": "+30",
       "armyMax": 1,
@@ -160,7 +145,6 @@
     },
     "Sceptre of Sovereignty": {
       "id": 114,
-      "order": "ScS",
       "type": "Device of Power",
       "points": "+30",
       "armyMax": 1,
@@ -170,7 +154,6 @@
     },
     "Scroll of Dispelling": {
       "id": 115,
-      "order": "ScD",
       "type": "Device of Power",
       "points": "+20",
       "armyMax": 1,
@@ -180,7 +163,6 @@
     },
     "Wand of Power": {
       "id": 116,
-      "order": "WP",
       "type": "Device of Power",
       "points": "+10",
       "armyMax": 1,
@@ -190,13 +172,11 @@
     },
     "Rod of Repetition": {
       "id": 117,
-      "order": "RR",
       "type": "Device of Power",
       "points": "+10",
       "armyMax": 1,
       "text": [
         "If a Wizard casts a spell and rolls sufficiently well for it to work then he can cast another spell. He can only do this once during the entire game. Note that it does not matter if the previous spell is dispelled or anti-magicked by a Runesmith so long as the required dice score is rolled. Once any effects of the previous spell have been resolved, the Wizard can decide to use the Rod of Repetition to cast another spell - this can be the same spell again or a different one. Note that the same spell can be cast upon the same unit if the previous spell has been dispelled/anti-magicked. This next spell is cast exactly like any other - roll a dice to determine if it works in the usual way.",
-        "",
         "Note that some spells, such as the Teleport spell, already allow for the possibility of casting a further spell on a random dice roll. In these cases the Rod of Repetition can be used instead of the random dice roll to try and cast the second spell if you prefer, or the Rod of Repetition could be used after the second spell has been cast assuming it is cast successfully. By using the Rod of Repetition with spells of this kind it is possible to cast the spell again, however, you do lose the bonus spell option, effectivly restricting casting to a maximum of 3 spells per turn. For example: Teleport, 2<sup>nd</sup> spell, RoR, 3<sup>rd</sup> spell - or - 1<sup>st</sup> spell, RoR, Teleport, 3<sup>rd</sup> spell - supposing the 1<sup>st</sup>, 2<sup>nd</sup> or 3<sup>rd</sup> spell may be a Teleport too."
       ]
     }

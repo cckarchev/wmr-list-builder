@@ -135,7 +135,9 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
               <Rule key={name}>
                 <RuleName>{name}</RuleName>
                 <RuleText
-                  dangerouslySetInnerHTML={{ __html: marked(rule.text?.join('\n') ?? '') as string }}
+                  dangerouslySetInnerHTML={{
+                    __html: marked(rule.text?.join('\n') ?? '') as string,
+                  }}
                 />
               </Rule>
             ))}

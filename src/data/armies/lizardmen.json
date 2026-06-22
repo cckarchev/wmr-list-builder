@@ -6,7 +6,6 @@
   "units": {
     "Skinks": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": "2/1",
       "range": "15cm",
@@ -17,7 +16,6 @@
     },
     "Saurus": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -29,7 +27,6 @@
     },
     "Temple Guard": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -41,7 +38,6 @@
     },
     "Salamanders": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": "2/2",
       "range": "15cm",
@@ -55,7 +51,6 @@
     },
     "Kroxigor": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -67,7 +62,6 @@
     },
     "Cold One Riders": {
       "id": 5,
-      "order": 5,
       "type": "Cavalry",
       "attack": 4,
       "hits": 3,
@@ -79,7 +73,6 @@
     },
     "Terradons": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": "2/1",
       "range": "15cm",
@@ -91,7 +84,6 @@
     },
     "Stegadon": {
       "id": 7,
-      "order": 7,
       "type": "Monster",
       "attack": "10/3",
       "range": "15cm",
@@ -103,7 +95,6 @@
     },
     "Slann Mage Palanquin": {
       "id": 8,
-      "order": 8,
       "type": "General",
       "caster": true,
       "attack": "+2",
@@ -123,7 +114,6 @@
     },
     "Saurus Hero": {
       "id": 9,
-      "order": 9,
       "type": "Hero",
       "attack": "+2",
       "command": 6,
@@ -134,7 +124,6 @@
     },
     "Skink Hero": {
       "id": 10,
-      "order": 10,
       "type": "Hero",
       "attack": "+0",
       "command": 8,
@@ -144,7 +133,6 @@
     },
     "Skink Shaman": {
       "id": 11,
-      "order": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
@@ -156,7 +144,6 @@
   "upgrades": {
     "Stegadon Mount": {
       "id": 0,
-      "order": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+90",
@@ -164,7 +151,6 @@
     },
     "Carnosaur": {
       "id": 1,
-      "order": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+65",
@@ -192,13 +178,9 @@
       "order": 3,
       "text": [
         "Salamander stands are not deployed as independent units. Instead, any Skink infantry unit may add one stand of Salamanders. This brings the size of the unit to 4 stands: 3 regular stands plus the Salamander.",
-        "",
         "Salamanders always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes.",
-        "",
         "Salamander casualties never count for Command penalties. Salamander stands never cause the parent unit to be in Irregular Formation no matter how they are placed.",
-        "",
         "If a Salamander stand is attached to a Skink unit the entire unit, including the Salamander, is considered to employ ‘Salamander Venom‘ shooting attacks. Enemy Armour saving throws suffer a -1 penalty when hit by Salamander Venom (e.g. 5+ save requires a roll of 6).",
-        "",
         "Salamander stands have 2 shooting attacks, a range of 15cm, and 360° vision in the same way as Skinks. If their unit is charged then Salamanders can shoot in the same way as any other shooting stand."
       ]
     },
@@ -212,21 +194,16 @@
       "order": 5,
       "text": [
         "As the Stegadon is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front.",
-        "",
         "The Stegadon causes terror in its foes.",
-        "",
         "The Stegadon can only be brigaded with Skink units. It cannot be brigaded with Skink units that have attached Salamanders. It cannot be brigaded with any other units including with other Stegadons.",
-        "",
-        "The Stegadon’s crew has a shooting range of 15cm and 360° vision - the unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
-        "",
+        "The Stegadon's crew has a shooting range of 15cm and 360° vision - the unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
         "Because the Stegadon has so many hits we must consider the possibility of hurting the beast and reducing its effectiveness. Therefore, if a Stegadon has accumulated 6-9 hits by the end of the Shooting or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Stegadon is badly hurt all accumulated hits are discounted and its Hits and Attack values are halved for the remainder of the battle to 5/2 Attacks and 5 Hits."
       ]
     },
     "Slann Mage Palanquin": {
       "order": 6,
       "text": [
-        "The Slann Mage rides a palanquin carried by his bodyguard of fierce Saurus warriors - his combat bonus is due to his bodyguard. The Slann Mage is the army's general but uniquely amongst commanders he cannot give orders, but has foreseen the flow of the battle and given his Skink retainers instructions. To represent this any Skink character within 20cm of the Slann can announce his use of the General’s Divine Guidance - deducting -1 from his dice score (e.g. 8 counts as 7, 10 as 9 and so on). When Divine Guidance is used the Skink cannot ‘Blunder’ - any roll of double 6 simply counts as a fail. If a Divine Guidance roll is failed then the Slann’s Divine Guidance cannot be used by any other characters that have not ordered yet in that turn, their confusion over the mixup is represented by adding +1 to their first order rolls.",
-        "",
+        "The Slann Mage rides a palanquin carried by his bodyguard of fierce Saurus warriors - his combat bonus is due to his bodyguard. The Slann Mage is the army's general but uniquely amongst commanders he cannot give orders, but has foreseen the flow of the battle and given his Skink retainers instructions. To represent this any Skink character within 20cm of the Slann can announce his use of the General's Divine Guidance - deducting -1 from his dice score (e.g. 8 counts as 7, 10 as 9 and so on). When Divine Guidance is used the Skink cannot ‘Blunder' - any roll of double 6 simply counts as a fail. If a Divine Guidance roll is failed then the Slann's Divine Guidance cannot be used by any other characters that have not ordered yet in that turn, their confusion over the mixup is represented by adding +1 to their first order rolls.",
         "In addition the Slann is a great sorcerer. He can cast spells as a Wizard and can be given a magic item restricted to either a general or wizard should you so wish. Slaan Mages are especially powerful wizards and to represent this can re-roll a failed spell on any dice result except a 1. If a spell is failed because a 1 is rolled then no re-roll is permitted. The Slann Mage can also cast his spell using a Skink Shaman as the focus if desired - work out range and line of sight as if the spell were cast by the Shaman. This does not affect the Shaman's own ability to cast spells that turn."
       ]
     },
@@ -248,11 +225,9 @@
       "name": "Gaze of Sotek",
       "roll": 5,
       "range": "30cm",
+      "fluff": "Burning jade coloured rays leap from the wizard's lidded eyes enshrouding and choking his enemies in writhing coils of magic.",
       "text": [
-        "*Burning jade coloured rays leap from the wizard's lidded eyes enshrouding and choking his enemies in writhing coils of magic.*",
-        "",
         "This spell can be cast on an enemy unit. The Wizard must be able to see his target to use this spell. The spell cannot be directed at a unit engaged in combat.",
-        "",
         "The Gaze of Sotek is treated like three ordinary shooting attacks except that armour has no effect (all targets count as having no armour). A unit can be driven back by the Gaze of Sotek as with ordinary shooting."
       ]
     },
@@ -260,24 +235,19 @@
       "name": "Mazdamundi's Revenge",
       "roll": 4,
       "range": "60cm",
+      "fluff": "The wizard's foes bowels melt with dread or possibly something much worse, hindering their movement as if hobbled.",
       "text": [
-        "*The wizard's foes bowels melt with dread or possibly something much worse, hindering their movement as if hobbled.*",
-        "",
         "This spell can be cast on any enemy unit within range regardless of whether the Wizard can see it or not.",
-        "",
         "The spell takes effect until the end of the opposing player's next turn.",
-        "",
         "Whilst the spell lasts the unit cannot charge and if engaged in combat will not pursue or advance. Even units that are otherwise obliged to charge, pursue, or advance will not do so if affected by Mazdamundi's Revenge."
       ]
     },
     {
       "name": "Wings in the Jungle",
       "roll": 5,
+      "fluff": "An eerie aura surrounds the Wizard and his companions lifting them into the air and transporting them effortlessly from one place to another.",
       "text": [
-        "*An eerie aura surrounds the Wizard and his companions lifting them into the air and transporting them effortlessly from one place to another.*",
-        "",
         "The spell can be cast on any unengaged friendly unit that the Wizard has joined. The spell affects only a single unit, never a brigade and there is no supporting charge possible.",
-        "",
         "The unit can be moved just as if it had received an order in the Command phase. The Wizard is moved together with the unit and remains joined with it. Other character stands that have joined the unit will not move with it: they remain where they are."
       ]
     },
@@ -285,13 +255,10 @@
       "name": "Shield of the Old Ones",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The enemy's blows are magically turned aside by the strange power of the Old Ones.",
       "text": [
-        "*The enemy's blows are magically turned aside by the strange power of the Old Ones.*",
-        "",
         "This spell can be cast upon a friendly unit that is engaged in combat and which is within range. The Wizard does not have to be able to see the target to cast the spell.",
-        "",
         "The effect lasts for the duration of the following combat phase.",
-        "",
         "The unit's Armour value counts as 1 better up to maximum value of 4+. I.e 0 counts as 6+, 6+ as 5+ and 5+ as 4+. If the unit's Armour value is already 4+, or another bonus brings it to 4+, this spell has no effect."
       ]
     }

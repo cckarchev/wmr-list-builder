@@ -6,7 +6,6 @@
   "units": {
     "Bowmen": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -17,7 +16,6 @@
     },
     "Men-at-arms": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -29,7 +27,6 @@
     },
     "Peasants": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -41,7 +38,6 @@
     },
     "Squires": {
       "id": 3,
-      "order": 3,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "30cm",
@@ -55,7 +51,6 @@
     },
     "Knights": {
       "id": 4,
-      "order": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -66,7 +61,6 @@
     },
     "Grail Knights": {
       "id": 5,
-      "order": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -78,7 +72,6 @@
     },
     "Pegasus Knights": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -90,7 +83,6 @@
     },
     "Trebuchet": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "1/4",
       "range": "80cm",
@@ -102,7 +94,6 @@
     },
     "General": {
       "id": 8,
-      "order": 8,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -114,7 +105,6 @@
     },
     "Hero": {
       "id": 9,
-      "order": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -125,7 +115,6 @@
     },
     "Enchantress": {
       "id": 10,
-      "order": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -138,7 +127,6 @@
   "upgrades": {
     "Unicorn": {
       "id": 0,
-      "order": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+15",
@@ -146,7 +134,6 @@
     },
     "Pegasus": {
       "id": 1,
-      "order": 1,
       "type": "Monstrous Mount",
       "attack": "+1",
       "points": "+15",
@@ -154,7 +141,6 @@
     },
     "Hippogriff": {
       "id": 2,
-      "order": 2,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -162,7 +148,6 @@
     },
     "Grail Reliquae": {
       "id": 3,
-      "order": 3,
       "type": "Special",
       "points": "+60",
       "armyMax": 1
@@ -170,7 +155,7 @@
   },
   "magic": true,
   "armyRules": [
-    "The Bretonnian army is essentially an army of Knights and it is the Knights’ contribution to the battle that counts - never mind the pot-washers and clod-breakers. To represent this, the Bretonnian army calculates when it must withdraw from the battle in a different way to other armies. Instead of counting all of its units at the start of the game, count only the number of units of Knights, Grail Knights and Pegasus Knights. Once the army has lost a half or more of its units of Knights/Grail Knights/Pegasus Knights it must withdraw."
+    "The Bretonnian army is essentially an army of Knights and it is the Knights' contribution to the battle that counts - never mind the pot-washers and clod-breakers. To represent this, the Bretonnian army calculates when it must withdraw from the battle in a different way to other armies. Instead of counting all of its units at the start of the game, count only the number of units of Knights, Grail Knights and Pegasus Knights. Once the army has lost a half or more of its units of Knights/Grail Knights/Pegasus Knights it must withdraw."
   ],
   "specialRules": {
     "Peasants": {
@@ -182,7 +167,7 @@
     "Knights": {
       "order": 2,
       "text": [
-        "A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier."
+        "A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don't suffer the usual -1 Attack modifier."
       ]
     },
     "Grail Knights": {
@@ -199,24 +184,18 @@
       "order": 5,
       "text": [
         "The Bretonnian Trebuchet is one of the mightiest and most excellent stone throwers that are built in the Old World. At first it was designed to help the noble knights with the sometimes coming up and messy sieges that had to be done but later was adjusted to be used in field battles too. As the Trebuchet is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front.",
-        "",
         "To represent that the Trebuchet is such a bulky warmachine, which takes time to assemble and disassemble, the Trebuchets can move but cannot shoot in the turn it moved.",
-        "",
         "If a Trebuchet is driven back more than 10cm by shooting it is destroyed (drive backs of less than 10cm are simply ignored). If it is forced to retreat from combat it is also destroyed like any other artillery. A Trebuchet is not affected by Gerroff!!! spell.",
-        "",
         "The Trebuchet has a shooting range of 80cm. Fortified units count as defended and defended targets count as in the open. No armour roll is made when shot at by a Trebuchet.",
-        "",
         "The Trebuchet may not shoot at charging enemies.",
-        "",
         "The Trebuchet can shoot at targets that it can see as for all other artillery, and it can shoot over the heads of friends and obstacles on lower ground just as can other artillery.",
-        "",
         "__Shooting Blind:__ If there is no target in sight a Trebuchet may instead shoot at the nearest enemy unit in range it cannot see. When Shooting Blind it always hits on 6+ no matter if the target is in the open, defended or even fortified."
       ]
     },
     "Unicorn": {
       "order": 6,
       "text": [
-        "Only an Enchantress can ride a Unicorn. The Unicorn adds +1 to the Enchantress’s Attacks. Once per battle the Unicorn’s magical power adds +1 to the dice roll when casting a spell. The player must announce that he is using the Unicorn’s magic before rolling to see if the spell works."
+        "Only an Enchantress can ride a Unicorn. The Unicorn adds +1 to the Enchantress's Attacks. Once per battle the Unicorn's magical power adds +1 to the dice roll when casting a spell. The player must announce that he is using the Unicorn's magic before rolling to see if the spell works."
       ]
     },
     "Pegasus": {
@@ -234,7 +213,7 @@
     "Grail Reliquae": {
       "order": 9,
       "text": [
-        "This sacred item can be given to one unit of Peasants only in a whole army. This unit and all Peasants units touching it become Grail Pilgrims (for as long as they keep contact). Grail Pilgrims are immune to terror, don’t get the -1 Command and get +1 Attack (they still keep the restriction that they get no +1 Attacks for charging in the open), they have to attack by initiative and cannot be driven back or confused. Before taking any specific action with a Peasant unit check if they are still touching the unit carrying the Grail Reliquae. If they do so they count as Grail Pilgrims - if not they are simple Peasants."
+        "This sacred item can be given to one unit of Peasants only in a whole army. This unit and all Peasants units touching it become Grail Pilgrims (for as long as they keep contact). Grail Pilgrims are immune to terror, don't get the -1 Command and get +1 Attack (they still keep the restriction that they get no +1 Attacks for charging in the open), they have to attack by initiative and cannot be driven back or confused. Before taking any specific action with a Peasant unit check if they are still touching the unit carrying the Grail Reliquae. If they do so they count as Grail Pilgrims - if not they are simple Peasants."
       ]
     }
   },
@@ -242,13 +221,10 @@
     {
       "name": "Shield of Combat",
       "roll": 4,
+      "fluff": "The enemy's blows are magically deflected by unseen forces and cause no harm.",
       "text": [
-        "*The enemy’s blows are magically deflected by unseen forces and cause no harm.*",
-        "",
-        "An Enchantress can cast this spell upon a unit that she has joined. The spell lasts until the end of the opposing player’s following turn.",
-        "",
+        "An Enchantress can cast this spell upon a unit that she has joined. The spell lasts until the end of the opposing player's following turn.",
         "The unit can re-roll any failed armour rolls during the Combat phase. This does not include hits suffered from enemy missile fire during a charge, as these are deemed to be shooting hits and are encompassed by the Aerial Shield spell.",
-        "",
         "Note that only a single re-roll is permitted regardless of what other factors apply. It is never permitted to re-roll a re-roll in any circumstances."
       ]
     },
@@ -256,11 +232,9 @@
       "name": "Eerie Mist",
       "roll": 4,
       "range": "30cm",
+      "fluff": "An eerie mist rises about the enemy unit stifling the sights and sounds of battle.",
       "text": [
-        "*An eerie mist rises about the enemy unit stifling the sights and sounds of battle.*",
-        "",
-        "This spell can be cast on any enemy unit within range regardless of whether the Enchantress can see it or not. The spell lasts until the end of the opposing player’s following turn.",
-        "",
+        "This spell can be cast on any enemy unit within range regardless of whether the Enchantress can see it or not. The spell lasts until the end of the opposing player's following turn.",
         "The unit cannot use its initiative. Any order given to the unit, or to any brigade of which it is a part, suffers a -1 Command penalty."
       ]
     },
@@ -268,13 +242,10 @@
       "name": "Aerial Shield",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The enemy's missiles sparkle in the sunlight and vanish magically in mid-air causing no harm to their target.",
       "text": [
-        "*The enemy’s missiles sparkle in the sunlight and vanish magically in mid-air causing no harm to their target.*",
-        "",
         "This spell can be cast on a friendly unit whether the Enchantress can see it or not.",
-        "",
         "The spell lasts until the beginning of the next bretonnian Shooting phase.",
-        "",
         "All enemies that shoot at the enchanted unit get -1 on shooting rolls. But keep in mind that regardless of all other circumstances the shooting may never get worse than 6+. So even if the enchanted unit is fortified all enemies still hit on 6+."
       ]
     },
@@ -282,11 +253,9 @@
       "name": "Lady's Favour",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A vision of The Lady appears to lead the Bretonnians into the midst of battle or away from danger.",
       "text": [
-        "*A vision of The Lady appears to lead the Bretonnians into the midst of battle or away from danger.*",
-        "",
         "The spell can be cast on any unengaged friendly unit within range regardless of whether the Enchantress can see it or not. The spell affects only a single unit, never a brigade and there is no supporting charge possible.",
-        "",
         "The unit can be moved just as if it had received an order in the Command phase. Character stands that have joined the unit will not move with it: they remain where they are."
       ]
     }

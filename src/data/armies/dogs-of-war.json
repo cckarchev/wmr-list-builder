@@ -6,7 +6,6 @@
   "units": {
     "Pikemen": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Crossbowmen": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -29,7 +27,6 @@
     },
     "Handgunners": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -40,7 +37,6 @@
     },
     "Swordsmen": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -51,7 +47,6 @@
     },
     "Ogres": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -62,7 +57,6 @@
     },
     "Dwarfs": {
       "id": 5,
-      "order": 5,
       "type": "Infantry",
       "attack": 3,
       "hits": 4,
@@ -73,7 +67,6 @@
     },
     "Marauders": {
       "id": 6,
-      "order": 6,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -84,7 +77,6 @@
     },
     "Light Cavalry": {
       "id": 7,
-      "order": 7,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -96,7 +88,6 @@
     },
     "Knights": {
       "id": 8,
-      "order": 8,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -107,7 +98,6 @@
     },
     "Galloper Guns": {
       "id": 9,
-      "order": 9,
       "type": "Artillery",
       "attack": "1/2+bounce",
       "range": "40cm",
@@ -119,7 +109,6 @@
     },
     "Giant": {
       "id": 10,
-      "order": 10,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -130,7 +119,6 @@
     },
     "Birdmen": {
       "id": 11,
-      "order": 11,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -142,7 +130,6 @@
     },
     "General": {
       "id": 12,
-      "order": 12,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -154,7 +141,6 @@
     },
     "Hero": {
       "id": 13,
-      "order": 13,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -165,7 +151,6 @@
     },
     "Paymaster": {
       "id": 14,
-      "order": 14,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -177,7 +162,6 @@
     },
     "Wizard": {
       "id": 15,
-      "order": 15,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -190,7 +174,6 @@
   "upgrades": {
     "Griffon": {
       "id": 0,
-      "order": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -198,7 +181,6 @@
     },
     "Pay Wagon": {
       "id": 1,
-      "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+20",
@@ -207,7 +189,6 @@
     },
     "Handgunners": {
       "id": 2,
-      "order": 2,
       "type": "Special",
       "attack": "3/1",
       "range": "30cm",
@@ -222,7 +203,7 @@
     "Pikemen": {
       "order": 1,
       "text": [
-        "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman’s lance this is a truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in a defended position on higher ground or behind a low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor do Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
+        "The pike is the traditional weapon of the mercenaries of Tilea. Twice as long as a spear and even longer than a cavalryman's lance this is a truly fearsome although rather unwieldy weapon. Pikemen are based facing the short edge of the base in the same way as Cavalry, rather than the long edge like other Infantry. Pikemen can not enter dense terrain (even partially). They still may be in a defended position on higher ground or behind a low obstacle as usual, but can only claim defended status when fighting to the front. An enemy does not receive charge bonuses when charging Pikemen in the front, nor do Pikemen receive any charge bonus themselves. A Pikemen stand cannot support or be supported by other infantry - only by other Pikemen stands. In all other respects they count as infantry (movement/pursuit etc.)."
       ]
     },
     "Handgunners": {
@@ -247,8 +228,7 @@
       "order": 5,
       "text": [
         "These are lighter artillery than Dwarf or Empire cannons; due to this they are shorter ranged, but can make up for their lighter shot by producing a higher volume of fire.",
-        "",
-        "Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon’s rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot’ as normal."
+        "Galloper Guns move 20cm. All the normal rules for artillery applies as well as cannon's rules for shooting (bounce through, no saves and reduction of cover values). Because they are light guns they have a range of only 40cm. They still may shoot at the charging enemy by firing ‘grapeshot' as normal."
       ]
     },
     "Giant": {
@@ -257,7 +237,7 @@
     "Birdmen": {
       "order": 7,
       "text": [
-        "Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings’ allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry."
+        "Only half-mad nutters like Tileans would try to fly! The Birdmen wear insane contraptions of light wood covered in canvas that are shaped like wings and allow them to glide on the air currents. These ‘wings' allow the Birdmen to fly and still use their crossbows as normal. Because they are awkward flyers, they can be pursued by any type of enemy troops. Birdmen are based facing the long edge of the base in the same way as other infantry."
       ]
     },
     "Paymaster, Pay Wagon": {
@@ -273,7 +253,7 @@
     "Griffon": {
       "order": 10,
       "text": [
-        "Generals, Wizards and Heroes may ride Griffons. The Griffon combines the appearance of a lion and an eagle. These creatures are hatched from stolen eggs and hand reared to serve as mounts for favoured individuals. The Griffon can fly, increasing the rider’s movement to 100cm and it adds +2 Attacks to those of the rider. A unit which includes a Griffon causes terror in its enemies."
+        "Generals, Wizards and Heroes may ride Griffons. The Griffon combines the appearance of a lion and an eagle. These creatures are hatched from stolen eggs and hand reared to serve as mounts for favoured individuals. The Griffon can fly, increasing the rider's movement to 100cm and it adds +2 Attacks to those of the rider. A unit which includes a Griffon causes terror in its enemies."
       ]
     },
     "Cannon": {
@@ -285,11 +265,9 @@
       "name": "Ball of Flame",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A ball of flame shoots from the Wizard's outstretched arm burning all in its path",
       "text": [
-        "*A ball of flame shoots from the Wizard's outstretched arm burning all in its path*",
-        "",
         "Draw an imaginary line 30cm long from the Wizard's stand in any direction you wish. The line will pass through any intervening units but not beyond terrain that would normally stop a missile shot, e.g. over the crest of a hill, more than 2cm of woodland, and so forth.",
-        "",
         "Each unit under the line takes three shooting attacks worked out in the usual way. Note that this spell can easily affect several units and will affect all units that fall beneath the line (including your own). Unengaged units can be driven back by a Ball of Flame as with ordinary shooting (even including friends). Engaged units cannot be driven back by the Ball of Flame but carry over any hits scored into the first round of combat; any hits scored count as having been struck in the combat itself."
       ]
     },
@@ -297,11 +275,9 @@
       "name": "Voice of Command",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Wizard's voice booms out across the battlefield directing troops above the tumult of combat with the magical Voice of Command.",
       "text": [
-        "*The Wizard's voice booms out across the battlefield directing troops above the tumult of combat with the magical Voice of Command.*",
-        "",
         "The spell can be cast on any unengaged friendly unit within range regardless of whether the Wizard can see it or not. The spell affects only a single unit, never a brigade and there is no supporting charge possible.",
-        "",
         "The unit can be moved just as if it had received an order in the Command phase. Character stands that have joined the unit will not move with it: they remain where they are."
       ]
     },
@@ -309,22 +285,18 @@
       "name": "Weird Enchantment",
       "roll": 4,
       "range": "30cm",
+      "fluff": "A weird enchantment forms around the target unit and engulfs it in strange lights, scary nightmares and disorientating special effects.",
       "text": [
-        "*A weird enchantment forms around the target unit and engulfs it in strange lights, scary nightmares and disorientating special effects.*",
-        "",
         "This spell can be cast on any enemy unit within range regardless of whether the Wizard can see it or not.",
-        "",
         "The spell lasts until the end of the opposing player's following turn.",
-        "",
         "The unit moves at half pace in all situations: even when charging for example. The unit counts all enemies as terrifying (-1 Attack penalty) even when it is otherwise immune to terror. If the unit would normally cause terror then it ceases to do so and counts all enemies as terrifying just like everyone else. However, if the target is Undead or Daemon it will not count enemies as terrifying although all other penalties apply as described (Undead and Daemons are hard to spook)."
       ]
     },
     {
       "name": "Teleport",
       "roll": 2,
+      "fluff": "With a swirl of his cloak, a crack of thunder and just a hint of maniacal laughter the Wizard vanishes to reappear anywhere on the battlefield.",
       "text": [
-        "*With a swirl of his cloak, a crack of thunder and just a hint of maniacal laughter the Wizard vanishes to reappear anywhere on the battlefield.*",
-        "",
         "The Wizard is moved to a new position anywhere on the table. He can leave or join a unit if he wishes, enabling a Wizard to move into or out of combat for example. Once the Wizard has moved he can cast a second spell, but note this must be a different spell and not a further Teleport! Roll to cast the second spell as normal. A Wizard that Teleports successfully can therefore potentially cast two spells that turn."
       ]
     }

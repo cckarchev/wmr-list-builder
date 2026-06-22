@@ -6,7 +6,6 @@
   "units": {
     "Glade Guard": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -18,7 +17,6 @@
     },
     "Eternal Guard": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -29,7 +27,6 @@
     },
     "Wardancers": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -43,7 +40,6 @@
     },
     "Waywatchers": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": "1/2",
       "range": "30cm",
@@ -54,7 +50,6 @@
     },
     "Dryads": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -66,7 +61,6 @@
     },
     "Glade Riders": {
       "id": 5,
-      "order": 5,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "30cm",
@@ -78,7 +72,6 @@
     },
     "Wild Riders": {
       "id": 6,
-      "order": 6,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -90,7 +83,6 @@
     },
     "Warhawk Riders": {
       "id": 7,
-      "order": 7,
       "type": "Monster",
       "attack": "2/1",
       "range": "15cm",
@@ -102,7 +94,6 @@
     },
     "Treekin": {
       "id": 8,
-      "order": 8,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -114,7 +105,6 @@
     },
     "Treeman": {
       "id": 9,
-      "order": 9,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -126,7 +116,6 @@
     },
     "General": {
       "id": 10,
-      "order": 10,
       "type": "General",
       "attack": "+2",
       "command": 10,
@@ -138,7 +127,6 @@
     },
     "Noble": {
       "id": 11,
-      "order": 11,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -149,7 +137,6 @@
     },
     "Treeman Ancient": {
       "id": 12,
-      "order": 12,
       "type": "Hero",
       "attack": "+3",
       "command": 8,
@@ -160,7 +147,6 @@
     },
     "Branchwraith": {
       "id": 13,
-      "order": 13,
       "type": "Hero",
       "attack": "+2",
       "command": 8,
@@ -171,7 +157,6 @@
     },
     "Spell Weaver": {
       "id": 14,
-      "order": 14,
       "type": "Wizard",
       "attack": "+0",
       "command": 8,
@@ -184,7 +169,6 @@
   "upgrades": {
     "Giant Stag": {
       "id": 0,
-      "order": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
@@ -192,7 +176,6 @@
     },
     "Unicorn": {
       "id": 1,
-      "order": 1,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+15",
@@ -200,7 +183,6 @@
     },
     "Warhawk": {
       "id": 2,
-      "order": 2,
       "type": "Monstrous Mount",
       "attack": "+1",
       "points": "+15",
@@ -208,7 +190,6 @@
     },
     "Forest Dragon": {
       "id": 3,
-      "order": 3,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
@@ -230,9 +211,7 @@
       "order": 2,
       "text": [
         "Wardancer stands are not deployed as independent units. Instead, any Glade Guard or Eternal Guard unit may add one stand of Wardancers. This brings the size of the unit to 4 stands: 3 regular stands plus the Wardancers stand.",
-        "",
         "Wardancers always have the same Armour value as the rest of their unit. They fight as part of their unit and can be removed as a unit casualty if the player wishes.",
-        "",
         "Wardancers casualties never count for Command penalties. Wardancers stands never cause the parent unit to be in Irregular Formation no matter how they are placed."
       ]
     },
@@ -240,7 +219,6 @@
       "order": 3,
       "text": [
         "Famous for their bow skills even by Wood Elf standards, Waywatchers shoot the enemy with terrifying accuracy. They add +1 to their dice rolls when making shooting attacks and these attacks are resolved at -1 Armour value of the enemy.",
-        "",
         "Individual units can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Wood Elf player nominates the point where he wants the Waywatchers to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties of dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order if he is within his normal command range, the infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Waywatchers don‘t suffer the -1 Command penalty for Dense Terrain."
       ]
     },
@@ -310,9 +288,8 @@
       "name": "Tree Singing",
       "roll": 4,
       "range": "30cm",
+      "fluff": "The Spellweaver calls forth a mass of tangling branches to surround their troops, protecting them from harm.",
       "text": [
-        "*The Spellweaver calls forth a mass of tangling branches to surround their troops, protecting them from harm.*",
-        "",
         "This spell may be cast upon a single unengaged friendly Infantry unit within range, regardless of whether the caster can see them or not. The spell lasts until the start of the caster‘s next turn, or until the target unit moves in any way. The target Infantry unit counts as Defended, even if it is in open terrain."
       ]
     },
@@ -320,9 +297,8 @@
       "name": "Twilight Host",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Spellweaver shrouds a friendly unit in nightmarish shadows, filling the enemy with fear.",
       "text": [
-        "The Spellweaver shrouds a friendly unit in nightmarish shadows, filling the enemy with fear.",
-        "",
         "This spell can only be cast on any friendly unit within range regardless of whether the Spellweaver can see it or not. The unit counts as causing terror for the duration of the Combat phase."
       ]
     },
@@ -330,11 +306,9 @@
       "name": "Call of the Hunt",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Spellweaver‘s voice sings out across the battlefield directing troops above the tumult of combat with the magical Call of the Hunt.",
       "text": [
-        "*The Spellweaver‘s voice sings out across the battlefield directing troops above the tumult of combat with the magical Call of the Hunt.*",
-        "",
         "The spell can be cast on any unengaged friendly unit within range regardless of whether the Spellweaver can see it or not. The spell affects only a single unit, never a brigade and there is no supporting charge possible. The target unit must make a charge move into base contact with the nearest visible enemy unit in the same way as when charging, so all normal charge rules apply.",
-        "",
         "A unit moved by means of the spell cannot be affected by stand and shoot attacks until the end of the shooting phase. Character stands that have joined the affected unit will not move with it: they remain where they are."
       ]
     },
@@ -342,11 +316,9 @@
       "name": "Fury of the Forest",
       "roll": 6,
       "range": "60cm",
+      "fluff": "The Spellweaver awakens the fury of the forest to purge the enemy from their soil.",
       "text": [
-        "*The Spellweaver awakens the fury of the forest to purge the enemy from their soil.*",
-        "",
         "The spell can be cast upon any terrain piece in range that is designated as woods. All enemy units within 10cm of chosen wooded terrain piece take 3 shooting attacks worked out in the normal way. Affected units get no armour save if at least one of their stands is completely within the chosen terrain.",
-        "",
         "Unengaged units are not driven back by this spell (the assault comes form the ground beneath their feet). Engaged units carry over any hits scored into the first round of combat; any hits scored count as having been struck in the combat itself."
       ]
     }

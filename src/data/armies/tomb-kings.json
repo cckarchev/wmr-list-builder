@@ -6,7 +6,6 @@
   "units": {
     "Skeletons": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": 2,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Skeleton Bowmen": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -28,7 +26,6 @@
     },
     "Skeleton Cavalry": {
       "id": 2,
-      "order": 2,
       "type": "Cavalry",
       "attack": 2,
       "hits": 3,
@@ -38,7 +35,6 @@
     },
     "Skeleton Chariots": {
       "id": 3,
-      "order": 3,
       "type": "Chariot",
       "attack": "3/1",
       "range": "30cm",
@@ -50,7 +46,6 @@
     },
     "Carrion": {
       "id": 4,
-      "order": 4,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -61,7 +56,6 @@
     },
     "Bone Giant": {
       "id": 5,
-      "order": 5,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -72,7 +66,6 @@
     },
     "Sphinx": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": 4,
       "hits": 6,
@@ -83,7 +76,6 @@
     },
     "Skull Chukka": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -95,7 +87,6 @@
     },
     "Bone Thrower": {
       "id": 8,
-      "order": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -107,7 +98,6 @@
     },
     "Tomb King": {
       "id": 9,
-      "order": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -119,7 +109,6 @@
     },
     "Liche Priest": {
       "id": 10,
-      "order": 10,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
@@ -132,7 +121,6 @@
   "upgrades": {
     "Zombie Dragon": {
       "id": 0,
-      "order": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
@@ -140,7 +128,6 @@
     },
     "Liche Chariot": {
       "id": 1,
-      "order": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
@@ -150,13 +137,9 @@
   "magic": true,
   "armyRules": [
     "Undead troops are quite beyond any feelings of revulsion, fear, trepidation or anything else for that matter. They are dead and as such nothing holds any real terror for them. Conversely the spells that bind them to life allow only the most rudimentary or specialised intelligence. The following rules apply to all units.",
-    "",
     "Undead units never act on initiative. An Undead unit only moves in the Command phase if given orders (except Carrion who can also home back as noted below).",
-    "",
     "Undead units are unaffected by the -1 Command penalty for enemy within 20cm.",
-    "",
     "Undead units are unaffected by the -1 Combat penalty for fighting terrifying troops.",
-    "",
     "Undead units are unaffected by the Confusion rule - they cannot become confused for any reason."
   ],
   "specialRules": {
@@ -214,11 +197,9 @@
       "name": "Raise Dead",
       "roll": 5,
       "range": "30cm",
+      "fluff": "At the Wizard's beckoning the mangled corpses that litter the battleground rise from the dead to continue the slaughter.",
       "text": [
-        "*At the Wizard's beckoning the mangled corpses that litter the battleground rise from the dead to continue the slaughter.*",
-        "",
         "This spell can be cast upon a combat engagement taking place within 30cm of the Wizard. The spell can be cast regardless of whether the Wizard can see any units in the combat engagement or not. A single combat engagement can only be affected once by this spell in any turn regardless of how many units are involved in the combat. For purposes of deciding whether a combat is eligible as a target, combat engagements are as they appear when the die to cast the spell is rolled: so it is possible for pursuit or advances to bring two units of raised dead into the same engagement later on.",
-        "",
         "A Skeleton unit of three stands is created. Each stand in the raised unit must be placed so that its front edge contacts an enemy stand from the targeted engagement, or that it supports a friendly stand from the same engagement, including raised stands. The placement of stands may not split up the engagement into multiple smaller engagements. If raised stands come into contact with unengaged enemy units, those units will join the engagement after the raised unit is placed, similar to incidental contact during pursuit. If it is impossible to position all stands in combat or support then the unit is not deployed and the spell fails. Raised dead do not count as charging in the first round of combat. Raised dead are ignored for working out break point and victory points at the end of the game."
       ]
     },
@@ -226,11 +207,9 @@
       "name": "Touch of Death",
       "roll": 4,
       "range": "- Touching",
+      "fluff": "The Wizard's enemies crumble to dust as he smites them with the corrupting Touch of Death.",
       "text": [
-        "*The Wizard's enemies crumble to dust as he smites them with the corrupting Touch of Death.*",
-        "",
         "The Wizard can cast this spell if he has joined a unit in combat. The spell can be cast on any single enemy unit that it is touching the unit the Wizard has joined.",
-        "",
         "The target unit takes three attacks worked out in the usual way. Any hits scored are carried over into the first round of combat and count as having been struck in the first round for purposes of working out combat results."
       ]
     },
@@ -238,13 +217,10 @@
       "name": "Doom and Despair",
       "roll": 4,
       "range": "60cm",
+      "fluff": "A dark cloud of doom and despair settles over the enemy, sapping their courage and dampening their warlike spirit.",
       "text": [
-        "*A dark cloud of doom and despair settles over the enemy, sapping their courage and dampening their warlike spirit.*",
-        "",
         "This spell can be cast on any enemy unit within range regardless of whether the Wizard can see it or not.",
-        "",
         "The spell takes effect until the end of the opposing player's next turn.",
-        "",
         "Whilst the spell lasts the unit cannot charge and if engaged in combat will not pursue or advance. Even units that are otherwise obliged to charge, pursue, or advance will not do so if affected by Doom and Despair. Note that even other Undead are not immune - they are overcome by the ennui of the tomb!"
       ]
     },
@@ -252,11 +228,9 @@
       "name": "Death Bolt",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A fearsome bolt of sorcerous lightning flies from the Wizard's outstretched finger tips and strikes an enemy unit.",
       "text": [
-        "*A fearsome bolt of sorcerous lightning flies from the Wizard's outstretched finger tips and strikes an enemy unit.*",
-        "",
         "This spell can be cast on an enemy unit. The Wizard must be able to see his target to use this spell. The spell cannot be directed at a unit engaged in combat.",
-        "",
         "The Death Bolt is treated like three ordinary shooting attacks except that armour has no effect (all targets count as having no armour). A unit can be driven back by a Death Bolt as with ordinary shooting."
       ]
     }

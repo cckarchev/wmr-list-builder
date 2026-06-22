@@ -6,7 +6,6 @@
   "units": {
     "Goblins": {
       "id": 0,
-      "order": 0,
       "type": "Infantry",
       "attack": "2/1",
       "range": "15cm",
@@ -18,7 +17,6 @@
     },
     "Squig Herd": {
       "id": 1,
-      "order": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -27,7 +25,6 @@
     },
     "Trolls": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -38,7 +35,6 @@
     },
     "Wolf Riders": {
       "id": 3,
-      "order": 3,
       "type": "Cavalry",
       "attack": "2/1",
       "range": "15cm",
@@ -50,7 +46,6 @@
     },
     "Wolf Chariots": {
       "id": 4,
-      "order": 4,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -61,7 +56,6 @@
     },
     "Pump Wagon": {
       "id": 5,
-      "order": 5,
       "type": "Chariot",
       "attack": "D6",
       "hits": 3,
@@ -73,7 +67,6 @@
     },
     "Giant": {
       "id": 6,
-      "order": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +77,6 @@
     },
     "Doom Diver": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -95,7 +87,6 @@
     },
     "Spear Chukka": {
       "id": 8,
-      "order": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -107,7 +98,6 @@
     },
     "Goblin Warboss": {
       "id": 9,
-      "order": 9,
       "type": "General",
       "attack": "+1",
       "command": 8,
@@ -119,7 +109,6 @@
     },
     "Goblin Hero": {
       "id": 10,
-      "order": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 7,
@@ -130,7 +119,6 @@
     },
     "Goblin Shaman": {
       "id": 11,
-      "order": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
@@ -143,7 +131,6 @@
   "upgrades": {
     "Wolf Chariot": {
       "id": 0,
-      "order": 0,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
@@ -151,7 +138,6 @@
     },
     "Wyvern": {
       "id": 1,
-      "order": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -159,7 +145,6 @@
     },
     "Squig Herd": {
       "id": 2,
-      "order": 2,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -191,10 +176,8 @@
     "Pump Wagon": {
       "order": 4,
       "text": [
-        "The Pump Wagon doesn’t move in Command phase by initiative or by successful orders. Instead of this it can always move once up to 1D6 x 10cm. This move is automatic, requiring no Command roll, and happens at any time during the Command phase but may not interrupt a character giving orders or units moving (including other Pump Wagons). This gives the Pump Wagon a movement of between 10cm and 60cm each turn.",
-        "",
+        "The Pump Wagon doesn't move in Command phase by initiative or by successful orders. Instead of this it can always move once up to 1D6 x 10cm. This move is automatic, requiring no Command roll, and happens at any time during the Command phase but may not interrupt a character giving orders or units moving (including other Pump Wagons). This gives the Pump Wagon a movement of between 10cm and 60cm each turn.",
         "In the combat round it charges, pursuits or advances, a Pump Wagon receives D6 attacks. This is in addition too any additional attacks it receives for charging enemy in the open and for being a chariot. When charged or retreating as a result of combat, its attacks are halved to D3. Roll for attacks every round of combat.",
-        "",
         "A Pump Wagon cannot be driven back by shooting and do not roll for drive backs. Pump Wagons ignore confusion. A Pump Wagon cannot be brigaded with other units; not even another Pump Wagon, and characters cannot join it. The enemy does not gain Victory points for a destroyed Pump Wagon and a Pump Wagon does not count towards the Goblin army‘s break value in any way."
       ]
     },
@@ -213,7 +196,7 @@
     "Wyvern": {
       "order": 8,
       "text": [
-        "Characters may ride Wyverns. A Wyvern can fly increasing its rider’s movement from 60cm to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies."
+        "Characters may ride Wyverns. A Wyvern can fly increasing its rider's movement from 60cm to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies."
       ]
     }
   },
@@ -222,9 +205,8 @@
       "name": "Mork Save Uz!",
       "roll": 5,
       "range": "30cm",
+      "fluff": "The Shaman summons the power of Mork to protect the greenskins from the enemy.",
       "text": [
-        "*The Shaman summons the power of Mork to protect the greenskins from the enemy.*",
-        "",
         "This spell can be cast on any friendly unit within 30cm of the Shaman. The unit gains a 5+ save worked out in the usual manner until the beginning of their next turn. If the unit already has a saving roll then it can choose which one to make, but may not take both."
       ]
     },
@@ -232,11 +214,9 @@
       "name": "Gerroff!!!",
       "roll": 5,
       "range": "60cm",
+      "fluff": "The voice of Gork booms out across the battlefield, forcing back his foes with a rancid gale force bellow.",
       "text": [
-        "*The voice of Gork booms out across the battlefield, forcing back his foes with a rancid gale force bellow.*",
-        "",
         "This can be cast on any enemy unit within 60cm, whether the Shaman can see it or not. It cannot be cast on a unit engaged in combat or cast successfully on a unit more than once per turn.",
-        "",
         "The enemy unit is driven back by the blast of the bellow 5×D6cm towards its own table edge. This is treated in the same way as a driveback from shooting except the direction is established by determining the shortest route to the table edge. A unit cannot be routed by a drive back from Gerroff!!! spell. If the unit leaves the table edge it must roll as described in the main rules."
       ]
     },
@@ -244,11 +224,9 @@
       "name": "Brain Busta",
       "roll": 5,
       "range": "30cm",
+      "fluff": "A fearsome bolt of pure Waaagh! energy issues from the Shaman's outstretched hand and strikes an enemy unit.",
       "text": [
-        "*A fearsome bolt of pure Waaagh! energy issues from the Shaman’s outstretched hand and strikes an enemy unit.*",
-        "",
         "The Shaman must be able to see his target to use this spell and it cannot be directed at a unit engaged in combat.",
-        "",
         "Brain Busta is treated like three ordinary shooting attacks except that armour saves have no effect (all targets count as having no armour). A unit can be driven back by Brain Busta as with ordinary shooting."
       ]
     },
@@ -256,11 +234,9 @@
       "name": "Waaagh!",
       "roll": 4,
       "range": "30cm",
+      "fluff": "The Shaman summons the power of the mighty Waaagh!, invigorating the greenskins.",
       "text": [
-        "*The Shaman summons the power of the mighty Waaagh!, invigorating the greenskins.*",
-        "",
         "This spell can be cast on a friendly unit of Goblins engaged in combat; including Squig Herds, Wolf Riders, Wolf Chariots and Pump Wagons but not Trolls, Giants or other non-greenskins. The spell can be cast regardless of whether the Shaman can see the target or not.",
-        "",
         "The spell lasts for the duration of the following Combat phase. Every stand in the unit, including characters that have joined the unit, adds +1 to its Attacks value."
       ]
     }

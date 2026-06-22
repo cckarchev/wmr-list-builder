@@ -6,7 +6,6 @@
   "units": {
     "Winged Lancers": {
       "id": 0,
-      "order": 0,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +16,6 @@
     },
     "Horse Archers": {
       "id": 1,
-      "order": 1,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -30,7 +28,6 @@
     },
     "Cossacks": {
       "id": 2,
-      "order": 2,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -43,7 +40,6 @@
     },
     "Bowmen": {
       "id": 3,
-      "order": 3,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -53,7 +49,6 @@
     },
     "Red Guard": {
       "id": 4,
-      "order": 4,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -65,7 +60,6 @@
     },
     "Axemen": {
       "id": 5,
-      "order": 5,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -77,7 +71,6 @@
     },
     "Bears": {
       "id": 6,
-      "order": 6,
       "type": "Infantry",
       "attack": 5,
       "hits": 4,
@@ -87,7 +80,6 @@
     },
     "War Wagon": {
       "id": 7,
-      "order": 7,
       "type": "Artillery",
       "attack": "4/4",
       "range": "30cm",
@@ -99,7 +91,6 @@
     },
     "General": {
       "id": 8,
-      "order": 8,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -111,7 +102,6 @@
     },
     "Hero": {
       "id": 9,
-      "order": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -122,7 +112,6 @@
     },
     "Shaman": {
       "id": 10,
-      "order": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -135,7 +124,6 @@
   "upgrades": {
     "Bear": {
       "id": 0,
-      "order": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
@@ -144,7 +132,6 @@
     },
     "Yozhin": {
       "id": 1,
-      "order": 1,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+40",
@@ -152,7 +139,6 @@
     },
     "Tzarina": {
       "id": 2,
-      "order": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
@@ -166,7 +152,6 @@
     },
     "Bowmen": {
       "id": 3,
-      "order": 3,
       "type": "Special",
       "attack": "3/1",
       "range": "30cm",
@@ -200,9 +185,7 @@
       "order": 4,
       "text": [
         "Bears are defined as infantry for rules purposes as this gives them the appropriate mobility for such creatures, but they add +1 Attack when they charge an enemy in the open in the same way as monsters and chariots.",
-        "",
         "A Bear unit can only give support and be supported by other Bear units and must pursue retreating enemy where possible and must advance if they are able to do so. Also, Bears never count as defended outside a dense terrain.",
-        "",
         "Note that these rules apply only to Bear units - not to characters riding a Bear or Shaman that have transformed in Monster Bear"
       ]
     },
@@ -210,19 +193,12 @@
       "order": 5,
       "text": [
         "The War Wagon consists of a wagon stand and a horse team stand. The unit must always be in one of two formations: a column with the horse team in front of the wagon, or a laager with the horse team placed beside the wagon edge to edge.",
-        "",
         "The War Wagon cannot charge and moves 20cm at full pace. A War Wagon unit moving more than 5 cm must end its move in a column formation. After a successful order, if at least one stand moves no more than 5cm, the unit may end its move in laager formation. The War Wagon may enter laager formation as part of an evade, following the 5cm movement restriction.",
-        "",
         "Uniquely, the War Wagon attacks are shared between the stands. A total of 4 melee attacks that can be directed from either the horse team or wagon stand and a total of 4 shooting attacks with 360° vison. Count enemy armour values as one worse than normal when shot by a War Wagon.",
-        "",
         "A War Wagon in column formation cannot pursue. Unlike other artillery it can retreat from combat and is not destroyed if forced to do so.",
-        "",
         "A War Wagon in laager formation counts as a defended unit, with no sides or rear. It cannot make way. It cannot be driven back or routed by shooting, but roll for (defended) drive backs to see if it becomes confused.",
-        "",
         "A War Wagon in laager formation will neither pursue nor retreat. If obliged to retreat, it instead remains in place, is not destroyed, continues to count as defended, and enemy stands do not receive any pursuit bonuses against it in subsequent rounds of combat.",
-        "",
         "Either stand can be removed as causality. If the horse team stand is removed, the wagon stand will count as in laager formation for the remainder of the game. If the wagon stand is removed, the remaining horse team stand has no armour, no attacks, and counts as in column formation.",
-        "",
         "Any Kislev infantry unit with a side edge of one stand touching wholly the short edge of a laagered wagon stand counts as defended for shooting and combat. This advantage applies only in the first round of combat."
       ]
     },
@@ -236,14 +212,13 @@
       "order": 7,
       "text": [
         "This creature lives in swamps near the Praag since the great incursion of Chaos. Yozhin strongly hates any kind of Chaos, being (possibly) chaos-twisted creature itself. Only powerful Shamans may summon Yozhin and make it to fight on their side.",
-        "",
-        "A single Shaman in the army can be assisted by Yozhin. There is no restriction of going into any water/boggy/swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman’s attacks value."
+        "A single Shaman in the army can be assisted by Yozhin. There is no restriction of going into any water/boggy/swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman's attacks value."
       ]
     },
     "Tzarina": {
       "order": 8,
       "text": [
-        "The General may be a Tzarina of the royal blood - perhaps Tzarina Katrina herself. The Tzarina rides a horse-drawn sled - note this is not a chariot! The Tzarina can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle the Tzarina can add +1 to the dice when attempting to cast a spell. The player must announce that the Tzarina’s special spell casting bonus is being used before rolling for the spell."
+        "The General may be a Tzarina of the royal blood - perhaps Tzarina Katrina herself. The Tzarina rides a horse-drawn sled - note this is not a chariot! The Tzarina can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle the Tzarina can add +1 to the dice when attempting to cast a spell. The player must announce that the Tzarina's special spell casting bonus is being used before rolling for the spell."
       ]
     }
   },
@@ -251,11 +226,9 @@
     {
       "name": "Monster Bear!",
       "roll": 5,
+      "fluff": "The wizard transforms himself into a gigantic ferocious supernatural bear and hurls himself into the enemy's ranks.",
       "text": [
-        "*The wizard transforms himself into a gigantic ferocious supernatural bear and hurls himself into the enemy’s ranks.*",
-        "",
         "The wizard can cast this spell on himself if he has joined a unit that is engaged in combat. The spell lasts for the duration of the following Combat phase.",
-        "",
         "The unit causes terror and the wizard gains a further +2 Attack bonus that he adds to the unit in the regular way. Note that if the Tzarina uses this spell she adds +4 Attacks: +2 as General and +2 from Monster Bear."
       ]
     },
@@ -263,9 +236,8 @@
       "name": "Icy Blast",
       "roll": 5,
       "range": "30cm",
+      "fluff": "An icy blast shoots from the wizard's outstretched arm and strikes his foes.",
       "text": [
-        "*An icy blast shoots from the wizard’s outstretched arm and strikes his foes.*",
-        "",
         "This spell can be cast on an enemy unit. The Wizard must be able to see his target to use this spell. The spell cannot be directed at a unit engaged in combat. The Icy Blast is treated like three ordinary shooting attacks except that armour has no effect (all targets count as having no armour). A unit can be driven back by an Icy Blast as with ordinary shooting."
       ]
     },
@@ -273,9 +245,8 @@
       "name": "Chill",
       "roll": 4,
       "range": "30cm",
+      "fluff": "A fierce chill envelops the unit, freezing its warriors and hindering its ability to fight.",
       "text": [
-        "*A fierce chill envelops the unit, freezing its warriors and hindering its ability to fight.*",
-        "",
         "This spell can be cast upon an enemy unit that is engaged in combat and which is within range. The Wizard does not have to be able to see the target to cast the spell. The spell lasts for the duration of the following Combat phase. Every stand in the unit, including characters that have joined the unit, deducts -1 from its Attacks value."
       ]
     },
@@ -283,11 +254,9 @@
       "name": "Freeze",
       "roll": 6,
       "range": "60cm",
+      "fluff": "An ill wind turns the enemy so brittle that wood, flesh and even iron shatters and falls to the ground in splinters.",
       "text": [
-        "*An ill wind turns the enemy so brittle that wood, flesh and even iron shatters and falls to the ground in splinters.*",
-        "",
         "This spell can be cast at an enemy unit within range regardless of whether the wizard can see it or not. The spell cannot be directed at a unit engaged in combat.",
-        "",
         "Roll a D6. If the score exceeds the number of hits that the target troop type has then one stand is destroyed. If not then the target is unscathed. If a stand is destroyed it is removed as a casualty. A unit cannot be driven back by Freeze."
       ]
     }
