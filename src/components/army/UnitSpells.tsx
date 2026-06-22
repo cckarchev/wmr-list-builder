@@ -123,7 +123,7 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
               {isOpen && (
                 <Effect
                   dangerouslySetInnerHTML={{
-                    __html: marked(spell.text?.join('\n') ?? '') as string,
+                    __html: marked([`*${spell.fluff}*`, ...spell.text].join('\n\n')) as string,
                   }}
                 />
               )}

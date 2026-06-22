@@ -60,7 +60,7 @@ export default function SpecialRules() {
       <PrintHeading>Special Rules</PrintHeading>
       <DefList>
         {sorted.flatMap(([name, rule]) => {
-          const html = rule.text ? (marked(rule.text.join('\n')) as string) : '';
+          const html = rule.text ? (marked(rule.text.join('\n\n')) as string) : '';
           return [
             <DefTerm key={`dt_${name}`}>
               {rule.order != null ? `${rule.order}. ` : ''}

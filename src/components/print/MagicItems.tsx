@@ -27,7 +27,7 @@ export default function MagicItems() {
       <PrintHeading>Magic Items</PrintHeading>
       <DefList>
         {entries.map(([name, item]) => {
-          const html = marked(item.text.join('\n')) as string;
+          const html = marked(item.text.join('\n\n')) as string;
           return (
             <Fragment key={name}>
               <DefTerm>{name}</DefTerm>

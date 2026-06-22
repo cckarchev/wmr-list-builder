@@ -50,7 +50,7 @@ export default function UnitRules({ unitId }: UnitRulesProps) {
         <Rule key={name}>
           <RuleName>{name}</RuleName>
           <RuleText
-            dangerouslySetInnerHTML={{ __html: marked(rule.text?.join('\n') ?? '') as string }}
+            dangerouslySetInnerHTML={{ __html: marked(rule.text?.join('\n\n') ?? '') as string }}
           />
         </Rule>
       ))}

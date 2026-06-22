@@ -3,7 +3,6 @@ import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
-import { stripSpellFlavor } from './spellText';
 import { usePrintOptions } from './printOptions';
 
 const SpellHeader = styled(DefTerm)``;
@@ -23,8 +22,8 @@ export default function Spells() {
       <PrintHeading>Spells</PrintHeading>
       <DefList>
         {spells.map((spell, i) => {
-          const lines = spellFluff ? spell.text : stripSpellFlavor(spell.text);
-          const html = marked(lines.join('\n')) as string;
+          const blocks = spellFluff ? [`*${spell.fluff}*`, ...spell.text] : spell.text;
+          const html = marked(blocks.join('\n\n')) as string;
           const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
             spell.range ?? 'N/A'
           }`;

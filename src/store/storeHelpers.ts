@@ -26,15 +26,13 @@ export interface UnitState extends Omit<Unit, 'upgrades'> {
  * army `Upgrade` records AND magic-item `MagicItem` records, because when an
  * army has `magic: true` the magic-item upgrades are merged into the same map
  * (see `initializeState`). The two source types differ on `points`
- * (`StatValue` vs `string | Record<string,string>`) and `order`
- * (`number` vs `string | number`), and `MagicItem` carries `pointsValue` +
- * `text`. We model the reconciliation as a structural superset so a value of
- * either source type is assignable here, then add the live `number`/`minMax`
- * fields the Vue store attaches in `SET_UPGRADES`.
+ * (`StatValue` vs `string | Record<string,string>`), and `MagicItem` carries
+ * `pointsValue` + `text`. We model the reconciliation as a structural superset
+ * so a value of either source type is assignable here, then add the live
+ * `number`/`minMax` fields the Vue store attaches in `SET_UPGRADES`.
  */
 export interface UpgradeState {
   id?: number;
-  order: string | number;
   type: string;
   points?: StatValue | Record<string, string>;
   pointsValue?: string;

@@ -21,7 +21,7 @@ export default function ArmyRules() {
 
   if (!army?.armyRules) return null;
 
-  const html = marked(army.armyRules.join('\n')) as string;
+  const html = marked(army.armyRules.join('\n\n')) as string;
 
   return (
     <PrintSection>

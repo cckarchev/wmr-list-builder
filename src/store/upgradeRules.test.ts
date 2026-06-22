@@ -3,7 +3,6 @@ import { resolveUpgradeRules } from './upgradeRules';
 import type { UpgradeState } from './storeHelpers';
 
 const upgrade = (partial: Partial<UpgradeState>): UpgradeState => ({
-  order: 0,
   type: 'magic',
   number: 0,
   ...partial,

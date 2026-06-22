@@ -17,7 +17,6 @@ beforeEach(() => {
 // upgrades). These build minimal state objects to exercise the ported logic.
 function unit(partial: Partial<UnitState>): UnitState {
   return {
-    order: 0,
     type: 'Infantry',
     points: 100,
     number: 0,
@@ -26,7 +25,7 @@ function unit(partial: Partial<UnitState>): UnitState {
   } as UnitState;
 }
 function upgrade(partial: Partial<UpgradeState>): UpgradeState {
-  return { order: 0, type: 'Infantry', number: 0, ...partial } as UpgradeState;
+  return { type: 'Infantry', number: 0, ...partial } as UpgradeState;
 }
 
 describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', () => {
