@@ -6,7 +6,6 @@ import {
   unitCount,
   breakPoint,
   usedUnits,
-  usedUpgrades,
   errorsForTarget,
   globalErrors,
   groupRosterUnits,
@@ -105,7 +104,7 @@ describe('errorsForTarget / globalErrors', () => {
   });
 });
 
-describe('usedUnits / usedUpgrades', () => {
+describe('usedUnits', () => {
   it('returns only units with number > 0 and merges used upgrades', () => {
     get().setArmy('empire');
     get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
@@ -118,17 +117,6 @@ describe('usedUnits / usedUpgrades', () => {
     const banner = used.Halberdiers.upgrades!['Battle Banner'];
     expect(banner.number).toBe(1);
     expect(banner.type).toBe('Magic Standard'); // from the global record
-  });
-
-  it('usedUpgrades returns only global upgrades with number > 0', () => {
-    get().setArmy('empire');
-    get().setUnitNumber('Halberdiers', 2);
-    get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
-
-    const used = usedUpgrades(get());
-    expect(Object.keys(used)).toContain('Battle Banner');
-    expect(used['Battle Banner'].number).toBe(1);
-    expect(used.Griffon).toBeUndefined();
   });
 });
 

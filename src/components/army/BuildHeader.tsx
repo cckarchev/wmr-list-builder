@@ -1,17 +1,10 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
 import { pointsCost, unitCount, breakPoint, globalErrors } from '../../store/selectors';
 import { unitDomId } from './unitDomId';
 import { focusRing } from '../../theme/focusRing';
-import Button from '../ui/Button';
-import Icon from '../ui/Icon';
-import CopyListButton from './CopyListButton';
-import CopyShareLinkButton from './CopyShareLinkButton';
-import ResetListButton from './ResetListButton';
-import SaveListButton from './SaveListButton';
-import LoadListButton from './LoadListButton';
-import OverflowMenu, { MenuDivider } from './OverflowMenu';
+import ListActions from './ListActions';
+import GameSizeStepper from './GameSizeStepper';
 import { useIsDirty } from '../../store/useIsDirty';
 
 const Header = styled.header`
@@ -144,79 +137,6 @@ const StatValue = styled.span`
   text-align: center;
 `;
 
-const GameSizeLabel = styled(StatLabel)`
-  text-align: center;
-`;
-
-// Game size is adjusted in fixed point increments; the − / + buttons step by
-// this much, matching the native input's `step`.
-const GAME_SIZE_STEP = 500;
-
-// Bordered −/+ group wrapping the editable input, mirroring the Stepper control.
-const SizeStepper = styled.div`
-  display: inline-flex;
-  align-items: stretch;
-  align-self: center;
-  background: ${({ theme }) => theme.color.bg.panel};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-`;
-
-const SizeStepButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: ${({ theme }) => `${theme.space[6]}px`};
-  padding: ${({ theme }) => `0 ${theme.space[2]}px`};
-  background: transparent;
-  border: none;
-  color: ${({ theme }) => theme.color.tealBright};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background 0.12s,
-    color 0.12s;
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.color.ghost.bg};
-  }
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  ${focusRing}
-`;
-
-const SizeInput = styled.input`
-  /* Sits between the − / + buttons. Fixed width fits the largest game size
-     ("2000") and keeps Chrome/Firefox in sync — Chrome ignores the size attr and
-     reserves room for the spinner, which we also hide below. */
-  width: 7ch;
-  box-sizing: border-box;
-  text-align: center;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: 500;
-  color: ${({ theme }) => theme.color.text.strong};
-  background: transparent;
-  border: none;
-  border-inline: 1px solid ${({ theme }) => theme.color.border.default};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-
-  /* Hide the native spinner buttons; stepping is handled by the −/+ buttons. */
-  appearance: textfield;
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    appearance: none;
-    margin: 0;
-  }
-
-  ${focusRing}
-`;
-
 const PointsValue = styled(StatValue)<{ $over: boolean }>`
   color: ${({ $over, theme }) => ($over ? theme.color.semantic.error : theme.color.text.strong)};
 `;
@@ -284,13 +204,11 @@ const WarningDismiss = styled.button`
 
 export default function BuildHeader() {
   const army = useArmyStore((s) => s.army);
-  const armyId = useArmyStore((s) => s.armyId);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
   const loadWarning = useArmyStore((s) => s.loadWarning);
   const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
   const gameSize = useArmyStore((s) => s.gameSize);
-  const setGameSize = useArmyStore((s) => s.setGameSize);
   const listName = useArmyStore((s) => s.label);
   const isDirty = useIsDirty();
 
@@ -331,70 +249,14 @@ export default function BuildHeader() {
           </ListName>
         </TitleBlock>
         <InlineActions data-testid="actions-inline">
-          <SaveListButton />
-          <LoadListButton />
-          <OverflowMenu>
-            <CopyShareLinkButton />
-            <CopyListButton />
-            {armyId && (
-              <Button as={Link} to={`/print/${armyId}`} $variant="ghost" $size="sm">
-                <Icon name="print" size={16} />
-                Print
-              </Button>
-            )}
-            <MenuDivider />
-            <ResetListButton />
-          </OverflowMenu>
+          <ListActions />
         </InlineActions>
         <MenuActions data-testid="actions-menu">
-          <SaveListButton />
-          <LoadListButton />
-          <OverflowMenu>
-            <CopyShareLinkButton />
-            <CopyListButton />
-            {armyId && (
-              <Button as={Link} to={`/print/${armyId}`} $variant="ghost" $size="sm">
-                <Icon name="print" size={16} />
-                Print
-              </Button>
-            )}
-            <MenuDivider />
-            <ResetListButton />
-          </OverflowMenu>
+          <ListActions />
         </MenuActions>
       </TitleZone>
       <Strip>
-        <Stat>
-          <GameSizeLabel as="label" htmlFor="game-size">
-            Game Size
-          </GameSizeLabel>
-          <SizeStepper>
-            <SizeStepButton
-              type="button"
-              aria-label="decrease game size"
-              disabled={gameSize <= 0}
-              onClick={() => setGameSize(gameSize - GAME_SIZE_STEP)}
-            >
-              −
-            </SizeStepButton>
-            <SizeInput
-              id="game-size"
-              data-testid="game-size"
-              type="number"
-              min={0}
-              step={GAME_SIZE_STEP}
-              value={gameSize}
-              onChange={(e) => setGameSize(e.target.valueAsNumber)}
-            />
-            <SizeStepButton
-              type="button"
-              aria-label="increase game size"
-              onClick={() => setGameSize(gameSize + GAME_SIZE_STEP)}
-            >
-              +
-            </SizeStepButton>
-          </SizeStepper>
-        </Stat>
+        <GameSizeStepper />
         <Stat>
           <StatLabel>Points</StatLabel>
           <PointsValue $over={over} data-testid="points-total">
