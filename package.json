@@ -13,8 +13,7 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc -b --noEmit",
-    "optimize:svg": "find public src -name '*.svg' -print0 2>/dev/null | xargs -0 -r svgo"
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "marked": "^18.0.5",
@@ -38,7 +37,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^29.1.1",
     "prettier": "3.8.4",
-    "svgo": "^4.0.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.61.1",
     "vite": "^8.0.16",
