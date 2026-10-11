@@ -60,38 +60,34 @@ describe('explainMinMax', () => {
       );
     });
   });
+});
 
-  describe('keyword tokens', () => {
-    it('explains "elite" as size − 1', () => {
-      // size = floor(2000 / 1000) = 2, so max = 1.
-      expect(explainMinMax({ max: 'elite' }, DEFAULT_GAME_SIZE)).toBe(
-        'max 1 (elite: 1 per 1,000 pts after the first)',
-      );
-    });
+describe('explainMinMax with keyword tokens', () => {
+  it('explains "elite" as size − 1', () => {
+    // size = floor(2000 / 1000) = 2, so max = 1.
+    expect(explainMinMax({ max: 'elite' }, DEFAULT_GAME_SIZE)).toBe(
+      'max 1 (elite: 1 per 1,000 pts after the first)',
+    );
+  });
 
-    it('explains "Half or None"', () => {
-      expect(explainMinMax({ min: 'Half or None' }, DEFAULT_GAME_SIZE)).toBe(
-        'half or none of its unit',
-      );
-    });
+  it('explains "Half or None"', () => {
+    expect(explainMinMax({ min: 'Half or None' }, DEFAULT_GAME_SIZE)).toBe(
+      'half or none of its unit',
+    );
+  });
 
-    it('explains "All or None"', () => {
-      expect(explainMinMax({ min: 'All or None' }, DEFAULT_GAME_SIZE)).toBe(
-        'all or none of its unit',
-      );
-    });
+  it('explains "All or None"', () => {
+    expect(explainMinMax({ min: 'All or None' }, DEFAULT_GAME_SIZE)).toBe(
+      'all or none of its unit',
+    );
+  });
 
-    it('explains "Up to Half" living in the max field', () => {
-      expect(explainMinMax({ max: 'Up to Half' }, DEFAULT_GAME_SIZE)).toBe(
-        'up to half of its unit',
-      );
-    });
+  it('explains "Up to Half" living in the max field', () => {
+    expect(explainMinMax({ max: 'Up to Half' }, DEFAULT_GAME_SIZE)).toBe('up to half of its unit');
+  });
 
-    it('explains an "As <unit>" token', () => {
-      expect(explainMinMax({ min: 'As Goblins' }, DEFAULT_GAME_SIZE)).toBe(
-        'same number as Goblins',
-      );
-    });
+  it('explains an "As <unit>" token', () => {
+    expect(explainMinMax({ min: 'As Goblins' }, DEFAULT_GAME_SIZE)).toBe('same number as Goblins');
   });
 });
 

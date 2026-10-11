@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react';
+import { type RefCallback, useEffect, useState } from 'react';
+
+interface ElementHeight<T extends HTMLElement> {
+  /** Attach to the element to measure. */
+  ref: RefCallback<T>;
+  height: number;
+}
 
 /**
- * Live height in pixels of the first element matching `selector`, tracked
- * with a ResizeObserver. `remeasureKey` re-runs the lookup when it changes,
- * e.g. once the element has mounted. Returns 0 while nothing matches.
+ * Live height in pixels of the element `ref` is attached to, tracked with a
+ * ResizeObserver. Measuring starts as soon as the element mounts. Returns 0
+ * while nothing is attached.
  */
-export const useElementHeight = (selector: string, remeasureKey: unknown): number => {
+export const useElementHeight = <T extends HTMLElement>(): ElementHeight<T> => {
+  const [element, setElement] = useState<T | null>(null);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    const element = document.querySelector<HTMLElement>(selector);
-
     if (!element) {
       return;
     }
@@ -22,7 +27,7 @@ export const useElementHeight = (selector: string, remeasureKey: unknown): numbe
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, [selector, remeasureKey]);
+  }, [element]);
 
-  return height;
+  return { ref: setElement, height };
 };

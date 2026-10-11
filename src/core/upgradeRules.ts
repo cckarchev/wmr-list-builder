@@ -22,12 +22,12 @@ export const resolveUpgradeRules = (
     names.add(upgradeId);
   }
 
-  upgrade.specialRules?.forEach((name) => {
+  for (const name of upgrade.specialRules ?? []) {
     if (allRules?.[name] && !names.has(name)) {
       resolved.push({ name, rule: allRules[name] });
       names.add(name);
     }
-  });
+  }
 
   return resolved.sort((a, b) => (a.rule.order ?? 0) - (b.rule.order ?? 0));
 };

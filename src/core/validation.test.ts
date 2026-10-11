@@ -188,7 +188,7 @@ describe('a clean, legal list produces NO errors', () => {
 // Keyword min/max branches + unit-upgrade cap: ABSENT from Revolution data,
 // exercised via synthetic state to prove the ported logic is faithful.
 // ---------------------------------------------------------------------------
-describe('keyword min/max branches (synthetic - not present in Revolution data)', () => {
+describe('keyword min branches (synthetic - not present in Revolution data)', () => {
   it("min 'All or None'", () => {
     const units = {
       A: unit({ min: 'All or None', number: 1, requiredUnits: ['B'] }),
@@ -238,7 +238,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       'Minimum of 3 A per 3 B.',
     );
   });
+});
 
+describe('keyword max branches (synthetic - not present in Revolution data)', () => {
   it("max 'elite'", () => {
     const units = { A: unit({ max: 'elite', number: 1, points: 100 }) };
     expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
@@ -499,7 +501,7 @@ describe('armyMin/armyMax include homologousUnits count (synthetic)', () => {
 // off-by-one refactor (< vs <=) would only surface as a FALSE POSITIVE exactly
 // at the threshold. None of the positive-case tests pin that edge.
 // ---------------------------------------------------------------------------
-describe('keyword min/max do not false-positive at the boundary (synthetic)', () => {
+describe('keyword min does not false-positive at the boundary (synthetic)', () => {
   it("'All or None' is clean when fully upgraded, and when none are taken", () => {
     const all = {
       A: unit({ min: 'All or None', number: 3, requiredUnits: ['B'] }),
@@ -546,7 +548,9 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       'Minimum of 3 A per 3 B.',
     );
   });
+});
 
+describe('keyword max does not false-positive at the boundary (synthetic)', () => {
   it("max 'Half or None' is clean at exactly ceil(half) (3 of 5)", () => {
     const units = {
       A: unit({ max: 'Half or None', number: 3, requiredUnits: ['B'] }),

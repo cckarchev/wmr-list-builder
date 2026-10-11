@@ -47,7 +47,7 @@ export const usePersistedList = (armyId: string | undefined, shareCode: string |
     } else {
       setLoadWarning(CORRUPT_SHARE_WARNING);
     }
-  }, [armyId, armyIdInStore, setArmy]);
+  }, [armyId, armyIdInStore, shareCode, setArmy, applyList, setLoadWarning]);
 
   useEffect(() => {
     if (armyIdInStore) {

@@ -23,6 +23,7 @@
   },
   "css": {
     "parser": {
+      // Allows `composes` and `:global` in *.module.css.
       "cssModules": true
     },
     "formatter": {
@@ -34,22 +35,24 @@
     "rules": {
       "preset": "recommended",
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "error"
       },
       "complexity": {
-        "noExcessiveCognitiveComplexity": "warn",
+        "noExcessiveCognitiveComplexity": "error",
         "noExcessiveLinesPerFunction": {
-          "level": "warn",
+          "level": "error",
           "options": {
             "skipBlankLines": true
           }
-        }
+        },
+        "noForEach": "error"
       },
       "style": {
         "noDefaultExport": "error",
         "noMagicNumbers": "error",
         "noNegationElse": "error",
         "noNestedTernary": "error",
+        "noNonNullAssertion": "error",
         "noParameterAssign": "error",
         "useBlockStatements": "error",
         "useConsistentArrowReturn": "error",
@@ -59,11 +62,18 @@
           "options": {
             "filenameCases": ["camelCase", "PascalCase"]
           }
-        }
+        },
+        "useForOf": "error",
+        "useImportType": "error"
+      },
+      "performance": {
+        "noReExportAll": "error"
       },
       "suspicious": {
-        "noConsole": "error"
+        "noConsole": "error",
+        "noEmptyBlockStatements": "error"
       },
+      // Nursery rules may be renamed or promoted when Biome is upgraded.
       "nursery": {
         "useConsistentFunctionStyle": {
           "level": "error",
@@ -90,21 +100,12 @@
   },
   "overrides": [
     {
+      // Vite only reads the config from a default export.
       "includes": ["vite.config.ts"],
       "linter": {
         "rules": {
           "style": {
             "noDefaultExport": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/*.test.ts", "**/*.test.tsx"],
-      "linter": {
-        "rules": {
-          "complexity": {
-            "noExcessiveLinesPerFunction": "off"
           }
         }
       }

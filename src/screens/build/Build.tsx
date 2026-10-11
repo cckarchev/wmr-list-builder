@@ -8,8 +8,6 @@ import { Header } from './header/Header';
 import { Roster } from './roster/Roster';
 import { usePersistedList } from './usePersistedList';
 
-const HEADER_SELECTOR = '[data-testid="points-bar"]';
-
 export const Build = () => {
   const { armyId: paramArmyId } = useParams<{ armyId: string }>();
   const [searchParams] = useSearchParams();
@@ -24,7 +22,7 @@ export const Build = () => {
   // The sticky header grows and shrinks (e.g. when global errors appear), so
   // keep measuring it. It is observed directly, not through a wrapper, so no
   // containing block breaks its own `position: sticky`.
-  const headerHeight = useElementHeight(HEADER_SELECTOR, army);
+  const { ref: headerRef, height: headerHeight } = useElementHeight<HTMLElement>();
 
   if (!army) {
     return null;
@@ -35,7 +33,7 @@ export const Build = () => {
 
   return (
     <main className={styles.page}>
-      <Header />
+      <Header ref={headerRef} />
       <div className={styles.summaryMobile}>
         <ArmySummary />
       </div>

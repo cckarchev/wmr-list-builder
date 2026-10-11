@@ -183,7 +183,9 @@ describe('groupRosterUnits', () => {
     const groups = groupRosterUnits(units, '  giant  ');
     expect(groups.map((g) => g.label)).toEqual(['Monster']);
   });
+});
 
+describe('groupRosterUnits with mandatory units', () => {
   it('floats mandatory units (resolved min > 0) to the top of their group when a gameSize is given', () => {
     const mandatoryUnits: Record<string, UnitState> = {
       Goblins: { type: 'Infantry' } as UnitState,

@@ -14,7 +14,7 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-describe('App routing', () => {
+describe('App routing from the root', () => {
   it('shows the Home army picker at "/"', () => {
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
 
@@ -72,7 +72,9 @@ describe('App routing', () => {
       '/print/goblin',
     );
   });
+});
 
+describe('App routing for build and print', () => {
   it('redirects an unknown army id back to Home', () => {
     renderWithProviders(<App />, {
       routerProps: { initialEntries: ['/build/does-not-exist'] },
