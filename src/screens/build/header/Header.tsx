@@ -1,5 +1,5 @@
 import type { Ref } from 'react';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import styles from './Header.module.css';
 import { ListActions } from './list-actions/ListActions';
 import { StatusStrip } from './status-strip/StatusStrip';

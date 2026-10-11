@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { toggleMember, withoutMember } from '@/core/lib/sets';
 import { narrowRosterGroups } from '@/core/narrowRosterGroups';
 import { groupRosterUnits } from '@/core/selectors';
-import { toggleMember, withoutMember } from '@/core/sets';
 import { useArmyStore } from '@/store/useArmyStore';
 
 /** Filter, search and collapse state for the roster, plus the groups it shows. */

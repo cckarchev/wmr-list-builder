@@ -1,6 +1,6 @@
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import type { UsedUnit } from '@/core/selectors';
-import { type NumberedRules, specialRuleMarkers } from '@/core/specialRuleMarkers';
+import { type NumberedRules, specialRuleMarkers } from '@/core/special-rules/specialRuleMarkers';
 import { resolveUpgradePoints, type UnitState, type UpgradeState } from '@/core/storeHelpers';
 import type { StatValue } from '@/data/types';
 import styles from './StatRow.module.css';

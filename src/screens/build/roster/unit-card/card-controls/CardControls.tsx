@@ -1,7 +1,7 @@
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
-import { resolveBounds } from '@/core/forceLimits';
-import { explainMinMax, minMaxBadge } from '@/core/minMax';
+import { resolveBounds } from '@/core/limits/forceLimits';
+import { explainMinMax, minMaxBadge } from '@/core/limits/minMax';
 import type { UnitState } from '@/core/storeHelpers';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './CardControls.module.css';

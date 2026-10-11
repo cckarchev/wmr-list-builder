@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps, encodeList, saveList } from '@/core/persistence';
+import { buildCodeMaps, encodeList, saveList } from '@/core/persistence/persistence';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { Build } from './Build';

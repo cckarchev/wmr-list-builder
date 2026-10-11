@@ -1,10 +1,11 @@
+import { armySize, pointsCost } from '@/core/selectors';
+import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import type { ValidationError } from '@/data/types';
 import { namesOf } from './namesOf';
-import { armySize, pointsCost } from './selectors';
-import type { UnitState, UpgradeState } from './storeHelpers';
+import { itemErrors } from './rules/rules';
+import type { RequiredGroup, ValidatableItem } from './rules/types';
 import { toSentence } from './toSentence';
 import { totalNumber } from './totalNumber';
-import { itemErrors, type RequiredGroup, type ValidatableItem } from './validationRules';
 
 interface Pools {
   units: Record<string, UnitState>;

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { listSavedNames } from '@/core/persistence';
+import { listSavedNames } from '@/core/persistence/persistence';
 import { useArmyStore } from '@/store/useArmyStore';
 import { renderWithProviders } from '@/test/renderWithProviders';
 import { SaveListButton } from './SaveListButton';

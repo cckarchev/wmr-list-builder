@@ -1,4 +1,4 @@
-import { armySize } from './selectors';
+import { armySize } from '@/core/selectors';
 
 /** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */
 export interface MinMaxSource {

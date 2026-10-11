@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps, encodeList } from '@/core/persistence';
-import { snapshotOf } from '@/core/snapshot';
+import { buildCodeMaps, encodeList } from '@/core/persistence/persistence';
+import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { defined } from '@/test/defined';
 import { useArmyStore } from './useArmyStore';

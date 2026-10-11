@@ -1,5 +1,5 @@
 import { Icon } from '@/components/Icon';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import type { PrintOptions } from '../printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
 import { CheckOption } from './check-option/CheckOption';

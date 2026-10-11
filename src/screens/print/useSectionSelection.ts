@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toggleMember } from '@/core/sets';
+import { toggleMember } from '@/core/lib/sets';
 import type { PrintSectionDef } from './sections/printSections';
 
 const allIdsOf = (sections: PrintSectionDef[]): Set<string> =>

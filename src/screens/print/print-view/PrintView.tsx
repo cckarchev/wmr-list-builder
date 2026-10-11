@@ -1,4 +1,4 @@
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import { useArmyStore } from '@/store/useArmyStore';
 import { type PrintOptions, PrintOptionsContext } from '../printOptions';
 import type { PrintSectionDef } from '../sections/printSections';

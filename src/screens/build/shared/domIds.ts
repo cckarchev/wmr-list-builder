@@ -1,4 +1,4 @@
-import { domSlug } from '@/core/domSlug';
+import { domSlug } from '@/core/lib/domSlug';
 
 /**
  * Stable DOM id for a unit's card, so the points bar and the army summary can

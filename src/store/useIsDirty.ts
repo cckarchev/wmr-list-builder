@@ -1,5 +1,5 @@
-import { buildCodeMaps, encodeList } from '@/core/persistence';
-import { snapshotOf } from '@/core/snapshot';
+import { buildCodeMaps, encodeList } from '@/core/persistence/persistence';
+import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from './useArmyStore';
 

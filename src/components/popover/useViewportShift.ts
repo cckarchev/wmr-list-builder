@@ -1,5 +1,5 @@
 import { type RefObject, useLayoutEffect, useRef, useState } from 'react';
-import { viewportShift } from '@/core/viewportShift';
+import { viewportShift } from '@/core/lib/viewportShift';
 
 /** Minimum gap kept between the panel and the viewport edges. */
 const VIEWPORT_MARGIN = 8;

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import type { UsedUnit } from '@/core/selectors';
-import type { NumberedRules } from '@/core/specialRuleMarkers';
+import type { NumberedRules } from '@/core/special-rules/specialRuleMarkers';
 import type { UnitState } from '@/core/storeHelpers';
 import styles from './StatTable.module.css';
 import { type StatKind, StatRow } from './stat-row/StatRow';

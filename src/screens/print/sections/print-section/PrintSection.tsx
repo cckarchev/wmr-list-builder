@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import styles from './PrintSection.module.css';
 
 // Shared building blocks for the print-sheet sections (Army Rules, Special

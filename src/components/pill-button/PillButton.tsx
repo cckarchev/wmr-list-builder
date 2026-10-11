@@ -1,5 +1,5 @@
 import type { ComponentPropsWithRef } from 'react';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import styles from './PillButton.module.css';
 
 type PillButtonProps = ComponentPropsWithRef<'button'>;

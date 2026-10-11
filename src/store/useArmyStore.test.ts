@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { resolveBounds } from '@/core/forceLimits';
+import { resolveBounds } from '@/core/limits/forceLimits';
 import { pointsCost } from '@/core/selectors';
 import { availablePrintSections } from '@/screens/print/sections/printSections';
 import { defined } from '@/test/defined';

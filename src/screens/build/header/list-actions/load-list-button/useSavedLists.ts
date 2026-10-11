@@ -6,8 +6,8 @@ import {
   listSavedSummaries,
   loadNamedList,
   type SavedListSummary,
-} from '@/core/persistence';
-import { snapshotOf } from '@/core/snapshot';
+} from '@/core/persistence/persistence';
+import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useIsDirty } from '@/store/useIsDirty';

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
 import { SMALLEST_GAME } from '@/test/gameSizes';
-import type { UnitState, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
 import { validate } from './validation';
 

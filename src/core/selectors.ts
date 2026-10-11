@@ -1,9 +1,10 @@
+import { resolveBounds } from '@/core/limits/forceLimits';
 import type { ValidationError } from '@/data/types';
 import type { ArmyState } from '@/store/useArmyStore';
-import { resolveBounds } from './forceLimits';
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 
-const COUNTABLE_UNITS = [
+/** Troop types: the units that count toward the break point and can be upgrades of other units. */
+export const UNIT_TYPES = [
   'Artillery',
   'Cavalry',
   'Chariot',
@@ -29,7 +30,7 @@ export const unitCount = (units: Record<string, UnitState>): number => {
   let count = 0;
 
   for (const unit of Object.values(units)) {
-    const counts = COUNTABLE_UNITS.includes(unit.type) && !unit.noCount;
+    const counts = UNIT_TYPES.includes(unit.type) && !unit.noCount;
 
     if (counts) {
       count += unit.number;

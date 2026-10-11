@@ -1,5 +1,5 @@
+import type { UnitState } from '@/core/storeHelpers';
 import type { SpecialRule } from '@/data/types';
-import type { UnitState } from './storeHelpers';
 
 export interface ResolvedRule {
   id: string;

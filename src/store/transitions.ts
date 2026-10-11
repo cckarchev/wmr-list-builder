@@ -1,9 +1,9 @@
-import { clamp, toCount } from '@/core/counts';
-import { resolveBounds } from '@/core/forceLimits';
-import type { ListSnapshot } from '@/core/persistence';
+import { clamp, toCount } from '@/core/lib/counts';
+import { resolveBounds } from '@/core/limits/forceLimits';
+import type { ListSnapshot } from '@/core/persistence/persistence';
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/storeHelpers';
 import { unitPointsCost, unitUpgradePointsCost } from '@/core/storeHelpers';
-import { validate } from '@/core/validation';
+import { validate } from '@/core/validation/validation';
 import { type ArmyData, initializeState } from './armyData';
 
 type UnitUpgrades = Record<string, UnitUpgradeEntry>;

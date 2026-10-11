@@ -1,6 +1,6 @@
 import { Icon } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
-import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
+import { resolveUnitSpecialRules } from '@/core/special-rules/specialRulesForUnit';
 import { useArmyStore } from '@/store/useArmyStore';
 import { RuleList } from '../shared/rule-list/RuleList';
 

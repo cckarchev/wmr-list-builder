@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { UpgradeState } from './storeHelpers';
+import type { UpgradeState } from '@/core/storeHelpers';
 import { resolveUpgradeRules } from './upgradeRules';
 
 const upgrade = (partial: Partial<UpgradeState>): UpgradeState => ({

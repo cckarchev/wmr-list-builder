@@ -1,6 +1,6 @@
 import type { ComponentPropsWithRef } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import styles from './Button.module.css';
 
 type ButtonVariant = 'primary' | 'ghost' | 'danger';

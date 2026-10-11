@@ -1,5 +1,5 @@
+import type { MinMaxSource } from '@/core/limits/minMax';
 import type { MagicItem, StatValue, Unit, Upgrade, UpgradeConstraint } from '@/data/types';
-import type { MinMaxSource } from './minMax';
 
 /** Stat placeholder the army data uses for a missing value, e.g. no armour. */
 const NO_STAT = '-';

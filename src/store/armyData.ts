@@ -1,7 +1,7 @@
-import { applyForceMinimums } from '@/core/forceLimits';
+import { applyForceMinimums } from '@/core/limits/forceLimits';
 import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import { buildUnits, buildUpgrades } from '@/core/storeHelpers';
-import { validate } from '@/core/validation';
+import { validate } from '@/core/validation/validation';
 import { loadArmy } from '@/data/loadArmy';
 import { magicItems } from '@/data/magicItems';
 import type { Army, Spell, UpgradeConstraint, ValidationError } from '@/data/types';

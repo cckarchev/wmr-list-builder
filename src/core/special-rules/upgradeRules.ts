@@ -1,6 +1,6 @@
+import type { UpgradeState } from '@/core/storeHelpers';
 import type { SpecialRule } from '@/data/types';
 import type { ResolvedRule } from './specialRulesForUnit';
-import type { UpgradeState } from './storeHelpers';
 
 /**
  * Resolve the rule text shown for an upgrade. Upgrades carry rule text from two

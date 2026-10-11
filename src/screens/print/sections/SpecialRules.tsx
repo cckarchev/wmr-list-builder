@@ -1,5 +1,5 @@
 import { Markdown } from '@/components/Markdown';
-import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
+import { resolveUnitSpecialRules } from '@/core/special-rules/specialRulesForUnit';
 import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import type { SpecialRule } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';

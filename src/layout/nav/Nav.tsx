@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
-import { classNames } from '@/core/classNames';
+import { classNames } from '@/core/lib/classNames';
 import styles from './Nav.module.css';
 
 export const Nav = () => {

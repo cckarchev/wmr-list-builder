@@ -5,7 +5,7 @@ import {
   pointsCost,
   unitCount,
 } from '@/core/selectors';
-import type { NumberedRules } from '@/core/specialRuleMarkers';
+import type { NumberedRules } from '@/core/special-rules/specialRuleMarkers';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './Stats.module.css';
 import { StatTable } from './stat-table/StatTable';
