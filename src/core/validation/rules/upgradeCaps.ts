@@ -1,4 +1,5 @@
 import type { UpgradeState } from '@/core/army-state/types';
+import { isMountType } from '@/core/army-state/upgradeTypes';
 import { UNIT_TYPES } from '@/core/selectors';
 import type { Rule, ValidatableItem } from './types';
 
@@ -40,6 +41,6 @@ const upgradeCap =
 
 export const magicItemCap = upgradeCap('magic item', (type) => MAGIC_ITEM_TYPES.includes(type));
 
-export const mountCap = upgradeCap('mount', (type) => type.endsWith('Mount'));
+export const mountCap = upgradeCap('mount', isMountType);
 
 export const unitUpgradeCap = upgradeCap('upgrade', (type) => UNIT_TYPES.includes(type));

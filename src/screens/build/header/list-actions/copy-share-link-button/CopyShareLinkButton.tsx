@@ -1,30 +1,26 @@
-import { useState } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { getEmbedBase } from '@/core/embed';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopiedBubble } from '../shared/copied-bubble/CopiedBubble';
-import { COPIED_FEEDBACK_MS } from '../shared/copyFeedback';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import { useCopyFeedback } from '../shared/useCopyFeedback';
 
 export const CopyShareLinkButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
   const label = useArmyStore((s) => s.label);
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopyFeedback();
 
   const handleCopy = () => {
     if (!armyId) {
       return;
     }
 
-    const maps = buildCodeMaps(loadArmy(armyId));
-    const encoded = encodeList(snapshotOf({ gameSize, units, label }), maps);
+    const encoded = encodeListFor(armyId, snapshotOf({ gameSize, units, label }));
     const base = getEmbedBase();
     let url: string;
 
@@ -39,12 +35,7 @@ export const CopyShareLinkButton = () => {
       url = `${window.location.origin}/build/${armyId}?list=${encoded}`;
     }
 
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-      }, COPIED_FEEDBACK_MS);
-    });
+    copy(url);
   };
 
   return (

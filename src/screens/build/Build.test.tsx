@@ -2,10 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
 import { saveList } from '@/core/persistence/currentList';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
-import { loadArmy } from '@/data/loadArmy';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { useArmyStore } from '@/store/useArmyStore';
 import { Build } from './Build';
 
@@ -221,11 +219,12 @@ describe('corrupt shared list', () => {
   });
 
   it('applies a valid ?list= without warning', async () => {
-    const maps = buildCodeMaps(loadArmy('goblin'));
-    const blob = encodeList(
-      { name: '', gameSize: 2000, units: { goblins: 20 }, upgrades: {} },
-      maps,
-    );
+    const blob = encodeListFor('goblin', {
+      name: '',
+      gameSize: 2000,
+      units: { goblins: 20 },
+      upgrades: {},
+    });
 
     renderBuild(`/build/goblin?list=${blob}`);
 

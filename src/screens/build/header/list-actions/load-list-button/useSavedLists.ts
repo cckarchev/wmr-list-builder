@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import {
   deleteNamedList,
   listSavedSummaries,
@@ -8,7 +7,6 @@ import {
   type SavedListSummary,
 } from '@/core/persistence/savedLists';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useIsDirty } from '@/store/useIsDirty';
 
@@ -51,11 +49,10 @@ export const useSavedLists = (onLoaded: () => void) => {
 
     // Re-encode the applied state so the baseline matches what the store holds
     // (applyList clamps to force limits, so it may differ from the raw snapshot).
-    const maps = buildCodeMaps(loadArmy(armyId));
     const { gameSize, units } = useArmyStore.getState();
     const appliedSnapshot = snapshotOf({ gameSize, units, label: name });
 
-    setSavedBaseline(encodeList(appliedSnapshot, maps));
+    setSavedBaseline(encodeListFor(armyId, appliedSnapshot));
     setPendingLoad(null);
     onLoaded();
   };

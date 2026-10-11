@@ -1,6 +1,5 @@
-import { loadArmy } from '@/data/loadArmy';
-import { buildCodeMaps } from './codeMaps';
-import { decodeList, encodeList } from './list-codec/listCodec';
+import { codeMapsFor } from './codeMaps';
+import { decodeList, encodeListFor } from './list-codec/listCodec';
 import type { ListSnapshot } from './snapshot';
 
 const SAVED_PREFIX = 'wmr:saved:';
@@ -44,10 +43,9 @@ const writeSavedMap = (armyId: string, map: Record<string, string>): void => {
 
 export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot): void => {
   try {
-    const maps = buildCodeMaps(loadArmy(armyId));
     const map = readSavedMap(armyId);
 
-    map[name] = encodeList(snap, maps);
+    map[name] = encodeListFor(armyId, snap);
     writeSavedMap(armyId, map);
   } catch {
     // unknown army / storage blocked: degrade to no-op
@@ -62,7 +60,7 @@ export const loadNamedList = (armyId: string, name: string): ListSnapshot | null
       return null;
     }
 
-    const maps = buildCodeMaps(loadArmy(armyId));
+    const maps = codeMapsFor(armyId);
 
     return decodeList(encoded, maps);
   } catch {
@@ -87,7 +85,7 @@ export interface SavedListSummary {
 export const listSavedSummaries = (armyId: string): SavedListSummary[] => {
   try {
     const map = readSavedMap(armyId);
-    const maps = buildCodeMaps(loadArmy(armyId));
+    const maps = codeMapsFor(armyId);
     const summarize = (name: string): SavedListSummary => {
       const gameSize = decodeList(map[name], maps)?.gameSize ?? 0;
 

@@ -1,8 +1,6 @@
 import { useArmyStore } from '@/store/useArmyStore';
-import { unitDomId } from '../../../shared/domIds';
+import { scrollToUnit } from '../../../shared/scrollToUnit';
 import styles from './ValidityBadge.module.css';
-
-const SCROLL_TO_UNIT: ScrollIntoViewOptions = { behavior: 'smooth', block: 'center' };
 
 /** "Valid", or the issue count as a button that jumps to the first bad unit. */
 export const ValidityBadge = () => {
@@ -28,9 +26,7 @@ export const ValidityBadge = () => {
       return;
     }
 
-    const target = document.getElementById(unitDomId(firstTarget));
-
-    target?.scrollIntoView(SCROLL_TO_UNIT);
+    scrollToUnit(firstTarget);
   };
 
   return (

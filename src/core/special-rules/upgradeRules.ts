@@ -1,5 +1,6 @@
 import type { UpgradeState } from '@/core/army-state/types';
 import type { SpecialRule } from '@/data/types';
+import { byRuleOrder } from './ruleOrder';
 import type { ResolvedRule } from './specialRulesForUnit';
 
 /**
@@ -32,5 +33,5 @@ export const resolveUpgradeRules = (
     }
   }
 
-  return resolved.sort((a, b) => (a.rule.order ?? 0) - (b.rule.order ?? 0));
+  return resolved.sort((a, b) => byRuleOrder(a.rule, b.rule));
 };

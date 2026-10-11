@@ -1,5 +1,6 @@
 import type { UnitState } from '@/core/army-state/types';
 import type { SpecialRule } from '@/data/types';
+import { byRuleOrder } from './ruleOrder';
 
 export interface ResolvedRule {
   id: string;
@@ -23,7 +24,5 @@ export const resolveUnitSpecialRules = (
   const candidates = [unitId, ...(unit.specialRules ?? [])];
   const ids = [...new Set(candidates)].filter((id) => allRules[id]);
 
-  return ids
-    .map((id) => ({ id, rule: allRules[id] }))
-    .sort((a, b) => (a.rule.order ?? 0) - (b.rule.order ?? 0));
+  return ids.map((id) => ({ id, rule: allRules[id] })).sort((a, b) => byRuleOrder(a.rule, b.rule));
 };

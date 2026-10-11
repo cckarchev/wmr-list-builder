@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { listSavedNames, saveNamedList } from '@/core/persistence/savedLists';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 
 const EMPTY_NAME_ERROR = 'Enter a name for this list.';
@@ -42,12 +40,11 @@ export const useSaveList = (onSaved: () => void) => {
       return;
     }
 
-    const maps = buildCodeMaps(loadArmy(armyId));
     const snap = snapshotOf({ gameSize, units, label: finalName });
 
     saveNamedList(armyId, finalName, snap);
     setLabel(finalName);
-    setSavedBaseline(encodeList(snap, maps));
+    setSavedBaseline(encodeListFor(armyId, snap));
     setConfirmingOverwrite(false);
     onSaved();
   };

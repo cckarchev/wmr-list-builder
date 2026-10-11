@@ -1,9 +1,7 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
-import { loadArmy } from '@/data/loadArmy';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { useArmyStore } from '@/store/useArmyStore';
 import { renderWithProviders } from '@/test/renderWithProviders';
 import { App } from './App';
@@ -36,11 +34,12 @@ describe('App routing from the root', () => {
   it('loads a shared list from root query params', async () => {
     // Encode a goblin list with Goblins bumped to 9 (force-min 8 + 1 = 590pts),
     // matching the standalone Print round-trip assertion above.
-    const maps = buildCodeMaps(loadArmy('goblin'));
-    const encoded = encodeList(
-      { name: '', gameSize: 2000, units: { goblins: 9 }, upgrades: {} },
-      maps,
-    );
+    const encoded = encodeListFor('goblin', {
+      name: '',
+      gameSize: 2000,
+      units: { goblins: 9 },
+      upgrades: {},
+    });
 
     renderWithProviders(<App />, {
       routerProps: { initialEntries: [`/?army=goblin&list=${encoded}`] },

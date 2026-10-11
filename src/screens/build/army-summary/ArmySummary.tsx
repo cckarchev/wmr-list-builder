@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { breakPoint, groupRosterUnits, pointsCost, unitCount } from '@/core/selectors';
 import { useArmyStore } from '@/store/useArmyStore';
-import { unitDomId } from '../shared/domIds';
+import { scrollToUnit } from '../shared/scrollToUnit';
 import styles from './ArmySummary.module.css';
 
 export const ArmySummary = () => {
@@ -19,11 +19,6 @@ export const ArmySummary = () => {
   const count = unitCount(units);
   const bp = breakPoint(units);
   const over = total > gameSize;
-
-  const jumpTo = (id: string) => {
-    const target = document.getElementById(unitDomId(id));
-    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  };
 
   const toggleOpen = () => {
     setOpen((o) => !o);
@@ -44,7 +39,12 @@ export const ArmySummary = () => {
             );
 
             return (
-              <button className={styles.row} key={id} type="button" onClick={() => jumpTo(id)}>
+              <button
+                className={styles.row}
+                key={id}
+                type="button"
+                onClick={() => scrollToUnit(id)}
+              >
                 <span className={styles.rowTop}>
                   <span>{units[id].name}</span>
                   <span className={styles.qty}>×{units[id].number}</span>

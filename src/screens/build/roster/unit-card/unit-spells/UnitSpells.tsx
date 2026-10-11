@@ -3,6 +3,7 @@ import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import { Icon } from '@/components/Icon';
 import { Markdown } from '@/components/Markdown';
 import { Popover } from '@/components/popover/Popover';
+import { toggleMember } from '@/core/lib/sets';
 import { isCaster } from '@/core/selectors';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './UnitSpells.module.css';
@@ -24,17 +25,7 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
   }
 
   const toggle = (i: number) => {
-    setOpen((prev) => {
-      const next = new Set(prev);
-
-      if (next.has(i)) {
-        next.delete(i);
-      } else {
-        next.add(i);
-      }
-
-      return next;
-    });
+    setOpen((previous) => toggleMember(previous, i));
   };
 
   return (

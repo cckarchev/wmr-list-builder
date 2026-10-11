@@ -1,13 +1,9 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
-import { snapshotOf } from '@/core/persistence/snapshot';
 import { breakPoint } from '@/core/selectors';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
-import { defined } from '@/test/defined';
+import { markClean } from '@/test/markClean';
 import { renderWithProviders } from '@/test/renderWithProviders';
 import { Header } from './Header';
 
@@ -126,11 +122,7 @@ describe('Header list name', () => {
   it('hides the unsaved marker when the list matches the baseline', () => {
     useArmyStore.getState().setArmy('bretonnia');
     useArmyStore.getState().setLabel('Tourney List');
-    const { armyId, gameSize, units, label } = useArmyStore.getState();
-    const maps = buildCodeMaps(loadArmy(defined(armyId, 'armyId')));
-    useArmyStore
-      .getState()
-      .setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));
+    markClean();
     renderWithProviders(<Header />);
     expect(screen.queryByTestId('unsaved-marker')).not.toBeInTheDocument();
   });

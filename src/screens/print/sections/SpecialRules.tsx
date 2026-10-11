@@ -1,5 +1,6 @@
 import { Markdown } from '@/components/Markdown';
 import type { UnitState, UpgradeState } from '@/core/army-state/types';
+import { byRuleOrder } from '@/core/special-rules/ruleOrder';
 import { resolveUnitSpecialRules } from '@/core/special-rules/specialRulesForUnit';
 import type { SpecialRule } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
@@ -46,8 +47,7 @@ const collectUsedSpecialRules = (
   return result;
 };
 
-const byOrder = ([, a]: [string, SpecialRule], [, b]: [string, SpecialRule]) =>
-  (a.order ?? 0) - (b.order ?? 0);
+const byOrder = ([, a]: [string, SpecialRule], [, b]: [string, SpecialRule]) => byRuleOrder(a, b);
 
 export const SpecialRules = () => {
   const allSpecialRules = useArmyStore((s) => s.specialRules);

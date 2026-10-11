@@ -1,3 +1,4 @@
+import { formatStat } from '@/core/lib/formatStat';
 import type { StatValue } from '@/data/types';
 import styles from './StatLine.module.css';
 
@@ -17,9 +18,6 @@ interface StatLineProps {
   character?: boolean;
 }
 
-const stat = (value: StatValue | undefined): string =>
-  value !== undefined && value !== '' ? String(value) : '–';
-
 export const StatLine = ({
   attack,
   range,
@@ -36,18 +34,18 @@ export const StatLine = ({
   // Characters: Att / Cmd / Size / Pts (no character has Range/Hits/Armour).
   // Troops: Att / Range / Hits / Armour / Size / Pts (no Cmd). Absent stats
   // within a set still render as "–" so the columns line up across units.
-  cells.push({ label: 'Att', value: stat(attack) });
+  cells.push({ label: 'Att', value: formatStat(attack) });
 
   if (character) {
-    cells.push({ label: 'Cmd', value: stat(command) });
+    cells.push({ label: 'Cmd', value: formatStat(command) });
   } else {
-    cells.push({ label: 'Range', value: stat(range) });
-    cells.push({ label: 'Hits', value: stat(hits) });
-    cells.push({ label: 'Armour', value: stat(armour) });
+    cells.push({ label: 'Range', value: formatStat(range) });
+    cells.push({ label: 'Hits', value: formatStat(hits) });
+    cells.push({ label: 'Armour', value: formatStat(armour) });
   }
 
-  cells.push({ label: 'Size', value: stat(size) });
-  cells.push({ label: 'Pts', value: stat(points) });
+  cells.push({ label: 'Size', value: formatStat(size) });
+  cells.push({ label: 'Pts', value: formatStat(points) });
 
   return (
     <div className={styles.table}>

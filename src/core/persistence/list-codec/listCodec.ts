@@ -1,4 +1,4 @@
-import type { ArmyCodeMaps } from '../codeMaps';
+import { type ArmyCodeMaps, codeMapsFor } from '../codeMaps';
 import type { ListSnapshot } from '../snapshot';
 import { fromBase64Url, toBase64Url } from './base64Url';
 import { remapKeys } from './remapKeys';
@@ -39,6 +39,10 @@ export const encodeList = (snap: ListSnapshot, maps: ArmyCodeMaps): string => {
 
   return toBase64Url(JSON.stringify(wire));
 };
+
+/** Encode a snapshot with the code maps of the army with this id. */
+export const encodeListFor = (armyId: string, snap: ListSnapshot): string =>
+  encodeList(snap, codeMapsFor(armyId));
 
 /** The wire inside an encoded blob, or null when it is unparseable or the wrong shape. */
 const readWire = (s: string): Wire | null => {

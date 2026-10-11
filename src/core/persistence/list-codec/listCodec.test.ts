@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
 import { buildCodeMaps } from '../codeMaps';
 import type { ListSnapshot } from '../snapshot';
-import { decodeList, decodeShare, encodeList } from './listCodec';
+import { decodeList, decodeShare, encodeList, encodeListFor } from './listCodec';
 
 const maps = buildCodeMaps(loadArmy('empire'));
 
@@ -94,5 +94,11 @@ describe('decodeShare', () => {
     // ids 900/901 exist in no army's unit map → all dropped.
     const wrongArmy = btoa(JSON.stringify({ v: 1, n: '', g: 2000, u: { 900: 2, 901: 1 }, up: {} }));
     expect(decodeShare(wrongArmy, maps)).toEqual({ ok: false });
+  });
+});
+
+describe('encodeListFor', () => {
+  it('encodes a snapshot with the code maps of the given army', () => {
+    expect(encodeListFor('empire', snap)).toBe(encodeList(snap, maps));
   });
 });

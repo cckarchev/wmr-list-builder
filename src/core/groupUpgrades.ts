@@ -1,4 +1,5 @@
 import type { UpgradeState } from '@/core/army-state/types';
+import { isMountType } from '@/core/army-state/upgradeTypes';
 
 interface UpgradeGroup {
   label: string;
@@ -11,7 +12,7 @@ interface UpgradeGroup {
  * every other type (magic-item subtypes, troop attachments) keeps its own
  * label so the distinctions the data draws are preserved.
  */
-const categoryOf = (type: string): string => (/Mount$/.test(type) ? 'Mounts' : type);
+const categoryOf = (type: string): string => (isMountType(type) ? 'Mounts' : type);
 
 /**
  * Bucket a unit's available upgrade ids into ordered category groups. Category

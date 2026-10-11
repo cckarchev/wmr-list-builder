@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
+import { codeMapsFor } from '@/core/persistence/codeMaps';
 import { loadList, saveList } from '@/core/persistence/currentList';
 import { decodeShare } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 
 const CORRUPT_SHARE_WARNING = 'This shared list couldn’t be loaded. The link looks corrupted.';
@@ -42,7 +41,7 @@ export const usePersistedList = (armyId: string | undefined, shareCode: string |
       return;
     }
 
-    const result = decodeShare(shareCode, buildCodeMaps(loadArmy(armyId)));
+    const result = decodeShare(shareCode, codeMapsFor(armyId));
 
     if (result.ok) {
       applyList(result.snapshot);

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
 import { MAGIC_ITEM_CODE_MIN } from '@/data/magicItems';
-import { buildCodeMaps } from './codeMaps';
+import { buildCodeMaps, codeMapsFor } from './codeMaps';
 
 describe('buildCodeMaps', () => {
   it('maps unit ids to codes and back', () => {
@@ -23,5 +23,15 @@ describe('buildCodeMaps', () => {
     const codes = [...maps.upgradeIdByCode.keys()];
 
     expect(codes.some((code) => code >= MAGIC_ITEM_CODE_MIN)).toBe(true);
+  });
+});
+
+describe('codeMapsFor', () => {
+  it('builds the code maps of the army with that id', () => {
+    expect(codeMapsFor('empire')).toEqual(buildCodeMaps(loadArmy('empire')));
+  });
+
+  it('throws for an unknown army id', () => {
+    expect(() => codeMapsFor('no-such-army')).toThrow();
   });
 });

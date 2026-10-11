@@ -1,7 +1,5 @@
-import { buildCodeMaps } from '@/core/persistence/codeMaps';
-import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from './useArmyStore';
 
 // True when the current list differs from the last Saved/Loaded named list.
@@ -23,8 +21,7 @@ export const useIsDirty = (): boolean => {
     return true;
   }
 
-  const maps = buildCodeMaps(loadArmy(armyId));
-  const encoded = encodeList(snapshotOf({ gameSize, units, label }), maps);
+  const encoded = encodeListFor(armyId, snapshotOf({ gameSize, units, label }));
 
   return encoded !== savedBaseline;
 };

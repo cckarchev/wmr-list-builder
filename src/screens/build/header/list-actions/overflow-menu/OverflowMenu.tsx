@@ -1,7 +1,6 @@
-import { type ReactNode, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { Button } from '@/components/button/Button';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useDismissible } from '@/hooks/useDismissible';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
 import styles from './OverflowMenu.module.css';
 
@@ -9,13 +8,7 @@ import styles from './OverflowMenu.module.css';
 export const MenuDivider = () => <hr className={styles.divider} />;
 
 export const OverflowMenu = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLSpanElement>(null);
-
-  const close = () => setOpen(false);
-
-  useOutsideClick(wrapRef, open, close);
-  useEscapeKey(open, close);
+  const { open, setOpen, ref: wrapRef } = useDismissible<HTMLSpanElement>();
 
   return (
     <PopupAnchor ref={wrapRef}>

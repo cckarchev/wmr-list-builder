@@ -1,9 +1,7 @@
-import { useRef, useState } from 'react';
 import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { Icon } from '@/components/Icon';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useDismissible } from '@/hooks/useDismissible';
 import { ActionPanel } from '../shared/action-panel/ActionPanel';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
 import styles from './LoadListButton.module.css';
@@ -11,15 +9,9 @@ import { SavedListItem } from './saved-list-item/SavedListItem';
 import { useSavedLists } from './useSavedLists';
 
 export const LoadListButton = () => {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLSpanElement>(null);
-
-  const close = () => setOpen(false);
+  const { open, setOpen, close, ref: wrapRef } = useDismissible<HTMLSpanElement>();
   const lists = useSavedLists(close);
   const isEmpty = lists.saved.length === 0;
-
-  useOutsideClick(wrapRef, open, close);
-  useEscapeKey(open, close);
 
   const togglePanel = () => {
     if (open) {

@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { usedUnits as getUsedUnits, pointsCost } from '@/core/selectors';
 import { buildTextList } from '@/core/textList';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopiedBubble } from '../shared/copied-bubble/CopiedBubble';
-import { COPIED_FEEDBACK_MS } from '../shared/copyFeedback';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import { useCopyFeedback } from '../shared/useCopyFeedback';
 
 export const CopyListButton = () => {
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopyFeedback();
 
   const army = useArmyStore((s) => s.army);
   const units = useArmyStore((s) => s.units);
@@ -34,12 +33,7 @@ export const CopyListButton = () => {
       version,
     });
 
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-      }, COPIED_FEEDBACK_MS);
-    });
+    copy(text);
   };
 
   return (

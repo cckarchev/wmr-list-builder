@@ -1,13 +1,10 @@
 import { resolveUpgradePoints } from '@/core/army-state/pricing';
 import type { UnitState, UpgradeState } from '@/core/army-state/types';
 import { classNames } from '@/core/lib/classNames';
+import { formatStat } from '@/core/lib/formatStat';
 import type { UsedUnit } from '@/core/selectors';
 import { type NumberedRules, specialRuleMarkers } from '@/core/special-rules/specialRuleMarkers';
-import type { StatValue } from '@/data/types';
 import styles from './StatRow.module.css';
-
-/** Placeholder for a stat the troop does not have. */
-const MISSING = '-';
 
 export type StatKind = 'character' | 'unit';
 
@@ -22,14 +19,6 @@ interface StatRowProps {
   /** The unit an upgrade row belongs to, for prices that scale with it. */
   parentUnit?: UnitState;
 }
-
-const show = (value: StatValue | undefined): string => {
-  if (value === undefined || value === '') {
-    return MISSING;
-  }
-
-  return String(value);
-};
 
 /** One table row: a unit, or one of its upgrades indented under it. */
 export const StatRow = ({ id, troop, kind, rules, parentUnit }: StatRowProps) => {
@@ -48,14 +37,14 @@ export const StatRow = ({ id, troop, kind, rules, parentUnit }: StatRowProps) =>
         </span>
         {markers && <span className={styles.special}>{markers}</span>}
       </td>
-      <td className={styles.left}>{show(stats.type)}</td>
-      <td>{show(stats.attack)}</td>
-      {isUnitTable && <td>{show(stats.range)}</td>}
-      {isUnitTable && <td>{show(stats.hits)}</td>}
-      {isUnitTable && <td>{show(stats.armour)}</td>}
-      {!isUnitTable && <td>{show(stats.command)}</td>}
-      {isUnitTable && <td>{show(stats.size)}</td>}
-      <td>{show(points)}</td>
+      <td className={styles.left}>{formatStat(stats.type)}</td>
+      <td>{formatStat(stats.attack)}</td>
+      {isUnitTable && <td>{formatStat(stats.range)}</td>}
+      {isUnitTable && <td>{formatStat(stats.hits)}</td>}
+      {isUnitTable && <td>{formatStat(stats.armour)}</td>}
+      {!isUnitTable && <td>{formatStat(stats.command)}</td>}
+      {isUnitTable && <td>{formatStat(stats.size)}</td>}
+      <td>{formatStat(points)}</td>
     </tr>
   );
 };
