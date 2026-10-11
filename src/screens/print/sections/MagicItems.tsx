@@ -23,11 +23,13 @@ export const MagicItems = () => {
   const items = Object.fromEntries(
     Object.entries(allMagicItems).filter(([id]) => {
       const globalUpgrade = upgrades[id];
+
       return globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type);
     }),
   );
 
   const entries = Object.entries(items);
+
   if (entries.length === 0) {
     return null;
   }

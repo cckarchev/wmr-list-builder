@@ -40,6 +40,7 @@ describe('setArmy', () => {
     expect(state.label).toBe('');
 
     let expectedTotal = 0;
+
     for (const unit of Object.values(state.units)) {
       // Each unit auto-includes at its resolved hard minimum (armyMin plus any
       // point-scaled min at the default cap).
@@ -48,9 +49,11 @@ describe('setArmy', () => {
       expect(unit.pointsCost).toBe(floor * +unit.points);
       expectedTotal += unit.pointsCost;
     }
+
     for (const upgrade of Object.values(state.upgrades)) {
       expect(upgrade.number).toBe(0);
     }
+
     // The General (armyMin 1) is auto-included, so the base is non-zero.
     expect(state.units.general.number).toBe(1);
     expect(pointsCost(state)).toBe(expectedTotal);

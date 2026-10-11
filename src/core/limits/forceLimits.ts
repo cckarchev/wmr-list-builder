@@ -26,9 +26,11 @@ export const resolveBounds = (unit: Limited, gameSize: number): Bounds => {
 
   if (!unit.homologousUnits) {
     const size = armySize(gameSize);
+
     if (typeof unit.min === 'number' && gameSize >= POINTS_PER_ARMY_SIZE) {
       min = Math.max(min, unit.min * size);
     }
+
     if (typeof unit.max === 'number') {
       const scaledMax = unit.max * size;
       max = max === undefined ? scaledMax : Math.min(max, scaledMax);
@@ -51,10 +53,12 @@ export const applyForceMinimums = (
   for (const id in units) {
     const unit = units[id];
     const { min } = resolveBounds(unit, gameSize);
+
     if (min > unit.number) {
       unit.number = min;
       unit.pointsCost = unitPointsCost(unit);
     }
   }
+
   return units;
 };

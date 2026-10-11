@@ -13,15 +13,19 @@ let embedBase: string | null = null;
 const validate = (raw: string): string | null => {
   try {
     const url = new URL(raw);
+
     if (url.protocol === 'http:' && DEV_HOSTS.has(url.hostname)) {
       return raw;
     }
+
     if (url.protocol !== 'https:') {
       return null;
     }
+
     if (!ALLOWED_HOSTS.has(url.hostname)) {
       return null;
     }
+
     return raw;
   } catch {
     return null;

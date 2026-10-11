@@ -52,6 +52,7 @@ export type UsedUnit = Omit<UnitState, 'upgrades'> & {
 export const usedUnits = (state: Pick<ArmyState, 'units' | 'upgrades'>): Record<string, UsedUnit> =>
   Object.keys(state.units).reduce<Record<string, UsedUnit>>((acc, unitId) => {
     const unit = state.units[unitId];
+
     if (unit.number > 0) {
       const { upgrades, ...rest } = unit;
       const used: UsedUnit = { ...rest };
@@ -61,12 +62,14 @@ export const usedUnits = (state: Pick<ArmyState, 'units' | 'upgrades'>): Record<
           .filter((upgradeId) => upgrades[upgradeId].number > 0)
           .reduce<Record<string, UpgradeState & UnitUpgradeEntry>>((upAcc, upgradeId) => {
             upAcc[upgradeId] = { ...state.upgrades[upgradeId], ...upgrades[upgradeId] };
+
             return upAcc;
           }, {});
       }
 
       acc[unitId] = used;
     }
+
     return acc;
   }, {});
 
@@ -129,7 +132,9 @@ export const groupRosterUnits = (
     if (!matches(id)) {
       continue;
     }
+
     const type = units[id].type;
+
     if (CHARACTER_TYPES.includes(type)) {
       characters.push(id);
     } else {
@@ -144,25 +149,31 @@ export const groupRosterUnits = (
     if (gameSize === undefined) {
       return ids;
     }
+
     const mandatory = ids.filter((id) => resolveBounds(units[id], gameSize).min > 0);
     const rest = ids.filter((id) => resolveBounds(units[id], gameSize).min === 0);
+
     return [...mandatory, ...rest];
   };
 
   const groups: RosterGroup[] = [];
+
   if (characters.length > 0) {
     groups.push({ label: 'Characters', unitIds: sortMandatoryFirst(characters) });
   }
+
   for (const type of TROOP_TYPE_ORDER) {
     if (troops[type]?.length) {
       groups.push({ label: type, unitIds: sortMandatoryFirst(troops[type]) });
     }
   }
+
   // Surface any unforeseen type so units are never silently hidden.
   for (const type of Object.keys(troops)) {
     if (!TROOP_TYPE_ORDER.includes(type)) {
       groups.push({ label: type, unitIds: sortMandatoryFirst(troops[type]) });
     }
   }
+
   return groups;
 };

@@ -8,6 +8,7 @@ const noEmpty = (arr: string[] | undefined, label: string) => {
   if (!arr) {
     return;
   }
+
   arr.forEach((line, i) => {
     expect(line.trim().length, `${label}[${i}] is empty`).toBeGreaterThan(0);
   });
@@ -17,13 +18,16 @@ describe('data shape after cleanup', () => {
   it('no text/armyRules array contains empty-string separators', () => {
     for (const [id, army] of armies) {
       noEmpty(army.armyRules, `${id} armyRules`);
+
       for (const [name, rule] of Object.entries(army.specialRules ?? {})) {
         noEmpty(rule.text, `${id} rule ${name}`);
       }
+
       for (const spell of army.spells ?? []) {
         noEmpty(spell.text, `${id} spell ${spell.name}`);
       }
     }
+
     for (const [name, item] of Object.entries(magicItems.upgrades)) {
       noEmpty(item.text, `magic item ${name}`);
     }
@@ -43,10 +47,12 @@ describe('data shape after cleanup', () => {
       for (const [name, unit] of Object.entries(army.units)) {
         expect('order' in unit, `${id} unit ${name}`).toBe(false);
       }
+
       for (const [name, up] of Object.entries(army.upgrades ?? {})) {
         expect('order' in up, `${id} upgrade ${name}`).toBe(false);
       }
     }
+
     for (const [name, item] of Object.entries(magicItems.upgrades)) {
       expect('order' in item, `magic item ${name}`).toBe(false);
     }

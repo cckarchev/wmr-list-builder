@@ -24,18 +24,23 @@ export const groupUpgradeIds = (
   upgrades: Record<string, UpgradeState>,
 ): UpgradeGroup[] => {
   const groups = new Map<string, string[]>();
+
   for (const id of upgradeIds) {
     const upgrade = upgrades[id];
+
     if (!upgrade) {
       continue;
     }
+
     const label = categoryOf(upgrade.type);
     const bucket = groups.get(label);
+
     if (bucket) {
       bucket.push(id);
     } else {
       groups.set(label, [id]);
     }
   }
+
   return [...groups].map(([label, ids]) => ({ label, upgradeIds: ids }));
 };

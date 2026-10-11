@@ -24,6 +24,7 @@ export const LoadListButton = () => {
   const togglePanel = () => {
     if (open) {
       close();
+
       return;
     }
 

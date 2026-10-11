@@ -14,6 +14,7 @@ describe('Home', () => {
 
   it('includes a link for each army by name', () => {
     renderWithProviders(<Home />);
+
     for (const { name } of armyIndex) {
       expect(screen.getByRole('link', { name })).toBeInTheDocument();
     }

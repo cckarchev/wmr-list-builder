@@ -63,6 +63,7 @@ export const useSavedLists = (onLoaded: () => void) => {
   const requestLoad = (name: string) => {
     if (isDirty) {
       setPendingLoad(name);
+
       return;
     }
 

@@ -14,13 +14,17 @@ export const useIsDirty = (): boolean => {
   const units = useArmyStore((s) => s.units);
   const label = useArmyStore((s) => s.label);
   const savedBaseline = useArmyStore((s) => s.savedBaseline);
+
   if (!armyId) {
     return false;
   }
+
   if (savedBaseline === null) {
     return true;
   }
+
   const maps = buildCodeMaps(loadArmy(armyId));
   const encoded = encodeList(snapshotOf({ gameSize, units, label }), maps);
+
   return encoded !== savedBaseline;
 };

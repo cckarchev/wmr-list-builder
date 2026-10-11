@@ -13,9 +13,11 @@ export const ResetListButton = () => {
 
   const handleReset = () => {
     setConfirming(false);
+
     if (!armyId) {
       return;
     }
+
     // Re-initialize the current army back to its default empty state, keeping
     // the same faction selected. The Build screen's auto-save persists this.
     setArmy(armyId);

@@ -37,6 +37,7 @@ export const StatLine = ({
   // Troops: Att / Range / Hits / Armour / Size / Pts (no Cmd). Absent stats
   // within a set still render as "–" so the columns line up across units.
   cells.push({ label: 'Att', value: stat(attack) });
+
   if (character) {
     cells.push({ label: 'Cmd', value: stat(command) });
   } else {
@@ -44,6 +45,7 @@ export const StatLine = ({
     cells.push({ label: 'Hits', value: stat(hits) });
     cells.push({ label: 'Armour', value: stat(armour) });
   }
+
   cells.push({ label: 'Size', value: stat(size) });
   cells.push({ label: 'Pts', value: stat(points) });
 

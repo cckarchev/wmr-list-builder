@@ -9,9 +9,11 @@ import { Print } from '@/screens/print/Print';
 /** Redirect to Home when the URL names an army that does not exist. */
 const RequireArmy = ({ children }: { children: ReactNode }) => {
   const { armyId } = useParams<{ armyId: string }>();
+
   if (!armyId || !armiesById[armyId]) {
     return <Navigate to="/" replace />;
   }
+
   return <>{children}</>;
 };
 
@@ -22,9 +24,11 @@ const RequireArmy = ({ children }: { children: ReactNode }) => {
 const Root = () => {
   const [searchParams] = useSearchParams();
   const armyId = searchParams.get('army');
+
   if (armyId && armiesById[armyId]) {
     return <Build />;
   }
+
   return <Home />;
 };
 

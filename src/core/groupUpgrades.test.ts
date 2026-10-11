@@ -5,9 +5,11 @@ import { groupUpgradeIds } from './groupUpgrades';
 /** Build a minimal upgrades map keyed in insertion order; only `type` matters here. */
 const upgradesOf = (entries: [string, string][]): Record<string, UpgradeState> => {
   const map: Record<string, UpgradeState> = {};
+
   for (const [id, type] of entries) {
     map[id] = { type } as UpgradeState;
   }
+
   return map;
 };
 

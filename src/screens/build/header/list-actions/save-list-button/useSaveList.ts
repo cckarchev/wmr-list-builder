@@ -57,6 +57,7 @@ export const useSaveList = (onSaved: () => void) => {
 
     if (!trimmed) {
       setError(EMPTY_NAME_ERROR);
+
       return;
     }
 
@@ -66,6 +67,7 @@ export const useSaveList = (onSaved: () => void) => {
 
     if (listSavedNames(armyId).includes(trimmed)) {
       setConfirmingOverwrite(true);
+
       return;
     }
 

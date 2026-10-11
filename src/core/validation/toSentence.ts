@@ -2,5 +2,6 @@ export const toSentence = (items: string[], connector = ', ', lastConnector = ' 
   if (items.length > 1) {
     return items.slice(0, -1).join(connector) + lastConnector + items.slice(-1);
   }
+
   return items[0];
 };

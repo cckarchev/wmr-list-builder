@@ -22,6 +22,7 @@ export const SaveListButton = () => {
   const togglePanel = () => {
     if (open) {
       close();
+
       return;
     }
 

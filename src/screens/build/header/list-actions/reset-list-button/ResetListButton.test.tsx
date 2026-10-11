@@ -7,6 +7,7 @@ import { ResetListButton } from './ResetListButton';
 
 const LocationProbe = () => {
   const { search } = useLocation();
+
   return <div data-testid="search">{search}</div>;
 };
 
