@@ -74,8 +74,8 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const pointsDisplay = formatPrice(price, hasVariablePrice);
   const invalid = upgradeErrors.length > 0;
 
-  const changeCount = (n: number) => {
-    setUnitUpgradeNumber(unitId, upgradeId, n);
+  const changeCount = (newCount: number) => {
+    setUnitUpgradeNumber(unitId, upgradeId, newCount);
   };
 
   return (

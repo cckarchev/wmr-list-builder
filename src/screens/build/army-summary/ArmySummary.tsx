@@ -17,7 +17,7 @@ export const ArmySummary = () => {
     .filter((id) => units[id].number > 0);
   const total = pointsCost({ units });
   const count = unitCount(units);
-  const bp = breakPoint(units);
+  const breakAt = breakPoint(units);
   const over = total > gameSize;
 
   const toggleOpen = () => {
@@ -66,7 +66,7 @@ export const ArmySummary = () => {
         )}
         <div className={styles.total} data-over={over || undefined}>
           <span>
-            {count} unit{count === 1 ? '' : 's'} · break {bp}
+            {count} unit{count === 1 ? '' : 's'} · break {breakAt}
           </span>
           <span>
             {total} / {gameSize}

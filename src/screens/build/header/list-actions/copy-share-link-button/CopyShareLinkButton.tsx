@@ -27,10 +27,12 @@ export const CopyShareLinkButton = () => {
     if (base) {
       // Embedded on the cckarchev site: share a link back to that page so the
       // recipient lands on cckarchev (which re-embeds the iframe with the list).
-      const u = new URL(base);
-      u.searchParams.set('army', armyId);
-      u.searchParams.set('list', encoded);
-      url = u.toString();
+      const embedUrl = new URL(base);
+
+      embedUrl.searchParams.set('army', armyId);
+      embedUrl.searchParams.set('list', encoded);
+
+      url = embedUrl.toString();
     } else {
       url = `${window.location.origin}/build/${armyId}?list=${encoded}`;
     }

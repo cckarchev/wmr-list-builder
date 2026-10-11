@@ -9,8 +9,8 @@ interface ArmyActions {
   setUnitNumber: (unitId: string, number: number) => void;
   setUnitUpgradeNumber: (unitId: string, upgradeId: string, number: number) => void;
   setLabel: (label: string) => void;
-  setGameSize: (n: number) => void;
-  setLoadWarning: (msg: string | null) => void;
+  setGameSize: (size: number) => void;
+  setLoadWarning: (message: string | null) => void;
   setSavedBaseline: (encoded: string | null) => void;
   applyList: (snap: ListSnapshot) => void;
   reset: () => void;
@@ -34,7 +34,7 @@ export const useArmyStore = create<ArmyState>((set) => ({
 
   setSavedBaseline: (savedBaseline) => set({ savedBaseline }),
 
-  setGameSize: (n) => set((state) => withGameSize(state, n)),
+  setGameSize: (size) => set((state) => withGameSize(state, size)),
 
   applyList: (snap) => set((state) => withList(state, snap)),
 
