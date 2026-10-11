@@ -16,7 +16,7 @@ export const AS_TOKEN_PREFIX = 'As ';
  * Structured reading of a troop's min/max constraints, resolved against the
  * current game size. `explainMinMax` (full phrase) and `minMaxBadge` (terse)
  * are two renderings of the same descriptor, so the precedence rules live in
- * one place. Mirrors the rules enforced in `validate` (validation.ts).
+ * one place. Mirrors the rules enforced in validation/rules.
  */
 type MinMaxInfo =
   | { kind: 'army'; min?: number; max?: number }

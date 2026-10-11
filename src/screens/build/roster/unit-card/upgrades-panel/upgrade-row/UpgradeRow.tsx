@@ -62,6 +62,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   if (upgrade.armyMax !== undefined) {
     const usedElsewhere = upgrade.number - count;
     const armyAllowanceLeft = Math.max(0, upgrade.armyMax - usedElsewhere);
+
     maxCount = Math.min(maxCount, armyAllowanceLeft);
   }
 

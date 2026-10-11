@@ -17,9 +17,11 @@ interface RosterFiltersProps {
   onToggleSelectedOnly: () => void;
 }
 
-/** The roster header (heading + Selected-only / Filters toggles) and the
- * collapsible search + type-chip panel. Purely presentational: the Build screen
- * owns the filter state because it also drives which units are listed. */
+/**
+ * The roster header (heading + Selected-only / Filters toggles) and the
+ * collapsible search + type-chip panel. Purely presentational: `useRosterView`
+ * owns the filter state because it also drives which units are listed.
+ */
 export const RosterFilters = ({
   types,
   search,

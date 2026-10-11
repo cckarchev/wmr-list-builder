@@ -76,11 +76,13 @@ const wireToSnapshot = (wire: Wire, maps: ArmyCodeMaps): ListSnapshot => {
   return { name: wire.n ?? '', gameSize: wire.g, units, upgrades };
 };
 
-// Shared parse/map core for both the localStorage decoder and the share decoder.
-// Returns null only when the blob is unparseable or the wire is the wrong shape;
-// `encodedUnitCount` is the number of unit entries the wire carried (before
-// mapping), so callers can tell "wrong army" (had entries, none resolved) apart
-// from "genuinely empty".
+/**
+ * Shared parse/map core for both the localStorage decoder and the share decoder.
+ * Returns null only when the blob is unparseable or the wire is the wrong shape;
+ * `encodedUnitCount` is the number of unit entries the wire carried (before
+ * mapping), so callers can tell "wrong army" (had entries, none resolved) apart
+ * from "genuinely empty".
+ */
 const parseWire = (
   s: string,
   maps: ArmyCodeMaps,
@@ -107,10 +109,12 @@ export const decodeList = (s: string, maps: ArmyCodeMaps): ListSnapshot | null =
 
 type DecodedShare = { ok: true; snapshot: ListSnapshot } | { ok: false };
 
-// Decode a shared (?list=) blob, distinguishing corrupt input from a valid one.
-// Corrupt = unparseable/wrong-version (parseWire null) OR the wire carried unit
-// entries but none resolved against this army (wrong-army link). A genuinely
-// empty shared list (no unit entries) is ok.
+/**
+ * Decode a shared (?list=) blob, distinguishing corrupt input from a valid one.
+ * Corrupt = unparseable/wrong-version (parseWire null) OR the wire carried unit
+ * entries but none resolved against this army (wrong-army link). A genuinely
+ * empty shared list (no unit entries) is ok.
+ */
 export const decodeShare = (s: string, maps: ArmyCodeMaps): DecodedShare => {
   const parsed = parseWire(s, maps);
 

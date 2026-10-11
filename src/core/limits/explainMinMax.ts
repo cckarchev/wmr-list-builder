@@ -9,7 +9,7 @@ import {
   type TokenInfo,
 } from './minMaxInfo';
 
-/** Plain-language phrasing for the keyword tokens enforced in validation.ts. */
+/** Plain-language phrasing for the keyword tokens the validation rules enforce. */
 const TOKEN_PHRASES: Record<string, string> = {
   'All or None': 'all or none of its unit',
   'Half or All': 'half or all of its unit',

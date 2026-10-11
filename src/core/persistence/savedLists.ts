@@ -4,8 +4,10 @@ import type { ListSnapshot } from './snapshot';
 
 const SAVED_PREFIX = 'wmr:saved:';
 
-// Read + parse the per-army map of named lists. Returns {} on any failure
-// (storage blocked, missing key, corrupt JSON) so callers stay thin.
+/**
+ * Read + parse the per-army map of named lists. Returns {} on any failure
+ * (storage blocked, missing key, corrupt JSON) so callers stay thin.
+ */
 const readSavedMap = (armyId: string): Record<string, string> => {
   try {
     const raw = localStorage.getItem(SAVED_PREFIX + armyId);
@@ -80,8 +82,10 @@ export interface SavedListSummary {
   gameSize: number;
 }
 
-// Names plus lightweight metadata (game size) for each saved list, sorted by
-// name. Decodes each stored blob once, sharing a single code-map build.
+/**
+ * Names plus lightweight metadata (game size) for each saved list, sorted by
+ * name. Decodes each stored blob once, sharing a single code-map build.
+ */
 export const listSavedSummaries = (armyId: string): SavedListSummary[] => {
   try {
     const map = readSavedMap(armyId);
