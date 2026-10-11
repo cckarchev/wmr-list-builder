@@ -38,7 +38,12 @@
       },
       "complexity": {
         "noExcessiveCognitiveComplexity": "warn",
-        "noExcessiveLinesPerFunction": "warn"
+        "noExcessiveLinesPerFunction": {
+          "level": "warn",
+          "options": {
+            "skipBlankLines": true
+          }
+        }
       },
       "style": {
         "noDefaultExport": "error",
@@ -90,6 +95,16 @@
         "rules": {
           "style": {
             "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveLinesPerFunction": "off"
           }
         }
       }

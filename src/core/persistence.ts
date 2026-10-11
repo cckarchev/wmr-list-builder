@@ -176,7 +176,7 @@ export const saveList = (armyId: string, snap: ListSnapshot): void => {
     const maps = buildCodeMaps(loadArmy(armyId));
     localStorage.setItem(PREFIX + armyId, encodeList(snap, maps));
   } catch {
-    // storage blocked (private mode / partitioned iframe) — degrade to in-memory
+    // storage blocked (private mode / partitioned iframe): degrade to in-memory
   }
 };
 
@@ -221,7 +221,7 @@ const writeSavedMap = (armyId: string, map: Record<string, string>): void => {
       localStorage.setItem(SAVED_PREFIX + armyId, JSON.stringify(map));
     }
   } catch {
-    // storage blocked — degrade to no-op
+    // storage blocked: degrade to no-op
   }
 };
 
@@ -232,7 +232,7 @@ export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot):
     map[name] = encodeList(snap, maps);
     writeSavedMap(armyId, map);
   } catch {
-    // unknown army / storage blocked — degrade to no-op
+    // unknown army / storage blocked: degrade to no-op
   }
 };
 

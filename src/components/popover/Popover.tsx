@@ -1,6 +1,9 @@
-import { type ReactNode, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { PillButton } from '@/components/pill-button/PillButton';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import styles from './Popover.module.css';
+import { useViewportShift } from './useViewportShift';
 
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
@@ -19,69 +22,17 @@ export const Popover = ({ label, trigger, wide = false, children }: PopoverProps
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
+  const offsetX = useViewportShift(panelRef, open);
 
-  // The panel anchors to the trigger (`left: 0`), but the trigger sits well
-  // into the row, so a wide panel can overflow the right edge — and the page
-  // clips horizontal overflow, hiding it. Shift the panel left just enough to
-  // keep it on screen. `offsetXRef` tracks the applied shift so re-measuring
-  // works from the panel's natural (un-shifted) position.
-  const [offsetX, setOffsetX] = useState(0);
-  const offsetXRef = useRef(0);
+  const close = () => setOpen(false);
 
-  useLayoutEffect(() => {
-    if (!open) {
-      return;
-    }
-    const place = () => {
-      const panel = panelRef.current;
-      if (!panel) {
-        return;
-      }
-      const margin = 8;
-      const rect = panel.getBoundingClientRect();
-      const naturalLeft = rect.left - offsetXRef.current;
-      const naturalRight = rect.right - offsetXRef.current;
-      let shift = 0;
-      if (naturalRight > window.innerWidth - margin) {
-        shift = window.innerWidth - margin - naturalRight;
-      }
-      if (naturalLeft + shift < margin) {
-        shift = margin - naturalLeft;
-      }
-      offsetXRef.current = shift;
-      setOffsetX(shift);
-    };
-    place();
-    window.addEventListener('resize', place);
-    return () => {
-      window.removeEventListener('resize', place);
-      offsetXRef.current = 0;
-      setOffsetX(0);
-    };
-  }, [open]);
+  const closeAndRefocus = () => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
+  useOutsideClick(wrapRef, open, close);
+  useEscapeKey(open, closeAndRefocus);
 
   useEffect(() => {
     if (open) {

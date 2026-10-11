@@ -14,7 +14,7 @@ type Limited = Pick<UnitState, 'armyMin' | 'armyMax' | 'min' | 'max' | 'homologo
  * Resolve a unit's HARD force limits at the given game-size cap.
  *
  * Absolute `armyMin`/`armyMax` always apply. Numeric, point-scaled `min`/`max`
- * are folded in too — resolved against the cap exactly as `validation.ts` does
+ * are folded in too, resolved against the cap exactly as `validation.ts` does
  * (the per-1,000-points minimum only kicks in at caps >= 1,000; the maximum
  * uses `armySize`, which floors to 1). Keyword/relative rules ("elite",
  * "Half or None", "As X", …) and homologous units are left to soft validation,
@@ -41,8 +41,8 @@ export const resolveBounds = (unit: Limited, gameSize: number): Bounds => {
 /**
  * Auto-include every unit at its resolved minimum for `gameSize` (mutates and
  * returns `units`). Used at army init so mandatory and point-scaled-minimum
- * units start in the list. Game-size *changes* deliberately do NOT re-run this
- * — instead soft validation flags a now-invalid list for the user to correct.
+ * units start in the list. Game-size *changes* deliberately do NOT re-run this.
+ * Instead, soft validation flags a now-invalid list for the user to correct.
  */
 export const applyForceMinimums = (
   units: Record<string, UnitState>,

@@ -16,7 +16,7 @@ const categoryOf = (type: string): string => (/Mount$/.test(type) ? 'Mounts' : t
 /**
  * Bucket a unit's available upgrade ids into ordered category groups. Category
  * order follows each category's first appearance in `upgradeIds`, and ids keep
- * their original order within a category — so the grouping only reorganizes,
+ * their original order within a category, so the grouping only reorganizes,
  * never reshuffles. Upgrades missing from `upgrades` are skipped.
  */
 export const groupUpgradeIds = (

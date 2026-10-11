@@ -1,5 +1,7 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 import { Button } from '@/components/button/Button';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
 import styles from './OverflowMenu.module.css';
 
@@ -10,27 +12,10 @@ export const OverflowMenu = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
+  const close = () => setOpen(false);
+
+  useOutsideClick(wrapRef, open, close);
+  useEscapeKey(open, close);
 
   return (
     <PopupAnchor ref={wrapRef}>

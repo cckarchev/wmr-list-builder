@@ -1,92 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { Icon } from '@/components/Icon';
-import { buildCodeMaps, encodeList, listSavedNames, saveNamedList } from '@/core/persistence';
-import { snapshotOf } from '@/core/snapshot';
-import { loadArmy } from '@/data/loadArmy';
-import { useArmyStore } from '@/store/useArmyStore';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { ActionPanel } from '../shared/action-panel/ActionPanel';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
-import styles from './SaveListButton.module.css';
+import { SaveForm } from './save-form/SaveForm';
+import { useSaveList } from './useSaveList';
 
 export const SaveListButton = () => {
-  const armyId = useArmyStore((s) => s.armyId);
-  const gameSize = useArmyStore((s) => s.gameSize);
-  const units = useArmyStore((s) => s.units);
-  const label = useArmyStore((s) => s.label);
-  const setLabel = useArmyStore((s) => s.setLabel);
-  const setSavedBaseline = useArmyStore((s) => s.setSavedBaseline);
-
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [confirmingOverwrite, setConfirmingOverwrite] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
+  const close = () => setOpen(false);
+  const save = useSaveList(close);
 
-  useEffect(() => {
+  useOutsideClick(wrapRef, open, close);
+  useEscapeKey(open, close);
+
+  const togglePanel = () => {
     if (open) {
-      inputRef.current?.focus();
+      close();
+      return;
     }
-  }, [open]);
 
-  const openPanel = () => {
-    setName(label);
-    setError(null);
-    setConfirmingOverwrite(false);
+    save.reset();
     setOpen(true);
-  };
-
-  const commit = (finalName: string) => {
-    if (!armyId) {
-      return;
-    }
-    const maps = buildCodeMaps(loadArmy(armyId));
-    const snap = snapshotOf({ gameSize, units, label: finalName });
-    saveNamedList(armyId, finalName, snap);
-    setLabel(finalName);
-    setSavedBaseline(encodeList(snap, maps));
-    setConfirmingOverwrite(false);
-    setOpen(false);
-  };
-
-  const handleSave = () => {
-    const trimmed = name.trim();
-    if (!trimmed) {
-      setError('Enter a name for this list.');
-      return;
-    }
-    if (!armyId) {
-      return;
-    }
-    if (listSavedNames(armyId).includes(trimmed)) {
-      setConfirmingOverwrite(true);
-      return;
-    }
-    commit(trimmed);
   };
 
   return (
@@ -94,8 +34,8 @@ export const SaveListButton = () => {
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => (open ? setOpen(false) : openPanel())}
-        disabled={!armyId}
+        onClick={togglePanel}
+        disabled={!save.canSave}
         aria-haspopup="dialog"
         aria-expanded={open}
         title="Save list"
@@ -105,45 +45,22 @@ export const SaveListButton = () => {
       </Button>
       {open && (
         <ActionPanel label="Save list" heading="Save list">
-          <div className={styles.body}>
-            <label className={styles.label} htmlFor="save-list-name">
-              List name
-            </label>
-            <input
-              className={styles.input}
-              ref={inputRef}
-              id="save-list-name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setError(null);
-                setConfirmingOverwrite(false);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSave();
-                }
-              }}
-            />
-            {error && (
-              <p className={styles.note} role="alert">
-                {error}
-              </p>
-            )}
-            <Button variant="primary" size="sm" onClick={handleSave}>
-              Save list
-            </Button>
-          </div>
+          <SaveForm
+            name={save.draft}
+            error={save.error}
+            onNameChange={save.changeName}
+            onSave={save.requestSave}
+          />
         </ActionPanel>
       )}
       <ConfirmDialog
-        open={confirmingOverwrite}
-        title={`Overwrite "${name.trim()}"?`}
+        open={save.confirmingOverwrite}
+        title={`Overwrite "${save.trimmedName}"?`}
         message="A saved list with this name already exists and will be replaced."
         confirmLabel="Overwrite"
         confirmVariant="primary"
-        onConfirm={() => commit(name.trim())}
-        onCancel={() => setConfirmingOverwrite(false)}
+        onConfirm={save.confirmOverwrite}
+        onCancel={save.cancelOverwrite}
       />
     </PopupAnchor>
   );

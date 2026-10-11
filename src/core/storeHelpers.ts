@@ -177,7 +177,7 @@ export const unitPointsCost = (unit: UnitState): number => {
   return Object.values(unit.upgrades).reduce((sum, u) => sum + u.pointsCost, base);
 };
 
-/** Minimal shape needed to price an upgrade — satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
+/** Minimal shape needed to price an upgrade, satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
 interface PricedUpgrade {
   points?: StatValue | Record<string, string>;
   pointsValue?: string;

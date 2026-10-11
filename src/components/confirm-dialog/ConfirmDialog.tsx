@@ -1,6 +1,7 @@
-import { type ReactNode, useEffect, useId, useRef } from 'react';
+import { type MouseEvent, type ReactNode, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/button/Button';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
 import styles from './ConfirmDialog.module.css';
 
 interface ConfirmDialogProps {
@@ -29,29 +30,22 @@ export const ConfirmDialog = ({
   const backdropRef = useRef<HTMLDivElement>(null);
   const confirmRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onCancel();
-      }
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [open, onCancel]);
+  useEscapeKey(open, onCancel);
 
   // These dialogs open from inside popovers whose dismiss-on-outside-click is a
   // native `document` mousedown listener. Swallow mousedown at the backdrop so
   // clicking the dialog doesn't also close the popover behind it.
   useEffect(() => {
     const el = backdropRef.current;
+
     if (!open || !el) {
       return;
     }
-    const stop = (e: MouseEvent) => e.stopPropagation();
+
+    const stop = (e: globalThis.MouseEvent) => e.stopPropagation();
+
     el.addEventListener('mousedown', stop);
+
     return () => el.removeEventListener('mousedown', stop);
   }, [open]);
 
@@ -65,20 +59,18 @@ export const ConfirmDialog = ({
     return null;
   }
 
+  const cancelOnBackdrop = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onCancel();
+    }
+  };
+
   return createPortal(
-    // Escape closes the dialog through the document listener above, so the
+    // Escape closes the dialog through useEscapeKey, so the
     // backdrop click is only a pointer convenience.
     // biome-ignore lint/a11y/noStaticElementInteractions: pointer-only dismiss, see above.
     // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard dismiss is the Escape listener.
-    <div
-      className={styles.backdrop}
-      ref={backdropRef}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onCancel();
-        }
-      }}
-    >
+    <div className={styles.backdrop} ref={backdropRef} onClick={cancelOnBackdrop}>
       <div
         className={styles.card}
         role="alertdialog"
