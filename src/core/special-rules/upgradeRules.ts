@@ -1,4 +1,4 @@
-import type { UpgradeState } from '@/core/storeHelpers';
+import type { UpgradeState } from '@/core/army-state/types';
 import type { SpecialRule } from '@/data/types';
 import type { ResolvedRule } from './specialRulesForUnit';
 

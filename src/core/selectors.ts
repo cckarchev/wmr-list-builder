@@ -1,7 +1,7 @@
+import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
 import { resolveBounds } from '@/core/limits/forceLimits';
 import type { ValidationError } from '@/data/types';
 import type { ArmyState } from '@/store/useArmyStore';
-import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 
 /** Troop types: the units that count toward the break point and can be upgrades of other units. */
 export const UNIT_TYPES = [

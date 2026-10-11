@@ -1,6 +1,6 @@
+import { buildUnits, buildUpgrades } from '@/core/army-state/buildState';
+import type { UnitState, UpgradeState } from '@/core/army-state/types';
 import { applyForceMinimums } from '@/core/limits/forceLimits';
-import type { UnitState, UpgradeState } from '@/core/storeHelpers';
-import { buildUnits, buildUpgrades } from '@/core/storeHelpers';
 import { validate } from '@/core/validation/validation';
 import { loadArmy } from '@/data/loadArmy';
 import { magicItems } from '@/data/magicItems';

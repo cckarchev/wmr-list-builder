@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { UnitState, UpgradeState } from '@/core/storeHelpers';
+import type { UnitState, UpgradeState } from '@/core/army-state/types';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';

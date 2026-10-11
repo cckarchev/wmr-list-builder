@@ -1,6 +1,5 @@
+import { AS_TOKEN_PREFIX } from '@/core/limits/minMaxInfo';
 import type { RequiredGroup } from './types';
-
-const AS_TOKEN_PREFIX = 'As ';
 
 /** Divisor for the "half of its unit" keyword rules. */
 const HALVES = 2;

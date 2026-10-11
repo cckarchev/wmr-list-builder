@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import type { UnitState } from '@/core/army-state/types';
 import type { ValidationError } from '@/data/types';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { useArmyStore } from '@/store/useArmyStore';
@@ -15,7 +16,6 @@ import {
   unitCount,
   usedUnits,
 } from './selectors';
-import type { UnitState } from './storeHelpers';
 
 const JUST_UNDER_ONE_STEP = 999;
 const TWO_AND_A_HALF_STEPS = 2500;

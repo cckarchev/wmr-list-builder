@@ -1,5 +1,5 @@
+import type { UnitState, UpgradeState } from '@/core/army-state/types';
 import { armySize, pointsCost } from '@/core/selectors';
-import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import type { ValidationError } from '@/data/types';
 import { namesOf } from './namesOf';
 import { itemErrors } from './rules/rules';

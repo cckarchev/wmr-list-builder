@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import type { UpgradeState } from '@/core/army-state/types';
 import { groupUpgradeIds } from './groupUpgrades';
-import type { UpgradeState } from './storeHelpers';
 
 /** Build a minimal upgrades map keyed in insertion order; only `type` matters here. */
 const upgradesOf = (entries: [string, string][]): Record<string, UpgradeState> => {

@@ -1,4 +1,4 @@
-import type { UpgradeState } from './storeHelpers';
+import type { UpgradeState } from '@/core/army-state/types';
 
 export interface UpgradeGroup {
   label: string;

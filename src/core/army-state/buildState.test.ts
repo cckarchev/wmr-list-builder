@@ -1,34 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Unit, UpgradeConstraint } from '@/data/types';
-import { constraintApplies, resolveUpgradePoints } from './storeHelpers';
-
-describe('resolveUpgradePoints', () => {
-  it('returns a flat scalar price for fixed-price upgrades', () => {
-    const points = 25;
-    expect(resolveUpgradePoints({ points })).toBe(points);
-    expect(resolveUpgradePoints({ points: '15' })).toBe('15');
-  });
-
-  it('returns undefined for a fixed-price upgrade with no price', () => {
-    expect(resolveUpgradePoints({})).toBeUndefined();
-  });
-
-  it('looks up the price by the unit stat named in pointsValue', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30', '4': '40' } };
-    expect(resolveUpgradePoints(upgrade, { size: 3 })).toBe('30');
-    expect(resolveUpgradePoints(upgrade, { size: 4 })).toBe('40');
-  });
-
-  it('returns undefined when the unit stat has no matching price entry', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30' } };
-    expect(resolveUpgradePoints(upgrade, { size: 9 })).toBeUndefined();
-  });
-
-  it('returns undefined for a variable-price upgrade with no unit context', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30' } };
-    expect(resolveUpgradePoints(upgrade)).toBeUndefined();
-  });
-});
+import { constraintApplies } from './buildState';
 
 const POINTS = 45;
 const THREE_HITS = 3;

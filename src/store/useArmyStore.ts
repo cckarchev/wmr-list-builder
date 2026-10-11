@@ -3,7 +3,7 @@ import type { ListSnapshot } from '@/core/persistence/snapshot';
 import { type ArmyData, emptyData, initializeState } from './armyData';
 import { withGameSize, withList, withUnitNumber, withUnitUpgradeNumber } from './transitions';
 
-export type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/storeHelpers';
+export type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
 
 export interface ArmyActions {
   setArmy: (id: string) => void;

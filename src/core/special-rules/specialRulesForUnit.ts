@@ -1,4 +1,4 @@
-import type { UnitState } from '@/core/storeHelpers';
+import type { UnitState } from '@/core/army-state/types';
 import type { SpecialRule } from '@/data/types';
 
 export interface ResolvedRule {

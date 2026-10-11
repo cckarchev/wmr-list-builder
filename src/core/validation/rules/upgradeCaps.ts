@@ -1,5 +1,5 @@
+import type { UpgradeState } from '@/core/army-state/types';
 import { UNIT_TYPES } from '@/core/selectors';
-import type { UpgradeState } from '@/core/storeHelpers';
 import type { Rule, ValidatableItem } from './types';
 
 /** Magic-item upgrade types (actions.js MAGIC_ITEM_TYPES). */
