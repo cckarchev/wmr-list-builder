@@ -1,4 +1,4 @@
-import { armySize } from './selectors';
+import { armySize, POINTS_PER_ARMY_SIZE } from './selectors';
 import type { UnitState } from './storeHelpers';
 import { unitPointsCost } from './storeHelpers';
 
@@ -26,7 +26,7 @@ export const resolveBounds = (unit: Limited, gameSize: number): Bounds => {
 
   if (!unit.homologousUnits) {
     const size = armySize(gameSize);
-    if (typeof unit.min === 'number' && gameSize >= 1000) {
+    if (typeof unit.min === 'number' && gameSize >= POINTS_PER_ARMY_SIZE) {
       min = Math.max(min, unit.min * size);
     }
     if (typeof unit.max === 'number') {

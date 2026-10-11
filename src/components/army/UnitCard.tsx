@@ -50,15 +50,15 @@ const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px`};
   background: ${({ theme }) => theme.color.bg.panel};
 
   /* More interior breathing room on wider screens, where the card has space to
      spare; mobile stays compact. */
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    gap: ${({ theme }) => `${theme.space[4]}px`};
-    padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[5]}px`};
+    gap: ${({ theme }) => `${theme.space.md}px`};
+    padding: ${({ theme }) => `${theme.space.md}px ${theme.space.lg}px`};
   }
   border: 1px solid ${cardBorderColor('default')};
   border-radius: ${({ theme }) => theme.radius.md};
@@ -73,7 +73,7 @@ const Top = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 // Left column: name and stat line stacked tightly. Keeping the stats here (next
@@ -82,7 +82,7 @@ const Top = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
   min-width: 0;
   flex: 1;
 `;
@@ -91,7 +91,7 @@ const NameRow = styled.div`
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   min-width: 0;
 `;
 
@@ -117,7 +117,7 @@ const Controls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
   flex-shrink: 0;
 `;
 
@@ -127,7 +127,7 @@ const Controls = styled.div`
 const MetaLine = styled.div`
   display: flex;
   align-items: baseline;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.sm};
 
@@ -155,7 +155,7 @@ const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 
   &:empty {
     display: none;
@@ -181,7 +181,7 @@ const SelectedBadge = styled.span`
 const UpgradesSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const UpgradeGroupBlock = styled.div`
@@ -191,12 +191,12 @@ const UpgradeGroupBlock = styled.div`
   gap: 0;
 
   & + & {
-    margin-top: ${({ theme }) => `${theme.space[2]}px`};
+    margin-top: ${({ theme }) => `${theme.space.xs}px`};
   }
 `;
 
 const UpgradeGroupLabel = styled.h5`
-  margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+  margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   letter-spacing: ${({ theme }) => theme.tracking.label};

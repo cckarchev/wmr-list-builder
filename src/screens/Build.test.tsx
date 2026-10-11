@@ -9,6 +9,9 @@ import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
 import Build from './Build';
 
+/** Below the base goblin list's 560 points, so the list starts over the cap. */
+const UNDERSIZED_GAME = 500;
+
 const renderBuild = (path = '/build/goblin') =>
   render(
     <ThemeProvider theme={theme}>
@@ -91,7 +94,7 @@ describe('inline validation', () => {
   it('shows the points-cap error globally in the points bar', async () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setGameSize(500); // base goblin list (560) now exceeds the cap
+    store.setGameSize(UNDERSIZED_GAME);
 
     renderBuild('/build/goblin');
     await screen.findByText('Goblin');

@@ -8,12 +8,20 @@ import {
   globalErrors,
   groupRosterUnits,
   isCharacter,
+  POINTS_PER_ARMY_SIZE,
   pointsCost,
   unitCount,
   usedUnits,
 } from './selectors';
 import type { UnitState } from './storeHelpers';
-import { useArmyStore } from './useArmyStore';
+import { DEFAULT_GAME_SIZE, useArmyStore } from './useArmyStore';
+
+const JUST_UNDER_ONE_STEP = 999;
+const TWO_AND_A_HALF_STEPS = 2500;
+const THREE_STEPS = 3000;
+const ADDED_HALBERDIERS = 3;
+/** An odd count, so the break point has to round up. */
+const GOBLIN_STANDS = 5;
 
 /** Build a minimal units map keyed in insertion order; only `type` matters here. */
 const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
@@ -33,11 +41,11 @@ beforeEach(() => {
 describe('armySize', () => {
   it('is at least 1', () => {
     expect(armySize(0)).toBe(1);
-    expect(armySize(999)).toBe(1);
+    expect(armySize(JUST_UNDER_ONE_STEP)).toBe(1);
   });
   it('grows per 1000 points', () => {
-    expect(armySize(2500)).toBe(2);
-    expect(armySize(3000)).toBe(3);
+    expect(armySize(TWO_AND_A_HALF_STEPS)).toBe(2);
+    expect(armySize(THREE_STEPS)).toBe(THREE_STEPS / POINTS_PER_ARMY_SIZE);
   });
 });
 
@@ -59,8 +67,8 @@ describe('unitCount', () => {
     get().setUnitNumber('Skirmishers', get().units.Skirmishers.number + 2);
     expect(unitCount(get().units)).toBe(before);
     // Adding a counted unit does.
-    get().setUnitNumber('Halberdiers', get().units.Halberdiers.number + 3);
-    expect(unitCount(get().units)).toBe(before + 3);
+    get().setUnitNumber('Halberdiers', get().units.Halberdiers.number + ADDED_HALBERDIERS);
+    expect(unitCount(get().units)).toBe(before + ADDED_HALBERDIERS);
   });
 });
 
@@ -71,7 +79,7 @@ describe('breakPoint', () => {
 
   it('is half the counted units, rounded up', () => {
     get().setArmy('goblin');
-    get().setUnitNumber('Goblins', 5); // counted units
+    get().setUnitNumber('Goblins', GOBLIN_STANDS); // counted units
     const count = unitCount(get().units);
     expect(breakPoint(get().units)).toBe(Math.ceil(count / 2));
   });
@@ -181,7 +189,9 @@ describe('groupRosterUnits', () => {
       'Goblin Horde': { type: 'Infantry', armyMin: 1 } as UnitState,
       'Spider Riders': { type: 'Infantry' } as UnitState,
     };
-    const infantry = groupRosterUnits(mandatoryUnits, '', 2000).find((g) => g.label === 'Infantry');
+    const infantry = groupRosterUnits(mandatoryUnits, '', DEFAULT_GAME_SIZE).find(
+      (g) => g.label === 'Infantry',
+    );
     expect(infantry?.unitIds).toEqual(['Goblin Horde', 'Goblins', 'Spider Riders']);
   });
 

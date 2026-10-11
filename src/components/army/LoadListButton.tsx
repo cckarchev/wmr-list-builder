@@ -25,11 +25,11 @@ const Wrapper = styled.span`
 
 const Panel = styled.div`
   position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   right: 0;
   z-index: 30;
   width: 300px;
-  max-width: calc(100vw - ${({ theme }) => `${theme.space[4]}px`});
+  max-width: calc(100vw - ${({ theme }) => `${theme.space.md}px`});
   max-height: 60vh;
   overflow-y: auto;
   display: flex;
@@ -43,7 +43,7 @@ const Panel = styled.div`
 
 const PanelTitle = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[3]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.sm}px ${theme.space.xs}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
@@ -69,9 +69,9 @@ const NameButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
   text-align: left;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.color.text.body};
@@ -98,7 +98,7 @@ const ListTitle = styled.span`
 
 const SizeBadge = styled.span`
   flex-shrink: 0;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: ${({ theme }) => theme.color.bg.deep};
   border-radius: ${({ theme }) => theme.radius.sm};
   font-family: ${({ theme }) => theme.font.mono};
@@ -108,8 +108,8 @@ const SizeBadge = styled.span`
 
 const IconButton = styled.button`
   display: inline-flex;
-  margin-right: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px`};
+  margin-right: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px`};
   background: transparent;
   border: 1px solid transparent;
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -123,7 +123,7 @@ const IconButton = styled.button`
 
 const Empty = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
 `;

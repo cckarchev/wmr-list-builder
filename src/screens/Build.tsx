@@ -26,8 +26,8 @@ const Page = styled.main`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: ${({ theme }) => `${theme.space[5]}px`};
-  padding: ${({ theme }) => `${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.lg}px`};
+  padding: ${({ theme }) => `${theme.space.md}px`};
   /* Cap and center the content so it gutters on large screens instead of the
      (now narrower) cards sprawling edge-to-edge. */
   width: 100%;
@@ -44,7 +44,7 @@ const ArmySummaryMobile = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin-inline: auto;
-  padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[4]}px 0`};
+  padding: ${({ theme }) => `${theme.space.md}px ${theme.space.md}px 0`};
 
   @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
     display: none;
@@ -60,8 +60,8 @@ const ArmySummaryDesktop = styled.div<{ $top: number }>`
        below the sticky BuildHeader (whose height varies with global errors). */
     position: sticky;
     align-self: start;
-    top: ${({ $top, theme }) => `${$top + theme.space[3]}px`};
-    max-height: ${({ $top, theme }) => `calc(100dvh - ${$top + theme.space[3] * 2}px)`};
+    top: ${({ $top, theme }) => `${$top + theme.space.sm}px`};
+    max-height: ${({ $top, theme }) => `calc(100dvh - ${$top + theme.space.sm * 2}px)`};
     overflow-y: auto;
   }
 `;
@@ -69,7 +69,7 @@ const ArmySummaryDesktop = styled.div<{ $top: number }>`
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
   /* Allow the grid column to shrink rather than stretch the track. */
   min-width: 0;
 `;
@@ -83,17 +83,17 @@ const EmptyArmy = styled.p`
 const Group = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 
   &:not(:first-of-type) {
-    margin-top: ${({ theme }) => `${theme.space[3]}px`};
+    margin-top: ${({ theme }) => `${theme.space.sm}px`};
   }
 `;
 
 const GroupCards = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 const GroupHeading = styled.h3`
@@ -103,7 +103,7 @@ const GroupHeading = styled.h3`
 const GroupToggle = styled.button`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   width: 100%;
   margin: 0;
   padding: 0;
@@ -132,8 +132,8 @@ const GroupToggle = styled.button`
 const ToggleMark = styled.span<{ $collapsed: boolean }>`
   position: relative;
   flex-shrink: 0;
-  width: ${({ theme }) => `${theme.space[3]}px`};
-  height: ${({ theme }) => `${theme.space[3]}px`};
+  width: ${({ theme }) => `${theme.space.sm}px`};
+  height: ${({ theme }) => `${theme.space.sm}px`};
 
   &::before,
   &::after {

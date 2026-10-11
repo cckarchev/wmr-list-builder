@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { loadArmy } from '../data/loadArmy';
+import { MAGIC_ITEM_ID_MIN } from '../data/magicItems';
 import { buildCodeMaps } from './persistence';
 
 describe('buildCodeMaps', () => {
@@ -18,6 +19,6 @@ describe('buildCodeMaps', () => {
       expect(maps.upgradeNameById.get(id)).toBe(name);
     }
     // at least one magic-item id (>= 100) is present
-    expect([...maps.upgradeNameById.keys()].some((id) => id >= 100)).toBe(true);
+    expect([...maps.upgradeNameById.keys()].some((id) => id >= MAGIC_ITEM_ID_MIN)).toBe(true);
   });
 });

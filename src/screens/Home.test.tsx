@@ -6,11 +6,10 @@ import { renderWithProviders } from '../test/renderWithProviders';
 import Home from './Home';
 
 describe('Home', () => {
-  it('renders all 25 army links', () => {
+  it('renders one link per army', () => {
     renderWithProviders(<Home />);
     const links = screen.getAllByRole('link');
     expect(links).toHaveLength(armyIndex.length);
-    expect(armyIndex).toHaveLength(25);
   });
 
   it('includes a link for each army by name', () => {

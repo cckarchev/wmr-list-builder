@@ -24,14 +24,14 @@ const Trigger = styled.button`
 
 const Panel = styled.div<{ $wide: boolean }>`
   position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   left: 0;
   z-index: 30;
   width: max-content;
   max-width: ${({ $wide }) => ($wide ? 'min(520px, 92vw)' : 'min(320px, 80vw)')};
   max-height: 60vh;
   overflow-y: auto;
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};

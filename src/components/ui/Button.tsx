@@ -11,7 +11,7 @@ const Button = styled.button<ButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   border-radius: ${({ theme }) => theme.radius.sm};
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.sm};
@@ -21,8 +21,8 @@ const Button = styled.button<ButtonProps>`
   white-space: nowrap;
   padding: ${({ $size = 'md', theme }) =>
     $size === 'sm'
-      ? `${theme.space[2]}px ${theme.space[3]}px`
-      : `${theme.space[3]}px ${theme.space[5]}px`};
+      ? `${theme.space.xs}px ${theme.space.sm}px`
+      : `${theme.space.sm}px ${theme.space.lg}px`};
   text-decoration: none;
   cursor: pointer;
   transition:

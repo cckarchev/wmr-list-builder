@@ -8,7 +8,7 @@ import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSe
 const SpellHeader = styled(DefTerm)``;
 
 const SpellText = styled(DefDesc)`
-  margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const Spells = () => {

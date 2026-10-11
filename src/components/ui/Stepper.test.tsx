@@ -8,9 +8,10 @@ describe('Stepper', () => {
   it('calls onChange with value + 1 when + is clicked', async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    renderWithTheme(<Stepper value={3} onChange={onChange} label="Goblins" />);
+    const value = 3;
+    renderWithTheme(<Stepper value={value} onChange={onChange} label="Goblins" />);
     await user.click(screen.getByRole('button', { name: 'increase Goblins' }));
-    expect(onChange).toHaveBeenCalledWith(4);
+    expect(onChange).toHaveBeenCalledWith(value + 1);
   });
 
   it('calls onChange with value - 1 when − is clicked', async () => {

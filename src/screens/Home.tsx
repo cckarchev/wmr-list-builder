@@ -6,7 +6,7 @@ import { focusRing } from '../theme/focusRing';
 const Page = styled.main`
   max-width: 1100px;
   margin: 0 auto;
-  padding: ${({ theme }) => `${theme.space[6]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.xl}px ${theme.space.md}px`};
 `;
 
 const Heading = styled.h1`
@@ -15,7 +15,7 @@ const Heading = styled.h1`
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: ${({ theme }) => theme.color.text.strong};
-  margin-bottom: ${({ theme }) => `${theme.space[5]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space.lg}px`};
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sm}) {
     font-size: ${({ theme }) => theme.fontSize.xl};
@@ -26,16 +26,16 @@ const Grid = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: ${({ theme }) => `${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.md}px`};
 `;
 
 const ArmyCard = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   min-height: 72px;
-  padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[5]}px`};
+  padding: ${({ theme }) => `${theme.space.md}px ${theme.space.lg}px`};
   border-radius: ${({ theme }) => theme.radius.md};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-left: 3px solid ${({ theme }) => theme.color.border.default};

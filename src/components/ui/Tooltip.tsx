@@ -19,13 +19,13 @@ const Wrap = styled.span`
 
 const Bubble = styled.span`
   position: absolute;
-  bottom: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  bottom: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
   max-width: 220px;
   width: max-content;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: ${({ theme }) => theme.color.bg.deep};
   color: ${({ theme }) => theme.color.text.body};
   border: 1px solid ${({ theme }) => theme.color.border.default};

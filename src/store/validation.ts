@@ -1,5 +1,5 @@
 import type { ValidationError } from '../data/types';
-import { armySize, pointsCost } from './selectors';
+import { armySize, POINTS_PER_ARMY_SIZE, pointsCost } from './selectors';
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
 
@@ -196,7 +196,10 @@ const checkValidations = (
         requiredSentence +
         '.',
     });
-  } else if (gameSize >= 1000 && item.number + homologousCount < (item.min as number) * size) {
+  } else if (
+    gameSize >= POINTS_PER_ARMY_SIZE &&
+    item.number + homologousCount < (item.min as number) * size
+  ) {
     errors.push({
       targets,
       message: `Minimum of ${(item.min as number) * size} ${label} per ${size},000 points.`,

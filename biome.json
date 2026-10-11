@@ -33,8 +33,9 @@
         "noExcessiveLinesPerFunction": "warn"
       },
       "style": {
-        "noNestedTernary": "error",
+        "noMagicNumbers": "error",
         "noNegationElse": "error",
+        "noNestedTernary": "error",
         "noParameterAssign": "error",
         "useBlockStatements": "error",
         "useConsistentArrowReturn": "error",
@@ -46,11 +47,15 @@
       "nursery": {
         "useConsistentFunctionStyle": {
           "level": "error",
-          "options": { "style": "expression" }
+          "options": {
+            "style": "expression"
+          }
         },
         "useReactFunctionComponentDefinition": {
           "level": "error",
-          "options": { "namedComponents": "arrowFunction" }
+          "options": {
+            "namedComponents": "arrowFunction"
+          }
         }
       }
     }

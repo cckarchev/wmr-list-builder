@@ -10,13 +10,13 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const Item = styled.li`
   display: flex;
   align-items: flex-start;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   color: ${({ theme }) => theme.color.semantic.error};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.xs};

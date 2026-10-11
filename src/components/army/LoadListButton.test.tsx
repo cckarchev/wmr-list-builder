@@ -9,6 +9,10 @@ import { defined } from '../../test/defined';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import LoadListButton from './LoadListButton';
 
+const SMALL_GAME = 1000;
+const MID_GAME = 1500;
+const ODD_GAME = 1750;
+
 const seed = (name: string, gameSize: number) =>
   saveNamedList('bretonnia', name, { name, gameSize, units: {}, upgrades: {} });
 
@@ -36,7 +40,7 @@ describe('LoadListButton', () => {
 
   it('shows each saved list game size', async () => {
     const user = userEvent.setup();
-    seed('Saved A', 1500);
+    seed('Saved A', MID_GAME);
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     expect(screen.getByText(/1500 pts/)).toBeInTheDocument();
@@ -44,29 +48,29 @@ describe('LoadListButton', () => {
 
   it('loads a saved list, replacing the current one', async () => {
     const user = userEvent.setup();
-    seed('Saved A', 1500);
+    seed('Saved A', MID_GAME);
     markClean();
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /^Saved A$/ }));
-    expect(useArmyStore.getState().gameSize).toBe(1500);
+    expect(useArmyStore.getState().gameSize).toBe(MID_GAME);
   });
 
   it('confirms before replacing a dirty list', async () => {
     const user = userEvent.setup();
-    seed('Saved B', 1750);
+    seed('Saved B', ODD_GAME);
     useArmyStore.getState().setSavedBaseline(null); // dirty
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /^Saved B$/ }));
     expect(screen.getByText(/unsaved changes/i)).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /^replace$/i }));
-    expect(useArmyStore.getState().gameSize).toBe(1750);
+    expect(useArmyStore.getState().gameSize).toBe(ODD_GAME);
   });
 
   it('deletes a saved list after confirming', async () => {
     const user = userEvent.setup();
-    seed('Saved C', 1000);
+    seed('Saved C', SMALL_GAME);
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /delete Saved C/i }));

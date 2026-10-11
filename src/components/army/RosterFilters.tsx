@@ -12,23 +12,23 @@ const RosterHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding-bottom: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding-bottom: ${({ theme }) => `${theme.space.xs}px`};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
 const Controls = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const FilterToggle = styled.button`
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
   flex: 0 0 auto;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: none;
   border: 1px solid ${({ theme }) => theme.color.border.divider};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -48,7 +48,7 @@ const FilterToggle = styled.button`
 `;
 
 const SelectedToggle = styled(FilterToggle)<{ $active?: boolean }>`
-  background: ${({ theme, $active }) => ($active ? theme.alpha(theme.rgb.accent, 0.15) : 'none')};
+  background: ${({ theme, $active }) => ($active ? theme.color.bg.accentTint : 'none')};
   color: ${({ theme, $active }) => ($active ? theme.color.accent : theme.color.text.dim)};
   border-color: ${({ theme, $active }) =>
     $active ? theme.color.border.accent : theme.color.border.divider};
@@ -63,12 +63,12 @@ const Caret = styled.span<{ $open: boolean }>`
 const FiltersPanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -86,13 +86,13 @@ const SearchInput = styled.input`
 const Filters = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const FilterChip = styled.button<{ $active?: boolean }>`
   display: inline-flex;
   align-items: center;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   border-radius: ${({ theme }) => theme.radius.sm};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
@@ -101,7 +101,7 @@ const FilterChip = styled.button<{ $active?: boolean }>`
   white-space: nowrap;
   cursor: pointer;
   background: ${({ theme, $active }) =>
-    $active ? theme.alpha(theme.rgb.accent, 0.15) : theme.color.bg.tint};
+    $active ? theme.color.bg.accentTint : theme.color.bg.tint};
   color: ${({ theme, $active }) => ($active ? theme.color.accent : theme.color.text.dim)};
   border: 1px solid
     ${({ theme, $active }) => ($active ? theme.color.border.accent : theme.color.border.divider)};

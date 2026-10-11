@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Chip = styled.span`
   display: inline-flex;
   align-items: center;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   border-radius: ${({ theme }) => theme.radius.sm};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};

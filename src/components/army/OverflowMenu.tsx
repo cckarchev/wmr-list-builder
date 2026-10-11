@@ -10,14 +10,14 @@ const Wrapper = styled.span`
 
 const Panel = styled.div`
   position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   right: 0;
   z-index: 30;
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -35,7 +35,7 @@ const Panel = styled.div`
 `;
 
 const Caret = styled.span`
-  margin-left: ${({ theme }) => `${theme.space[1]}px`};
+  margin-left: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 export const MenuDivider = styled.hr`

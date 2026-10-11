@@ -8,8 +8,8 @@ import { unitDomId } from './unitDomId';
 const Aside = styled.aside`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.md};
@@ -19,7 +19,7 @@ const Heading = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   width: 100%;
   padding: 0;
   background: none;
@@ -43,7 +43,7 @@ const Heading = styled.button`
 const Body = styled.div<{ $open: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 
   @media (max-width: ${({ theme }) => `calc(${theme.breakpoint.md} - 0.02px)`}) {
     display: ${({ $open }) => ($open ? 'flex' : 'none')};
@@ -53,9 +53,9 @@ const Body = styled.div<{ $open: boolean }>`
 const Row = styled.button`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
   width: 100%;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: none;
   border: none;
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -75,7 +75,7 @@ const Row = styled.button`
 const RowTop = styled.span`
   display: flex;
   align-items: baseline;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const Qty = styled.span`
@@ -91,8 +91,8 @@ const Upgrades = styled.span`
 
 const Upgrade = styled.span`
   display: flex;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding-left: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
+  padding-left: ${({ theme }) => `${theme.space.xs}px`};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.dim};
 
@@ -123,8 +123,8 @@ const Empty = styled.p`
 const Total = styled.div<{ $over: boolean }>`
   display: flex;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding-top: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding-top: ${({ theme }) => `${theme.space.xs}px`};
   border-top: 1px solid ${({ theme }) => theme.color.border.divider};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};

@@ -18,13 +18,13 @@ const Controls = styled.div`
   z-index: 40;
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.default};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px`};
   /* Two columns: the toggle groups stack on the left, the Print button is its
      own full-height column on the right. The button never shares a line with
      the wrapping checkboxes, so nothing flows above or below it. */
   display: flex;
   align-items: stretch;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 // Left column: the Sections and Options groups stacked. Wrapping happens inside
@@ -34,7 +34,7 @@ const Stack = styled.div`
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 const Group = styled.div`
@@ -42,7 +42,7 @@ const Group = styled.div`
   /* Top-align the label so it sits on the first line of toggles even when they
      wrap onto multiple rows, rather than floating in the vertical center. */
   align-items: flex-start;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   min-width: 0;
 `;
 
@@ -66,13 +66,13 @@ const GroupLabel = styled.span`
 const Toggles = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
 `;
 
 const CheckLabel = styled.label`
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.body};
   cursor: pointer;
@@ -90,12 +90,12 @@ const PrintButton = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
   flex: none;
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 500;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.md}px`};
   background: ${({ theme }) => theme.color.accent};
   color: ${({ theme }) => theme.color.accentInk};
   border: none;

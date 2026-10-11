@@ -11,12 +11,12 @@ interface UnitRulesProps {
 
 const Rule = styled.div`
   & + & {
-    margin-top: ${({ theme }) => `${theme.space[3]}px`};
+    margin-top: ${({ theme }) => `${theme.space.sm}px`};
   }
 `;
 
 const RuleName = styled.h4`
-  margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+  margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.strong};
@@ -29,7 +29,7 @@ const RuleText = styled.div`
   line-height: 1.4;
 
   & p {
-    margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+    margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   }
   & p:last-child {
     margin-bottom: 0;

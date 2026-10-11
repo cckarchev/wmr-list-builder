@@ -4,7 +4,7 @@ const Panel = styled.div`
   background: ${({ theme }) => theme.color.bg.panel};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.md};
-  padding: ${({ theme }) => `${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.md}px`};
   transition: border-color 0.15s;
 
   &:hover {

@@ -4,6 +4,7 @@ import { usedUnits as getUsedUnits, pointsCost } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
+import { COPIED_FEEDBACK_MS } from './copyFeedback';
 import { buildTextList } from './textList';
 
 const Wrapper = styled.span`
@@ -16,12 +17,12 @@ const Wrapper = styled.span`
 // layout instead of pushing the neighbouring action buttons aside.
 const CopiedLabel = styled.span`
   position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
   white-space: nowrap;
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: ${({ theme }) => theme.color.bg.surface};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -59,7 +60,7 @@ const CopyListButton = () => {
 
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setTimeout(() => setCopied(false), COPIED_FEEDBACK_MS);
     });
   };
 

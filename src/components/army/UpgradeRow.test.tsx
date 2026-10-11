@@ -5,6 +5,8 @@ import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import UpgradeRow from './UpgradeRow';
 
+const HALBERDIER_STANDS = 5;
+
 beforeEach(() => useArmyStore.getState().reset());
 
 describe('UpgradeRow', () => {
@@ -12,7 +14,7 @@ describe('UpgradeRow', () => {
     const store = useArmyStore.getState();
     store.setArmy('empire');
     // Battle Banner is a Magic Standard: armyMax 1 per army. Spend it on one unit.
-    store.setUnitNumber('Halberdiers', 5);
+    store.setUnitNumber('Halberdiers', HALBERDIER_STANDS);
     store.setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
     // A second eligible unit has stands free, but the army-wide allowance is gone.
     store.setUnitNumber('Knights', 2);

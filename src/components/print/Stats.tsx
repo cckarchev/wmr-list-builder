@@ -18,7 +18,7 @@ const Table = styled.table`
   text-align: center;
 
   tbody tr:nth-child(even) td {
-    background: ${({ theme }) => theme.alpha(theme.rgb.white, 0.06)};
+    background: ${({ theme }) => theme.color.bg.stripe};
   }
 `;
 
@@ -34,19 +34,19 @@ const CharacterTable = styled(Table)`
      a cramped sliver. */
   width: auto;
   min-width: 60%;
-  margin: 0 auto ${({ theme }) => `${theme.space[5]}px`};
+  margin: 0 auto ${({ theme }) => `${theme.space.lg}px`};
 `;
 
 const CHARACTER_TYPES = new Set(['General', 'Hero', 'Wizard']);
 
 const Th = styled.th`
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   white-space: nowrap;
   border-bottom: 2px solid currentColor;
 `;
 
 const Td = styled.td`
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   white-space: nowrap;
 `;
 
@@ -59,7 +59,7 @@ const TdLeft = styled(Td)`
 const NameCell = styled(TdLeft)`
   display: flex;
   align-items: baseline;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 // Indent attachment (upgrade) names so they read as nested under their parent
@@ -68,7 +68,7 @@ const NameCell = styled(TdLeft)`
 // cell padding that would otherwise wipe a cell-level indent.
 const Name = styled.span<{ $indent?: boolean }>`
   display: inline-block;
-  margin-left: ${({ theme, $indent }) => ($indent ? `${theme.space[3]}px` : '0')};
+  margin-left: ${({ theme, $indent }) => ($indent ? `${theme.space.sm}px` : '0')};
 `;
 
 // Special-rule reference markers (e.g. "*1, *3") sit inline right after the unit

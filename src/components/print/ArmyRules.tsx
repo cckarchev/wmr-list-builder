@@ -8,7 +8,7 @@ const Content = styled.div`
   line-height: 1.6;
 
   p {
-    margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
+    margin-bottom: ${({ theme }) => `${theme.space.sm}px`};
   }
 
   p:last-child {

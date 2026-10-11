@@ -22,8 +22,8 @@ const TitleZone = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px ${theme.space.md}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.md}px`};
   /* The header bar is full-bleed; its content is centered to the same width as
      the page body so the title lines up with the roster below. */
   width: 100%;
@@ -36,7 +36,7 @@ const TitleBlock = styled.div`
   flex: 1;
   min-width: 0;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const ArmyName = styled.h1`
@@ -68,7 +68,7 @@ const Placeholder = styled.span`
 
 const UnsavedDot = styled.span`
   flex-shrink: 0;
-  margin-left: ${({ theme }) => `${theme.space[1]}px`};
+  margin-left: ${({ theme }) => `${theme.space.xxs}px`};
   color: ${({ theme }) => theme.color.semantic.warning};
 `;
 
@@ -76,7 +76,7 @@ const Actions = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const InlineActions = styled(Actions)`
@@ -100,8 +100,8 @@ const Strip = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px ${theme.space.md}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px`};
   border-top: 1px solid ${({ theme }) => theme.color.border.divider};
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
@@ -111,7 +111,7 @@ const Strip = styled.div`
 const Stat = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const StatLabel = styled.span`
@@ -128,7 +128,7 @@ const StatValue = styled.span`
   justify-content: center;
   /* Match SizeInput's box height (padding + border) so every value row lines
      up despite the input being taller than plain text. */
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   border: 1px solid transparent;
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.md};
@@ -156,8 +156,8 @@ const InvalidButton = styled.button`
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: transparent;
   border: 1px solid ${({ theme }) => theme.color.semantic.error};
   border-radius: ${({ theme }) => theme.radius.sm};
@@ -184,7 +184,7 @@ const WarningBanner = styled.div`
   flex-basis: 100%;
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   margin: 0;
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.xs};

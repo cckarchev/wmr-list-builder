@@ -124,7 +124,7 @@ describe('named lists', () => {
     const loaded = loadNamedList(ARMY, 'My List');
     expect(loaded).not.toBeNull();
     expect(loaded?.name).toBe('My List');
-    expect(loaded?.gameSize).toBe(2000);
+    expect(loaded?.gameSize).toBe(named('My List').gameSize);
   });
 
   it('lists saved names sorted case-insensitively', () => {
@@ -134,10 +134,12 @@ describe('named lists', () => {
   });
 
   it('overwrites a list saved under the same name', () => {
-    saveNamedList(ARMY, 'dup', { ...named('dup'), gameSize: 1000 });
-    saveNamedList(ARMY, 'dup', { ...named('dup'), gameSize: 3000 });
+    const first = { ...named('dup'), gameSize: 1000 };
+    const second = { ...named('dup'), gameSize: 3000 };
+    saveNamedList(ARMY, 'dup', first);
+    saveNamedList(ARMY, 'dup', second);
     expect(listSavedNames(ARMY)).toEqual(['dup']);
-    expect(loadNamedList(ARMY, 'dup')?.gameSize).toBe(3000);
+    expect(loadNamedList(ARMY, 'dup')?.gameSize).toBe(second.gameSize);
   });
 
   it('deletes one list and leaves the others', () => {

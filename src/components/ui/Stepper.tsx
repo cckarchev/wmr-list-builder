@@ -20,8 +20,8 @@ const StepButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: ${({ theme }) => `${theme.space[6]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  min-width: ${({ theme }) => `${theme.space.xl}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.color.tealBright};
@@ -49,7 +49,7 @@ const StepperValue = styled.span`
   align-items: center;
   justify-content: center;
   min-width: 2.5ch;
-  padding: ${({ theme }) => `0 ${theme.space[2]}px`};
+  padding: ${({ theme }) => `0 ${theme.space.xs}px`};
   border-left: 1px solid ${({ theme }) => theme.color.border.default};
   border-right: 1px solid ${({ theme }) => theme.color.border.default};
   font-family: ${({ theme }) => theme.font.mono};

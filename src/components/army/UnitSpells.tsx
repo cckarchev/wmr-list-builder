@@ -15,7 +15,7 @@ interface UnitSpellsProps {
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const SpellItem = styled.div`
@@ -27,9 +27,9 @@ const SpellItem = styled.div`
 const Header = styled.button`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
   width: 100%;
-  padding: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px`};
   background: none;
   border: none;
   color: ${({ theme }) => theme.color.text.body};
@@ -73,14 +73,14 @@ const Caret = styled.span<{ $open: boolean }>`
 `;
 
 const Effect = styled.div`
-  padding: ${({ theme }) => `0 ${theme.space[2]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `0 ${theme.space.xs}px ${theme.space.xs}px`};
   font-family: ${({ theme }) => theme.font.body};
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.color.text.body};
   line-height: 1.4;
 
   & p {
-    margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+    margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   }
   & p:last-child {
     margin-bottom: 0;

@@ -6,6 +6,8 @@ import { renderWithProviders } from '../../test/renderWithProviders';
 import ArmySummary from './ArmySummary';
 import { unitDomId } from './unitDomId';
 
+const GOBLIN_STANDS = 4;
+
 beforeEach(() => useArmyStore.getState().reset());
 
 describe('ArmySummary', () => {
@@ -26,7 +28,7 @@ describe('ArmySummary', () => {
   it("lists a unit's selected upgrades as sub-lines with quantity", () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 4);
+    store.setUnitNumber('Goblins', GOBLIN_STANDS);
     store.setUnitUpgradeNumber('Goblins', 'Squig Herd', 2);
     renderWithProviders(<ArmySummary />);
     const region = screen.getByRole('complementary', { name: 'Your Army' });

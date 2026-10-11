@@ -1,9 +1,22 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { defined } from '../test/defined';
+import { SMALLEST_GAME } from '../test/gameSizes';
 import type { UnitState, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
-import { useArmyStore } from './useArmyStore';
+import { DEFAULT_GAME_SIZE, useArmyStore } from './useArmyStore';
 import { validate } from './validation';
+
+/** Below one army-size step, where numeric minimums are not enforced. */
+const UNDER_ONE_STEP_GAME = 800;
+const MID_GAME = 1500;
+/** Not a multiple of 1,000, to exercise the thousands separator. */
+const NON_ROUND_GAME = 1850;
+const NEGATIVE_GAME = -500;
+
+// Goblin army limits at one army-size step.
+const GOBLIN_MIN = 4;
+const TROLL_MAX = 4;
+const WOLF_CHARIOT_MAX = 4;
 
 const get = () => useArmyStore.getState();
 const messages = () => validate(get().units, get().upgrades, get().gameSize).map((e) => e.message);
@@ -38,7 +51,7 @@ describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', 
     const absent = validate(
       { 'Goblin Warboss': unit({ number: 0, armyMin: 1, points: 80 }) },
       {},
-      2000,
+      DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
     expect(absent).toContain('Minimum of 1 Goblin Warboss per army.');
   });
@@ -53,7 +66,7 @@ describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', 
     const over = validate(
       { 'Goblin Warboss': unit({ number: 2, armyMax: 1, points: 80 }) },
       {},
-      2000,
+      DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
     expect(over).toContain('Maximum of 1 Goblin Warboss per army.');
   });
@@ -63,15 +76,17 @@ describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () 
   it('flags Goblins below min*size at the default 2,000 cap', () => {
     // The store force-includes Goblins at their minimum, so a short count is
     // only reachable through the validation logic directly.
-    const errors = validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).map(
-      (e) => e.message,
-    );
+    const errors = validate(
+      { Goblins: unit({ number: 1, min: 4, points: 30 }) },
+      {},
+      DEFAULT_GAME_SIZE,
+    ).map((e) => e.message);
     expect(errors).toContain('Minimum of 8 Goblins per 2,000 points.');
   });
 
   it('ignores the minimum when the cap is below 1,000', () => {
     get().setArmy('goblin');
-    get().setGameSize(800);
+    get().setGameSize(UNDER_ONE_STEP_GAME);
     get().setUnitNumber('Goblins', 1);
     expect(messages().some((m) => /Minimum of \d+ Goblins/.test(m))).toBe(false);
   });
@@ -84,7 +99,7 @@ describe('numeric max scales with the game-size cap (goblin Trolls max 4)', () =
     const errors = validate(
       { Trolls: unit({ number: 9, max: 4, points: 110, type: 'Monster' }) },
       {},
-      2000,
+      DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
     expect(errors).toContain('Maximum of 8 Trolls per 2,000 points.');
   });
@@ -93,7 +108,7 @@ describe('numeric max scales with the game-size cap (goblin Trolls max 4)', () =
 describe('homologousUnits (real data: chaos-dwarfs Earthshaker Cannon <-> Death Rocket)', () => {
   it('sums homologous counts and builds the id sentence', () => {
     get().setArmy('chaos-dwarfs');
-    get().setGameSize(1000);
+    get().setGameSize(SMALLEST_GAME);
     get().setUnitNumber('Earthshaker Cannon', 1);
     get().setUnitNumber('Death Rocket', 1); // combined 2 > max 1
     expect(messages()).toContain(
@@ -149,7 +164,7 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
     for (const a of augends) {
       units[a] = unit({ number: 0 });
     }
-    const errors = validate(units, {}, 2000).map((e) => e.message);
+    const errors = validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message);
     expect(errors).toContain(`1 ${augendUnitId} requires at least 1 ${toSentence(augends)}.`);
   });
 });
@@ -157,12 +172,12 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
 describe('a clean, legal list produces NO errors', () => {
   it('goblin list at a 1,500 cap satisfying every min/max', () => {
     get().setArmy('goblin');
-    get().setGameSize(1500); // size 1; minimums un-scaled
+    get().setGameSize(MID_GAME); // size 1; minimums un-scaled
     get().setUnitNumber('Goblin Warboss', 1); // armyMin/Max 1
-    get().setUnitNumber('Goblins', 4); // min 4
+    get().setUnitNumber('Goblins', GOBLIN_MIN);
     get().setUnitNumber('Wolf Riders', 2); // min 2
-    get().setUnitNumber('Trolls', 4); // max 4
-    get().setUnitNumber('Wolf Chariots', 4); // max 4 -> total 1060 pts, <= 1500
+    get().setUnitNumber('Trolls', TROLL_MAX);
+    get().setUnitNumber('Wolf Chariots', WOLF_CHARIOT_MAX); // total 1060 pts, within the cap
     expect(useArmyStore.getState().errors).toEqual([]);
     expect(messages()).toEqual([]);
   });
@@ -178,7 +193,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'All or None', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Minimum of 3 A per 3 B.',
+    );
   });
 
   it("min 'Half or All'", () => {
@@ -186,7 +203,7 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'Half or All', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
       'Half or all B must be upgraded to A.',
     );
   });
@@ -196,7 +213,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'Half or More', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Minimum of 3 A per 6 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Minimum of 3 A per 6 B.',
+    );
   });
 
   it("min 'Half or None'", () => {
@@ -204,7 +223,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'Half or None', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Minimum of 3 A per 6 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Minimum of 3 A per 6 B.',
+    );
   });
 
   it('min /^As /', () => {
@@ -212,12 +233,14 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ min: 'As B', number: 1, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Minimum of 3 A per 3 B.',
+    );
   });
 
   it("max 'elite'", () => {
     const units = { A: unit({ max: 'elite', number: 1, points: 100 }) };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
       'Maximum of 0 A per 1,000 points.',
     );
   });
@@ -227,7 +250,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ max: 'Half or None', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 2 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Maximum of 1 A per 2 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Maximum of 1 A per 2 B.',
+    );
   });
 
   it("max 'Up to Half'", () => {
@@ -235,7 +260,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ max: 'Up to Half', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Maximum of 2 A per 4 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Maximum of 2 A per 4 B.',
+    );
   });
 
   it('max /^As /', () => {
@@ -243,7 +270,9 @@ describe('keyword min/max branches (synthetic - not present in Revolution data)'
       A: unit({ max: 'As B', number: 4, requiredUnits: ['B'] }),
       B: unit({ number: 2 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain('Maximum of 2 A per 2 B.');
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Maximum of 2 A per 2 B.',
+    );
   });
 });
 
@@ -259,7 +288,7 @@ describe('unit-upgrades cap (synthetic - no Revolution unit has 2+ unit-type upg
       U1: upgrade({ type: 'Infantry' }),
       U2: upgrade({ type: 'Cavalry' }),
     };
-    expect(validate(units, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       '1 A may only have 1 upgrade.',
     );
   });
@@ -278,7 +307,7 @@ describe('unit-upgrades cap (synthetic - no Revolution unit has 2+ unit-type upg
       U1: upgrade({ type: 'Infantry' }),
       U2: upgrade({ type: 'Cavalry' }),
     };
-    expect(validate(units, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       '2 A may only have 2 upgrades.',
     );
   });
@@ -297,7 +326,7 @@ describe('homologousUpgrades (synthetic - not present in Revolution data)', () =
       A: upgrade({ number: 1, homologousUpgrades: ['B'], armyMax: 1 }),
       B: upgrade({ number: 1 }),
     };
-    expect(validate({}, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate({}, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       'Maximum of 1 A or B per army.',
     );
   });
@@ -309,7 +338,9 @@ describe('requiredUpgrades (synthetic - not present in Revolution data)', () => 
       A: upgrade({ min: 'As B', number: 1, requiredUpgrades: ['B'] }),
       B: upgrade({ number: 3 }),
     };
-    expect(validate({}, upgrades, 1000).map((e) => e.message)).toContain('Minimum of 3 A per 3 B.');
+    expect(validate({}, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
+      'Minimum of 3 A per 3 B.',
+    );
   });
 
   it('flags an upgrade taken without its requiredUpgrades ("must be taken with")', () => {
@@ -317,11 +348,11 @@ describe('requiredUpgrades (synthetic - not present in Revolution data)', () => 
       A: upgrade({ number: 1, requiredUpgrades: ['B'] }),
       B: upgrade({ number: 0 }),
     };
-    const msgs = validate({}, upgrades, 1000).map((e) => e.message);
+    const msgs = validate({}, upgrades, SMALLEST_GAME).map((e) => e.message);
     expect(msgs).toContain('A must be taken with B.');
 
     upgrades.B.number = 1;
-    expect(validate({}, upgrades, 1000).map((e) => e.message)).not.toContain(
+    expect(validate({}, upgrades, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'A must be taken with B.',
     );
   });
@@ -333,11 +364,11 @@ describe('prohibited constraints (synthetic - not present in Revolution data)', 
       A: unit({ number: 1, prohibitedUnits: ['B'] }),
       B: unit({ number: 1 }),
     };
-    const msgs = validate(units, {}, 1000).map((e) => e.message);
+    const msgs = validate(units, {}, SMALLEST_GAME).map((e) => e.message);
     expect(msgs).toContain('A cannot be taken with B.');
 
     units.B.number = 0;
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'A cannot be taken with B.',
     );
   });
@@ -347,7 +378,7 @@ describe('prohibited constraints (synthetic - not present in Revolution data)', 
       A: upgrade({ number: 1, prohibitedUpgrades: ['B'] }),
       B: upgrade({ number: 1 }),
     };
-    expect(validate({}, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate({}, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       'A cannot be taken with B.',
     );
   });
@@ -360,7 +391,7 @@ describe("min 'Half or All' second branch (synthetic - the > ceil(req/2) sub-con
       A: unit({ min: 'Half or All', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
       'Half or all B must be upgraded to A.',
     );
   });
@@ -370,7 +401,7 @@ describe("min 'Half or All' second branch (synthetic - the > ceil(req/2) sub-con
       A: unit({ min: 'Half or All', number: 4, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Half or all B must be upgraded to A.',
     );
   });
@@ -388,7 +419,7 @@ describe('magic-items / mounts caps plural message (synthetic)', () => {
       M1: upgrade({ type: 'Magic Weapon' }),
       M2: upgrade({ type: 'Holy Item' }),
     };
-    expect(validate(units, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       '2 A may only have 2 magic items.',
     );
   });
@@ -404,7 +435,7 @@ describe('magic-items / mounts caps plural message (synthetic)', () => {
       M1: upgrade({ type: 'Chariot Mount' }),
       M2: upgrade({ type: 'Monstrous Mount' }),
     };
-    expect(validate(units, upgrades, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       '2 A may only have 2 mounts.',
     );
   });
@@ -419,21 +450,21 @@ describe('magic-items / mounts caps plural message (synthetic)', () => {
 describe('numeric min/max scale with the game-size cap (synthetic, size 2)', () => {
   it('scales the numeric min by size (min 2 -> 4 at a 2,000 cap)', () => {
     const units = { A: unit({ min: 2, number: 1, pointsCost: 0 }) };
-    expect(validate(units, {}, 2000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message)).toContain(
       'Minimum of 4 A per 2,000 points.',
     );
   });
 
   it('scales the numeric max by size (max 4 -> 8 at a 2,000 cap)', () => {
     const units = { A: unit({ max: 4, number: 9, pointsCost: 0 }) };
-    expect(validate(units, {}, 2000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message)).toContain(
       'Maximum of 8 A per 2,000 points.',
     );
   });
 
   it("scales the 'elite' max by size (size-1 = 1 at a 2,000 cap)", () => {
     const units = { A: unit({ max: 'elite', number: 2, pointsCost: 0 }) };
-    expect(validate(units, {}, 2000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message)).toContain(
       'Maximum of 1 A per 2,000 points.',
     );
   });
@@ -451,12 +482,12 @@ describe('armyMin/armyMax include homologousUnits count (synthetic)', () => {
       A: unit({ armyMin: 3, number: 1, homologousUnits: ['B'] }),
       B: unit({ number: 1 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
       'Minimum of 3 A or B per army.',
     );
 
     units.B.number = 2; // 1 + 2 = 3 -> satisfies armyMin
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Minimum of 3 A or B per army.',
     );
   });
@@ -473,12 +504,16 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ min: 'All or None', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(all, {}, 1000).map((e) => e.message)).not.toContain('Minimum of 3 A per 3 B.');
+    expect(validate(all, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
+      'Minimum of 3 A per 3 B.',
+    );
     const none = {
       A: unit({ min: 'All or None', number: 0, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(none, {}, 1000).map((e) => e.message)).not.toContain('Minimum of 3 A per 3 B.');
+    expect(validate(none, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
+      'Minimum of 3 A per 3 B.',
+    );
   });
 
   it("'Half or More' is clean at exactly half (3 of 6)", () => {
@@ -486,7 +521,7 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ min: 'Half or More', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Minimum of 3 A per 6 B.',
     );
   });
@@ -496,7 +531,7 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ min: 'Half or None', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 6 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Minimum of 3 A per 6 B.',
     );
   });
@@ -506,7 +541,7 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ min: 'As B', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 3 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Minimum of 3 A per 3 B.',
     );
   });
@@ -516,7 +551,7 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ max: 'Half or None', number: 3, requiredUnits: ['B'] }),
       B: unit({ number: 5 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Maximum of 3 A per 5 B.',
     );
   });
@@ -526,7 +561,7 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ max: 'Up to Half', number: 2, requiredUnits: ['B'] }),
       B: unit({ number: 4 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Maximum of 2 A per 4 B.',
     );
   });
@@ -536,14 +571,14 @@ describe('keyword min/max do not false-positive at the boundary (synthetic)', ()
       A: unit({ max: 'As B', number: 2, requiredUnits: ['B'] }),
       B: unit({ number: 2 }),
     };
-    expect(validate(units, {}, 1000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).not.toContain(
       'Maximum of 2 A per 2 B.',
     );
   });
 
   it("max 'elite' is clean at exactly size-1 (1 unit, size 2)", () => {
     const units = { A: unit({ max: 'elite', number: 1, pointsCost: 0 }) };
-    expect(validate(units, {}, 2000).map((e) => e.message)).not.toContain(
+    expect(validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message)).not.toContain(
       'Maximum of 1 A per 2,000 points.',
     );
   });
@@ -568,7 +603,7 @@ describe('independent violations stack on a single item (synthetic)', () => {
       M1: upgrade({ type: 'Magic Weapon' }),
       M2: upgrade({ type: 'Holy Item' }),
     };
-    const msgs = validate(units, upgrades, 1000).map((e) => e.message);
+    const msgs = validate(units, upgrades, SMALLEST_GAME).map((e) => e.message);
     expect(msgs).toContain('1 A may only have 1 magic item.');
     expect(msgs).toContain('A must be taken with B.');
   });
@@ -578,15 +613,15 @@ describe('error attribution (targets)', () => {
   it('tags the list-level points error as global (empty targets)', () => {
     const units = { A: unit({ number: 1, pointsCost: 1200 }) };
     const capErr = defined(
-      validate(units, {}, 1000).find((e) => /points over the/.test(e.message)),
+      validate(units, {}, SMALLEST_GAME).find((e) => /points over the/.test(e.message)),
     );
     expect(capErr.targets).toEqual([]);
   });
 
   it('attributes a numeric-min error to the offending unit id', () => {
     const minErr = defined(
-      validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).find((e) =>
-        /Minimum of 8 Goblins/.test(e.message),
+      validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, DEFAULT_GAME_SIZE).find(
+        (e) => /Minimum of 8 Goblins/.test(e.message),
       ),
     );
     expect(minErr.targets).toEqual(['Goblins']);
@@ -598,7 +633,9 @@ describe('error attribution (targets)', () => {
       B: unit({ number: 1 }),
     };
     const maxErr = defined(
-      validate(units, {}, 1000).find((e) => /Maximum of 1 A or B per army/.test(e.message)),
+      validate(units, {}, SMALLEST_GAME).find((e) =>
+        /Maximum of 1 A or B per army/.test(e.message),
+      ),
     );
     expect(maxErr.targets).toEqual(['A', 'B']);
   });
@@ -609,7 +646,7 @@ describe('error attribution (targets)', () => {
       B: upgrade({ number: 0 }),
     };
     const err = defined(
-      validate({}, upgrades, 1000).find((e) => /A must be taken with B/.test(e.message)),
+      validate({}, upgrades, SMALLEST_GAME).find((e) => /A must be taken with B/.test(e.message)),
     );
     expect(err.targets).toEqual(['A']);
   });
@@ -618,19 +655,21 @@ describe('error attribution (targets)', () => {
 describe('over-cap (points ceiling)', () => {
   it('flags a list whose points exceed the cap', () => {
     const units = { A: unit({ number: 1, pointsCost: 1200 }) };
-    expect(validate(units, {}, 1000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, SMALLEST_GAME).map((e) => e.message)).toContain(
       'List is 200 points over the 1,000 cap.',
     );
   });
 
   it('does NOT flag a list exactly at the cap', () => {
     const units = { A: unit({ number: 1, pointsCost: 1000 }) };
-    expect(validate(units, {}, 1000).some((e) => /points over the/.test(e.message))).toBe(false);
+    expect(validate(units, {}, SMALLEST_GAME).some((e) => /points over the/.test(e.message))).toBe(
+      false,
+    );
   });
 
   it('formats a non-multiple cap with a thousands separator', () => {
     const units = { A: unit({ number: 1, pointsCost: 2000 }) };
-    expect(validate(units, {}, 1850).map((e) => e.message)).toContain(
+    expect(validate(units, {}, NON_ROUND_GAME).map((e) => e.message)).toContain(
       'List is 150 points over the 1,850 cap.',
     );
   });
@@ -639,14 +678,14 @@ describe('over-cap (points ceiling)', () => {
 describe('size derives from the cap, not current points', () => {
   it('applies the size-2 minimum even when the list has few points', () => {
     const units = { A: unit({ min: 2, number: 1, pointsCost: 100 }) };
-    expect(validate(units, {}, 2000).map((e) => e.message)).toContain(
+    expect(validate(units, {}, DEFAULT_GAME_SIZE).map((e) => e.message)).toContain(
       'Minimum of 4 A per 2,000 points.',
     );
   });
 
   it('ignores minimums but still enforces maximums when the cap is below 1,000', () => {
     const units = { A: unit({ min: 2, max: 4, number: 5, pointsCost: 0 }) };
-    const msgs = validate(units, {}, 800).map((e) => e.message);
+    const msgs = validate(units, {}, UNDER_ONE_STEP_GAME).map((e) => e.message);
     expect(msgs.some((m) => /Minimum of/.test(m))).toBe(false);
     expect(msgs).toContain('Maximum of 4 A per 1,000 points.');
   });
@@ -655,19 +694,19 @@ describe('size derives from the cap, not current points', () => {
 describe('setGameSize recomputes errors', () => {
   it('changes scaled minimum errors when the cap changes', () => {
     get().setArmy('goblin');
-    get().setGameSize(1000); // size 1 -> min 4
-    get().setUnitNumber('Goblins', 4); // exactly the minimum at this cap
+    get().setGameSize(SMALLEST_GAME); // size 1 -> min 4
+    get().setUnitNumber('Goblins', GOBLIN_MIN); // exactly the minimum at this cap
     expect(messages().some((m) => /Minimum of \d+ Goblins/.test(m))).toBe(false);
 
     // Raising the cap does NOT auto-adjust the existing list; the soft error
     // surfaces so the user can correct it.
-    get().setGameSize(2000); // size 2 -> min 8, now 4 is short
+    get().setGameSize(DEFAULT_GAME_SIZE); // size 2 -> min 8, now 4 is short
     expect(messages()).toContain('Minimum of 8 Goblins per 2,000 points.');
   });
 
   it('clamps a negative cap to 0', () => {
     get().setArmy('goblin');
-    get().setGameSize(-500);
+    get().setGameSize(NEGATIVE_GAME);
     expect(get().gameSize).toBe(0);
   });
 

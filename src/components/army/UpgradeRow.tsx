@@ -20,8 +20,8 @@ interface UpgradeRowProps {
 const Row = styled.div<{ $invalid?: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   border-left: 2px solid
     ${({ theme, $invalid }) => ($invalid ? theme.color.semantic.error : theme.color.border.divider)};
 
@@ -34,7 +34,7 @@ const RowMain = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
 const UpgradeName = styled.span`
@@ -63,12 +63,12 @@ const Limit = styled.span`
 
 const Rule = styled.div`
   & + & {
-    margin-top: ${({ theme }) => `${theme.space[3]}px`};
+    margin-top: ${({ theme }) => `${theme.space.sm}px`};
   }
 `;
 
 const RuleName = styled.h4`
-  margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+  margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.strong};
@@ -81,7 +81,7 @@ const RuleText = styled.div`
   line-height: 1.4;
 
   & p {
-    margin: 0 0 ${({ theme }) => `${theme.space[1]}px`};
+    margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
   }
   & p:last-child {
     margin-bottom: 0;

@@ -10,6 +10,9 @@ import { defined } from '../../test/defined';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import BuildHeader from './BuildHeader';
 
+/** An odd count, so the break point has to round up. */
+const GOBLIN_STANDS = 5;
+
 beforeEach(() => {
   useArmyStore.getState().reset();
 });
@@ -23,7 +26,7 @@ describe('BuildHeader', () => {
 
   it('shows a break-point stat equal to ceil(units / 2)', () => {
     useArmyStore.getState().setArmy('goblin');
-    useArmyStore.getState().setUnitNumber('Goblins', 5);
+    useArmyStore.getState().setUnitNumber('Goblins', GOBLIN_STANDS);
     const expected = breakPoint(useArmyStore.getState().units);
     expect(expected).toBeGreaterThan(0);
     renderWithProviders(<BuildHeader />);

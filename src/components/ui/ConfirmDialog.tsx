@@ -21,8 +21,8 @@ const Backdrop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => `${theme.space[4]}px`};
-  background: ${({ theme }) => theme.alpha(theme.rgb.black, 0.6)};
+  padding: ${({ theme }) => `${theme.space.md}px`};
+  background: ${({ theme }) => theme.color.bg.scrim};
 `;
 
 const Card = styled.div`
@@ -37,7 +37,7 @@ const Card = styled.div`
 
 const Title = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[4]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px ${theme.space.xs}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
@@ -48,7 +48,7 @@ const Title = styled.p`
 
 const Message = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.md}px`};
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.color.text.body};
 `;
@@ -56,8 +56,8 @@ const Message = styled.p`
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `0 ${theme.space[4]}px ${theme.space[4]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `0 ${theme.space.md}px ${theme.space.md}px`};
 `;
 
 const ConfirmDialog = ({

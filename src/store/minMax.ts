@@ -8,6 +8,9 @@ export interface MinMaxSource {
   max?: number | string;
 }
 
+/** Prefix of "As X" tokens, which tie a troop's count to another unit's. */
+const AS_TOKEN_PREFIX = 'As ';
+
 /** Plain-language phrasing for the keyword tokens enforced in validation.ts. */
 const TOKEN_PHRASES: Record<string, string> = {
   'All or None': 'all or none of its unit',
@@ -110,8 +113,8 @@ export const explainMinMax = (troop: MinMaxSource, gameSize: number): string | u
     case 'elite':
       return `max ${info.cap} (elite: 1 per 1,000 pts after the first)`;
     case 'token': {
-      if (/^As /.test(info.token)) {
-        return `same number as ${info.token.slice(3)}`;
+      if (info.token.startsWith(AS_TOKEN_PREFIX)) {
+        return `same number as ${info.token.slice(AS_TOKEN_PREFIX.length)}`;
       }
       return TOKEN_PHRASES[info.token] ?? info.token;
     }
@@ -156,8 +159,8 @@ export const minMaxBadge = (troop: MinMaxSource, gameSize: number): string | und
     case 'elite':
       return `≤${info.cap}`;
     case 'token': {
-      if (/^As /.test(info.token)) {
-        return `= ${info.token.slice(3)}`;
+      if (info.token.startsWith(AS_TOKEN_PREFIX)) {
+        return `= ${info.token.slice(AS_TOKEN_PREFIX.length)}`;
       }
       return TOKEN_BADGES[info.token] ?? info.token;
     }

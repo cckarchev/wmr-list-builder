@@ -7,11 +7,11 @@ import Icon from '../ui/Icon';
 const Bar = styled.header`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.sm}px`};
   /* Fixed height so the bar never reflows when the right-hand action chip
      appears or changes between screens. */
   min-height: 64px;
-  padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.md}px`};
   background: ${({ theme }) => theme.color.bg.deep};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
@@ -48,8 +48,8 @@ const NavAction = styled(Link)`
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.sm}px`};
   font-family: ${({ theme }) => theme.font.display};
   font-size: ${({ theme }) => theme.fontSize.sm};
   text-transform: uppercase;

@@ -32,8 +32,8 @@ const StatCell = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
-  padding: ${({ theme }) => `0 ${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
+  padding: ${({ theme }) => `0 ${theme.space.xxs}px`};
   text-align: center;
 
   & + & {

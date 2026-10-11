@@ -3,7 +3,8 @@ import { resolveUpgradePoints } from './storeHelpers';
 
 describe('resolveUpgradePoints', () => {
   it('returns a flat scalar price for fixed-price upgrades', () => {
-    expect(resolveUpgradePoints({ points: 25 })).toBe(25);
+    const points = 25;
+    expect(resolveUpgradePoints({ points })).toBe(points);
     expect(resolveUpgradePoints({ points: '15' })).toBe('15');
   });
 

@@ -4,7 +4,7 @@ import { type PrintOptions, PrintOptionsContext } from './printOptions';
 import type { PrintSectionDef } from './printSections';
 
 const Document = styled.div`
-  padding: ${({ theme }) => `${theme.space[4]}px`};
+  padding: ${({ theme }) => `${theme.space.md}px`};
   color: ${({ theme }) => theme.color.text.body};
 `;
 
@@ -13,12 +13,12 @@ const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.xl};
   color: ${({ theme }) => theme.color.text.strong};
   text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space[4]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space.md}px`};
 `;
 
 const Section = styled.section<{ $columns?: boolean }>`
-  margin-bottom: ${({ theme }) => `${theme.space[4]}px`};
-  padding-bottom: ${({ theme }) => `${theme.space[3]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space.md}px`};
+  padding-bottom: ${({ theme }) => `${theme.space.sm}px`};
   border-bottom: 1px dashed ${({ theme }) => theme.color.border.divider};
 
   &:last-child {
@@ -30,7 +30,7 @@ const Section = styled.section<{ $columns?: boolean }>`
     $columns &&
     `
     column-count: 2;
-    column-gap: ${theme.space[5]}px;
+    column-gap: ${theme.space.lg}px;
 
     /* Keep a heading glued to the start of its body, and never split a single
        paragraph across the gap, but let multi-paragraph bodies flow from one

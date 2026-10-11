@@ -17,8 +17,12 @@ const COUNTABLE_UNITS = [
 export const pointsCost = (state: Pick<ArmyState, 'units'>): number =>
   Object.values(state.units).reduce((sum, unit) => sum + +unit.pointsCost, 0);
 
+/** Points in one army-size step; per-1,000-point limits scale with each step. */
+export const POINTS_PER_ARMY_SIZE = 1000;
+
 /** Port of getters.js `size`: Math.max(1, Math.floor(points / 1000)). */
-export const armySize = (points: number): number => Math.max(1, Math.floor(points / 1000));
+export const armySize = (points: number): number =>
+  Math.max(1, Math.floor(points / POINTS_PER_ARMY_SIZE));
 
 /** Port of getters.js `unitCount`, including the Skirmish logic. */
 export const unitCount = (units: Record<string, UnitState>): number => {

@@ -9,8 +9,8 @@ import { focusRing } from './focusRing';
 export const pillButton = css`
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
   background: transparent;
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};

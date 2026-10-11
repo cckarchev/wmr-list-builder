@@ -17,11 +17,11 @@ const Wrapper = styled.span`
 
 const Panel = styled.div`
   position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space[1]}px`});
+  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
   right: 0;
   z-index: 30;
   width: 280px;
-  max-width: calc(100vw - ${({ theme }) => `${theme.space[4]}px`});
+  max-width: calc(100vw - ${({ theme }) => `${theme.space.md}px`});
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.color.bg.surface};
@@ -33,7 +33,7 @@ const Panel = styled.div`
 
 const PanelTitle = styled.p`
   margin: 0;
-  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[3]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.sm}px ${theme.space.xs}px`};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.xs};
   text-transform: uppercase;
@@ -45,8 +45,8 @@ const PanelTitle = styled.p`
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[2]}px`};
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  gap: ${({ theme }) => `${theme.space.xs}px`};
+  padding: ${({ theme }) => `${theme.space.sm}px`};
 `;
 
 const FieldLabel = styled.label`
@@ -58,7 +58,7 @@ const FieldLabel = styled.label`
 
 const NameInput = styled.input`
   width: 100%;
-  padding: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xs}px`};
   background: ${({ theme }) => theme.color.bg.base};
   border: 1px solid ${({ theme }) => theme.color.border.default};
   border-radius: ${({ theme }) => theme.radius.sm};

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { armiesById } from './armyIndex';
-import { magicItems } from './magicItems';
+import { MAGIC_ITEM_ID_MIN, magicItems } from './magicItems';
 
 describe('stable ids', () => {
   it('every unit and army upgrade has a unique numeric id within its army', () => {
@@ -23,7 +23,7 @@ describe('stable ids', () => {
 
   it('magic items have unique numeric ids >= 100', () => {
     const ids = Object.values(magicItems.upgrades).map((m) => m.id);
-    expect(ids.every((id) => typeof id === 'number' && id >= 100)).toBe(true);
+    expect(ids.every((id) => typeof id === 'number' && id >= MAGIC_ITEM_ID_MIN)).toBe(true);
     expect(new Set(ids).size).toBe(ids.length);
   });
 });

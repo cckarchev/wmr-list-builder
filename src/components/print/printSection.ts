@@ -16,7 +16,7 @@ export const PrintHeading = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.color.text.strong};
   text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space[3]}px`};
+  margin-bottom: ${({ theme }) => `${theme.space.sm}px`};
   column-span: all;
 `;
 
@@ -29,7 +29,7 @@ export const DefList = styled.dl`
 export const DefTerm = styled.dt`
   font-weight: 600;
   color: ${({ theme }) => theme.color.text.strong};
-  margin-top: ${({ theme }) => `${theme.space[3]}px`};
+  margin-top: ${({ theme }) => `${theme.space.sm}px`};
 
   &:first-child {
     margin-top: 0;

@@ -29,8 +29,8 @@ const StepButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: ${({ theme }) => `${theme.space[6]}px`};
-  padding: ${({ theme }) => `0 ${theme.space[2]}px`};
+  min-width: ${({ theme }) => `${theme.space.xl}px`};
+  padding: ${({ theme }) => `0 ${theme.space.xs}px`};
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.color.tealBright};
@@ -67,7 +67,7 @@ const Input = styled.input`
   background: transparent;
   border: none;
   border-inline: 1px solid ${({ theme }) => theme.color.border.default};
-  padding: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
 
   /* Hide the native spinner buttons; stepping is handled by the −/+ buttons. */
   appearance: textfield;
@@ -83,7 +83,7 @@ const Input = styled.input`
 const Field = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => `${theme.space[1]}px`};
+  gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
 const GameSizeStepper = () => {
