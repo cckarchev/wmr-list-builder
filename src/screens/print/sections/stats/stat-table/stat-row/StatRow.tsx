@@ -13,7 +13,8 @@ export type StatKind = 'character' | 'unit';
 export type StatTroop = UsedUnit | UpgradeState;
 
 interface StatRowProps {
-  name: string;
+  /** The troop's id, which also keys its own special rule. */
+  id: string;
   troop: StatTroop;
   kind: StatKind;
   rules: NumberedRules;
@@ -30,11 +31,11 @@ const show = (value: StatValue | undefined): string => {
 };
 
 /** One table row: a unit, or one of its upgrades indented under it. */
-export const StatRow = ({ name, troop, kind, rules, parentUnit }: StatRowProps) => {
+export const StatRow = ({ id, troop, kind, rules, parentUnit }: StatRowProps) => {
   const stats = troop as UnitState & UpgradeState;
   const isUpgrade = parentUnit !== undefined;
   const isUnitTable = kind === 'unit';
-  const markers = specialRuleMarkers([name, ...(stats.specialRules ?? [])], rules);
+  const markers = specialRuleMarkers([id, ...(stats.specialRules ?? [])], rules);
   const points = resolveUpgradePoints(troop, parentUnit);
 
   return (
@@ -42,7 +43,7 @@ export const StatRow = ({ name, troop, kind, rules, parentUnit }: StatRowProps) 
       <td>{stats.number}</td>
       <td className={classNames(styles.left, styles.nameCell)}>
         <span className={styles.name} data-indent={isUpgrade || undefined}>
-          {name}
+          {stats.name}
         </span>
         {markers && <span className={styles.special}>{markers}</span>}
       </td>

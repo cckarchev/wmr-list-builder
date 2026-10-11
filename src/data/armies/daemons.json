@@ -5,6 +5,7 @@
   "order": 3,
   "units": {
     "Daemon Hordes": {
+      "name": "Daemon Hordes",
       "id": 0,
       "type": "Infantry",
       "attack": 4,
@@ -15,6 +16,7 @@
       "min": 3
     },
     "Daemon Swarm": {
+      "name": "Daemon Swarm",
       "id": 1,
       "type": "Infantry",
       "attack": 2,
@@ -25,6 +27,7 @@
       "noMagic": true
     },
     "Daemon Cavalry": {
+      "name": "Daemon Cavalry",
       "id": 2,
       "type": "Cavalry",
       "attack": 4,
@@ -35,6 +38,7 @@
       "max": 3
     },
     "Daemon Hounds": {
+      "name": "Daemon Hounds",
       "id": 3,
       "type": "Cavalry",
       "attack": 3,
@@ -45,6 +49,7 @@
       "max": 2
     },
     "Daemon Chariots": {
+      "name": "Daemon Chariots",
       "id": 4,
       "type": "Chariot",
       "attack": 3,
@@ -55,6 +60,7 @@
       "max": 3
     },
     "Daemon Beasts": {
+      "name": "Daemon Beasts",
       "id": 5,
       "type": "Monster",
       "attack": 5,
@@ -65,6 +71,7 @@
       "max": 1
     },
     "Daemon Flyers": {
+      "name": "Daemon Flyers",
       "id": 6,
       "type": "Monster",
       "attack": 2,
@@ -75,6 +82,7 @@
       "max": 1
     },
     "Greater Daemon": {
+      "name": "Greater Daemon",
       "id": 7,
       "type": "Monster",
       "attack": 8,
@@ -85,6 +93,7 @@
       "max": 1
     },
     "Daemon Overlord": {
+      "name": "Daemon Overlord",
       "id": 8,
       "type": "General",
       "caster": true,
@@ -97,6 +106,7 @@
       "upgrades": ["Daemonic Wings", "Favour of the Gods", "Wizard", "Chariot"]
     },
     "Daemon Lord Hero": {
+      "name": "Daemon Lord Hero",
       "id": 9,
       "type": "Hero",
       "attack": "+1",
@@ -107,6 +117,7 @@
       "upgrades": ["Daemonic Wings", "Favour of the Gods", "Chariot"]
     },
     "Daemon Sorcerer": {
+      "name": "Daemon Sorcerer",
       "id": 10,
       "type": "Wizard",
       "attack": "+1",
@@ -119,12 +130,14 @@
   },
   "upgrades": {
     "Daemonic Wings": {
+      "name": "Daemonic Wings",
       "id": 0,
       "type": "Special",
       "points": "+10",
       "max": 1
     },
     "Favour of the Gods": {
+      "name": "Favour of the Gods",
       "id": 1,
       "type": "Special",
       "attack": "+1",
@@ -132,6 +145,7 @@
       "max": 1
     },
     "Wizard": {
+      "name": "Wizard",
       "id": 2,
       "type": "Special",
       "points": "+25",
@@ -145,6 +159,7 @@
       ]
     },
     "Chariot": {
+      "name": "Chariot",
       "id": 3,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -160,18 +175,21 @@
   ],
   "specialRules": {
     "Daemon Swarm": {
+      "name": "Daemon Swarm",
       "order": 1,
       "text": [
         "These cannot be driven back by shooting and do not roll for drive backs. A Daemon Swarm cannot be given a magic item."
       ]
     },
     "Daemon Flyers": {
+      "name": "Daemon Flyers",
       "order": 2,
       "text": [
         "These can fly. Daemon flyers are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters."
       ]
     },
     "Greater Daemon": {
+      "name": "Greater Daemon",
       "order": 3,
       "text": [
         "Greater Daemons can fly regardless of whether the actual model has wings – aerial propulsion is deemed feasible by sheer effort of will.",
@@ -179,18 +197,21 @@
       ]
     },
     "Daemon Overlord": {
+      "name": "Daemon Overlord",
       "order": 4,
       "text": [
         "The Daemon Overlord is the army's General and has the option of having the powers of a Wizard for additional 25 points. If given magical powers the Daemon Overlord can be given a magic item restricted to either a General or a Wizard. Note that the Daemon Overlord is still a General and his command range extends over the whole battlefield as for other Generals."
       ]
     },
     "Daemonic Wings": {
+      "name": "Daemonic Wings",
       "order": 5,
       "text": [
         "Some of the creatures of the deep vaults of hell may have wings, some of them fly on hovering discs and some even have the ability of disappearing and reappearing wherever they want on the battlefield. Daemon characters may be given the ability of flying."
       ]
     },
     "Favour of the Gods": {
+      "name": "Favour of the Gods",
       "order": 6,
       "text": [
         "Demon Overlord, Lords or Sorcerers can be given the Favour of the Gods. The character gains then +1 extra Attack and causes terror in its enemies as described in the Warmaster rulebook."

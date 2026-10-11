@@ -5,6 +5,7 @@
   "order": 8,
   "units": {
     "Ashigaru": {
+      "name": "Ashigaru",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 1
     },
     "Ashigaru Bowmen": {
+      "name": "Ashigaru Bowmen",
       "id": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -24,6 +26,7 @@
       "points": 55
     },
     "Ashigaru Teppo": {
+      "name": "Ashigaru Teppo",
       "id": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -33,6 +36,7 @@
       "points": 65
     },
     "Samurai": {
+      "name": "Samurai",
       "id": 3,
       "type": "Infantry",
       "attack": 4,
@@ -45,6 +49,7 @@
       "specialRules": ["Bushido"]
     },
     "Mikata (Ronin & Monks)": {
+      "name": "Mikata (Ronin & Monks)",
       "id": 4,
       "type": "Infantry",
       "attack": 5,
@@ -55,6 +60,7 @@
       "specialRules": ["Mikata"]
     },
     "Ninja": {
+      "name": "Ninja",
       "id": 5,
       "type": "Infantry",
       "attack": "3/1",
@@ -66,6 +72,7 @@
       "max": 2
     },
     "Oni": {
+      "name": "Oni",
       "id": 6,
       "type": "Infantry",
       "attack": 4,
@@ -77,6 +84,7 @@
       "specialRules": ["Temple Daemons"]
     },
     "Samurai Cavalry": {
+      "name": "Samurai Cavalry",
       "id": 7,
       "type": "Cavalry",
       "attack": 4,
@@ -88,6 +96,7 @@
       "specialRules": ["Bushido"]
     },
     "Komainu": {
+      "name": "Komainu",
       "id": 8,
       "type": "Cavalry",
       "attack": 2,
@@ -98,6 +107,7 @@
       "specialRules": ["Temple Daemons"]
     },
     "Tengu": {
+      "name": "Tengu",
       "id": 9,
       "type": "Monster",
       "attack": 2,
@@ -109,6 +119,7 @@
       "specialRules": ["Temple Daemons"]
     },
     "Shogun": {
+      "name": "Shogun",
       "id": 10,
       "type": "General",
       "attack": "+2",
@@ -120,6 +131,7 @@
       "upgrades": ["Tatsu"]
     },
     "Daimyo": {
+      "name": "Daimyo",
       "id": 11,
       "type": "Hero",
       "attack": "+1",
@@ -130,6 +142,7 @@
       "upgrades": ["Tatsu"]
     },
     "Shugenja": {
+      "name": "Shugenja",
       "id": 12,
       "type": "Hero",
       "attack": "+1",
@@ -142,6 +155,7 @@
   },
   "upgrades": {
     "Tatsu": {
+      "name": "Tatsu",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -149,6 +163,7 @@
       "max": 1
     },
     "Shrine": {
+      "name": "Shrine",
       "id": 1,
       "type": "Special",
       "points": "+30",
@@ -161,24 +176,28 @@
   ],
   "specialRules": {
     "Ashigaru Teppo": {
+      "name": "Ashigaru Teppo",
       "order": 1,
       "text": [
         "These units use black powder handguns. Their projectiles can pierce armour far easier than an arrow. Therefore, units hit by Ashigaru Tepo get a -1 penalty for their armour rolls."
       ]
     },
     "Bushido": {
+      "name": "Bushido",
       "order": 2,
       "text": [
         "Samurai live their lives by a strict code of honour and ideals. The troops do not like losing face, so they cannot use Initiative to evade and they roll 1 less dice for drive back."
       ]
     },
     "Mikata": {
+      "name": "Mikata",
       "order": 3,
       "text": [
         "A unit of Mikata will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. They can't be driven back by shooting and do not roll for drive backs. If victorious in combat, they must pursue or advance where possible. Mikata are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier."
       ]
     },
     "Ninja": {
+      "name": "Ninja",
       "order": 4,
       "text": [
         "Ninja have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
@@ -187,6 +206,7 @@
       ]
     },
     "Temple Daemons": {
+      "name": "Temple Daemons",
       "order": 5,
       "text": [
         "Temple Daemons are immune to terror and cannot be given magic items. They also suffer from Daemonic Instability. At the start of the Nippon player's own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability' test. Roll a D6. If the unit has lost 2 stands (i.e. has only 1 stand remaining from 3) deduct 1 from the roll.",
@@ -194,24 +214,28 @@
       ]
     },
     "Komainu": {
+      "name": "Komainu",
       "order": 6,
       "text": [
         "If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Komainu are affected by Instability and Immune to Terror like other Temple Daemons."
       ]
     },
     "Tengu": {
+      "name": "Tengu",
       "order": 7,
       "text": [
         "Tengu can fly. They are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters. Tengu are affected by Instability and Immune to Terror like other Temple Daemons."
       ]
     },
     "Shogun": {
+      "name": "Shogun",
       "order": 8,
       "text": [
         "If a Nippon Hero (Daimyo or Shugenja, not the Shogun) rolls a double 6 when issuing orders, the player must roll on the Blunder table with a -1 penalty on the result. If the table indicates a “You must be crazy” result, the -1 Command penalty must be applied to a Samurai or Samurai cavalry unit if a unit of these troops was being ordered or was in the brigade being ordered. If there is more than one of these units present, the Nippon player may choose which is affected."
       ]
     },
     "Shugenja": {
+      "name": "Shugenja",
       "order": 9,
       "text": [
         "If an enemy Wizard who is within 50cm of the Shugenja casts a spell the Shugenja can attempt to anti-magic‘ it. Note that it does not matter what the spell is or where it is cast, the Shugenja can ‘anti-magic‘ it so long as the caster is with 50cm.",
@@ -221,12 +245,14 @@
       ]
     },
     "Tatsu": {
+      "name": "Tatsu",
       "order": 10,
       "text": [
         "Generals and Heroes can ride Tatsu, a kind of dragon native to Nippon. Tatsu can fly and cause terror in their enemies. An extra +2 Attacks are added to those of its rider."
       ]
     },
     "Shrine": {
+      "name": "Shrine",
       "order": 11,
       "text": [
         "The army can only include a single Shrine and it is incorporated onto the stand of a Shugenja.",

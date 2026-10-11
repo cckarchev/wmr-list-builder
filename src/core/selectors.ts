@@ -122,8 +122,8 @@ export interface RosterGroup {
  * (General/Hero/Wizard) first, then troop groups in canonical type order.
  * Within each group, mandatory units (those with a resolved minimum > 0 at the
  * given `gameSize`) are floated to the top; order is otherwise stable, following
- * the units map. An optional case-insensitive `query` filters by unit id (its
- * display name); groups left empty by the filter are dropped.
+ * the units map. An optional case-insensitive `query` filters by unit display
+ * name; groups left empty by the filter are dropped.
  */
 export const groupRosterUnits = (
   units: Record<string, UnitState>,
@@ -131,7 +131,7 @@ export const groupRosterUnits = (
   gameSize?: number,
 ): RosterGroup[] => {
   const q = query.trim().toLowerCase();
-  const matches = (id: string) => !q || id.toLowerCase().includes(q);
+  const matches = (id: string) => !q || units[id].name.toLowerCase().includes(q);
 
   const characters: string[] = [];
   const troops: Record<string, string[]> = {};

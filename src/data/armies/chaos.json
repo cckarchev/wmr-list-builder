@@ -5,6 +5,7 @@
   "order": 2,
   "units": {
     "Chaos Warriors": {
+      "name": "Chaos Warriors",
       "id": 0,
       "type": "Infantry",
       "attack": 4,
@@ -15,6 +16,7 @@
       "min": 1
     },
     "Chaos Marauders": {
+      "name": "Chaos Marauders",
       "id": 1,
       "type": "Infantry",
       "attack": 3,
@@ -25,6 +27,7 @@
       "min": 1
     },
     "Ogres": {
+      "name": "Ogres",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -35,6 +38,7 @@
       "max": 1
     },
     "Trolls": {
+      "name": "Trolls",
       "id": 3,
       "type": "Infantry",
       "attack": 5,
@@ -45,6 +49,7 @@
       "max": 3
     },
     "Marauder Horsemen": {
+      "name": "Marauder Horsemen",
       "id": 4,
       "type": "Cavalry",
       "attack": 3,
@@ -55,6 +60,7 @@
       "max": 4
     },
     "Chaos Knights": {
+      "name": "Chaos Knights",
       "id": 5,
       "type": "Cavalry",
       "attack": 4,
@@ -65,6 +71,7 @@
       "max": 2
     },
     "Chaos Hounds": {
+      "name": "Chaos Hounds",
       "id": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -74,6 +81,7 @@
       "max": 2
     },
     "Chaos Chariots": {
+      "name": "Chaos Chariots",
       "id": 7,
       "type": "Chariot",
       "attack": 3,
@@ -84,6 +92,7 @@
       "max": 3
     },
     "Harpies": {
+      "name": "Harpies",
       "id": 8,
       "type": "Monster",
       "attack": 2,
@@ -94,6 +103,7 @@
       "max": 1
     },
     "Dragon Ogres": {
+      "name": "Dragon Ogres",
       "id": 9,
       "type": "Monster",
       "attack": 6,
@@ -104,6 +114,7 @@
       "max": 1
     },
     "Chaos Spawn": {
+      "name": "Chaos Spawn",
       "id": 10,
       "type": "Monster",
       "attack": "3/3",
@@ -115,6 +126,7 @@
       "max": 2
     },
     "General": {
+      "name": "General",
       "id": 11,
       "type": "General",
       "attack": "+2",
@@ -126,6 +138,7 @@
       "upgrades": ["Chaos Dragon", "Chariot"]
     },
     "Hero": {
+      "name": "Hero",
       "id": 12,
       "type": "Hero",
       "attack": "+1",
@@ -136,6 +149,7 @@
       "upgrades": ["Chaos Dragon", "Chariot"]
     },
     "Sorcerer": {
+      "name": "Sorcerer",
       "id": 13,
       "type": "Wizard",
       "attack": "+1",
@@ -148,6 +162,7 @@
   },
   "upgrades": {
     "Chaos Dragon": {
+      "name": "Chaos Dragon",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -155,6 +170,7 @@
       "max": 1
     },
     "Chariot": {
+      "name": "Chariot",
       "id": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -165,28 +181,33 @@
   "magic": true,
   "specialRules": {
     "Ogres": {
+      "name": "Ogres",
       "order": 1,
       "text": [
         "If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. 'Humans' encompasses all 'men' including Chaos Warriors and Marauders, but not Dwarfs, Elves etc."
       ]
     },
     "Trolls": {
+      "name": "Trolls",
       "order": 2,
       "text": [
         "When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round."
       ]
     },
     "Harpies": {
+      "name": "Harpies",
       "order": 3,
       "text": [
         "Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly. A unit of harpies cannot be joined by a character."
       ]
     },
     "Dragon Ogres": {
+      "name": "Dragon Ogres",
       "order": 4,
       "text": ["Dragon Ogres are immune to terror."]
     },
     "Chaos Spawn": {
+      "name": "Chaos Spawn",
       "order": 5,
       "text": [
         "Spawn units have -1 Command penalty if not part of a brigade that includes more non-Spawn units than Spawn units. Up to two Spawn units can be included in any brigade and do not count towards the maximum size of that brigade.",
@@ -195,6 +216,7 @@
       ]
     },
     "Chaos Dragon": {
+      "name": "Chaos Dragon",
       "order": 6,
       "text": [
         "Generals, Wizards and Heroes can ride a Chaos Dragon. The Chaos Dragon can fly, increasing the rider's move from 60 to 100cm, and it adds +3 Attacks to those of its rider. In addition the Dragon has a special shooting attack. It can breathe fire. This special attack can only be used if the rider has joined a unit and is not engaged in combat. A rider that has not joined a unit cannot use the Dragon's fiery breath to attack.",

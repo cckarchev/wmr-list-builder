@@ -5,6 +5,7 @@
   "order": 3,
   "units": {
     "Chaos Dwarfs": {
+      "name": "Chaos Dwarfs",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -17,6 +18,7 @@
       "upgrades": ["Blunderbusses"]
     },
     "Blunderbusses": {
+      "name": "Blunderbusses",
       "id": 1,
       "type": "Infantry",
       "attack": "3/2",
@@ -28,6 +30,7 @@
       "max": 2
     },
     "Hobgoblins": {
+      "name": "Hobgoblins",
       "id": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -37,6 +40,7 @@
       "points": 45
     },
     "Black Orcs": {
+      "name": "Black Orcs",
       "id": 3,
       "type": "Infantry",
       "attack": 4,
@@ -47,6 +51,7 @@
       "max": 1
     },
     "Orc Slaves": {
+      "name": "Orc Slaves",
       "id": 4,
       "type": "Infantry",
       "attack": 4,
@@ -56,6 +61,7 @@
       "max": 2
     },
     "Hobgoblin Wolf Riders": {
+      "name": "Hobgoblin Wolf Riders",
       "id": 5,
       "type": "Cavalry",
       "attack": "3/1",
@@ -67,6 +73,7 @@
       "specialRules": ["Hobgoblins"]
     },
     "Bull Centaurs": {
+      "name": "Bull Centaurs",
       "id": 6,
       "type": "Cavalry",
       "attack": 4,
@@ -77,6 +84,7 @@
       "max": 2
     },
     "Earthshaker Cannon": {
+      "name": "Earthshaker Cannon",
       "id": 7,
       "type": "Artillery",
       "attack": "1/3",
@@ -90,6 +98,7 @@
       "homologousUnits": ["Death Rocket"]
     },
     "Death Rocket": {
+      "name": "Death Rocket",
       "id": 8,
       "type": "Artillery",
       "attack": "1/D6",
@@ -103,6 +112,7 @@
       "homologousUnits": ["Earthshaker Cannon"]
     },
     "Bolt Thrower": {
+      "name": "Bolt Thrower",
       "id": 9,
       "type": "Artillery",
       "attack": "1/2 per stand",
@@ -113,6 +123,7 @@
       "max": 1
     },
     "General": {
+      "name": "General",
       "id": 10,
       "type": "General",
       "attack": "+2",
@@ -124,6 +135,7 @@
       "upgrades": ["Great Taurus", "Sorcerer Lord"]
     },
     "Hero": {
+      "name": "Hero",
       "id": 11,
       "type": "Hero",
       "attack": "+1",
@@ -134,6 +146,7 @@
       "upgrades": ["Great Taurus"]
     },
     "Sorcerer": {
+      "name": "Sorcerer",
       "id": 12,
       "type": "Wizard",
       "attack": "+1",
@@ -146,6 +159,7 @@
   },
   "upgrades": {
     "Great Taurus": {
+      "name": "Great Taurus",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -153,6 +167,7 @@
       "max": 1
     },
     "Lammasu": {
+      "name": "Lammasu",
       "id": 1,
       "type": "Monstrous Mount",
       "attack": "+1",
@@ -160,6 +175,7 @@
       "max": 1
     },
     "Sorcerer Lord": {
+      "name": "Sorcerer Lord",
       "id": 2,
       "type": "Special",
       "points": "+25",
@@ -174,6 +190,7 @@
       ]
     },
     "Blunderbusses": {
+      "name": "Blunderbusses",
       "id": 3,
       "type": "Special",
       "attack": "3/2",
@@ -188,12 +205,14 @@
   "magic": true,
   "specialRules": {
     "Blunderbusses": {
+      "name": "Blunderbusses",
       "order": 1,
       "text": [
         "Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Blunderbusses."
       ]
     },
     "Hobgoblins": {
+      "name": "Hobgoblins",
       "order": 2,
       "text": [
         "Hobgoblins and Hobgoblin Wolf Riders carry an assortment of smaller ranged arms, so may only shoot up to 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
@@ -201,12 +220,14 @@
       ]
     },
     "Orc Slaves": {
+      "name": "Orc Slaves",
       "order": 3,
       "text": [
         "Slaves are just that, captives forced to work and fight for their cruel masters' enjoyment. A unit of Slaves suffer an additional -1 Command penalty when given an order. This penalty is waived, however, if the Slaves are brigaded with Black Orcs, Chaos Dwarfs or Blunderbusses."
       ]
     },
     "Earthshaker Cannon": {
+      "name": "Earthshaker Cannon",
       "order": 4,
       "text": [
         "The Earthshaker acts as a Stone Thrower as described in main Rulebook. The exception is that the drive back from the Eartshaker shot causes confusion on rolls of 4+ rather than the usual 6+. In addition the Earthshaker shot causes confusion in units in base contact with the victim unit on rolls of 6 on a D6 (roll for each unit).",
@@ -214,6 +235,7 @@
       ]
     },
     "Death Rocket": {
+      "name": "Death Rocket",
       "order": 5,
       "text": [
         "The Death Rocket acts similar to a Stone Thrower as described in the Rulebook, except it shoots D6 times per phase and hits inflicted on the target can be still saved by the armour with a -1 modifier. If the roll for the number of shots comes up a 1, the Death Rocket has misfired and you must roll a D6 against the Death Rocket Misfire chart.",
@@ -223,27 +245,32 @@
       ]
     },
     "Bolt Thrower": {
+      "name": "Bolt Thrower",
       "order": 6
     },
     "Great Taurus": {
+      "name": "Great Taurus",
       "order": 7,
       "text": [
         "Any character may be mounted on a Great Taurus. This mighty beast is fearsome to face on the battlefield. The Great Taurus causes terror and is able to fly."
       ]
     },
     "Lammasu": {
+      "name": "Lammasu",
       "order": 8,
       "text": [
         "The Lammasu is a magical creature trained to serve the Chaos Dwarfs. A Chaos Dwarf Sorcerer may be mounted on a Lammasu. A Lammasu is able to fly. In addition once per turn you can attempt to dispel one hostile spell cast on one friendly unit within 30cm of the Lammasu on a roll of 4+ on a D6. There can only be one Lammasu in the army."
       ]
     },
     "Sorcerer Lord": {
+      "name": "Sorcerer Lord",
       "order": 9,
       "text": [
         "The General may be true Sorcerer Lord, maybe even one of the living ancestors from Zharr-Naggrund. Sorcerer Lord can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle Sorcerer Lord can add +1 to the dice when attempting to cast a spell. The player must announce that the Sorcerer's special spell casting bonus is being used before rolling for the spell."
       ]
     },
     "Stone Thrower": {
+      "name": "Stone Thrower",
       "order": 10
     }
   },

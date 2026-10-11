@@ -5,6 +5,7 @@
   "order": 2,
   "units": {
     "Zealots": {
+      "name": "Zealots",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -14,6 +15,7 @@
       "min": 3
     },
     "Halberdiers": {
+      "name": "Halberdiers",
       "id": 1,
       "type": "Infantry",
       "attack": 3,
@@ -24,6 +26,7 @@
       "max": 4
     },
     "Crossbowmen": {
+      "name": "Crossbowmen",
       "id": 2,
       "type": "Infantry",
       "attack": "3/1",
@@ -34,6 +37,7 @@
       "max": 2
     },
     "Handgunners": {
+      "name": "Handgunners",
       "id": 3,
       "type": "Infantry",
       "attack": "3/1",
@@ -44,6 +48,7 @@
       "max": 4
     },
     "Flagellants": {
+      "name": "Flagellants",
       "id": 4,
       "type": "Infantry",
       "attack": 5,
@@ -53,6 +58,7 @@
       "max": 4
     },
     "Warhounds": {
+      "name": "Warhounds",
       "id": 5,
       "type": "Infantry",
       "attack": 3,
@@ -64,6 +70,7 @@
       "noMagic": true
     },
     "Knights": {
+      "name": "Knights",
       "id": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -74,6 +81,7 @@
       "max": 1
     },
     "Pistoliers": {
+      "name": "Pistoliers",
       "id": 7,
       "type": "Cavalry",
       "attack": "3/1",
@@ -85,6 +93,7 @@
       "max": 1
     },
     "Cannon": {
+      "name": "Cannon",
       "id": 8,
       "type": "Artillery",
       "attack": "1/2+bounce",
@@ -95,6 +104,7 @@
       "max": 1
     },
     "General": {
+      "name": "General",
       "id": 9,
       "type": "General",
       "attack": "+2",
@@ -105,6 +115,7 @@
       "armyMax": 1
     },
     "Hero": {
+      "name": "Hero",
       "id": 10,
       "type": "Hero",
       "attack": "+1",
@@ -114,6 +125,7 @@
       "max": 2
     },
     "Warrior Priest": {
+      "name": "Warrior Priest",
       "id": 11,
       "type": "Wizard",
       "attack": "+1",
@@ -125,6 +137,7 @@
   },
   "upgrades": {
     "War Altar": {
+      "name": "War Altar",
       "id": 0,
       "type": "Chariot Mount",
       "attack": "+2",
@@ -139,24 +152,28 @@
   ],
   "specialRules": {
     "Zealots": {
+      "name": "Zealots",
       "order": 1,
       "text": [
         "Zealots form the main part of a Witch Hunter army, and are drawn from mobs whipped up by priest's sermons. These troops gain +1 Attack in the first round of combat against Undead or Chaos (regardless of who charged) and will always use their initiative to charge these enemies if possible. If victorious in combat with Undead or Chaos like enemies they must pursue or advance where possible."
       ]
     },
     "Handgunners": {
+      "name": "Handgunners",
       "order": 2,
       "text": [
         "Count enemy armour values as one worse than normal when shot by a handgun. So an armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an armour value of 6+ can't save against a handgun."
       ]
     },
     "Flagellants": {
+      "name": "Flagellants",
       "order": 3,
       "text": [
         "So keen are they to meet their maker that a unit of Flagellants will always use its initiative to charge an enemy if possible and can't be given orders instead. They'll never use their initiative to evade. They can't be driven back by shooting and do not roll for drive backs. If a unit of Flagellants is victorious in combat and is able to pursue the enemy or advance in accordance with the rules, then it must to do so where possible. Flagellants are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier."
       ]
     },
     "Warhounds": {
+      "name": "Warhounds",
       "order": 4,
       "text": [
         "Warhound stands are not deployed as independent units. Instead, any infantry unit may add one stand of Warhounds. This brings the size of the unit to 4 stands: 3 regular stands plus the Warhound stand.",
@@ -166,15 +183,18 @@
       ]
     },
     "Pistoliers": {
+      "name": "Pistoliers",
       "order": 5,
       "text": [
         "Pistoliers have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Cannon": {
+      "name": "Cannon",
       "order": 6
     },
     "War Altar": {
+      "name": "War Altar",
       "order": 7,
       "text": [
         "A Warrior Priest may be mounted on a War Altar. A Warrior Priest with a War Altar suffers a movement reduction to 30cm. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Warrior Priest and can be used to add +1 to the Warrior Priest‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast."

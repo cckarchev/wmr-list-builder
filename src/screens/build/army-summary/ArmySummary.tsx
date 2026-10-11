@@ -6,6 +6,7 @@ import styles from './ArmySummary.module.css';
 
 export const ArmySummary = () => {
   const units = useArmyStore((s) => s.units);
+  const upgrades = useArmyStore((s) => s.upgrades);
   const gameSize = useArmyStore((s) => s.gameSize);
   const [open, setOpen] = useState(false);
 
@@ -45,7 +46,7 @@ export const ArmySummary = () => {
             return (
               <button className={styles.row} key={id} type="button" onClick={() => jumpTo(id)}>
                 <span className={styles.rowTop}>
-                  <span>{id}</span>
+                  <span>{units[id].name}</span>
                   <span className={styles.qty}>×{units[id].number}</span>
                   <span className={styles.pts}>{units[id].pointsCost} pts</span>
                 </span>
@@ -53,7 +54,7 @@ export const ArmySummary = () => {
                   <span className={styles.upgrades}>
                     {chosenUpgrades.map(([upgradeId, u]) => (
                       <span className={styles.upgrade} key={upgradeId}>
-                        <span>{upgradeId}</span>
+                        <span>{upgrades[upgradeId].name}</span>
                         {u.number > 1 && <span className={styles.upgradeQty}>×{u.number}</span>}
                       </span>
                     ))}

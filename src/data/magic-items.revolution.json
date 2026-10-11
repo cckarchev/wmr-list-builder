@@ -1,6 +1,7 @@
 {
   "upgrades": {
     "Battle Banner": {
+      "name": "Battle Banner",
       "id": 100,
       "type": "Magic Standard",
       "points": "+30",
@@ -10,6 +11,7 @@
       ]
     },
     "Banner of Shielding": {
+      "name": "Banner of Shielding",
       "id": 101,
       "type": "Magic Standard",
       "points": {
@@ -25,6 +27,7 @@
       ]
     },
     "Banner of Fortitude": {
+      "name": "Banner of Fortitude",
       "id": 102,
       "type": "Magic Standard",
       "points": {
@@ -39,6 +42,7 @@
       ]
     },
     "Banner of Steadfastness": {
+      "name": "Banner of Steadfastness",
       "id": 103,
       "type": "Magic Standard",
       "points": {
@@ -53,6 +57,7 @@
       ]
     },
     "Banner of Fortune": {
+      "name": "Banner of Fortune",
       "id": 104,
       "type": "Magic Standard",
       "points": "+15",
@@ -62,6 +67,7 @@
       ]
     },
     "Sword of Destruction": {
+      "name": "Sword of Destruction",
       "id": 105,
       "type": "Magic Weapon",
       "points": "+10",
@@ -71,6 +77,7 @@
       ]
     },
     "Sword of Fate": {
+      "name": "Sword of Fate",
       "id": 106,
       "type": "Magic Weapon",
       "points": "+5",
@@ -80,6 +87,7 @@
       ]
     },
     "Sword of Cleaving": {
+      "name": "Sword of Cleaving",
       "id": 107,
       "type": "Magic Weapon",
       "points": "+10",
@@ -89,6 +97,7 @@
       ]
     },
     "Sword of Might": {
+      "name": "Sword of Might",
       "id": 108,
       "type": "Magic Weapon",
       "points": "+10",
@@ -98,6 +107,7 @@
       ]
     },
     "Crown of Command": {
+      "name": "Crown of Command",
       "id": 109,
       "type": "Device of Power",
       "points": "+70",
@@ -107,6 +117,7 @@
       ]
     },
     "Helm of Dominion": {
+      "name": "Helm of Dominion",
       "id": 110,
       "type": "Device of Power",
       "points": "+40",
@@ -116,6 +127,7 @@
       ]
     },
     "Orb of Majesty": {
+      "name": "Orb of Majesty",
       "id": 111,
       "type": "Device of Power",
       "points": "+30",
@@ -126,6 +138,7 @@
       ]
     },
     "Ring of Magic": {
+      "name": "Ring of Magic",
       "id": 112,
       "type": "Device of Power",
       "points": "+30",
@@ -135,6 +148,7 @@
       ]
     },
     "Staff of Spellbinding": {
+      "name": "Staff of Spellbinding",
       "id": 113,
       "type": "Device of Power",
       "points": "+30",
@@ -144,6 +158,7 @@
       ]
     },
     "Sceptre of Sovereignty": {
+      "name": "Sceptre of Sovereignty",
       "id": 114,
       "type": "Device of Power",
       "points": "+30",
@@ -153,6 +168,7 @@
       ]
     },
     "Scroll of Dispelling": {
+      "name": "Scroll of Dispelling",
       "id": 115,
       "type": "Device of Power",
       "points": "+20",
@@ -162,6 +178,7 @@
       ]
     },
     "Wand of Power": {
+      "name": "Wand of Power",
       "id": 116,
       "type": "Device of Power",
       "points": "+10",
@@ -171,6 +188,7 @@
       ]
     },
     "Rod of Repetition": {
+      "name": "Rod of Repetition",
       "id": 117,
       "type": "Device of Power",
       "points": "+10",

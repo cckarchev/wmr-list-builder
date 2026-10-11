@@ -5,6 +5,7 @@
   "order": 5,
   "units": {
     "Gor": {
+      "name": "Gor",
       "id": 0,
       "type": "Infantry",
       "attack": 4,
@@ -16,6 +17,7 @@
       "specialRules": ["Gor/Ungor"]
     },
     "Ungor": {
+      "name": "Ungor",
       "id": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -27,6 +29,7 @@
       "specialRules": ["Gor/Ungor"]
     },
     "Bestigors": {
+      "name": "Bestigors",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -37,6 +40,7 @@
       "max": 2
     },
     "Minotaurs": {
+      "name": "Minotaurs",
       "id": 3,
       "type": "Infantry",
       "attack": 5,
@@ -46,6 +50,7 @@
       "max": 2
     },
     "Centigors": {
+      "name": "Centigors",
       "id": 4,
       "type": "Cavalry",
       "attack": "3/1",
@@ -57,6 +62,7 @@
       "max": 2
     },
     "Chaos Hounds": {
+      "name": "Chaos Hounds",
       "id": 5,
       "type": "Cavalry",
       "attack": 3,
@@ -66,6 +72,7 @@
       "max": 6
     },
     "Tuskgor Chariots": {
+      "name": "Tuskgor Chariots",
       "id": 6,
       "type": "Chariot",
       "attack": 3,
@@ -76,6 +83,7 @@
       "max": 4
     },
     "Dragon Ogres": {
+      "name": "Dragon Ogres",
       "id": 7,
       "type": "Monster",
       "attack": 6,
@@ -86,6 +94,7 @@
       "max": 1
     },
     "Chaos Spawn": {
+      "name": "Chaos Spawn",
       "id": 8,
       "type": "Monster",
       "attack": "3/3",
@@ -97,6 +106,7 @@
       "max": 2
     },
     "Dragon Ogre Shaggoth": {
+      "name": "Dragon Ogre Shaggoth",
       "id": 9,
       "type": "Monster",
       "attack": 8,
@@ -107,6 +117,7 @@
       "max": 1
     },
     "Beastlord": {
+      "name": "Beastlord",
       "id": 10,
       "type": "General",
       "attack": "+2",
@@ -118,6 +129,7 @@
       "upgrades": ["Tuskgor Chariot"]
     },
     "Doombull": {
+      "name": "Doombull",
       "id": 11,
       "type": "Hero",
       "attack": "+2",
@@ -127,6 +139,7 @@
       "armyMax": 1
     },
     "Wargor": {
+      "name": "Wargor",
       "id": 12,
       "type": "Hero",
       "attack": "+1",
@@ -137,6 +150,7 @@
       "upgrades": ["Tuskgor Chariot"]
     },
     "Bray Shaman": {
+      "name": "Bray Shaman",
       "id": 13,
       "type": "Wizard",
       "attack": "+0",
@@ -148,6 +162,7 @@
   },
   "upgrades": {
     "Tuskgor Chariot": {
+      "name": "Tuskgor Chariot",
       "id": 0,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -161,6 +176,7 @@
   ],
   "specialRules": {
     "Gor/Ungor": {
+      "name": "Gor/Ungor",
       "order": 1,
       "text": [
         "Up to half the Gor units (rounded down) and half the Ungor units (rounded down) may be designated as Ambushers. At the start of the game, you must inform your opponent how many units will Ambush. Ambushers may form Brigades or act as single units.",
@@ -172,22 +188,26 @@
       ]
     },
     "Minotaurs": {
+      "name": "Minotaurs",
       "order": 2,
       "text": [
         "Minotaurs are subject for Bloodlust – they always use initiative to charge if possible and cannot be given orders instead. Minotaurs never use initiative to evade and must pursue or advance where possible. Also they are immune to terror."
       ]
     },
     "Centigors": {
+      "name": "Centigors",
       "order": 3,
       "text": [
         "Centigors have a shooting range of 15cm 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Dragon Ogres": {
+      "name": "Dragon Ogres",
       "order": 4,
       "text": ["Dragon Ogres are immune to terror."]
     },
     "Chaos Spawn": {
+      "name": "Chaos Spawn",
       "order": 5,
       "text": [
         "Spawn units have -1 Command penalty if not part of a brigade that includes more non-Spawn units than Spawn units. Up to two Spawn units can be included in any brigade and do not count towards the maximum size of that brigade.",
@@ -196,6 +216,7 @@
       ]
     },
     "Dragon Ogre Shaggoth": {
+      "name": "Dragon Ogre Shaggoth",
       "order": 6,
       "text": [
         "Dragon Ogre Shaggoth must always be given a separate order. It cannot be brigaded with other troops even with other Shaggoths.",
@@ -203,12 +224,14 @@
       ]
     },
     "Doombull": {
+      "name": "Doombull",
       "order": 7,
       "text": [
         "A unit joined by a Doombull cause terror. Also, Gors, Ungors and Bestigors joined by a Doombull will become subject to Bloodlust in the same way as Minotaur units, until the end of the following Beastmen Command phase."
       ]
     },
     "Tuskgor Chariot": {
+      "name": "Tuskgor Chariot",
       "order": 8,
       "text": [
         "Beastlord or Wargors can ride a Tuskgor Chariot. A character riding a chariot adds +1 to his Attacks."

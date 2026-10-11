@@ -5,6 +5,7 @@
   "order": 7,
   "units": {
     "Skinks": {
+      "name": "Skinks",
       "id": 0,
       "type": "Infantry",
       "attack": "2/1",
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Saurus": {
+      "name": "Saurus",
       "id": 1,
       "type": "Infantry",
       "attack": 4,
@@ -26,6 +28,7 @@
       "specialRules": ["Reptilian"]
     },
     "Temple Guard": {
+      "name": "Temple Guard",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -37,6 +40,7 @@
       "specialRules": ["Reptilian"]
     },
     "Salamanders": {
+      "name": "Salamanders",
       "id": 3,
       "type": "Infantry",
       "attack": "2/2",
@@ -50,6 +54,7 @@
       "noMagic": true
     },
     "Kroxigor": {
+      "name": "Kroxigor",
       "id": 4,
       "type": "Infantry",
       "attack": 5,
@@ -61,6 +66,7 @@
       "specialRules": ["Reptilian"]
     },
     "Cold One Riders": {
+      "name": "Cold One Riders",
       "id": 5,
       "type": "Cavalry",
       "attack": 4,
@@ -72,6 +78,7 @@
       "specialRules": ["Reptilian"]
     },
     "Terradons": {
+      "name": "Terradons",
       "id": 6,
       "type": "Monster",
       "attack": "2/1",
@@ -83,6 +90,7 @@
       "max": 1
     },
     "Stegadon": {
+      "name": "Stegadon",
       "id": 7,
       "type": "Monster",
       "attack": "10/3",
@@ -94,6 +102,7 @@
       "max": 1
     },
     "Slann Mage Palanquin": {
+      "name": "Slann Mage Palanquin",
       "id": 8,
       "type": "General",
       "caster": true,
@@ -113,6 +122,7 @@
       ]
     },
     "Saurus Hero": {
+      "name": "Saurus Hero",
       "id": 9,
       "type": "Hero",
       "attack": "+2",
@@ -123,6 +133,7 @@
       "upgrades": ["Carnosaur"]
     },
     "Skink Hero": {
+      "name": "Skink Hero",
       "id": 10,
       "type": "Hero",
       "attack": "+0",
@@ -132,6 +143,7 @@
       "max": 3
     },
     "Skink Shaman": {
+      "name": "Skink Shaman",
       "id": 11,
       "type": "Wizard",
       "attack": "+0",
@@ -143,6 +155,7 @@
   },
   "upgrades": {
     "Stegadon Mount": {
+      "name": "Stegadon Mount",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -150,6 +163,7 @@
       "max": 1
     },
     "Carnosaur": {
+      "name": "Carnosaur",
       "id": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -163,18 +177,21 @@
   ],
   "specialRules": {
     "Skinks": {
+      "name": "Skinks",
       "order": 1,
       "text": [
         "Skinks have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Reptilian": {
+      "name": "Reptilian",
       "order": 2,
       "text": [
         "Reptilian troops can only be issued an order by a character within 20cm. If reptilian units form part of a brigade an order can be issued so long as all reptilian units are within 20cm of the character issuing the order. This rule represents the creatures being cold-blooded brutes and slow to react."
       ]
     },
     "Salamanders": {
+      "name": "Salamanders",
       "order": 3,
       "text": [
         "Salamander stands are not deployed as independent units. Instead, any Skink infantry unit may add one stand of Salamanders. This brings the size of the unit to 4 stands: 3 regular stands plus the Salamander.",
@@ -185,12 +202,14 @@
       ]
     },
     "Terradons": {
+      "name": "Terradons",
       "order": 4,
       "text": [
         "Terradons can fly. Terradon riders have a shooting range 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Stegadon": {
+      "name": "Stegadon",
       "order": 5,
       "text": [
         "As the Stegadon is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front.",
@@ -201,6 +220,7 @@
       ]
     },
     "Slann Mage Palanquin": {
+      "name": "Slann Mage Palanquin",
       "order": 6,
       "text": [
         "The Slann Mage rides a palanquin carried by his bodyguard of fierce Saurus warriors - his combat bonus is due to his bodyguard. The Slann Mage is the army's general but uniquely amongst commanders he cannot give orders, but has foreseen the flow of the battle and given his Skink retainers instructions. To represent this any Skink character within 20cm of the Slann can announce his use of the General's Divine Guidance - deducting -1 from his dice score (e.g. 8 counts as 7, 10 as 9 and so on). When Divine Guidance is used the Skink cannot ‘Blunder' - any roll of double 6 simply counts as a fail. If a Divine Guidance roll is failed then the Slann's Divine Guidance cannot be used by any other characters that have not ordered yet in that turn, their confusion over the mixup is represented by adding +1 to their first order rolls.",
@@ -208,12 +228,14 @@
       ]
     },
     "Stegadon Mount": {
+      "name": "Stegadon Mount",
       "order": 7,
       "text": [
         "The Slann Mage may ride on top of a Stegadon, adding +3 attacks to its rider. If he rides a Stegadon then any unit he joins will cause terror and the usual Combat modifier will apply. No other character can ride a Stegadon."
       ]
     },
     "Carnosaur": {
+      "name": "Carnosaur",
       "order": 8,
       "text": [
         "A Saurus Hero can ride a Carnosaur. If a character rides a Carnosaur then any unit he joins will cause terror. No other character can ride a Carnosaur."

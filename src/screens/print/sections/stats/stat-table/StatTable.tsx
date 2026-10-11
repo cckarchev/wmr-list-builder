@@ -31,7 +31,7 @@ export const StatTable = ({
     const upgradeRows = Object.entries(unit.upgrades ?? {}).map(([upgradeId, upgrade]) => (
       <StatRow
         key={`upgrade_${unitId}_${upgradeId}`}
-        name={upgradeId}
+        id={upgradeId}
         troop={upgrade}
         kind={kind}
         rules={rules}
@@ -40,7 +40,7 @@ export const StatTable = ({
     ));
 
     return [
-      <StatRow key={`unit_${unitId}`} name={unitId} troop={unit} kind={kind} rules={rules} />,
+      <StatRow key={`unit_${unitId}`} id={unitId} troop={unit} kind={kind} rules={rules} />,
       ...upgradeRows,
     ];
   });

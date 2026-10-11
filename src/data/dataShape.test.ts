@@ -58,3 +58,24 @@ describe('data shape after cleanup', () => {
     expect(handgunners?.order).toBe(1);
   });
 });
+
+describe('display names', () => {
+  const hasName = (entity: { name?: unknown }) =>
+    typeof entity.name === 'string' && entity.name.trim().length > 0;
+
+  it('every unit, upgrade and special rule has a name', () => {
+    for (const [id, army] of armies) {
+      const entities = [
+        ...Object.values(army.units),
+        ...Object.values(army.upgrades ?? {}),
+        ...Object.values(army.specialRules ?? {}),
+      ];
+
+      expect(entities.every(hasName), `${id} names`).toBe(true);
+    }
+  });
+
+  it('every magic item has a name', () => {
+    expect(Object.values(magicItems.upgrades).every(hasName)).toBe(true);
+  });
+});

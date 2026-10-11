@@ -1,5 +1,6 @@
 import { Markdown } from '@/components/Markdown';
 import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
+import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import type { SpecialRule } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
 import {
@@ -10,23 +11,24 @@ import {
   PrintSection,
 } from './print-section/PrintSection';
 
+/** The rules that apply to any taken unit or upgrade, keyed by rule id. */
 const collectUsedSpecialRules = (
   allSpecialRules: Record<string, SpecialRule>,
-  units: ReturnType<typeof useArmyStore.getState>['units'],
-  upgrades: ReturnType<typeof useArmyStore.getState>['upgrades'],
+  units: Record<string, UnitState>,
+  upgrades: Record<string, UpgradeState>,
 ): Record<string, SpecialRule> => {
   const result: Record<string, SpecialRule> = {};
 
-  const addRule = (name: string) => {
-    if (allSpecialRules[name]) {
-      result[name] = allSpecialRules[name];
+  const addRule = (id: string) => {
+    if (allSpecialRules[id]) {
+      result[id] = allSpecialRules[id];
     }
   };
 
   for (const [unitId, unit] of Object.entries(units)) {
     if (unit.number > 0) {
-      for (const { name } of resolveUnitSpecialRules(unitId, unit, allSpecialRules)) {
-        result[name] = allSpecialRules[name];
+      for (const { id } of resolveUnitSpecialRules(unitId, unit, allSpecialRules)) {
+        addRule(id);
       }
     }
   }
@@ -34,28 +36,30 @@ const collectUsedSpecialRules = (
   for (const [upgradeId, upgrade] of Object.entries(upgrades)) {
     if (upgrade.number > 0) {
       addRule(upgradeId);
-      upgrade.specialRules?.forEach(addRule);
+
+      for (const id of upgrade.specialRules ?? []) {
+        addRule(id);
+      }
     }
   }
 
   return result;
 };
 
+const byOrder = ([, a]: [string, SpecialRule], [, b]: [string, SpecialRule]) =>
+  (a.order ?? 0) - (b.order ?? 0);
+
 export const SpecialRules = () => {
-  const specialRulesRaw = useArmyStore((s) => s.specialRules) as
-    | Record<string, SpecialRule>
-    | undefined;
+  const allSpecialRules = useArmyStore((s) => s.specialRules);
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
 
-  if (!specialRulesRaw) {
+  if (!allSpecialRules) {
     return null;
   }
 
-  const rulesMap = collectUsedSpecialRules(specialRulesRaw, units, upgrades);
-
-  // sort by order
-  const sorted = Object.entries(rulesMap).sort(([, a], [, b]) => (a.order ?? 0) - (b.order ?? 0));
+  const usedRules = collectUsedSpecialRules(allSpecialRules, units, upgrades);
+  const sorted = Object.entries(usedRules).sort(byOrder);
 
   if (sorted.length === 0) {
     return null;
@@ -65,12 +69,12 @@ export const SpecialRules = () => {
     <PrintSection>
       <PrintHeading>Special Rules</PrintHeading>
       <DefList>
-        {sorted.flatMap(([name, rule]) => [
-          <DefTerm key={`dt_${name}`}>
+        {sorted.flatMap(([id, rule]) => [
+          <DefTerm key={`dt_${id}`}>
             {rule.order == null ? '' : `${rule.order}. `}
-            {name}
+            {rule.name}
           </DefTerm>,
-          <DefDesc key={`dd_${name}`}>
+          <DefDesc key={`dd_${id}`}>
             <Markdown blocks={rule.text ?? []} />
           </DefDesc>,
         ])}

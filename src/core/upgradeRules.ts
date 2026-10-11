@@ -5,27 +5,27 @@ import type { UpgradeState } from './storeHelpers';
 /**
  * Resolve the rule text shown for an upgrade. Upgrades carry rule text from two
  * sources: magic items embed it inline as `text` (titled by the upgrade's own
- * id), while army upgrades reference shared rules by name in `specialRules`
- * (resolved against the global `specialRules` map). Both are surfaced here,
- * de-duplicated by name and ordered by `rule.order`.
+ * name), while army upgrades reference shared rules by id in `specialRules`
+ * (resolved against the army's `specialRules` map). Both are surfaced here,
+ * de-duplicated by id and ordered by `rule.order`.
  */
 export const resolveUpgradeRules = (
   upgradeId: string,
-  upgrade: Pick<UpgradeState, 'text' | 'specialRules'>,
+  upgrade: Pick<UpgradeState, 'name' | 'text' | 'specialRules'>,
   allRules: Record<string, SpecialRule> | undefined,
 ): ResolvedRule[] => {
   const resolved: ResolvedRule[] = [];
-  const names = new Set<string>();
+  const ids = new Set<string>();
 
   if (upgrade.text && upgrade.text.length > 0) {
-    resolved.push({ name: upgradeId, rule: { text: upgrade.text } });
-    names.add(upgradeId);
+    resolved.push({ id: upgradeId, rule: { name: upgrade.name, text: upgrade.text } });
+    ids.add(upgradeId);
   }
 
-  for (const name of upgrade.specialRules ?? []) {
-    if (allRules?.[name] && !names.has(name)) {
-      resolved.push({ name, rule: allRules[name] });
-      names.add(name);
+  for (const id of upgrade.specialRules ?? []) {
+    if (allRules?.[id] && !ids.has(id)) {
+      resolved.push({ id, rule: allRules[id] });
+      ids.add(id);
     }
   }
 

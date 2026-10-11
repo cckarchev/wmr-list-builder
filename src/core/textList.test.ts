@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
-import { usedUnits as getUsedUnits, pointsCost } from './selectors';
+import { usedUnits as getUsedUnits, pointsCost, type UsedUnit } from './selectors';
 import { buildTextList } from './textList';
 
 beforeEach(() => {
@@ -67,5 +67,38 @@ describe('buildTextList', () => {
     store.setUnitNumber('Goblins', 1);
 
     expect(textListFromStore().startsWith('Goblin,')).toBe(true);
+  });
+});
+
+const WOLF_RIDERS_POINTS = 60;
+const WOLF_RIDERS_CODE = 3;
+
+describe('buildTextList names', () => {
+  it('lists units and upgrades by display name, not id', () => {
+    const usedUnits: Record<string, UsedUnit> = {
+      wolfRiders: {
+        name: 'Wolf Riders',
+        id: WOLF_RIDERS_CODE,
+        type: 'Cavalry',
+        points: WOLF_RIDERS_POINTS,
+        number: 1,
+        pointsCost: WOLF_RIDERS_POINTS,
+        upgrades: {
+          battleBanner: { name: 'Battle Banner', type: 'Magic Standard', number: 1, pointsCost: 0 },
+        },
+      },
+    };
+
+    const result = buildTextList({
+      armyName: 'Goblin',
+      label: '',
+      points: WOLF_RIDERS_POINTS,
+      usedUnits,
+      version: '',
+    });
+
+    expect(result).toContain('1 Wolf Riders');
+    expect(result).toContain('1 Battle Banner (0)');
+    expect(result).not.toContain('wolfRiders');
   });
 });

@@ -36,6 +36,7 @@ export interface UnitState extends Omit<Unit, 'upgrades'> {
  * `number`/`minMax` fields the Vue store attaches in `SET_UPGRADES`.
  */
 export interface UpgradeState {
+  name: string;
   id?: number;
   type: string;
   points?: StatValue | Record<string, string>;

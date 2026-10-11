@@ -1,4 +1,5 @@
 import type { ValidationError } from '@/data/types';
+import { namesOf } from './namesOf';
 import { armySize, pointsCost } from './selectors';
 import type { UnitState, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
@@ -13,11 +14,15 @@ interface Pools {
 /** Items that count together with this one toward its limits. */
 const homologousGroup = (item: ValidatableItem, { units, upgrades }: Pools) => {
   if (item.homologousUnits) {
-    return { ids: item.homologousUnits, count: totalNumber(item.homologousUnits, units) };
+    const ids = item.homologousUnits;
+
+    return { ids, names: namesOf(ids, units), count: totalNumber(ids, units) };
   }
 
   if (item.homologousUpgrades) {
-    return { ids: item.homologousUpgrades, count: totalNumber(item.homologousUpgrades, upgrades) };
+    const ids = item.homologousUpgrades;
+
+    return { ids, names: namesOf(ids, upgrades), count: totalNumber(ids, upgrades) };
   }
 
   return undefined;
@@ -30,14 +35,14 @@ const requiredGroup = (
   if (item.requiredUnits) {
     return {
       count: totalNumber(item.requiredUnits, units),
-      sentence: toSentence(item.requiredUnits),
+      sentence: toSentence(namesOf(item.requiredUnits, units)),
     };
   }
 
   if (item.requiredUpgrades) {
     return {
       count: totalNumber(item.requiredUpgrades, upgrades),
-      sentence: toSentence(item.requiredUpgrades),
+      sentence: toSentence(namesOf(item.requiredUpgrades, upgrades)),
     };
   }
 
@@ -58,7 +63,7 @@ const checkItem = (
   const homologousIds = homologous?.ids ?? [];
 
   // Homologous items are named together as one group in messages.
-  const label = homologous ? toSentence([itemId, ...homologousIds]) : itemId;
+  const label = homologous ? toSentence([item.name, ...homologous.names]) : item.name;
   const targets = [itemId, ...homologousIds];
 
   const messages = itemErrors({

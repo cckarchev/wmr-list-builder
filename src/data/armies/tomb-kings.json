@@ -5,6 +5,7 @@
   "order": 1,
   "units": {
     "Skeletons": {
+      "name": "Skeletons",
       "id": 0,
       "type": "Infantry",
       "attack": 2,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Skeleton Bowmen": {
+      "name": "Skeleton Bowmen",
       "id": 1,
       "type": "Infantry",
       "attack": "2/1",
@@ -25,6 +27,7 @@
       "min": 2
     },
     "Skeleton Cavalry": {
+      "name": "Skeleton Cavalry",
       "id": 2,
       "type": "Cavalry",
       "attack": 2,
@@ -34,6 +37,7 @@
       "points": 60
     },
     "Skeleton Chariots": {
+      "name": "Skeleton Chariots",
       "id": 3,
       "type": "Chariot",
       "attack": "3/1",
@@ -45,6 +49,7 @@
       "max": 3
     },
     "Carrion": {
+      "name": "Carrion",
       "id": 4,
       "type": "Monster",
       "attack": 2,
@@ -55,6 +60,7 @@
       "max": 1
     },
     "Bone Giant": {
+      "name": "Bone Giant",
       "id": 5,
       "type": "Monster",
       "attack": 6,
@@ -65,6 +71,7 @@
       "max": 1
     },
     "Sphinx": {
+      "name": "Sphinx",
       "id": 6,
       "type": "Monster",
       "attack": 4,
@@ -75,6 +82,7 @@
       "max": 1
     },
     "Skull Chukka": {
+      "name": "Skull Chukka",
       "id": 7,
       "type": "Artillery",
       "attack": "1/3",
@@ -86,6 +94,7 @@
       "specialRules": ["Stone Thrower"]
     },
     "Bone Thrower": {
+      "name": "Bone Thrower",
       "id": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
@@ -97,6 +106,7 @@
       "specialRules": ["Bolt Thrower"]
     },
     "Tomb King": {
+      "name": "Tomb King",
       "id": 9,
       "type": "General",
       "attack": "+2",
@@ -108,6 +118,7 @@
       "upgrades": ["Zombie Dragon", "Liche Chariot"]
     },
     "Liche Priest": {
+      "name": "Liche Priest",
       "id": 10,
       "type": "Wizard",
       "attack": "+1",
@@ -120,6 +131,7 @@
   },
   "upgrades": {
     "Zombie Dragon": {
+      "name": "Zombie Dragon",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -127,6 +139,7 @@
       "max": 1
     },
     "Liche Chariot": {
+      "name": "Liche Chariot",
       "id": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -144,51 +157,60 @@
   ],
   "specialRules": {
     "Carrion": {
+      "name": "Carrion",
       "order": 1,
       "text": [
         "Carrion can fly. Note that Carrion can always return to a character by homing back at the start of the Command phase. No order is required to do this."
       ]
     },
     "Bone Giant": {
+      "name": "Bone Giant",
       "order": 2,
       "text": [
         "Bone Giants cause terror. When a Tomb King gives an order to a Bone Giant or a brigade that contains a Bone Giant there is a -1 Command penalty. There is no penalty when a Liche-Priest gives an order."
       ]
     },
     "Sphinx": {
+      "name": "Sphinx",
       "order": 3,
       "text": [
         "Because the Sphinx has so many hits (6) we must consider the possibility of hurting the Sphinx and reducing its effectiveness in subsequent turns. Therefore, if a Sphinx has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Sphinx is badly hurt all accumulated hits are discounted and its maximum Hits and Attacks are halved for the rest of the battle (to 3 Hits and 2 Attacks). The Sphinx causes terror."
       ]
     },
     "Skull Chukka": {
+      "name": "Skull Chukka",
       "order": 4,
       "text": [
         "The Skull Chukka is a Stone Thrower but with the following additional rule. When a unit is driven back as a result of hits scored by a Skull Chukka, then any dice rolled in respect to those hits will cause Confusion on the roll of 4, 5 or 6 (rather than 6 as normal). Note that if a unit has taken other hits as well it will be necessary to roll the Skull Chukka dice separately. See the Artillery and Machines section of the rulebook for the Stone Thrower rules."
       ]
     },
     "Bolt Thrower": {
+      "name": "Bolt Thrower",
       "order": 5
     },
     "Tomb King": {
+      "name": "Tomb King",
       "order": 6,
       "text": [
         "The Tomb King is empowered by the spells cast upon him when buried. He can use this power to increase the Combat Attacks value of all the stands in one unit within 20cm by+1 for the duration of one Combat phase. This ability can only be used once per battle."
       ]
     },
     "Zombie Dragon": {
+      "name": "Zombie Dragon",
       "order": 7,
       "text": [
         "A Tomb King or Liche Priest can ride a Zombie Dragon. A Dragon can fly increasing its rider's move from 60 to 100cm and it adds +3 Attacks to those of its rider. Zombie Dragons have a special shooting attack - they can belch corrosive breath! This attack can only be used if the Dragon riding character has joined a unit but is not engaged in combat. A character that has not joined a unit cannot use the Breath attack. The corrosive breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Zombie Dragon is a terrifying creature - a unit that has been joined by a Dragon riding character causes terror in its enemies."
       ]
     },
     "Liche Chariot": {
+      "name": "Liche Chariot",
       "order": 8,
       "text": [
         "A Tomb King or Liche priest can ride a chariot. A character riding a chariot adds +1 to his Attacks."
       ]
     },
     "Stone Thrower": {
+      "name": "Stone Thrower",
       "order": 9
     }
   },

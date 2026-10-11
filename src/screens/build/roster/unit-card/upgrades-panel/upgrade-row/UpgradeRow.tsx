@@ -80,10 +80,10 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   return (
     <div className={styles.row} data-invalid={invalid || undefined}>
       <div className={styles.main}>
-        <span className={styles.name}>{upgradeId}</span>
+        <span className={styles.name}>{upgrade.name}</span>
         {rules.length > 0 && (
           <Popover
-            label={`${upgradeId} special rules`}
+            label={`${upgrade.name} special rules`}
             trigger={<Icon name="rules" size={14} />}
             wide
           >
@@ -101,10 +101,10 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
           onChange={changeCount}
           min={0}
           max={maxCount}
-          label={`${upgradeId} for ${unitId}`}
+          label={`${upgrade.name} for ${unit.name}`}
         />
       </div>
-      <InlineErrors errors={upgradeErrors} label={`${upgradeId} errors`} />
+      <InlineErrors errors={upgradeErrors} label={`${upgrade.name} errors`} />
     </div>
   );
 };

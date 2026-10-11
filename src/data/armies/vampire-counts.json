@@ -5,6 +5,7 @@
   "order": 5,
   "units": {
     "Skeletons": {
+      "name": "Skeletons",
       "id": 0,
       "type": "Infantry",
       "attack": 2,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Zombies": {
+      "name": "Zombies",
       "id": 1,
       "type": "Infantry",
       "attack": 2,
@@ -24,6 +26,7 @@
       "min": 2
     },
     "Ghouls": {
+      "name": "Ghouls",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -32,6 +35,7 @@
       "points": 55
     },
     "Grave Guard": {
+      "name": "Grave Guard",
       "id": 3,
       "type": "Infantry",
       "attack": 3,
@@ -42,6 +46,7 @@
       "max": 4
     },
     "Ethereal Host": {
+      "name": "Ethereal Host",
       "id": 4,
       "type": "Infantry",
       "attack": 3,
@@ -52,6 +57,7 @@
       "noMagic": true
     },
     "Black Knights": {
+      "name": "Black Knights",
       "id": 5,
       "type": "Cavalry",
       "attack": 3,
@@ -62,6 +68,7 @@
       "max": 4
     },
     "Dire Wolves": {
+      "name": "Dire Wolves",
       "id": 6,
       "type": "Cavalry",
       "attack": 2,
@@ -72,6 +79,7 @@
       "noMagic": true
     },
     "Fell Bats": {
+      "name": "Fell Bats",
       "id": 7,
       "type": "Monster",
       "attack": 2,
@@ -82,6 +90,7 @@
       "max": 1
     },
     "Vampire Lord": {
+      "name": "Vampire Lord",
       "id": 8,
       "type": "General",
       "caster": true,
@@ -102,6 +111,7 @@
       ]
     },
     "Vampire": {
+      "name": "Vampire",
       "id": 9,
       "type": "Hero",
       "attack": "+1",
@@ -112,6 +122,7 @@
       "upgrades": ["Winged Nightmare", "Black Coach"]
     },
     "Necromancer": {
+      "name": "Necromancer",
       "id": 10,
       "type": "Wizard",
       "attack": "+0",
@@ -124,6 +135,7 @@
   },
   "upgrades": {
     "Winged Nightmare": {
+      "name": "Winged Nightmare",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -131,6 +143,7 @@
       "max": 1
     },
     "Black Coach": {
+      "name": "Black Coach",
       "id": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -148,18 +161,21 @@
   ],
   "specialRules": {
     "Ethereal Host": {
+      "name": "Ethereal Host",
       "order": 1,
       "text": [
         "Ethereal Host Attacks always inflict a hit on a score of 4+ regardless of whether the enemy is in the open, defended, or fortified. Enemy otherwise count as in the open, defended, or fortified in all respects (e.g. charge bonuses count or don't count depending on status). Ethereal hosts cannot be driven back by shooting and do not roll for drive backs. They cause terror as described in the Warmaster rulebook. Ethereal Hosts cannot have magic items."
       ]
     },
     "Dire Wolves": {
+      "name": "Dire Wolves",
       "order": 2,
       "text": [
         "If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Dire Wolves cannot have magic items."
       ]
     },
     "Fell Bats": {
+      "name": "Fell Bats",
       "order": 3,
       "text": [
         "Fell Bats can fly. Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back.",
@@ -167,18 +183,21 @@
       ]
     },
     "Vampire Lord": {
+      "name": "Vampire Lord",
       "order": 4,
       "text": [
         "These are powerful sorcerers as well as the army's general. They can cast spells in the same way as a wizard."
       ]
     },
     "Winged Nightmare": {
+      "name": "Winged Nightmare",
       "order": 5,
       "text": [
         "Any character can ride a Winged Nightmare. A winged Nightmare can fly increasing its rider's move to 100cm and adding +2 to its rider's attacks. A unit joined by a character riding a Nightmare causes terror in its enemies."
       ]
     },
     "Black Coach": {
+      "name": "Black Coach",
       "order": 6,
       "text": [
         "A Vampire Lord or Vampire can be mounted within a Black Coach adding +1 to its occupant's attacks. A unit joined by a character riding in the Black Coach causes terror in its enemies."

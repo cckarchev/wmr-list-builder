@@ -1,6 +1,7 @@
 export type StatValue = string | number;
 
 export interface Unit {
+  name: string;
   id: number;
   type: string;
   attack?: StatValue;
@@ -32,6 +33,7 @@ export interface Unit {
 }
 
 export interface Upgrade {
+  name: string;
   id: number;
   type: string;
   attack?: StatValue;
@@ -52,11 +54,13 @@ export interface Upgrade {
 }
 
 export interface SpecialRule {
+  name: string;
   order?: number;
   text?: string[];
 }
 
 export interface MagicItem {
+  name: string;
   id: number;
   type: string;
   points: string | Record<string, string>;

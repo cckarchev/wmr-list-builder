@@ -5,6 +5,7 @@
   "order": 7,
   "units": {
     "Bannermen": {
+      "name": "Bannermen",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 3
     },
     "Crossbows": {
+      "name": "Crossbows",
       "id": 1,
       "type": "Infantry",
       "attack": "2/1",
@@ -25,6 +27,7 @@
       "min": 1
     },
     "Handguns": {
+      "name": "Handguns",
       "id": 2,
       "type": "Infantry",
       "attack": "2/1",
@@ -34,6 +37,7 @@
       "points": 50
     },
     "Terracotta Warriors": {
+      "name": "Terracotta Warriors",
       "id": 3,
       "type": "Infantry",
       "attack": 2,
@@ -44,6 +48,7 @@
       "max": 6
     },
     "Maneaters": {
+      "name": "Maneaters",
       "id": 4,
       "type": "Infantry",
       "attack": 4,
@@ -54,6 +59,7 @@
       "max": 1
     },
     "Chariots": {
+      "name": "Chariots",
       "id": 5,
       "type": "Chariot",
       "attack": "3/1",
@@ -65,6 +71,7 @@
       "max": 1
     },
     "Imperial Cavalry": {
+      "name": "Imperial Cavalry",
       "id": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -75,6 +82,7 @@
       "max": 2
     },
     "Hu Cavalry": {
+      "name": "Hu Cavalry",
       "id": 7,
       "type": "Cavalry",
       "attack": "2/1",
@@ -86,6 +94,7 @@
       "max": 3
     },
     "Rocket Launcher": {
+      "name": "Rocket Launcher",
       "id": 8,
       "type": "Artillery",
       "attack": "1/1D6",
@@ -97,6 +106,7 @@
       "specialRules": ["Stone Thrower"]
     },
     "Triple Bows": {
+      "name": "Triple Bows",
       "id": 9,
       "type": "Artillery",
       "attack": "1/2",
@@ -108,6 +118,7 @@
       "specialRules": ["Bolt Thrower"]
     },
     "General": {
+      "name": "General",
       "id": 10,
       "type": "General",
       "attack": "+2",
@@ -119,6 +130,7 @@
       "upgrades": ["Chariot", "Tiger"]
     },
     "Hero": {
+      "name": "Hero",
       "id": 11,
       "type": "Hero",
       "attack": "+1",
@@ -129,6 +141,7 @@
       "upgrades": ["Chariot", "Tiger"]
     },
     "Sorcerer": {
+      "name": "Sorcerer",
       "id": 12,
       "type": "Wizard",
       "command": 7,
@@ -140,6 +153,7 @@
   },
   "upgrades": {
     "Chariot": {
+      "name": "Chariot",
       "id": 0,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -147,6 +161,7 @@
       "max": 1
     },
     "Celestial Dragon": {
+      "name": "Celestial Dragon",
       "id": 1,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -154,6 +169,7 @@
       "armyMax": 1
     },
     "Tiger": {
+      "name": "Tiger",
       "id": 2,
       "type": "Special Mount",
       "attack": "+2",
@@ -161,6 +177,7 @@
       "max": 1
     },
     "Qilin": {
+      "name": "Qilin",
       "id": 3,
       "type": "Special Mount",
       "attack": "+1",
@@ -174,24 +191,28 @@
   ],
   "specialRules": {
     "Handguns": {
+      "name": "Handguns",
       "order": 1,
       "text": [
         "Any or all of the army's Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls."
       ]
     },
     "Terracotta Warriors": {
+      "name": "Terracotta Warriors",
       "order": 2,
       "text": [
         "These warriors are Undead, so cannot act on initiative, are unaffected by terror or enemy within 20cm, and cannot be confused. They can only brigade with themselves and give/receive support only to/from each other. They can only be ordered by Sorcerers, who gain +1 command when doing so."
       ]
     },
     "Hu Cavalry": {
+      "name": "Hu Cavalry",
       "order": 3,
       "text": [
         "They have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Rocket Launcher": {
+      "name": "Rocket Launcher",
       "order": 4,
       "text": [
         "The Rocket Launcher is treated as a Stone Thrower as described in the Rulebook (p.75), except it shoots 1D6 times per phase and any hits inflicted have an armour save with a minus 1 modifier (as for handguns). If the roll for the number of shots comes up a 1, the Rocket Launcher has misfired, and you must roll another D6 against the Rocket Launcher Misfire Chart.",
@@ -200,29 +221,35 @@
       ]
     },
     "Triple Bows": {
+      "name": "Triple Bows",
       "order": 5,
       "text": ["Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."]
     },
     "Celestial Dragon": {
+      "name": "Celestial Dragon",
       "order": 6,
       "text": [
         "One Sorcerer per army can be upgraded to become a dragon which flies, gives orders, casts spells, and causes terror. The dragon cannot give orders to Terracotta Warriors."
       ]
     },
     "Tiger": {
+      "name": "Tiger",
       "order": 7,
       "text": ["Tigers cannot be ridden by Sorcerers."]
     },
     "Qilin": {
+      "name": "Qilin",
       "order": 8,
       "text": [
         "Only a Sorcerer can ride a Qilin. Once per battle the Qilin's magical power adds +1 to the dice roll when casting a spell. The player must announce that they are using the Qilin's magic before rolling to see if the spell works."
       ]
     },
     "Stone Thrower": {
+      "name": "Stone Thrower",
       "order": 9
     },
     "Bolt Thrower": {
+      "name": "Bolt Thrower",
       "order": 10
     }
   },

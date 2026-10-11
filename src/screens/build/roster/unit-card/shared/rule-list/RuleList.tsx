@@ -9,9 +9,9 @@ interface RuleListProps {
 /** Special rules rendered as name and text pairs, for the rules popovers. */
 export const RuleList = ({ rules }: RuleListProps) => (
   <>
-    {rules.map(({ name, rule }) => (
-      <div className={styles.rule} key={name}>
-        <h4 className={styles.name}>{name}</h4>
+    {rules.map(({ id, rule }) => (
+      <div className={styles.rule} key={id}>
+        <h4 className={styles.name}>{rule.name}</h4>
         <div className={styles.text}>
           <Markdown blocks={rule.text ?? []} />
         </div>

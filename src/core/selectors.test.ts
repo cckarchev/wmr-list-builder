@@ -24,12 +24,14 @@ const ADDED_HALBERDIERS = 3;
 /** An odd count, so the break point has to round up. */
 const GOBLIN_STANDS = 5;
 
-/** Build a minimal units map keyed in insertion order; only `type` matters here. */
+/** Build a minimal units map keyed in insertion order, each unit named after its key. */
 const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
   const map: Record<string, UnitState> = {};
+
   for (const [id, type] of entries) {
-    map[id] = { type } as UnitState;
+    map[id] = { name: id, type } as UnitState;
   }
+
   return map;
 };
 
@@ -173,6 +175,16 @@ describe('groupRosterUnits', () => {
     const groups = groupRosterUnits(units, 'wolf');
     expect(groups.map((g) => g.label)).toEqual(['Cavalry', 'Chariot']);
     expect(groups.flatMap((g) => g.unitIds)).toEqual(['Wolf Riders', 'Wolf Chariots']);
+  });
+
+  it('matches the query against the display name, not the id', () => {
+    const named = {
+      wr: { name: 'Wolf Riders', type: 'Cavalry' } as UnitState,
+      gob: { name: 'Goblins', type: 'Infantry' } as UnitState,
+    };
+
+    expect(groupRosterUnits(named, 'wolf').flatMap((g) => g.unitIds)).toEqual(['wr']);
+    expect(groupRosterUnits(named, 'wr')).toEqual([]);
   });
 
   it('returns no groups when the query matches nothing', () => {

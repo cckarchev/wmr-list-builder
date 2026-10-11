@@ -8,12 +8,22 @@ export interface TextListParams {
   version: string;
 }
 
-const padLeft = (str: string | number, width: number): string => {
-  let s = String(str);
-  while (s.length < width) {
-    s = ` ${s}`;
-  }
-  return s;
+const DIVIDER = '--------------------------------';
+
+/** An army breaks when it loses half its units, rounded up. */
+const BREAK_DIVISOR = 2;
+
+const padLeft = (value: string | number, width: number): string => String(value).padStart(width);
+
+/** One unit line plus a line per upgrade it carries. */
+const unitLines = (unit: UsedUnit, pad: number): string[] => {
+  const unitLine = `${padLeft(unit.pointsCost, pad)} - ${unit.number} ${unit.name}`;
+  const upgrades = Object.values(unit.upgrades ?? {});
+  const upgradeLines = upgrades.map(
+    (upgrade) => `${padLeft(' ', pad)} - ${upgrade.number} ${upgrade.name} (${upgrade.pointsCost})`,
+  );
+
+  return [unitLine, ...upgradeLines];
 };
 
 /**
@@ -28,33 +38,19 @@ export const buildTextList = ({
   version,
 }: TextListParams): string => {
   const pad = String(points).length;
-  const lines: string[] = [];
+  const units = Object.values(usedUnits);
+  const unitCountTotal = units.reduce((sum, unit) => sum + unit.number, 0);
+  const breakValue = Math.ceil(unitCountTotal / BREAK_DIVISOR);
 
-  if (label) {
-    lines.push(label);
-  }
-
-  lines.push(`${armyName}, ${points} points`);
-  lines.push(version);
-  lines.push('--------------------------------');
-
-  for (const [unitName, unit] of Object.entries(usedUnits)) {
-    lines.push(`${padLeft(unit.pointsCost, pad)} - ${unit.number} ${unitName}`);
-
-    if (unit.upgrades) {
-      for (const [upgradeName, upgrade] of Object.entries(unit.upgrades)) {
-        lines.push(
-          `${padLeft(' ', pad)} - ${upgrade.number} ${upgradeName} (${upgrade.pointsCost})`,
-        );
-      }
-    }
-  }
-
-  lines.push('--------------------------------');
-
-  // unit count / break value (half, rounded up)
-  const unitCountTotal = Object.values(usedUnits).reduce((sum, u) => sum + u.number, 0);
-  lines.push(`${padLeft(points, pad)} - ${unitCountTotal}/${Math.ceil(unitCountTotal / 2)}`);
+  const lines = [
+    ...(label ? [label] : []),
+    `${armyName}, ${points} points`,
+    version,
+    DIVIDER,
+    ...units.flatMap((unit) => unitLines(unit, pad)),
+    DIVIDER,
+    `${padLeft(points, pad)} - ${unitCountTotal}/${breakValue}`,
+  ];
 
   return lines.join('\n');
 };

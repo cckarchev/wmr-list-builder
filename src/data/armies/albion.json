@@ -5,6 +5,7 @@
   "order": 0,
   "units": {
     "Warriors": {
+      "name": "Warriors",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Slingers": {
+      "name": "Slingers",
       "id": 1,
       "type": "Infantry",
       "attack": "2/1",
@@ -26,6 +28,7 @@
       "max": 6
     },
     "Ogres": {
+      "name": "Ogres",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -36,6 +39,7 @@
       "max": 2
     },
     "Wolfhounds": {
+      "name": "Wolfhounds",
       "id": 3,
       "type": "Cavalry",
       "attack": 3,
@@ -45,6 +49,7 @@
       "max": 6
     },
     "Riders": {
+      "name": "Riders",
       "id": 4,
       "type": "Cavalry",
       "attack": 3,
@@ -55,6 +60,7 @@
       "max": 4
     },
     "Chariots": {
+      "name": "Chariots",
       "id": 5,
       "type": "Chariot",
       "attack": 3,
@@ -66,6 +72,7 @@
       "max": 4
     },
     "Giant": {
+      "name": "Giant",
       "id": 6,
       "type": "Monster",
       "attack": 8,
@@ -76,6 +83,7 @@
       "max": 1
     },
     "Giant Eagles": {
+      "name": "Giant Eagles",
       "id": 7,
       "type": "Monster",
       "attack": 2,
@@ -86,6 +94,7 @@
       "max": 1
     },
     "Fenbeast": {
+      "name": "Fenbeast",
       "id": 8,
       "type": "Monster",
       "attack": 6,
@@ -98,6 +107,7 @@
       "requiredUnits": ["Druid"]
     },
     "General": {
+      "name": "General",
       "id": 9,
       "type": "General",
       "attack": "+2",
@@ -109,6 +119,7 @@
       "upgrades": ["Chariot"]
     },
     "Hero": {
+      "name": "Hero",
       "id": 10,
       "type": "Hero",
       "attack": "+1",
@@ -119,6 +130,7 @@
       "upgrades": ["Chariot"]
     },
     "Druid": {
+      "name": "Druid",
       "id": 11,
       "type": "Wizard",
       "attack": "+0",
@@ -131,6 +143,7 @@
   },
   "upgrades": {
     "Giant Eagle": {
+      "name": "Giant Eagle",
       "id": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -138,6 +151,7 @@
       "max": 1
     },
     "Chariot": {
+      "name": "Chariot",
       "id": 1,
       "type": "Chariot Mount",
       "attack": "+1",
@@ -148,25 +162,30 @@
   "magic": true,
   "specialRules": {
     "Ogres": {
+      "name": "Ogres",
       "order": 1,
       "text": [
         "If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans‘ encompasses all ‘men‘ including Chaos Warriors and Marauders, but not Dwarfs, Elves etc."
       ]
     },
     "Giant": {
+      "name": "Giant",
       "order": 2
     },
     "Giant Eagles": {
+      "name": "Giant Eagles",
       "order": 3,
       "text": ["Giant Eagles can fly."]
     },
     "Giant Eagle": {
+      "name": "Giant Eagle",
       "order": 4,
       "text": [
         "Giant Eagles can be ridden by Druid only. An Eagle can fly increasing its rider’s move from 60 to 100cm, and it adds +2 Attacks to those of its rider."
       ]
     },
     "Fenbeast": {
+      "name": "Fenbeast",
       "order": 5,
       "text": [
         "Fenbeast is an individual troop unit, but it can not be fielded like other units in the standard way. Fenbeast can appear on the battlefield only by Druid’s spell Summon Fenbeast. It cannot be brigaded with other troop units, not even other Fenbeasts. Fenbeasts never use their initiative to move in the Command phase. Because they are completely dominated by the will of the Druid who summoned them, the Druid counts as having a Command value of +1 when commanding the Fenbeast – that is 8 rather than 7. They can move through bogs as though they were open terrain. Unlike the wild Bog Beasts from the ‘Dark Shadows’ campaign, Fenbeast will make way for friendly troops. Fenbeasts are terrifying creatures and cause terror."

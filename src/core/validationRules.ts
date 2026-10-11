@@ -1,3 +1,4 @@
+import { namesOf } from './namesOf';
 import { POINTS_PER_ARMY_SIZE } from './selectors';
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
@@ -35,6 +36,7 @@ const HALVES = 2;
  * of optionals (mirroring the dynamic property access in the Vue code).
  */
 export type ValidatableItem = {
+  name: string;
   number: number;
   homologousUnits?: string[];
   homologousUpgrades?: string[];
@@ -258,12 +260,14 @@ const augends: Rule = ({ item, label, units }) => {
     return undefined;
   }
 
-  return `${item.number} ${label} requires at least ${item.number} ${toSentence(item.augendUnits)}.`;
+  const augendNames = toSentence(namesOf(item.augendUnits, units));
+
+  return `${item.number} ${label} requires at least ${item.number} ${augendNames}.`;
 };
 
 const requires = (
   ids: string[] | undefined,
-  pool: Record<string, { number: number }>,
+  pool: Record<string, { name: string; number: number }>,
   label: string,
 ) => {
   if (!ids) {
@@ -272,12 +276,12 @@ const requires = (
 
   const noneTaken = totalNumber(ids, pool) === 0;
 
-  return noneTaken ? `${label} must be taken with ${toSentence(ids)}.` : undefined;
+  return noneTaken ? `${label} must be taken with ${toSentence(namesOf(ids, pool))}.` : undefined;
 };
 
 const prohibits = (
   ids: string[] | undefined,
-  pool: Record<string, { number: number }>,
+  pool: Record<string, { name: string; number: number }>,
   label: string,
 ) => {
   if (!ids) {
@@ -286,7 +290,7 @@ const prohibits = (
 
   const anyTaken = totalNumber(ids, pool) > 0;
 
-  return anyTaken ? `${label} cannot be taken with ${toSentence(ids)}.` : undefined;
+  return anyTaken ? `${label} cannot be taken with ${toSentence(namesOf(ids, pool))}.` : undefined;
 };
 
 const requiredUnits: Rule = ({ item, label, units }) =>

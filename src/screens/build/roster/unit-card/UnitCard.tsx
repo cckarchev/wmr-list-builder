@@ -60,7 +60,7 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
       <div className={styles.top}>
         <div className={styles.main}>
           <div className={styles.nameRow}>
-            <span className={styles.name}>{unitId}</span>
+            <span className={styles.name}>{unit.name}</span>
             {showType && <span className={styles.typeTag}>{unit.type}</span>}
           </div>
           <StatLine
@@ -88,7 +88,7 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
           />
         )}
       </div>
-      {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
+      {selected && <InlineErrors errors={unitErrors} label={`${unit.name} errors`} />}
       {showUpgrades && <UpgradesPanel id={panelId} unitId={unitId} upgradeIds={upgradeIds} />}
     </div>
   );

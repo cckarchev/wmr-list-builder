@@ -36,9 +36,9 @@ export const MagicItems = () => {
     <PrintSection>
       <PrintHeading>Magic Items</PrintHeading>
       <DefList>
-        {entries.map(([name, item]) => (
-          <Fragment key={name}>
-            <DefTerm>{name}</DefTerm>
+        {entries.map(([id, item]) => (
+          <Fragment key={id}>
+            <DefTerm>{item.name}</DefTerm>
             <DefDesc>
               <Markdown blocks={item.text} />
             </DefDesc>

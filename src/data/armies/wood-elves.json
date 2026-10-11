@@ -5,6 +5,7 @@
   "order": 4,
   "units": {
     "Glade Guard": {
+      "name": "Glade Guard",
       "id": 0,
       "type": "Infantry",
       "attack": "3/1",
@@ -16,6 +17,7 @@
       "max": 4
     },
     "Eternal Guard": {
+      "name": "Eternal Guard",
       "id": 1,
       "type": "Infantry",
       "attack": 3,
@@ -26,6 +28,7 @@
       "max": 3
     },
     "Wardancers": {
+      "name": "Wardancers",
       "id": 2,
       "type": "Infantry",
       "attack": 4,
@@ -39,6 +42,7 @@
       "noMagic": true
     },
     "Waywatchers": {
+      "name": "Waywatchers",
       "id": 3,
       "type": "Infantry",
       "attack": "1/2",
@@ -49,6 +53,7 @@
       "max": 1
     },
     "Dryads": {
+      "name": "Dryads",
       "id": 4,
       "type": "Infantry",
       "attack": 4,
@@ -60,6 +65,7 @@
       "specialRules": ["Forest Spirits"]
     },
     "Glade Riders": {
+      "name": "Glade Riders",
       "id": 5,
       "type": "Cavalry",
       "attack": "3/1",
@@ -71,6 +77,7 @@
       "max": 3
     },
     "Wild Riders": {
+      "name": "Wild Riders",
       "id": 6,
       "type": "Cavalry",
       "attack": 3,
@@ -82,6 +89,7 @@
       "specialRules": ["Forest Spirits"]
     },
     "Warhawk Riders": {
+      "name": "Warhawk Riders",
       "id": 7,
       "type": "Monster",
       "attack": "2/1",
@@ -93,6 +101,7 @@
       "max": 1
     },
     "Treekin": {
+      "name": "Treekin",
       "id": 8,
       "type": "Infantry",
       "attack": 4,
@@ -104,6 +113,7 @@
       "specialRules": ["Forest Spirits"]
     },
     "Treeman": {
+      "name": "Treeman",
       "id": 9,
       "type": "Monster",
       "attack": 6,
@@ -115,6 +125,7 @@
       "specialRules": ["Forest Spirits"]
     },
     "General": {
+      "name": "General",
       "id": 10,
       "type": "General",
       "attack": "+2",
@@ -126,6 +137,7 @@
       "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
     },
     "Noble": {
+      "name": "Noble",
       "id": 11,
       "type": "Hero",
       "attack": "+1",
@@ -136,6 +148,7 @@
       "upgrades": ["Giant Stag", "Warhawk", "Forest Dragon"]
     },
     "Treeman Ancient": {
+      "name": "Treeman Ancient",
       "id": 12,
       "type": "Hero",
       "attack": "+3",
@@ -146,6 +159,7 @@
       "noMagic": true
     },
     "Branchwraith": {
+      "name": "Branchwraith",
       "id": 13,
       "type": "Hero",
       "attack": "+2",
@@ -156,6 +170,7 @@
       "noMagic": true
     },
     "Spell Weaver": {
+      "name": "Spell Weaver",
       "id": 14,
       "type": "Wizard",
       "attack": "+0",
@@ -168,6 +183,7 @@
   },
   "upgrades": {
     "Giant Stag": {
+      "name": "Giant Stag",
       "id": 0,
       "type": "Special Mount",
       "attack": "+1",
@@ -175,6 +191,7 @@
       "max": 1
     },
     "Unicorn": {
+      "name": "Unicorn",
       "id": 1,
       "type": "Special Mount",
       "attack": "+1",
@@ -182,6 +199,7 @@
       "max": 1
     },
     "Warhawk": {
+      "name": "Warhawk",
       "id": 2,
       "type": "Monstrous Mount",
       "attack": "+1",
@@ -189,6 +207,7 @@
       "max": 1
     },
     "Forest Dragon": {
+      "name": "Forest Dragon",
       "id": 3,
       "type": "Monstrous Mount",
       "attack": "+3",
@@ -202,12 +221,14 @@
   ],
   "specialRules": {
     "Glade Guard": {
+      "name": "Glade Guard",
       "order": 1,
       "text": [
         "Wood Elves are just as famed for their bow as their High Elf cousins, and as such Glade Guard units add +1 to their dice roll when making shooting attacks. Therefore these units score a hit against targets in the open on a 3+, against defended targets on a 4+, and against fortified targets on a 5+."
       ]
     },
     "Wardancers": {
+      "name": "Wardancers",
       "order": 2,
       "text": [
         "Wardancer stands are not deployed as independent units. Instead, any Glade Guard or Eternal Guard unit may add one stand of Wardancers. This brings the size of the unit to 4 stands: 3 regular stands plus the Wardancers stand.",
@@ -216,6 +237,7 @@
       ]
     },
     "Waywatchers": {
+      "name": "Waywatchers",
       "order": 3,
       "text": [
         "Famous for their bow skills even by Wood Elf standards, Waywatchers shoot the enemy with terrifying accuracy. They add +1 to their dice rolls when making shooting attacks and these attacks are resolved at -1 Armour value of the enemy.",
@@ -223,60 +245,70 @@
       ]
     },
     "Forest Spirits": {
+      "name": "Forest Spirits",
       "order": 4,
       "text": [
         "Forest Spirits are woodland creatures. They are immune to terror and suffer -1 Command penalty when being ordered by a General or Noble."
       ]
     },
     "Wild Riders": {
+      "name": "Wild Riders",
       "order": 5,
       "text": [
         "Wild Riders receive +1 Attack in the first round of every combat when fighting to the front."
       ]
     },
     "Warhawk Riders": {
+      "name": "Warhawk Riders",
       "order": 6,
       "text": [
         "Warhawk riders can fly. They have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Treeman": {
+      "name": "Treeman",
       "order": 7,
       "text": [
         "Treeman can enter woods and suffers no command spenalty for being within the woods but cannot get defended status there. Treeman causes terror."
       ]
     },
     "Treeman Ancient": {
+      "name": "Treeman Ancient",
       "order": 8,
       "text": [
         "Treeman Ancient has -1 Command penalty when issuing orders to other than Forest Spirit units. Can join only Forest Spirit units and is able to cast Tree Singing spell. Units joined by Treeman Ancient cause terror. There can ever be only one Treeman Ancient in any Wood Elf army. Cannot be given any magic items."
       ]
     },
     "Branchwraith": {
+      "name": "Branchwraith",
       "order": 9,
       "text": [
         "Branchwraith has -1 Command penalty when issuing orders to other than Forest Spirit units. Can join only Forest Spirit units and is able to cast Tree Singing spell. Cannot be given any magic items."
       ]
     },
     "Giant Stag": {
+      "name": "Giant Stag",
       "order": 10,
       "text": [
         "General, Nobles and Spell Weavers may ride a Giant Stag. The Stag adds +1 Attack to those of its rider."
       ]
     },
     "Unicorn": {
+      "name": "Unicorn",
       "order": 11,
       "text": [
         "This mount can be ridden by Spell Weaver only. The Unicorn adds +1 Attack to those of its rider. Once per battle the Unicorn’s magical power adds +1 to the dice when casting a spell. The player must announce that the Unicorn’s magic before rolling to see if the spell works. There can be only one Unicorn in the army."
       ]
     },
     "Warhawk": {
+      "name": "Warhawk",
       "order": 12,
       "text": [
         "General, Nobles and Spell Weavers may ride a Warhawk. The Warhawk can fly, increasing its rider’s move from 60cm to 100cm, and it adds +1 Attack to those of its rider."
       ]
     },
     "Forest Dragon": {
+      "name": "Forest Dragon",
       "order": 13,
       "text": [
         "Generals, Nobles and Spell Weavers may ride Forest Dragons. A Forest Dragon can fly, increasing its rider’s move to 100cm, and adds +3 Attacks to those of its rider. Any unit joined by a character riding a Forest Dragon cause terror in their enemies and so long as the Dragon is attached to a unit, it can use its Corrosive Breath attack. This is a shooting attack with a range of 20cm, which can be directed against one target as normal. The breath has 3 Attacks, which are worked out in the usual way."

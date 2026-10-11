@@ -33,7 +33,14 @@ describe('resolveUpgradePoints', () => {
 const POINTS = 45;
 const THREE_HITS = 3;
 
-const KNIGHTS: Unit = { id: 1, type: 'Cavalry', armour: '4+', hits: THREE_HITS, points: POINTS };
+const KNIGHTS: Unit = {
+  name: 'Knights',
+  id: 1,
+  type: 'Cavalry',
+  armour: '4+',
+  hits: THREE_HITS,
+  points: POINTS,
+};
 
 const CAVALRY_BANNERS: UpgradeConstraint = { unitType: ['Cavalry'], upgrades: ['Banner'] };
 

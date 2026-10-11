@@ -17,13 +17,14 @@ export const UnitRules = ({ unitId }: UnitRulesProps) => {
   }
 
   const rules = resolveUnitSpecialRules(unitId, unit, specialRules);
+
   if (rules.length === 0) {
     return null;
   }
 
   return (
     <Popover
-      label={`${unitId} special rules`}
+      label={`${unit.name} special rules`}
       trigger={
         <>
           <Icon name="rules" size={14} />

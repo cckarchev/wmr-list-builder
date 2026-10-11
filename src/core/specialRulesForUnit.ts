@@ -2,13 +2,13 @@ import type { SpecialRule } from '@/data/types';
 import type { UnitState } from './storeHelpers';
 
 export interface ResolvedRule {
-  name: string;
+  id: string;
   rule: SpecialRule;
 }
 
 /**
- * Resolve the special rules that apply to a single unit: the rule named after
- * the unit itself (if any) plus each entry in its `specialRules`, de-duplicated
+ * Resolve the special rules that apply to a single unit: the rule keyed by the
+ * unit's own id (if any) plus each entry in its `specialRules`, de-duplicated
  * and ordered by `rule.order`. Shared by the Build screen and the Print view.
  */
 export const resolveUnitSpecialRules = (
@@ -20,17 +20,10 @@ export const resolveUnitSpecialRules = (
     return [];
   }
 
-  const names: string[] = [];
-  const add = (name: string) => {
-    if (allRules[name] && !names.includes(name)) {
-      names.push(name);
-    }
-  };
+  const candidates = [unitId, ...(unit.specialRules ?? [])];
+  const ids = [...new Set(candidates)].filter((id) => allRules[id]);
 
-  add(unitId);
-  unit.specialRules?.forEach(add);
-
-  return names
-    .map((name) => ({ name, rule: allRules[name] }))
+  return ids
+    .map((id) => ({ id, rule: allRules[id] }))
     .sort((a, b) => (a.rule.order ?? 0) - (b.rule.order ?? 0));
 };

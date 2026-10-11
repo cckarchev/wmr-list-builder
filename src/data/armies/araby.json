@@ -5,6 +5,7 @@
   "order": 4,
   "units": {
     "Spearmen": {
+      "name": "Spearmen",
       "id": 0,
       "type": "Infantry",
       "attack": 3,
@@ -15,6 +16,7 @@
       "min": 2
     },
     "Bowmen": {
+      "name": "Bowmen",
       "id": 1,
       "type": "Infantry",
       "attack": "3/1",
@@ -25,6 +27,7 @@
       "min": 2
     },
     "Guards": {
+      "name": "Guards",
       "id": 2,
       "type": "Infantry",
       "attack": 3,
@@ -35,6 +38,7 @@
       "max": 4
     },
     "Knights": {
+      "name": "Knights",
       "id": 3,
       "type": "Cavalry",
       "attack": 3,
@@ -44,6 +48,7 @@
       "points": 110
     },
     "Desert Riders": {
+      "name": "Desert Riders",
       "id": 4,
       "type": "Cavalry",
       "attack": "3/1",
@@ -54,6 +59,7 @@
       "points": 75
     },
     "Camel Riders": {
+      "name": "Camel Riders",
       "id": 5,
       "type": "Cavalry",
       "attack": "3/1",
@@ -65,6 +71,7 @@
       "max": 2
     },
     "Magic Carpets": {
+      "name": "Magic Carpets",
       "id": 6,
       "type": "Cavalry",
       "attack": "1/2",
@@ -76,6 +83,7 @@
       "max": 1
     },
     "Elephants": {
+      "name": "Elephants",
       "id": 7,
       "type": "Monster",
       "attack": 5,
@@ -86,6 +94,7 @@
       "max": 1
     },
     "General": {
+      "name": "General",
       "id": 8,
       "type": "General",
       "attack": "+2",
@@ -97,6 +106,7 @@
       "upgrades": ["Flying Carpet", "Elephant", "Djinn"]
     },
     "Hero": {
+      "name": "Hero",
       "id": 9,
       "type": "Hero",
       "attack": "+1",
@@ -107,6 +117,7 @@
       "upgrades": ["Flying Carpet", "Elephant", "Djinn"]
     },
     "Wizard": {
+      "name": "Wizard",
       "id": 10,
       "type": "Wizard",
       "attack": "+0",
@@ -119,6 +130,7 @@
   },
   "upgrades": {
     "Flying Carpet": {
+      "name": "Flying Carpet",
       "id": 0,
       "type": "Chariot Mount",
       "attack": "+0",
@@ -126,6 +138,7 @@
       "max": 1
     },
     "Elephant": {
+      "name": "Elephant",
       "id": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
@@ -133,6 +146,7 @@
       "max": 1
     },
     "Djinn": {
+      "name": "Djinn",
       "id": 2,
       "type": "Monstrous Mount",
       "attack": "+2/+2",
@@ -143,30 +157,35 @@
   "magic": true,
   "specialRules": {
     "Guards": {
+      "name": "Guards",
       "order": 1,
       "text": [
         "The Sultan's Guards are so unquestioningly loyal that they will obey the first order given to them each turn on the Command roll of 10 or less so long as the order comes from the General himself. No penalties are applied to this order. Further orders are given using the General's normal command value and penalties. This applies only to Guards and not to brigades that include Guards and other units."
       ]
     },
     "Desert Riders": {
+      "name": "Desert Riders",
       "order": 2,
       "text": [
         "Desert Riders have a shooting range of only 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Camel Riders": {
+      "name": "Camel Riders",
       "order": 3,
       "text": [
         "Camel Riders ignore distance modifiers when commands are issued to them. This applies only to Camel Riders and not to brigades that include Camel Riders and other units. Remember that characters are still bound by their maximum command ranges and cannot issue orders to units beyond range. This represents their fierce self-reliance and their mounts' instinctive sense of direction allowing them to operate effectively far from their own battle lines. Because Camels are such intractable creatures all orders are issued with a Command penalty of -1, this penalty applies to any unit of Camel Riders or to any brigade that contains one or more units of Camel Riders."
       ]
     },
     "Magic Carpets": {
+      "name": "Magic Carpets",
       "order": 4,
       "text": [
         "Magic carpets can fly – they have been rated as aerial 'cavalry' as this is the closest categorisation to their type. Because they are awkward flyers, they can be pursued by any type of enemy troops. Riders have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
     "Elephants": {
+      "name": "Elephants",
       "order": 5,
       "text": [
         "Elephants cause terror and cannot be brigaded with cavalry. If an Elephant unit would for any reason become confused, it will stampede instead. Their stampede ceases at the end of their player‘s next Command phase. Stampeding Elephants cannot be given orders or use initiative. At the beginning of the Command phase, prior to resolving any movement generated by Initiative, roll one D6 for each affected unit:",
@@ -175,16 +194,19 @@
       ]
     },
     "Flying Carpet": {
+      "name": "Flying Carpet",
       "order": 6,
       "text": ["This is considered to be a flying chariot mount."]
     },
     "Elephant": {
+      "name": "Elephant",
       "order": 7,
       "text": [
         "The Elephant mount is a standard monster mount except that a character mounted on an Elephant cannot join a unit of friendly cavalry. A unit joined by a character riding an Elephant causes Terror."
       ]
     },
     "Djinn": {
+      "name": "Djinn",
       "order": 8,
       "text": [
         "The Djinn accompanies its master and can transform both of them into a whirlwind enabling the stand to fly as for a normal flying mount. If the sorcerer has a Djinn he can also cast the Curse of the Djinn spell with a 1 casting bonus (see spells). Note that unusually the Djinn has 2 shooting attacks - these are added to a stand from a unit that the character has joined and can only be used when the character joins a unit. If the Wizard is accompanied by a Djinn then any unit he joins causes Terror."
