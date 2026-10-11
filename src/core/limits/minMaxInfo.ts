@@ -1,4 +1,5 @@
 import { armySize } from '@/core/selectors';
+import { eliteCap } from './eliteCap';
 
 /** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */
 export interface MinMaxSource {
@@ -49,9 +50,9 @@ export const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo
   const size = armySize(gameSize);
   const { min, max } = troop;
 
-  // `elite` lives in the max field and resolves to an absolute (size − 1) cap.
+  // `elite` lives in the max field and resolves to an absolute cap.
   if (max === 'elite') {
-    return { kind: 'elite', cap: Math.max(0, size - 1) };
+    return { kind: 'elite', cap: eliteCap(size) };
   }
 
   // Other keyword tokens are relative to the unit being upgraded.

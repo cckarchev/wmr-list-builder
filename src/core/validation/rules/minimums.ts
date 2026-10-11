@@ -1,5 +1,6 @@
+import { halfDown, halfUp } from '@/core/lib/counts';
 import { POINTS_PER_ARMY_SIZE } from '@/core/selectors';
-import { halfDown, halfUp, isAsToken, perRequired, perThousandPoints } from './bounds';
+import { isAsToken, perRequired, perThousandPoints } from './bounds';
 import type { Rule } from './types';
 
 export const armyMin: Rule = ({ item, label, groupNumber }) => {
@@ -25,8 +26,8 @@ export const halfOrAll: Rule = ({ item, label, required }) => {
     return undefined;
   }
 
-  const belowHalf = item.number > 0 && item.number < halfDown(required);
-  const betweenHalfAndAll = item.number > halfUp(required) && item.number < required.count;
+  const belowHalf = item.number > 0 && item.number < halfDown(required.count);
+  const betweenHalfAndAll = item.number > halfUp(required.count) && item.number < required.count;
 
   if (!belowHalf && !betweenHalfAndAll) {
     return undefined;
@@ -40,7 +41,7 @@ export const halfOrMore: Rule = ({ item, label, required }) => {
     return undefined;
   }
 
-  const minimum = halfDown(required);
+  const minimum = halfDown(required.count);
 
   return item.number < minimum ? perRequired('Minimum', minimum, label, required) : undefined;
 };
@@ -50,7 +51,7 @@ export const halfOrNoneMin: Rule = ({ item, label, required }) => {
     return undefined;
   }
 
-  const minimum = halfDown(required);
+  const minimum = halfDown(required.count);
   const isBelowHalf = item.number > 0 && item.number < minimum;
 
   return isBelowHalf ? perRequired('Minimum', minimum, label, required) : undefined;

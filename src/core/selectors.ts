@@ -1,4 +1,5 @@
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import { halfUp } from '@/core/lib/counts';
 import { resolveBounds } from '@/core/limits/forceLimits';
 import type { ValidationError } from '@/data/types';
 import type { ArmyState } from '@/store/useArmyStore';
@@ -21,9 +22,12 @@ export const pointsCost = (state: Pick<ArmyState, 'units'>): number =>
 /** Points in one army-size step; per-1,000-point limits scale with each step. */
 export const POINTS_PER_ARMY_SIZE = 1000;
 
-/** Port of getters.js `size`: Math.max(1, Math.floor(points / 1000)). */
+/** The smallest army size, which even a list under 1,000 points gets. */
+const MIN_ARMY_SIZE = 1;
+
+/** Port of getters.js `size`: whole 1,000-point steps, at least one. */
 export const armySize = (points: number): number =>
-  Math.max(1, Math.floor(points / POINTS_PER_ARMY_SIZE));
+  Math.max(MIN_ARMY_SIZE, Math.floor(points / POINTS_PER_ARMY_SIZE));
 
 /** Units that count toward the break point: every countable type, except `noCount` units. */
 export const unitCount = (units: Record<string, UnitState>): number => {
@@ -41,8 +45,7 @@ export const unitCount = (units: Record<string, UnitState>): number => {
 };
 
 /** Units an army can lose before it must withdraw: half its countable units, rounded up. */
-export const breakPoint = (units: Record<string, UnitState>): number =>
-  Math.ceil(unitCount(units) / 2);
+export const breakPoint = (units: Record<string, UnitState>): number => halfUp(unitCount(units));
 
 export type UsedUnit = Omit<UnitState, 'upgrades'> & {
   upgrades?: Record<string, UpgradeState & UnitUpgradeEntry>;

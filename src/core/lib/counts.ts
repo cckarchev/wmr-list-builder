@@ -17,3 +17,10 @@ export const clamp = (value: number, min: number, max: number | undefined): numb
 
   return value;
 };
+
+/** Divisor for halving a count. */
+const HALVES = 2;
+
+export const halfDown = (count: number): number => Math.floor(count / HALVES);
+
+export const halfUp = (count: number): number => Math.ceil(count / HALVES);

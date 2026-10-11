@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clamp, toCount } from './counts';
+import { clamp, halfDown, halfUp, toCount } from './counts';
 
 const LOW = 2;
 const HIGH = 5;
@@ -39,5 +39,31 @@ describe('clamp', () => {
 
   it('has no upper limit when the maximum is undefined', () => {
     expect(clamp(ABOVE, LOW, undefined)).toBe(ABOVE);
+  });
+});
+
+const EVEN = 6;
+const EVEN_HALF = 3;
+const ODD = 7;
+const ODD_HALF_DOWN = 3;
+const ODD_HALF_UP = 4;
+
+describe('halfDown', () => {
+  it('halves an even count exactly', () => {
+    expect(halfDown(EVEN)).toBe(EVEN_HALF);
+  });
+
+  it('rounds an odd count down', () => {
+    expect(halfDown(ODD)).toBe(ODD_HALF_DOWN);
+  });
+});
+
+describe('halfUp', () => {
+  it('halves an even count exactly', () => {
+    expect(halfUp(EVEN)).toBe(EVEN_HALF);
+  });
+
+  it('rounds an odd count up', () => {
+    expect(halfUp(ODD)).toBe(ODD_HALF_UP);
   });
 });
