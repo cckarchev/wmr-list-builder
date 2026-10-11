@@ -153,8 +153,8 @@ export const SaveListButton = () => {
   return (
     <Wrapper ref={wrapRef}>
       <Button
-        $variant="ghost"
-        $size="sm"
+        variant="ghost"
+        size="sm"
         onClick={() => (open ? setOpen(false) : openPanel())}
         disabled={!armyId}
         aria-haspopup="dialog"
@@ -185,7 +185,7 @@ export const SaveListButton = () => {
               }}
             />
             {error && <Note role="alert">{error}</Note>}
-            <Button $variant="primary" $size="sm" onClick={handleSave}>
+            <Button variant="primary" size="sm" onClick={handleSave}>
               Save list
             </Button>
           </Body>

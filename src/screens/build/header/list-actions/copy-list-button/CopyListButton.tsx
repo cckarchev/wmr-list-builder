@@ -67,8 +67,8 @@ export const CopyListButton = () => {
   return (
     <Wrapper>
       <Button
-        $variant="ghost"
-        $size="sm"
+        variant="ghost"
+        size="sm"
         onClick={handleCopy}
         disabled={!army}
         title="Copy list as text"

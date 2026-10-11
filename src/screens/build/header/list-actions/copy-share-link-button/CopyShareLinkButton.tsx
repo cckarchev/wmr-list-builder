@@ -68,8 +68,8 @@ export const CopyShareLinkButton = () => {
   return (
     <Wrapper>
       <Button
-        $variant="ghost"
-        $size="sm"
+        variant="ghost"
+        size="sm"
         onClick={handleCopy}
         disabled={!armyId}
         title="Copy share link"

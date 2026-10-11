@@ -209,8 +209,8 @@ export const LoadListButton = () => {
   return (
     <Wrapper ref={wrapRef}>
       <Button
-        $variant="ghost"
-        $size="sm"
+        variant="ghost"
+        size="sm"
         onClick={() => (open ? setOpen(false) : openPanel())}
         disabled={!armyId}
         aria-haspopup="dialog"

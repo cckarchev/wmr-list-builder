@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { initEmbed } from '@/core/embed';
-import { GlobalStyle } from '@/theme/GlobalStyle';
 import { theme } from '@/theme/theme';
 import { App } from './App';
+import '@/theme/global.css';
 
 initEmbed();
 
@@ -18,7 +18,6 @@ if (!rootElement) {
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
       <BrowserRouter>
         <App />
       </BrowserRouter>

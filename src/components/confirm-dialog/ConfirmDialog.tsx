@@ -129,10 +129,10 @@ export const ConfirmDialog = ({
         <Title id={titleId}>{title}</Title>
         <Message id={messageId}>{message}</Message>
         <Actions>
-          <Button $variant="ghost" $size="sm" onClick={onCancel}>
+          <Button variant="ghost" size="sm" onClick={onCancel}>
             {cancelLabel}
           </Button>
-          <Button ref={confirmRef} $variant={confirmVariant} $size="sm" onClick={onConfirm}>
+          <Button ref={confirmRef} variant={confirmVariant} size="sm" onClick={onConfirm}>
             {confirmLabel}
           </Button>
         </Actions>

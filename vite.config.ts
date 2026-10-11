@@ -9,6 +9,20 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  css: {
+    transformer: 'lightningcss',
+    lightningcss: {
+      cssModules: {
+        pattern: '[local]_[hash]',
+      },
+      drafts: {
+        customMedia: true,
+      },
+    },
+  },
+  build: {
+    cssMinify: 'lightningcss',
+  },
   test: {
     globals: true,
     environment: 'jsdom',

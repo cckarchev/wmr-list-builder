@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/button/Button';
+import { ButtonLink } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopyListButton } from './copy-list-button/CopyListButton';
@@ -23,10 +22,10 @@ export const ListActions = () => {
         <CopyShareLinkButton />
         <CopyListButton />
         {armyId && (
-          <Button as={Link} to={`/print/${armyId}`} $variant="ghost" $size="sm">
+          <ButtonLink to={`/print/${armyId}`} variant="ghost" size="sm">
             <Icon name="print" size={16} />
             Print
-          </Button>
+          </ButtonLink>
         )}
         <MenuDivider />
         <ResetListButton />

@@ -31,8 +31,8 @@ export const ResetListButton = () => {
   return (
     <>
       <Button
-        $variant="danger"
-        $size="sm"
+        variant="danger"
+        size="sm"
         onClick={() => setConfirming(true)}
         disabled={!armyId}
         title="Reset army"

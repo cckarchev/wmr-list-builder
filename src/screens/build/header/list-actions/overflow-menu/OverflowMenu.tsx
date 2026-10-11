@@ -75,8 +75,8 @@ export const OverflowMenu = ({ children }: { children: ReactNode }) => {
     <Wrapper ref={wrapRef}>
       <Button
         type="button"
-        $variant="ghost"
-        $size="sm"
+        variant="ghost"
+        size="sm"
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}

@@ -1,0 +1,100 @@
+/*
+ * Design tokens: the single source of truth for every color, size and font in
+ * the app. Components read them with var(--token).
+ */
+:root {
+  /* RGB channels. Compose a color at any opacity with rgb(var(--rgb-x) / 0.5)
+     instead of hardcoding rgba() values. */
+  --rgb-text: 243 247 248;
+  --rgb-white: 255 255 255;
+  --rgb-black: 0 0 0;
+  --rgb-accent: 212 98 62;
+  --rgb-teal: 43 179 196;
+  --rgb-panel: 13 26 31;
+
+  /* Backgrounds */
+  --color-bg-base: #0a1a22;
+  --color-bg-surface: #0d1f28;
+  --color-bg-tint: #15303a;
+  --color-bg-deep: #070e12;
+  --color-bg-panel: rgb(var(--rgb-panel) / 0.6);
+  /* Fill behind active accent controls, such as the selected roster filter. */
+  --color-bg-accent-tint: rgb(var(--rgb-accent) / 0.15);
+  /* Alternate-row shading for printed tables. */
+  --color-bg-stripe: rgb(var(--rgb-white) / 0.06);
+  /* Backdrop that dims the page behind a modal dialog. */
+  --color-bg-scrim: rgb(var(--rgb-black) / 0.6);
+
+  /* Brand */
+  --color-accent: #d4623e;
+  --color-accent-ink: #091418;
+  --color-teal: #1e6b78;
+  --color-teal-bright: #2bb3c4;
+
+  /* Text alphas run higher than the cckarchev marketing site: a dense builder
+     with small mono labels needs more contrast than a sparse landing page. */
+  --color-text-strong: rgb(var(--rgb-text) / 1);
+  --color-text-body: rgb(var(--rgb-text) / 0.82);
+  --color-text-dim: rgb(var(--rgb-text) / 0.62);
+
+  /* Control-edge alphas are likewise bumped so panels, steppers and dividers
+     actually read as bordered controls against the near-black surfaces. */
+  --color-border-divider: rgb(var(--rgb-white) / 0.14);
+  --color-border-default: rgb(var(--rgb-white) / 0.22);
+  --color-border-hover: rgb(var(--rgb-white) / 0.34);
+  --color-border-focus: rgb(var(--rgb-teal) / 0.85);
+  --color-border-active: rgb(var(--rgb-white) / 0.65);
+  --color-border-accent: rgb(var(--rgb-accent) / 0.7);
+
+  /* Ghost / teal-outline interactive states, such as the ghost Button. */
+  --color-ghost-border: rgb(var(--rgb-teal) / 0.6);
+  --color-ghost-border-hover: rgb(var(--rgb-teal) / 0.9);
+  --color-ghost-bg: rgb(var(--rgb-teal) / 0.1);
+
+  /* Semantic */
+  --color-error: #e05555;
+  --color-success: #46af73;
+  --color-warning: #d9b770;
+
+  /* 4px-based spacing scale. Names follow the font-size scale. */
+  --space-none: 0;
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-xxxl: 64px;
+
+  /* Sharp corners everywhere, to match the parent site. */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-pill: 0;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-xxl: 40px;
+
+  --font-display: 'Oswald', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --tracking-label: 0.2em;
+  --tracking-label-wide: 0.28em;
+  --tracking-button: 0.12em;
+
+  --shadow-panel: 0 2px 8px rgb(var(--rgb-black) / 0.35);
+
+  /* Shared keyboard focus indicator for every interactive control. */
+  --focus-ring: 2px solid var(--color-border-focus);
+  --focus-ring-offset: 2px;
+
+  /* Max content width for centered page containers; beyond this the layout
+     gutters rather than letting cards sprawl on large screens. */
+  --layout-max-width: 1200px;
+}
