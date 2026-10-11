@@ -6,12 +6,10 @@ import { useLocation } from 'react-router-dom';
  * Client-side navigation preserves scroll by default, which would otherwise
  * land you scrolled down (e.g. picking an army from a scrolled army list).
  */
-const ScrollToTop = () => {
+export const ScrollToTop = () => {
   const { pathname } = useLocation();
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
 };
-
-export default ScrollToTop;

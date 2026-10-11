@@ -59,7 +59,7 @@ const StatFigure = styled.span`
 const stat = (value: StatValue | undefined): string =>
   value !== undefined && value !== '' ? String(value) : '–';
 
-const StatLine = ({
+export const StatLine = ({
   attack,
   range,
   hits,
@@ -97,5 +97,3 @@ const StatLine = ({
     </StatTable>
   );
 };
-
-export default StatLine;

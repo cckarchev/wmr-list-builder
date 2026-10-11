@@ -3,8 +3,8 @@ import { breakPoint, globalErrors, pointsCost, unitCount } from '../../store/sel
 import { useArmyStore } from '../../store/useArmyStore';
 import { useIsDirty } from '../../store/useIsDirty';
 import { focusRing } from '../../theme/focusRing';
-import GameSizeStepper from './GameSizeStepper';
-import ListActions from './ListActions';
+import { GameSizeStepper } from './GameSizeStepper';
+import { ListActions } from './ListActions';
 import { unitDomId } from './unitDomId';
 
 const Header = styled.header`
@@ -202,7 +202,7 @@ const WarningDismiss = styled.button`
   padding: 0;
 `;
 
-const BuildHeader = () => {
+export const BuildHeader = () => {
   const army = useArmyStore((s) => s.army);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
@@ -306,5 +306,3 @@ const BuildHeader = () => {
     </Header>
   );
 };
-
-export default BuildHeader;

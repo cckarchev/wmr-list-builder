@@ -5,12 +5,12 @@ import { errorsForTarget } from '../../store/selectors';
 import { resolveUpgradePoints } from '../../store/storeHelpers';
 import { resolveUpgradeRules } from '../../store/upgradeRules';
 import { useArmyStore } from '../../store/useArmyStore';
-import Icon from '../ui/Icon';
-import Markdown from '../ui/Markdown';
-import Popover from '../ui/Popover';
-import Stepper from '../ui/Stepper';
-import Tooltip from '../ui/Tooltip';
-import InlineErrors from './InlineErrors';
+import { Icon } from '../ui/Icon';
+import { Markdown } from '../ui/Markdown';
+import { Popover } from '../ui/Popover';
+import { Stepper } from '../ui/Stepper';
+import { Tooltip } from '../ui/Tooltip';
+import { InlineErrors } from './InlineErrors';
 
 interface UpgradeRowProps {
   unitId: string;
@@ -101,7 +101,7 @@ const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): s
   return '—';
 };
 
-const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
+export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrade = useArmyStore((s) => s.upgrades[upgradeId]);
   const setUnitUpgradeNumber = useArmyStore((s) => s.setUnitUpgradeNumber);
@@ -175,5 +175,3 @@ const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
     </Row>
   );
 };
-
-export default UpgradeRow;

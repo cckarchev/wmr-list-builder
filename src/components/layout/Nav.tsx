@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { focusRing } from '../../theme/focusRing';
-import ChevronMark from '../ui/ChevronMark';
-import Icon from '../ui/Icon';
+import { ChevronMark } from '../ui/ChevronMark';
+import { Icon } from '../ui/Icon';
 
 const Bar = styled.header`
   display: flex;
@@ -72,7 +72,7 @@ const Chev = styled.span<{ $flip?: boolean }>`
   ${({ $flip }) => $flip && 'transform: rotate(180deg);'}
 `;
 
-const Nav = () => {
+export const Nav = () => {
   const { pathname } = useLocation();
   const [section, armyId] = pathname.split('/').filter(Boolean);
 
@@ -102,5 +102,3 @@ const Nav = () => {
     </Bar>
   );
 };
-
-export default Nav;

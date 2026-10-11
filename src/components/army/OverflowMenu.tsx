@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Button from '../ui/Button';
+import { Button } from '../ui/Button';
 
 const Wrapper = styled.span`
   position: relative;
@@ -45,7 +45,7 @@ export const MenuDivider = styled.hr`
   border-top: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
-const OverflowMenu = ({ children }: { children: ReactNode }) => {
+export const OverflowMenu = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
 
@@ -88,5 +88,3 @@ const OverflowMenu = ({ children }: { children: ReactNode }) => {
     </Wrapper>
   );
 };
-
-export default OverflowMenu;

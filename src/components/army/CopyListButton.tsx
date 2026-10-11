@@ -2,8 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { usedUnits as getUsedUnits, pointsCost } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
-import Button from '../ui/Button';
-import Icon from '../ui/Icon';
+import { Button } from '../ui/Button';
+import { Icon } from '../ui/Icon';
 import { COPIED_FEEDBACK_MS } from './copyFeedback';
 import { buildTextList } from './textList';
 
@@ -32,7 +32,7 @@ const CopiedLabel = styled.span`
   font-weight: 500;
 `;
 
-const CopyListButton = () => {
+export const CopyListButton = () => {
   const [copied, setCopied] = useState(false);
 
   const army = useArmyStore((s) => s.army);
@@ -80,5 +80,3 @@ const CopyListButton = () => {
     </Wrapper>
   );
 };
-
-export default CopyListButton;

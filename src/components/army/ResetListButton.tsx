@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useArmyStore } from '../../store/useArmyStore';
-import Button from '../ui/Button';
-import ConfirmDialog from '../ui/ConfirmDialog';
-import Icon from '../ui/Icon';
+import { Button } from '../ui/Button';
+import { ConfirmDialog } from '../ui/ConfirmDialog';
+import { Icon } from '../ui/Icon';
 
-const ResetListButton = () => {
+export const ResetListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const setArmy = useArmyStore((s) => s.setArmy);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,5 +51,3 @@ const ResetListButton = () => {
     </>
   );
 };
-
-export default ResetListButton;

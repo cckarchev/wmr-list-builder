@@ -131,7 +131,7 @@ const Total = styled.div<{ $over: boolean }>`
   color: ${({ theme, $over }) => ($over ? theme.color.semantic.error : theme.color.text.dim)};
 `;
 
-const ArmySummary = () => {
+export const ArmySummary = () => {
   const units = useArmyStore((s) => s.units);
   const gameSize = useArmyStore((s) => s.gameSize);
   const [open, setOpen] = useState(false);
@@ -195,5 +195,3 @@ const ArmySummary = () => {
     </Aside>
   );
 };
-
-export default ArmySummary;

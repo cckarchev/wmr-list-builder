@@ -6,7 +6,7 @@ interface ChevronMarkProps {
   strokeWidth?: number;
 }
 
-const ChevronMark = ({ color, size = 14, strokeWidth = 2.4 }: ChevronMarkProps) => {
+export const ChevronMark = ({ color, size = 14, strokeWidth = 2.4 }: ChevronMarkProps) => {
   const theme = useTheme();
   const stroke = color ?? theme.color.tealBright;
   return (
@@ -22,5 +22,3 @@ const ChevronMark = ({ color, size = 14, strokeWidth = 2.4 }: ChevronMarkProps) 
     </svg>
   );
 };
-
-export default ChevronMark;

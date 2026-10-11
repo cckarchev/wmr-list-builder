@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { defined } from '../../test/defined';
 import { renderWithTheme } from '../../test/renderWithProviders';
-import ChevronMark from './ChevronMark';
+import { ChevronMark } from './ChevronMark';
 
 describe('ChevronMark', () => {
   it('renders an aria-hidden svg containing a path', () => {

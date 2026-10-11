@@ -42,7 +42,7 @@ interface IconProps {
   title?: string;
 }
 
-const Icon = ({ name, size = 16, title }: IconProps) => (
+export const Icon = ({ name, size = 16, title }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -57,5 +57,3 @@ const Icon = ({ name, size = 16, title }: IconProps) => (
     <path d={PATHS[name]} />
   </svg>
 );
-
-export default Icon;

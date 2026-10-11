@@ -8,7 +8,7 @@ import { snapshotOf } from '../../store/snapshot';
 import { useArmyStore } from '../../store/useArmyStore';
 import { defined } from '../../test/defined';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import BuildHeader from './BuildHeader';
+import { BuildHeader } from './BuildHeader';
 
 /** An odd count, so the break point has to round up. */
 const GOBLIN_STANDS = 5;

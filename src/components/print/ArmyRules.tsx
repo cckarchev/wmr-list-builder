@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import Markdown from '../ui/Markdown';
+import { Markdown } from '../ui/Markdown';
 import { PrintHeading, PrintSection } from './printSection';
 
 const Content = styled.div`
@@ -16,7 +16,7 @@ const Content = styled.div`
   }
 `;
 
-const ArmyRules = () => {
+export const ArmyRules = () => {
   const army = useArmyStore((s) => s.army);
 
   if (!army?.armyRules) {
@@ -32,5 +32,3 @@ const ArmyRules = () => {
     </PrintSection>
   );
 };
-
-export default ArmyRules;

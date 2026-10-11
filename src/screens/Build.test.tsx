@@ -7,7 +7,7 @@ import { loadArmy } from '../data/loadArmy';
 import { buildCodeMaps, encodeList, saveList } from '../store/persistence';
 import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
-import Build from './Build';
+import { Build } from './Build';
 
 /** Below the base goblin list's 560 points, so the list starts over the cap. */
 const UNDERSIZED_GAME = 500;

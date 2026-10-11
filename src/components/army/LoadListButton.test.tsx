@@ -7,7 +7,7 @@ import { snapshotOf } from '../../store/snapshot';
 import { useArmyStore } from '../../store/useArmyStore';
 import { defined } from '../../test/defined';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import LoadListButton from './LoadListButton';
+import { LoadListButton } from './LoadListButton';
 
 const SMALL_GAME = 1000;
 const MID_GAME = 1500;

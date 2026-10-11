@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import { MAGIC_ITEM_TYPES, magicItems } from '../../data/magicItems';
 import { useArmyStore } from '../../store/useArmyStore';
-import Markdown from '../ui/Markdown';
+import { Markdown } from '../ui/Markdown';
 import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
-const MagicItems = () => {
+export const MagicItems = () => {
   const upgrades = useArmyStore((s) => s.upgrades);
   const magic = useArmyStore((s) => s.magic);
 
@@ -42,5 +42,3 @@ const MagicItems = () => {
     </PrintSection>
   );
 };
-
-export default MagicItems;

@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { initEmbed } from '../../store/embed';
 import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import CopyShareLinkButton from './CopyShareLinkButton';
+import { CopyShareLinkButton } from './CopyShareLinkButton';
 
 describe('CopyShareLinkButton', () => {
   beforeEach(() => {

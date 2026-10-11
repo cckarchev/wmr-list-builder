@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import ArmySummary from '../components/army/ArmySummary';
-import BuildHeader from '../components/army/BuildHeader';
-import RosterFilters from '../components/army/RosterFilters';
-import UnitCard from '../components/army/UnitCard';
+import { ArmySummary } from '../components/army/ArmySummary';
+import { BuildHeader } from '../components/army/BuildHeader';
+import { RosterFilters } from '../components/army/RosterFilters';
+import { UnitCard } from '../components/army/UnitCard';
 import { loadArmy } from '../data/loadArmy';
 import { buildCodeMaps, decodeShare, loadList, saveList } from '../store/persistence';
 import { groupRosterUnits } from '../store/selectors';
@@ -160,7 +160,7 @@ const ToggleMark = styled.span<{ $collapsed: boolean }>`
   }
 `;
 
-const Build = () => {
+export const Build = () => {
   const { armyId: paramArmyId } = useParams<{ armyId: string }>();
   const [searchParams] = useSearchParams();
   // Embedded query-only links (/?army=<id>) carry the army in the query string;
@@ -330,5 +330,3 @@ const Build = () => {
     </Page>
   );
 };
-
-export default Build;

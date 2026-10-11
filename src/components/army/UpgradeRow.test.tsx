@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import UpgradeRow from './UpgradeRow';
+import { UpgradeRow } from './UpgradeRow';
 
 const HALBERDIER_STANDS = 5;
 

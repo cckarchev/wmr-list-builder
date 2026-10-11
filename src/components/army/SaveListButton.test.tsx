@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { listSavedNames } from '../../store/persistence';
 import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import SaveListButton from './SaveListButton';
+import { SaveListButton } from './SaveListButton';
 
 describe('SaveListButton', () => {
   beforeEach(() => {

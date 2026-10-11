@@ -1,7 +1,7 @@
 import type { SpecialRule } from '../../data/types';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
 import { useArmyStore } from '../../store/useArmyStore';
-import Markdown from '../ui/Markdown';
+import { Markdown } from '../ui/Markdown';
 import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
 const collectUsedSpecialRules = (
@@ -35,7 +35,7 @@ const collectUsedSpecialRules = (
   return result;
 };
 
-const SpecialRules = () => {
+export const SpecialRules = () => {
   const specialRulesRaw = useArmyStore((s) => s.specialRules) as
     | Record<string, SpecialRule>
     | undefined;
@@ -72,5 +72,3 @@ const SpecialRules = () => {
     </PrintSection>
   );
 };
-
-export default SpecialRules;

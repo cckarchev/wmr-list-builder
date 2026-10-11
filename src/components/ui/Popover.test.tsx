@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
-import Popover from './Popover';
+import { Popover } from './Popover';
 
 const setup = () =>
   renderWithTheme(

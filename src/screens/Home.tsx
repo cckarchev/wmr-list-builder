@@ -79,7 +79,7 @@ const ArmyCard = styled(Link)`
   ${focusRing}
 `;
 
-const Home = () => (
+export const Home = () => (
   <Page>
     <Heading>Choose Your Army</Heading>
     <Grid>
@@ -91,5 +91,3 @@ const Home = () => (
     </Grid>
   </Page>
 );
-
-export default Home;

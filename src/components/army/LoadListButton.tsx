@@ -13,9 +13,9 @@ import { snapshotOf } from '../../store/snapshot';
 import { useArmyStore } from '../../store/useArmyStore';
 import { useIsDirty } from '../../store/useIsDirty';
 import { focusRing } from '../../theme/focusRing';
-import Button from '../ui/Button';
-import ConfirmDialog from '../ui/ConfirmDialog';
-import Icon from '../ui/Icon';
+import { Button } from '../ui/Button';
+import { ConfirmDialog } from '../ui/ConfirmDialog';
+import { Icon } from '../ui/Icon';
 
 const Wrapper = styled.span`
   position: relative;
@@ -128,7 +128,7 @@ const Empty = styled.p`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-const LoadListButton = () => {
+export const LoadListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const applyList = useArmyStore((s) => s.applyList);
   const setSavedBaseline = useArmyStore((s) => s.setSavedBaseline);
@@ -262,5 +262,3 @@ const LoadListButton = () => {
     </Wrapper>
   );
 };
-
-export default LoadListButton;

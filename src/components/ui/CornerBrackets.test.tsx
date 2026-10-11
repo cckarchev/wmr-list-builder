@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
-import CornerBrackets from './CornerBrackets';
+import { CornerBrackets } from './CornerBrackets';
 
 const CORNER_COUNT = 4;
 

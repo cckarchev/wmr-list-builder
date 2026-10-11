@@ -189,7 +189,7 @@ const renderRows = (
     return rows;
   });
 
-const Stats = () => {
+export const Stats = () => {
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
   const specialRulesData = useArmyStore((s) => s.specialRules) as
@@ -254,5 +254,3 @@ const Stats = () => {
     </TableWrapper>
   );
 };
-
-export default Stats;

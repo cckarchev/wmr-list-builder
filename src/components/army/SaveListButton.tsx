@@ -5,9 +5,9 @@ import { buildCodeMaps, encodeList, listSavedNames, saveNamedList } from '../../
 import { snapshotOf } from '../../store/snapshot';
 import { useArmyStore } from '../../store/useArmyStore';
 import { focusRing } from '../../theme/focusRing';
-import Button from '../ui/Button';
-import ConfirmDialog from '../ui/ConfirmDialog';
-import Icon from '../ui/Icon';
+import { Button } from '../ui/Button';
+import { ConfirmDialog } from '../ui/ConfirmDialog';
+import { Icon } from '../ui/Icon';
 
 const Wrapper = styled.span`
   position: relative;
@@ -78,7 +78,7 @@ const Note = styled.p`
   color: ${({ theme }) => theme.color.semantic.error};
 `;
 
-const SaveListButton = () => {
+export const SaveListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
@@ -203,5 +203,3 @@ const SaveListButton = () => {
     </Wrapper>
   );
 };
-
-export default SaveListButton;

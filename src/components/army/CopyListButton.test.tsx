@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import CopyListButton from './CopyListButton';
+import { CopyListButton } from './CopyListButton';
 
 const mockWriteText = vi.fn().mockResolvedValue(undefined);
 

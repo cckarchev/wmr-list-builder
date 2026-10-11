@@ -50,7 +50,7 @@ interface PrintViewProps {
   options: PrintOptions;
 }
 
-const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
+export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
   const armyName = useArmyStore((s) => s.army?.name ?? '');
   const label = useArmyStore((s) => s.label);
   const title = label ? `${armyName} · ${label}` : armyName;
@@ -78,5 +78,3 @@ const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
     </PrintOptionsContext.Provider>
   );
 };
-
-export default PrintView;

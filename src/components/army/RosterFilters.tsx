@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { focusRing } from '../../theme/focusRing';
-import ChevronMark from '../ui/ChevronMark';
+import { ChevronMark } from '../ui/ChevronMark';
 
 const SectionHeading = styled.h2`
   font-family: ${({ theme }) => theme.font.display};
@@ -129,7 +129,7 @@ interface RosterFiltersProps {
 /** The roster header (heading + Selected-only / Filters toggles) and the
  * collapsible search + type-chip panel. Purely presentational: the Build screen
  * owns the filter state because it also drives which units are listed. */
-const RosterFilters = ({
+export const RosterFilters = ({
   types,
   search,
   onSearchChange,
@@ -195,5 +195,3 @@ const RosterFilters = ({
     </>
   );
 };
-
-export default RosterFilters;

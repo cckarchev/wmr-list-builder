@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '../../store/useArmyStore';
 import { theme } from '../../theme/theme';
-import ResetListButton from './ResetListButton';
+import { ResetListButton } from './ResetListButton';
 
 const LocationProbe = () => {
   const { search } = useLocation();

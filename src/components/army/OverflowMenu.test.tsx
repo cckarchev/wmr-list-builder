@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import OverflowMenu from './OverflowMenu';
+import { OverflowMenu } from './OverflowMenu';
 
 const renderMenu = () =>
   renderWithProviders(

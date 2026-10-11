@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
-import UnitSpells from './UnitSpells';
+import { UnitSpells } from './UnitSpells';
 
 beforeEach(() => useArmyStore.getState().reset());
 

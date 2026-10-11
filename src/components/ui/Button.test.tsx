@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
-import Button from './Button';
+import { Button } from './Button';
 
 describe('Button', () => {
   it('renders a danger variant as a button', () => {

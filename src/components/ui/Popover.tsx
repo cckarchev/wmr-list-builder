@@ -39,7 +39,7 @@ const Panel = styled.div<{ $wide: boolean }>`
   text-align: left;
 `;
 
-const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
+export const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -144,5 +144,3 @@ const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
     </Wrap>
   );
 };
-
-export default Popover;

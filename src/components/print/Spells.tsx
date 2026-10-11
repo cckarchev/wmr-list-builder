@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import Markdown from '../ui/Markdown';
+import { Markdown } from '../ui/Markdown';
 import { usePrintOptions } from './printOptions';
 import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
@@ -11,7 +11,7 @@ const SpellText = styled(DefDesc)`
   margin-bottom: ${({ theme }) => `${theme.space.xs}px`};
 `;
 
-const Spells = () => {
+export const Spells = () => {
   const spells = useArmyStore((s) => s.spells);
   const { spellFluff } = usePrintOptions();
 
@@ -41,5 +41,3 @@ const Spells = () => {
     </PrintSection>
   );
 };
-
-export default Spells;

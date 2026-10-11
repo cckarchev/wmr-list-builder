@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import PrintView from '../components/print/PrintView';
+import { PrintView } from '../components/print/PrintView';
 import { availablePrintSections } from '../components/print/printSections';
-import Icon from '../components/ui/Icon';
+import { Icon } from '../components/ui/Icon';
 import { useArmyStore } from '../store/useArmyStore';
 
 const Page = styled.main`
@@ -108,7 +108,7 @@ const PrintButton = styled.button`
   }
 `;
 
-const Print = () => {
+export const Print = () => {
   const { armyId } = useParams<{ armyId: string }>();
   const army = useArmyStore((s) => s.army);
   const armyIdInStore = useArmyStore((s) => s.armyId);
@@ -249,5 +249,3 @@ const Print = () => {
     </Page>
   );
 };
-
-export default Print;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
 import { useArmyStore } from '../../store/useArmyStore';
-import Icon from '../ui/Icon';
-import Markdown from '../ui/Markdown';
-import Popover from '../ui/Popover';
+import { Icon } from '../ui/Icon';
+import { Markdown } from '../ui/Markdown';
+import { Popover } from '../ui/Popover';
 
 interface UnitRulesProps {
   unitId: string;
@@ -36,7 +36,7 @@ const RuleText = styled.div`
   }
 `;
 
-const UnitRules = ({ unitId }: UnitRulesProps) => {
+export const UnitRules = ({ unitId }: UnitRulesProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const specialRules = useArmyStore((s) => s.specialRules);
 
@@ -70,5 +70,3 @@ const UnitRules = ({ unitId }: UnitRulesProps) => {
     </Popover>
   );
 };
-
-export default UnitRules;

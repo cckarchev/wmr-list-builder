@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import Button from './Button';
+import { Button } from './Button';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -60,7 +60,7 @@ const Actions = styled.div`
   padding: ${({ theme }) => `0 ${theme.space.md}px ${theme.space.md}px`};
 `;
 
-const ConfirmDialog = ({
+export const ConfirmDialog = ({
   open,
   title,
   message,
@@ -141,5 +141,3 @@ const ConfirmDialog = ({
     document.body,
   );
 };
-
-export default ConfirmDialog;

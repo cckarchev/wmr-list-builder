@@ -86,7 +86,7 @@ const Field = styled.div`
   gap: ${({ theme }) => `${theme.space.xxs}px`};
 `;
 
-const GameSizeStepper = () => {
+export const GameSizeStepper = () => {
   const gameSize = useArmyStore((s) => s.gameSize);
   const setGameSize = useArmyStore((s) => s.setGameSize);
 
@@ -122,5 +122,3 @@ const GameSizeStepper = () => {
     </Field>
   );
 };
-
-export default GameSizeStepper;

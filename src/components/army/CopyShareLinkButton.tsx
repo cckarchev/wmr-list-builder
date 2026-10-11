@@ -5,8 +5,8 @@ import { getEmbedBase } from '../../store/embed';
 import { buildCodeMaps, encodeList } from '../../store/persistence';
 import { snapshotOf } from '../../store/snapshot';
 import { useArmyStore } from '../../store/useArmyStore';
-import Button from '../ui/Button';
-import Icon from '../ui/Icon';
+import { Button } from '../ui/Button';
+import { Icon } from '../ui/Icon';
 import { COPIED_FEEDBACK_MS } from './copyFeedback';
 
 const Wrapper = styled.span`
@@ -34,7 +34,7 @@ const CopiedLabel = styled.span`
   font-weight: 500;
 `;
 
-const CopyShareLinkButton = () => {
+export const CopyShareLinkButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
@@ -81,5 +81,3 @@ const CopyShareLinkButton = () => {
     </Wrapper>
   );
 };
-
-export default CopyShareLinkButton;

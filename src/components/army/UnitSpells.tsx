@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { isCaster } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
 import { focusRing } from '../../theme/focusRing';
-import ChevronMark from '../ui/ChevronMark';
-import Icon from '../ui/Icon';
-import Markdown from '../ui/Markdown';
-import Popover from '../ui/Popover';
+import { ChevronMark } from '../ui/ChevronMark';
+import { Icon } from '../ui/Icon';
+import { Markdown } from '../ui/Markdown';
+import { Popover } from '../ui/Popover';
 
 interface UnitSpellsProps {
   unitId: string;
@@ -90,7 +90,7 @@ const Effect = styled.div`
   }
 `;
 
-const UnitSpells = ({ unitId }: UnitSpellsProps) => {
+export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const spells = useArmyStore((s) => s.spells);
   const [open, setOpen] = useState<Set<number>>(new Set());
@@ -146,5 +146,3 @@ const UnitSpells = ({ unitId }: UnitSpellsProps) => {
     </Popover>
   );
 };
-
-export default UnitSpells;

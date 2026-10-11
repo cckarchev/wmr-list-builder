@@ -6,15 +6,15 @@ import { explainMinMax, minMaxBadge } from '../../store/minMax';
 import { errorsForTarget, isCharacter } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
 import { pillButton } from '../../theme/pillButton';
-import ChevronMark from '../ui/ChevronMark';
-import CornerBrackets from '../ui/CornerBrackets';
-import StatLine from '../ui/StatLine';
-import Stepper from '../ui/Stepper';
-import Tooltip from '../ui/Tooltip';
-import InlineErrors from './InlineErrors';
-import UnitRules from './UnitRules';
-import UnitSpells from './UnitSpells';
-import UpgradeRow from './UpgradeRow';
+import { ChevronMark } from '../ui/ChevronMark';
+import { CornerBrackets } from '../ui/CornerBrackets';
+import { StatLine } from '../ui/StatLine';
+import { Stepper } from '../ui/Stepper';
+import { Tooltip } from '../ui/Tooltip';
+import { InlineErrors } from './InlineErrors';
+import { UnitRules } from './UnitRules';
+import { UnitSpells } from './UnitSpells';
+import { UpgradeRow } from './UpgradeRow';
 import { unitDomId } from './unitDomId';
 
 interface UnitCardProps {
@@ -204,7 +204,7 @@ const UpgradeGroupLabel = styled.h5`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
+export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrades = useArmyStore((s) => s.upgrades);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
@@ -314,5 +314,3 @@ const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
     </Card>
   );
 };
-
-export default UnitCard;

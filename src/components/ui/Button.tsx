@@ -7,7 +7,7 @@ interface ButtonProps {
   $size?: 'md' | 'sm';
 }
 
-const Button = styled.button<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -76,5 +76,3 @@ const Button = styled.button<ButtonProps>`
     `;
   }}
 `;
-
-export default Button;

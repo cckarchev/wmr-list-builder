@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { armyIndex } from '../data/armyIndex';
 import { defined } from '../test/defined';
 import { renderWithProviders } from '../test/renderWithProviders';
-import Home from './Home';
+import { Home } from './Home';
 
 describe('Home', () => {
   it('renders one link per army', () => {
