@@ -2,6 +2,8 @@ import type { ChangeEvent } from 'react';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import styles from './RosterFilters.module.css';
 
+const PANEL_ID = 'roster-filters';
+
 interface RosterFiltersProps {
   /** All available roster type labels, used to render the type chips. */
   types: string[];
@@ -53,7 +55,7 @@ export const RosterFilters = ({
             className={styles.toggle}
             type="button"
             aria-expanded={filtersOpen}
-            aria-controls="roster-filters"
+            aria-controls={PANEL_ID}
             onClick={onToggleFiltersOpen}
           >
             <span className={styles.caret}>
@@ -64,7 +66,7 @@ export const RosterFilters = ({
         </div>
       </div>
       {filtersOpen && (
-        <div className={styles.panel} id="roster-filters">
+        <div className={styles.panel} id={PANEL_ID}>
           <input
             className={styles.search}
             type="search"

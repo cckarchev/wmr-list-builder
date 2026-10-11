@@ -138,7 +138,7 @@ export const groupRosterUnits = (
 
     const type = units[id].type;
 
-    if (CHARACTER_TYPES.includes(type)) {
+    if (isCharacter(type)) {
       characters.push(id);
     } else {
       troops[type] ??= [];

@@ -6,6 +6,8 @@ import styles from './GameSizeStepper.module.css';
 // this much, matching the native input's `step`.
 const GAME_SIZE_STEP = 500;
 
+const INPUT_ID = 'game-size';
+
 export const GameSizeStepper = () => {
   const gameSize = useArmyStore((s) => s.gameSize);
   const setGameSize = useArmyStore((s) => s.setGameSize);
@@ -24,7 +26,7 @@ export const GameSizeStepper = () => {
 
   return (
     <div className={styles.field}>
-      <label className={styles.label} htmlFor="game-size">
+      <label className={styles.label} htmlFor={INPUT_ID}>
         Game Size
       </label>
       <div className={styles.stepper}>
@@ -39,7 +41,7 @@ export const GameSizeStepper = () => {
         </button>
         <input
           className={styles.input}
-          id="game-size"
+          id={INPUT_ID}
           data-testid="game-size"
           type="number"
           min={0}
