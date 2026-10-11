@@ -33,8 +33,7 @@ const TOKEN_BADGES: Record<string, string> = {
  * Structured reading of a troop's min/max constraints, resolved against the
  * current game size. `explainMinMax` (full phrase) and `minMaxBadge` (terse)
  * are two renderings of the same descriptor, so the precedence rules live in
- * one place. Mirrors the rules enforced in `validate` (validation.ts) and the
- * raw-token formatter `minMax` (storeHelpers.ts).
+ * one place. Mirrors the rules enforced in `validate` (validation.ts).
  */
 type MinMaxInfo =
   | { kind: 'army'; min?: number; max?: number }
@@ -98,7 +97,7 @@ const describeRateRange = ({ min, max, size }: RateInfo): string => {
 };
 
 const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo | undefined => {
-  // Absolute per-army counts take precedence (mirrors `minMax`).
+  // Absolute per-army counts take precedence.
   if (troop.armyMin || troop.armyMax) {
     return { kind: 'army', min: troop.armyMin, max: troop.armyMax };
   }

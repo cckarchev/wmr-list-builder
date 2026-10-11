@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Unit, UpgradeConstraint } from '@/data/types';
-import { constraintApplies, minMax, resolveUpgradePoints } from './storeHelpers';
+import { constraintApplies, resolveUpgradePoints } from './storeHelpers';
 
 describe('resolveUpgradePoints', () => {
   it('returns a flat scalar price for fixed-price upgrades', () => {
@@ -85,38 +85,5 @@ describe('constraintApplies', () => {
 
     expect(constraintApplies(mundane, magicBanners)).toBe(false);
     expect(constraintApplies(mundane, CAVALRY_BANNERS)).toBe(true);
-  });
-});
-
-const ARMY_MIN = 1;
-const ARMY_MAX = 3;
-const RATE_MIN = 1;
-const RATE_MAX = 6;
-
-describe('minMax', () => {
-  const troop = (limits: Partial<Unit>): Unit => ({ ...KNIGHTS, ...limits });
-
-  it('prints an absolute army range', () => {
-    expect(minMax(troop({ armyMin: ARMY_MIN, armyMax: ARMY_MAX }))).toBe(`${ARMY_MIN}–${ARMY_MAX}`);
-  });
-
-  it('prints a single number when the army min and max match or there is no max', () => {
-    expect(minMax(troop({ armyMin: ARMY_MAX, armyMax: ARMY_MAX }))).toBe(String(ARMY_MAX));
-    expect(minMax(troop({ armyMin: ARMY_MIN }))).toBe(String(ARMY_MIN));
-  });
-
-  it('starts an army max-only range at zero', () => {
-    expect(minMax(troop({ armyMax: ARMY_MAX }))).toBe(`0–${ARMY_MAX}`);
-  });
-
-  it('prints a keyword token as is', () => {
-    expect(minMax(troop({ min: 'All or None' }))).toBe('All or None');
-    expect(minMax(troop({ max: 'elite' }))).toBe('elite');
-  });
-
-  it('prints the per-1,000-points rate, with "-" for a missing bound', () => {
-    expect(minMax(troop({ min: RATE_MIN, max: RATE_MAX }))).toBe(`${RATE_MIN}/${RATE_MAX}`);
-    expect(minMax(troop({ min: RATE_MIN }))).toBe(`${RATE_MIN}/-`);
-    expect(minMax(troop({}))).toBe('-/-');
   });
 });

@@ -1,4 +1,3 @@
-import type { MinMaxSource } from '@/core/limits/minMax';
 import type { MagicItem, StatValue, Unit, Upgrade, UpgradeConstraint } from '@/data/types';
 
 /** Stat placeholder the army data uses for a missing value, e.g. no armour. */
@@ -16,12 +15,11 @@ export interface UnitUpgradeEntry {
 /**
  * Runtime unit. Same shape as the army `Unit` (minus the raw `upgrades`
  * string[] which the store converts into a keyed map) plus the live fields
- * the Vue store attaches in `SET_UNITS`: `number`, `pointsCost`, `minMax`.
+ * the Vue store attaches in `SET_UNITS`: `number` and `pointsCost`.
  */
 export interface UnitState extends Omit<Unit, 'upgrades'> {
   number: number;
   pointsCost: number;
-  minMax?: string;
   upgrades?: Record<string, UnitUpgradeEntry>;
 }
 
@@ -33,7 +31,7 @@ export interface UnitState extends Omit<Unit, 'upgrades'> {
  * (`StatValue` vs `string | Record<string,string>`), and `MagicItem` carries
  * `pointsValue` + `text`. We model the reconciliation as a structural superset
  * so a value of either source type is assignable here, then add the live
- * `number`/`minMax` fields the Vue store attaches in `SET_UPGRADES`.
+ * `number` field the Vue store attaches in `SET_UPGRADES`.
  */
 export interface UpgradeState {
   id: string;
@@ -58,38 +56,13 @@ export interface UpgradeState {
   requiredUnits?: string[];
   prohibitedUnits?: string[];
   text?: string[];
-  // live fields attached by the store
+  // live field attached by the store
   number: number;
-  minMax?: string;
 }
 
 /**
- * Port of the `minMax` helper in mutations.js (150-172). Operates on either a
- * unit or an upgrade source record.
- */
-export const minMax = (troop: Unit | Upgrade | MagicItem): string => {
-  const { armyMin, armyMax, min, max } = troop as MinMaxSource;
-
-  if (armyMin) {
-    const hasRange = Boolean(armyMax) && armyMax !== armyMin;
-
-    return hasRange ? `${armyMin}–${armyMax}` : String(armyMin);
-  }
-
-  if (armyMax) {
-    return `0–${armyMax}`;
-  }
-
-  if (typeof min === 'string' || typeof max === 'string') {
-    return String(min || max);
-  }
-
-  return `${min || NO_STAT}/${max || NO_STAT}`;
-};
-
-/**
  * Build the global upgrades map from army upgrades plus (when present)
- * magic-item upgrades, attaching the live `number`/`minMax` fields.
+ * magic-item upgrades, attaching the live `number` field.
  * Port of `SET_UPGRADES` (mutations.js 135-144) combined with the
  * `Object.assign` merge from `initializeState` (actions.js 375).
  */
@@ -108,11 +81,7 @@ export const buildUpgrades = (
   for (const id in merged) {
     const source = merged[id];
 
-    result[id] = {
-      ...(source as UpgradeState),
-      number: 0,
-      minMax: minMax(source),
-    };
+    result[id] = { ...(source as UpgradeState), number: 0 };
   }
 
   return result;
@@ -167,7 +136,6 @@ export const buildUnits = (
       ...(source as Omit<Unit, 'upgrades'>),
       number: 0,
       pointsCost: 0,
-      minMax: minMax(source),
     };
 
     if (upgradeIds) {
