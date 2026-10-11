@@ -6,7 +6,7 @@ import styles from './PrintView.module.css';
 
 interface PrintViewProps {
   sections: PrintSectionDef[];
-  selectedIds: Set<string>;
+  selectedIds: ReadonlySet<string>;
   options: PrintOptions;
 }
 

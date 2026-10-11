@@ -45,12 +45,6 @@ describe('constraintApplies', () => {
     expect(constraintApplies(noHits, { ...CAVALRY_BANNERS, unitHits: ['-'] })).toBe(true);
   });
 
-  it('never applies to a unit flagged noUpgrades', () => {
-    const plain = { ...KNIGHTS, noUpgrades: true } as Unit;
-
-    expect(constraintApplies(plain, CAVALRY_BANNERS)).toBe(false);
-  });
-
   it('skips magic constraints for a unit flagged noMagic', () => {
     const magicBanners = { ...CAVALRY_BANNERS, magic: true };
     const mundane: Unit = { ...KNIGHTS, noMagic: true };

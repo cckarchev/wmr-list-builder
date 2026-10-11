@@ -11,7 +11,7 @@ const MISSING = '-';
 
 export type StatKind = 'character' | 'unit';
 
-export type StatTroop = UsedUnit | UpgradeState;
+type StatTroop = UsedUnit | UpgradeState;
 
 interface StatRowProps {
   /** The troop's id, which also keys its own special rule. */

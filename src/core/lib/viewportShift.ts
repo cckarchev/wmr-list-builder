@@ -1,5 +1,5 @@
 /** Horizontal extent of a box, in viewport coordinates. */
-export interface HorizontalBox {
+interface HorizontalBox {
   left: number;
   right: number;
 }

@@ -4,9 +4,7 @@ import { type ArmyData, emptyData, initializeState } from './armyData';
 import { withGameSize, withUnitNumber, withUnitUpgradeNumber } from './transitions/transitions';
 import { withList } from './transitions/withList';
 
-export type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
-
-export interface ArmyActions {
+interface ArmyActions {
   setArmy: (id: string) => void;
   setUnitNumber: (unitId: string, number: number) => void;
   setUnitUpgradeNumber: (unitId: string, upgradeId: string, number: number) => void;

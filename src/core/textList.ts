@@ -1,6 +1,6 @@
 import type { UsedUnit } from './selectors';
 
-export interface TextListParams {
+interface TextListParams {
   armyName: string;
   label: string;
   points: number;

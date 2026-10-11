@@ -43,7 +43,6 @@
   --color-border-default: rgb(var(--rgb-white) / 0.22);
   --color-border-hover: rgb(var(--rgb-white) / 0.34);
   --color-border-focus: rgb(var(--rgb-teal) / 0.85);
-  --color-border-active: rgb(var(--rgb-white) / 0.65);
   --color-border-accent: rgb(var(--rgb-accent) / 0.7);
 
   /* Ghost / teal-outline interactive states, such as the ghost Button. */
@@ -64,14 +63,10 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
-  --space-xxl: 48px;
-  --space-xxxl: 64px;
 
   /* Sharp corners everywhere, to match the parent site. */
   --radius-sm: 0;
   --radius-md: 0;
-  --radius-lg: 0;
-  --radius-pill: 0;
 
   --font-size-xs: 12px;
   --font-size-sm: 14px;

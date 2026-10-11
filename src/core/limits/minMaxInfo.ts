@@ -18,7 +18,7 @@ export const AS_TOKEN_PREFIX = 'As ';
  * are two renderings of the same descriptor, so the precedence rules live in
  * one place. Mirrors the rules enforced in `validate` (validation.ts).
  */
-export type MinMaxInfo =
+type MinMaxInfo =
   | { kind: 'army'; min?: number; max?: number }
   | { kind: 'elite'; cap: number }
   | { kind: 'token'; token: string }

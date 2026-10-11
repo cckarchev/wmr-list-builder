@@ -101,7 +101,7 @@ const parseWire = (
 export const decodeList = (s: string, maps: ArmyCodeMaps): ListSnapshot | null =>
   parseWire(s, maps)?.snapshot ?? null;
 
-export type DecodedShare = { ok: true; snapshot: ListSnapshot } | { ok: false };
+type DecodedShare = { ok: true; snapshot: ListSnapshot } | { ok: false };
 
 // Decode a shared (?list=) blob, distinguishing corrupt input from a valid one.
 // Corrupt = unparseable/wrong-version (parseWire null) OR the wire carried unit

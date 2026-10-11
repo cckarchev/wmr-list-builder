@@ -1,6 +1,6 @@
 import type { UpgradeState } from '@/core/army-state/types';
 
-export interface UpgradeGroup {
+interface UpgradeGroup {
   label: string;
   upgradeIds: string[];
 }

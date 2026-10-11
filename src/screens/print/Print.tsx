@@ -48,7 +48,7 @@ export const Print = () => {
         onToggleSection={toggleSection}
         options={options}
         onToggleOption={toggleOption}
-        hasMagic={Boolean(magic)}
+        hasMagic={magic}
       />
 
       <PrintView sections={sections} selectedIds={selectedIds} options={options} />

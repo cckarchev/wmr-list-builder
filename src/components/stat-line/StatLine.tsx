@@ -1,7 +1,7 @@
 import type { StatValue } from '@/data/types';
 import styles from './StatLine.module.css';
 
-export interface StatLineProps {
+interface StatLineProps {
   attack?: StatValue;
   range?: string;
   hits?: StatValue;

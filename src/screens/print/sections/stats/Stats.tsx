@@ -5,7 +5,6 @@ import {
   pointsCost,
   unitCount,
 } from '@/core/selectors';
-import type { NumberedRules } from '@/core/special-rules/specialRuleMarkers';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './Stats.module.css';
 import { StatTable } from './stat-table/StatTable';
@@ -26,7 +25,7 @@ const INVALID_MARK = 'INVALID';
 export const Stats = () => {
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
-  const specialRules = useArmyStore((s) => s.specialRules) as NumberedRules | undefined;
+  const specialRules = useArmyStore((s) => s.specialRules);
   const errors = useArmyStore((s) => s.errors);
 
   const rules = specialRules ?? {};

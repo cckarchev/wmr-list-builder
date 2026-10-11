@@ -30,17 +30,10 @@ export const buildUpgrades = (
 
 /**
  * Whether an army-wide upgrade constraint attaches its upgrades to a unit:
- * the unit's type, armour and hits must match, it must not opt out of
- * upgrades, and magic constraints skip units that cannot take magic items.
+ * the unit's type, armour and hits must match, and magic constraints skip
+ * units that cannot take magic items.
  */
 export const constraintApplies = (unit: Unit, constraint: UpgradeConstraint): boolean => {
-  // `noUpgrades` exists in some army data but is not in the Unit type.
-  const noUpgrades = (unit as { noUpgrades?: boolean }).noUpgrades;
-
-  if (noUpgrades) {
-    return false;
-  }
-
   if (unit.noMagic && constraint.magic) {
     return false;
   }

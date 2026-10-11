@@ -1,7 +1,7 @@
 import { AS_TOKEN_PREFIX } from '@/core/limits/minMaxInfo';
 import type { RequiredGroup } from './types';
 
-export type Bound = 'Minimum' | 'Maximum';
+type Bound = 'Minimum' | 'Maximum';
 
 export const perRequired = (bound: Bound, count: number, label: string, required: RequiredGroup) =>
   `${bound} of ${count} ${label} per ${required.count} ${required.sentence}.`;

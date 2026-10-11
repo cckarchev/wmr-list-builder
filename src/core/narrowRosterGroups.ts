@@ -1,6 +1,6 @@
 import type { RosterGroup } from './selectors';
 
-export interface RosterNarrowing {
+interface RosterNarrowing {
   /** Show only the group with this label, or every group when null. */
   activeType: string | null;
   /** Show only units with at least one model taken. */

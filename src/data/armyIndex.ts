@@ -8,7 +8,7 @@ const ARMY_FILE_NAME = /^.*\/(.+)\.json$/;
 
 const idFromPath = (path: string): string => path.replace(ARMY_FILE_NAME, '$1');
 
-export interface ArmyIndexEntry {
+interface ArmyIndexEntry {
   id: string;
   name: string;
 }

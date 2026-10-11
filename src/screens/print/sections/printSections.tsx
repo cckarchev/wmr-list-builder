@@ -5,7 +5,7 @@ import { SpecialRules } from './SpecialRules';
 import { Spells } from './spells/Spells';
 import { Stats } from './stats/Stats';
 
-export interface PrintSectionCtx {
+interface PrintSectionCtx {
   hasArmyRules: boolean;
   hasSpecialRules: boolean;
   magic: boolean;
@@ -18,7 +18,7 @@ export interface PrintSectionDef {
   render: () => ReactNode;
 }
 
-export const PRINT_SECTIONS: PrintSectionDef[] = [
+const PRINT_SECTIONS: PrintSectionDef[] = [
   { id: 'stats', title: 'Stats', available: () => true, render: () => <Stats /> },
   {
     id: 'armyRules',
