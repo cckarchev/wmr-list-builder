@@ -11,11 +11,13 @@ const SpellText = styled(DefDesc)`
   margin-bottom: ${({ theme }) => `${theme.space[2]}px`};
 `;
 
-export default function Spells() {
+const Spells = () => {
   const spells = useArmyStore((s) => s.spells);
   const { spellFluff } = usePrintOptions();
 
-  if (!spells || spells.length === 0) return null;
+  if (!spells || spells.length === 0) {
+    return null;
+  }
 
   return (
     <PrintSection>
@@ -38,4 +40,6 @@ export default function Spells() {
       </DefList>
     </PrintSection>
   );
-}
+};
+
+export default Spells;

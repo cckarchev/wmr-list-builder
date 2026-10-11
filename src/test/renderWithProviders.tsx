@@ -8,24 +8,22 @@ interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {
   routerProps?: MemoryRouterProps;
 }
 
-export function renderWithProviders(
+export const renderWithProviders = (
   ui: ReactElement,
   { routerProps, ...options }: RenderWithProvidersOptions = {},
-) {
-  function Wrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <ThemeProvider theme={theme}>
-        <MemoryRouter {...routerProps}>{children}</MemoryRouter>
-      </ThemeProvider>
-    );
-  }
+) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <ThemeProvider theme={theme}>
+      <MemoryRouter {...routerProps}>{children}</MemoryRouter>
+    </ThemeProvider>
+  );
   return render(ui, { wrapper: Wrapper, ...options });
-}
+};
 
 /** Wrap with ThemeProvider only (no router). */
-export function renderWithTheme(ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) {
-  function Wrapper({ children }: { children: React.ReactNode }) {
-    return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-  }
+export const renderWithTheme = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  );
   return render(ui, { wrapper: Wrapper, ...options });
-}
+};

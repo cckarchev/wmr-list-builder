@@ -61,7 +61,7 @@ export interface UpgradeState {
  * Port of the `minMax` helper in mutations.js (150-172). Operates on either a
  * unit or an upgrade source record.
  */
-export function minMax(troop: Unit | Upgrade | MagicItem): string {
+export const minMax = (troop: Unit | Upgrade | MagicItem): string => {
   const t = troop as {
     armyMin?: number;
     armyMax?: number;
@@ -85,7 +85,7 @@ export function minMax(troop: Unit | Upgrade | MagicItem): string {
   }
 
   return `${t.min || '-'}/${t.max || '-'}`;
-}
+};
 
 /**
  * Build the global upgrades map from army upgrades plus (when present)
@@ -93,10 +93,10 @@ export function minMax(troop: Unit | Upgrade | MagicItem): string {
  * Port of `SET_UPGRADES` (mutations.js 135-144) combined with the
  * `Object.assign` merge from `initializeState` (actions.js 375).
  */
-export function buildUpgrades(
+export const buildUpgrades = (
   armyUpgrades: Record<string, Upgrade> | undefined,
   magicUpgrades: Record<string, MagicItem> | undefined,
-): Record<string, UpgradeState> {
+): Record<string, UpgradeState> => {
   const merged: Record<string, Upgrade | MagicItem> = { ...(armyUpgrades || {}) };
   if (magicUpgrades) {
     Object.assign(merged, magicUpgrades);
@@ -112,26 +112,26 @@ export function buildUpgrades(
     };
   }
   return result;
-}
+};
 
 /**
  * Build the runtime units map from the army units plus the upgrade
  * constraints. Port of `SET_UNITS` (mutations.js 89-128) including the
  * upgradeConstraints auto-attach logic.
  */
-export function buildUnits(
+export const buildUnits = (
   armyUnits: Record<string, Unit>,
   upgradeConstraints: UpgradeConstraint[],
-): Record<string, UnitState> {
+): Record<string, UnitState> => {
   const result: Record<string, UnitState> = {};
 
-  for (const unitID in armyUnits) {
-    const source = armyUnits[unitID];
+  for (const unitId in armyUnits) {
+    const source = armyUnits[unitId];
     // `noUpgrades` exists in some army data but is not in the Unit type.
     const noUpgrades = (source as { noUpgrades?: boolean }).noUpgrades;
 
     // start from the source upgrade-id array (if any)
-    let upgradeIDs: string[] | undefined = source.upgrades ? [...source.upgrades] : undefined;
+    let upgradeIds: string[] | undefined = source.upgrades ? [...source.upgrades] : undefined;
 
     for (const c of upgradeConstraints) {
       if (
@@ -141,7 +141,7 @@ export function buildUnits(
         !noUpgrades &&
         !(source.noMagic && c.magic)
       ) {
-        upgradeIDs = upgradeIDs ? upgradeIDs.concat(c.upgrades) : [...c.upgrades];
+        upgradeIds = upgradeIds ? upgradeIds.concat(c.upgrades) : [...c.upgrades];
       }
     }
 
@@ -152,30 +152,30 @@ export function buildUnits(
       minMax: minMax(source),
     };
 
-    if (upgradeIDs) {
-      unit.upgrades = upgradeIDs.reduce<Record<string, UnitUpgradeEntry>>((acc, id) => {
+    if (upgradeIds) {
+      unit.upgrades = upgradeIds.reduce<Record<string, UnitUpgradeEntry>>((acc, id) => {
         acc[id] = { number: 0, pointsCost: 0 };
         return acc;
       }, {});
     }
 
-    result[unitID] = unit;
+    result[unitId] = unit;
   }
 
   return result;
-}
+};
 
 /**
  * Port of `SET_UNIT_POINTS_COST` (mutations.js 63-74):
  * unit.number * +unit.points + Σ(its upgrades' pointsCost).
  */
-export function unitPointsCost(unit: UnitState): number {
+export const unitPointsCost = (unit: UnitState): number => {
   const base = unit.number * +unit.points;
   if (!unit.upgrades) {
     return base;
   }
   return Object.values(unit.upgrades).reduce((sum, u) => sum + u.pointsCost, base);
-}
+};
 
 /** Minimal shape needed to price an upgrade — satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
 interface PricedUpgrade {
@@ -188,9 +188,8 @@ interface PricedUpgrade {
  * `upgrade.pointsValue` at runtime, so this dynamic index is the single,
  * localized spot where we step outside the static unit shape.
  */
-function unitStat(unit: object, key: string): StatValue | undefined {
-  return (unit as Record<string, StatValue | undefined>)[key];
-}
+const unitStat = (unit: object, key: string): StatValue | undefined =>
+  (unit as Record<string, StatValue | undefined>)[key];
 
 /**
  * Resolve the per-item points price of an upgrade for a unit, handling variable
@@ -198,23 +197,26 @@ function unitStat(unit: object, key: string): StatValue | undefined {
  * value for that stat. Returns undefined when the price can't be resolved
  * (missing map entry, or a variable upgrade with no unit context).
  */
-export function resolveUpgradePoints(upgrade: PricedUpgrade, unit?: object): StatValue | undefined {
+export const resolveUpgradePoints = (
+  upgrade: PricedUpgrade,
+  unit?: object,
+): StatValue | undefined => {
   if (upgrade.pointsValue !== undefined) {
-    if (!unit || typeof upgrade.points !== 'object') return undefined;
+    if (!unit || typeof upgrade.points !== 'object') {
+      return undefined;
+    }
     const key = String(unitStat(unit, upgrade.pointsValue) ?? '-');
     return upgrade.points[key];
   }
   return typeof upgrade.points === 'object' ? undefined : upgrade.points;
-}
+};
 
 /**
  * Port of the points calculation in `SET_UNIT_UPGRADE_NUMBER_AND_POINTS_COST`
  * (mutations.js 83-87), including variable pricing via `pointsValue`.
  */
-export function unitUpgradePointsCost(
+export const unitUpgradePointsCost = (
   upgrade: UpgradeState,
   unit: UnitState,
   number: number,
-): number {
-  return number * Number(resolveUpgradePoints(upgrade, unit));
-}
+): number => number * Number(resolveUpgradePoints(upgrade, unit));

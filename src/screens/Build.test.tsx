@@ -9,8 +9,8 @@ import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
 import Build from './Build';
 
-function renderBuild(path = '/build/goblin') {
-  return render(
+const renderBuild = (path = '/build/goblin') =>
+  render(
     <ThemeProvider theme={theme}>
       <MemoryRouter initialEntries={[path]}>
         <Routes>
@@ -19,7 +19,6 @@ function renderBuild(path = '/build/goblin') {
       </MemoryRouter>
     </ThemeProvider>,
   );
-}
 
 describe('Build screen', () => {
   beforeEach(() => {

@@ -16,18 +16,16 @@ beforeEach(() => {
 // occur in any Warmaster Revolution army JSON (verified: every `min`/`max` in
 // `src/data/armies/*.json` is numeric, and no unit carries 2+ unit-type
 // upgrades). These build minimal state objects to exercise the ported logic.
-function unit(partial: Partial<UnitState>): UnitState {
-  return {
+const unit = (partial: Partial<UnitState>): UnitState =>
+  ({
     type: 'Infantry',
     points: 100,
     number: 0,
     pointsCost: 0,
     ...partial,
-  } as UnitState;
-}
-function upgrade(partial: Partial<UpgradeState>): UpgradeState {
-  return { type: 'Infantry', number: 0, ...partial } as UpgradeState;
-}
+  }) as UnitState;
+const upgrade = (partial: Partial<UpgradeState>): UpgradeState =>
+  ({ type: 'Infantry', number: 0, ...partial }) as UpgradeState;
 
 describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', () => {
   it('auto-includes the armyMin General; validation still flags it when absent', () => {
@@ -139,18 +137,20 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
   it('flags more augend units than the units they attach to', () => {
     get().setArmy('empire');
     // Find the unit carrying augendUnits in the loaded data.
-    const augendUnitID = defined(
+    const augendUnitId = defined(
       Object.keys(get().units).find((id) => (get().units[id] as UnitState).augendUnits),
     );
-    const augends = defined((get().units[augendUnitID] as UnitState).augendUnits);
+    const augends = defined((get().units[augendUnitId] as UnitState).augendUnits);
     // The store auto-includes the base units at their minimums, so test the
     // augend logic directly with the base units empty.
     const units: Record<string, UnitState> = {
-      [augendUnitID]: unit({ number: 1, augendUnits: augends }),
+      [augendUnitId]: unit({ number: 1, augendUnits: augends }),
     };
-    for (const a of augends) units[a] = unit({ number: 0 });
+    for (const a of augends) {
+      units[a] = unit({ number: 0 });
+    }
     const errors = validate(units, {}, 2000).map((e) => e.message);
-    expect(errors).toContain(`1 ${augendUnitID} requires at least 1 ${toSentence(augends)}.`);
+    expect(errors).toContain(`1 ${augendUnitId} requires at least 1 ${toSentence(augends)}.`);
   });
 });
 

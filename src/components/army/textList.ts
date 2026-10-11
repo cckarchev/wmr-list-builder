@@ -8,25 +8,25 @@ export interface TextListParams {
   version: string;
 }
 
-function padLeft(str: string | number, width: number): string {
+const padLeft = (str: string | number, width: number): string => {
   let s = String(str);
   while (s.length < width) {
     s = ` ${s}`;
   }
   return s;
-}
+};
 
 /**
  * Pure function that builds the plain-text army roster string.
  * Port of the TextList.vue component output format.
  */
-export function buildTextList({
+export const buildTextList = ({
   armyName,
   label,
   points,
   usedUnits,
   version,
-}: TextListParams): string {
+}: TextListParams): string => {
   const pad = String(points).length;
   const lines: string[] = [];
 
@@ -57,4 +57,4 @@ export function buildTextList({
   lines.push(`${padLeft(points, pad)} - ${unitCountTotal}/${Math.ceil(unitCountTotal / 2)}`);
 
   return lines.join('\n');
-}
+};

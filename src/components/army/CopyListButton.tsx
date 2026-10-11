@@ -31,7 +31,7 @@ const CopiedLabel = styled.span`
   font-weight: 500;
 `;
 
-export default function CopyListButton() {
+const CopyListButton = () => {
   const [copied, setCopied] = useState(false);
 
   const army = useArmyStore((s) => s.army);
@@ -41,7 +41,9 @@ export default function CopyListButton() {
   const version = useArmyStore((s) => s.version);
 
   const handleCopy = () => {
-    if (!army) return;
+    if (!army) {
+      return;
+    }
 
     const state = { units, upgrades };
     const points = pointsCost({ units });
@@ -76,4 +78,6 @@ export default function CopyListButton() {
       {copied && <CopiedLabel>Copied!</CopiedLabel>}
     </Wrapper>
   );
-}
+};
+
+export default CopyListButton;

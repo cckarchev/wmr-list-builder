@@ -36,13 +36,17 @@ const RuleText = styled.div`
   }
 `;
 
-export default function UnitRules({ unitId }: UnitRulesProps) {
+const UnitRules = ({ unitId }: UnitRulesProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const specialRules = useArmyStore((s) => s.specialRules);
 
-  if (!unit) return null;
+  if (!unit) {
+    return null;
+  }
   const rules = resolveUnitSpecialRules(unitId, unit, specialRules);
-  if (rules.length === 0) return null;
+  if (rules.length === 0) {
+    return null;
+  }
 
   return (
     <Popover
@@ -65,4 +69,6 @@ export default function UnitRules({ unitId }: UnitRulesProps) {
       ))}
     </Popover>
   );
-}
+};
+
+export default UnitRules;

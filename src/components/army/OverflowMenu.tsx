@@ -45,17 +45,23 @@ export const MenuDivider = styled.hr`
   border-top: 1px solid ${({ theme }) => theme.color.border.divider};
 `;
 
-export default function OverflowMenu({ children }: { children: ReactNode }) {
+const OverflowMenu = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+      }
     };
     document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
@@ -81,4 +87,6 @@ export default function OverflowMenu({ children }: { children: ReactNode }) {
       {open && <Panel role="menu">{children}</Panel>}
     </Wrapper>
   );
-}
+};
+
+export default OverflowMenu;

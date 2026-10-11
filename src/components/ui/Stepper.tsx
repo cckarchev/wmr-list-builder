@@ -58,7 +58,7 @@ const StepperValue = styled.span`
   color: ${({ theme }) => theme.color.text.strong};
 `;
 
-export default function Stepper({ value, onChange, min, max, label }: StepperProps) {
+const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
   const atMin = min !== undefined && value <= min;
   const atMax = max !== undefined && value >= max;
 
@@ -83,4 +83,6 @@ export default function Stepper({ value, onChange, min, max, label }: StepperPro
       </StepButton>
     </StepperWrapper>
   );
-}
+};
+
+export default Stepper;

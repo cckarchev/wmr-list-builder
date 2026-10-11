@@ -10,23 +10,27 @@ const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 let embedBase: string | null = null;
 
-function validate(raw: string): string | null {
+const validate = (raw: string): string | null => {
   try {
     const url = new URL(raw);
-    if (url.protocol === 'http:' && DEV_HOSTS.has(url.hostname)) return raw;
-    if (url.protocol !== 'https:') return null;
-    if (!ALLOWED_HOSTS.has(url.hostname)) return null;
+    if (url.protocol === 'http:' && DEV_HOSTS.has(url.hostname)) {
+      return raw;
+    }
+    if (url.protocol !== 'https:') {
+      return null;
+    }
+    if (!ALLOWED_HOSTS.has(url.hostname)) {
+      return null;
+    }
     return raw;
   } catch {
     return null;
   }
-}
+};
 
-export function initEmbed(search: string = window.location.search): void {
+export const initEmbed = (search: string = window.location.search): void => {
   const raw = new URLSearchParams(search).get('embed');
   embedBase = raw ? validate(raw) : null;
-}
+};
 
-export function getEmbedBase(): string | null {
-  return embedBase;
-}
+export const getEmbedBase = (): string | null => embedBase;

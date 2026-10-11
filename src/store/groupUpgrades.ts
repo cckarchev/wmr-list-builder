@@ -11,9 +11,7 @@ export interface UpgradeGroup {
  * every other type (magic-item subtypes, troop attachments) keeps its own
  * label so the distinctions the data draws are preserved.
  */
-function categoryOf(type: string): string {
-  return /Mount$/.test(type) ? 'Mounts' : type;
-}
+const categoryOf = (type: string): string => (/Mount$/.test(type) ? 'Mounts' : type);
 
 /**
  * Bucket a unit's available upgrade ids into ordered category groups. Category
@@ -21,18 +19,23 @@ function categoryOf(type: string): string {
  * their original order within a category — so the grouping only reorganizes,
  * never reshuffles. Upgrades missing from `upgrades` are skipped.
  */
-export function groupUpgradeIds(
+export const groupUpgradeIds = (
   upgradeIds: string[],
   upgrades: Record<string, UpgradeState>,
-): UpgradeGroup[] {
+): UpgradeGroup[] => {
   const groups = new Map<string, string[]>();
   for (const id of upgradeIds) {
     const upgrade = upgrades[id];
-    if (!upgrade) continue;
+    if (!upgrade) {
+      continue;
+    }
     const label = categoryOf(upgrade.type);
     const bucket = groups.get(label);
-    if (bucket) bucket.push(id);
-    else groups.set(label, [id]);
+    if (bucket) {
+      bucket.push(id);
+    } else {
+      groups.set(label, [id]);
+    }
   }
   return [...groups].map(([label, ids]) => ({ label, upgradeIds: ids }));
-}
+};

@@ -33,7 +33,7 @@ const CopiedLabel = styled.span`
   font-weight: 500;
 `;
 
-export default function CopyShareLinkButton() {
+const CopyShareLinkButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
@@ -41,7 +41,9 @@ export default function CopyShareLinkButton() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     const maps = buildCodeMaps(loadArmy(armyId));
     const encoded = encodeList(snapshotOf({ gameSize, units, label }), maps);
     const base = getEmbedBase();
@@ -77,4 +79,6 @@ export default function CopyShareLinkButton() {
       {copied && <CopiedLabel>Link copied!</CopiedLabel>}
     </Wrapper>
   );
-}
+};
+
+export default CopyShareLinkButton;

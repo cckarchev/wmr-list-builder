@@ -41,6 +41,5 @@ export const PRINT_SECTIONS: PrintSectionDef[] = [
   { id: 'spells', title: 'Spells', available: (ctx) => ctx.magic, render: () => <Spells /> },
 ];
 
-export function availablePrintSections(ctx: PrintSectionCtx): PrintSectionDef[] {
-  return PRINT_SECTIONS.filter((section) => section.available(ctx));
-}
+export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] =>
+  PRINT_SECTIONS.filter((section) => section.available(ctx));

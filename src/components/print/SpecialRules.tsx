@@ -4,11 +4,11 @@ import { useArmyStore } from '../../store/useArmyStore';
 import Markdown from '../ui/Markdown';
 import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
-function collectUsedSpecialRules(
+const collectUsedSpecialRules = (
   allSpecialRules: Record<string, SpecialRule>,
   units: ReturnType<typeof useArmyStore.getState>['units'],
   upgrades: ReturnType<typeof useArmyStore.getState>['upgrades'],
-): Record<string, SpecialRule> {
+): Record<string, SpecialRule> => {
   const result: Record<string, SpecialRule> = {};
 
   const addRule = (name: string) => {
@@ -33,44 +33,44 @@ function collectUsedSpecialRules(
   }
 
   return result;
-}
+};
 
-export default function SpecialRules() {
+const SpecialRules = () => {
   const specialRulesRaw = useArmyStore((s) => s.specialRules) as
     | Record<string, SpecialRule>
     | undefined;
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
 
-  if (!specialRulesRaw) return null;
+  if (!specialRulesRaw) {
+    return null;
+  }
 
   const rulesMap = collectUsedSpecialRules(specialRulesRaw, units, upgrades);
 
   // sort by order
-  const sorted = Object.entries(rulesMap).sort(([, a], [, b]) => {
-    const ao = a.order ?? 0;
-    const bo = b.order ?? 0;
-    return ao < bo ? -1 : ao > bo ? 1 : 0;
-  });
+  const sorted = Object.entries(rulesMap).sort(([, a], [, b]) => (a.order ?? 0) - (b.order ?? 0));
 
-  if (sorted.length === 0) return null;
+  if (sorted.length === 0) {
+    return null;
+  }
 
   return (
     <PrintSection>
       <PrintHeading>Special Rules</PrintHeading>
       <DefList>
-        {sorted.flatMap(([name, rule]) => {
-          return [
-            <DefTerm key={`dt_${name}`}>
-              {rule.order != null ? `${rule.order}. ` : ''}
-              {name}
-            </DefTerm>,
-            <DefDesc key={`dd_${name}`}>
-              <Markdown blocks={rule.text ?? []} />
-            </DefDesc>,
-          ];
-        })}
+        {sorted.flatMap(([name, rule]) => [
+          <DefTerm key={`dt_${name}`}>
+            {rule.order == null ? '' : `${rule.order}. `}
+            {name}
+          </DefTerm>,
+          <DefDesc key={`dd_${name}`}>
+            <Markdown blocks={rule.text ?? []} />
+          </DefDesc>,
+        ])}
       </DefList>
     </PrintSection>
   );
-}
+};
+
+export default SpecialRules;

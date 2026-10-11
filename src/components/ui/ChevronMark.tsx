@@ -6,7 +6,7 @@ interface ChevronMarkProps {
   strokeWidth?: number;
 }
 
-export default function ChevronMark({ color, size = 14, strokeWidth = 2.4 }: ChevronMarkProps) {
+const ChevronMark = ({ color, size = 14, strokeWidth = 2.4 }: ChevronMarkProps) => {
   const theme = useTheme();
   const stroke = color ?? theme.color.tealBright;
   return (
@@ -21,4 +21,6 @@ export default function ChevronMark({ color, size = 14, strokeWidth = 2.4 }: Che
       <path d="M5 2 L11 8 L5 14" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="square" />
     </svg>
   );
-}
+};
+
+export default ChevronMark;

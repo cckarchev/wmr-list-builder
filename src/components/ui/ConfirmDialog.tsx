@@ -60,7 +60,7 @@ const Actions = styled.div`
   padding: ${({ theme }) => `0 ${theme.space[4]}px ${theme.space[4]}px`};
 `;
 
-export default function ConfirmDialog({
+const ConfirmDialog = ({
   open,
   title,
   message,
@@ -69,16 +69,20 @@ export default function ConfirmDialog({
   confirmVariant = 'danger',
   onConfirm,
   onCancel,
-}: ConfirmDialogProps) {
+}: ConfirmDialogProps) => {
   const titleId = useId();
   const messageId = useId();
   const backdropRef = useRef<HTMLDivElement>(null);
   const confirmRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onCancel();
+      if (e.key === 'Escape') {
+        onCancel();
+      }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -89,23 +93,31 @@ export default function ConfirmDialog({
   // clicking the dialog doesn't also close the popover behind it.
   useEffect(() => {
     const el = backdropRef.current;
-    if (!open || !el) return;
+    if (!open || !el) {
+      return;
+    }
     const stop = (e: MouseEvent) => e.stopPropagation();
     el.addEventListener('mousedown', stop);
     return () => el.removeEventListener('mousedown', stop);
   }, [open]);
 
   useEffect(() => {
-    if (open) confirmRef.current?.focus();
+    if (open) {
+      confirmRef.current?.focus();
+    }
   }, [open]);
 
-  if (!open) return null;
+  if (!open) {
+    return null;
+  }
 
   return createPortal(
     <Backdrop
       ref={backdropRef}
       onClick={(e) => {
-        if (e.target === e.currentTarget) onCancel();
+        if (e.target === e.currentTarget) {
+          onCancel();
+        }
       }}
     >
       <Card
@@ -128,4 +140,6 @@ export default function ConfirmDialog({
     </Backdrop>,
     document.body,
   );
-}
+};
+
+export default ConfirmDialog;

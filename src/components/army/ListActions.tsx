@@ -12,7 +12,7 @@ import SaveListButton from './SaveListButton';
 // The list-management controls shared by the header's inline (desktop) and
 // menu (mobile) layouts. Save/Load sit directly in the bar; the rest live under
 // the More overflow menu. Rendered once per layout so each gets its own menu.
-export default function ListActions() {
+const ListActions = () => {
   const armyId = useArmyStore((s) => s.armyId);
 
   return (
@@ -33,4 +33,6 @@ export default function ListActions() {
       </OverflowMenu>
     </>
   );
-}
+};
+
+export default ListActions;

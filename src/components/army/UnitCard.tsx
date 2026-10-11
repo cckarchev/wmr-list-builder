@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled, { type DefaultTheme, useTheme } from 'styled-components';
 import { resolveBounds } from '../../store/forceLimits';
 import { groupUpgradeIds } from '../../store/groupUpgrades';
 import { explainMinMax, minMaxBadge } from '../../store/minMax';
@@ -25,6 +25,27 @@ interface UnitCardProps {
   groupLabel?: string;
 }
 
+interface CardStateProps {
+  theme: DefaultTheme;
+  $selected: boolean;
+  $invalid: boolean;
+}
+
+/** An error outranks selection; otherwise the card shows its resting border. */
+const cardBorderColor =
+  (resting: 'default' | 'hover') =>
+  ({ theme, $selected, $invalid }: CardStateProps): string => {
+    if ($invalid) {
+      return theme.color.semantic.error;
+    }
+
+    if ($selected) {
+      return theme.color.border.accent;
+    }
+
+    return theme.color.border[resting];
+  };
+
 const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
   position: relative;
   display: flex;
@@ -39,23 +60,12 @@ const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
     gap: ${({ theme }) => `${theme.space[4]}px`};
     padding: ${({ theme }) => `${theme.space[4]}px ${theme.space[5]}px`};
   }
-  border: 1px solid
-    ${({ theme, $selected, $invalid }) =>
-      $invalid
-        ? theme.color.semantic.error
-        : $selected
-          ? theme.color.border.accent
-          : theme.color.border.default};
+  border: 1px solid ${cardBorderColor('default')};
   border-radius: ${({ theme }) => theme.radius.md};
   transition: border-color 0.15s;
 
   &:hover {
-    border-color: ${({ theme, $selected, $invalid }) =>
-      $invalid
-        ? theme.color.semantic.error
-        : $selected
-          ? theme.color.border.accent
-          : theme.color.border.hover};
+    border-color: ${cardBorderColor('hover')};
   }
 `;
 
@@ -194,7 +204,7 @@ const UpgradeGroupLabel = styled.h5`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
+const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrades = useArmyStore((s) => s.upgrades);
   const setUnitNumber = useArmyStore((s) => s.setUnitNumber);
@@ -203,7 +213,9 @@ export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
 
-  if (!unit) return null;
+  if (!unit) {
+    return null;
+  }
 
   const selected = unit.number > 0;
   // Skip the type in the eyebrow when the section header already states it.
@@ -301,4 +313,6 @@ export default function UnitCard({ unitId, groupLabel }: UnitCardProps) {
       )}
     </Card>
   );
-}
+};
+
+export default UnitCard;

@@ -52,11 +52,11 @@ const Bubble = styled.span`
  * hover or keyboard focus. The bubble text is always in the DOM (so it's
  * available to assistive tech and tests) and merely revealed via opacity.
  */
-export default function Tooltip({ label, children }: TooltipProps) {
-  return (
-    <Wrap tabIndex={0} aria-label={label}>
-      {children}
-      <Bubble role="tooltip">{label}</Bubble>
-    </Wrap>
-  );
-}
+const Tooltip = ({ label, children }: TooltipProps) => (
+  <Wrap tabIndex={0} aria-label={label}>
+    {children}
+    <Bubble role="tooltip">{label}</Bubble>
+  </Wrap>
+);
+
+export default Tooltip;

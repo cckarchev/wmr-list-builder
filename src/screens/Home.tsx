@@ -79,17 +79,17 @@ const ArmyCard = styled(Link)`
   ${focusRing}
 `;
 
-export default function Home() {
-  return (
-    <Page>
-      <Heading>Choose Your Army</Heading>
-      <Grid>
-        {armyIndex.map(({ id, name }) => (
-          <li key={id}>
-            <ArmyCard to={`/build/${id}`}>{name}</ArmyCard>
-          </li>
-        ))}
-      </Grid>
-    </Page>
-  );
-}
+const Home = () => (
+  <Page>
+    <Heading>Choose Your Army</Heading>
+    <Grid>
+      {armyIndex.map(({ id, name }) => (
+        <li key={id}>
+          <ArmyCard to={`/build/${id}`}>{name}</ArmyCard>
+        </li>
+      ))}
+    </Grid>
+  </Page>
+);
+
+export default Home;

@@ -160,7 +160,7 @@ const ToggleMark = styled.span<{ $collapsed: boolean }>`
   }
 `;
 
-export default function Build() {
+const Build = () => {
   const { armyId: paramArmyId } = useParams<{ armyId: string }>();
   const [searchParams] = useSearchParams();
   // Embedded query-only links (/?army=<id>) carry the army in the query string;
@@ -180,23 +180,32 @@ export default function Build() {
   // roster (e.g. back from Print) keeps the current selections. On a fresh load,
   // restore from the URL (?list= wins) or from localStorage.
   useEffect(() => {
-    if (!armyId || armyIdInStore === armyId) return;
+    if (!armyId || armyIdInStore === armyId) {
+      return;
+    }
     setArmy(armyId); // also clears any prior loadWarning
     const fromUrl = searchParams.get('list');
     const maps = buildCodeMaps(loadArmy(armyId));
     if (fromUrl) {
       const result = decodeShare(fromUrl, maps);
-      if (result.ok) applyList(result.snapshot);
-      else setLoadWarning('This shared list couldn’t be loaded. The link looks corrupted.');
+      if (result.ok) {
+        applyList(result.snapshot);
+      } else {
+        setLoadWarning('This shared list couldn’t be loaded. The link looks corrupted.');
+      }
     } else {
       const saved = loadList(armyId);
-      if (saved) applyList(saved);
+      if (saved) {
+        applyList(saved);
+      }
     }
   }, [armyId, armyIdInStore, setArmy]);
 
   // Auto-save the current list whenever it changes.
   useEffect(() => {
-    if (armyIdInStore) saveList(armyIdInStore, snapshotOf({ gameSize, units, label }));
+    if (armyIdInStore) {
+      saveList(armyIdInStore, snapshotOf({ gameSize, units, label }));
+    }
   }, [armyIdInStore, gameSize, units, label]);
 
   const [search, setSearch] = useState('');
@@ -208,8 +217,11 @@ export default function Build() {
   const toggleCollapsed = (label: string) =>
     setCollapsed((prev) => {
       const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
+      if (next.has(label)) {
+        next.delete(label);
+      } else {
+        next.add(label);
+      }
       return next;
     });
 
@@ -220,7 +232,9 @@ export default function Build() {
   const [headerHeight, setHeaderHeight] = useState(0);
   useEffect(() => {
     const el = document.querySelector<HTMLElement>('[data-testid="points-bar"]');
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     const update = () => setHeaderHeight(el.offsetHeight);
     update();
     const ro = new ResizeObserver(update);
@@ -228,7 +242,9 @@ export default function Build() {
     return () => ro.disconnect();
   }, [army]);
 
-  if (!army) return null;
+  if (!army) {
+    return null;
+  }
 
   const allGroups = groupRosterUnits(units);
   const rosterGroups = groupRosterUnits(units, search, gameSize)
@@ -244,13 +260,16 @@ export default function Build() {
       const next = prev === label ? null : label;
       // When filtering to a category, make sure its section is expanded so the
       // matching units aren't hidden behind a collapsed header.
-      if (next !== null)
+      if (next !== null) {
         setCollapsed((c) => {
-          if (!c.has(next)) return c;
+          if (!c.has(next)) {
+            return c;
+          }
           const updated = new Set(c);
           updated.delete(next);
           return updated;
         });
+      }
       return next;
     });
 
@@ -310,4 +329,6 @@ export default function Build() {
       </Grid>
     </Page>
   );
-}
+};
+
+export default Build;

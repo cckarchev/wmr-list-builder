@@ -4,8 +4,8 @@ import { describe, expect, it } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
 import Popover from './Popover';
 
-function setup() {
-  return renderWithTheme(
+const setup = () =>
+  renderWithTheme(
     <div>
       <Popover label="Goblins special rules" trigger="Rules">
         <p>Goblins are cowardly.</p>
@@ -13,7 +13,6 @@ function setup() {
       <button type="button">outside</button>
     </div>,
   );
-}
 
 describe('Popover', () => {
   it('is closed initially', () => {

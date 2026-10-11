@@ -128,7 +128,7 @@ const Empty = styled.p`
   color: ${({ theme }) => theme.color.text.dim};
 `;
 
-export default function LoadListButton() {
+const LoadListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const applyList = useArmyStore((s) => s.applyList);
   const setSavedBaseline = useArmyStore((s) => s.setSavedBaseline);
@@ -141,12 +141,18 @@ export default function LoadListButton() {
   const wrapRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+      }
     };
     document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
@@ -157,16 +163,22 @@ export default function LoadListButton() {
   }, [open]);
 
   const openPanel = () => {
-    if (armyId) setSaved(listSavedSummaries(armyId));
+    if (armyId) {
+      setSaved(listSavedSummaries(armyId));
+    }
     setConfirmLoad(null);
     setConfirmDelete(null);
     setOpen(true);
   };
 
   const doLoad = (name: string) => {
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     const snap = loadNamedList(armyId, name);
-    if (!snap) return;
+    if (!snap) {
+      return;
+    }
     applyList(snap);
     const maps = buildCodeMaps(loadArmy(armyId));
     // Re-encode the applied state so the baseline matches what the store holds
@@ -178,12 +190,17 @@ export default function LoadListButton() {
   };
 
   const handleLoadClick = (name: string) => {
-    if (isDirty) setConfirmLoad(name);
-    else doLoad(name);
+    if (isDirty) {
+      setConfirmLoad(name);
+    } else {
+      doLoad(name);
+    }
   };
 
   const doDelete = (name: string) => {
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     deleteNamedList(armyId, name);
     setConfirmDelete(null);
     setSaved(listSavedSummaries(armyId));
@@ -244,4 +261,6 @@ export default function LoadListButton() {
       />
     </Wrapper>
   );
-}
+};
+
+export default LoadListButton;

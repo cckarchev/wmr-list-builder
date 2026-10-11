@@ -5,7 +5,7 @@ import Button from '../ui/Button';
 import ConfirmDialog from '../ui/ConfirmDialog';
 import Icon from '../ui/Icon';
 
-export default function ResetListButton() {
+const ResetListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const setArmy = useArmyStore((s) => s.setArmy);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +13,9 @@ export default function ResetListButton() {
 
   const handleReset = () => {
     setConfirming(false);
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     // Re-initialize the current army back to its default empty state, keeping
     // the same faction selected. The Build screen's auto-save persists this.
     setArmy(armyId);
@@ -48,4 +50,6 @@ export default function ResetListButton() {
       />
     </>
   );
-}
+};
+
+export default ResetListButton;

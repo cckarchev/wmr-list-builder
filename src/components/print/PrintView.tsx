@@ -50,14 +50,18 @@ interface PrintViewProps {
   options: PrintOptions;
 }
 
-export default function PrintView({ sections, selectedIds, options }: PrintViewProps) {
+const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
   const armyName = useArmyStore((s) => s.army?.name ?? '');
   const label = useArmyStore((s) => s.label);
   const title = label ? `${armyName} · ${label}` : armyName;
 
   const classes = ['print-document'];
-  if (options.smallFont) classes.push('font-small');
-  if (options.condensed) classes.push('condensed');
+  if (options.smallFont) {
+    classes.push('font-small');
+  }
+  if (options.condensed) {
+    classes.push('condensed');
+  }
 
   return (
     <PrintOptionsContext.Provider value={options}>
@@ -73,4 +77,6 @@ export default function PrintView({ sections, selectedIds, options }: PrintViewP
       </Document>
     </PrintOptionsContext.Provider>
   );
-}
+};
+
+export default PrintView;

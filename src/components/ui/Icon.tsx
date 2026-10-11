@@ -42,20 +42,20 @@ interface IconProps {
   title?: string;
 }
 
-export default function Icon({ name, size = 16, title }: IconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 640 640"
-      fill="currentColor"
-      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
-      role={title ? 'img' : undefined}
-      aria-label={title}
-      aria-hidden={title ? undefined : true}
-    >
-      {title && <title>{title}</title>}
-      <path d={PATHS[name]} />
-    </svg>
-  );
-}
+const Icon = ({ name, size = 16, title }: IconProps) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 640 640"
+    fill="currentColor"
+    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    role={title ? 'img' : undefined}
+    aria-label={title}
+    aria-hidden={title ? undefined : true}
+  >
+    {title && <title>{title}</title>}
+    <path d={PATHS[name]} />
+  </svg>
+);
+
+export default Icon;

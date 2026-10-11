@@ -20,7 +20,7 @@ type Limited = Pick<UnitState, 'armyMin' | 'armyMax' | 'min' | 'max' | 'homologo
  * "Half or None", "As X", …) and homologous units are left to soft validation,
  * since they can't be clamped per-unit without cross-unit context.
  */
-export function resolveBounds(unit: Limited, gameSize: number): Bounds {
+export const resolveBounds = (unit: Limited, gameSize: number): Bounds => {
   let min = unit.armyMin ?? 0;
   let max = unit.armyMax;
 
@@ -36,7 +36,7 @@ export function resolveBounds(unit: Limited, gameSize: number): Bounds {
   }
 
   return { min, max };
-}
+};
 
 /**
  * Auto-include every unit at its resolved minimum for `gameSize` (mutates and
@@ -44,10 +44,10 @@ export function resolveBounds(unit: Limited, gameSize: number): Bounds {
  * units start in the list. Game-size *changes* deliberately do NOT re-run this
  * — instead soft validation flags a now-invalid list for the user to correct.
  */
-export function applyForceMinimums(
+export const applyForceMinimums = (
   units: Record<string, UnitState>,
   gameSize: number,
-): Record<string, UnitState> {
+): Record<string, UnitState> => {
   for (const id in units) {
     const unit = units[id];
     const { min } = resolveBounds(unit, gameSize);
@@ -57,4 +57,4 @@ export function applyForceMinimums(
     }
   }
   return units;
-}
+};

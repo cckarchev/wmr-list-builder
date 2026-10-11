@@ -16,10 +16,12 @@ const Content = styled.div`
   }
 `;
 
-export default function ArmyRules() {
+const ArmyRules = () => {
   const army = useArmyStore((s) => s.army);
 
-  if (!army?.armyRules) return null;
+  if (!army?.armyRules) {
+    return null;
+  }
 
   return (
     <PrintSection>
@@ -29,4 +31,6 @@ export default function ArmyRules() {
       </Content>
     </PrintSection>
   );
-}
+};
+
+export default ArmyRules;

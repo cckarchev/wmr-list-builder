@@ -97,19 +97,19 @@ interface StatRowProps {
   isUpgrade?: boolean;
 }
 
-function resolvePoints(
+const resolvePoints = (
   troop: UnitState | UpgradeState | (UsedUnit & { pointsCost: number; number: number }),
   parentUnit?: UnitState,
-): string {
+): string => {
   const price = resolveUpgradePoints(troop, parentUnit);
-  return price !== undefined ? String(price) : '-';
-}
+  return price === undefined ? '-' : String(price);
+};
 
-function resolveSpecial(
+const resolveSpecial = (
   name: string,
   troopSpecialRules: string[] | undefined,
   specialRules: Record<string, { order?: number }>,
-): string {
+): string => {
   const orders: number[] = [];
 
   const addOrder = (n: string) => {
@@ -123,14 +123,16 @@ function resolveSpecial(
     troopSpecialRules.forEach(addOrder);
   }
 
-  if (orders.length === 0) return '-';
+  if (orders.length === 0) {
+    return '-';
+  }
   return orders
     .sort((a, b) => a - b)
     .map((o) => `*${o}`)
     .join(', ');
-}
+};
 
-function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: StatRowProps) {
+const StatRow = ({ name, troop, parentUnit, specialRules, kind, isUpgrade }: StatRowProps) => {
   const t = troop as UnitState & UpgradeState;
   const special = resolveSpecial(name, t.specialRules, specialRules);
 
@@ -151,15 +153,15 @@ function StatRow({ name, troop, parentUnit, specialRules, kind, isUpgrade }: Sta
       <Td>{resolvePoints(troop, parentUnit)}</Td>
     </tr>
   );
-}
+};
 
-function renderRows(
+const renderRows = (
   entries: [string, UsedUnit][],
   kind: StatKind,
   units: Record<string, UnitState>,
   srMap: Record<string, { order?: number }>,
-) {
-  return entries.flatMap(([unitId, unit]) => {
+) =>
+  entries.flatMap(([unitId, unit]) => {
     const rows = [
       <StatRow
         key={`unit_${unitId}`}
@@ -186,9 +188,8 @@ function renderRows(
     }
     return rows;
   });
-}
 
-export default function Stats() {
+const Stats = () => {
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
   const specialRulesData = useArmyStore((s) => s.specialRules) as
@@ -252,4 +253,6 @@ export default function Stats() {
       </Table>
     </TableWrapper>
   );
-}
+};
+
+export default Stats;

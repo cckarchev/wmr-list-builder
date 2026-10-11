@@ -16,13 +16,13 @@ import type { UnitState } from './storeHelpers';
 import { useArmyStore } from './useArmyStore';
 
 /** Build a minimal units map keyed in insertion order; only `type` matters here. */
-function unitsOf(entries: [string, string][]): Record<string, UnitState> {
+const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
   const map: Record<string, UnitState> = {};
   for (const [id, type] of entries) {
     map[id] = { type } as UnitState;
   }
   return map;
-}
+};
 
 const get = () => useArmyStore.getState();
 

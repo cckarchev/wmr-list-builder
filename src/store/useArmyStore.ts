@@ -32,8 +32,8 @@ export interface ArmyState {
 
   // actions
   setArmy: (id: string) => void;
-  setUnitNumber: (unitID: string, number: number) => void;
-  setUnitUpgradeNumber: (unitID: string, upgradeID: string, number: number) => void;
+  setUnitNumber: (unitId: string, number: number) => void;
+  setUnitUpgradeNumber: (unitId: string, upgradeId: string, number: number) => void;
   setLabel: (label: string) => void;
   setGameSize: (n: number) => void;
   setLoadWarning: (msg: string | null) => void;
@@ -59,30 +59,28 @@ interface InitialData {
   savedBaseline: string | null;
 }
 
-function emptyData(): InitialData {
-  return {
-    armyId: null,
-    army: null,
-    units: {},
-    upgrades: {},
-    upgradeConstraints: [],
-    magic: false,
-    specialRules: undefined,
-    spells: undefined,
-    version: '',
-    label: '',
-    errors: [],
-    gameSize: DEFAULT_GAME_SIZE,
-    loadWarning: null,
-    savedBaseline: null,
-  };
-}
+const emptyData = (): InitialData => ({
+  armyId: null,
+  army: null,
+  units: {},
+  upgrades: {},
+  upgradeConstraints: [],
+  magic: false,
+  specialRules: undefined,
+  spells: undefined,
+  version: '',
+  label: '',
+  errors: [],
+  gameSize: DEFAULT_GAME_SIZE,
+  loadWarning: null,
+  savedBaseline: null,
+});
 
 /**
  * Port of `initializeState` (actions.js 342-396) for the Revolution-only data
  * layer. Builds the full state object for an army id.
  */
-function initializeState(id: string): InitialData {
+const initializeState = (id: string): InitialData => {
   const army = loadArmy(id);
 
   let upgradeConstraints: UpgradeConstraint[] = army.upgradeConstraints
@@ -114,7 +112,7 @@ function initializeState(id: string): InitialData {
     loadWarning: null,
     savedBaseline: null,
   };
-}
+};
 
 export const useArmyStore = create<ArmyState>((set, get) => ({
   ...emptyData(),
@@ -123,20 +121,26 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
     set(initializeState(id));
   },
 
-  setUnitNumber: (unitID, number) => {
+  setUnitNumber: (unitId, number) => {
     set((state) => {
       const units = { ...state.units };
       const upgrades = { ...state.upgrades };
-      const existing = units[unitID];
+      const existing = units[unitId];
 
       // clamp to the unit's resolved hard force limits at the current cap.
       let n = +number;
-      if (!Number.isFinite(n) || n < 0) n = 0;
+      if (!Number.isFinite(n) || n < 0) {
+        n = 0;
+      }
       const { min, max } = existing
         ? resolveBounds(existing, state.gameSize)
         : { min: 0, max: undefined };
-      if (n < min) n = min;
-      if (max !== undefined && n > max) n = max;
+      if (n < min) {
+        n = min;
+      }
+      if (max !== undefined && n > max) {
+        n = max;
+      }
 
       const unit: UnitState = { ...existing, number: n };
 
@@ -144,34 +148,34 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
       // number, keeping the global upgrade total in sync.
       if (unit.upgrades) {
         const newUnitUpgrades: Record<string, UnitUpgradeEntry> = { ...unit.upgrades };
-        for (const upgradeID in newUnitUpgrades) {
-          if (newUnitUpgrades[upgradeID].number > n) {
-            applyUnitUpgradeNumber(upgrades, unit, newUnitUpgrades, upgradeID, n);
+        for (const upgradeId in newUnitUpgrades) {
+          if (newUnitUpgrades[upgradeId].number > n) {
+            applyUnitUpgradeNumber(upgrades, unit, newUnitUpgrades, upgradeId, n);
           }
         }
         unit.upgrades = newUnitUpgrades;
       }
 
       unit.pointsCost = unitPointsCost(unit);
-      units[unitID] = unit;
+      units[unitId] = unit;
 
       return { units, upgrades, errors: validate(units, upgrades, state.gameSize) };
     });
   },
 
-  setUnitUpgradeNumber: (unitID, upgradeID, number) => {
+  setUnitUpgradeNumber: (unitId, upgradeId, number) => {
     set((state) => {
       const units = { ...state.units };
       const upgrades = { ...state.upgrades };
 
-      const unit: UnitState = { ...units[unitID] };
+      const unit: UnitState = { ...units[unitId] };
       const newUnitUpgrades: Record<string, UnitUpgradeEntry> = { ...(unit.upgrades || {}) };
 
-      applyUnitUpgradeNumber(upgrades, unit, newUnitUpgrades, upgradeID, number);
+      applyUnitUpgradeNumber(upgrades, unit, newUnitUpgrades, upgradeId, number);
 
       unit.upgrades = newUnitUpgrades;
       unit.pointsCost = unitPointsCost(unit);
-      units[unitID] = unit;
+      units[unitId] = unit;
 
       return { units, upgrades, errors: validate(units, upgrades, state.gameSize) };
     });
@@ -186,7 +190,9 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
   setGameSize: (n) =>
     set((state) => {
       let next = Math.floor(+n);
-      if (!Number.isFinite(next) || next < 0) next = 0;
+      if (!Number.isFinite(next) || next < 0) {
+        next = 0;
+      }
       return { gameSize: next, errors: validate(state.units, state.upgrades, next) };
     }),
 
@@ -203,13 +209,19 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
     const { setGameSize, setLabel, setUnitNumber, setUnitUpgradeNumber, units } = get();
     setGameSize(snap.gameSize);
     setLabel(snap.name);
-    for (const [unitID, n] of Object.entries(snap.units)) {
-      if (units[unitID]) setUnitNumber(unitID, n);
+    for (const [unitId, n] of Object.entries(snap.units)) {
+      if (units[unitId]) {
+        setUnitNumber(unitId, n);
+      }
     }
-    for (const [unitID, ups] of Object.entries(snap.upgrades)) {
-      if (!units[unitID]) continue;
-      for (const [upgradeID, n] of Object.entries(ups)) {
-        if (get().upgrades[upgradeID]) setUnitUpgradeNumber(unitID, upgradeID, n);
+    for (const [unitId, ups] of Object.entries(snap.upgrades)) {
+      if (!units[unitId]) {
+        continue;
+      }
+      for (const [upgradeId, n] of Object.entries(ups)) {
+        if (get().upgrades[upgradeId]) {
+          setUnitUpgradeNumber(unitId, upgradeId, n);
+        }
       }
     }
   },
@@ -231,41 +243,45 @@ export const useArmyStore = create<ArmyState>((set, get) => ({
  * The caller recomputes the unit's overall pointsCost afterwards (mirroring
  * the Vue `skipSettingUnitPointsCost` flow).
  */
-function applyUnitUpgradeNumber(
+const applyUnitUpgradeNumber = (
   upgrades: Record<string, UpgradeState>,
   unit: UnitState,
   newUnitUpgrades: Record<string, UnitUpgradeEntry>,
-  upgradeID: string,
+  upgradeId: string,
   number: number,
-): void {
+): void => {
   let n = +number;
-  if (n < 0) n = 0;
-  if (n > unit.number) n = unit.number;
+  if (n < 0) {
+    n = 0;
+  }
+  if (n > unit.number) {
+    n = unit.number;
+  }
 
-  const upgrade = { ...upgrades[upgradeID] };
+  const upgrade = { ...upgrades[upgradeId] };
 
   // addOnUpgrades: add/remove dependent upgrades on this unit
   if (upgrade.addOnUpgrades) {
     if (n <= 0) {
-      upgrade.addOnUpgrades.forEach((addOnID) => {
-        delete newUnitUpgrades[addOnID];
+      upgrade.addOnUpgrades.forEach((addOnId) => {
+        delete newUnitUpgrades[addOnId];
       });
     } else if (upgrade.number === 0) {
-      upgrade.addOnUpgrades.forEach((addOnID) => {
-        newUnitUpgrades[addOnID] = { number: 0, pointsCost: 0 };
+      upgrade.addOnUpgrades.forEach((addOnId) => {
+        newUnitUpgrades[addOnId] = { number: 0, pointsCost: 0 };
       });
     }
   }
 
-  const previousUnitNumber = newUnitUpgrades[upgradeID]?.number ?? 0;
+  const previousUnitNumber = newUnitUpgrades[upgradeId]?.number ?? 0;
 
   // update the global upgrade total by the delta of this change
   upgrade.number = upgrade.number - previousUnitNumber + n;
-  upgrades[upgradeID] = upgrade;
+  upgrades[upgradeId] = upgrade;
 
   // set the unit-upgrade number + pointsCost
-  newUnitUpgrades[upgradeID] = {
+  newUnitUpgrades[upgradeId] = {
     number: n,
     pointsCost: unitUpgradePointsCost(upgrade, unit, n),
   };
-}
+};

@@ -108,7 +108,7 @@ const PrintButton = styled.button`
   }
 `;
 
-export default function Print() {
+const Print = () => {
   const { armyId } = useParams<{ armyId: string }>();
   const army = useArmyStore((s) => s.army);
   const armyIdInStore = useArmyStore((s) => s.armyId);
@@ -162,7 +162,9 @@ export default function Print() {
     });
   };
 
-  if (!army) return null;
+  if (!army) {
+    return null;
+  }
 
   return (
     <Page>
@@ -246,4 +248,6 @@ export default function Print() {
       />
     </Page>
   );
-}
+};
+
+export default Print;

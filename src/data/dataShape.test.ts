@@ -4,12 +4,14 @@ import { magicItems } from './magicItems';
 
 const armies = Object.entries(armiesById);
 
-function noEmpty(arr: string[] | undefined, label: string) {
-  if (!arr) return;
+const noEmpty = (arr: string[] | undefined, label: string) => {
+  if (!arr) {
+    return;
+  }
   arr.forEach((line, i) => {
     expect(line.trim().length, `${label}[${i}] is empty`).toBeGreaterThan(0);
   });
-}
+};
 
 describe('data shape after cleanup', () => {
   it('no text/armyRules array contains empty-string separators', () => {

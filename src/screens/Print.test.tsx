@@ -6,8 +6,8 @@ import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
 import Print from './Print';
 
-function renderPrint(path = '/print/goblin') {
-  return render(
+const renderPrint = (path = '/print/goblin') =>
+  render(
     <ThemeProvider theme={theme}>
       <MemoryRouter initialEntries={[path]}>
         <Routes>
@@ -16,7 +16,6 @@ function renderPrint(path = '/print/goblin') {
       </MemoryRouter>
     </ThemeProvider>,
   );
-}
 
 describe('Print screen', () => {
   beforeEach(() => {

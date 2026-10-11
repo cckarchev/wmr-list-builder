@@ -39,7 +39,7 @@ const Panel = styled.div<{ $wide: boolean }>`
   text-align: left;
 `;
 
-export default function Popover({ label, trigger, wide = false, children }: PopoverProps) {
+const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -55,10 +55,14 @@ export default function Popover({ label, trigger, wide = false, children }: Popo
   const offsetXRef = useRef(0);
 
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const place = () => {
       const panel = panelRef.current;
-      if (!panel) return;
+      if (!panel) {
+        return;
+      }
       const margin = 8;
       const rect = panel.getBoundingClientRect();
       const naturalLeft = rect.left - offsetXRef.current;
@@ -67,7 +71,9 @@ export default function Popover({ label, trigger, wide = false, children }: Popo
       if (naturalRight > window.innerWidth - margin) {
         shift = window.innerWidth - margin - naturalRight;
       }
-      if (naturalLeft + shift < margin) shift = margin - naturalLeft;
+      if (naturalLeft + shift < margin) {
+        shift = margin - naturalLeft;
+      }
       offsetXRef.current = shift;
       setOffsetX(shift);
     };
@@ -81,7 +87,9 @@ export default function Popover({ label, trigger, wide = false, children }: Popo
   }, [open]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const onDown = (e: MouseEvent) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
         setOpen(false);
@@ -102,7 +110,9 @@ export default function Popover({ label, trigger, wide = false, children }: Popo
   }, [open]);
 
   useEffect(() => {
-    if (open) panelRef.current?.focus();
+    if (open) {
+      panelRef.current?.focus();
+    }
   }, [open]);
 
   return (
@@ -133,4 +143,6 @@ export default function Popover({ label, trigger, wide = false, children }: Popo
       )}
     </Wrap>
   );
-}
+};
+
+export default Popover;

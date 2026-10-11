@@ -78,7 +78,7 @@ const Note = styled.p`
   color: ${({ theme }) => theme.color.semantic.error};
 `;
 
-export default function SaveListButton() {
+const SaveListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
@@ -93,12 +93,18 @@ export default function SaveListButton() {
   const wrapRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     const onDown = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+      }
     };
     document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
@@ -116,7 +122,9 @@ export default function SaveListButton() {
   };
 
   const commit = (finalName: string) => {
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     const maps = buildCodeMaps(loadArmy(armyId));
     const snap = snapshotOf({ gameSize, units, label: finalName });
     saveNamedList(armyId, finalName, snap);
@@ -132,7 +140,9 @@ export default function SaveListButton() {
       setError('Enter a name for this list.');
       return;
     }
-    if (!armyId) return;
+    if (!armyId) {
+      return;
+    }
     if (listSavedNames(armyId).includes(trimmed)) {
       setConfirmingOverwrite(true);
       return;
@@ -169,7 +179,9 @@ export default function SaveListButton() {
                 setConfirmingOverwrite(false);
               }}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSave();
+                if (e.key === 'Enter') {
+                  handleSave();
+                }
               }}
             />
             {error && <Note role="alert">{error}</Note>}
@@ -190,4 +202,6 @@ export default function SaveListButton() {
       />
     </Wrapper>
   );
-}
+};
+
+export default SaveListButton;

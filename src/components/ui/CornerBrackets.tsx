@@ -8,12 +8,7 @@ interface CornerBracketsProps {
   inset?: number;
 }
 
-export default function CornerBrackets({
-  accent,
-  size = 14,
-  thickness = 2,
-  inset = -1,
-}: CornerBracketsProps) {
+const CornerBrackets = ({ accent, size = 14, thickness = 2, inset = -1 }: CornerBracketsProps) => {
   const theme = useTheme();
   const color = accent ?? theme.color.tealBright;
   const base: CSSProperties = {
@@ -47,4 +42,6 @@ export default function CornerBrackets({
       />
     </>
   );
-}
+};
+
+export default CornerBrackets;

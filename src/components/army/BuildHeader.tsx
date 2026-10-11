@@ -202,7 +202,7 @@ const WarningDismiss = styled.button`
   padding: 0;
 `;
 
-export default function BuildHeader() {
+const BuildHeader = () => {
   const army = useArmyStore((s) => s.army);
   const units = useArmyStore((s) => s.units);
   const errors = useArmyStore((s) => s.errors);
@@ -222,7 +222,9 @@ export default function BuildHeader() {
   // Jump to the first invalid unit shown in "Your Army" (a used unit).
   const firstTarget = errors.flatMap((e) => e.targets).find((id) => units[id]?.number > 0);
   const goToFirstError = () => {
-    if (!firstTarget) return;
+    if (!firstTarget) {
+      return;
+    }
     document
       .getElementById(unitDomId(firstTarget))
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -303,4 +305,6 @@ export default function BuildHeader() {
       </Strip>
     </Header>
   );
-}
+};
+
+export default BuildHeader;

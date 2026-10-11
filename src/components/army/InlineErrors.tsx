@@ -30,8 +30,10 @@ const Marker = styled.span`
 `;
 
 /** Renders the validation errors attributed to a single roster row. */
-export default function InlineErrors({ errors, label = 'Unit errors' }: InlineErrorsProps) {
-  if (errors.length === 0) return null;
+const InlineErrors = ({ errors, label = 'Unit errors' }: InlineErrorsProps) => {
+  if (errors.length === 0) {
+    return null;
+  }
   return (
     <List role="list" aria-label={label}>
       {errors.map((error) => (
@@ -42,4 +44,6 @@ export default function InlineErrors({ errors, label = 'Unit errors' }: InlineEr
       ))}
     </List>
   );
-}
+};
+
+export default InlineErrors;

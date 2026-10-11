@@ -5,13 +5,12 @@ import { useArmyStore } from '../../store/useArmyStore';
 import { theme } from '../../theme/theme';
 import Spells from './Spells';
 
-function renderSpells() {
-  return render(
+const renderSpells = () =>
+  render(
     <ThemeProvider theme={theme}>
       <Spells />
     </ThemeProvider>,
   );
-}
 
 describe('Spells print section', () => {
   beforeEach(() => {

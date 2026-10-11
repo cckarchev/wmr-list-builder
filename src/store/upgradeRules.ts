@@ -9,11 +9,11 @@ import type { UpgradeState } from './storeHelpers';
  * (resolved against the global `specialRules` map). Both are surfaced here,
  * de-duplicated by name and ordered by `rule.order`.
  */
-export function resolveUpgradeRules(
+export const resolveUpgradeRules = (
   upgradeId: string,
   upgrade: Pick<UpgradeState, 'text' | 'specialRules'>,
   allRules: Record<string, SpecialRule> | undefined,
-): ResolvedRule[] {
+): ResolvedRule[] => {
   const resolved: ResolvedRule[] = [];
   const names = new Set<string>();
 
@@ -30,4 +30,4 @@ export function resolveUpgradeRules(
   });
 
   return resolved.sort((a, b) => (a.rule.order ?? 0) - (b.rule.order ?? 0));
-}
+};

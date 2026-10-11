@@ -33,7 +33,7 @@ const Button = styled.button<ButtonProps>`
   ${focusRing}
 
   ${({ $variant = 'primary', theme }) => {
-    if ($variant === 'primary')
+    if ($variant === 'primary') {
       return css`
         background: ${theme.color.accent};
         color: ${theme.color.accentInk};
@@ -46,7 +46,8 @@ const Button = styled.button<ButtonProps>`
           cursor: not-allowed;
         }
       `;
-    if ($variant === 'danger')
+    }
+    if ($variant === 'danger') {
       return css`
         background: transparent;
         color: ${theme.color.semantic.error};
@@ -59,6 +60,7 @@ const Button = styled.button<ButtonProps>`
           cursor: not-allowed;
         }
       `;
+    }
     return css`
       background: transparent;
       color: ${theme.color.tealBright};

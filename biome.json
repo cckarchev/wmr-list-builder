@@ -27,6 +27,31 @@
       "preset": "recommended",
       "correctness": {
         "useExhaustiveDependencies": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "warn",
+        "noExcessiveLinesPerFunction": "warn"
+      },
+      "style": {
+        "noNestedTernary": "error",
+        "noNegationElse": "error",
+        "noParameterAssign": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrowReturn": "error",
+        "useExplicitLengthCheck": "error"
+      },
+      "suspicious": {
+        "noConsole": "error"
+      },
+      "nursery": {
+        "useConsistentFunctionStyle": {
+          "level": "error",
+          "options": { "style": "expression" }
+        },
+        "useReactFunctionComponentDefinition": {
+          "level": "error",
+          "options": { "namedComponents": "arrowFunction" }
+        }
       }
     }
   },

@@ -7,13 +7,13 @@ import { useArmyStore } from '../../store/useArmyStore';
 import { theme } from '../../theme/theme';
 import ResetListButton from './ResetListButton';
 
-function LocationProbe() {
+const LocationProbe = () => {
   const { search } = useLocation();
   return <div data-testid="search">{search}</div>;
-}
+};
 
-function renderReset(path: string) {
-  return render(
+const renderReset = (path: string) =>
+  render(
     <ThemeProvider theme={theme}>
       <MemoryRouter initialEntries={[path]}>
         <Routes>
@@ -30,7 +30,6 @@ function renderReset(path: string) {
       </MemoryRouter>
     </ThemeProvider>,
   );
-}
 
 describe('ResetListButton', () => {
   beforeEach(() => {

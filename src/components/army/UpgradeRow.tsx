@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import type { StatValue } from '../../data/types';
 import { explainMinMax, minMaxBadge } from '../../store/minMax';
 import { errorsForTarget } from '../../store/selectors';
 import { resolveUpgradePoints } from '../../store/storeHelpers';
@@ -87,7 +88,20 @@ const RuleText = styled.div`
   }
 `;
 
-export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
+/** Variable pricing that cannot be resolved for this unit shows as "?pts". */
+const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): string => {
+  if (price !== undefined) {
+    return `${price}pts`;
+  }
+
+  if (hasVariablePrice) {
+    return '?pts';
+  }
+
+  return '—';
+};
+
+const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrade = useArmyStore((s) => s.upgrades[upgradeId]);
   const setUnitUpgradeNumber = useArmyStore((s) => s.setUnitUpgradeNumber);
@@ -95,7 +109,9 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
   const errors = useArmyStore((s) => s.errors);
   const specialRules = useArmyStore((s) => s.specialRules);
 
-  if (!unit || !upgrade) return null;
+  if (!unit || !upgrade) {
+    return null;
+  }
 
   const rules = resolveUpgradeRules(upgradeId, upgrade, specialRules);
   const upgradeErrors = errorsForTarget(errors, upgradeId);
@@ -118,8 +134,8 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
 
   // Resolve points display: pointsValue means variable pricing
   const price = resolveUpgradePoints(upgrade, unit);
-  const pointsDisplay =
-    price !== undefined ? `${price}pts` : upgrade.pointsValue !== undefined ? '?pts' : '—';
+  const hasVariablePrice = upgrade.pointsValue !== undefined;
+  const pointsDisplay = formatPrice(price, hasVariablePrice);
 
   return (
     <Row $invalid={upgradeErrors.length > 0}>
@@ -158,4 +174,6 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
       <InlineErrors errors={upgradeErrors} label={`${upgradeId} errors`} />
     </Row>
   );
-}
+};
+
+export default UpgradeRow;

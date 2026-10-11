@@ -56,11 +56,10 @@ const StatFigure = styled.span`
   font-weight: 600;
 `;
 
-function stat(value: StatValue | undefined): string {
-  return value !== undefined && value !== '' ? String(value) : '–';
-}
+const stat = (value: StatValue | undefined): string =>
+  value !== undefined && value !== '' ? String(value) : '–';
 
-export default function StatLine({
+const StatLine = ({
   attack,
   range,
   hits,
@@ -69,7 +68,7 @@ export default function StatLine({
   size,
   points,
   character = false,
-}: StatLineProps) {
+}: StatLineProps) => {
   const cells: Array<{ label: string; value: string }> = [];
 
   // Characters and troops carry disjoint stat sets, so each shows only its own.
@@ -97,4 +96,6 @@ export default function StatLine({
       ))}
     </StatTable>
   );
-}
+};
+
+export default StatLine;

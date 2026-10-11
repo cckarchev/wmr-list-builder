@@ -23,6 +23,4 @@ const DEFAULTS: PrintOptions = {
 
 export const PrintOptionsContext = createContext<PrintOptions>(DEFAULTS);
 
-export function usePrintOptions(): PrintOptions {
-  return useContext(PrintOptionsContext);
-}
+export const usePrintOptions = (): PrintOptions => useContext(PrintOptionsContext);

@@ -90,18 +90,23 @@ const Effect = styled.div`
   }
 `;
 
-export default function UnitSpells({ unitId }: UnitSpellsProps) {
+const UnitSpells = ({ unitId }: UnitSpellsProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const spells = useArmyStore((s) => s.spells);
   const [open, setOpen] = useState<Set<number>>(new Set());
 
-  if (!unit || !isCaster(unit) || !spells || spells.length === 0) return null;
+  if (!unit || !isCaster(unit) || !spells || spells.length === 0) {
+    return null;
+  }
 
   const toggle = (i: number) =>
     setOpen((prev) => {
       const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
+      if (next.has(i)) {
+        next.delete(i);
+      } else {
+        next.add(i);
+      }
       return next;
     });
 
@@ -140,4 +145,6 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
       </List>
     </Popover>
   );
-}
+};
+
+export default UnitSpells;

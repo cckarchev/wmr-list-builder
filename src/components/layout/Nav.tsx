@@ -72,7 +72,7 @@ const Chev = styled.span<{ $flip?: boolean }>`
   ${({ $flip }) => $flip && 'transform: rotate(180deg);'}
 `;
 
-export default function Nav() {
+const Nav = () => {
   const { pathname } = useLocation();
   const [section, armyId] = pathname.split('/').filter(Boolean);
 
@@ -101,4 +101,6 @@ export default function Nav() {
       )}
     </Bar>
   );
-}
+};
+
+export default Nav;

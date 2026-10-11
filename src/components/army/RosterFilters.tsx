@@ -129,7 +129,7 @@ interface RosterFiltersProps {
 /** The roster header (heading + Selected-only / Filters toggles) and the
  * collapsible search + type-chip panel. Purely presentational: the Build screen
  * owns the filter state because it also drives which units are listed. */
-export default function RosterFilters({
+const RosterFilters = ({
   types,
   search,
   onSearchChange,
@@ -139,7 +139,7 @@ export default function RosterFilters({
   onToggleFiltersOpen,
   selectedOnly,
   onToggleSelectedOnly,
-}: RosterFiltersProps) {
+}: RosterFiltersProps) => {
   const filtersActive = search.trim() !== '' || activeType !== null;
 
   return (
@@ -194,4 +194,6 @@ export default function RosterFilters({
       )}
     </>
   );
-}
+};
+
+export default RosterFilters;

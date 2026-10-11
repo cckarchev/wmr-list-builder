@@ -4,11 +4,13 @@ import { useArmyStore } from '../../store/useArmyStore';
 import Markdown from '../ui/Markdown';
 import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
-export default function MagicItems() {
+const MagicItems = () => {
   const upgrades = useArmyStore((s) => s.upgrades);
   const magic = useArmyStore((s) => s.magic);
 
-  if (!magic) return null;
+  if (!magic) {
+    return null;
+  }
 
   const allMagicItems = magicItems.upgrades;
 
@@ -20,23 +22,25 @@ export default function MagicItems() {
   );
 
   const entries = Object.entries(items);
-  if (entries.length === 0) return null;
+  if (entries.length === 0) {
+    return null;
+  }
 
   return (
     <PrintSection>
       <PrintHeading>Magic Items</PrintHeading>
       <DefList>
-        {entries.map(([name, item]) => {
-          return (
-            <Fragment key={name}>
-              <DefTerm>{name}</DefTerm>
-              <DefDesc>
-                <Markdown blocks={item.text} />
-              </DefDesc>
-            </Fragment>
-          );
-        })}
+        {entries.map(([name, item]) => (
+          <Fragment key={name}>
+            <DefTerm>{name}</DefTerm>
+            <DefDesc>
+              <Markdown blocks={item.text} />
+            </DefDesc>
+          </Fragment>
+        ))}
       </DefList>
     </PrintSection>
   );
-}
+};
+
+export default MagicItems;
