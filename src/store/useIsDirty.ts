@@ -1,6 +1,6 @@
-import { loadArmy } from '../data/loadArmy';
-import { buildCodeMaps, encodeList } from './persistence';
-import { snapshotOf } from './snapshot';
+import { buildCodeMaps, encodeList } from '@/core/persistence';
+import { snapshotOf } from '@/core/snapshot';
+import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from './useArmyStore';
 
 // True when the current list differs from the last Saved/Loaded named list.

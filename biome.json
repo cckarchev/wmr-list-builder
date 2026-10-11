@@ -40,7 +40,13 @@
         "noParameterAssign": "error",
         "useBlockStatements": "error",
         "useConsistentArrowReturn": "error",
-        "useExplicitLengthCheck": "error"
+        "useExplicitLengthCheck": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["camelCase", "PascalCase"]
+          }
+        }
       },
       "suspicious": {
         "noConsole": "error"

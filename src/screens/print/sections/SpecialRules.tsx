@@ -1,0 +1,74 @@
+import { Markdown } from '@/components/Markdown';
+import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
+import type { SpecialRule } from '@/data/types';
+import { useArmyStore } from '@/store/useArmyStore';
+import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
+
+const collectUsedSpecialRules = (
+  allSpecialRules: Record<string, SpecialRule>,
+  units: ReturnType<typeof useArmyStore.getState>['units'],
+  upgrades: ReturnType<typeof useArmyStore.getState>['upgrades'],
+): Record<string, SpecialRule> => {
+  const result: Record<string, SpecialRule> = {};
+
+  const addRule = (name: string) => {
+    if (allSpecialRules[name]) {
+      result[name] = allSpecialRules[name];
+    }
+  };
+
+  for (const [unitId, unit] of Object.entries(units)) {
+    if (unit.number > 0) {
+      for (const { name } of resolveUnitSpecialRules(unitId, unit, allSpecialRules)) {
+        result[name] = allSpecialRules[name];
+      }
+    }
+  }
+
+  for (const [upgradeId, upgrade] of Object.entries(upgrades)) {
+    if (upgrade.number > 0) {
+      addRule(upgradeId);
+      upgrade.specialRules?.forEach(addRule);
+    }
+  }
+
+  return result;
+};
+
+export const SpecialRules = () => {
+  const specialRulesRaw = useArmyStore((s) => s.specialRules) as
+    | Record<string, SpecialRule>
+    | undefined;
+  const units = useArmyStore((s) => s.units);
+  const upgrades = useArmyStore((s) => s.upgrades);
+
+  if (!specialRulesRaw) {
+    return null;
+  }
+
+  const rulesMap = collectUsedSpecialRules(specialRulesRaw, units, upgrades);
+
+  // sort by order
+  const sorted = Object.entries(rulesMap).sort(([, a], [, b]) => (a.order ?? 0) - (b.order ?? 0));
+
+  if (sorted.length === 0) {
+    return null;
+  }
+
+  return (
+    <PrintSection>
+      <PrintHeading>Special Rules</PrintHeading>
+      <DefList>
+        {sorted.flatMap(([name, rule]) => [
+          <DefTerm key={`dt_${name}`}>
+            {rule.order == null ? '' : `${rule.order}. `}
+            {name}
+          </DefTerm>,
+          <DefDesc key={`dd_${name}`}>
+            <Markdown blocks={rule.text ?? []} />
+          </DefDesc>,
+        ])}
+      </DefList>
+    </PrintSection>
+  );
+};

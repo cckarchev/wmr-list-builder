@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 import { Navigate, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
-import { Layout } from './components/layout/Layout';
-import { armiesById } from './data/armyIndex';
-import { Build } from './screens/Build';
-import { Home } from './screens/Home';
-import { Print } from './screens/Print';
+import { armiesById } from '@/data/armyIndex';
+import { Layout } from '@/layout/Layout';
+import { Build } from '@/screens/build/Build';
+import { Home } from '@/screens/home/Home';
+import { Print } from '@/screens/print/Print';
 
 /** Redirect to Home when the URL names an army that does not exist. */
 const RequireArmy = ({ children }: { children: ReactNode }) => {

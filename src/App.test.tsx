@@ -1,11 +1,11 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { buildCodeMaps, encodeList } from '@/core/persistence';
+import { loadArmy } from '@/data/loadArmy';
+import { useArmyStore } from '@/store/useArmyStore';
+import { renderWithProviders } from '@/test/renderWithProviders';
 import { App } from './App';
-import { loadArmy } from './data/loadArmy';
-import { buildCodeMaps, encodeList } from './store/persistence';
-import { useArmyStore } from './store/useArmyStore';
-import { renderWithProviders } from './test/renderWithProviders';
 
 beforeEach(() => {
   useArmyStore.getState().reset();

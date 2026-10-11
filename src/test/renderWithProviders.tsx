@@ -2,7 +2,7 @@ import { type RenderOptions, render } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../theme/theme';
+import { theme } from '@/theme/theme';
 
 interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {
   routerProps?: MemoryRouterProps;

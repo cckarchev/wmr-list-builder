@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { initEmbed } from '@/core/embed';
+import { GlobalStyle } from '@/theme/GlobalStyle';
+import { theme } from '@/theme/theme';
 import { App } from './App';
-import { initEmbed } from './store/embed';
-import { GlobalStyle } from './theme/GlobalStyle';
-import { theme } from './theme/theme';
 
 initEmbed();
 

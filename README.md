@@ -42,11 +42,17 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 ## Project layout
 
     src/
+      core/        Pure logic: validation, force limits, selectors, persistence (ports of the original logic)
       data/        Warmaster Revolution army JSON + loaders and types
-      store/       Zustand store, selectors, validation (ports of the original logic)
+      store/       Zustand store and store-bound hooks
       theme/       Design tokens + global styles (dark UI; light @media print)
-      components/  ui/ primitives, army/ build widgets, print/ sheet, layout/ shell
-      screens/     Home (army picker), Build (roster), Print (selectable sections)
+      components/  Shared UI primitives, one folder per component
+      layout/      App shell: layout, nav, scroll restoration
+      screens/     home/ (army picker), build/ (roster), print/ (selectable sections)
+
+Each screen folder mirrors its component tree: a component with private children keeps
+them in subfolders beside it. Imports inside one area are relative; imports that leave
+it use the `@/` alias for `src/`.
 
 Army data lives in `src/data/armies/*.json` and is imported at build time via Vite's
 `import.meta.glob`, so adding an army is just dropping in a JSON file.

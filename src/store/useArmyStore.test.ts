@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { availablePrintSections } from '../components/print/printSections';
-import { defined } from '../test/defined';
-import { resolveBounds } from './forceLimits';
-import { pointsCost } from './selectors';
+import { resolveBounds } from '@/core/forceLimits';
+import { pointsCost } from '@/core/selectors';
+import { availablePrintSections } from '@/screens/print/sections/printSections';
+import { defined } from '@/test/defined';
 import { useArmyStore } from './useArmyStore';
 
 const get = () => useArmyStore.getState();
