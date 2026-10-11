@@ -1,6 +1,6 @@
 import { clamp, toCount } from '@/core/lib/counts';
 import { resolveBounds } from '@/core/limits/forceLimits';
-import type { ListSnapshot } from '@/core/persistence/persistence';
+import type { ListSnapshot } from '@/core/persistence/snapshot';
 import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/storeHelpers';
 import { unitPointsCost, unitUpgradePointsCost } from '@/core/storeHelpers';
 import { validate } from '@/core/validation/validation';

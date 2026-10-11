@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps, encodeList, saveNamedList } from '@/core/persistence/persistence';
+import { buildCodeMaps } from '@/core/persistence/codeMaps';
+import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { saveNamedList } from '@/core/persistence/savedLists';
 import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';

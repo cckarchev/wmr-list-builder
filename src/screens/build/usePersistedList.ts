@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
-import { buildCodeMaps, decodeShare, loadList, saveList } from '@/core/persistence/persistence';
+import { buildCodeMaps } from '@/core/persistence/codeMaps';
+import { loadList, saveList } from '@/core/persistence/currentList';
+import { decodeShare } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';

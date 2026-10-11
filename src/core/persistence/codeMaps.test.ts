@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
 import { MAGIC_ITEM_CODE_MIN } from '@/data/magicItems';
-import { buildCodeMaps } from './persistence';
+import { buildCodeMaps } from './codeMaps';
 
 describe('buildCodeMaps', () => {
   it('maps unit ids to codes and back', () => {

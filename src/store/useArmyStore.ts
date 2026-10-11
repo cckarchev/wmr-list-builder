@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ListSnapshot } from '@/core/persistence/persistence';
+import type { ListSnapshot } from '@/core/persistence/snapshot';
 import { type ArmyData, emptyData, initializeState } from './armyData';
 import { withGameSize, withList, withUnitNumber, withUnitUpgradeNumber } from './transitions';
 

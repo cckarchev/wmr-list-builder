@@ -1,18 +1,8 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
-import {
-  buildCodeMaps,
-  decodeList,
-  decodeShare,
-  deleteNamedList,
-  encodeList,
-  type ListSnapshot,
-  listSavedNames,
-  loadList,
-  loadNamedList,
-  saveList,
-  saveNamedList,
-} from './persistence';
+import { buildCodeMaps } from '../codeMaps';
+import type { ListSnapshot } from '../snapshot';
+import { decodeList, decodeShare, encodeList } from './listCodec';
 
 const maps = buildCodeMaps(loadArmy('empire'));
 
@@ -104,69 +94,5 @@ describe('decodeShare', () => {
     // ids 900/901 exist in no army's unit map → all dropped.
     const wrongArmy = btoa(JSON.stringify({ v: 1, n: '', g: 2000, u: { 900: 2, 901: 1 }, up: {} }));
     expect(decodeShare(wrongArmy, maps)).toEqual({ ok: false });
-  });
-});
-
-describe('localStorage persistence', () => {
-  beforeEach(() => localStorage.clear());
-
-  it('saves and loads per army', () => {
-    saveList('empire', snap);
-    expect(loadList('empire')).toEqual(snap);
-    expect(loadList('goblin')).toBeNull();
-  });
-});
-
-const ARMY = 'bretonnia';
-
-describe('named lists', () => {
-  const named = (name: string): ListSnapshot => ({
-    name,
-    gameSize: 2000,
-    units: {},
-    upgrades: {},
-  });
-
-  beforeEach(() => localStorage.clear());
-
-  it('round-trips a saved list by name', () => {
-    saveNamedList(ARMY, 'My List', named('My List'));
-    const loaded = loadNamedList(ARMY, 'My List');
-    expect(loaded).not.toBeNull();
-    expect(loaded?.name).toBe('My List');
-    expect(loaded?.gameSize).toBe(named('My List').gameSize);
-  });
-
-  it('lists saved names sorted case-insensitively', () => {
-    saveNamedList(ARMY, 'zeta', named('zeta'));
-    saveNamedList(ARMY, 'Alpha', named('Alpha'));
-    expect(listSavedNames(ARMY)).toEqual(['Alpha', 'zeta']);
-  });
-
-  it('overwrites a list saved under the same name', () => {
-    const first = { ...named('dup'), gameSize: 1000 };
-    const second = { ...named('dup'), gameSize: 3000 };
-    saveNamedList(ARMY, 'dup', first);
-    saveNamedList(ARMY, 'dup', second);
-    expect(listSavedNames(ARMY)).toEqual(['dup']);
-    expect(loadNamedList(ARMY, 'dup')?.gameSize).toBe(second.gameSize);
-  });
-
-  it('deletes one list and leaves the others', () => {
-    saveNamedList(ARMY, 'a', named('a'));
-    saveNamedList(ARMY, 'b', named('b'));
-    deleteNamedList(ARMY, 'a');
-    expect(listSavedNames(ARMY)).toEqual(['b']);
-    expect(loadNamedList(ARMY, 'a')).toBeNull();
-  });
-
-  it('isolates saved lists per army', () => {
-    saveNamedList(ARMY, 'shared-name', named('shared-name'));
-    expect(listSavedNames('high-elves')).toEqual([]);
-    expect(loadNamedList('high-elves', 'shared-name')).toBeNull();
-  });
-
-  it('returns [] for an army with no saved lists', () => {
-    expect(listSavedNames(ARMY)).toEqual([]);
   });
 });

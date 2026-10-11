@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import {
-  buildCodeMaps,
-  encodeList,
-  listSavedNames,
-  saveNamedList,
-} from '@/core/persistence/persistence';
+import { buildCodeMaps } from '@/core/persistence/codeMaps';
+import { encodeList } from '@/core/persistence/list-codec/listCodec';
+import { listSavedNames, saveNamedList } from '@/core/persistence/savedLists';
 import { snapshotOf } from '@/core/persistence/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';

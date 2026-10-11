@@ -1,7 +1,8 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildCodeMaps, encodeList } from '@/core/persistence/persistence';
+import { buildCodeMaps } from '@/core/persistence/codeMaps';
+import { encodeList } from '@/core/persistence/list-codec/listCodec';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { renderWithProviders } from '@/test/renderWithProviders';
