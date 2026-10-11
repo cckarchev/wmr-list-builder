@@ -67,6 +67,15 @@ describe('encode/decode list', () => {
     const bad = btoa(JSON.stringify({ v: 99, n: '', g: 2000, u: {}, up: {} }));
     expect(decodeList(bad, maps)).toBeNull();
   });
+
+  it('returns null for a current wire with malformed upgrade entries', () => {
+    const unitId = maps.unitIdByName.get('Halberdiers');
+    const malformed = btoa(
+      JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: {}, up: { [String(unitId)]: null } }),
+    );
+
+    expect(decodeList(malformed, maps)).toBeNull();
+  });
 });
 
 describe('decodeShare', () => {

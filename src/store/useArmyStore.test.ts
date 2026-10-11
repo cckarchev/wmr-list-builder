@@ -276,3 +276,37 @@ describe('savedBaseline', () => {
     expect(get().savedBaseline).toBeNull();
   });
 });
+
+describe('addOnUpgrades', () => {
+  // The Kislev Tzarina, taken by the General, brings her own magic items.
+  const TZARINA_ITEMS = [
+    'Ring of Magic',
+    'Staff of Spellbinding',
+    'Scroll of Dispelling',
+    'Wand of Power',
+    'Rod of Repetition',
+  ];
+
+  const generalUpgrades = () => Object.keys(defined(get().units.General.upgrades));
+
+  beforeEach(() => {
+    get().setArmy('kislev');
+  });
+
+  it('adds the add-on upgrades to the unit when the upgrade is first taken', () => {
+    expect(generalUpgrades()).not.toContain(TZARINA_ITEMS[0]);
+
+    get().setUnitUpgradeNumber('General', 'Tzarina', 1);
+
+    expect(generalUpgrades()).toEqual(expect.arrayContaining(TZARINA_ITEMS));
+  });
+
+  it('removes the add-on upgrades when the upgrade drops to zero', () => {
+    get().setUnitUpgradeNumber('General', 'Tzarina', 1);
+    get().setUnitUpgradeNumber('General', 'Tzarina', 0);
+
+    for (const item of TZARINA_ITEMS) {
+      expect(generalUpgrades()).not.toContain(item);
+    }
+  });
+});

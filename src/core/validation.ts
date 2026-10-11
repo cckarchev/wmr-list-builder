@@ -1,431 +1,109 @@
 import type { ValidationError } from '@/data/types';
-import { armySize, POINTS_PER_ARMY_SIZE, pointsCost } from './selectors';
-import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
+import { armySize, pointsCost } from './selectors';
+import type { UnitState, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
+import { totalNumber } from './totalNumber';
+import { itemErrors, type RequiredGroup, type ValidatableItem } from './validationRules';
 
-/** UNIT types (getters.js COUNTABLE_UNITS / actions.js UNIT_TYPES). */
-const UNIT_TYPES = [
-  'Artillery',
-  'Cavalry',
-  'Chariot',
-  'Elephant',
-  'Infantry',
-  'Machine',
-  'Monster',
-];
+interface Pools {
+  units: Record<string, UnitState>;
+  upgrades: Record<string, UpgradeState>;
+}
 
-/** Magic-item upgrade types (actions.js MAGIC_ITEM_TYPES). */
-const MAGIC_ITEM_TYPES = [
-  'Device of Power',
-  'Magic Standard',
-  'Magic Weapon',
-  'Holy Item',
-  'Other Item',
-];
-
-/**
- * Structural superset of the fields `checkValidations` reads off an "item".
- * The item is either a UnitState or an UpgradeState; all the fields below are
- * optional on at least one of those shapes, so we model the union as a record
- * of optionals (mirroring the dynamic property access in the Vue code).
- */
-type ValidatableItem = {
-  number: number;
-  homologousUnits?: string[];
-  homologousUpgrades?: string[];
-  requiredUnits?: string[];
-  requiredUpgrades?: string[];
-  prohibitedUnits?: string[];
-  prohibitedUpgrades?: string[];
-  augendUnits?: string[];
-  armyMin?: number;
-  armyMax?: number;
-  min?: number | string;
-  max?: number | string;
-  upgrades?: Record<string, UnitUpgradeEntry>;
-};
-
-/** Sum the per-unit counts of `item`'s upgrades whose type matches `match`. */
-const countUpgradesOfType = (
-  item: ValidatableItem,
-  upgrades: Record<string, UpgradeState>,
-  match: (type: string) => boolean,
-): number => {
-  const ups = item.upgrades;
-  if (!ups) {
-    return 0;
+/** Items that count together with this one toward its limits. */
+const homologousGroup = (item: ValidatableItem, { units, upgrades }: Pools) => {
+  if (item.homologousUnits) {
+    return { ids: item.homologousUnits, count: totalNumber(item.homologousUnits, units) };
   }
-  return Object.keys(ups).reduce(
-    (count, id) => (match(upgrades[id].type) ? count + ups[id].number : count),
-    0,
-  );
+
+  if (item.homologousUpgrades) {
+    return { ids: item.homologousUpgrades, count: totalNumber(item.homologousUpgrades, upgrades) };
+  }
+
+  return undefined;
+};
+
+const requiredGroup = (
+  item: ValidatableItem,
+  { units, upgrades }: Pools,
+): RequiredGroup | undefined => {
+  if (item.requiredUnits) {
+    return {
+      count: totalNumber(item.requiredUnits, units),
+      sentence: toSentence(item.requiredUnits),
+    };
+  }
+
+  if (item.requiredUpgrades) {
+    return {
+      count: totalNumber(item.requiredUpgrades, upgrades),
+      sentence: toSentence(item.requiredUpgrades),
+    };
+  }
+
+  return undefined;
 };
 
 /**
- * Faithful 1:1 port of `checkValidations` (actions.js 194-340). Pushes a
- * `{ message }` for each violation found on `item` (a unit or an upgrade).
+ * Port of `checkValidations` (actions.js 194-340): the errors for one item (a
+ * unit or an upgrade), attributed to it and to its homologous items.
  */
-const checkValidations = (
+const checkItem = (
   itemId: string,
   item: ValidatableItem,
-  units: Record<string, UnitState>,
-  upgrades: Record<string, UpgradeState>,
+  pools: Pools,
   gameSize: number,
-  size: number,
-  errors: ValidationError[],
-): void => {
-  let homologousCount = 0;
-  let requiredCount: number | undefined;
-  let requiredSentence: string | undefined;
+): ValidationError[] => {
+  const homologous = homologousGroup(item, pools);
+  const homologousIds = homologous?.ids ?? [];
 
-  // The id(s) this item's errors are attributed to (for inline rendering).
-  const targets: string[] = [itemId];
+  // Homologous items are named together as one group in messages.
+  const label = homologous ? toSentence([itemId, ...homologousIds]) : itemId;
+  const targets = [itemId, ...homologousIds];
 
-  // How the item is named in messages: a sentence listing the whole group for
-  // homologous items, otherwise the item id itself.
-  let label = itemId;
+  const messages = itemErrors({
+    item,
+    label,
+    groupNumber: item.number + (homologous?.count ?? 0),
+    required: requiredGroup(item, pools),
+    ...pools,
+    gameSize,
+    size: armySize(gameSize),
+  });
 
-  if (item.homologousUnits) {
-    homologousCount = item.homologousUnits.reduce(
-      (count, unitId) => count + units[unitId].number,
-      homologousCount,
-    );
-    targets.push(...item.homologousUnits);
-    label = toSentence([itemId].concat(item.homologousUnits));
-  } else if (item.homologousUpgrades) {
-    homologousCount = item.homologousUpgrades.reduce(
-      (count, upgradeId) => count + upgrades[upgradeId].number,
-      homologousCount,
-    );
-    targets.push(...item.homologousUpgrades);
-    label = toSentence([itemId].concat(item.homologousUpgrades));
+  return messages.map((message) => ({ targets, message }));
+};
+
+/** List-level points ceiling, attributed to no unit in particular. */
+const overCapError = (units: Record<string, UnitState>, gameSize: number): ValidationError[] => {
+  const excess = pointsCost({ units }) - gameSize;
+
+  if (excess <= 0) {
+    return [];
   }
 
-  if (item.requiredUnits) {
-    requiredCount = item.requiredUnits.reduce((count, unitId) => count + units[unitId].number, 0);
-    requiredSentence = toSentence(item.requiredUnits);
-  } else if (item.requiredUpgrades) {
-    requiredCount = item.requiredUpgrades.reduce(
-      (count, upgradeId) => count + upgrades[upgradeId].number,
-      0,
-    );
-    requiredSentence = toSentence(item.requiredUpgrades);
-  }
+  const cap = gameSize.toLocaleString('en-US');
 
-  // army min
-  if (item.number + homologousCount < (item.armyMin as number)) {
-    errors.push({ targets, message: `Minimum of ${item.armyMin} ${label} per army.` });
-  }
-
-  // army max
-  if (item.number + homologousCount > (item.armyMax as number)) {
-    errors.push({ targets, message: `Maximum of ${item.armyMax} ${label} per army.` });
-  }
-
-  // min
-  if (item.min === 'All or None' && item.number > 0 && item.number < (requiredCount as number)) {
-    errors.push({
-      targets,
-      message:
-        'Minimum of ' +
-        requiredCount +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (
-    item.min === 'Half or All' &&
-    ((item.number > 0 && item.number < Math.floor((requiredCount as number) / 2)) ||
-      (item.number > Math.ceil((requiredCount as number) / 2) &&
-        item.number < (requiredCount as number)))
-  ) {
-    errors.push({
-      targets,
-      message: `Half or all ${requiredSentence} must be upgraded to ${label}.`,
-    });
-  } else if (
-    item.min === 'Half or More' &&
-    item.number < Math.floor((requiredCount as number) / 2)
-  ) {
-    errors.push({
-      targets,
-      message:
-        'Minimum of ' +
-        Math.floor((requiredCount as number) / 2) +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (
-    item.min === 'Half or None' &&
-    item.number > 0 &&
-    item.number < Math.floor((requiredCount as number) / 2)
-  ) {
-    errors.push({
-      targets,
-      message:
-        'Minimum of ' +
-        Math.floor((requiredCount as number) / 2) +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (/^As /.test(item.min as string) && item.number < (requiredCount as number)) {
-    errors.push({
-      targets,
-      message:
-        'Minimum of ' +
-        requiredCount +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (
-    gameSize >= POINTS_PER_ARMY_SIZE &&
-    item.number + homologousCount < (item.min as number) * size
-  ) {
-    errors.push({
-      targets,
-      message: `Minimum of ${(item.min as number) * size} ${label} per ${size},000 points.`,
-    });
-  }
-
-  // max
-  if (item.max === 'elite' && item.number + homologousCount > size - 1) {
-    errors.push({
-      targets,
-      message: `Maximum of ${size - 1} ${label} per ${size},000 points.`,
-    });
-  } else if (
-    item.max === 'Half or None' &&
-    item.number > Math.ceil((requiredCount as number) / 2)
-  ) {
-    errors.push({
-      targets,
-      message:
-        'Maximum of ' +
-        Math.ceil((requiredCount as number) / 2) +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (
-    item.max === 'Up to Half' &&
-    item.number > 0 &&
-    item.number > Math.floor((requiredCount as number) / 2)
-  ) {
-    errors.push({
-      targets,
-      message:
-        'Maximum of ' +
-        Math.floor((requiredCount as number) / 2) +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (/^As /.test(item.max as string) && item.number > (requiredCount as number)) {
-    errors.push({
-      targets,
-      message:
-        'Maximum of ' +
-        requiredCount +
-        ' ' +
-        label +
-        ' per ' +
-        requiredCount +
-        ' ' +
-        requiredSentence +
-        '.',
-    });
-  } else if (item.number + homologousCount > (item.max as number) * size) {
-    errors.push({
-      targets,
-      message: `Maximum of ${(item.max as number) * size} ${label} per ${size},000 points.`,
-    });
-  }
-
-  // magic items upgrades can't exceed number
-  if (
-    item.number < countUpgradesOfType(item, upgrades, (type) => MAGIC_ITEM_TYPES.includes(type))
-  ) {
-    errors.push({
-      targets,
-      message:
-        item.number +
-        ' ' +
-        label +
-        ' may only have ' +
-        item.number +
-        ' magic item' +
-        (item.number > 1 ? 's.' : '.'),
-    });
-  }
-
-  // mounts upgrades can't exceed number
-  if (item.number < countUpgradesOfType(item, upgrades, (type) => /Mount$/.test(type))) {
-    errors.push({
-      targets,
-      message:
-        item.number +
-        ' ' +
-        label +
-        ' may only have ' +
-        item.number +
-        ' mount' +
-        (item.number > 1 ? 's.' : '.'),
-    });
-  }
-
-  // unit upgrades can't exceed number
-  if (item.number < countUpgradesOfType(item, upgrades, (type) => UNIT_TYPES.includes(type))) {
-    errors.push({
-      targets,
-      message:
-        item.number +
-        ' ' +
-        label +
-        ' may only have ' +
-        item.number +
-        ' upgrade' +
-        (item.number > 1 ? 's.' : '.'),
-    });
-  }
-
-  // units added to other units/upgrades
-  if (
-    item.augendUnits &&
-    item.number > item.augendUnits.reduce((count, unitId) => count + units[unitId].number, 0)
-  ) {
-    errors.push({
-      targets,
-      message:
-        item.number +
-        ' ' +
-        label +
-        ' requires at least ' +
-        item.number +
-        ' ' +
-        toSentence(item.augendUnits) +
-        '.',
-    });
-  }
-
-  // units required by a unit/upgrade
-  if (
-    item.requiredUnits &&
-    item.number > 0 &&
-    1 > item.requiredUnits.reduce((count, unitId) => count + units[unitId].number, 0)
-  ) {
-    errors.push({
-      targets,
-      message: `${label} must be taken with ${toSentence(item.requiredUnits)}.`,
-    });
-  }
-
-  // upgrades required by a unit/upgrade
-  if (
-    item.requiredUpgrades &&
-    item.number > 0 &&
-    1 > item.requiredUpgrades.reduce((count, upgradeId) => count + upgrades[upgradeId].number, 0)
-  ) {
-    errors.push({
-      targets,
-      message: `${label} must be taken with ${toSentence(item.requiredUpgrades)}.`,
-    });
-  }
-
-  // units prohibited by a unit/upgrade
-  if (
-    item.prohibitedUnits &&
-    item.number > 0 &&
-    0 < item.prohibitedUnits.reduce((count, unitId) => count + units[unitId].number, 0)
-  ) {
-    errors.push({
-      targets,
-      message: `${label} cannot be taken with ${toSentence(item.prohibitedUnits)}.`,
-    });
-  }
-
-  // upgrades prohibited by a unit/upgrade
-  if (
-    item.prohibitedUpgrades &&
-    item.number > 0 &&
-    0 < item.prohibitedUpgrades.reduce((count, upgradeId) => count + upgrades[upgradeId].number, 0)
-  ) {
-    errors.push({
-      targets,
-      message: `${label} cannot be taken with ${toSentence(item.prohibitedUpgrades)}.`,
-    });
-  }
+  return [{ targets: [], message: `List is ${excess} points over the ${cap} cap.` }];
 };
 
 /**
- * Pure port of the Vue `validate` action (actions.js 173-183): runs
- * `checkValidations` over every unit then every upgrade and returns the
- * accumulated errors (the Vue action first commits CLEAR_ERRORS, here we just
- * start from an empty array).
+ * Pure port of the Vue `validate` action (actions.js 173-183): checks every
+ * unit then every upgrade and returns the accumulated errors, headed by the
+ * points-cap error when the list is over.
  */
 export const validate = (
   units: Record<string, UnitState>,
   upgrades: Record<string, UpgradeState>,
   gameSize: number,
 ): ValidationError[] => {
-  const errors: ValidationError[] = [];
-  const points = pointsCost({ units });
-  const size = armySize(gameSize);
+  const pools = { units, upgrades };
+  const unitErrors = Object.entries(units).flatMap(([id, unit]) =>
+    checkItem(id, unit as ValidatableItem, pools, gameSize),
+  );
+  const upgradeErrors = Object.entries(upgrades).flatMap(([id, upgrade]) =>
+    checkItem(id, upgrade as ValidatableItem, pools, gameSize),
+  );
 
-  // List-level points ceiling. Pushed first so it heads the error list.
-  if (points > gameSize) {
-    errors.push({
-      targets: [],
-      message:
-        'List is ' +
-        (points - gameSize) +
-        ' points over the ' +
-        gameSize.toLocaleString('en-US') +
-        ' cap.',
-    });
-  }
-
-  for (const unit in units) {
-    checkValidations(unit, units[unit] as ValidatableItem, units, upgrades, gameSize, size, errors);
-  }
-
-  for (const upgrade in upgrades) {
-    checkValidations(
-      upgrade,
-      upgrades[upgrade] as ValidatableItem,
-      units,
-      upgrades,
-      gameSize,
-      size,
-      errors,
-    );
-  }
-
-  return errors;
+  return [...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors];
 };

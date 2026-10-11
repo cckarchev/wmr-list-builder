@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_GAME_SIZE } from '@/store/useArmyStore';
+import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { SMALLEST_GAME } from '@/test/gameSizes';
 import { explainMinMax, minMaxBadge } from './minMax';
 

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import type { ValidationError } from '@/data/types';
-import { DEFAULT_GAME_SIZE, useArmyStore } from '@/store/useArmyStore';
+import { DEFAULT_GAME_SIZE } from '@/store/armyData';
+import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
 import {
   armySize,

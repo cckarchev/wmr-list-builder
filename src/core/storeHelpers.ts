@@ -1,4 +1,8 @@
 import type { MagicItem, StatValue, Unit, Upgrade, UpgradeConstraint } from '@/data/types';
+import type { MinMaxSource } from './minMax';
+
+/** Stat placeholder the army data uses for a missing value, e.g. no armour. */
+const NO_STAT = '-';
 
 /**
  * Runtime per-unit upgrade entry. Mirrors the Vue store's
@@ -62,29 +66,23 @@ export interface UpgradeState {
  * unit or an upgrade source record.
  */
 export const minMax = (troop: Unit | Upgrade | MagicItem): string => {
-  const t = troop as {
-    armyMin?: number;
-    armyMax?: number;
-    min?: number | string;
-    max?: number | string;
-  };
+  const { armyMin, armyMax, min, max } = troop as MinMaxSource;
 
-  if (t.armyMin || t.armyMax) {
-    if (t.armyMin) {
-      let result = String(t.armyMin);
-      if (t.armyMax && t.armyMin !== t.armyMax) {
-        result += `–${t.armyMax}`;
-      }
-      return result;
-    }
-    return `0–${t.armyMax}`;
+  if (armyMin) {
+    const hasRange = Boolean(armyMax) && armyMax !== armyMin;
+
+    return hasRange ? `${armyMin}–${armyMax}` : String(armyMin);
   }
 
-  if (typeof t.min === 'string' || typeof t.max === 'string') {
-    return String(t.min || t.max);
+  if (armyMax) {
+    return `0–${armyMax}`;
   }
 
-  return `${t.min || '-'}/${t.max || '-'}`;
+  if (typeof min === 'string' || typeof max === 'string') {
+    return String(min || max);
+  }
+
+  return `${min || NO_STAT}/${max || NO_STAT}`;
 };
 
 /**
@@ -98,20 +96,48 @@ export const buildUpgrades = (
   magicUpgrades: Record<string, MagicItem> | undefined,
 ): Record<string, UpgradeState> => {
   const merged: Record<string, Upgrade | MagicItem> = { ...(armyUpgrades || {}) };
+
   if (magicUpgrades) {
     Object.assign(merged, magicUpgrades);
   }
 
   const result: Record<string, UpgradeState> = {};
+
   for (const id in merged) {
     const source = merged[id];
+
     result[id] = {
       ...(source as UpgradeState),
       number: 0,
       minMax: minMax(source),
     };
   }
+
   return result;
+};
+
+/**
+ * Whether an army-wide upgrade constraint attaches its upgrades to a unit:
+ * the unit's type, armour and hits must match, it must not opt out of
+ * upgrades, and magic constraints skip units that cannot take magic items.
+ */
+export const constraintApplies = (unit: Unit, constraint: UpgradeConstraint): boolean => {
+  // `noUpgrades` exists in some army data but is not in the Unit type.
+  const noUpgrades = (unit as { noUpgrades?: boolean }).noUpgrades;
+
+  if (noUpgrades) {
+    return false;
+  }
+
+  if (unit.noMagic && constraint.magic) {
+    return false;
+  }
+
+  const typeMatches = constraint.unitType.includes(unit.type);
+  const armourMatches = constraint.unitArmour?.includes(unit.armour || NO_STAT) ?? true;
+  const hitsMatch = constraint.unitHits?.includes(unit.hits ?? NO_STAT) ?? true;
+
+  return typeMatches && armourMatches && hitsMatch;
 };
 
 /**
@@ -127,23 +153,13 @@ export const buildUnits = (
 
   for (const unitId in armyUnits) {
     const source = armyUnits[unitId];
-    // `noUpgrades` exists in some army data but is not in the Unit type.
-    const noUpgrades = (source as { noUpgrades?: boolean }).noUpgrades;
+    const attached = upgradeConstraints
+      .filter((constraint) => constraintApplies(source, constraint))
+      .flatMap((constraint) => constraint.upgrades);
 
-    // start from the source upgrade-id array (if any)
-    let upgradeIds: string[] | undefined = source.upgrades ? [...source.upgrades] : undefined;
-
-    for (const c of upgradeConstraints) {
-      if (
-        c.unitType.includes(source.type) &&
-        (c.unitArmour === undefined || c.unitArmour.includes(source.armour || '-')) &&
-        (c.unitHits === undefined || c.unitHits.includes(source.hits ?? '-')) &&
-        !noUpgrades &&
-        !(source.noMagic && c.magic)
-      ) {
-        upgradeIds = upgradeIds ? upgradeIds.concat(c.upgrades) : [...c.upgrades];
-      }
-    }
+    // A unit with neither its own upgrades nor attached ones gets no upgrades map.
+    const hasUpgrades = source.upgrades !== undefined || attached.length > 0;
+    const upgradeIds = hasUpgrades ? [...(source.upgrades ?? []), ...attached] : undefined;
 
     const unit: UnitState = {
       ...(source as Omit<Unit, 'upgrades'>),
@@ -155,6 +171,7 @@ export const buildUnits = (
     if (upgradeIds) {
       unit.upgrades = upgradeIds.reduce<Record<string, UnitUpgradeEntry>>((acc, id) => {
         acc[id] = { number: 0, pointsCost: 0 };
+
         return acc;
       }, {});
     }
@@ -171,9 +188,11 @@ export const buildUnits = (
  */
 export const unitPointsCost = (unit: UnitState): number => {
   const base = unit.number * +unit.points;
+
   if (!unit.upgrades) {
     return base;
   }
+
   return Object.values(unit.upgrades).reduce((sum, u) => sum + u.pointsCost, base);
 };
 
@@ -201,14 +220,20 @@ export const resolveUpgradePoints = (
   upgrade: PricedUpgrade,
   unit?: object,
 ): StatValue | undefined => {
-  if (upgrade.pointsValue !== undefined) {
-    if (!unit || typeof upgrade.points !== 'object') {
-      return undefined;
-    }
-    const key = String(unitStat(unit, upgrade.pointsValue) ?? '-');
-    return upgrade.points[key];
+  const { points, pointsValue } = upgrade;
+  const isPriceTable = typeof points === 'object';
+
+  if (pointsValue === undefined) {
+    return isPriceTable ? undefined : points;
   }
-  return typeof upgrade.points === 'object' ? undefined : upgrade.points;
+
+  if (!unit || !isPriceTable) {
+    return undefined;
+  }
+
+  const key = String(unitStat(unit, pointsValue) ?? NO_STAT);
+
+  return points[key];
 };
 
 /**

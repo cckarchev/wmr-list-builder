@@ -42,7 +42,47 @@ type MinMaxInfo =
   | { kind: 'token'; token: string }
   | { kind: 'rate'; min: number; max: number; size: number };
 
+type ArmyInfo = Extract<MinMaxInfo, { kind: 'army' }>;
+type EliteInfo = Extract<MinMaxInfo, { kind: 'elite' }>;
+type TokenInfo = Extract<MinMaxInfo, { kind: 'token' }>;
 type RateInfo = Extract<MinMaxInfo, { kind: 'rate' }>;
+
+/** "min 1 / max 6", leaving out whichever bound is unset. */
+const describeBounds = (min?: number, max?: number): string => {
+  const parts: string[] = [];
+
+  if (min) {
+    parts.push(`min ${min}`);
+  }
+
+  if (max) {
+    parts.push(`max ${max}`);
+  }
+
+  return parts.join(' / ');
+};
+
+/** "2–12", "8+" or "≤4"; a bound that is unset (or zero) is left out. */
+const badgeRange = (low: number | undefined, high: number | undefined): string => {
+  if (low && high) {
+    return `${low}–${high}`;
+  }
+
+  if (low) {
+    return `${low}+`;
+  }
+
+  return `≤${high}`;
+};
+
+/** The unit an "As X" token ties the troop to, or undefined for keyword tokens. */
+const linkedUnit = (token: string): string | undefined => {
+  if (!token.startsWith(AS_TOKEN_PREFIX)) {
+    return undefined;
+  }
+
+  return token.slice(AS_TOKEN_PREFIX.length);
+};
 
 /** The rate scaled to the current game size, e.g. "2–12", "8+" or "up to 4". */
 const describeRateRange = ({ min, max, size }: RateInfo): string => {
@@ -72,17 +112,53 @@ const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo | unde
   }
 
   // Other keyword tokens are relative to the unit being upgraded.
-  if (typeof min === 'string' || typeof max === 'string') {
-    return { kind: 'token', token: typeof min === 'string' ? min : (max as string) };
+  if (typeof min === 'string') {
+    return { kind: 'token', token: min };
+  }
+
+  if (typeof max === 'string') {
+    return { kind: 'token', token: max };
   }
 
   // Numeric per-1,000-points scaling.
-  const minN = typeof min === 'number' ? min : 0;
-  const maxN = typeof max === 'number' ? max : 0;
+  const minN = min ?? 0;
+  const maxN = max ?? 0;
+
   if (!minN && !maxN) {
     return undefined;
   }
+
   return { kind: 'rate', min: minN, max: maxN, size };
+};
+
+const isExact = ({ min, max }: ArmyInfo): boolean => Boolean(min) && min === max;
+
+const explainArmy = (info: ArmyInfo): string => {
+  if (isExact(info)) {
+    return `exactly ${info.min} per army`;
+  }
+
+  return `${describeBounds(info.min, info.max)} per army`;
+};
+
+const explainElite = ({ cap }: EliteInfo): string =>
+  `max ${cap} (elite: 1 per 1,000 pts after the first)`;
+
+const explainToken = ({ token }: TokenInfo): string => {
+  const unit = linkedUnit(token);
+
+  if (unit) {
+    return `same number as ${unit}`;
+  }
+
+  return TOKEN_PHRASES[token] ?? token;
+};
+
+const explainRate = (info: RateInfo): string => {
+  const bounds = describeBounds(info.min, info.max);
+  const range = describeRateRange(info);
+
+  return `${bounds} per 1,000 pts (≈ ${range} at this size)`;
 };
 
 /**
@@ -92,45 +168,42 @@ const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo | unde
  */
 export const explainMinMax = (troop: MinMaxSource, gameSize: number): string | undefined => {
   const info = resolveMinMax(troop, gameSize);
-  if (!info) {
-    return undefined;
-  }
 
-  switch (info.kind) {
-    case 'army': {
-      if (info.min && info.min === info.max) {
-        return `exactly ${info.min} per army`;
-      }
-      const parts: string[] = [];
-      if (info.min) {
-        parts.push(`min ${info.min}`);
-      }
-      if (info.max) {
-        parts.push(`max ${info.max}`);
-      }
-      return `${parts.join(' / ')} per army`;
-    }
+  switch (info?.kind) {
+    case 'army':
+      return explainArmy(info);
     case 'elite':
-      return `max ${info.cap} (elite: 1 per 1,000 pts after the first)`;
-    case 'token': {
-      if (info.token.startsWith(AS_TOKEN_PREFIX)) {
-        return `same number as ${info.token.slice(AS_TOKEN_PREFIX.length)}`;
-      }
-      return TOKEN_PHRASES[info.token] ?? info.token;
-    }
-    case 'rate': {
-      const parts: string[] = [];
-      if (info.min) {
-        parts.push(`min ${info.min}`);
-      }
-      if (info.max) {
-        parts.push(`max ${info.max}`);
-      }
-      const range = describeRateRange(info);
-      return `${parts.join(' / ')} per 1,000 pts (≈ ${range} at this size)`;
-    }
+      return explainElite(info);
+    case 'token':
+      return explainToken(info);
+    case 'rate':
+      return explainRate(info);
+    default:
+      return undefined;
   }
 };
+
+const armyBadge = (info: ArmyInfo): string => {
+  if (isExact(info)) {
+    return String(info.min);
+  }
+
+  return badgeRange(info.min, info.max);
+};
+
+const eliteBadge = ({ cap }: EliteInfo): string => `≤${cap}`;
+
+const tokenBadge = ({ token }: TokenInfo): string => {
+  const unit = linkedUnit(token);
+
+  if (unit) {
+    return `= ${unit}`;
+  }
+
+  return TOKEN_BADGES[token] ?? token;
+};
+
+const rateBadge = ({ min, max, size }: RateInfo): string => badgeRange(min * size, max * size);
 
 /**
  * Terse badge of a troop's effective min/max at the current game size, e.g.
@@ -139,41 +212,17 @@ export const explainMinMax = (troop: MinMaxSource, gameSize: number): string | u
  */
 export const minMaxBadge = (troop: MinMaxSource, gameSize: number): string | undefined => {
   const info = resolveMinMax(troop, gameSize);
-  if (!info) {
-    return undefined;
-  }
 
-  switch (info.kind) {
-    case 'army': {
-      if (info.min && info.min === info.max) {
-        return String(info.min);
-      }
-      if (info.min && info.max) {
-        return `${info.min}–${info.max}`;
-      }
-      if (info.min) {
-        return `${info.min}+`;
-      }
-      return `≤${info.max}`;
-    }
+  switch (info?.kind) {
+    case 'army':
+      return armyBadge(info);
     case 'elite':
-      return `≤${info.cap}`;
-    case 'token': {
-      if (info.token.startsWith(AS_TOKEN_PREFIX)) {
-        return `= ${info.token.slice(AS_TOKEN_PREFIX.length)}`;
-      }
-      return TOKEN_BADGES[info.token] ?? info.token;
-    }
-    case 'rate': {
-      const lo = info.min * info.size;
-      const hi = info.max * info.size;
-      if (info.min && info.max) {
-        return `${lo}–${hi}`;
-      }
-      if (info.min) {
-        return `${lo}+`;
-      }
-      return `≤${hi}`;
-    }
+      return eliteBadge(info);
+    case 'token':
+      return tokenBadge(info);
+    case 'rate':
+      return rateBadge(info);
+    default:
+      return undefined;
   }
 };
