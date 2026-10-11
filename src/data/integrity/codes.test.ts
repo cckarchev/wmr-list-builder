@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { armiesById } from './armyIndex';
-import { MAGIC_ITEM_CODE_MIN, magicItems } from './magicItems';
+import { armiesById } from '@/data/armyIndex';
+import { MAGIC_ITEM_CODE_MIN, magicItems } from '@/data/magicItems';
 
 /** A lowercase letter, then letters and digits only. */
 const CAMEL_CASE = /^[a-z][a-zA-Z0-9]*$/;

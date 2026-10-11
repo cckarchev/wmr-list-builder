@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { armiesById } from './armyIndex';
-import { magicItems } from './magicItems';
-import type { Army } from './types';
+import { armiesById } from '@/data/armyIndex';
+import { magicItems } from '@/data/magicItems';
+import type { Army } from '@/data/types';
 
 const UNIT_REFERENCE_FIELDS = [
   'homologousUnits',

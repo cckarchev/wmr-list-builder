@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { armiesById } from './armyIndex';
-import { magicItems } from './magicItems';
+import { armiesById } from '@/data/armyIndex';
+import { magicItems } from '@/data/magicItems';
 
 const armies = Object.entries(armiesById);
 
