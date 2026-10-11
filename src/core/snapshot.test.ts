@@ -7,15 +7,15 @@ describe('snapshotOf', () => {
       label: '',
       gameSize: 2000,
       units: {
-        General: { number: 1, upgrades: { Sword: { number: 1 } } },
-        Knights: { number: 0, upgrades: {} },
+        general: { number: 1, upgrades: { sword: { number: 1 } } },
+        knights: { number: 0, upgrades: {} },
       },
     } as never;
     expect(snapshotOf(state)).toEqual({
       name: '',
       gameSize: 2000,
-      units: { General: 1 },
-      upgrades: { General: { Sword: 1 } },
+      units: { general: 1 },
+      upgrades: { general: { sword: 1 } },
     });
   });
 });

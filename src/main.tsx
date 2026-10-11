@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { initEmbed } from '@/core/embed';
 import { App } from './App';
@@ -13,10 +13,10 @@ if (!rootElement) {
   throw new Error('Missing #root element in index.html');
 }
 
-ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
+createRoot(rootElement).render(
+  <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </StrictMode>,
 );

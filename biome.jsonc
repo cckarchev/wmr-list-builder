@@ -64,7 +64,8 @@
           }
         },
         "useForOf": "error",
-        "useImportType": "error"
+        "useImportType": "error",
+        "useNamingConvention": "error"
       },
       "performance": {
         "noReExportAll": "error"

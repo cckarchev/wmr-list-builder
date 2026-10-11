@@ -117,8 +117,9 @@ describe('localStorage persistence', () => {
   });
 });
 
+const ARMY = 'bretonnia';
+
 describe('named lists', () => {
-  const ARMY = 'bretonnia';
   const named = (name: string): ListSnapshot => ({
     name,
     gameSize: 2000,

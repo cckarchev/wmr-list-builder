@@ -193,7 +193,7 @@ describe('applyList', () => {
     const list = {
       name: '',
       gameSize: 1000,
-      units: { knights: 2, NotAUnit: 9 },
+      units: { knights: 2, unknownUnit: 9 },
       upgrades: {},
     };
 
@@ -203,7 +203,7 @@ describe('applyList', () => {
     const s = get();
     expect(s.gameSize).toBe(list.gameSize);
     expect(s.units.knights.number).toBe(list.units.knights);
-    expect(s.units.NotAUnit).toBeUndefined();
+    expect(s.units.unknownUnit).toBeUndefined();
   });
 
   it('clears prior selections when loading a second list', () => {
@@ -277,16 +277,16 @@ describe('savedBaseline', () => {
   });
 });
 
-describe('addOnUpgrades', () => {
-  // The Kislev Tzarina, taken by the General, brings her own magic items.
-  const TZARINA_ITEMS = [
-    'ringOfMagic',
-    'staffOfSpellbinding',
-    'scrollOfDispelling',
-    'wandOfPower',
-    'rodOfRepetition',
-  ];
+// The Kislev Tzarina, taken by the General, brings her own magic items.
+const TZARINA_ITEMS = [
+  'ringOfMagic',
+  'staffOfSpellbinding',
+  'scrollOfDispelling',
+  'wandOfPower',
+  'rodOfRepetition',
+];
 
+describe('addOnUpgrades', () => {
   const generalUpgrades = () => Object.keys(defined(get().units.general.upgrades));
 
   beforeEach(() => {

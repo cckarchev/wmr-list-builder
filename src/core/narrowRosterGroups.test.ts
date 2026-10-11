@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { narrowRosterGroups } from './narrowRosterGroups';
 
 const GROUPS = [
-  { label: 'Characters', unitIds: ['General', 'Hero'] },
-  { label: 'Infantry', unitIds: ['Spearmen', 'Archers'] },
+  { label: 'Characters', unitIds: ['general', 'hero'] },
+  { label: 'Infantry', unitIds: ['spearmen', 'archers'] },
 ];
 
-const NUMBERS: Record<string, number> = { General: 1, Hero: 0, Spearmen: 0, Archers: 2 };
+const NUMBERS: Record<string, number> = { general: 1, hero: 0, spearmen: 0, archers: 2 };
 
 const SELECTED_COUNT = (id: string) => NUMBERS[id];
 
@@ -39,8 +39,8 @@ describe('narrowRosterGroups', () => {
     });
 
     expect(result).toEqual([
-      { label: 'Characters', unitIds: ['General'] },
-      { label: 'Infantry', unitIds: ['Archers'] },
+      { label: 'Characters', unitIds: ['general'] },
+      { label: 'Infantry', unitIds: ['archers'] },
     ]);
   });
 
@@ -48,7 +48,7 @@ describe('narrowRosterGroups', () => {
     const result = narrowRosterGroups(GROUPS, {
       activeType: 'Characters',
       selectedOnly: true,
-      countOf: (id) => (id === 'Archers' ? 1 : 0),
+      countOf: (id) => (id === 'archers' ? 1 : 0),
     });
 
     expect(result).toEqual([]);

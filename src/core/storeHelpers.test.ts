@@ -88,11 +88,12 @@ describe('constraintApplies', () => {
   });
 });
 
+const ARMY_MIN = 1;
+const ARMY_MAX = 3;
+const RATE_MIN = 1;
+const RATE_MAX = 6;
+
 describe('minMax', () => {
-  const ARMY_MIN = 1;
-  const ARMY_MAX = 3;
-  const RATE_MIN = 1;
-  const RATE_MAX = 6;
   const troop = (limits: Partial<Unit>): Unit => ({ ...KNIGHTS, ...limits });
 
   it('prints an absolute army range', () => {

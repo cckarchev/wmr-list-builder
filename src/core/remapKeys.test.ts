@@ -3,25 +3,25 @@ import { remapKeys } from './remapKeys';
 
 const SPEARMEN_COUNT = 4;
 const KNIGHTS_COUNT = 2;
-const SPEARMEN_ID = 7;
+const SPEARMEN_CODE = 7;
 
-const ID_BY_NAME = new Map([['Spearmen', SPEARMEN_ID]]);
-const lookupId = (name: string) => ID_BY_NAME.get(name);
+const CODE_BY_ID = new Map([['spearmen', SPEARMEN_CODE]]);
+const lookupCode = (id: string) => CODE_BY_ID.get(id);
 
 describe('remapKeys', () => {
   it('renames each key through the lookup, keeping its value', () => {
-    expect(remapKeys({ Spearmen: SPEARMEN_COUNT }, lookupId)).toEqual({
-      [SPEARMEN_ID]: SPEARMEN_COUNT,
+    expect(remapKeys({ spearmen: SPEARMEN_COUNT }, lookupCode)).toEqual({
+      [SPEARMEN_CODE]: SPEARMEN_COUNT,
     });
   });
 
   it('drops entries whose key does not resolve', () => {
-    const record = { Spearmen: SPEARMEN_COUNT, Knights: KNIGHTS_COUNT };
+    const record = { spearmen: SPEARMEN_COUNT, knights: KNIGHTS_COUNT };
 
-    expect(remapKeys(record, lookupId)).toEqual({ [SPEARMEN_ID]: SPEARMEN_COUNT });
+    expect(remapKeys(record, lookupCode)).toEqual({ [SPEARMEN_CODE]: SPEARMEN_COUNT });
   });
 
   it('returns an empty record when nothing resolves', () => {
-    expect(remapKeys({ Knights: KNIGHTS_COUNT }, lookupId)).toEqual({});
+    expect(remapKeys({ knights: KNIGHTS_COUNT }, lookupCode)).toEqual({});
   });
 });
