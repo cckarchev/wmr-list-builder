@@ -1,5 +1,6 @@
-import type { UnitState, UpgradeState } from '@/core/army-state/types';
-import { armySize, pointsCost } from '@/core/selectors';
+import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types';
+import { armySize } from '@/core/limits/armySize';
+import { pointsCost } from '@/core/selectors';
 import type { ValidationError } from '@/data/types';
 import { namesOf } from './namesOf';
 import { itemErrors } from './rules/rules';
@@ -7,13 +8,8 @@ import type { RequiredGroup, ValidatableItem } from './rules/types';
 import { toSentence } from './toSentence';
 import { totalNumber } from './totalNumber';
 
-interface Pools {
-  units: Record<string, UnitState>;
-  upgrades: Record<string, UpgradeState>;
-}
-
 /** Items that count together with this one toward its limits. */
-const homologousGroup = (item: ValidatableItem, { units, upgrades }: Pools) => {
+const homologousGroup = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
   if (item.homologousUnits) {
     const ids = item.homologousUnits;
 
@@ -31,7 +27,7 @@ const homologousGroup = (item: ValidatableItem, { units, upgrades }: Pools) => {
 
 const requiredGroup = (
   item: ValidatableItem,
-  { units, upgrades }: Pools,
+  { units, upgrades }: ArmyPools,
 ): RequiredGroup | undefined => {
   if (item.requiredUnits) {
     return {
@@ -57,7 +53,7 @@ const requiredGroup = (
 const checkItem = (
   itemId: string,
   item: ValidatableItem,
-  pools: Pools,
+  pools: ArmyPools,
   gameSize: number,
 ): ValidationError[] => {
   const homologous = homologousGroup(item, pools);

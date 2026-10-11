@@ -1,5 +1,5 @@
 import { halfDown, halfUp } from '@/core/lib/counts';
-import { POINTS_PER_ARMY_SIZE } from '@/core/selectors';
+import { POINTS_PER_ARMY_SIZE } from '@/core/limits/armySize';
 import { isAsToken, perRequired, perThousandPoints } from './bounds';
 import type { Rule } from './types';
 

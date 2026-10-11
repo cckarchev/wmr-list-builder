@@ -1,6 +1,6 @@
 import { unitPointsCost } from '@/core/army-state/pricing';
 import type { UnitState } from '@/core/army-state/types';
-import { armySize, POINTS_PER_ARMY_SIZE } from '@/core/selectors';
+import { armySize, POINTS_PER_ARMY_SIZE } from './armySize';
 
 interface Bounds {
   min: number;

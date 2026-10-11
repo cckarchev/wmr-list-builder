@@ -5,21 +5,16 @@ import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
 import {
-  armySize,
   breakPoint,
   errorsForTarget,
   globalErrors,
   groupRosterUnits,
   isCharacter,
-  POINTS_PER_ARMY_SIZE,
   pointsCost,
   unitCount,
   usedUnits,
 } from './selectors';
 
-const JUST_UNDER_ONE_STEP = 999;
-const TWO_AND_A_HALF_STEPS = 2500;
-const THREE_STEPS = 3000;
 const ADDED_HALBERDIERS = 3;
 /** An odd count, so the break point has to round up. */
 const GOBLIN_STANDS = 5;
@@ -41,17 +36,6 @@ const get = () => useArmyStore.getState();
 
 beforeEach(() => {
   get().reset();
-});
-
-describe('armySize', () => {
-  it('is at least 1', () => {
-    expect(armySize(0)).toBe(1);
-    expect(armySize(JUST_UNDER_ONE_STEP)).toBe(1);
-  });
-  it('grows per 1000 points', () => {
-    expect(armySize(TWO_AND_A_HALF_STEPS)).toBe(2);
-    expect(armySize(THREE_STEPS)).toBe(THREE_STEPS / POINTS_PER_ARMY_SIZE);
-  });
 });
 
 describe('pointsCost', () => {

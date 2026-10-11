@@ -1,4 +1,4 @@
-import { armySize } from '@/core/selectors';
+import { armySize } from './armySize';
 import { eliteCap } from './eliteCap';
 
 /** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */

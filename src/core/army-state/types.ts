@@ -59,3 +59,9 @@ export interface UpgradeState {
   // live field attached by the store
   number: number;
 }
+
+/** A list's runtime units and upgrades maps, keyed by id. */
+export interface ArmyPools {
+  units: Record<string, UnitState>;
+  upgrades: Record<string, UpgradeState>;
+}
