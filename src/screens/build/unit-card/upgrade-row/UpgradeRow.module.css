@@ -1,0 +1,46 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  padding: var(--space-xxs) var(--space-xs);
+  border-left: 2px solid var(--color-border-divider);
+}
+
+.row[data-invalid] {
+  border-left-color: var(--color-error);
+}
+
+.row:hover {
+  background: var(--color-bg-tint);
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  flex: 1;
+}
+
+.points {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  white-space: nowrap;
+  /* Fixed width, right-aligned, so a shorter cost (e.g. +5pts vs +30pts)
+     doesn't shift the rules icon and limit badge out of their column. */
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+.limit {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}

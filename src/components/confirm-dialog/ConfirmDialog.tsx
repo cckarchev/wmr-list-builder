@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import styled from 'styled-components';
 import { Button } from '@/components/button/Button';
+import styles from './ConfirmDialog.module.css';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -13,52 +13,6 @@ interface ConfirmDialogProps {
   onConfirm: () => void;
   onCancel: () => void;
 }
-
-const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => `${theme.space.md}px`};
-  background: ${({ theme }) => theme.color.bg.scrim};
-`;
-
-const Card = styled.div`
-  width: 100%;
-  max-width: 380px;
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
-  text-align: left;
-`;
-
-const Title = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px ${theme.space.xs}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
-`;
-
-const Message = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.space.md}px`};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  padding: ${({ theme }) => `0 ${theme.space.md}px ${theme.space.md}px`};
-`;
 
 export const ConfirmDialog = ({
   open,
@@ -112,7 +66,12 @@ export const ConfirmDialog = ({
   }
 
   return createPortal(
-    <Backdrop
+    // Escape closes the dialog through the document listener above, so the
+    // backdrop click is only a pointer convenience.
+    // biome-ignore lint/a11y/noStaticElementInteractions: pointer-only dismiss, see above.
+    // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard dismiss is the Escape listener.
+    <div
+      className={styles.backdrop}
       ref={backdropRef}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -120,24 +79,29 @@ export const ConfirmDialog = ({
         }
       }}
     >
-      <Card
+      <div
+        className={styles.card}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={messageId}
       >
-        <Title id={titleId}>{title}</Title>
-        <Message id={messageId}>{message}</Message>
-        <Actions>
+        <p className={styles.title} id={titleId}>
+          {title}
+        </p>
+        <p className={styles.message} id={messageId}>
+          {message}
+        </p>
+        <div className={styles.actions}>
           <Button variant="ghost" size="sm" onClick={onCancel}>
             {cancelLabel}
           </Button>
           <Button ref={confirmRef} variant={confirmVariant} size="sm" onClick={onConfirm}>
             {confirmLabel}
           </Button>
-        </Actions>
-      </Card>
-    </Backdrop>,
+        </div>
+      </div>
+    </div>,
     document.body,
   );
 };

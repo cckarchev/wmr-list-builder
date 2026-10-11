@@ -1,29 +1,19 @@
 import { type RenderOptions, render } from '@testing-library/react';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { theme } from '@/theme/theme';
 
 interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {
   routerProps?: MemoryRouterProps;
 }
 
+/** Renders inside a MemoryRouter, for components that use router hooks or links. */
 export const renderWithProviders = (
   ui: ReactElement,
   { routerProps, ...options }: RenderWithProvidersOptions = {},
 ) => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <ThemeProvider theme={theme}>
-      <MemoryRouter {...routerProps}>{children}</MemoryRouter>
-    </ThemeProvider>
+  const Wrapper = ({ children }: { children: ReactNode }) => (
+    <MemoryRouter {...routerProps}>{children}</MemoryRouter>
   );
-  return render(ui, { wrapper: Wrapper, ...options });
-};
 
-/** Wrap with ThemeProvider only (no router). */
-export const renderWithTheme = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  );
   return render(ui, { wrapper: Wrapper, ...options });
 };

@@ -1,20 +1,7 @@
-import styled from 'styled-components';
 import { Markdown } from '@/components/Markdown';
 import { useArmyStore } from '@/store/useArmyStore';
-import { PrintHeading, PrintSection } from '../printSection';
-
-const Content = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  line-height: 1.6;
-
-  p {
-    margin-bottom: ${({ theme }) => `${theme.space.sm}px`};
-  }
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-`;
+import { PrintHeading, PrintSection } from '../print-section/PrintSection';
+import styles from './ArmyRules.module.css';
 
 export const ArmyRules = () => {
   const army = useArmyStore((s) => s.army);
@@ -26,9 +13,9 @@ export const ArmyRules = () => {
   return (
     <PrintSection>
       <PrintHeading>Army Rules</PrintHeading>
-      <Content>
+      <div className={styles.content}>
         <Markdown blocks={army.armyRules} />
-      </Content>
+      </div>
     </PrintSection>
   );
 };

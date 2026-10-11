@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { focusRing } from '@/theme/focusRing';
+import styles from './Stepper.module.css';
 
 interface StepperProps {
   value: number;
@@ -9,78 +8,39 @@ interface StepperProps {
   label: string;
 }
 
-const StepperWrapper = styled.div`
-  display: inline-flex;
-  align-items: stretch;
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-`;
-
-const StepButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: ${({ theme }) => `${theme.space.xl}px`};
-  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
-  background: transparent;
-  border: none;
-  color: ${({ theme }) => theme.color.tealBright};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background 0.12s,
-    color 0.12s;
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.color.ghost.bg};
-  }
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  ${focusRing}
-`;
-
-const StepperValue = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.5ch;
-  padding: ${({ theme }) => `0 ${theme.space.xs}px`};
-  border-left: 1px solid ${({ theme }) => theme.color.border.default};
-  border-right: 1px solid ${({ theme }) => theme.color.border.default};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-weight: 600;
-  color: ${({ theme }) => theme.color.text.strong};
-`;
-
 export const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
   const atMin = min !== undefined && value <= min;
   const atMax = max !== undefined && value >= max;
 
+  const decrease = () => {
+    onChange(value - 1);
+  };
+
+  const increase = () => {
+    onChange(value + 1);
+  };
+
   return (
-    <StepperWrapper>
-      <StepButton
+    <div className={styles.stepper}>
+      <button
+        className={styles.step}
         disabled={atMin}
-        onClick={() => onChange(value - 1)}
+        onClick={decrease}
         aria-label={`decrease ${label}`}
         type="button"
       >
         −
-      </StepButton>
-      <StepperValue>{value}</StepperValue>
-      <StepButton
+      </button>
+      <span className={styles.value}>{value}</span>
+      <button
+        className={styles.step}
         disabled={atMax}
-        onClick={() => onChange(value + 1)}
+        onClick={increase}
         aria-label={`increase ${label}`}
         type="button"
       >
         +
-      </StepButton>
-    </StepperWrapper>
+      </button>
+    </div>
   );
 };

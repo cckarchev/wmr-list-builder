@@ -1,0 +1,74 @@
+@import '@/theme/breakpoints.css';
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  /* Fixed height so the bar never reflows when the right-hand action chip
+     appears or changes between screens. */
+  min-height: 64px;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-bg-deep);
+  border-bottom: 1px solid var(--color-border-divider);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-strong);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--color-accent);
+}
+
+.brand:focus-visible,
+.action:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.brandMark {
+  color: var(--color-accent);
+}
+
+.toolName {
+  color: var(--color-text-dim);
+}
+
+@media (--phone) {
+  .toolName {
+    display: none;
+  }
+}
+
+/* Right-hand action chip: on Print, back to the army's roster. */
+.action {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xxs) var(--space-sm);
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-button);
+  color: var(--color-text-body);
+  text-decoration: none;
+  border: 1px solid var(--color-border-default);
+}
+
+.action:hover {
+  color: var(--color-accent);
+  border-color: var(--color-border-accent);
+}
+
+/* The chevron points right by default; flip it into a back arrow. */
+.backMark {
+  display: inline-flex;
+  align-items: center;
+  transform: rotate(180deg);
+}

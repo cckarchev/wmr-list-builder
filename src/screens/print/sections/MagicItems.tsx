@@ -2,7 +2,13 @@ import { Fragment } from 'react';
 import { Markdown } from '@/components/Markdown';
 import { MAGIC_ITEM_TYPES, magicItems } from '@/data/magicItems';
 import { useArmyStore } from '@/store/useArmyStore';
-import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
+import {
+  DefDesc,
+  DefList,
+  DefTerm,
+  PrintHeading,
+  PrintSection,
+} from './print-section/PrintSection';
 
 export const MagicItems = () => {
   const upgrades = useArmyStore((s) => s.upgrades);

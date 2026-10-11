@@ -1,6 +1,4 @@
-import styled from 'styled-components';
 import { Icon } from '@/components/Icon';
-import { Markdown } from '@/components/Markdown';
 import { Popover } from '@/components/popover/Popover';
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
@@ -11,82 +9,16 @@ import { resolveUpgradeRules } from '@/core/upgradeRules';
 import type { StatValue } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
 import { InlineErrors } from '../inline-errors/InlineErrors';
+import { RuleList } from '../rule-list/RuleList';
+import styles from './UpgradeRow.module.css';
 
 interface UpgradeRowProps {
   unitId: string;
   upgradeId: string;
 }
 
-const Row = styled.div<{ $invalid?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.xxs}px`};
-  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
-  border-left: 2px solid
-    ${({ theme, $invalid }) => ($invalid ? theme.color.semantic.error : theme.color.border.divider)};
-
-  &:hover {
-    background: ${({ theme }) => theme.color.bg.tint};
-  }
-`;
-
-const RowMain = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-`;
-
-const UpgradeName = styled.span`
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.body};
-  flex: 1;
-`;
-
-const UpgradePoints = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-  white-space: nowrap;
-  /* Fixed width, right-aligned, so a shorter cost (e.g. +5pts vs +30pts)
-     doesn't shift the rules icon and limit badge out of their column. */
-  min-width: 3.5rem;
-  text-align: right;
-`;
-
-const Limit = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const Rule = styled.div`
-  & + & {
-    margin-top: ${({ theme }) => `${theme.space.sm}px`};
-  }
-`;
-
-const RuleName = styled.h4`
-  margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.strong};
-`;
-
-const RuleText = styled.div`
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.body};
-  line-height: 1.4;
-
-  & p {
-    margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
-  }
-  & p:last-child {
-    margin-bottom: 0;
-  }
-`;
+/** Shown when an upgrade has no price at all. */
+const NO_PRICE = '–';
 
 /** Variable pricing that cannot be resolved for this unit shows as "?pts". */
 const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): string => {
@@ -98,7 +30,7 @@ const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): s
     return '?pts';
   }
 
-  return '—';
+  return NO_PRICE;
 };
 
 export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
@@ -125,10 +57,13 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   // elsewhere. `upgrade.number` is the army-wide total; subtract this unit's
   // own share to get what the rest of the army has already used.
   let maxCount = unit.number;
+
   if (upgrade.armyMax !== undefined) {
     const usedElsewhere = upgrade.number - count;
-    maxCount = Math.min(maxCount, Math.max(0, upgrade.armyMax - usedElsewhere));
+    const armyAllowanceLeft = Math.max(0, upgrade.armyMax - usedElsewhere);
+    maxCount = Math.min(maxCount, armyAllowanceLeft);
   }
+
   const badge = minMaxBadge(upgrade, gameSize);
   const rule = explainMinMax(upgrade, gameSize);
 
@@ -136,42 +71,40 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const price = resolveUpgradePoints(upgrade, unit);
   const hasVariablePrice = upgrade.pointsValue !== undefined;
   const pointsDisplay = formatPrice(price, hasVariablePrice);
+  const invalid = upgradeErrors.length > 0;
+
+  const changeCount = (n: number) => {
+    setUnitUpgradeNumber(unitId, upgradeId, n);
+  };
 
   return (
-    <Row $invalid={upgradeErrors.length > 0}>
-      <RowMain>
-        <UpgradeName>{upgradeId}</UpgradeName>
+    <div className={styles.row} data-invalid={invalid || undefined}>
+      <div className={styles.main}>
+        <span className={styles.name}>{upgradeId}</span>
         {rules.length > 0 && (
           <Popover
             label={`${upgradeId} special rules`}
             trigger={<Icon name="rules" size={14} />}
             wide
           >
-            {rules.map(({ name, rule }) => (
-              <Rule key={name}>
-                <RuleName>{name}</RuleName>
-                <RuleText>
-                  <Markdown blocks={rule.text ?? []} />
-                </RuleText>
-              </Rule>
-            ))}
+            <RuleList rules={rules} />
           </Popover>
         )}
         {badge && rule && (
           <Tooltip label={rule}>
-            <Limit>{badge}</Limit>
+            <span className={styles.limit}>{badge}</span>
           </Tooltip>
         )}
-        <UpgradePoints>{pointsDisplay}</UpgradePoints>
+        <span className={styles.points}>{pointsDisplay}</span>
         <Stepper
           value={count}
-          onChange={(n) => setUnitUpgradeNumber(unitId, upgradeId, n)}
+          onChange={changeCount}
           min={0}
           max={maxCount}
           label={`${upgradeId} for ${unitId}`}
         />
-      </RowMain>
+      </div>
       <InlineErrors errors={upgradeErrors} label={`${upgradeId} errors`} />
-    </Row>
+    </div>
   );
 };

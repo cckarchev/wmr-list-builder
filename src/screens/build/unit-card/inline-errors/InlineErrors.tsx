@@ -1,47 +1,28 @@
-import styled from 'styled-components';
 import type { ValidationError } from '@/data/types';
+import styles from './InlineErrors.module.css';
 
 interface InlineErrorsProps {
   errors: ValidationError[];
   label?: string;
 }
 
-const List = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.xxs}px`};
-`;
-
-const Item = styled.li`
-  display: flex;
-  align-items: flex-start;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  color: ${({ theme }) => theme.color.semantic.error};
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  line-height: 1.4;
-`;
-
-const Marker = styled.span`
-  flex-shrink: 0;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-weight: 700;
-`;
-
 /** Renders the validation errors attributed to a single roster row. */
 export const InlineErrors = ({ errors, label = 'Unit errors' }: InlineErrorsProps) => {
   if (errors.length === 0) {
     return null;
   }
+
   return (
-    <List role="list" aria-label={label}>
+    // biome-ignore lint/a11y/noRedundantRoles: Safari drops list semantics when list-style is none.
+    <ul className={styles.list} role="list" aria-label={label}>
       {errors.map((error) => (
-        <Item key={error.message}>
-          <Marker aria-hidden="true">!</Marker>
+        <li className={styles.item} key={error.message}>
+          <span className={styles.marker} aria-hidden="true">
+            !
+          </span>
           {error.message}
-        </Item>
+        </li>
       ))}
-    </List>
+    </ul>
   );
 };

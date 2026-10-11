@@ -1,164 +1,15 @@
-import { useEffect, useState } from 'react';
+import { type CSSProperties, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { buildCodeMaps, decodeShare, loadList, saveList } from '@/core/persistence';
 import { groupRosterUnits } from '@/core/selectors';
 import { snapshotOf } from '@/core/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
-import { focusRing } from '@/theme/focusRing';
 import { ArmySummary } from './army-summary/ArmySummary';
+import styles from './Build.module.css';
 import { Header } from './header/Header';
 import { RosterFilters } from './roster-filters/RosterFilters';
 import { UnitCard } from './unit-card/UnitCard';
-
-const Page = styled.main`
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  /* Tooltip bubbles on right-edge badges are absolutely positioned and extend
-     past the viewport while hidden; clip horizontally so they can't add a
-     page-wide scrollbar. clip (not hidden) avoids creating a scroll container,
-     so the sticky points bar keeps working. */
-  overflow-x: clip;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => `${theme.space.lg}px`};
-  padding: ${({ theme }) => `${theme.space.md}px`};
-  /* Cap and center the content so it gutters on large screens instead of the
-     (now narrower) cards sprawling edge-to-edge. */
-  width: 100%;
-  max-width: ${({ theme }) => theme.layout.maxWidth};
-  margin-inline: auto;
-
-  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    grid-template-columns: 1fr minmax(240px, 300px);
-    align-items: start;
-  }
-`;
-
-const ArmySummaryMobile = styled.div`
-  width: 100%;
-  max-width: ${({ theme }) => theme.layout.maxWidth};
-  margin-inline: auto;
-  padding: ${({ theme }) => `${theme.space.md}px ${theme.space.md}px 0`};
-
-  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    display: none;
-  }
-`;
-
-const ArmySummaryDesktop = styled.div<{ $top: number }>`
-  display: none;
-
-  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    display: block;
-    /* Stick the rail within its grid column as the page scrolls, parked just
-       below the sticky Header (whose height varies with global errors). */
-    position: sticky;
-    align-self: start;
-    top: ${({ $top, theme }) => `${$top + theme.space.sm}px`};
-    max-height: ${({ $top, theme }) => `calc(100dvh - ${$top + theme.space.sm * 2}px)`};
-    overflow-y: auto;
-  }
-`;
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-  /* Allow the grid column to shrink rather than stretch the track. */
-  min-width: 0;
-`;
-
-const EmptyArmy = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.dim};
-  font-style: italic;
-`;
-
-const Group = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-
-  &:not(:first-of-type) {
-    margin-top: ${({ theme }) => `${theme.space.sm}px`};
-  }
-`;
-
-const GroupCards = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-`;
-
-const GroupHeading = styled.h3`
-  margin: 0;
-`;
-
-const GroupToggle = styled.button`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  letter-spacing: ${({ theme }) => theme.tracking.labelWide};
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.color.tealBright};
-
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: ${({ theme }) => theme.color.border.divider};
-  }
-
-  ${focusRing}
-`;
-
-// The +/- toggle marker. A horizontal bar is always drawn; the vertical bar is
-// revealed only when collapsed, animating the dash into a plus.
-const ToggleMark = styled.span<{ $collapsed: boolean }>`
-  position: relative;
-  flex-shrink: 0;
-  width: ${({ theme }) => `${theme.space.sm}px`};
-  height: ${({ theme }) => `${theme.space.sm}px`};
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    background: ${({ theme }) => theme.color.accent};
-  }
-
-  &::before {
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: translateY(-50%);
-  }
-
-  &::after {
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 100%;
-    transform: translateX(-50%) scaleY(${({ $collapsed }) => ($collapsed ? 1 : 0)});
-    transition: transform 0.15s;
-  }
-`;
 
 export const Build = () => {
   const { armyId: paramArmyId } = useParams<{ armyId: string }>();
@@ -214,16 +65,19 @@ export const Build = () => {
   const [selectedOnly, setSelectedOnly] = useState(false);
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
 
-  const toggleCollapsed = (label: string) =>
+  const toggleCollapsed = (label: string) => {
     setCollapsed((prev) => {
       const next = new Set(prev);
+
       if (next.has(label)) {
         next.delete(label);
       } else {
         next.add(label);
       }
+
       return next;
     });
+  };
 
   // Track the sticky header's height so the rail can park just below it. The
   // header grows/shrinks (e.g. when global errors appear), so observe it. We
@@ -245,6 +99,9 @@ export const Build = () => {
   if (!army) {
     return null;
   }
+
+  // Parks the desktop summary rail just below the sticky header.
+  const summaryOffset = { '--header-height': `${headerHeight}px` } as CSSProperties;
 
   const allGroups = groupRosterUnits(units);
   const rosterGroups = groupRosterUnits(units, search, gameSize)
@@ -274,13 +131,13 @@ export const Build = () => {
     });
 
   return (
-    <Page>
+    <main className={styles.page}>
       <Header />
-      <ArmySummaryMobile>
+      <div className={styles.summaryMobile}>
         <ArmySummary />
-      </ArmySummaryMobile>
-      <Grid>
-        <Section aria-label="Roster">
+      </div>
+      <div className={styles.grid}>
+        <section className={styles.section} aria-label="Roster">
           <RosterFilters
             types={allGroups.map((g) => g.label)}
             search={search}
@@ -293,40 +150,42 @@ export const Build = () => {
             onToggleSelectedOnly={() => setSelectedOnly((v) => !v)}
           />
           {rosterGroups.length === 0 ? (
-            <EmptyArmy>No units match the current filters.</EmptyArmy>
+            <p className={styles.empty}>No units match the current filters.</p>
           ) : (
             rosterGroups.map((group) => {
               const isCollapsed = collapsed.has(group.label);
               const panelId = `group-${group.label.replace(/\W+/g, '-')}`;
+
               return (
-                <Group key={group.label}>
-                  <GroupHeading>
-                    <GroupToggle
+                <div className={styles.group} key={group.label}>
+                  <h3 className={styles.groupHeading}>
+                    <button
+                      className={styles.groupToggle}
                       type="button"
                       aria-expanded={!isCollapsed}
                       aria-controls={panelId}
                       onClick={() => toggleCollapsed(group.label)}
                     >
-                      <ToggleMark $collapsed={isCollapsed} aria-hidden />
+                      <span className={styles.toggleMark} aria-hidden />
                       {group.label}
-                    </GroupToggle>
-                  </GroupHeading>
+                    </button>
+                  </h3>
                   {!isCollapsed && (
-                    <GroupCards id={panelId}>
+                    <div className={styles.groupCards} id={panelId}>
                       {group.unitIds.map((id) => (
                         <UnitCard key={id} unitId={id} groupLabel={group.label} />
                       ))}
-                    </GroupCards>
+                    </div>
                   )}
-                </Group>
+                </div>
               );
             })
           )}
-        </Section>
-        <ArmySummaryDesktop $top={headerHeight}>
+        </section>
+        <div className={styles.summaryDesktop} style={summaryOffset}>
           <ArmySummary />
-        </ArmySummaryDesktop>
-      </Grid>
-    </Page>
+        </div>
+      </div>
+    </main>
   );
 };

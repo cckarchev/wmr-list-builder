@@ -1,90 +1,17 @@
-import styled from 'styled-components';
+import { classNames } from '@/core/classNames';
 import type { UsedUnit } from '@/core/selectors';
 import { usedUnits as getUsedUnits, pointsCost, unitCount } from '@/core/selectors';
 import type { UnitState, UpgradeState } from '@/core/storeHelpers';
 import { resolveUpgradePoints } from '@/core/storeHelpers';
 import { useArmyStore } from '@/store/useArmyStore';
-
-const TableWrapper = styled.div`
-  overflow-x: auto;
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Table = styled.table`
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-
-  tbody tr:nth-child(even) td {
-    background: ${({ theme }) => theme.color.bg.stripe};
-  }
-`;
+import styles from './Stats.module.css';
 
 // Characters (General/Hero/Wizard) and the fighting units have wildly
 // different stat profiles, so they print as two separate tables. The
 // character table drops Range/Armour and keeps Command; the unit table drops
 // Command. Only the units count toward the break point, so the totals footer
 // lives on the unit table.
-const CharacterTable = styled(Table)`
-  /* Fewer columns than the unit table, so let it size to its content and sit
-     centered with gutters on either side rather than stretching full width. The
-     min-width keeps a short roster (brief character names) from collapsing into
-     a cramped sliver. */
-  width: auto;
-  min-width: 60%;
-  margin: 0 auto ${({ theme }) => `${theme.space.lg}px`};
-`;
-
 const CHARACTER_TYPES = new Set(['General', 'Hero', 'Wizard']);
-
-const Th = styled.th`
-  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
-  white-space: nowrap;
-  border-bottom: 2px solid currentColor;
-`;
-
-const Td = styled.td`
-  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
-  white-space: nowrap;
-`;
-
-const TdLeft = styled(Td)`
-  text-align: left;
-`;
-
-// The name cell lays out as a row so the special-rule marker can be pushed to
-// the cell's right edge, lining the markers into a column that's easy to scan.
-const NameCell = styled(TdLeft)`
-  display: flex;
-  align-items: baseline;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-`;
-
-// Indent attachment (upgrade) names so they read as nested under their parent
-// unit, making it easy to scan where one unit ends and the next begins. The
-// indent lives on an inner span because the print stylesheet forces a fixed
-// cell padding that would otherwise wipe a cell-level indent.
-const Name = styled.span<{ $indent?: boolean }>`
-  display: inline-block;
-  margin-left: ${({ theme, $indent }) => ($indent ? `${theme.space.sm}px` : '0')};
-`;
-
-// Special-rule reference markers (e.g. "*1, *3") sit inline right after the unit
-// name so "this unit has special rules" is obvious while scanning the name
-// column, instead of hiding in a far-right column. Same size as the name but
-// bold so they stand out, pushed to the cell's right edge.
-const Special = styled.span`
-  margin-left: auto;
-  font-weight: 700;
-  white-space: nowrap;
-`;
-
-const FootTd = styled(Td)`
-  border-top: 2px solid currentColor;
-  font-weight: 600;
-`;
 
 type StatKind = 'character' | 'unit';
 
@@ -135,22 +62,25 @@ const resolveSpecial = (
 const StatRow = ({ name, troop, parentUnit, specialRules, kind, isUpgrade }: StatRowProps) => {
   const t = troop as UnitState & UpgradeState;
   const special = resolveSpecial(name, t.specialRules, specialRules);
+  const nameCellClasses = classNames(styles.left, styles.nameCell);
 
   return (
     <tr>
-      <Td>{t.number}</Td>
-      <NameCell>
-        <Name $indent={isUpgrade}>{name}</Name>
-        {special !== '-' && <Special>{special}</Special>}
-      </NameCell>
-      <TdLeft>{t.type || '-'}</TdLeft>
-      <Td>{String(t.attack ?? '-')}</Td>
-      {kind === 'unit' && <Td>{t.range || '-'}</Td>}
-      {kind === 'unit' && <Td>{String(t.hits ?? '-')}</Td>}
-      {kind === 'unit' && <Td>{t.armour || '-'}</Td>}
-      {kind === 'character' && <Td>{String(t.command ?? '-')}</Td>}
-      {kind === 'unit' && <Td>{String(t.size ?? '-')}</Td>}
-      <Td>{resolvePoints(troop, parentUnit)}</Td>
+      <td>{t.number}</td>
+      <td className={nameCellClasses}>
+        <span className={styles.name} data-indent={isUpgrade || undefined}>
+          {name}
+        </span>
+        {special !== '-' && <span className={styles.special}>{special}</span>}
+      </td>
+      <td className={styles.left}>{t.type || '-'}</td>
+      <td>{String(t.attack ?? '-')}</td>
+      {kind === 'unit' && <td>{t.range || '-'}</td>}
+      {kind === 'unit' && <td>{String(t.hits ?? '-')}</td>}
+      {kind === 'unit' && <td>{t.armour || '-'}</td>}
+      {kind === 'character' && <td>{String(t.command ?? '-')}</td>}
+      {kind === 'unit' && <td>{String(t.size ?? '-')}</td>}
+      <td>{resolvePoints(troop, parentUnit)}</td>
     </tr>
   );
 };
@@ -209,48 +139,48 @@ export const Stats = () => {
   const unitEntries = entries.filter(([, unit]) => !CHARACTER_TYPES.has(unit.type));
 
   return (
-    <TableWrapper>
+    <div className={styles.wrapper}>
       {characterEntries.length > 0 && (
-        <CharacterTable className="character-table">
+        <table className={classNames(styles.table, 'character-table')} data-kind="character">
           <thead>
             <tr>
-              <Th>#</Th>
-              <Th>Character</Th>
-              <Th>Type</Th>
-              <Th>Attack</Th>
-              <Th>Command</Th>
-              <Th>Points</Th>
+              <th>#</th>
+              <th>Character</th>
+              <th>Type</th>
+              <th>Attack</th>
+              <th>Command</th>
+              <th>Points</th>
             </tr>
           </thead>
           <tbody>{renderRows(characterEntries, 'character', units, srMap)}</tbody>
-        </CharacterTable>
+        </table>
       )}
 
-      <Table>
+      <table className={styles.table} data-kind="unit">
         <thead>
           <tr>
-            <Th>#</Th>
-            <Th>Troop</Th>
-            <Th>Type</Th>
-            <Th>Attack</Th>
-            <Th>Range</Th>
-            <Th>Hits</Th>
-            <Th>Armour</Th>
-            <Th>Size</Th>
-            <Th>Points</Th>
+            <th>#</th>
+            <th>Troop</th>
+            <th>Type</th>
+            <th>Attack</th>
+            <th>Range</th>
+            <th>Hits</th>
+            <th>Armour</th>
+            <th>Size</th>
+            <th>Points</th>
           </tr>
         </thead>
         <tbody>{renderRows(unitEntries, 'unit', units, srMap)}</tbody>
         <tfoot>
           <tr>
-            <FootTd>
+            <td>
               {count}/{Math.ceil(count / 2)}
-            </FootTd>
-            <FootTd colSpan={7}>{isValid ? '' : 'INVALID'}</FootTd>
-            <FootTd>{total}</FootTd>
+            </td>
+            <td colSpan={7}>{isValid ? '' : 'INVALID'}</td>
+            <td>{total}</td>
           </tr>
         </tfoot>
-      </Table>
-    </TableWrapper>
+      </table>
+    </div>
   );
 };

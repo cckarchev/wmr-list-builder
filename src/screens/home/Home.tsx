@@ -1,93 +1,18 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { armyIndex } from '@/data/armyIndex';
-import { focusRing } from '@/theme/focusRing';
-
-const Page = styled.main`
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: ${({ theme }) => `${theme.space.xl}px ${theme.space.md}px`};
-`;
-
-const Heading = styled.h1`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.xxl};
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: ${({ theme }) => theme.color.text.strong};
-  margin-bottom: ${({ theme }) => `${theme.space.lg}px`};
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sm}) {
-    font-size: ${({ theme }) => theme.fontSize.xl};
-  }
-`;
-
-const Grid = styled.ul`
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: ${({ theme }) => `${theme.space.md}px`};
-`;
-
-const ArmyCard = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  min-height: 72px;
-  padding: ${({ theme }) => `${theme.space.md}px ${theme.space.lg}px`};
-  border-radius: ${({ theme }) => theme.radius.md};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-left: 3px solid ${({ theme }) => theme.color.border.default};
-  background: ${({ theme }) => theme.color.bg.surface};
-  color: ${({ theme }) => theme.color.text.body};
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  line-height: 1.1;
-  text-decoration: none;
-  transition:
-    transform 0.12s,
-    border-color 0.12s,
-    background 0.12s,
-    box-shadow 0.12s;
-
-  &::after {
-    content: '›';
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    color: ${({ theme }) => theme.color.text.dim};
-    transition:
-      color 0.12s,
-      transform 0.12s;
-  }
-
-  &:hover {
-    background: ${({ theme }) => theme.color.bg.tint};
-    border-color: ${({ theme }) => theme.color.border.hover};
-    border-left-color: ${({ theme }) => theme.color.accent};
-    color: ${({ theme }) => theme.color.text.strong};
-    transform: translateY(-2px);
-    box-shadow: ${({ theme }) => theme.shadow.panel};
-  }
-
-  &:hover::after {
-    color: ${({ theme }) => theme.color.accent};
-    transform: translateX(2px);
-  }
-
-  ${focusRing}
-`;
+import styles from './Home.module.css';
 
 export const Home = () => (
-  <Page>
-    <Heading>Choose Your Army</Heading>
-    <Grid>
+  <main className={styles.page}>
+    <h1 className={styles.heading}>Choose Your Army</h1>
+    <ul className={styles.grid}>
       {armyIndex.map(({ id, name }) => (
         <li key={id}>
-          <ArmyCard to={`/build/${id}`}>{name}</ArmyCard>
+          <Link className={styles.card} to={`/build/${id}`}>
+            {name}
+          </Link>
         </li>
       ))}
-    </Grid>
-  </Page>
+    </ul>
+  </main>
 );

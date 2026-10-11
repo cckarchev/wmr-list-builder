@@ -1,48 +1,8 @@
-import styled from 'styled-components';
+import { classNames } from '@/core/classNames';
 import { useArmyStore } from '@/store/useArmyStore';
 import { type PrintOptions, PrintOptionsContext } from '../printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
-
-const Document = styled.div`
-  padding: ${({ theme }) => `${theme.space.md}px`};
-  color: ${({ theme }) => theme.color.text.body};
-`;
-
-const Title = styled.h1`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  color: ${({ theme }) => theme.color.text.strong};
-  text-align: center;
-  margin-bottom: ${({ theme }) => `${theme.space.md}px`};
-`;
-
-const Section = styled.section<{ $columns?: boolean }>`
-  margin-bottom: ${({ theme }) => `${theme.space.md}px`};
-  padding-bottom: ${({ theme }) => `${theme.space.sm}px`};
-  border-bottom: 1px dashed ${({ theme }) => theme.color.border.divider};
-
-  &:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-
-  ${({ $columns, theme }) =>
-    $columns &&
-    `
-    column-count: 2;
-    column-gap: ${theme.space.lg}px;
-
-    /* Keep a heading glued to the start of its body, and never split a single
-       paragraph across the gap, but let multi-paragraph bodies flow from one
-       column into the next at paragraph boundaries. */
-    dt {
-      break-after: avoid;
-    }
-    p {
-      break-inside: avoid;
-    }
-  `}
-`;
+import styles from './PrintView.module.css';
 
 interface PrintViewProps {
   sections: PrintSectionDef[];
@@ -55,26 +15,32 @@ export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) =>
   const label = useArmyStore((s) => s.label);
   const title = label ? `${armyName} · ${label}` : armyName;
 
-  const classes = ['print-document'];
-  if (options.smallFont) {
-    classes.push('font-small');
-  }
-  if (options.condensed) {
-    classes.push('condensed');
-  }
+  // The global print stylesheet keys off these plain class names.
+  const classes = classNames(
+    styles.document,
+    'print-document',
+    options.smallFont && 'font-small',
+    options.condensed && 'condensed',
+  );
+  const visibleSections = sections.filter((section) => selectedIds.has(section.id));
+
+  // The stats table is too wide to split, so it never flows into two columns.
+  const usesColumns = (section: PrintSectionDef) => options.twoColumn && section.id !== 'stats';
 
   return (
     <PrintOptionsContext.Provider value={options}>
-      <Document className={classes.join(' ')}>
-        {armyName && !options.hideTitle && <Title>{title}</Title>}
-        {sections
-          .filter((section) => selectedIds.has(section.id))
-          .map((section) => (
-            <Section key={section.id} $columns={options.twoColumn && section.id !== 'stats'}>
-              {section.render()}
-            </Section>
-          ))}
-      </Document>
+      <div className={classes}>
+        {armyName && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
+        {visibleSections.map((section) => (
+          <section
+            className={styles.section}
+            key={section.id}
+            data-columns={usesColumns(section) || undefined}
+          >
+            {section.render()}
+          </section>
+        ))}
+      </div>
     </PrintOptionsContext.Provider>
   );
 };

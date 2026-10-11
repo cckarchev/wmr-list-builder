@@ -1,49 +1,10 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { Button } from '@/components/button/Button';
+import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import styles from './OverflowMenu.module.css';
 
-const Wrapper = styled.span`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-`;
-
-const Panel = styled.div`
-  position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
-  right: 0;
-  z-index: 30;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  padding: ${({ theme }) => `${theme.space.xs}px`};
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
-
-  /* Stretch every action to a uniform full width. Copy/Share/Reset are wrapped
-     in inline-flex spans, so stretch the wrappers and let the inner buttons grow;
-     the Print button is a direct child and stretches on its own. */
-  & > * {
-    width: 100%;
-  }
-  & button {
-    flex: 1;
-  }
-`;
-
-const Caret = styled.span`
-  margin-left: ${({ theme }) => `${theme.space.xxs}px`};
-`;
-
-export const MenuDivider = styled.hr`
-  width: 100%;
-  margin: 0;
-  border: none;
-  border-top: 1px solid ${({ theme }) => theme.color.border.divider};
-`;
+/** Separator between groups of actions inside the menu. */
+export const MenuDivider = () => <hr className={styles.divider} />;
 
 export const OverflowMenu = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
@@ -72,7 +33,7 @@ export const OverflowMenu = ({ children }: { children: ReactNode }) => {
   }, [open]);
 
   return (
-    <Wrapper ref={wrapRef}>
+    <PopupAnchor ref={wrapRef}>
       <Button
         type="button"
         variant="ghost"
@@ -82,9 +43,15 @@ export const OverflowMenu = ({ children }: { children: ReactNode }) => {
         onClick={() => setOpen((o) => !o)}
       >
         More
-        <Caret aria-hidden="true">▾</Caret>
+        <span className={styles.caret} aria-hidden="true">
+          ▾
+        </span>
       </Button>
-      {open && <Panel role="menu">{children}</Panel>}
-    </Wrapper>
+      {open && (
+        <div className={styles.panel} role="menu">
+          {children}
+        </div>
+      )}
+    </PopupAnchor>
   );
 };

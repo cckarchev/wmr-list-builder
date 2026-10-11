@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { Icon } from '@/components/Icon';
@@ -15,118 +14,9 @@ import { snapshotOf } from '@/core/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useIsDirty } from '@/store/useIsDirty';
-import { focusRing } from '@/theme/focusRing';
-
-const Wrapper = styled.span`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-`;
-
-const Panel = styled.div`
-  position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
-  right: 0;
-  z-index: 30;
-  width: 300px;
-  max-width: calc(100vw - ${({ theme }) => `${theme.space.md}px`});
-  max-height: 60vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
-  text-align: left;
-`;
-
-const PanelTitle = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.sm}px ${theme.space.xs}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
-`;
-
-const Item = styled.div`
-  & + & {
-    border-top: 1px solid ${({ theme }) => theme.color.border.divider};
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const NameButton = styled.button`
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-  text-align: left;
-  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
-  background: transparent;
-  border: none;
-  color: ${({ theme }) => theme.color.text.body};
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  cursor: pointer;
-  transition:
-    background 0.12s,
-    color 0.12s;
-  &:hover {
-    background: ${({ theme }) => theme.color.bg.tint};
-    color: ${({ theme }) => theme.color.text.strong};
-  }
-  ${focusRing}
-`;
-
-const ListTitle = styled.span`
-  min-width: 0;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const SizeBadge = styled.span`
-  flex-shrink: 0;
-  padding: ${({ theme }) => `${theme.space.xxs}px ${theme.space.xs}px`};
-  background: ${({ theme }) => theme.color.bg.deep};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const IconButton = styled.button`
-  display: inline-flex;
-  margin-right: ${({ theme }) => `${theme.space.xs}px`};
-  padding: ${({ theme }) => `${theme.space.xxs}px`};
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.color.text.dim};
-  cursor: pointer;
-  &:hover {
-    color: ${({ theme }) => theme.color.semantic.error};
-  }
-  ${focusRing}
-`;
-
-const Empty = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.space.xs}px ${theme.space.sm}px`};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
+import { ActionPanel } from '../shared/action-panel/ActionPanel';
+import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import styles from './LoadListButton.module.css';
 
 export const LoadListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
@@ -207,7 +97,7 @@ export const LoadListButton = () => {
   };
 
   return (
-    <Wrapper ref={wrapRef}>
+    <PopupAnchor ref={wrapRef}>
       <Button
         variant="ghost"
         size="sm"
@@ -221,27 +111,29 @@ export const LoadListButton = () => {
         Load
       </Button>
       {open && (
-        <Panel role="dialog" aria-label="Load list">
-          <PanelTitle>Saved lists</PanelTitle>
-          {saved.length === 0 && <Empty>No saved lists for this army yet.</Empty>}
+        <ActionPanel label="Load list" heading="Saved lists" wide>
+          {saved.length === 0 && <p className={styles.empty}>No saved lists for this army yet.</p>}
           {saved.map(({ name, gameSize }) => (
-            <Item key={name}>
-              <Row>
-                <NameButton type="button" onClick={() => handleLoadClick(name)}>
-                  <ListTitle>{name}</ListTitle>
-                  <SizeBadge aria-hidden="true">{gameSize} pts</SizeBadge>
-                </NameButton>
-                <IconButton
+            <div className={styles.item} key={name}>
+              <div className={styles.row}>
+                <button className={styles.name} type="button" onClick={() => handleLoadClick(name)}>
+                  <span className={styles.title}>{name}</span>
+                  <span className={styles.size} aria-hidden="true">
+                    {gameSize} pts
+                  </span>
+                </button>
+                <button
+                  className={styles.delete}
                   type="button"
                   aria-label={`delete ${name}`}
                   onClick={() => setConfirmDelete(name)}
                 >
                   <Icon name="trash" size={14} />
-                </IconButton>
-              </Row>
-            </Item>
+                </button>
+              </div>
+            </div>
           ))}
-        </Panel>
+        </ActionPanel>
       )}
       <ConfirmDialog
         open={confirmLoad !== null}
@@ -259,6 +151,6 @@ export const LoadListButton = () => {
         onConfirm={() => confirmDelete && doDelete(confirmDelete)}
         onCancel={() => setConfirmDelete(null)}
       />
-    </Wrapper>
+    </PopupAnchor>
   );
 };

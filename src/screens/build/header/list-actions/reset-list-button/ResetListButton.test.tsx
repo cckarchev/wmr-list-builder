@@ -1,10 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
-import { theme } from '@/theme/theme';
 import { ResetListButton } from './ResetListButton';
 
 const LocationProbe = () => {
@@ -14,21 +12,19 @@ const LocationProbe = () => {
 
 const renderReset = (path: string) =>
   render(
-    <ThemeProvider theme={theme}>
-      <MemoryRouter initialEntries={[path]}>
-        <Routes>
-          <Route
-            path="/build/:armyId"
-            element={
-              <>
-                <ResetListButton />
-                <LocationProbe />
-              </>
-            }
-          />
-        </Routes>
-      </MemoryRouter>
-    </ThemeProvider>,
+    <MemoryRouter initialEntries={[path]}>
+      <Routes>
+        <Route
+          path="/build/:armyId"
+          element={
+            <>
+              <ResetListButton />
+              <LocationProbe />
+            </>
+          }
+        />
+      </Routes>
+    </MemoryRouter>,
   );
 
 describe('ResetListButton', () => {

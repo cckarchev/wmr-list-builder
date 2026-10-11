@@ -1,0 +1,197 @@
+@import '@/theme/breakpoints.css';
+
+.bar {
+  position: sticky;
+  top: 0;
+  /* Above the popover/tooltip layer (z-index 30) so open popovers scroll under
+     the header rather than over it; below ConfirmDialog (z-index 100). */
+  z-index: 40;
+  background: var(--color-bg-deep);
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-panel);
+}
+
+.titleZone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--space-md);
+  /* The header bar is full-bleed; its content is centered to the same width as
+     the page body so the title lines up with the roster below. */
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+.titleBlock {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.armyName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  color: var(--color-accent);
+}
+
+.listName {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--color-text-dim);
+  font-size: var(--font-size-sm);
+}
+
+.listNameText {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.placeholder {
+  font-style: italic;
+}
+
+.unsavedDot {
+  flex-shrink: 0;
+  margin-left: var(--space-xxs);
+  color: var(--color-warning);
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* The mobile menu takes over below the tablet breakpoint; the two queries are
+   strict complements, so there is no dead zone at the breakpoint itself. */
+@media (--below-tablet) {
+  .actions[data-layout='inline'] {
+    display: none;
+  }
+}
+
+.actions[data-layout='menu'] {
+  position: relative;
+}
+
+@media (--tablet-up) {
+  .actions[data-layout='menu'] {
+    display: none;
+  }
+}
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-border-divider);
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+
+.statValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Match the game size input's box height (padding + border) so every value
+     row lines up despite the input being taller than plain text. */
+  padding: var(--space-xxs) var(--space-xs);
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  color: var(--color-text-strong);
+  font-weight: 500;
+  text-align: center;
+}
+
+.statValue[data-over] {
+  color: var(--color-error);
+}
+
+.valid,
+.invalid {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.valid {
+  color: var(--color-success);
+}
+
+.invalid {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  padding: var(--space-xxs) var(--space-xs);
+  background: transparent;
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  color: var(--color-error);
+  cursor: pointer;
+}
+
+.invalid:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.globalError {
+  flex-basis: 100%;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+}
+
+.warning {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-warning);
+}
+
+.warningDismiss {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  padding: 0;
+}

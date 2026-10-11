@@ -1,0 +1,6 @@
+/* Positioning context for a list action and the popup it opens below it. */
+.anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}

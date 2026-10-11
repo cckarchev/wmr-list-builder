@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { pillButton } from '@/theme/pillButton';
+import { PillButton } from '@/components/pill-button/PillButton';
+import styles from './Popover.module.css';
 
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
@@ -12,32 +12,6 @@ interface PopoverProps {
   /** Panel content shown while open. */
   children: ReactNode;
 }
-
-const Wrap = styled.div`
-  position: relative;
-  display: inline-flex;
-`;
-
-const Trigger = styled.button`
-  ${pillButton}
-`;
-
-const Panel = styled.div<{ $wide: boolean }>`
-  position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
-  left: 0;
-  z-index: 30;
-  width: max-content;
-  max-width: ${({ $wide }) => ($wide ? 'min(520px, 92vw)' : 'min(320px, 80vw)')};
-  max-height: 60vh;
-  overflow-y: auto;
-  padding: ${({ theme }) => `${theme.space.sm}px`};
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
-  text-align: left;
-`;
 
 export const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
   const [open, setOpen] = useState(false);
@@ -116,10 +90,9 @@ export const Popover = ({ label, trigger, wide = false, children }: PopoverProps
   }, [open]);
 
   return (
-    <Wrap ref={wrapRef}>
-      <Trigger
+    <div className={styles.wrap} ref={wrapRef}>
+      <PillButton
         ref={triggerRef}
-        type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
@@ -127,20 +100,21 @@ export const Popover = ({ label, trigger, wide = false, children }: PopoverProps
         onClick={() => setOpen((o) => !o)}
       >
         {trigger}
-      </Trigger>
+      </PillButton>
       {open && (
-        <Panel
+        <div
+          className={styles.panel}
           id={panelId}
           ref={panelRef}
           role="dialog"
           aria-label={label}
           tabIndex={-1}
-          $wide={wide}
+          data-wide={wide || undefined}
           style={{ left: offsetX }}
         >
           {children}
-        </Panel>
+        </div>
       )}
-    </Wrap>
+    </div>
   );
 };

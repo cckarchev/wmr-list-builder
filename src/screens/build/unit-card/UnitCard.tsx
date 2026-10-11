@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styled, { type DefaultTheme, useTheme } from 'styled-components';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import { CornerBrackets } from '@/components/corner-brackets/CornerBrackets';
+import { PillButton } from '@/components/pill-button/PillButton';
 import { StatLine } from '@/components/stat-line/StatLine';
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
@@ -10,9 +10,9 @@ import { groupUpgradeIds } from '@/core/groupUpgrades';
 import { explainMinMax, minMaxBadge } from '@/core/minMax';
 import { errorsForTarget, isCharacter } from '@/core/selectors';
 import { useArmyStore } from '@/store/useArmyStore';
-import { pillButton } from '@/theme/pillButton';
 import { unitDomId } from '../shared/unitDomId';
 import { InlineErrors } from './inline-errors/InlineErrors';
+import styles from './UnitCard.module.css';
 import { UnitRules } from './unit-rules/UnitRules';
 import { UnitSpells } from './unit-spells/UnitSpells';
 import { UpgradeRow } from './upgrade-row/UpgradeRow';
@@ -25,185 +25,6 @@ interface UnitCardProps {
   groupLabel?: string;
 }
 
-interface CardStateProps {
-  theme: DefaultTheme;
-  $selected: boolean;
-  $invalid: boolean;
-}
-
-/** An error outranks selection; otherwise the card shows its resting border. */
-const cardBorderColor =
-  (resting: 'default' | 'hover') =>
-  ({ theme, $selected, $invalid }: CardStateProps): string => {
-    if ($invalid) {
-      return theme.color.semantic.error;
-    }
-
-    if ($selected) {
-      return theme.color.border.accent;
-    }
-
-    return theme.color.border[resting];
-  };
-
-const Card = styled.div<{ $selected: boolean; $invalid: boolean }>`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.md}px`};
-  background: ${({ theme }) => theme.color.bg.panel};
-
-  /* More interior breathing room on wider screens, where the card has space to
-     spare; mobile stays compact. */
-  @media (min-width: ${({ theme }) => theme.breakpoint.md}) {
-    gap: ${({ theme }) => `${theme.space.md}px`};
-    padding: ${({ theme }) => `${theme.space.md}px ${theme.space.lg}px`};
-  }
-  border: 1px solid ${cardBorderColor('default')};
-  border-radius: ${({ theme }) => theme.radius.md};
-  transition: border-color 0.15s;
-
-  &:hover {
-    border-color: ${cardBorderColor('hover')};
-  }
-`;
-
-const Top = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-`;
-
-// Left column: name and stat line stacked tightly. Keeping the stats here (next
-// to the name rather than below the whole header row) means the taller right-hand
-// controls column no longer pushes the stats down, closing the dead gap.
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.sm}px`};
-  min-width: 0;
-  flex: 1;
-`;
-
-const NameRow = styled.div`
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  min-width: 0;
-`;
-
-const UnitName = styled.span`
-  font-family: ${({ theme }) => theme.font.display};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: 600;
-  line-height: 1.1;
-  color: ${({ theme }) => theme.color.text.strong};
-`;
-
-// The troop/character type as a quiet inline tag after the name. Shown only when
-// it isn't already stated by the section header.
-const TypeTag = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const Controls = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: ${({ theme }) => `${theme.space.xxs}px`};
-  flex-shrink: 0;
-`;
-
-/* The meta line under the stepper: points cost (when selected) and the model
-   restriction. Both are informational, never buttons. Hidden when a unit has
-   neither so the controls column doesn't reserve dead space. */
-const MetaLine = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-
-  &:empty {
-    display: none;
-  }
-`;
-
-const Pts = styled.span`
-  color: ${({ theme }) => theme.color.tealBright};
-`;
-
-const Restriction = styled.span`
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const MetaSep = styled.span`
-  color: ${({ theme }) => theme.color.border.default};
-`;
-
-/* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row
-   of pill controls. Each child renders nothing when it doesn't apply, so when
-   the whole row is empty `:empty` removes it (and its parent gap) entirely. */
-const Actions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-
-  &:empty {
-    display: none;
-  }
-`;
-
-const UpgradesToggle = styled.button`
-  ${pillButton}
-`;
-
-const Caret = styled.span<{ $open: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.12s;
-  transform: rotate(${({ $open }) => ($open ? '90deg' : '0deg')});
-`;
-
-const SelectedBadge = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  color: ${({ theme }) => theme.color.tealBright};
-`;
-
-const UpgradesSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.xxs}px`};
-`;
-
-const UpgradeGroupBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* No gap between rows so their left rules join into one continuous line. */
-  gap: 0;
-
-  & + & {
-    margin-top: ${({ theme }) => `${theme.space.xs}px`};
-  }
-`;
-
-const UpgradeGroupLabel = styled.h5`
-  margin: 0 0 ${({ theme }) => `${theme.space.xxs}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
 export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
   const upgrades = useArmyStore((s) => s.upgrades);
@@ -211,7 +32,6 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
   const gameSize = useArmyStore((s) => s.gameSize);
   const errors = useArmyStore((s) => s.errors);
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
 
   if (!unit) {
     return null;
@@ -232,22 +52,34 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
     : 0;
   const hasUpgrades = selected && upgradeIds.length > 0;
   const upgradeGroups = groupUpgradeIds(upgradeIds, upgrades);
-  // Only label the categories when there's more than one — a single-category
+  // Only label the categories when there's more than one: a single-category
   // list reads cleaner as a plain list with no heading.
   const showUpgradeLabels = upgradeGroups.length > 1;
   const panelId = `upgrades-${unitId.replace(/\W+/g, '-')}`;
+  const bracketColor = invalid ? 'var(--color-error)' : 'var(--color-border-accent)';
+
+  const changeNumber = (n: number) => {
+    setUnitNumber(unitId, n);
+  };
+
+  const toggleUpgrades = () => {
+    setOpen((v) => !v);
+  };
 
   return (
-    <Card id={unitDomId(unitId)} $selected={selected} $invalid={invalid}>
-      {selected && (
-        <CornerBrackets accent={invalid ? theme.color.semantic.error : theme.color.border.accent} />
-      )}
-      <Top>
-        <Main>
-          <NameRow>
-            <UnitName>{unitId}</UnitName>
-            {showType && <TypeTag>{unit.type}</TypeTag>}
-          </NameRow>
+    <div
+      className={styles.card}
+      id={unitDomId(unitId)}
+      data-selected={selected || undefined}
+      data-invalid={invalid || undefined}
+    >
+      {selected && <CornerBrackets accent={bracketColor} />}
+      <div className={styles.top}>
+        <div className={styles.main}>
+          <div className={styles.nameRow}>
+            <span className={styles.name}>{unitId}</span>
+            {showType && <span className={styles.typeTag}>{unit.type}</span>}
+          </div>
           <StatLine
             attack={unit.attack}
             range={unit.range}
@@ -258,59 +90,52 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
             points={unit.points}
             character={isCharacter(unit.type)}
           />
-        </Main>
-        <Controls>
-          <Stepper
-            value={unit.number}
-            onChange={(n) => setUnitNumber(unitId, n)}
-            min={min}
-            max={max}
-            label={unitId}
-          />
-          <MetaLine>
-            {selected && <Pts>{unit.pointsCost} pts</Pts>}
+        </div>
+        <div className={styles.controls}>
+          <Stepper value={unit.number} onChange={changeNumber} min={min} max={max} label={unitId} />
+          <div className={styles.meta}>
+            {selected && <span className={styles.pts}>{unit.pointsCost} pts</span>}
             {badge && rule && (
               <>
-                {selected && <MetaSep aria-hidden>·</MetaSep>}
+                {selected && (
+                  <span className={styles.metaSep} aria-hidden>
+                    ·
+                  </span>
+                )}
                 <Tooltip label={rule}>
-                  <Restriction>{badge}</Restriction>
+                  <span className={styles.restriction}>{badge}</span>
                 </Tooltip>
               </>
             )}
-          </MetaLine>
-        </Controls>
-      </Top>
-      <Actions>
+          </div>
+        </div>
+      </div>
+      <div className={styles.actions}>
         <UnitRules unitId={unitId} />
         <UnitSpells unitId={unitId} />
         {hasUpgrades && (
-          <UpgradesToggle
-            type="button"
-            aria-expanded={open}
-            aria-controls={panelId}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <Caret $open={open}>
+          <PillButton aria-expanded={open} aria-controls={panelId} onClick={toggleUpgrades}>
+            <span className={styles.caret} data-open={open || undefined}>
               <ChevronMark size={11} color="currentColor" />
-            </Caret>
+            </span>
             Upgrades
-            {selectedCount > 0 && <SelectedBadge>({selectedCount})</SelectedBadge>}
-          </UpgradesToggle>
+            {selectedCount > 0 && <span className={styles.selectedBadge}>({selectedCount})</span>}
+          </PillButton>
         )}
-      </Actions>
+      </div>
       {selected && <InlineErrors errors={unitErrors} label={`${unitId} errors`} />}
       {hasUpgrades && open && (
-        <UpgradesSection id={panelId}>
+        <div className={styles.upgrades} id={panelId}>
           {upgradeGroups.map((group) => (
-            <UpgradeGroupBlock key={group.label}>
-              {showUpgradeLabels && <UpgradeGroupLabel>{group.label}</UpgradeGroupLabel>}
+            <div className={styles.upgradeGroup} key={group.label}>
+              {showUpgradeLabels && <h5 className={styles.upgradeGroupLabel}>{group.label}</h5>}
               {group.upgradeIds.map((upgradeId) => (
                 <UpgradeRow key={upgradeId} unitId={unitId} upgradeId={upgradeId} />
               ))}
-            </UpgradeGroupBlock>
+            </div>
           ))}
-        </UpgradesSection>
+        </div>
       )}
-    </Card>
+    </div>
   );
 };

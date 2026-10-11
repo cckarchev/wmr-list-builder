@@ -1,20 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
-import { theme } from '@/theme/theme';
 import { Print } from './Print';
 
 const renderPrint = (path = '/print/goblin') =>
   render(
-    <ThemeProvider theme={theme}>
-      <MemoryRouter initialEntries={[path]}>
-        <Routes>
-          <Route path="/print/:armyId" element={<Print />} />
-        </Routes>
-      </MemoryRouter>
-    </ThemeProvider>,
+    <MemoryRouter initialEntries={[path]}>
+      <Routes>
+        <Route path="/print/:armyId" element={<Print />} />
+      </Routes>
+    </MemoryRouter>,
   );
 
 describe('Print screen', () => {

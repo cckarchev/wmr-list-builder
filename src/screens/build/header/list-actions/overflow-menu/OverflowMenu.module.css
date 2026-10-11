@@ -1,0 +1,37 @@
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-xxs));
+  right: 0;
+  z-index: 30;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Stretch every action to a uniform full width. Copy/Share/Reset are wrapped
+   in inline-flex spans, so stretch the wrappers and let the inner buttons grow;
+   the Print button is a direct child and stretches on its own. */
+.panel > * {
+  width: 100%;
+}
+
+.panel button {
+  flex: 1;
+}
+
+.caret {
+  margin-left: var(--space-xxs);
+}
+
+.divider {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--color-border-divider);
+}

@@ -1,12 +1,10 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { buildCodeMaps, encodeList, saveList } from '@/core/persistence';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
-import { theme } from '@/theme/theme';
 import { Build } from './Build';
 
 /** Below the base goblin list's 560 points, so the list starts over the cap. */
@@ -14,13 +12,11 @@ const UNDERSIZED_GAME = 500;
 
 const renderBuild = (path = '/build/goblin') =>
   render(
-    <ThemeProvider theme={theme}>
-      <MemoryRouter initialEntries={[path]}>
-        <Routes>
-          <Route path="/build/:armyId" element={<Build />} />
-        </Routes>
-      </MemoryRouter>
-    </ThemeProvider>,
+    <MemoryRouter initialEntries={[path]}>
+      <Routes>
+        <Route path="/build/:armyId" element={<Build />} />
+      </Routes>
+    </MemoryRouter>,
   );
 
 describe('Build screen', () => {

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import type { StatValue } from '@/data/types';
+import styles from './StatLine.module.css';
 
 export interface StatLineProps {
   attack?: StatValue;
@@ -16,45 +16,6 @@ export interface StatLineProps {
    */
   character?: boolean;
 }
-
-const StatTable = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  /* Fixed-width columns packed from the left (rather than stretch-to-fill) so a
-     character's shorter row stays compact instead of ballooning, and the Att
-     column lines up card-to-card. */
-  grid-auto-columns: minmax(0, 3.5rem);
-  justify-content: start;
-  align-items: end;
-`;
-
-const StatCell = styled.span`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => `${theme.space.xxs}px`};
-  padding: ${({ theme }) => `0 ${theme.space.xxs}px`};
-  text-align: center;
-
-  & + & {
-    border-left: 1px solid ${({ theme }) => theme.color.border.divider};
-  }
-`;
-
-const StatLabel = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.text.dim};
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-`;
-
-const StatFigure = styled.span`
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.md};
-  color: ${({ theme }) => theme.color.text.strong};
-  font-weight: 600;
-`;
 
 const stat = (value: StatValue | undefined): string =>
   value !== undefined && value !== '' ? String(value) : '–';
@@ -87,13 +48,13 @@ export const StatLine = ({
   cells.push({ label: 'Pts', value: stat(points) });
 
   return (
-    <StatTable>
+    <div className={styles.table}>
       {cells.map(({ label, value }) => (
-        <StatCell key={label}>
-          <StatLabel>{label}</StatLabel>
-          <StatFigure>{value}</StatFigure>
-        </StatCell>
+        <span className={styles.cell} key={label}>
+          <span className={styles.label}>{label}</span>
+          <span className={styles.figure}>{value}</span>
+        </span>
       ))}
-    </StatTable>
+    </div>
   );
 };

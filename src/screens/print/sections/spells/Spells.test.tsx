@@ -1,16 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
-import { theme } from '@/theme/theme';
 import { Spells } from './Spells';
 
-const renderSpells = () =>
-  render(
-    <ThemeProvider theme={theme}>
-      <Spells />
-    </ThemeProvider>,
-  );
+const renderSpells = () => render(<Spells />);
 
 describe('Spells print section', () => {
   beforeEach(() => {

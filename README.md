@@ -12,8 +12,10 @@ It is built as a standalone static site and is meant to be embedded full-bleed i
 
 - **React 19** + **TypeScript**
 - **Vite** (dev server + build)
-- **styled-components** for styling: all visual values come from the design tokens in
-  `src/theme/theme.ts`; no inline styles
+- **CSS Modules** (compiled by Lightning CSS) for styling: each component's
+  `.module.css` lives in its folder, and every visual value comes from the design
+  tokens in `src/theme/tokens.css`. Breakpoints are `@custom-media` queries in
+  `src/theme/breakpoints.css`; variants and states are `data-*` attributes
 - **Zustand** for state (`src/store/`)
 - **React Router** for routing
 - **marked** for rendering Markdown in rule, spell, and magic-item text

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
-import { useTheme } from 'styled-components';
 
 interface CornerBracketsProps {
+  /** Bracket color, any CSS color including a var(--token). */
   accent?: string;
   size?: number;
   thickness?: number;
@@ -9,20 +9,19 @@ interface CornerBracketsProps {
 }
 
 export const CornerBrackets = ({
-  accent,
+  accent = 'var(--color-teal-bright)',
   size = 14,
   thickness = 2,
   inset = -1,
 }: CornerBracketsProps) => {
-  const theme = useTheme();
-  const color = accent ?? theme.color.tealBright;
   const base: CSSProperties = {
     position: 'absolute',
     width: size,
     height: size,
     pointerEvents: 'none',
   };
-  const line = `${thickness}px solid ${color}`;
+  const line = `${thickness}px solid ${accent}`;
+
   return (
     <>
       <span

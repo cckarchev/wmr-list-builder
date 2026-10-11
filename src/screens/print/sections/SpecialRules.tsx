@@ -2,7 +2,13 @@ import { Markdown } from '@/components/Markdown';
 import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
 import type { SpecialRule } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
-import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
+import {
+  DefDesc,
+  DefList,
+  DefTerm,
+  PrintHeading,
+  PrintSection,
+} from './print-section/PrintSection';
 
 const collectUsedSpecialRules = (
   allSpecialRules: Record<string, SpecialRule>,

@@ -1,0 +1,82 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  text-align: center;
+}
+
+/* Bordered −/+ group wrapping the editable input, mirroring the Stepper control. */
+.stepper {
+  display: inline-flex;
+  align-items: stretch;
+  align-self: center;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-xl);
+  padding: 0 var(--space-xs);
+  background: transparent;
+  border: none;
+  color: var(--color-teal-bright);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+
+.step:hover:not(:disabled) {
+  background: var(--color-ghost-bg);
+}
+
+.step:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.step:focus-visible,
+.input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Sits between the −/+ buttons. Fixed width fits the largest game size
+   ("2000") and keeps Chrome and Firefox in sync: Chrome ignores the size attr
+   and reserves room for the spinner, which is also hidden below. */
+.input {
+  width: 7ch;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  color: var(--color-text-strong);
+  background: transparent;
+  border: none;
+  border-inline: 1px solid var(--color-border-default);
+  padding: var(--space-xxs) var(--space-xs);
+  /* Hide the native spinner buttons; stepping is handled by the −/+ buttons. */
+  appearance: textfield;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}

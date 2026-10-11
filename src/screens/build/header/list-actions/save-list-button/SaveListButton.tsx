@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { Icon } from '@/components/Icon';
@@ -7,76 +6,9 @@ import { buildCodeMaps, encodeList, listSavedNames, saveNamedList } from '@/core
 import { snapshotOf } from '@/core/snapshot';
 import { loadArmy } from '@/data/loadArmy';
 import { useArmyStore } from '@/store/useArmyStore';
-import { focusRing } from '@/theme/focusRing';
-
-const Wrapper = styled.span`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-`;
-
-const Panel = styled.div`
-  position: absolute;
-  top: calc(100% + ${({ theme }) => `${theme.space.xxs}px`});
-  right: 0;
-  z-index: 30;
-  width: 280px;
-  max-width: calc(100vw - ${({ theme }) => `${theme.space.md}px`});
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme }) => theme.color.bg.surface};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
-  text-align: left;
-`;
-
-const PanelTitle = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.space.sm}px ${theme.space.sm}px ${theme.space.xs}px`};
-  font-family: ${({ theme }) => theme.font.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.divider};
-`;
-
-const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => `${theme.space.xs}px`};
-  padding: ${({ theme }) => `${theme.space.sm}px`};
-`;
-
-const FieldLabel = styled.label`
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: ${({ theme }) => theme.tracking.label};
-  color: ${({ theme }) => theme.color.text.dim};
-`;
-
-const NameInput = styled.input`
-  width: 100%;
-  padding: ${({ theme }) => `${theme.space.xs}px`};
-  background: ${({ theme }) => theme.color.bg.base};
-  border: 1px solid ${({ theme }) => theme.color.border.default};
-  border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.color.text.body};
-  font-family: ${({ theme }) => theme.font.body};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  transition: border-color 0.12s;
-  &:hover {
-    border-color: ${({ theme }) => theme.color.border.hover};
-  }
-  ${focusRing}
-`;
-
-const Note = styled.p`
-  margin: 0;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.color.semantic.error};
-`;
+import { ActionPanel } from '../shared/action-panel/ActionPanel';
+import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import styles from './SaveListButton.module.css';
 
 export const SaveListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);
@@ -91,6 +23,7 @@ export const SaveListButton = () => {
   const [error, setError] = useState<string | null>(null);
   const [confirmingOverwrite, setConfirmingOverwrite] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!open) {
@@ -112,6 +45,12 @@ export const SaveListButton = () => {
       document.removeEventListener('mousedown', onDown);
       document.removeEventListener('keydown', onKey);
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      inputRef.current?.focus();
+    }
   }, [open]);
 
   const openPanel = () => {
@@ -151,7 +90,7 @@ export const SaveListButton = () => {
   };
 
   return (
-    <Wrapper ref={wrapRef}>
+    <PopupAnchor ref={wrapRef}>
       <Button
         variant="ghost"
         size="sm"
@@ -165,14 +104,16 @@ export const SaveListButton = () => {
         Save
       </Button>
       {open && (
-        <Panel role="dialog" aria-label="Save list">
-          <PanelTitle>Save list</PanelTitle>
-          <Body>
-            <FieldLabel htmlFor="save-list-name">List name</FieldLabel>
-            <NameInput
+        <ActionPanel label="Save list" heading="Save list">
+          <div className={styles.body}>
+            <label className={styles.label} htmlFor="save-list-name">
+              List name
+            </label>
+            <input
+              className={styles.input}
+              ref={inputRef}
               id="save-list-name"
               value={name}
-              autoFocus
               onChange={(e) => {
                 setName(e.target.value);
                 setError(null);
@@ -184,12 +125,16 @@ export const SaveListButton = () => {
                 }
               }}
             />
-            {error && <Note role="alert">{error}</Note>}
+            {error && (
+              <p className={styles.note} role="alert">
+                {error}
+              </p>
+            )}
             <Button variant="primary" size="sm" onClick={handleSave}>
               Save list
             </Button>
-          </Body>
-        </Panel>
+          </div>
+        </ActionPanel>
       )}
       <ConfirmDialog
         open={confirmingOverwrite}
@@ -200,6 +145,6 @@ export const SaveListButton = () => {
         onConfirm={() => commit(name.trim())}
         onCancel={() => setConfirmingOverwrite(false)}
       />
-    </Wrapper>
+    </PopupAnchor>
   );
 };

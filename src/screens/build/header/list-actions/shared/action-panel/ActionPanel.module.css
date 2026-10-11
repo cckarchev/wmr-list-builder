@@ -1,0 +1,33 @@
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-xxs));
+  right: 0;
+  z-index: 30;
+  width: 280px;
+  max-width: calc(100vw - var(--space-md));
+  max-height: 60vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-panel);
+  text-align: left;
+}
+
+/* Slightly wider panel for content with long rows, such as saved lists. */
+.panel[data-wide] {
+  width: 300px;
+}
+
+.heading {
+  margin: 0;
+  padding: var(--space-sm) var(--space-sm) var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-dim);
+  border-bottom: 1px solid var(--color-border-divider);
+}

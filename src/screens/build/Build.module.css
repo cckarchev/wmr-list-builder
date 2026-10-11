@@ -1,0 +1,163 @@
+@import '@/theme/breakpoints.css';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  /* Tooltip bubbles on right-edge badges are absolutely positioned and extend
+     past the viewport while hidden; clip horizontally so they can't add a
+     page-wide scrollbar. clip (not hidden) avoids creating a scroll container,
+     so the sticky points bar keeps working. */
+  overflow-x: clip;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-md);
+  /* Cap and center the content so it gutters on large screens instead of the
+     (now narrower) cards sprawling edge-to-edge. */
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+@media (--tablet-up) {
+  .grid {
+    grid-template-columns: 1fr minmax(240px, 300px);
+    align-items: start;
+  }
+}
+
+.summaryMobile {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding: var(--space-md) var(--space-md) 0;
+}
+
+@media (--tablet-up) {
+  .summaryMobile {
+    display: none;
+  }
+}
+
+/* --header-height is set inline from the measured sticky Header. */
+.summaryDesktop {
+  display: none;
+}
+
+@media (--tablet-up) {
+  .summaryDesktop {
+    display: block;
+    /* Stick the rail within its grid column as the page scrolls, parked just
+       below the sticky Header (whose height varies with global errors). */
+    position: sticky;
+    align-self: start;
+    top: calc(var(--header-height) + var(--space-sm));
+    max-height: calc(100dvh - var(--header-height) - 2 * var(--space-sm));
+    overflow-y: auto;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  /* Allow the grid column to shrink rather than stretch the track. */
+  min-width: 0;
+}
+
+.empty {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.group:not(:first-of-type) {
+  margin-top: var(--space-sm);
+}
+
+.groupCards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.groupHeading {
+  margin: 0;
+}
+
+.groupToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--color-teal-bright);
+}
+
+.groupToggle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-divider);
+}
+
+.groupToggle:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* The +/- toggle marker. A horizontal bar is always drawn; the vertical bar is
+   revealed only when collapsed, animating the dash into a plus. */
+.toggleMark {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--space-sm);
+  height: var(--space-sm);
+}
+
+.toggleMark::before,
+.toggleMark::after {
+  content: '';
+  position: absolute;
+  background: var(--color-accent);
+}
+
+.toggleMark::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.toggleMark::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%) scaleY(0);
+  transition: transform 0.15s;
+}
+
+.groupToggle[aria-expanded='false'] .toggleMark::after {
+  transform: translateX(-50%) scaleY(1);
+}

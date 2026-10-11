@@ -1,15 +1,15 @@
 import { Fragment } from 'react';
-import styled from 'styled-components';
 import { Markdown } from '@/components/Markdown';
 import { useArmyStore } from '@/store/useArmyStore';
 import { usePrintOptions } from '../../printOptions';
-import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from '../printSection';
-
-const SpellHeader = styled(DefTerm)``;
-
-const SpellText = styled(DefDesc)`
-  margin-bottom: ${({ theme }) => `${theme.space.xs}px`};
-`;
+import {
+  DefDesc,
+  DefList,
+  DefTerm,
+  PrintHeading,
+  PrintSection,
+} from '../print-section/PrintSection';
+import styles from './Spells.module.css';
 
 export const Spells = () => {
   const spells = useArmyStore((s) => s.spells);
@@ -28,12 +28,13 @@ export const Spells = () => {
           const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
             spell.range ?? 'N/A'
           }`;
+
           return (
             <Fragment key={spell.name}>
-              <SpellHeader>{header}</SpellHeader>
-              <SpellText>
+              <DefTerm>{header}</DefTerm>
+              <DefDesc className={styles.text}>
                 <Markdown blocks={blocks} />
-              </SpellText>
+              </DefDesc>
             </Fragment>
           );
         })}

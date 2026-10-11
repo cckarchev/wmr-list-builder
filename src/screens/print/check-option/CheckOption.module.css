@@ -1,0 +1,13 @@
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.input {
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
