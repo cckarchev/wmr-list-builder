@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from './test/renderWithProviders';
+import { beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
-import { useArmyStore } from './store/useArmyStore';
-import { encodeList, buildCodeMaps } from './store/persistence';
 import { loadArmy } from './data/loadArmy';
+import { buildCodeMaps, encodeList } from './store/persistence';
+import { useArmyStore } from './store/useArmyStore';
+import { renderWithProviders } from './test/renderWithProviders';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
@@ -42,7 +42,7 @@ describe('App routing', () => {
     );
 
     renderWithProviders(<App />, {
-      routerProps: { initialEntries: ['/?army=goblin&list=' + encoded] },
+      routerProps: { initialEntries: [`/?army=goblin&list=${encoded}`] },
     });
 
     const bar = await screen.findByTestId('points-bar');

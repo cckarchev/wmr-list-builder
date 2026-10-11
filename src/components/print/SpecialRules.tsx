@@ -1,8 +1,8 @@
-import { marked } from 'marked';
-import { useArmyStore } from '../../store/useArmyStore';
 import type { SpecialRule } from '../../data/types';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
-import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
+import { useArmyStore } from '../../store/useArmyStore';
+import Markdown from '../ui/Markdown';
+import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
 function collectUsedSpecialRules(
   allSpecialRules: Record<string, SpecialRule>,
@@ -60,13 +60,14 @@ export default function SpecialRules() {
       <PrintHeading>Special Rules</PrintHeading>
       <DefList>
         {sorted.flatMap(([name, rule]) => {
-          const html = rule.text ? (marked(rule.text.join('\n\n')) as string) : '';
           return [
             <DefTerm key={`dt_${name}`}>
               {rule.order != null ? `${rule.order}. ` : ''}
               {name}
             </DefTerm>,
-            <DefDesc key={`dd_${name}`} dangerouslySetInnerHTML={{ __html: html }} />,
+            <DefDesc key={`dd_${name}`}>
+              <Markdown blocks={rule.text ?? []} />
+            </DefDesc>,
           ];
         })}
       </DefList>

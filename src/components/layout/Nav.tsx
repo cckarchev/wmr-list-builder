@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { focusRing } from '../../theme/focusRing';
 import ChevronMark from '../ui/ChevronMark';
 import Icon from '../ui/Icon';
-import { focusRing } from '../../theme/focusRing';
 
 const Bar = styled.header`
   display: flex;

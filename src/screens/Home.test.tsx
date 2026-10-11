@@ -1,8 +1,9 @@
-import { describe, it, expect } from 'vitest';
 import { screen } from '@testing-library/react';
-import Home from './Home';
-import { renderWithProviders } from '../test/renderWithProviders';
+import { describe, expect, it } from 'vitest';
 import { armyIndex } from '../data/armyIndex';
+import { defined } from '../test/defined';
+import { renderWithProviders } from '../test/renderWithProviders';
+import Home from './Home';
 
 describe('Home', () => {
   it('renders all 25 army links', () => {
@@ -23,7 +24,7 @@ describe('Home', () => {
     renderWithProviders(<Home />);
     const goblinEntry = armyIndex.find((a) => a.id === 'goblin');
     expect(goblinEntry).toBeDefined();
-    const link = screen.getByRole('link', { name: goblinEntry!.name });
+    const link = screen.getByRole('link', { name: defined(goblinEntry, 'goblinEntry').name });
     expect(link).toHaveAttribute('href', '/build/goblin');
   });
 });

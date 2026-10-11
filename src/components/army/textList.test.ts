@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { usedUnits as getUsedUnits, pointsCost } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, usedUnits as getUsedUnits } from '../../store/selectors';
+import { defined } from '../../test/defined';
 import { buildTextList } from './textList';
 
 beforeEach(() => {
@@ -19,7 +20,7 @@ describe('buildTextList', () => {
     const used = getUsedUnits(state);
 
     const result = buildTextList({
-      armyName: state.army!.name,
+      armyName: defined(state.army, 'army').name,
       label: state.label,
       points,
       usedUnits: used,
@@ -52,7 +53,7 @@ describe('buildTextList', () => {
     const used = getUsedUnits(state);
 
     const result = buildTextList({
-      armyName: state.army!.name,
+      armyName: defined(state.army, 'army').name,
       label: state.label,
       points,
       usedUnits: used,
@@ -73,7 +74,7 @@ describe('buildTextList', () => {
     const used = getUsedUnits(state);
 
     const result = buildTextList({
-      armyName: state.army!.name,
+      armyName: defined(state.army, 'army').name,
       label: state.label,
       points,
       usedUnits: used,
@@ -93,7 +94,7 @@ describe('buildTextList', () => {
     const used = getUsedUnits(state);
 
     const result = buildTextList({
-      armyName: state.army!.name,
+      armyName: defined(state.army, 'army').name,
       label: state.label,
       points,
       usedUnits: used,

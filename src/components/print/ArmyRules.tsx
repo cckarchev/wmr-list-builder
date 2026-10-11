@@ -1,7 +1,7 @@
-import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { PrintSection, PrintHeading } from './printSection';
+import Markdown from '../ui/Markdown';
+import { PrintHeading, PrintSection } from './printSection';
 
 const Content = styled.div`
   font-size: ${({ theme }) => theme.fontSize.sm};
@@ -21,12 +21,12 @@ export default function ArmyRules() {
 
   if (!army?.armyRules) return null;
 
-  const html = marked(army.armyRules.join('\n\n')) as string;
-
   return (
     <PrintSection>
       <PrintHeading>Army Rules</PrintHeading>
-      <Content dangerouslySetInnerHTML={{ __html: html }} />
+      <Content>
+        <Markdown blocks={army.armyRules} />
+      </Content>
     </PrintSection>
   );
 }

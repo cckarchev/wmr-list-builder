@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import ArmySummary from './ArmySummary';
 import { unitDomId } from './unitDomId';
-import { useArmyStore } from '../../store/useArmyStore';
 
 beforeEach(() => useArmyStore.getState().reset());
 

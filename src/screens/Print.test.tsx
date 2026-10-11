@@ -1,11 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { screen } from '@testing-library/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
 import Print from './Print';
-import { useArmyStore } from '../store/useArmyStore';
 
 function renderPrint(path = '/print/goblin') {
   return render(

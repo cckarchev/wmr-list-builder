@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { buildCodeMaps } from './persistence';
+import { describe, expect, it } from 'vitest';
 import { loadArmy } from '../data/loadArmy';
+import { buildCodeMaps } from './persistence';
 
 describe('buildCodeMaps', () => {
   it('maps unit names to ids and back', () => {

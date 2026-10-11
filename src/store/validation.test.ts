@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { defined } from '../test/defined';
+import type { UnitState, UpgradeState } from './storeHelpers';
+import { toSentence } from './toSentence';
 import { useArmyStore } from './useArmyStore';
 import { validate } from './validation';
-import { toSentence } from './toSentence';
-import type { UnitState, UpgradeState } from './storeHelpers';
 
 const get = () => useArmyStore.getState();
 const messages = () => validate(get().units, get().upgrades, get().gameSize).map((e) => e.message);
@@ -138,10 +139,10 @@ describe('augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
   it('flags more augend units than the units they attach to', () => {
     get().setArmy('empire');
     // Find the unit carrying augendUnits in the loaded data.
-    const augendUnitID = Object.keys(get().units).find(
-      (id) => (get().units[id] as UnitState).augendUnits,
-    )!;
-    const augends = (get().units[augendUnitID] as UnitState).augendUnits!;
+    const augendUnitID = defined(
+      Object.keys(get().units).find((id) => (get().units[id] as UnitState).augendUnits),
+    );
+    const augends = defined((get().units[augendUnitID] as UnitState).augendUnits);
     // The store auto-includes the base units at their minimums, so test the
     // augend logic directly with the base units empty.
     const units: Record<string, UnitState> = {
@@ -576,14 +577,18 @@ describe('independent violations stack on a single item (synthetic)', () => {
 describe('error attribution (targets)', () => {
   it('tags the list-level points error as global (empty targets)', () => {
     const units = { A: unit({ number: 1, pointsCost: 1200 }) };
-    const capErr = validate(units, {}, 1000).find((e) => /points over the/.test(e.message))!;
+    const capErr = defined(
+      validate(units, {}, 1000).find((e) => /points over the/.test(e.message)),
+    );
     expect(capErr.targets).toEqual([]);
   });
 
   it('attributes a numeric-min error to the offending unit id', () => {
-    const minErr = validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).find(
-      (e) => /Minimum of 8 Goblins/.test(e.message),
-    )!;
+    const minErr = defined(
+      validate({ Goblins: unit({ number: 1, min: 4, points: 30 }) }, {}, 2000).find((e) =>
+        /Minimum of 8 Goblins/.test(e.message),
+      ),
+    );
     expect(minErr.targets).toEqual(['Goblins']);
   });
 
@@ -592,9 +597,9 @@ describe('error attribution (targets)', () => {
       A: unit({ armyMax: 1, number: 1, homologousUnits: ['B'] }),
       B: unit({ number: 1 }),
     };
-    const maxErr = validate(units, {}, 1000).find((e) =>
-      /Maximum of 1 A or B per army/.test(e.message),
-    )!;
+    const maxErr = defined(
+      validate(units, {}, 1000).find((e) => /Maximum of 1 A or B per army/.test(e.message)),
+    );
     expect(maxErr.targets).toEqual(['A', 'B']);
   });
 
@@ -603,7 +608,9 @@ describe('error attribution (targets)', () => {
       A: upgrade({ number: 1, requiredUpgrades: ['B'] }),
       B: upgrade({ number: 0 }),
     };
-    const err = validate({}, upgrades, 1000).find((e) => /A must be taken with B/.test(e.message))!;
+    const err = defined(
+      validate({}, upgrades, 1000).find((e) => /A must be taken with B/.test(e.message)),
+    );
     expect(err.targets).toEqual(['A']);
   });
 });

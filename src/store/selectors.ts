@@ -1,7 +1,7 @@
-import type { ArmyState } from './useArmyStore';
-import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
 import type { ValidationError } from '../data/types';
 import { resolveBounds } from './forceLimits';
+import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
+import type { ArmyState } from './useArmyStore';
 
 const COUNTABLE_UNITS = [
   'Artillery',
@@ -34,7 +34,7 @@ export function unitCount(units: Record<string, UnitState>): number {
         acc += unit.number;
       }
 
-      if (unit.specialRules && unit.specialRules.includes('Skirmish')) {
+      if (unit.specialRules?.includes('Skirmish')) {
         skirmishCount += unit.number;
 
         if (!unit.armour) {
@@ -147,7 +147,8 @@ export function groupRosterUnits(
     if (CHARACTER_TYPES.includes(type)) {
       characters.push(id);
     } else {
-      (troops[type] ??= []).push(id);
+      troops[type] ??= [];
+      troops[type].push(id);
     }
   }
 

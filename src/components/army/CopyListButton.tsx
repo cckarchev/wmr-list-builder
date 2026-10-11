@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { usedUnits as getUsedUnits, pointsCost } from '../../store/selectors';
+import { useArmyStore } from '../../store/useArmyStore';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
-import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, usedUnits as getUsedUnits } from '../../store/selectors';
 import { buildTextList } from './textList';
 
 const Wrapper = styled.span`

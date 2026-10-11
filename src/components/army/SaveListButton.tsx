@@ -1,13 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { loadArmy } from '../../data/loadArmy';
+import { buildCodeMaps, encodeList, listSavedNames, saveNamedList } from '../../store/persistence';
+import { snapshotOf } from '../../store/snapshot';
+import { useArmyStore } from '../../store/useArmyStore';
+import { focusRing } from '../../theme/focusRing';
 import Button from '../ui/Button';
 import ConfirmDialog from '../ui/ConfirmDialog';
 import Icon from '../ui/Icon';
-import { focusRing } from '../../theme/focusRing';
-import { useArmyStore } from '../../store/useArmyStore';
-import { snapshotOf } from '../../store/snapshot';
-import { saveNamedList, listSavedNames, encodeList, buildCodeMaps } from '../../store/persistence';
-import { loadArmy } from '../../data/loadArmy';
 
 const Wrapper = styled.span`
   position: relative;

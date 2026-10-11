@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Stepper from './Stepper';
+import { describe, expect, it, vi } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
+import Stepper from './Stepper';
 
 describe('Stepper', () => {
   it('calls onChange with value + 1 when + is clicked', async () => {

@@ -76,29 +76,29 @@ export function explainMinMax(troop: MinMaxSource, gameSize: number): string | u
 
   switch (info.kind) {
     case 'army': {
-      if (info.min && info.min === info.max) return 'exactly ' + info.min + ' per army';
+      if (info.min && info.min === info.max) return `exactly ${info.min} per army`;
       const parts: string[] = [];
-      if (info.min) parts.push('min ' + info.min);
-      if (info.max) parts.push('max ' + info.max);
-      return parts.join(' / ') + ' per army';
+      if (info.min) parts.push(`min ${info.min}`);
+      if (info.max) parts.push(`max ${info.max}`);
+      return `${parts.join(' / ')} per army`;
     }
     case 'elite':
-      return 'max ' + info.cap + ' (elite: 1 per 1,000 pts after the first)';
+      return `max ${info.cap} (elite: 1 per 1,000 pts after the first)`;
     case 'token': {
-      if (/^As /.test(info.token)) return 'same number as ' + info.token.slice(3);
+      if (/^As /.test(info.token)) return `same number as ${info.token.slice(3)}`;
       return TOKEN_PHRASES[info.token] ?? info.token;
     }
     case 'rate': {
       const parts: string[] = [];
-      if (info.min) parts.push('min ' + info.min);
-      if (info.max) parts.push('max ' + info.max);
+      if (info.min) parts.push(`min ${info.min}`);
+      if (info.max) parts.push(`max ${info.max}`);
       const range =
         info.min && info.max
-          ? info.min * info.size + '–' + info.max * info.size
+          ? `${info.min * info.size}–${info.max * info.size}`
           : info.min
-            ? info.min * info.size + '+'
-            : 'up to ' + info.max * info.size;
-      return parts.join(' / ') + ' per 1,000 pts (≈ ' + range + ' at this size)';
+            ? `${info.min * info.size}+`
+            : `up to ${info.max * info.size}`;
+      return `${parts.join(' / ')} per 1,000 pts (≈ ${range} at this size)`;
     }
   }
 }
@@ -115,22 +115,22 @@ export function minMaxBadge(troop: MinMaxSource, gameSize: number): string | und
   switch (info.kind) {
     case 'army': {
       if (info.min && info.min === info.max) return String(info.min);
-      if (info.min && info.max) return info.min + '–' + info.max;
-      if (info.min) return info.min + '+';
-      return '≤' + info.max;
+      if (info.min && info.max) return `${info.min}–${info.max}`;
+      if (info.min) return `${info.min}+`;
+      return `≤${info.max}`;
     }
     case 'elite':
-      return '≤' + info.cap;
+      return `≤${info.cap}`;
     case 'token': {
-      if (/^As /.test(info.token)) return '= ' + info.token.slice(3);
+      if (/^As /.test(info.token)) return `= ${info.token.slice(3)}`;
       return TOKEN_BADGES[info.token] ?? info.token;
     }
     case 'rate': {
       const lo = info.min * info.size;
       const hi = info.max * info.size;
-      if (info.min && info.max) return lo + '–' + hi;
-      if (info.min) return lo + '+';
-      return '≤' + hi;
+      if (info.min && info.max) return `${lo}–${hi}`;
+      if (info.min) return `${lo}+`;
+      return `≤${hi}`;
     }
   }
 }

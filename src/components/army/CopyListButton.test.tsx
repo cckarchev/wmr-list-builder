@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import CopyListButton from './CopyListButton';
-import { useArmyStore } from '../../store/useArmyStore';
 
 const mockWriteText = vi.fn().mockResolvedValue(undefined);
 

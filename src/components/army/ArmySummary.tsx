@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { breakPoint, groupRosterUnits, pointsCost, unitCount } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount, breakPoint, groupRosterUnits } from '../../store/selectors';
-import { unitDomId } from './unitDomId';
 import { focusRing } from '../../theme/focusRing';
+import { unitDomId } from './unitDomId';
 
 const Aside = styled.aside`
   display: flex;

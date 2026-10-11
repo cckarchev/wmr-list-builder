@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
-import { marked } from 'marked';
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
-import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
+import Markdown from '../ui/Markdown';
 import { usePrintOptions } from './printOptions';
+import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
 const SpellHeader = styled(DefTerm)``;
 
@@ -21,16 +21,17 @@ export default function Spells() {
     <PrintSection>
       <PrintHeading>Spells</PrintHeading>
       <DefList>
-        {spells.map((spell, i) => {
+        {spells.map((spell) => {
           const blocks = spellFluff ? [`*${spell.fluff}*`, ...spell.text] : spell.text;
-          const html = marked(blocks.join('\n\n')) as string;
           const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
             spell.range ?? 'N/A'
           }`;
           return (
-            <Fragment key={i}>
+            <Fragment key={spell.name}>
               <SpellHeader>{header}</SpellHeader>
-              <SpellText dangerouslySetInnerHTML={{ __html: html }} />
+              <SpellText>
+                <Markdown blocks={blocks} />
+              </SpellText>
             </Fragment>
           );
         })}

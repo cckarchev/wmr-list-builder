@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount, usedUnits as getUsedUnits } from '../../store/selectors';
-import { resolveUpgradePoints } from '../../store/storeHelpers';
-import type { UnitState, UpgradeState } from '../../store/storeHelpers';
 import type { UsedUnit } from '../../store/selectors';
+import { usedUnits as getUsedUnits, pointsCost, unitCount } from '../../store/selectors';
+import type { UnitState, UpgradeState } from '../../store/storeHelpers';
+import { resolveUpgradePoints } from '../../store/storeHelpers';
+import { useArmyStore } from '../../store/useArmyStore';
 
 const TableWrapper = styled.div`
   overflow-x: auto;

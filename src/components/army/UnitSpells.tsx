@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { marked } from 'marked';
 import styled from 'styled-components';
-import { useArmyStore } from '../../store/useArmyStore';
 import { isCaster } from '../../store/selectors';
-import Popover from '../ui/Popover';
-import Icon from '../ui/Icon';
-import ChevronMark from '../ui/ChevronMark';
+import { useArmyStore } from '../../store/useArmyStore';
 import { focusRing } from '../../theme/focusRing';
+import ChevronMark from '../ui/ChevronMark';
+import Icon from '../ui/Icon';
+import Markdown from '../ui/Markdown';
+import Popover from '../ui/Popover';
 
 interface UnitSpellsProps {
   unitId: string;
@@ -120,7 +120,7 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
         {spells.map((spell, i) => {
           const isOpen = open.has(i);
           return (
-            <SpellItem key={i}>
+            <SpellItem key={spell.name}>
               <Header type="button" aria-expanded={isOpen} onClick={() => toggle(i)}>
                 <Caret $open={isOpen}>
                   <ChevronMark size={11} color="currentColor" />
@@ -130,11 +130,9 @@ export default function UnitSpells({ unitId }: UnitSpellsProps) {
                 <Range>{spell.range ?? '—'}</Range>
               </Header>
               {isOpen && (
-                <Effect
-                  dangerouslySetInnerHTML={{
-                    __html: marked([`*${spell.fluff}*`, ...spell.text].join('\n\n')) as string,
-                  }}
-                />
+                <Effect>
+                  <Markdown blocks={[`*${spell.fluff}*`, ...spell.text]} />
+                </Effect>
               )}
             </SpellItem>
           );

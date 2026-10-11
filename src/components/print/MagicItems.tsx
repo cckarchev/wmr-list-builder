@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
-import { marked } from 'marked';
+import { MAGIC_ITEM_TYPES, magicItems } from '../../data/magicItems';
 import { useArmyStore } from '../../store/useArmyStore';
-import { magicItems, MAGIC_ITEM_TYPES } from '../../data/magicItems';
-import { PrintSection, PrintHeading, DefList, DefTerm, DefDesc } from './printSection';
+import Markdown from '../ui/Markdown';
+import { DefDesc, DefList, DefTerm, PrintHeading, PrintSection } from './printSection';
 
 export default function MagicItems() {
   const upgrades = useArmyStore((s) => s.upgrades);
@@ -27,11 +27,12 @@ export default function MagicItems() {
       <PrintHeading>Magic Items</PrintHeading>
       <DefList>
         {entries.map(([name, item]) => {
-          const html = marked(item.text.join('\n\n')) as string;
           return (
             <Fragment key={name}>
               <DefTerm>{name}</DefTerm>
-              <DefDesc dangerouslySetInnerHTML={{ __html: html }} />
+              <DefDesc>
+                <Markdown blocks={item.text} />
+              </DefDesc>
             </Fragment>
           );
         })}

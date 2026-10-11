@@ -1,12 +1,13 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { loadArmy } from '../../data/loadArmy';
+import { buildCodeMaps, encodeList, saveNamedList } from '../../store/persistence';
+import { snapshotOf } from '../../store/snapshot';
+import { useArmyStore } from '../../store/useArmyStore';
+import { defined } from '../../test/defined';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import LoadListButton from './LoadListButton';
-import { useArmyStore } from '../../store/useArmyStore';
-import { saveNamedList, encodeList, buildCodeMaps } from '../../store/persistence';
-import { snapshotOf } from '../../store/snapshot';
-import { loadArmy } from '../../data/loadArmy';
 
 const seed = (name: string, gameSize: number) =>
   saveNamedList('bretonnia', name, { name, gameSize, units: {}, upgrades: {} });
@@ -14,7 +15,7 @@ const seed = (name: string, gameSize: number) =>
 // Encode the current store state so the list reads as clean (no dirty-confirm).
 const markClean = () => {
   const { armyId, gameSize, units, label } = useArmyStore.getState();
-  const maps = buildCodeMaps(loadArmy(armyId!));
+  const maps = buildCodeMaps(loadArmy(defined(armyId, 'armyId')));
   useArmyStore
     .getState()
     .setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));

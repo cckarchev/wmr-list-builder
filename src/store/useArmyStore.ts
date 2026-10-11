@@ -3,15 +3,15 @@ import { create } from 'zustand';
 import { loadArmy } from '../data/loadArmy';
 import { magicItems } from '../data/magicItems';
 import type { Army, Spell, UpgradeConstraint, ValidationError } from '../data/types';
-import { buildUnits, buildUpgrades, unitPointsCost, unitUpgradePointsCost } from './storeHelpers';
-import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
-import { validate } from './validation';
-import { resolveBounds, applyForceMinimums } from './forceLimits';
+import { applyForceMinimums, resolveBounds } from './forceLimits';
 import type { ListSnapshot } from './persistence';
+import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
+import { buildUnits, buildUpgrades, unitPointsCost, unitUpgradePointsCost } from './storeHelpers';
+import { validate } from './validation';
 
 export const DEFAULT_GAME_SIZE = 2000;
 
-export type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
+export type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 
 export interface ArmyState {
   // data

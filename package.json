@@ -9,13 +9,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "biome lint",
-    "lint:fix": "biome lint --write",
-    "format": "biome format --write",
-    "format:check": "biome format",
-    "typecheck": "tsc -b --noEmit",
-    "check": "biome check",
-    "check:fix": "biome check --write"
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "marked": "^18.0.5",

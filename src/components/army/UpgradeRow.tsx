@@ -1,14 +1,14 @@
-import { marked } from 'marked';
 import styled from 'styled-components';
-import { useArmyStore } from '../../store/useArmyStore';
-import { resolveUpgradePoints } from '../../store/storeHelpers';
+import { explainMinMax, minMaxBadge } from '../../store/minMax';
 import { errorsForTarget } from '../../store/selectors';
+import { resolveUpgradePoints } from '../../store/storeHelpers';
 import { resolveUpgradeRules } from '../../store/upgradeRules';
-import { minMaxBadge, explainMinMax } from '../../store/minMax';
+import { useArmyStore } from '../../store/useArmyStore';
+import Icon from '../ui/Icon';
+import Markdown from '../ui/Markdown';
+import Popover from '../ui/Popover';
 import Stepper from '../ui/Stepper';
 import Tooltip from '../ui/Tooltip';
-import Popover from '../ui/Popover';
-import Icon from '../ui/Icon';
 import InlineErrors from './InlineErrors';
 
 interface UpgradeRowProps {
@@ -134,11 +134,9 @@ export default function UpgradeRow({ unitId, upgradeId }: UpgradeRowProps) {
             {rules.map(({ name, rule }) => (
               <Rule key={name}>
                 <RuleName>{name}</RuleName>
-                <RuleText
-                  dangerouslySetInnerHTML={{
-                    __html: marked(rule.text?.join('\n\n') ?? '') as string,
-                  }}
-                />
+                <RuleText>
+                  <Markdown blocks={rule.text ?? []} />
+                </RuleText>
               </Rule>
             ))}
           </Popover>

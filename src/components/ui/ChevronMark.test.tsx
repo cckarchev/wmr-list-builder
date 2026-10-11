@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { defined } from '../../test/defined';
 import { renderWithTheme } from '../../test/renderWithProviders';
 import ChevronMark from './ChevronMark';
 
@@ -13,7 +14,7 @@ describe('ChevronMark', () => {
 
   it('applies the given size to the svg', () => {
     const { container } = renderWithTheme(<ChevronMark size={20} />);
-    const svg = container.querySelector('svg')!;
+    const svg = defined(container.querySelector('svg'), 'svg');
     expect(svg).toHaveAttribute('width', '20');
     expect(svg).toHaveAttribute('height', '20');
   });

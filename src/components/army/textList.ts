@@ -11,7 +11,7 @@ export interface TextListParams {
 function padLeft(str: string | number, width: number): string {
   let s = String(str);
   while (s.length < width) {
-    s = ' ' + s;
+    s = ` ${s}`;
   }
   return s;
 }

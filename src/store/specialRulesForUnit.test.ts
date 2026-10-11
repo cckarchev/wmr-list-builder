@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { resolveUnitSpecialRules } from './specialRulesForUnit';
+import { describe, expect, it } from 'vitest';
 import type { SpecialRule } from '../data/types';
+import { resolveUnitSpecialRules } from './specialRulesForUnit';
 
 const rules: Record<string, SpecialRule> = {
   Goblins: { order: 1, text: ['Goblins are cowardly.'] },

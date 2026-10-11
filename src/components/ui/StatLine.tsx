@@ -49,7 +49,7 @@ const StatLabel = styled.span`
   letter-spacing: 0.06em;
 `;
 
-const StatValue = styled.span`
+const StatFigure = styled.span`
   font-family: ${({ theme }) => theme.font.mono};
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.color.text.strong};
@@ -92,7 +92,7 @@ export default function StatLine({
       {cells.map(({ label, value }) => (
         <StatCell key={label}>
           <StatLabel>{label}</StatLabel>
-          <StatValue>{value}</StatValue>
+          <StatFigure>{value}</StatFigure>
         </StatCell>
       ))}
     </StatTable>

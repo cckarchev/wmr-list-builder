@@ -1,6 +1,6 @@
-import type { Army } from '../data/types';
-import { magicItems } from '../data/magicItems';
 import { loadArmy } from '../data/loadArmy';
+import { magicItems } from '../data/magicItems';
+import type { Army } from '../data/types';
 
 export interface ListSnapshot {
   name: string;

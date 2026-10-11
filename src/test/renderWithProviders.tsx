@@ -1,7 +1,7 @@
-import { type ReactElement } from 'react';
-import { render, type RenderOptions } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import { type RenderOptions, render } from '@testing-library/react';
+import type { ReactElement } from 'react';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import { theme } from '../theme/theme';
 
 interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {

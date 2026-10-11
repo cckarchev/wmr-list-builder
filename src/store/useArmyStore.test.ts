@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { useArmyStore } from './useArmyStore';
-import { pointsCost } from './selectors';
-import { resolveBounds } from './forceLimits';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { availablePrintSections } from '../components/print/printSections';
+import { defined } from '../test/defined';
+import { resolveBounds } from './forceLimits';
+import { pointsCost } from './selectors';
+import { useArmyStore } from './useArmyStore';
 
 const get = () => useArmyStore.getState();
 
@@ -60,9 +61,13 @@ describe('upgradeConstraints auto-attach', () => {
   it('attaches magic-item upgrades to an eligible unit', () => {
     get().setArmy('empire');
     // General (type "General") gets Crown of Command from the magic-item constraints
-    expect(Object.keys(get().units.General.upgrades!)).toContain('Crown of Command');
+    expect(Object.keys(defined(get().units.General.upgrades, 'upgrades'))).toContain(
+      'Crown of Command',
+    );
     // Infantry gets the Battle Banner
-    expect(Object.keys(get().units.Halberdiers.upgrades!)).toContain('Battle Banner');
+    expect(Object.keys(defined(get().units.Halberdiers.upgrades, 'upgrades'))).toContain(
+      'Battle Banner',
+    );
   });
 
   it('does not attach magic upgrades to a noMagic unit', () => {
@@ -100,8 +105,8 @@ describe('setUnitUpgradeNumber - plain +N points', () => {
     get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
 
     const unit = get().units.Halberdiers;
-    expect(unit.upgrades!['Battle Banner'].number).toBe(1);
-    expect(unit.upgrades!['Battle Banner'].pointsCost).toBe(30); // +30
+    expect(defined(unit.upgrades, 'upgrades')['Battle Banner'].number).toBe(1);
+    expect(defined(unit.upgrades, 'upgrades')['Battle Banner'].pointsCost).toBe(30); // +30
     expect(unit.pointsCost).toBe(5 * 45 + 30); // 255
     expect(get().upgrades['Battle Banner'].number).toBe(1); // global total
   });
@@ -114,7 +119,7 @@ describe('setUnitUpgradeNumber - variable pricing', () => {
     get().setUnitUpgradeNumber('Knights', 'Banner of Shielding', 1);
 
     const unit = get().units.Knights;
-    expect(unit.upgrades!['Banner of Shielding'].pointsCost).toBe(50); // armour 4+ -> +50
+    expect(defined(unit.upgrades, 'upgrades')['Banner of Shielding'].pointsCost).toBe(50); // armour 4+ -> +50
     expect(unit.pointsCost).toBe(2 * 110 + 50); // 270
     expect(get().upgrades['Banner of Shielding'].number).toBe(1);
   });
@@ -126,7 +131,7 @@ describe('clamping and cascades', () => {
     get().setUnitNumber('Halberdiers', 5);
     get().setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 9);
 
-    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(5);
+    expect(defined(get().units.Halberdiers.upgrades, 'upgrades')['Battle Banner'].number).toBe(5);
     expect(get().upgrades['Battle Banner'].number).toBe(5);
   });
 
@@ -137,7 +142,7 @@ describe('clamping and cascades', () => {
     expect(get().upgrades['Battle Banner'].number).toBe(6);
 
     get().setUnitNumber('Halberdiers', 4); // == min floor at 2,000
-    expect(get().units.Halberdiers.upgrades!['Battle Banner'].number).toBe(4);
+    expect(defined(get().units.Halberdiers.upgrades, 'upgrades')['Battle Banner'].number).toBe(4);
     expect(get().upgrades['Battle Banner'].number).toBe(4);
     expect(get().units.Halberdiers.pointsCost).toBe(4 * 45 + 4 * 30); // 300
   });

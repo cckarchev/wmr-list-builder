@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import UpgradeRow from './UpgradeRow';
-import { useArmyStore } from '../../store/useArmyStore';
 
 beforeEach(() => useArmyStore.getState().reset());
 

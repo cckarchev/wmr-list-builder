@@ -1,6 +1,6 @@
 import type { ValidationError } from '../data/types';
-import type { UnitState, UpgradeState, UnitUpgradeEntry } from './storeHelpers';
-import { pointsCost, armySize } from './selectors';
+import { armySize, pointsCost } from './selectors';
+import type { UnitState, UnitUpgradeEntry, UpgradeState } from './storeHelpers';
 import { toSentence } from './toSentence';
 
 /** UNIT types (getters.js COUNTABLE_UNITS / actions.js UNIT_TYPES). */
@@ -110,12 +110,12 @@ function checkValidations(
 
   // army min
   if (item.number + homologousCount < (item.armyMin as number)) {
-    errors.push({ targets, message: 'Minimum of ' + item.armyMin + ' ' + id + ' per army.' });
+    errors.push({ targets, message: `Minimum of ${item.armyMin} ${id} per army.` });
   }
 
   // army max
   if (item.number + homologousCount > (item.armyMax as number)) {
-    errors.push({ targets, message: 'Maximum of ' + item.armyMax + ' ' + id + ' per army.' });
+    errors.push({ targets, message: `Maximum of ${item.armyMax} ${id} per army.` });
   }
 
   // min
@@ -141,7 +141,7 @@ function checkValidations(
   ) {
     errors.push({
       targets,
-      message: 'Half or all ' + requiredSentence + ' must be upgraded to ' + id + '.',
+      message: `Half or all ${requiredSentence} must be upgraded to ${id}.`,
     });
   } else if (
     item.min === 'Half or More' &&
@@ -195,8 +195,7 @@ function checkValidations(
   } else if (gameSize >= 1000 && item.number + homologousCount < (item.min as number) * size) {
     errors.push({
       targets,
-      message:
-        'Minimum of ' + (item.min as number) * size + ' ' + id + ' per ' + size + ',000 points.',
+      message: `Minimum of ${(item.min as number) * size} ${id} per ${size},000 points.`,
     });
   }
 
@@ -204,7 +203,7 @@ function checkValidations(
   if (item.max === 'elite' && item.number + homologousCount > size - 1) {
     errors.push({
       targets,
-      message: 'Maximum of ' + (size - 1) + ' ' + id + ' per ' + size + ',000 points.',
+      message: `Maximum of ${size - 1} ${id} per ${size},000 points.`,
     });
   } else if (
     item.max === 'Half or None' &&
@@ -258,8 +257,7 @@ function checkValidations(
   } else if (item.number + homologousCount > (item.max as number) * size) {
     errors.push({
       targets,
-      message:
-        'Maximum of ' + (item.max as number) * size + ' ' + id + ' per ' + size + ',000 points.',
+      message: `Maximum of ${(item.max as number) * size} ${id} per ${size},000 points.`,
     });
   }
 
@@ -337,7 +335,7 @@ function checkValidations(
   ) {
     errors.push({
       targets,
-      message: id + ' must be taken with ' + toSentence(item.requiredUnits) + '.',
+      message: `${id} must be taken with ${toSentence(item.requiredUnits)}.`,
     });
   }
 
@@ -349,7 +347,7 @@ function checkValidations(
   ) {
     errors.push({
       targets,
-      message: id + ' must be taken with ' + toSentence(item.requiredUpgrades) + '.',
+      message: `${id} must be taken with ${toSentence(item.requiredUpgrades)}.`,
     });
   }
 
@@ -361,7 +359,7 @@ function checkValidations(
   ) {
     errors.push({
       targets,
-      message: id + ' cannot be taken with ' + toSentence(item.prohibitedUnits) + '.',
+      message: `${id} cannot be taken with ${toSentence(item.prohibitedUnits)}.`,
     });
   }
 
@@ -373,7 +371,7 @@ function checkValidations(
   ) {
     errors.push({
       targets,
-      message: id + ' cannot be taken with ' + toSentence(item.prohibitedUpgrades) + '.',
+      message: `${id} cannot be taken with ${toSentence(item.prohibitedUpgrades)}.`,
     });
   }
 }

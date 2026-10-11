@@ -1,4 +1,4 @@
-import type { StatValue, Unit, Upgrade, MagicItem, UpgradeConstraint } from '../data/types';
+import type { MagicItem, StatValue, Unit, Upgrade, UpgradeConstraint } from '../data/types';
 
 /**
  * Runtime per-unit upgrade entry. Mirrors the Vue store's
@@ -73,18 +73,18 @@ export function minMax(troop: Unit | Upgrade | MagicItem): string {
     if (t.armyMin) {
       let result = String(t.armyMin);
       if (t.armyMax && t.armyMin !== t.armyMax) {
-        result += '–' + t.armyMax;
+        result += `–${t.armyMax}`;
       }
       return result;
     }
-    return '0–' + t.armyMax;
+    return `0–${t.armyMax}`;
   }
 
   if (typeof t.min === 'string' || typeof t.max === 'string') {
     return String(t.min || t.max);
   }
 
-  return (t.min || '-') + '/' + (t.max || '-');
+  return `${t.min || '-'}/${t.max || '-'}`;
 }
 
 /**

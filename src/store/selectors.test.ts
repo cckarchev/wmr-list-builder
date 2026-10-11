@@ -1,18 +1,19 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { useArmyStore } from './useArmyStore';
+import { beforeEach, describe, expect, it } from 'vitest';
+import type { ValidationError } from '../data/types';
+import { defined } from '../test/defined';
 import {
-  pointsCost,
   armySize,
-  unitCount,
   breakPoint,
-  usedUnits,
   errorsForTarget,
   globalErrors,
   groupRosterUnits,
   isCharacter,
+  pointsCost,
+  unitCount,
+  usedUnits,
 } from './selectors';
 import type { UnitState } from './storeHelpers';
-import type { ValidationError } from '../data/types';
+import { useArmyStore } from './useArmyStore';
 
 /** Build a minimal units map keyed in insertion order; only `type` matters here. */
 function unitsOf(entries: [string, string][]): Record<string, UnitState> {
@@ -114,7 +115,7 @@ describe('usedUnits', () => {
     expect(used.Halberdiers).toBeDefined();
     expect(Object.values(used).every((u) => u.number > 0)).toBe(true);
     // used upgrade merges the global upgrade record with the unit entry
-    const banner = used.Halberdiers.upgrades!['Battle Banner'];
+    const banner = defined(used.Halberdiers.upgrades, 'upgrades')['Battle Banner'];
     expect(banner.number).toBe(1);
     expect(banner.type).toBe('Magic Standard'); // from the global record
   });

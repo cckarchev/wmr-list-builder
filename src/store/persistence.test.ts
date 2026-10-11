@@ -1,18 +1,18 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { loadArmy } from '../data/loadArmy';
 import {
-  encodeList,
+  buildCodeMaps,
   decodeList,
   decodeShare,
-  saveList,
-  loadList,
-  buildCodeMaps,
-  saveNamedList,
-  loadNamedList,
-  listSavedNames,
   deleteNamedList,
+  encodeList,
   type ListSnapshot,
+  listSavedNames,
+  loadList,
+  loadNamedList,
+  saveList,
+  saveNamedList,
 } from './persistence';
-import { loadArmy } from '../data/loadArmy';
 
 const maps = buildCodeMaps(loadArmy('empire'));
 

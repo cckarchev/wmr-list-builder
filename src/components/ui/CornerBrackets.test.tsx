@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import { screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
 import CornerBrackets from './CornerBrackets';
 

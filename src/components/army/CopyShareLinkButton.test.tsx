@@ -1,10 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { initEmbed } from '../../store/embed';
+import { useArmyStore } from '../../store/useArmyStore';
 import { renderWithProviders } from '../../test/renderWithProviders';
 import CopyShareLinkButton from './CopyShareLinkButton';
-import { useArmyStore } from '../../store/useArmyStore';
-import { initEmbed } from '../../store/embed';
 
 describe('CopyShareLinkButton', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('CopyShareLinkButton', () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
     initEmbed(
-      '?embed=' + encodeURIComponent('https://www.cckarchev.ar/juegos/warmaster/list-builder/'),
+      `?embed=${encodeURIComponent('https://www.cckarchev.ar/juegos/warmaster/list-builder/')}`,
     );
     useArmyStore.getState().setArmy('empire');
 

@@ -1,7 +1,7 @@
-import { useArmyStore } from './useArmyStore';
-import { snapshotOf } from './snapshot';
-import { encodeList, buildCodeMaps } from './persistence';
 import { loadArmy } from '../data/loadArmy';
+import { buildCodeMaps, encodeList } from './persistence';
+import { snapshotOf } from './snapshot';
+import { useArmyStore } from './useArmyStore';
 
 // True when the current list differs from the last Saved/Loaded named list.
 // Lists are small, so re-encoding per render is cheap. With no baseline

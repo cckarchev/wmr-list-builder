@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useArmyStore } from '../store/useArmyStore';
 import PrintView from '../components/print/PrintView';
 import { availablePrintSections } from '../components/print/printSections';
 import Icon from '../components/ui/Icon';
+import { useArmyStore } from '../store/useArmyStore';
 
 const Page = styled.main`
   min-height: 100dvh;

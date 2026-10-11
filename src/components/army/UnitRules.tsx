@@ -1,9 +1,9 @@
-import { marked } from 'marked';
 import styled from 'styled-components';
-import { useArmyStore } from '../../store/useArmyStore';
 import { resolveUnitSpecialRules } from '../../store/specialRulesForUnit';
-import Popover from '../ui/Popover';
+import { useArmyStore } from '../../store/useArmyStore';
 import Icon from '../ui/Icon';
+import Markdown from '../ui/Markdown';
+import Popover from '../ui/Popover';
 
 interface UnitRulesProps {
   unitId: string;
@@ -58,9 +58,9 @@ export default function UnitRules({ unitId }: UnitRulesProps) {
       {rules.map(({ name, rule }) => (
         <Rule key={name}>
           <RuleName>{name}</RuleName>
-          <RuleText
-            dangerouslySetInnerHTML={{ __html: marked(rule.text?.join('\n\n') ?? '') as string }}
-          />
+          <RuleText>
+            <Markdown blocks={rule.text ?? []} />
+          </RuleText>
         </Rule>
       ))}
     </Popover>

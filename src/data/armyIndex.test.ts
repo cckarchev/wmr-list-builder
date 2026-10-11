@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { armyIndex, armiesById } from './armyIndex';
+import { describe, expect, it } from 'vitest';
+import { armiesById, armyIndex } from './armyIndex';
 import { loadArmy } from './loadArmy';
 
 describe('army index', () => {

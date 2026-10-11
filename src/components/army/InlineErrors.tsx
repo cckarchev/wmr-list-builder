@@ -34,8 +34,8 @@ export default function InlineErrors({ errors, label = 'Unit errors' }: InlineEr
   if (errors.length === 0) return null;
   return (
     <List role="list" aria-label={label}>
-      {errors.map((error, i) => (
-        <Item key={i}>
+      {errors.map((error) => (
+        <Item key={error.message}>
           <Marker aria-hidden="true">!</Marker>
           {error.message}
         </Item>

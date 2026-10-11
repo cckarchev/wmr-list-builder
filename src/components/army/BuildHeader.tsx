@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import { breakPoint, globalErrors, pointsCost, unitCount } from '../../store/selectors';
 import { useArmyStore } from '../../store/useArmyStore';
-import { pointsCost, unitCount, breakPoint, globalErrors } from '../../store/selectors';
-import { unitDomId } from './unitDomId';
-import { focusRing } from '../../theme/focusRing';
-import ListActions from './ListActions';
-import GameSizeStepper from './GameSizeStepper';
 import { useIsDirty } from '../../store/useIsDirty';
+import { focusRing } from '../../theme/focusRing';
+import GameSizeStepper from './GameSizeStepper';
+import ListActions from './ListActions';
+import { unitDomId } from './unitDomId';
 
 const Header = styled.header`
   position: sticky;
@@ -285,8 +285,8 @@ export default function BuildHeader() {
             {errors.length} issue{errors.length === 1 ? '' : 's'}
           </InvalidButton>
         )}
-        {globals.map((e, i) => (
-          <GlobalError key={i}>{e.message}</GlobalError>
+        {globals.map((e) => (
+          <GlobalError key={e.message}>{e.message}</GlobalError>
         ))}
         {loadWarning && (
           <WarningBanner role="alert">

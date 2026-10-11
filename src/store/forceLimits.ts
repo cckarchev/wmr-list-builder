@@ -1,6 +1,6 @@
+import { armySize } from './selectors';
 import type { UnitState } from './storeHelpers';
 import { unitPointsCost } from './storeHelpers';
-import { armySize } from './selectors';
 
 export interface Bounds {
   min: number;

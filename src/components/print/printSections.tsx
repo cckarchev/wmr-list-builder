@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
-import Stats from './Stats';
 import ArmyRules from './ArmyRules';
-import SpecialRules from './SpecialRules';
 import MagicItems from './MagicItems';
+import SpecialRules from './SpecialRules';
 import Spells from './Spells';
+import Stats from './Stats';
 
 export interface PrintSectionCtx {
   hasArmyRules: boolean;

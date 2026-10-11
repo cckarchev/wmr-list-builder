@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
+import { useArmyStore } from '../../store/useArmyStore';
 import Button from '../ui/Button';
 import ConfirmDialog from '../ui/ConfirmDialog';
 import Icon from '../ui/Icon';
-import { useArmyStore } from '../../store/useArmyStore';
 
 export default function ResetListButton() {
   const armyId = useArmyStore((s) => s.armyId);

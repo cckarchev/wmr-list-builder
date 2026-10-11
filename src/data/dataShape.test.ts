@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { armiesById } from './armyIndex';
 import { magicItems } from './magicItems';
 
@@ -51,8 +51,8 @@ describe('data shape after cleanup', () => {
   });
 
   it('keeps order on special rules', () => {
-    const empire = armiesById['empire'];
-    const handgunners = empire.specialRules?.['Handgunners'];
+    const empire = armiesById.empire;
+    const handgunners = empire.specialRules?.Handgunners;
     expect(handgunners?.order).toBe(1);
   });
 });

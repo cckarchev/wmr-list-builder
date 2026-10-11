@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { loadArmy } from '../../data/loadArmy';
+import { getEmbedBase } from '../../store/embed';
+import { buildCodeMaps, encodeList } from '../../store/persistence';
+import { snapshotOf } from '../../store/snapshot';
+import { useArmyStore } from '../../store/useArmyStore';
 import Button from '../ui/Button';
 import Icon from '../ui/Icon';
-import { useArmyStore } from '../../store/useArmyStore';
-import { encodeList, buildCodeMaps } from '../../store/persistence';
-import { loadArmy } from '../../data/loadArmy';
-import { snapshotOf } from '../../store/snapshot';
-import { getEmbedBase } from '../../store/embed';
 
 const Wrapper = styled.span`
   position: relative;

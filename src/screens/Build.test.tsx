@@ -1,15 +1,13 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { loadArmy } from '../data/loadArmy';
+import { buildCodeMaps, encodeList, saveList } from '../store/persistence';
+import { useArmyStore } from '../store/useArmyStore';
 import { theme } from '../theme/theme';
 import Build from './Build';
-import { useArmyStore } from '../store/useArmyStore';
-import { encodeList, buildCodeMaps, saveList } from '../store/persistence';
-import { loadArmy } from '../data/loadArmy';
 
 function renderBuild(path = '/build/goblin') {
   return render(

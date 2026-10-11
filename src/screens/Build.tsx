@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useArmyStore } from '../store/useArmyStore';
-import { groupRosterUnits } from '../store/selectors';
-import { loadList, saveList, decodeShare, buildCodeMaps } from '../store/persistence';
-import { loadArmy } from '../data/loadArmy';
-import { snapshotOf } from '../store/snapshot';
-import UnitCard from '../components/army/UnitCard';
 import ArmySummary from '../components/army/ArmySummary';
 import BuildHeader from '../components/army/BuildHeader';
 import RosterFilters from '../components/army/RosterFilters';
+import UnitCard from '../components/army/UnitCard';
+import { loadArmy } from '../data/loadArmy';
+import { buildCodeMaps, decodeShare, loadList, saveList } from '../store/persistence';
+import { groupRosterUnits } from '../store/selectors';
+import { snapshotOf } from '../store/snapshot';
+import { useArmyStore } from '../store/useArmyStore';
 import { focusRing } from '../theme/focusRing';
 
 const Page = styled.main`
@@ -192,7 +192,6 @@ export default function Build() {
       const saved = loadList(armyId);
       if (saved) applyList(saved);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [armyId, armyIdInStore, setArmy]);
 
   // Auto-save the current list whenever it changes.

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useArmyStore } from '../../store/useArmyStore';
+import { type PrintOptions, PrintOptionsContext } from './printOptions';
 import type { PrintSectionDef } from './printSections';
-import { PrintOptionsContext, type PrintOptions } from './printOptions';
 
 const Document = styled.div`
   padding: ${({ theme }) => `${theme.space[4]}px`};

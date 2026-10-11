@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { useArmyStore } from '../../store/useArmyStore';
 import { resolveBounds } from '../../store/forceLimits';
-import { errorsForTarget, isCharacter } from '../../store/selectors';
 import { groupUpgradeIds } from '../../store/groupUpgrades';
-import { minMaxBadge, explainMinMax } from '../../store/minMax';
-import Stepper from '../ui/Stepper';
-import StatLine from '../ui/StatLine';
-import Tooltip from '../ui/Tooltip';
+import { explainMinMax, minMaxBadge } from '../../store/minMax';
+import { errorsForTarget, isCharacter } from '../../store/selectors';
+import { useArmyStore } from '../../store/useArmyStore';
+import { pillButton } from '../../theme/pillButton';
 import ChevronMark from '../ui/ChevronMark';
 import CornerBrackets from '../ui/CornerBrackets';
-import { pillButton } from '../../theme/pillButton';
-import UpgradeRow from './UpgradeRow';
+import StatLine from '../ui/StatLine';
+import Stepper from '../ui/Stepper';
+import Tooltip from '../ui/Tooltip';
 import InlineErrors from './InlineErrors';
 import UnitRules from './UnitRules';
 import UnitSpells from './UnitSpells';
+import UpgradeRow from './UpgradeRow';
 import { unitDomId } from './unitDomId';
 
 interface UnitCardProps {

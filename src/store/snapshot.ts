@@ -1,5 +1,5 @@
-import type { ArmyState } from './useArmyStore';
 import type { ListSnapshot } from './persistence';
+import type { ArmyState } from './useArmyStore';
 
 export function snapshotOf(state: Pick<ArmyState, 'gameSize' | 'units' | 'label'>): ListSnapshot {
   const units: Record<string, number> = {};

@@ -1,6 +1,6 @@
-import { describe, it, expect, vi } from 'vitest';
-import { screen, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 import { renderWithTheme } from '../../test/renderWithProviders';
 import ConfirmDialog from './ConfirmDialog';
 

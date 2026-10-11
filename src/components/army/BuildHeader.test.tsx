@@ -1,14 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { within } from '@testing-library/react';
-import { screen } from '@testing-library/react';
-import { renderWithProviders } from '../../test/renderWithProviders';
-import BuildHeader from './BuildHeader';
-import { useArmyStore } from '../../store/useArmyStore';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { loadArmy } from '../../data/loadArmy';
+import { buildCodeMaps, encodeList } from '../../store/persistence';
 import { breakPoint } from '../../store/selectors';
 import { snapshotOf } from '../../store/snapshot';
-import { encodeList, buildCodeMaps } from '../../store/persistence';
-import { loadArmy } from '../../data/loadArmy';
+import { useArmyStore } from '../../store/useArmyStore';
+import { defined } from '../../test/defined';
+import { renderWithProviders } from '../../test/renderWithProviders';
+import BuildHeader from './BuildHeader';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
@@ -123,7 +123,7 @@ describe('BuildHeader list name', () => {
     useArmyStore.getState().setArmy('bretonnia');
     useArmyStore.getState().setLabel('Tourney List');
     const { armyId, gameSize, units, label } = useArmyStore.getState();
-    const maps = buildCodeMaps(loadArmy(armyId!));
+    const maps = buildCodeMaps(loadArmy(defined(armyId, 'armyId')));
     useArmyStore
       .getState()
       .setSavedBaseline(encodeList(snapshotOf({ gameSize, units, label }), maps));
