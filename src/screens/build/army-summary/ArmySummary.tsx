@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { breakPoint, groupRosterUnits, pointsCost, unitCount } from '@/core/selectors';
 import { useArmyStore } from '@/store/useArmyStore';
-import { unitDomId } from '../shared/unitDomId';
+import { unitDomId } from '../shared/domIds';
 import styles from './ArmySummary.module.css';
 
 export const ArmySummary = () => {

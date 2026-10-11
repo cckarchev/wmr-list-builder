@@ -13,7 +13,7 @@ export interface PrintOptions {
   condensed: boolean;
 }
 
-const DEFAULTS: PrintOptions = {
+export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
   spellFluff: false,
   twoColumn: false,
   smallFont: false,
@@ -21,6 +21,6 @@ const DEFAULTS: PrintOptions = {
   condensed: false,
 };
 
-export const PrintOptionsContext = createContext<PrintOptions>(DEFAULTS);
+export const PrintOptionsContext = createContext<PrintOptions>(DEFAULT_PRINT_OPTIONS);
 
 export const usePrintOptions = (): PrintOptions => useContext(PrintOptionsContext);

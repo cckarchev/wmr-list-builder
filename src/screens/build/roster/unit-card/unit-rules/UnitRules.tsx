@@ -2,7 +2,7 @@ import { Icon } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
 import { resolveUnitSpecialRules } from '@/core/specialRulesForUnit';
 import { useArmyStore } from '@/store/useArmyStore';
-import { RuleList } from '../rule-list/RuleList';
+import { RuleList } from '../shared/rule-list/RuleList';
 
 interface UnitRulesProps {
   unitId: string;

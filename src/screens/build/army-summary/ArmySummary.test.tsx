@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
 import { renderWithProviders } from '@/test/renderWithProviders';
-import { unitDomId } from '../shared/unitDomId';
+import { unitDomId } from '../shared/domIds';
 import { ArmySummary } from './ArmySummary';
 
 const GOBLIN_STANDS = 4;

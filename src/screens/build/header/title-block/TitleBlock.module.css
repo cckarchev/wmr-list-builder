@@ -1,0 +1,40 @@
+.block {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.armyName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  color: var(--color-accent);
+}
+
+.listName {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--color-text-dim);
+  font-size: var(--font-size-sm);
+}
+
+.listNameText {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.placeholder {
+  font-style: italic;
+}
+
+.unsavedDot {
+  flex-shrink: 0;
+  margin-left: var(--space-xxs);
+  color: var(--color-warning);
+}

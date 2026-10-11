@@ -1,0 +1,56 @@
+.controls {
+  position: sticky;
+  top: 0;
+  /* Above the popover/tooltip layer (z-index 30) so open popovers scroll under
+     the controls bar rather than over it; below ConfirmDialog (z-index 100). */
+  z-index: 40;
+  background: var(--color-bg-deep);
+  border-bottom: 1px solid var(--color-border-default);
+  padding: var(--space-sm) var(--space-md);
+  /* Two columns: the toggle groups stack on the left, the Print button is its
+     own full-height column on the right. The button never shares a line with
+     the wrapping checkboxes, so nothing flows above or below it. */
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-sm);
+}
+
+/* Left column: the Sections and Options groups stacked. Wrapping happens
+   inside this column only, keeping the checkboxes clear of the Print button. */
+.stack {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Own column on the right: a tall tile with the icon over the label, centered
+   vertically against the stacked toggle groups. */
+.printButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xxs);
+  flex: none;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.printButton:hover {
+  opacity: 0.85;
+}
+
+.printButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

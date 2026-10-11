@@ -1,0 +1,25 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  /* No gap between rows so their left rules join into one continuous line. */
+  gap: 0;
+}
+
+.group + .group {
+  margin-top: var(--space-xs);
+}
+
+.groupLabel {
+  margin: 0 0 var(--space-xxs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}

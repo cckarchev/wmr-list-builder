@@ -1,0 +1,32 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Match the game size input's box height (padding + border) so every value
+     row lines up despite the input being taller than plain text. */
+  padding: var(--space-xxs) var(--space-xs);
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  color: var(--color-text-strong);
+  font-weight: 500;
+  text-align: center;
+}
+
+.value[data-over] {
+  color: var(--color-error);
+}

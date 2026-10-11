@@ -78,41 +78,6 @@
   color: var(--color-text-dim);
 }
 
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-xxs);
-  flex-shrink: 0;
-}
-
-/* The meta line under the stepper: points cost (when selected) and the model
-   restriction. Both are informational, never buttons. Hidden when a unit has
-   neither so the controls column doesn't reserve dead space. */
-.meta {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-sm);
-}
-
-.meta:empty {
-  display: none;
-}
-
-.pts {
-  color: var(--color-teal-bright);
-}
-
-.restriction {
-  color: var(--color-text-dim);
-}
-
-.metaSep {
-  color: var(--color-border-default);
-}
-
 /* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row
    of pill controls. Each child renders nothing when it doesn't apply, so when
    the whole row is empty `:empty` removes it (and its parent gap) entirely. */
@@ -125,45 +90,4 @@
 
 .actions:empty {
   display: none;
-}
-
-.caret {
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.12s;
-}
-
-.caret[data-open] {
-  transform: rotate(90deg);
-}
-
-.selectedBadge {
-  font-family: var(--font-mono);
-  color: var(--color-teal-bright);
-}
-
-.upgrades {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xxs);
-}
-
-.upgradeGroup {
-  display: flex;
-  flex-direction: column;
-  /* No gap between rows so their left rules join into one continuous line. */
-  gap: 0;
-}
-
-.upgradeGroup + .upgradeGroup {
-  margin-top: var(--space-xs);
-}
-
-.upgradeGroupLabel {
-  margin: 0 0 var(--space-xxs);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-text-dim);
 }

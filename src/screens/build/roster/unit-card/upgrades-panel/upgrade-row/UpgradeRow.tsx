@@ -8,8 +8,8 @@ import { resolveUpgradePoints } from '@/core/storeHelpers';
 import { resolveUpgradeRules } from '@/core/upgradeRules';
 import type { StatValue } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
-import { InlineErrors } from '../inline-errors/InlineErrors';
-import { RuleList } from '../rule-list/RuleList';
+import { InlineErrors } from '../../shared/inline-errors/InlineErrors';
+import { RuleList } from '../../shared/rule-list/RuleList';
 import styles from './UpgradeRow.module.css';
 
 interface UpgradeRowProps {
