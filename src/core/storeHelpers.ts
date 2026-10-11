@@ -37,7 +37,7 @@ export interface UnitState extends Omit<Unit, 'upgrades'> {
  */
 export interface UpgradeState {
   name: string;
-  id?: number;
+  code?: number;
   type: string;
   points?: StatValue | Record<string, string>;
   pointsValue?: string;

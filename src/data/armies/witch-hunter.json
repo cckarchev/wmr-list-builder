@@ -6,7 +6,7 @@
   "units": {
     "Zealots": {
       "name": "Zealots",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -16,7 +16,7 @@
     },
     "Halberdiers": {
       "name": "Halberdiers",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -27,7 +27,7 @@
     },
     "Crossbowmen": {
       "name": "Crossbowmen",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -38,7 +38,7 @@
     },
     "Handgunners": {
       "name": "Handgunners",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -49,7 +49,7 @@
     },
     "Flagellants": {
       "name": "Flagellants",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -59,7 +59,7 @@
     },
     "Warhounds": {
       "name": "Warhounds",
-      "id": 5,
+      "code": 5,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -71,7 +71,7 @@
     },
     "Knights": {
       "name": "Knights",
-      "id": 6,
+      "code": 6,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -82,7 +82,7 @@
     },
     "Pistoliers": {
       "name": "Pistoliers",
-      "id": 7,
+      "code": 7,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -94,7 +94,7 @@
     },
     "Cannon": {
       "name": "Cannon",
-      "id": 8,
+      "code": 8,
       "type": "Artillery",
       "attack": "1/2+bounce",
       "range": "60cm",
@@ -105,7 +105,7 @@
     },
     "General": {
       "name": "General",
-      "id": 9,
+      "code": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -116,7 +116,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 10,
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -126,7 +126,7 @@
     },
     "Warrior Priest": {
       "name": "Warrior Priest",
-      "id": 11,
+      "code": 11,
       "type": "Wizard",
       "attack": "+1",
       "command": 7,
@@ -138,7 +138,7 @@
   "upgrades": {
     "War Altar": {
       "name": "War Altar",
-      "id": 0,
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+2",
       "points": "+15",

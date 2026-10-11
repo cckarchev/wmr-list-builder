@@ -6,7 +6,7 @@
   "units": {
     "Chaos Warriors": {
       "name": "Chaos Warriors",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -17,7 +17,7 @@
     },
     "Chaos Marauders": {
       "name": "Chaos Marauders",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -28,7 +28,7 @@
     },
     "Ogres": {
       "name": "Ogres",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -39,7 +39,7 @@
     },
     "Trolls": {
       "name": "Trolls",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -50,7 +50,7 @@
     },
     "Marauder Horsemen": {
       "name": "Marauder Horsemen",
-      "id": 4,
+      "code": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -61,7 +61,7 @@
     },
     "Chaos Knights": {
       "name": "Chaos Knights",
-      "id": 5,
+      "code": 5,
       "type": "Cavalry",
       "attack": 4,
       "hits": 4,
@@ -72,7 +72,7 @@
     },
     "Chaos Hounds": {
       "name": "Chaos Hounds",
-      "id": 6,
+      "code": 6,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -82,7 +82,7 @@
     },
     "Chaos Chariots": {
       "name": "Chaos Chariots",
-      "id": 7,
+      "code": 7,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -93,7 +93,7 @@
     },
     "Harpies": {
       "name": "Harpies",
-      "id": 8,
+      "code": 8,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -104,7 +104,7 @@
     },
     "Dragon Ogres": {
       "name": "Dragon Ogres",
-      "id": 9,
+      "code": 9,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -115,7 +115,7 @@
     },
     "Chaos Spawn": {
       "name": "Chaos Spawn",
-      "id": 10,
+      "code": 10,
       "type": "Monster",
       "attack": "3/3",
       "range": "15cm",
@@ -127,7 +127,7 @@
     },
     "General": {
       "name": "General",
-      "id": 11,
+      "code": 11,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -139,7 +139,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 12,
+      "code": 12,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -150,7 +150,7 @@
     },
     "Sorcerer": {
       "name": "Sorcerer",
-      "id": 13,
+      "code": 13,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
@@ -163,7 +163,7 @@
   "upgrades": {
     "Chaos Dragon": {
       "name": "Chaos Dragon",
-      "id": 0,
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
@@ -171,7 +171,7 @@
     },
     "Chariot": {
       "name": "Chariot",
-      "id": 1,
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",

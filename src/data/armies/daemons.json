@@ -6,7 +6,7 @@
   "units": {
     "Daemon Hordes": {
       "name": "Daemon Hordes",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Daemon Swarm": {
       "name": "Daemon Swarm",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 2,
       "hits": 4,
@@ -28,7 +28,7 @@
     },
     "Daemon Cavalry": {
       "name": "Daemon Cavalry",
-      "id": 2,
+      "code": 2,
       "type": "Cavalry",
       "attack": 4,
       "hits": 3,
@@ -39,7 +39,7 @@
     },
     "Daemon Hounds": {
       "name": "Daemon Hounds",
-      "id": 3,
+      "code": 3,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -50,7 +50,7 @@
     },
     "Daemon Chariots": {
       "name": "Daemon Chariots",
-      "id": 4,
+      "code": 4,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -61,7 +61,7 @@
     },
     "Daemon Beasts": {
       "name": "Daemon Beasts",
-      "id": 5,
+      "code": 5,
       "type": "Monster",
       "attack": 5,
       "hits": 4,
@@ -72,7 +72,7 @@
     },
     "Daemon Flyers": {
       "name": "Daemon Flyers",
-      "id": 6,
+      "code": 6,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -83,7 +83,7 @@
     },
     "Greater Daemon": {
       "name": "Greater Daemon",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": 8,
       "hits": 6,
@@ -94,7 +94,7 @@
     },
     "Daemon Overlord": {
       "name": "Daemon Overlord",
-      "id": 8,
+      "code": 8,
       "type": "General",
       "caster": true,
       "attack": "+2",
@@ -107,7 +107,7 @@
     },
     "Daemon Lord Hero": {
       "name": "Daemon Lord Hero",
-      "id": 9,
+      "code": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -118,7 +118,7 @@
     },
     "Daemon Sorcerer": {
       "name": "Daemon Sorcerer",
-      "id": 10,
+      "code": 10,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
@@ -131,14 +131,14 @@
   "upgrades": {
     "Daemonic Wings": {
       "name": "Daemonic Wings",
-      "id": 0,
+      "code": 0,
       "type": "Special",
       "points": "+10",
       "max": 1
     },
     "Favour of the Gods": {
       "name": "Favour of the Gods",
-      "id": 1,
+      "code": 1,
       "type": "Special",
       "attack": "+1",
       "points": "+50",
@@ -146,7 +146,7 @@
     },
     "Wizard": {
       "name": "Wizard",
-      "id": 2,
+      "code": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
@@ -160,7 +160,7 @@
     },
     "Chariot": {
       "name": "Chariot",
-      "id": 3,
+      "code": 3,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",

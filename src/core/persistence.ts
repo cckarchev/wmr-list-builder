@@ -11,40 +11,39 @@ export interface ListSnapshot {
 }
 
 export interface ArmyCodeMaps {
-  unitIdByName: Map<string, number>;
-  unitNameById: Map<number, string>;
-  upgradeIdByName: Map<string, number>;
-  upgradeNameById: Map<number, string>;
+  unitCodeById: Map<string, number>;
+  unitIdByCode: Map<number, string>;
+  upgradeCodeById: Map<string, number>;
+  upgradeIdByCode: Map<number, string>;
 }
 
 /**
- * Build name<->id lookups for a single army. Upgrade lookups include the army's
- * own upgrades plus the shared magic items (ids >= 100); unselected entries
+ * Build id<->code lookups for a single army. Upgrade lookups include the army's
+ * own upgrades plus the shared magic items (codes from MAGIC_ITEM_CODE_MIN up); unselected entries
  * simply never appear in an encoded list, so including all of them is harmless.
  */
 export const buildCodeMaps = (army: Army): ArmyCodeMaps => {
-  const unitIdByName = new Map<string, number>();
-  const unitNameById = new Map<number, string>();
+  const unitCodeById = new Map<string, number>();
+  const unitIdByCode = new Map<number, string>();
 
-  for (const [name, unit] of Object.entries(army.units)) {
-    unitIdByName.set(name, unit.id);
-    unitNameById.set(unit.id, name);
+  for (const [id, unit] of Object.entries(army.units)) {
+    unitCodeById.set(id, unit.code);
+    unitIdByCode.set(unit.code, id);
   }
 
-  const upgradeIdByName = new Map<string, number>();
-  const upgradeNameById = new Map<number, string>();
+  const upgradeCodeById = new Map<string, number>();
+  const upgradeIdByCode = new Map<number, string>();
+  const upgradeSources = [
+    ...Object.entries(army.upgrades ?? {}),
+    ...Object.entries(magicItems.upgrades),
+  ];
 
-  for (const [name, up] of Object.entries(army.upgrades ?? {})) {
-    upgradeIdByName.set(name, up.id);
-    upgradeNameById.set(up.id, name);
+  for (const [id, upgrade] of upgradeSources) {
+    upgradeCodeById.set(id, upgrade.code);
+    upgradeIdByCode.set(upgrade.code, id);
   }
 
-  for (const [name, item] of Object.entries(magicItems.upgrades)) {
-    upgradeIdByName.set(name, item.id);
-    upgradeNameById.set(item.id, name);
-  }
-
-  return { unitIdByName, unitNameById, upgradeIdByName, upgradeNameById };
+  return { unitCodeById, unitIdByCode, upgradeCodeById, upgradeIdByCode };
 };
 
 const VERSION = 1;
@@ -78,19 +77,19 @@ type UpgradeCounts = Record<string, Counts>;
 const isEmpty = (record: object): boolean => Object.keys(record).length === 0;
 
 export const encodeList = (snap: ListSnapshot, maps: ArmyCodeMaps): string => {
-  const unitId = (name: string) => maps.unitIdByName.get(name);
-  const upgradeId = (name: string) => maps.upgradeIdByName.get(name);
+  const unitCode = (id: string) => maps.unitCodeById.get(id);
+  const upgradeCode = (id: string) => maps.upgradeCodeById.get(id);
 
-  const u = remapKeys(snap.units, unitId);
+  const u = remapKeys(snap.units, unitCode);
 
-  const encodedUpgrades = remapKeys(snap.upgrades, unitId);
+  const encodedUpgrades = remapKeys(snap.upgrades, unitCode);
   const up: UpgradeCounts = {};
 
-  for (const [id, upgrades] of Object.entries(encodedUpgrades)) {
-    const inner = remapKeys(upgrades, upgradeId);
+  for (const [code, upgrades] of Object.entries(encodedUpgrades)) {
+    const inner = remapKeys(upgrades, upgradeCode);
 
     if (!isEmpty(inner)) {
-      up[id] = inner;
+      up[code] = inner;
     }
   }
 
@@ -116,16 +115,16 @@ const readWire = (s: string): Wire | null => {
 };
 
 const wireToSnapshot = (wire: Wire, maps: ArmyCodeMaps): ListSnapshot => {
-  const unitName = (id: string) => maps.unitNameById.get(Number(id));
-  const upgradeName = (id: string) => maps.upgradeNameById.get(Number(id));
+  const unitId = (code: string) => maps.unitIdByCode.get(Number(code));
+  const upgradeId = (code: string) => maps.upgradeIdByCode.get(Number(code));
 
-  const units: Counts = remapKeys(wire.u ?? {}, unitName);
+  const units: Counts = remapKeys(wire.u ?? {}, unitId);
 
   const upgrades: UpgradeCounts = {};
-  const decodedUpgrades = remapKeys(wire.up ?? {}, unitName);
+  const decodedUpgrades = remapKeys(wire.up ?? {}, unitId);
 
-  for (const [name, ups] of Object.entries(decodedUpgrades)) {
-    upgrades[name] = remapKeys(ups, upgradeName);
+  for (const [id, ups] of Object.entries(decodedUpgrades)) {
+    upgrades[id] = remapKeys(ups, upgradeId);
   }
 
   return { name: wire.n ?? '', gameSize: wire.g, units, upgrades };

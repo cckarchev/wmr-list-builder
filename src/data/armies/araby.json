@@ -6,7 +6,7 @@
   "units": {
     "Spearmen": {
       "name": "Spearmen",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Bowmen": {
       "name": "Bowmen",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -28,7 +28,7 @@
     },
     "Guards": {
       "name": "Guards",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -39,7 +39,7 @@
     },
     "Knights": {
       "name": "Knights",
-      "id": 3,
+      "code": 3,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -49,7 +49,7 @@
     },
     "Desert Riders": {
       "name": "Desert Riders",
-      "id": 4,
+      "code": 4,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -60,7 +60,7 @@
     },
     "Camel Riders": {
       "name": "Camel Riders",
-      "id": 5,
+      "code": 5,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "30cm",
@@ -72,7 +72,7 @@
     },
     "Magic Carpets": {
       "name": "Magic Carpets",
-      "id": 6,
+      "code": 6,
       "type": "Cavalry",
       "attack": "1/2",
       "range": "15cm",
@@ -84,7 +84,7 @@
     },
     "Elephants": {
       "name": "Elephants",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": 5,
       "hits": 4,
@@ -95,7 +95,7 @@
     },
     "General": {
       "name": "General",
-      "id": 8,
+      "code": 8,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -107,7 +107,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 9,
+      "code": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -118,7 +118,7 @@
     },
     "Wizard": {
       "name": "Wizard",
-      "id": 10,
+      "code": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -131,7 +131,7 @@
   "upgrades": {
     "Flying Carpet": {
       "name": "Flying Carpet",
-      "id": 0,
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+0",
       "points": "+10",
@@ -139,7 +139,7 @@
     },
     "Elephant": {
       "name": "Elephant",
-      "id": 1,
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+65",
@@ -147,7 +147,7 @@
     },
     "Djinn": {
       "name": "Djinn",
-      "id": 2,
+      "code": 2,
       "type": "Monstrous Mount",
       "attack": "+2/+2",
       "points": "+90",

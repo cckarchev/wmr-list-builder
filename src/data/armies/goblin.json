@@ -6,7 +6,7 @@
   "units": {
     "Goblins": {
       "name": "Goblins",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": "2/1",
       "range": "15cm",
@@ -18,7 +18,7 @@
     },
     "Squig Herd": {
       "name": "Squig Herd",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -27,7 +27,7 @@
     },
     "Trolls": {
       "name": "Trolls",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -38,7 +38,7 @@
     },
     "Wolf Riders": {
       "name": "Wolf Riders",
-      "id": 3,
+      "code": 3,
       "type": "Cavalry",
       "attack": "2/1",
       "range": "15cm",
@@ -50,7 +50,7 @@
     },
     "Wolf Chariots": {
       "name": "Wolf Chariots",
-      "id": 4,
+      "code": 4,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -61,7 +61,7 @@
     },
     "Pump Wagon": {
       "name": "Pump Wagon",
-      "id": 5,
+      "code": 5,
       "type": "Chariot",
       "attack": "D6",
       "hits": 3,
@@ -73,7 +73,7 @@
     },
     "Giant": {
       "name": "Giant",
-      "id": 6,
+      "code": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +84,7 @@
     },
     "Doom Diver": {
       "name": "Doom Diver",
-      "id": 7,
+      "code": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -95,7 +95,7 @@
     },
     "Spear Chukka": {
       "name": "Spear Chukka",
-      "id": 8,
+      "code": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -107,7 +107,7 @@
     },
     "Goblin Warboss": {
       "name": "Goblin Warboss",
-      "id": 9,
+      "code": 9,
       "type": "General",
       "attack": "+1",
       "command": 8,
@@ -119,7 +119,7 @@
     },
     "Goblin Hero": {
       "name": "Goblin Hero",
-      "id": 10,
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 7,
@@ -130,7 +130,7 @@
     },
     "Goblin Shaman": {
       "name": "Goblin Shaman",
-      "id": 11,
+      "code": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
@@ -143,7 +143,7 @@
   "upgrades": {
     "Wolf Chariot": {
       "name": "Wolf Chariot",
-      "id": 0,
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
@@ -151,7 +151,7 @@
     },
     "Wyvern": {
       "name": "Wyvern",
-      "id": 1,
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -159,7 +159,7 @@
     },
     "Squig Herd": {
       "name": "Squig Herd",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,

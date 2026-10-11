@@ -6,7 +6,7 @@
   "units": {
     "Winged Lancers": {
       "name": "Winged Lancers",
-      "id": 0,
+      "code": 0,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Horse Archers": {
       "name": "Horse Archers",
-      "id": 1,
+      "code": 1,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -30,7 +30,7 @@
     },
     "Cossacks": {
       "name": "Cossacks",
-      "id": 2,
+      "code": 2,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -43,7 +43,7 @@
     },
     "Bowmen": {
       "name": "Bowmen",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -53,7 +53,7 @@
     },
     "Red Guard": {
       "name": "Red Guard",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -65,7 +65,7 @@
     },
     "Axemen": {
       "name": "Axemen",
-      "id": 5,
+      "code": 5,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -77,7 +77,7 @@
     },
     "Bears": {
       "name": "Bears",
-      "id": 6,
+      "code": 6,
       "type": "Infantry",
       "attack": 5,
       "hits": 4,
@@ -87,7 +87,7 @@
     },
     "War Wagon": {
       "name": "War Wagon",
-      "id": 7,
+      "code": 7,
       "type": "Artillery",
       "attack": "4/4",
       "range": "30cm",
@@ -99,7 +99,7 @@
     },
     "General": {
       "name": "General",
-      "id": 8,
+      "code": 8,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -111,7 +111,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 9,
+      "code": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -122,7 +122,7 @@
     },
     "Shaman": {
       "name": "Shaman",
-      "id": 10,
+      "code": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -135,7 +135,7 @@
   "upgrades": {
     "Bear": {
       "name": "Bear",
-      "id": 0,
+      "code": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
@@ -144,7 +144,7 @@
     },
     "Yozhin": {
       "name": "Yozhin",
-      "id": 1,
+      "code": 1,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+40",
@@ -152,7 +152,7 @@
     },
     "Tzarina": {
       "name": "Tzarina",
-      "id": 2,
+      "code": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
@@ -166,7 +166,7 @@
     },
     "Bowmen": {
       "name": "Bowmen",
-      "id": 3,
+      "code": 3,
       "type": "Special",
       "attack": "3/1",
       "range": "30cm",

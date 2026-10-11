@@ -6,7 +6,7 @@
   "units": {
     "Warriors": {
       "name": "Warriors",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Slingers": {
       "name": "Slingers",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -29,7 +29,7 @@
     },
     "Ogres": {
       "name": "Ogres",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -40,7 +40,7 @@
     },
     "Wolfhounds": {
       "name": "Wolfhounds",
-      "id": 3,
+      "code": 3,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -50,7 +50,7 @@
     },
     "Riders": {
       "name": "Riders",
-      "id": 4,
+      "code": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -61,7 +61,7 @@
     },
     "Chariots": {
       "name": "Chariots",
-      "id": 5,
+      "code": 5,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -73,7 +73,7 @@
     },
     "Giant": {
       "name": "Giant",
-      "id": 6,
+      "code": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +84,7 @@
     },
     "Giant Eagles": {
       "name": "Giant Eagles",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -95,7 +95,7 @@
     },
     "Fenbeast": {
       "name": "Fenbeast",
-      "id": 8,
+      "code": 8,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -108,7 +108,7 @@
     },
     "General": {
       "name": "General",
-      "id": 9,
+      "code": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -120,7 +120,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 10,
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -131,7 +131,7 @@
     },
     "Druid": {
       "name": "Druid",
-      "id": 11,
+      "code": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
@@ -144,7 +144,7 @@
   "upgrades": {
     "Giant Eagle": {
       "name": "Giant Eagle",
-      "id": 0,
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+20",
@@ -152,7 +152,7 @@
     },
     "Chariot": {
       "name": "Chariot",
-      "id": 1,
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",

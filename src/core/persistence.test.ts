@@ -69,9 +69,9 @@ describe('encode/decode list', () => {
   });
 
   it('returns null for a current wire with malformed upgrade entries', () => {
-    const unitId = maps.unitIdByName.get('Halberdiers');
+    const unitCode = maps.unitCodeById.get('Halberdiers');
     const malformed = btoa(
-      JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: {}, up: { [String(unitId)]: null } }),
+      JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: {}, up: { [String(unitCode)]: null } }),
     );
 
     expect(decodeList(malformed, maps)).toBeNull();

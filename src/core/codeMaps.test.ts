@@ -1,24 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
-import { MAGIC_ITEM_ID_MIN } from '@/data/magicItems';
+import { MAGIC_ITEM_CODE_MIN } from '@/data/magicItems';
 import { buildCodeMaps } from './persistence';
 
 describe('buildCodeMaps', () => {
-  it('maps unit names to ids and back', () => {
+  it('maps unit ids to codes and back', () => {
     const army = loadArmy('empire');
     const maps = buildCodeMaps(army);
-    const [name, unit] = Object.entries(army.units)[0];
-    expect(maps.unitIdByName.get(name)).toBe(unit.id);
-    expect(maps.unitNameById.get(unit.id)).toBe(name);
+    const [id, unit] = Object.entries(army.units)[0];
+
+    expect(maps.unitCodeById.get(id)).toBe(unit.code);
+    expect(maps.unitIdByCode.get(unit.code)).toBe(id);
   });
 
-  it('includes army upgrades and magic items (ids >= 100) in the upgrade maps', () => {
+  it('includes army upgrades and magic items in the upgrade maps', () => {
     const maps = buildCodeMaps(loadArmy('empire'));
-    // every mapped upgrade round-trips
-    for (const [name, id] of maps.upgradeIdByName) {
-      expect(maps.upgradeNameById.get(id)).toBe(name);
+
+    for (const [id, code] of maps.upgradeCodeById) {
+      expect(maps.upgradeIdByCode.get(code)).toBe(id);
     }
-    // at least one magic-item id (>= 100) is present
-    expect([...maps.upgradeNameById.keys()].some((id) => id >= MAGIC_ITEM_ID_MIN)).toBe(true);
+
+    const codes = [...maps.upgradeIdByCode.keys()];
+
+    expect(codes.some((code) => code >= MAGIC_ITEM_CODE_MIN)).toBe(true);
   });
 });

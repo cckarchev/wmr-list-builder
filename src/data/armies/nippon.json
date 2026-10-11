@@ -6,7 +6,7 @@
   "units": {
     "Ashigaru": {
       "name": "Ashigaru",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Ashigaru Bowmen": {
       "name": "Ashigaru Bowmen",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -27,7 +27,7 @@
     },
     "Ashigaru Teppo": {
       "name": "Ashigaru Teppo",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -37,7 +37,7 @@
     },
     "Samurai": {
       "name": "Samurai",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -50,7 +50,7 @@
     },
     "Mikata (Ronin & Monks)": {
       "name": "Mikata (Ronin & Monks)",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -61,7 +61,7 @@
     },
     "Ninja": {
       "name": "Ninja",
-      "id": 5,
+      "code": 5,
       "type": "Infantry",
       "attack": "3/1",
       "range": "15cm",
@@ -73,7 +73,7 @@
     },
     "Oni": {
       "name": "Oni",
-      "id": 6,
+      "code": 6,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -85,7 +85,7 @@
     },
     "Samurai Cavalry": {
       "name": "Samurai Cavalry",
-      "id": 7,
+      "code": 7,
       "type": "Cavalry",
       "attack": 4,
       "hits": 3,
@@ -97,7 +97,7 @@
     },
     "Komainu": {
       "name": "Komainu",
-      "id": 8,
+      "code": 8,
       "type": "Cavalry",
       "attack": 2,
       "hits": 3,
@@ -108,7 +108,7 @@
     },
     "Tengu": {
       "name": "Tengu",
-      "id": 9,
+      "code": 9,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -120,7 +120,7 @@
     },
     "Shogun": {
       "name": "Shogun",
-      "id": 10,
+      "code": 10,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -132,7 +132,7 @@
     },
     "Daimyo": {
       "name": "Daimyo",
-      "id": 11,
+      "code": 11,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -143,7 +143,7 @@
     },
     "Shugenja": {
       "name": "Shugenja",
-      "id": 12,
+      "code": 12,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -156,7 +156,7 @@
   "upgrades": {
     "Tatsu": {
       "name": "Tatsu",
-      "id": 0,
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
@@ -164,7 +164,7 @@
     },
     "Shrine": {
       "name": "Shrine",
-      "id": 1,
+      "code": 1,
       "type": "Special",
       "points": "+30",
       "armyMax": 1

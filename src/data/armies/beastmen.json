@@ -6,7 +6,7 @@
   "units": {
     "Gor": {
       "name": "Gor",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -18,7 +18,7 @@
     },
     "Ungor": {
       "name": "Ungor",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": "3/1",
       "range": "15cm",
@@ -30,7 +30,7 @@
     },
     "Bestigors": {
       "name": "Bestigors",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -41,7 +41,7 @@
     },
     "Minotaurs": {
       "name": "Minotaurs",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 4,
@@ -51,7 +51,7 @@
     },
     "Centigors": {
       "name": "Centigors",
-      "id": 4,
+      "code": 4,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -63,7 +63,7 @@
     },
     "Chaos Hounds": {
       "name": "Chaos Hounds",
-      "id": 5,
+      "code": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -73,7 +73,7 @@
     },
     "Tuskgor Chariots": {
       "name": "Tuskgor Chariots",
-      "id": 6,
+      "code": 6,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -84,7 +84,7 @@
     },
     "Dragon Ogres": {
       "name": "Dragon Ogres",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -95,7 +95,7 @@
     },
     "Chaos Spawn": {
       "name": "Chaos Spawn",
-      "id": 8,
+      "code": 8,
       "type": "Monster",
       "attack": "3/3",
       "range": "15cm",
@@ -107,7 +107,7 @@
     },
     "Dragon Ogre Shaggoth": {
       "name": "Dragon Ogre Shaggoth",
-      "id": 9,
+      "code": 9,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -118,7 +118,7 @@
     },
     "Beastlord": {
       "name": "Beastlord",
-      "id": 10,
+      "code": 10,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -130,7 +130,7 @@
     },
     "Doombull": {
       "name": "Doombull",
-      "id": 11,
+      "code": 11,
       "type": "Hero",
       "attack": "+2",
       "command": 6,
@@ -140,7 +140,7 @@
     },
     "Wargor": {
       "name": "Wargor",
-      "id": 12,
+      "code": 12,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -151,7 +151,7 @@
     },
     "Bray Shaman": {
       "name": "Bray Shaman",
-      "id": 13,
+      "code": 13,
       "type": "Wizard",
       "attack": "+0",
       "command": 8,
@@ -163,7 +163,7 @@
   "upgrades": {
     "Tuskgor Chariot": {
       "name": "Tuskgor Chariot",
-      "id": 0,
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",

@@ -78,7 +78,7 @@ describe('buildTextList names', () => {
     const usedUnits: Record<string, UsedUnit> = {
       wolfRiders: {
         name: 'Wolf Riders',
-        id: WOLF_RIDERS_CODE,
+        code: WOLF_RIDERS_CODE,
         type: 'Cavalry',
         points: WOLF_RIDERS_POINTS,
         number: 1,

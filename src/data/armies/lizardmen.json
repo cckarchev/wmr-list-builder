@@ -6,7 +6,7 @@
   "units": {
     "Skinks": {
       "name": "Skinks",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": "2/1",
       "range": "15cm",
@@ -17,7 +17,7 @@
     },
     "Saurus": {
       "name": "Saurus",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -29,7 +29,7 @@
     },
     "Temple Guard": {
       "name": "Temple Guard",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -41,7 +41,7 @@
     },
     "Salamanders": {
       "name": "Salamanders",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": "2/2",
       "range": "15cm",
@@ -55,7 +55,7 @@
     },
     "Kroxigor": {
       "name": "Kroxigor",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -67,7 +67,7 @@
     },
     "Cold One Riders": {
       "name": "Cold One Riders",
-      "id": 5,
+      "code": 5,
       "type": "Cavalry",
       "attack": 4,
       "hits": 3,
@@ -79,7 +79,7 @@
     },
     "Terradons": {
       "name": "Terradons",
-      "id": 6,
+      "code": 6,
       "type": "Monster",
       "attack": "2/1",
       "range": "15cm",
@@ -91,7 +91,7 @@
     },
     "Stegadon": {
       "name": "Stegadon",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": "10/3",
       "range": "15cm",
@@ -103,7 +103,7 @@
     },
     "Slann Mage Palanquin": {
       "name": "Slann Mage Palanquin",
-      "id": 8,
+      "code": 8,
       "type": "General",
       "caster": true,
       "attack": "+2",
@@ -123,7 +123,7 @@
     },
     "Saurus Hero": {
       "name": "Saurus Hero",
-      "id": 9,
+      "code": 9,
       "type": "Hero",
       "attack": "+2",
       "command": 6,
@@ -134,7 +134,7 @@
     },
     "Skink Hero": {
       "name": "Skink Hero",
-      "id": 10,
+      "code": 10,
       "type": "Hero",
       "attack": "+0",
       "command": 8,
@@ -144,7 +144,7 @@
     },
     "Skink Shaman": {
       "name": "Skink Shaman",
-      "id": 11,
+      "code": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
@@ -156,7 +156,7 @@
   "upgrades": {
     "Stegadon Mount": {
       "name": "Stegadon Mount",
-      "id": 0,
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+90",
@@ -164,7 +164,7 @@
     },
     "Carnosaur": {
       "name": "Carnosaur",
-      "id": 1,
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+65",

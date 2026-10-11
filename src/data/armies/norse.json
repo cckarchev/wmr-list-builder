@@ -6,7 +6,7 @@
   "units": {
     "Bondsmen": {
       "name": "Bondsmen",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Huscarls": {
       "name": "Huscarls",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -29,7 +29,7 @@
     },
     "Huntsmen": {
       "name": "Huntsmen",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -39,7 +39,7 @@
     },
     "Berserkers": {
       "name": "Berserkers",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -49,7 +49,7 @@
     },
     "Ulfwerener": {
       "name": "Ulfwerener",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -61,7 +61,7 @@
     },
     "Hird Horsemen": {
       "name": "Hird Horsemen",
-      "id": 5,
+      "code": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -72,7 +72,7 @@
     },
     "Storm Giant": {
       "name": "Storm Giant",
-      "id": 6,
+      "code": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -84,7 +84,7 @@
     },
     "War Mammoth": {
       "name": "War Mammoth",
-      "id": 7,
+      "code": 7,
       "type": "Monster",
       "attack": 8,
       "hits": 10,
@@ -95,7 +95,7 @@
     },
     "Valkyries": {
       "name": "Valkyries",
-      "id": 8,
+      "code": 8,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -106,7 +106,7 @@
     },
     "Jarl": {
       "name": "Jarl",
-      "id": 9,
+      "code": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -118,7 +118,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 10,
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -129,7 +129,7 @@
     },
     "Shaman": {
       "name": "Shaman",
-      "id": 11,
+      "code": 11,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
@@ -142,7 +142,7 @@
   "upgrades": {
     "Were Kin": {
       "name": "Were Kin",
-      "id": 0,
+      "code": 0,
       "type": "Special",
       "attack": "+1",
       "points": "+40",
@@ -150,7 +150,7 @@
     },
     "Horn of Resounding": {
       "name": "Horn of Resounding",
-      "id": 1,
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+20",

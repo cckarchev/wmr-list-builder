@@ -6,7 +6,7 @@
   "units": {
     "Bannermen": {
       "name": "Bannermen",
-      "id": 0,
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -17,7 +17,7 @@
     },
     "Crossbows": {
       "name": "Crossbows",
-      "id": 1,
+      "code": 1,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -28,7 +28,7 @@
     },
     "Handguns": {
       "name": "Handguns",
-      "id": 2,
+      "code": 2,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -38,7 +38,7 @@
     },
     "Terracotta Warriors": {
       "name": "Terracotta Warriors",
-      "id": 3,
+      "code": 3,
       "type": "Infantry",
       "attack": 2,
       "hits": 3,
@@ -49,7 +49,7 @@
     },
     "Maneaters": {
       "name": "Maneaters",
-      "id": 4,
+      "code": 4,
       "type": "Infantry",
       "attack": 4,
       "range": 4,
@@ -60,7 +60,7 @@
     },
     "Chariots": {
       "name": "Chariots",
-      "id": 5,
+      "code": 5,
       "type": "Chariot",
       "attack": "3/1",
       "range": "30cm",
@@ -72,7 +72,7 @@
     },
     "Imperial Cavalry": {
       "name": "Imperial Cavalry",
-      "id": 6,
+      "code": 6,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -83,7 +83,7 @@
     },
     "Hu Cavalry": {
       "name": "Hu Cavalry",
-      "id": 7,
+      "code": 7,
       "type": "Cavalry",
       "attack": "2/1",
       "range": "15cm",
@@ -95,7 +95,7 @@
     },
     "Rocket Launcher": {
       "name": "Rocket Launcher",
-      "id": 8,
+      "code": 8,
       "type": "Artillery",
       "attack": "1/1D6",
       "range": "40cm",
@@ -107,7 +107,7 @@
     },
     "Triple Bows": {
       "name": "Triple Bows",
-      "id": 9,
+      "code": 9,
       "type": "Artillery",
       "attack": "1/2",
       "range": "40cm",
@@ -119,7 +119,7 @@
     },
     "General": {
       "name": "General",
-      "id": 10,
+      "code": 10,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -131,7 +131,7 @@
     },
     "Hero": {
       "name": "Hero",
-      "id": 11,
+      "code": 11,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
@@ -142,7 +142,7 @@
     },
     "Sorcerer": {
       "name": "Sorcerer",
-      "id": 12,
+      "code": 12,
       "type": "Wizard",
       "command": 7,
       "size": 1,
@@ -154,7 +154,7 @@
   "upgrades": {
     "Chariot": {
       "name": "Chariot",
-      "id": 0,
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+10",
@@ -162,7 +162,7 @@
     },
     "Celestial Dragon": {
       "name": "Celestial Dragon",
-      "id": 1,
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
@@ -170,7 +170,7 @@
     },
     "Tiger": {
       "name": "Tiger",
-      "id": 2,
+      "code": 2,
       "type": "Special Mount",
       "attack": "+2",
       "points": "+20",
@@ -178,7 +178,7 @@
     },
     "Qilin": {
       "name": "Qilin",
-      "id": 3,
+      "code": 3,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+15",
