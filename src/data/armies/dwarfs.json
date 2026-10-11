@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 5,
-  "units": {
-    "Warriors": {
+  "units": [
+    {
+      "id": "warriors",
       "name": "Warriors",
       "code": 0,
       "type": "Infantry",
@@ -14,9 +15,10 @@
       "size": 3,
       "points": 110,
       "min": 2,
-      "upgrades": ["Handgunners"]
+      "upgrades": ["handgunners"]
     },
-    "Miners": {
+    {
+      "id": "miners",
       "name": "Miners",
       "code": 1,
       "type": "Infantry",
@@ -27,7 +29,8 @@
       "points": 60,
       "max": 2
     },
-    "Handgunners": {
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "code": 2,
       "type": "Infantry",
@@ -38,7 +41,8 @@
       "size": 3,
       "points": 90
     },
-    "Rangers": {
+    {
+      "id": "rangers",
       "name": "Rangers",
       "code": 3,
       "type": "Infantry",
@@ -50,7 +54,8 @@
       "points": 110,
       "max": 2
     },
-    "Troll Slayers": {
+    {
+      "id": "trollSlayers",
       "name": "Troll Slayers",
       "code": 4,
       "type": "Infantry",
@@ -60,7 +65,8 @@
       "points": 80,
       "max": 2
     },
-    "Cannon": {
+    {
+      "id": "cannon",
       "name": "Cannon",
       "code": 5,
       "type": "Artillery",
@@ -72,7 +78,8 @@
       "points": 90,
       "max": 1
     },
-    "Flame Cannon": {
+    {
+      "id": "flameCannon",
       "name": "Flame Cannon",
       "code": 6,
       "type": "Artillery",
@@ -84,7 +91,8 @@
       "points": 50,
       "max": 1
     },
-    "Gyrocopter": {
+    {
+      "id": "gyrocopter",
       "name": "Gyrocopter",
       "code": 7,
       "type": "Machine",
@@ -96,7 +104,8 @@
       "points": 75,
       "max": 1
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 8,
       "type": "General",
@@ -107,7 +116,8 @@
       "armyMin": 1,
       "armyMax": 1
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 9,
       "type": "Hero",
@@ -116,9 +126,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Oathstone"]
+      "upgrades": ["oathstone"]
     },
-    "Runesmith": {
+    {
+      "id": "runesmith",
       "name": "Runesmith",
       "code": 10,
       "type": "Hero",
@@ -127,11 +138,12 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Anvil", "Staff of Spellbinding", "Scroll of Dispelling"]
+      "upgrades": ["anvil", "staffOfSpellbinding", "scrollOfDispelling"]
     }
-  },
-  "upgrades": {
-    "Anvil": {
+  ],
+  "upgrades": [
+    {
+      "id": "anvil",
       "name": "Anvil",
       "code": 0,
       "type": "Special",
@@ -139,7 +151,8 @@
       "points": "+30",
       "armyMax": 1
     },
-    "Handgunners": {
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "code": 1,
       "type": "Special",
@@ -151,31 +164,35 @@
       "points": "-20",
       "max": 1
     },
-    "Oathstone": {
+    {
+      "id": "oathstone",
       "name": "Oathstone",
       "code": 2,
       "type": "Special",
       "points": "+15",
       "armyMax": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Handgunners": {
+  "specialRules": [
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "order": 1,
       "text": [
         "A handgun shot can pierce armour far more easily than an arrow or a crossbow bolt. Therefore, count enemy Armour values as one worse than normal when shot by a handgun. One unit of Handgunners per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Handgunners."
       ]
     },
-    "Rangers": {
+    {
+      "id": "rangers",
       "name": "Rangers",
       "order": 2,
       "text": [
         "One unit of Rangers per full 1000 points does not have to be deployed before the game if the player does not wish to do so. Instead the unit can be infiltrated onto the battlefield once the game has begun. To infiltrate a unit, the Dwarf player nominates the point where he wants the Rangers to appear and issues an ‘infiltration‘ order from any character. The character does not have to be within his normal command range to issue an infiltration order - the character‘s command range is considered to extend over the entire tabletop when issuing an infiltration order. Treat the order as issued to the nominated point, and apply any modifiers for distance and proximity of enemy, but ignore penalties for dense terrain. The nominated point must lie either on the table within dense terrain or on any base edge other than the enemy player‘s own table edge. If successful, place one stand on the nominated spot and arrange the rest of the unit into formation around it. The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the same character that gave the infiltration order if he is within his normal command range, the infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place. Rangers don‘t suffer the -1 Command penalty for Dense Terrain. Although they are infantry, Rangers can pursue any type of retreating enemy."
       ]
     },
-    "Troll Slayers": {
+    {
+      "id": "trollSlayers",
       "name": "Troll Slayers",
       "order": 3,
       "text": [
@@ -185,11 +202,13 @@
         "Slayer units that have been destroyed still count towards the Dwarf army's losses for purposes of calculating withdrawal."
       ]
     },
-    "Cannon": {
+    {
+      "id": "cannon",
       "name": "Cannon",
       "order": 4
     },
-    "Flame Cannon": {
+    {
+      "id": "flameCannon",
       "name": "Flame Cannon",
       "order": 5,
       "text": [
@@ -199,7 +218,8 @@
         "A Flame Cannon can shoot at charging enemy in the usual way."
       ]
     },
-    "Gyrocopter": {
+    {
+      "id": "gyrocopter",
       "name": "Gyrocopter",
       "order": 6,
       "text": [
@@ -207,26 +227,29 @@
         "The Gyrocopter's fast-firing gun is light in weight and fires a small calibre shot. It counts Armour values as one worse than normal. The Gyrocopter has 360° vision - the unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Runesmith": {
+    {
+      "id": "runesmith",
       "name": "Runesmith",
       "order": 7,
       "text": [
         "Although they are not wizards and cannot therefore cast spells, Dwarf Runesmiths can combat the magic of their enemies. If an enemy Wizard who is within 50cm of the Runesmith casts a spell the Runesmith can attempt to 'antimagic' it. Note that it does not matter what the spell is or where it is cast, the Runesmith can 'anti-magic' it so long as the caster is with 50cm. To determine if this works roll a D6 - on the score of 4, 5 or 6 the Runesmith has succeeded and the spell doesn't work, it is dispelled by the Runesmith's defiant efforts. If he fails then the Runesmith's efforts come to nothing and the spell works as normal. A Runesmith can attempt to anti-magic any number of spells in a turn, but only one attempt can be made to anti-magic any individual spell - even if the army includes more than one Runesmith and several are in range of the enemy Wizard."
       ]
     },
-    "Anvil": {
+    {
+      "id": "anvil",
       "name": "Anvil",
       "order": 8,
       "text": [
         "The army can only include a single anvil and it is incorporated onto the stand of a Runesmith. If a Runesmith stand includes the Anvil, once per battle he can add +1 to his dice roll when he attempts to dispel enemy magic spells using the Dwarf anti-magic ability (see Runesmith). In addition the Runesmith can strike the Anvil during the Shooting phase of his own turn. The anvil's plangent rune-song fills the Dwarfs with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Dwarf units within 20cm of the Runesmith are unaffected by Terror until the start of the Dwarf player's next turn. On a roll of less than 4 there is no effect."
       ]
     },
-    "Oathstone": {
+    {
+      "id": "oathstone",
       "name": "Oathstone",
       "order": 9,
       "text": [
         "One Hero in the army may be upgraded to carry an Oathstone for +15 pts. Once per game, the Hero may use the Oathstone to inspire one unit that he has joined (except Trollslayers). Both the Hero, and the unit he has joined, gain +1 attack per stand, and are immune to Terror, until the end of the combat phase."
       ]
     }
-  }
+  ]
 }

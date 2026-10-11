@@ -3,6 +3,7 @@ import type { UpgradeState } from './storeHelpers';
 import { resolveUpgradeRules } from './upgradeRules';
 
 const upgrade = (partial: Partial<UpgradeState>): UpgradeState => ({
+  id: 'plain',
   name: 'Plain',
   type: 'magic',
   number: 0,
@@ -14,12 +15,15 @@ describe('resolveUpgradeRules', () => {
     const swordOfMight = upgrade({ name: 'Sword of Might', text: ['+1 Attack on one stand.'] });
 
     expect(resolveUpgradeRules('swordOfMight', swordOfMight, {})).toEqual([
-      { id: 'swordOfMight', rule: { name: 'Sword of Might', text: ['+1 Attack on one stand.'] } },
+      {
+        id: 'swordOfMight',
+        rule: { id: 'swordOfMight', name: 'Sword of Might', text: ['+1 Attack on one stand.'] },
+      },
     ]);
   });
 
   it('resolves army-upgrade specialRules ids against the rules map', () => {
-    const dragons = { name: 'Dragons', order: 1, text: ['Dragons are big.'] };
+    const dragons = { id: 'dragons', name: 'Dragons', order: 1, text: ['Dragons are big.'] };
     const rules = resolveUpgradeRules('dragon', upgrade({ specialRules: ['dragons'] }), {
       dragons,
     });

@@ -18,7 +18,10 @@ export const resolveUpgradeRules = (
   const ids = new Set<string>();
 
   if (upgrade.text && upgrade.text.length > 0) {
-    resolved.push({ id: upgradeId, rule: { name: upgrade.name, text: upgrade.text } });
+    resolved.push({
+      id: upgradeId,
+      rule: { id: upgradeId, name: upgrade.name, text: upgrade.text },
+    });
     ids.add(upgradeId);
   }
 

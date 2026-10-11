@@ -72,8 +72,8 @@ describe('inline validation', () => {
     // A 1-model Goblin Warboss carrying two mounts violates the mount cap.
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitUpgradeNumber('Goblin Warboss', 'Wolf Chariot', 1); // Chariot Mount
-    store.setUnitUpgradeNumber('Goblin Warboss', 'Wyvern', 1); // Monstrous Mount
+    store.setUnitUpgradeNumber('goblinWarboss', 'wolfChariot', 1); // Chariot Mount
+    store.setUnitUpgradeNumber('goblinWarboss', 'wyvern', 1); // Monstrous Mount
 
     renderBuild('/build/goblin');
     await screen.findByText('Goblin');
@@ -207,7 +207,7 @@ describe('corrupt shared list', () => {
   it('warns and ignores the saved list when ?list= is corrupt', async () => {
     // Seed a saved list that, if applied, would change the points away from the
     // goblin force-minimum default (560).
-    saveList('goblin', { name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} });
+    saveList('goblin', { name: '', gameSize: 2000, units: { goblins: 20 }, upgrades: {} });
 
     renderBuild('/build/goblin?list=notjson');
 
@@ -221,7 +221,7 @@ describe('corrupt shared list', () => {
   it('applies a valid ?list= without warning', async () => {
     const maps = buildCodeMaps(loadArmy('goblin'));
     const blob = encodeList(
-      { name: '', gameSize: 2000, units: { Goblins: 20 }, upgrades: {} },
+      { name: '', gameSize: 2000, units: { goblins: 20 }, upgrades: {} },
       maps,
     );
 

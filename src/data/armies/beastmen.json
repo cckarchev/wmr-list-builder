@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 5,
-  "units": {
-    "Gor": {
+  "units": [
+    {
+      "id": "gor",
       "name": "Gor",
       "code": 0,
       "type": "Infantry",
@@ -14,9 +15,10 @@
       "size": 3,
       "points": 60,
       "min": 2,
-      "specialRules": ["Gor/Ungor"]
+      "specialRules": ["gorUngor"]
     },
-    "Ungor": {
+    {
+      "id": "ungor",
       "name": "Ungor",
       "code": 1,
       "type": "Infantry",
@@ -26,9 +28,10 @@
       "size": 3,
       "points": 45,
       "min": 2,
-      "specialRules": ["Gor/Ungor"]
+      "specialRules": ["gorUngor"]
     },
-    "Bestigors": {
+    {
+      "id": "bestigors",
       "name": "Bestigors",
       "code": 2,
       "type": "Infantry",
@@ -39,7 +42,8 @@
       "points": 80,
       "max": 2
     },
-    "Minotaurs": {
+    {
+      "id": "minotaurs",
       "name": "Minotaurs",
       "code": 3,
       "type": "Infantry",
@@ -49,7 +53,8 @@
       "points": 80,
       "max": 2
     },
-    "Centigors": {
+    {
+      "id": "centigors",
       "name": "Centigors",
       "code": 4,
       "type": "Cavalry",
@@ -61,7 +66,8 @@
       "points": 75,
       "max": 2
     },
-    "Chaos Hounds": {
+    {
+      "id": "chaosHounds",
       "name": "Chaos Hounds",
       "code": 5,
       "type": "Cavalry",
@@ -71,7 +77,8 @@
       "points": 40,
       "max": 6
     },
-    "Tuskgor Chariots": {
+    {
+      "id": "tuskgorChariots",
       "name": "Tuskgor Chariots",
       "code": 6,
       "type": "Chariot",
@@ -82,7 +89,8 @@
       "points": 95,
       "max": 4
     },
-    "Dragon Ogres": {
+    {
+      "id": "dragonOgres",
       "name": "Dragon Ogres",
       "code": 7,
       "type": "Monster",
@@ -93,7 +101,8 @@
       "points": 230,
       "max": 1
     },
-    "Chaos Spawn": {
+    {
+      "id": "chaosSpawn",
       "name": "Chaos Spawn",
       "code": 8,
       "type": "Monster",
@@ -105,7 +114,8 @@
       "points": 110,
       "max": 2
     },
-    "Dragon Ogre Shaggoth": {
+    {
+      "id": "dragonOgreShaggoth",
       "name": "Dragon Ogre Shaggoth",
       "code": 9,
       "type": "Monster",
@@ -116,7 +126,8 @@
       "points": 160,
       "max": 1
     },
-    "Beastlord": {
+    {
+      "id": "beastlord",
       "name": "Beastlord",
       "code": 10,
       "type": "General",
@@ -126,9 +137,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Tuskgor Chariot"]
+      "upgrades": ["tuskgorChariot"]
     },
-    "Doombull": {
+    {
+      "id": "doombull",
       "name": "Doombull",
       "code": 11,
       "type": "Hero",
@@ -138,7 +150,8 @@
       "points": 80,
       "armyMax": 1
     },
-    "Wargor": {
+    {
+      "id": "wargor",
       "name": "Wargor",
       "code": 12,
       "type": "Hero",
@@ -147,9 +160,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Tuskgor Chariot"]
+      "upgrades": ["tuskgorChariot"]
     },
-    "Bray Shaman": {
+    {
+      "id": "brayShaman",
       "name": "Bray Shaman",
       "code": 13,
       "type": "Wizard",
@@ -159,9 +173,10 @@
       "points": 80,
       "max": 1
     }
-  },
-  "upgrades": {
-    "Tuskgor Chariot": {
+  ],
+  "upgrades": [
+    {
+      "id": "tuskgorChariot",
       "name": "Tuskgor Chariot",
       "code": 0,
       "type": "Chariot Mount",
@@ -169,13 +184,14 @@
       "points": "+5",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "__The things in the woods.__ Beastmen infantry do not suffer the usual -1 Command penalty when within woodland."
   ],
-  "specialRules": {
-    "Gor/Ungor": {
+  "specialRules": [
+    {
+      "id": "gorUngor",
       "name": "Gor/Ungor",
       "order": 1,
       "text": [
@@ -187,26 +203,30 @@
         "Ungor have a shooting range of 15 cm."
       ]
     },
-    "Minotaurs": {
+    {
+      "id": "minotaurs",
       "name": "Minotaurs",
       "order": 2,
       "text": [
         "Minotaurs are subject for Bloodlust – they always use initiative to charge if possible and cannot be given orders instead. Minotaurs never use initiative to evade and must pursue or advance where possible. Also they are immune to terror."
       ]
     },
-    "Centigors": {
+    {
+      "id": "centigors",
       "name": "Centigors",
       "order": 3,
       "text": [
         "Centigors have a shooting range of 15cm 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Dragon Ogres": {
+    {
+      "id": "dragonOgres",
       "name": "Dragon Ogres",
       "order": 4,
       "text": ["Dragon Ogres are immune to terror."]
     },
-    "Chaos Spawn": {
+    {
+      "id": "chaosSpawn",
       "name": "Chaos Spawn",
       "order": 5,
       "text": [
@@ -215,7 +235,8 @@
         "Spawn units have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Dragon Ogre Shaggoth": {
+    {
+      "id": "dragonOgreShaggoth",
       "name": "Dragon Ogre Shaggoth",
       "order": 6,
       "text": [
@@ -223,21 +244,23 @@
         "Shaggoth has a great many hits, 8 in fact, which are almost impossible to inflict during even a fairly lengthy combat engagement. Because Shaggoths have so many hits we must consider the possibility of hurting the Dragon Ogre Shaggoth and reducing its effectiveness in subsequent turns. Therefore, if a Shaggoth has accumulated 5-7 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Shaggoth is badly hurt then all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 4 Hits and 4 Attacks). A Dragon Ogre Shaggoth causes terror in its enemies."
       ]
     },
-    "Doombull": {
+    {
+      "id": "doombull",
       "name": "Doombull",
       "order": 7,
       "text": [
         "A unit joined by a Doombull cause terror. Also, Gors, Ungors and Bestigors joined by a Doombull will become subject to Bloodlust in the same way as Minotaur units, until the end of the following Beastmen Command phase."
       ]
     },
-    "Tuskgor Chariot": {
+    {
+      "id": "tuskgorChariot",
       "name": "Tuskgor Chariot",
       "order": 8,
       "text": [
         "Beastlord or Wargors can ride a Tuskgor Chariot. A character riding a chariot adds +1 to his Attacks."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Traitor Kin",

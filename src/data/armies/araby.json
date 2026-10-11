@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 4,
-  "units": {
-    "Spearmen": {
+  "units": [
+    {
+      "id": "spearmen",
       "name": "Spearmen",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 45,
       "min": 2
     },
-    "Bowmen": {
+    {
+      "id": "bowmen",
       "name": "Bowmen",
       "code": 1,
       "type": "Infantry",
@@ -26,7 +28,8 @@
       "points": 55,
       "min": 2
     },
-    "Guards": {
+    {
+      "id": "guards",
       "name": "Guards",
       "code": 2,
       "type": "Infantry",
@@ -37,7 +40,8 @@
       "points": 65,
       "max": 4
     },
-    "Knights": {
+    {
+      "id": "knights",
       "name": "Knights",
       "code": 3,
       "type": "Cavalry",
@@ -47,7 +51,8 @@
       "size": 3,
       "points": 110
     },
-    "Desert Riders": {
+    {
+      "id": "desertRiders",
       "name": "Desert Riders",
       "code": 4,
       "type": "Cavalry",
@@ -58,7 +63,8 @@
       "size": 3,
       "points": 75
     },
-    "Camel Riders": {
+    {
+      "id": "camelRiders",
       "name": "Camel Riders",
       "code": 5,
       "type": "Cavalry",
@@ -70,7 +76,8 @@
       "points": 100,
       "max": 2
     },
-    "Magic Carpets": {
+    {
+      "id": "magicCarpets",
       "name": "Magic Carpets",
       "code": 6,
       "type": "Cavalry",
@@ -82,7 +89,8 @@
       "points": 85,
       "max": 1
     },
-    "Elephants": {
+    {
+      "id": "elephants",
       "name": "Elephants",
       "code": 7,
       "type": "Monster",
@@ -93,7 +101,8 @@
       "points": 200,
       "max": 1
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 8,
       "type": "General",
@@ -103,9 +112,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Flying Carpet", "Elephant", "Djinn"]
+      "upgrades": ["flyingCarpet", "elephant", "djinn"]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 9,
       "type": "Hero",
@@ -114,9 +124,10 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Flying Carpet", "Elephant", "Djinn"]
+      "upgrades": ["flyingCarpet", "elephant", "djinn"]
     },
-    "Wizard": {
+    {
+      "id": "wizard",
       "name": "Wizard",
       "code": 10,
       "type": "Wizard",
@@ -125,11 +136,12 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Flying Carpet", "Elephant", "Djinn"]
+      "upgrades": ["flyingCarpet", "elephant", "djinn"]
     }
-  },
-  "upgrades": {
-    "Flying Carpet": {
+  ],
+  "upgrades": [
+    {
+      "id": "flyingCarpet",
       "name": "Flying Carpet",
       "code": 0,
       "type": "Chariot Mount",
@@ -137,7 +149,8 @@
       "points": "+10",
       "max": 1
     },
-    "Elephant": {
+    {
+      "id": "elephant",
       "name": "Elephant",
       "code": 1,
       "type": "Monstrous Mount",
@@ -145,7 +158,8 @@
       "points": "+65",
       "max": 1
     },
-    "Djinn": {
+    {
+      "id": "djinn",
       "name": "Djinn",
       "code": 2,
       "type": "Monstrous Mount",
@@ -153,38 +167,43 @@
       "points": "+90",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Guards": {
+  "specialRules": [
+    {
+      "id": "guards",
       "name": "Guards",
       "order": 1,
       "text": [
         "The Sultan's Guards are so unquestioningly loyal that they will obey the first order given to them each turn on the Command roll of 10 or less so long as the order comes from the General himself. No penalties are applied to this order. Further orders are given using the General's normal command value and penalties. This applies only to Guards and not to brigades that include Guards and other units."
       ]
     },
-    "Desert Riders": {
+    {
+      "id": "desertRiders",
       "name": "Desert Riders",
       "order": 2,
       "text": [
         "Desert Riders have a shooting range of only 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Camel Riders": {
+    {
+      "id": "camelRiders",
       "name": "Camel Riders",
       "order": 3,
       "text": [
         "Camel Riders ignore distance modifiers when commands are issued to them. This applies only to Camel Riders and not to brigades that include Camel Riders and other units. Remember that characters are still bound by their maximum command ranges and cannot issue orders to units beyond range. This represents their fierce self-reliance and their mounts' instinctive sense of direction allowing them to operate effectively far from their own battle lines. Because Camels are such intractable creatures all orders are issued with a Command penalty of -1, this penalty applies to any unit of Camel Riders or to any brigade that contains one or more units of Camel Riders."
       ]
     },
-    "Magic Carpets": {
+    {
+      "id": "magicCarpets",
       "name": "Magic Carpets",
       "order": 4,
       "text": [
         "Magic carpets can fly – they have been rated as aerial 'cavalry' as this is the closest categorisation to their type. Because they are awkward flyers, they can be pursued by any type of enemy troops. Riders have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Elephants": {
+    {
+      "id": "elephants",
       "name": "Elephants",
       "order": 5,
       "text": [
@@ -193,26 +212,29 @@
         "A stampeding Elephants that charges will fight in the Combat phase. It counts as ‘enemies' for the duration of the combat. If the Elephants win a combat round they must pursue if possible and will continue to do so each round. Should their opponents be destroyed, they will not advance but will halt."
       ]
     },
-    "Flying Carpet": {
+    {
+      "id": "flyingCarpet",
       "name": "Flying Carpet",
       "order": 6,
       "text": ["This is considered to be a flying chariot mount."]
     },
-    "Elephant": {
+    {
+      "id": "elephant",
       "name": "Elephant",
       "order": 7,
       "text": [
         "The Elephant mount is a standard monster mount except that a character mounted on an Elephant cannot join a unit of friendly cavalry. A unit joined by a character riding an Elephant causes Terror."
       ]
     },
-    "Djinn": {
+    {
+      "id": "djinn",
       "name": "Djinn",
       "order": 8,
       "text": [
         "The Djinn accompanies its master and can transform both of them into a whirlwind enabling the stand to fly as for a normal flying mount. If the sorcerer has a Djinn he can also cast the Curse of the Djinn spell with a 1 casting bonus (see spells). Note that unusually the Djinn has 2 shooting attacks - these are added to a stand from a unit that the character has joined and can only be used when the character joins a unit. If the Wizard is accompanied by a Djinn then any unit he joins causes Terror."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Sand Storm",

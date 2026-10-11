@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 6,
-  "units": {
-    "Clanrats": {
+  "units": [
+    {
+      "id": "clanrats",
       "name": "Clanrats",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 40,
       "min": 2
     },
-    "Stormvermin": {
+    {
+      "id": "stormvermin",
       "name": "Stormvermin",
       "code": 1,
       "type": "Infantry",
@@ -26,7 +28,8 @@
       "points": 55,
       "max": 2
     },
-    "Jezzails": {
+    {
+      "id": "jezzails",
       "name": "Jezzails",
       "code": 2,
       "type": "Infantry",
@@ -38,7 +41,8 @@
       "points": 70,
       "max": 2
     },
-    "Plague Monks": {
+    {
+      "id": "plagueMonks",
       "name": "Plague Monks",
       "code": 3,
       "type": "Infantry",
@@ -48,7 +52,8 @@
       "points": 70,
       "max": 2
     },
-    "Rat Swarms": {
+    {
+      "id": "ratSwarms",
       "name": "Rat Swarms",
       "code": 4,
       "type": "Infantry",
@@ -59,7 +64,8 @@
       "min": 2,
       "noMagic": true
     },
-    "Gutter Runners": {
+    {
+      "id": "gutterRunners",
       "name": "Gutter Runners",
       "code": 5,
       "type": "Infantry",
@@ -71,7 +77,8 @@
       "points": 60,
       "max": 2
     },
-    "Rat Ogres": {
+    {
+      "id": "ratOgres",
       "name": "Rat Ogres",
       "code": 6,
       "type": "Infantry",
@@ -82,7 +89,8 @@
       "points": 110,
       "max": 2
     },
-    "Warp Lightning Cannon": {
+    {
+      "id": "warpLightningCannon",
       "name": "Warp Lightning Cannon",
       "code": 7,
       "type": "Artillery",
@@ -93,7 +101,8 @@
       "points": 60,
       "max": 1
     },
-    "Doom Wheel": {
+    {
+      "id": "doomWheel",
       "name": "Doom Wheel",
       "code": 8,
       "type": "Machine",
@@ -104,7 +113,8 @@
       "points": 125,
       "max": 1
     },
-    "Screaming Bell": {
+    {
+      "id": "screamingBell",
       "name": "Screaming Bell",
       "code": 9,
       "type": "Machine",
@@ -115,7 +125,8 @@
       "points": 125,
       "armyMax": 1
     },
-    "Grey Seer": {
+    {
+      "id": "greySeer",
       "name": "Grey Seer",
       "code": 10,
       "type": "General",
@@ -127,15 +138,16 @@
       "armyMin": 1,
       "armyMax": 1,
       "upgrades": [
-        "Ring of Magic",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling",
-        "Wand of Power",
-        "Rod of Repetition",
-        "Rat Ogre Bodyguard"
+        "ringOfMagic",
+        "staffOfSpellbinding",
+        "scrollOfDispelling",
+        "wandOfPower",
+        "rodOfRepetition",
+        "ratOgreBodyguard"
       ]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 11,
       "type": "Hero",
@@ -144,9 +156,10 @@
       "size": 1,
       "points": 70,
       "max": 2,
-      "upgrades": ["Rat Ogre Bodyguard"]
+      "upgrades": ["ratOgreBodyguard"]
     },
-    "Warlock": {
+    {
+      "id": "warlock",
       "name": "Warlock",
       "code": 12,
       "type": "Wizard",
@@ -155,11 +168,12 @@
       "size": 1,
       "points": 30,
       "max": 1,
-      "upgrades": ["Rat Ogre Bodyguard"]
+      "upgrades": ["ratOgreBodyguard"]
     }
-  },
-  "upgrades": {
-    "Rat Ogre Bodyguard": {
+  ],
+  "upgrades": [
+    {
+      "id": "ratOgreBodyguard",
       "name": "Rat Ogre Bodyguard",
       "code": 0,
       "type": "Special Mount",
@@ -167,22 +181,24 @@
       "points": "+10",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "__Strength in Numbers.__ Brigades may be of any size and are not restricted to the normal four unit maximum.",
     "__Vermintide.__ Skaven units that win a round of combat can choose to pursue retreating enemy units regardless of troops type. Any Skaven units (including artillery) can pursue any enemy units (including flyers, cavalry and chariots). Although allowed to pursue regardless of enemy troop type, Skaven are still constrained by terrain and fortified status the same as other armies – e.g. they cannot pursue if fortified.",
     "__Under the Lash.__ All Skaven characters have a Command range of 20cm whether General, Heroes or Wizards. Even Skaven Generals have a Command range of 20cm. Skaven are very good at directing their underlings - but only so long as they remain close at hand. We call it 'under the lash'."
   ],
-  "specialRules": {
-    "Jezzails": {
+  "specialRules": [
+    {
+      "id": "jezzails",
       "name": "Jezzails",
       "order": 1,
       "text": [
         "Count enemy armour values as one worse that normal when shot by a jezzail. So, for example, an armour value of 3+ counts as 4+, 5+ counts as 6+, and 6+ can't save against a jezzail."
       ]
     },
-    "Plague Monks": {
+    {
+      "id": "plagueMonks",
       "name": "Plague Monks",
       "order": 2,
       "text": [
@@ -190,14 +206,16 @@
         "Plague Monks are unaffected by enemies that cause terror in combat, they do not suffer the usual -1 Attack modifier."
       ]
     },
-    "Rat Swarms": {
+    {
+      "id": "ratSwarms",
       "name": "Rat Swarms",
       "order": 3,
       "text": [
         "Rat Swarms cannot be driven back by shooting and do not roll for drive backs. A Rat Swarm stand cannot be supported by other kinds of infantry - only by other Ratswarm stands. Note, however, that Rat Swarms can support other kinds of infantry as normal. A Rat Swarm cannot be given magic items."
       ]
     },
-    "Gutter Runners": {
+    {
+      "id": "gutterRunners",
       "name": "Gutter Runners",
       "order": 4,
       "text": [
@@ -206,42 +224,47 @@
         "Gutter Runners don't suffer the -1 Command penalty for Dense Terrain."
       ]
     },
-    "Warp Lightning Cannon": {
+    {
+      "id": "warpLightningCannon",
       "name": "Warp Lightning Cannon",
       "order": 5,
       "text": [
         "The Warp Lightning Cannon follows the rules for Elven Bolt Throwers as per page 75 of the rulebook, but they can move up to 20cm. A half pace move is 10cm. When making a shooting attack, any roll of double 1s to hit will cause the Warp Lightning Cannon unit to become confused. This includes stand and shoot attacks."
       ]
     },
-    "Doom Wheel": {
+    {
+      "id": "doomWheel",
       "name": "Doom Wheel",
       "order": 6,
       "text": [
         "When the Doom Wheel charges against targets in the open it receives D6 bonus Attacks in addition to the normal +1 Attack for charging. Note that this bonus applies only when charging - not during pursuits, advances and not when the Doom Wheel is charged itself. Doomwheel has a move of 20cm and causes terror."
       ]
     },
-    "Grey Seer": {
+    {
+      "id": "greySeer",
       "name": "Grey Seer",
       "order": 7,
       "text": [
         "The Grey Seer is the army‘s General and can use Skaven magic in the same manner as a Warlock and can be given a magic item restricted to either a General or a Wizard."
       ]
     },
-    "Screaming Bell": {
+    {
+      "id": "screamingBell",
       "name": "Screaming Bell",
       "order": 8,
       "text": [
         "A Screaming Bell is a gargantuan device and therefore it uses a 40 x 60mm base, with the short edge being the front. It cannot move of its own accord - but relies upon the great mass of Skaven to push it forward. The Screaming Bell can therefore only move in the Command phase if it forms a brigade with one or more infantry units. It can then move 20cm at infantry pace. It cannot move using initiative and cannot be driven back by shooting and does not roll for drive backs. In combat it is automatically destroyed if forced to retreat but will pursue, advance and fall back so long as it is touching a Skaven infantry unit at the start and end of its move: otherwise it cannot pursue, advance or fall back as it is unable to move of its own accord. All Skaven units touching the Screaming Bell are unaffected by the usual penalty for Terror whilst they remain so. In addition, any Skaven Hero or Warlock within 30cm of the Screaming Bell adds +1 to their Command value. Any enemy character within 30cm of the Screaming Bell deducts -1 from their Command value. A Skaven army can only ever include a maximum of 1 Screaming Bell no matter how large."
       ]
     },
-    "Rat Ogre Bodyguard": {
+    {
+      "id": "ratOgreBodyguard",
       "name": "Rat Ogre Bodyguard",
       "order": 9,
       "text": [
         "The Grey Seer, Heroes and Warlocks can have a Rat Ogre Bodyguard.A character with a bodyguard adds +1 to his Attacks."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Wither",

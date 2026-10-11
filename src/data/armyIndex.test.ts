@@ -22,6 +22,6 @@ describe('army index', () => {
     expect(() => loadArmy('nope')).toThrow(/Unknown army/);
   });
   it('exposes goblin units', () => {
-    expect(armiesById.goblin.units.Goblins.points).toBe(GOBLIN_POINTS);
+    expect(armiesById.goblin.units.goblins.points).toBe(GOBLIN_POINTS);
   });
 });

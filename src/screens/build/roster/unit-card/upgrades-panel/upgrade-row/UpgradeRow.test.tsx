@@ -14,12 +14,12 @@ describe('UpgradeRow', () => {
     const store = useArmyStore.getState();
     store.setArmy('empire');
     // Battle Banner is a Magic Standard: armyMax 1 per army. Spend it on one unit.
-    store.setUnitNumber('Halberdiers', HALBERDIER_STANDS);
-    store.setUnitUpgradeNumber('Halberdiers', 'Battle Banner', 1);
+    store.setUnitNumber('halberdiers', HALBERDIER_STANDS);
+    store.setUnitUpgradeNumber('halberdiers', 'battleBanner', 1);
     // A second eligible unit has stands free, but the army-wide allowance is gone.
-    store.setUnitNumber('Knights', 2);
+    store.setUnitNumber('knights', 2);
 
-    renderWithProviders(<UpgradeRow unitId="Knights" upgradeId="Battle Banner" />);
+    renderWithProviders(<UpgradeRow unitId="knights" upgradeId="battleBanner" />);
 
     expect(
       screen.getByRole('button', { name: 'increase Battle Banner for Knights' }),
@@ -29,9 +29,9 @@ describe('UpgradeRow', () => {
   it('allows increasing a per-unit upgrade up to the unit number', () => {
     const store = useArmyStore.getState();
     store.setArmy('empire');
-    store.setUnitNumber('Knights', 2);
+    store.setUnitNumber('knights', 2);
 
-    renderWithProviders(<UpgradeRow unitId="Knights" upgradeId="Battle Banner" />);
+    renderWithProviders(<UpgradeRow unitId="knights" upgradeId="battleBanner" />);
 
     // Nothing of this army-wide upgrade is used yet, so it can still be added.
     expect(
@@ -43,9 +43,9 @@ describe('UpgradeRow', () => {
     const user = userEvent.setup();
     const store = useArmyStore.getState();
     store.setArmy('empire');
-    store.setUnitNumber('Knights', 2);
+    store.setUnitNumber('knights', 2);
 
-    renderWithProviders(<UpgradeRow unitId="Knights" upgradeId="Battle Banner" />);
+    renderWithProviders(<UpgradeRow unitId="knights" upgradeId="battleBanner" />);
 
     await user.click(screen.getByRole('button', { name: 'Battle Banner special rules' }));
     const dialog = screen.getByRole('dialog', { name: 'Battle Banner special rules' });

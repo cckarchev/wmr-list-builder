@@ -28,8 +28,8 @@ describe('ArmySummary', () => {
   it("lists a unit's selected upgrades as sub-lines with quantity", () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', GOBLIN_STANDS);
-    store.setUnitUpgradeNumber('Goblins', 'Squig Herd', 2);
+    store.setUnitNumber('goblins', GOBLIN_STANDS);
+    store.setUnitUpgradeNumber('goblins', 'squigHerd', 2);
     renderWithProviders(<ArmySummary />);
     const region = screen.getByRole('complementary', { name: 'Your Army' });
     expect(within(region).getByText('Squig Herd')).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('ArmySummary', () => {
     renderWithProviders(
       <>
         <ArmySummary />
-        <div id={unitDomId('Goblins')} />
+        <div id={unitDomId('goblins')} />
       </>,
     );
     await user.click(screen.getByRole('button', { name: /Goblins/ }));

@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 0,
-  "units": {
-    "Halberdiers": {
+  "units": [
+    {
+      "id": "halberdiers",
       "name": "Halberdiers",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 45,
       "min": 2
     },
-    "Handgunners": {
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "code": 1,
       "type": "Infantry",
@@ -26,7 +28,8 @@
       "points": 65,
       "max": 3
     },
-    "Crossbowmen": {
+    {
+      "id": "crossbowmen",
       "name": "Crossbowmen",
       "code": 2,
       "type": "Infantry",
@@ -36,9 +39,10 @@
       "size": 3,
       "points": 55,
       "min": 2,
-      "upgrades": ["Handgunners"]
+      "upgrades": ["handgunners"]
     },
-    "Flagellants": {
+    {
+      "id": "flagellants",
       "name": "Flagellants",
       "code": 3,
       "type": "Infantry",
@@ -48,7 +52,8 @@
       "points": 70,
       "max": 1
     },
-    "Skirmishers": {
+    {
+      "id": "skirmishers",
       "name": "Skirmishers",
       "code": 4,
       "type": "Infantry",
@@ -57,11 +62,12 @@
       "armour": "-/6+",
       "size": "+1",
       "points": 20,
-      "augendUnits": ["Halberdiers", "Handgunners", "Crossbowmen", "Flagellants"],
+      "augendUnits": ["halberdiers", "handgunners", "crossbowmen", "flagellants"],
       "noCount": true,
       "noMagic": true
     },
-    "Knights": {
+    {
+      "id": "knights",
       "name": "Knights",
       "code": 5,
       "type": "Cavalry",
@@ -71,7 +77,8 @@
       "size": 3,
       "points": 110
     },
-    "Pistoliers": {
+    {
+      "id": "pistoliers",
       "name": "Pistoliers",
       "code": 6,
       "type": "Cavalry",
@@ -83,7 +90,8 @@
       "points": 95,
       "max": 4
     },
-    "Helblaster": {
+    {
+      "id": "helblaster",
       "name": "Helblaster",
       "code": 7,
       "type": "Artillery",
@@ -94,7 +102,8 @@
       "points": 50,
       "max": 1
     },
-    "Cannon": {
+    {
+      "id": "cannon",
       "name": "Cannon",
       "code": 8,
       "type": "Artillery",
@@ -105,7 +114,8 @@
       "points": 85,
       "max": 1
     },
-    "Steam Tank": {
+    {
+      "id": "steamTank",
       "name": "Steam Tank",
       "code": 9,
       "type": "Machine",
@@ -117,7 +127,8 @@
       "points": 130,
       "max": 1
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 10,
       "type": "General",
@@ -127,9 +138,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Griffon"]
+      "upgrades": ["griffon"]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 11,
       "type": "Hero",
@@ -138,9 +150,10 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Griffon"]
+      "upgrades": ["griffon"]
     },
-    "Wizard": {
+    {
+      "id": "wizard",
       "name": "Wizard",
       "code": 12,
       "type": "Wizard",
@@ -149,11 +162,12 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Griffon", "War Altar"]
+      "upgrades": ["griffon", "warAltar"]
     }
-  },
-  "upgrades": {
-    "Griffon": {
+  ],
+  "upgrades": [
+    {
+      "id": "griffon",
       "name": "Griffon",
       "code": 0,
       "type": "Monstrous Mount",
@@ -161,7 +175,8 @@
       "points": "+80",
       "max": 1
     },
-    "War Altar": {
+    {
+      "id": "warAltar",
       "name": "War Altar",
       "code": 1,
       "type": "Chariot Mount",
@@ -169,7 +184,8 @@
       "points": "+15",
       "armyMax": 1
     },
-    "Handgunners": {
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "code": 2,
       "type": "Special",
@@ -180,24 +196,27 @@
       "points": "+10",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Handgunners": {
+  "specialRules": [
+    {
+      "id": "handgunners",
       "name": "Handgunners",
       "order": 1,
       "text": [
         "Count enemy Armour values as one worse than normal when shot by a handgun. So an armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an Armour value of 6+ can't save against a handgun. One unit of Crossbowmen per full 1000 points can be replaced by Handgunners (including the 10pts extra in price) while still counting for the Crossbowmen min/max value. Note that this unit also counts for min/max value of Handgunners."
       ]
     },
-    "Flagellants": {
+    {
+      "id": "flagellants",
       "name": "Flagellants",
       "order": 2,
       "text": [
         "So keen are they to meet their maker that a unit of Flagellants will always use its initiative to charge an enemy if possible and can't be given orders instead. They'll never use their initiative to evade. They can't be driven back by shooting and do not roll for drive backs. If victorious in combat they must pursue or advance where possible. Flagellants are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier."
       ]
     },
-    "Skirmishers": {
+    {
+      "id": "skirmishers",
       "name": "Skirmishers",
       "order": 3,
       "text": [
@@ -206,14 +225,16 @@
         "Skirmisher casualties never count for Command penalties. Skirmisher stands never cause the parent unit to be in Irregular Formation no matter how they are placed."
       ]
     },
-    "Pistoliers": {
+    {
+      "id": "pistoliers",
       "name": "Pistoliers",
       "order": 4,
       "text": [
         "Pistoliers have a shooting range of only 15cm however they have 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Helblaster": {
+    {
+      "id": "helblaster",
       "name": "Helblaster",
       "order": 5,
       "text": [
@@ -224,7 +245,8 @@
         "A Helblaster can shoot at charging enemies in the usual manner (see Shooting). In this case the crew will fire at the shortest possible range to maximise the number of shots against the target. Note: in the event of the Helblaster exploding 6 hits are inflicted on the charging enemy unit as described above - Helblasters are extremely dangerous to charge… for everyone concerned."
       ]
     },
-    "Steam Tank": {
+    {
+      "id": "steamTank",
       "name": "Steam Tank",
       "order": 6,
       "text": [
@@ -236,25 +258,28 @@
         "|||\n-|-\n__D6__|__Result__\n__1.__|__Destroyed.__ The Steam Tank grinds to a halt rupturing steam and noxious gasses. Remove the Steam Tank as a casualty.\n__2.__|__Broken Down.__ The Steam Tank's drive has broken. It does not move further this turn and cannot move in future turns. Should it be obliged to move for any reason it is destroyed. Otherwise, the Steam Tank can continue to shoot and fight as normal.\n__3.__|__Stuck.__ The Steam tank does not move further this turn. It cannot shoot this turn. Otherwise it is unaffected and can move in future turns as normal.\n__4.__|__Commander Slain.__ The Steam Tank does not move further this turn. It can move in future turns but suffers a command penalty of -1 for the remainder of the game. The Steam Tank can shoot as normal.\n__5.__|__Momentary Halt.__ The Steam Tank cannot move further this turn but is otherwise unaffected.\n__6.__|__Steam Overload.__ The Steam Tank cannot move further this turn but can shoot with double the usual number of Attacks (6) to represent steam being uncontrollably diverted into weaponry."
       ]
     },
-    "Griffon": {
+    {
+      "id": "griffon",
       "name": "Griffon",
       "order": 7,
       "text": [
         "Generals, Wizards and Heroes can ride Griffons. The Griffon can fly increasing its rider's Movement from 60cm to 100cm. It adds +2 Attacks to those of its rider. A unit that includes a Griffon rider causes terror in its enemies (and one might imagine a great deal of nervousness amongst its own ranks)."
       ]
     },
-    "War Altar": {
+    {
+      "id": "warAltar",
       "name": "War Altar",
       "order": 8,
       "text": [
         "A Wizard may be mounted on a War Altar. A Wizard with a War Altar suffers a movement reduction to 30cm. The army can only ever include one War Altar, and it can only be included if there is at least 1 unit of Flagellants in the army. The War Altar adds +2 attacks to the Wizard and can be used to add +1 to the Wizard‘s dice roll to cast a spell once per battle. The player must announce that the War Altar‘s spell bonus is being used before rolling the dice to determine if the spell is cast."
       ]
     },
-    "Cannon": {
+    {
+      "id": "cannon",
       "name": "Cannon",
       "order": 9
     }
-  },
+  ],
   "spells": [
     {
       "name": "Ball of Flame",

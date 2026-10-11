@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 8,
-  "units": {
-    "Ashigaru": {
+  "units": [
+    {
+      "id": "ashigaru",
       "name": "Ashigaru",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 45,
       "min": 1
     },
-    "Ashigaru Bowmen": {
+    {
+      "id": "ashigaruBowmen",
       "name": "Ashigaru Bowmen",
       "code": 1,
       "type": "Infantry",
@@ -25,7 +27,8 @@
       "size": 3,
       "points": 55
     },
-    "Ashigaru Teppo": {
+    {
+      "id": "ashigaruTeppo",
       "name": "Ashigaru Teppo",
       "code": 2,
       "type": "Infantry",
@@ -35,7 +38,8 @@
       "size": 3,
       "points": 65
     },
-    "Samurai": {
+    {
+      "id": "samurai",
       "name": "Samurai",
       "code": 3,
       "type": "Infantry",
@@ -46,9 +50,10 @@
       "points": 80,
       "min": 2,
       "max": 4,
-      "specialRules": ["Bushido"]
+      "specialRules": ["bushido"]
     },
-    "Mikata (Ronin & Monks)": {
+    {
+      "id": "mikataRoninMonks",
       "name": "Mikata (Ronin & Monks)",
       "code": 4,
       "type": "Infantry",
@@ -57,9 +62,10 @@
       "size": 3,
       "points": 70,
       "max": 2,
-      "specialRules": ["Mikata"]
+      "specialRules": ["mikata"]
     },
-    "Ninja": {
+    {
+      "id": "ninja",
       "name": "Ninja",
       "code": 5,
       "type": "Infantry",
@@ -71,7 +77,8 @@
       "points": 60,
       "max": 2
     },
-    "Oni": {
+    {
+      "id": "oni",
       "name": "Oni",
       "code": 6,
       "type": "Infantry",
@@ -81,9 +88,10 @@
       "size": 3,
       "points": 110,
       "max": 1,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": ["templeDaemons"]
     },
-    "Samurai Cavalry": {
+    {
+      "id": "samuraiCavalry",
       "name": "Samurai Cavalry",
       "code": 7,
       "type": "Cavalry",
@@ -93,9 +101,10 @@
       "size": 3,
       "points": 110,
       "max": 3,
-      "specialRules": ["Bushido"]
+      "specialRules": ["bushido"]
     },
-    "Komainu": {
+    {
+      "id": "komainu",
       "name": "Komainu",
       "code": 8,
       "type": "Cavalry",
@@ -104,9 +113,10 @@
       "size": 3,
       "points": 40,
       "max": 3,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": ["templeDaemons"]
     },
-    "Tengu": {
+    {
+      "id": "tengu",
       "name": "Tengu",
       "code": 9,
       "type": "Monster",
@@ -116,9 +126,10 @@
       "size": 3,
       "points": 80,
       "max": 1,
-      "specialRules": ["Temple Daemons"]
+      "specialRules": ["templeDaemons"]
     },
-    "Shogun": {
+    {
+      "id": "shogun",
       "name": "Shogun",
       "code": 10,
       "type": "General",
@@ -128,9 +139,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Tatsu"]
+      "upgrades": ["tatsu"]
     },
-    "Daimyo": {
+    {
+      "id": "daimyo",
       "name": "Daimyo",
       "code": 11,
       "type": "Hero",
@@ -139,9 +151,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Tatsu"]
+      "upgrades": ["tatsu"]
     },
-    "Shugenja": {
+    {
+      "id": "shugenja",
       "name": "Shugenja",
       "code": 12,
       "type": "Hero",
@@ -150,11 +163,12 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Tatsu", "Shrine", "Scroll of Dispelling"]
+      "upgrades": ["tatsu", "shrine", "scrollOfDispelling"]
     }
-  },
-  "upgrades": {
-    "Tatsu": {
+  ],
+  "upgrades": [
+    {
+      "id": "tatsu",
       "name": "Tatsu",
       "code": 0,
       "type": "Monstrous Mount",
@@ -162,41 +176,46 @@
       "points": "+80",
       "max": 1
     },
-    "Shrine": {
+    {
+      "id": "shrine",
       "name": "Shrine",
       "code": 1,
       "type": "Special",
       "points": "+30",
       "armyMax": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "**Honour and Duty:** A Nipponese army mustered for war is a force unlike any other. Values of honour and duty are so ingrained in the culture of Nipponese society that they will stick around in a fight when many others would leave in disgrace. To represent this, a Nippon army adds 1 to the number of units that must be lost before the army will withdraw. For example  an army of 16 units will normally withdraw once eight units are destroyed  with Nippon, the army will not withdraw until nine units are destroyed."
   ],
-  "specialRules": {
-    "Ashigaru Teppo": {
+  "specialRules": [
+    {
+      "id": "ashigaruTeppo",
       "name": "Ashigaru Teppo",
       "order": 1,
       "text": [
         "These units use black powder handguns. Their projectiles can pierce armour far easier than an arrow. Therefore, units hit by Ashigaru Tepo get a -1 penalty for their armour rolls."
       ]
     },
-    "Bushido": {
+    {
+      "id": "bushido",
       "name": "Bushido",
       "order": 2,
       "text": [
         "Samurai live their lives by a strict code of honour and ideals. The troops do not like losing face, so they cannot use Initiative to evade and they roll 1 less dice for drive back."
       ]
     },
-    "Mikata": {
+    {
+      "id": "mikata",
       "name": "Mikata",
       "order": 3,
       "text": [
         "A unit of Mikata will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. They can't be driven back by shooting and do not roll for drive backs. If victorious in combat, they must pursue or advance where possible. Mikata are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier."
       ]
     },
-    "Ninja": {
+    {
+      "id": "ninja",
       "name": "Ninja",
       "order": 4,
       "text": [
@@ -205,7 +224,8 @@
         "Ninjas ignore penalties for Dense Terrain. Ninja count as Gutter Runners in purpose of Scout Rules."
       ]
     },
-    "Temple Daemons": {
+    {
+      "id": "templeDaemons",
       "name": "Temple Daemons",
       "order": 5,
       "text": [
@@ -213,28 +233,32 @@
         "|||\n-|-\n__0-1__|One stand is destroyed  the daemons fade away and are absorbed back into the heaven from which they came. Remove one stand from play. If a character is with the unit and the last stand is removed the character is destroyed too.\n__2-3__|The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next.\n__4-5__|No effect  unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of the Temple.\n__6__|The unit regains one stand. The regained stand is placed directly behind, in front or beside another stand from the same unit, and facing the same direction. If it is impossible to position the stand in this manner, it cannot be added."
       ]
     },
-    "Komainu": {
+    {
+      "id": "komainu",
       "name": "Komainu",
       "order": 6,
       "text": [
         "If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Komainu are affected by Instability and Immune to Terror like other Temple Daemons."
       ]
     },
-    "Tengu": {
+    {
+      "id": "tengu",
       "name": "Tengu",
       "order": 7,
       "text": [
         "Tengu can fly. They are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters. Tengu are affected by Instability and Immune to Terror like other Temple Daemons."
       ]
     },
-    "Shogun": {
+    {
+      "id": "shogun",
       "name": "Shogun",
       "order": 8,
       "text": [
         "If a Nippon Hero (Daimyo or Shugenja, not the Shogun) rolls a double 6 when issuing orders, the player must roll on the Blunder table with a -1 penalty on the result. If the table indicates a “You must be crazy” result, the -1 Command penalty must be applied to a Samurai or Samurai cavalry unit if a unit of these troops was being ordered or was in the brigade being ordered. If there is more than one of these units present, the Nippon player may choose which is affected."
       ]
     },
-    "Shugenja": {
+    {
+      "id": "shugenja",
       "name": "Shugenja",
       "order": 9,
       "text": [
@@ -244,14 +268,16 @@
         "Shugenjas may take a Dispel scroll."
       ]
     },
-    "Tatsu": {
+    {
+      "id": "tatsu",
       "name": "Tatsu",
       "order": 10,
       "text": [
         "Generals and Heroes can ride Tatsu, a kind of dragon native to Nippon. Tatsu can fly and cause terror in their enemies. An extra +2 Attacks are added to those of its rider."
       ]
     },
-    "Shrine": {
+    {
+      "id": "shrine",
       "name": "Shrine",
       "order": 11,
       "text": [
@@ -260,5 +286,5 @@
         "In addition, the Shugenja can invoke the gods using the Shrine during the Shooting phase of his own turn. The shrine's invocation fills the Nippon army with even greater resolve! Roll a D6. On the score of a 4, 5 or 6 all Nippon units within 20cm of the Shugenja are unaffected by Terror until the start of the Nippon player's next turn. On a roll of less than 4 there is no effect."
       ]
     }
-  }
+  ]
 }

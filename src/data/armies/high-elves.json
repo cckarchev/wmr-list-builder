@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 4,
-  "units": {
-    "Spearmen": {
+  "units": [
+    {
+      "id": "spearmen",
       "name": "Spearmen",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 60,
       "min": 2
     },
-    "Archers": {
+    {
+      "id": "archers",
       "name": "Archers",
       "code": 1,
       "type": "Infantry",
@@ -27,7 +29,8 @@
       "points": 75,
       "min": 1
     },
-    "Silver Helms": {
+    {
+      "id": "silverHelms",
       "name": "Silver Helms",
       "code": 2,
       "type": "Cavalry",
@@ -38,7 +41,8 @@
       "points": 110,
       "max": 3
     },
-    "Reavers": {
+    {
+      "id": "reavers",
       "name": "Reavers",
       "code": 3,
       "type": "Cavalry",
@@ -50,7 +54,8 @@
       "points": 90,
       "max": 3
     },
-    "Chariots": {
+    {
+      "id": "chariots",
       "name": "Chariots",
       "code": 4,
       "type": "Chariot",
@@ -61,7 +66,8 @@
       "points": 95,
       "max": 3
     },
-    "Giant Eagles": {
+    {
+      "id": "giantEagles",
       "name": "Giant Eagles",
       "code": 5,
       "type": "Monster",
@@ -72,7 +78,8 @@
       "points": 70,
       "max": 1
     },
-    "Dragon Rider": {
+    {
+      "id": "dragonRider",
       "name": "Dragon Rider",
       "code": 6,
       "type": "Monster",
@@ -83,9 +90,10 @@
       "size": 1,
       "points": 270,
       "max": 1,
-      "specialRules": ["Dragons"]
+      "specialRules": ["dragons"]
     },
-    "Elven Bolt Thrower": {
+    {
+      "id": "elvenBoltThrower",
       "name": "Elven Bolt Thrower",
       "code": 7,
       "type": "Artillery",
@@ -96,7 +104,8 @@
       "points": 55,
       "max": 1
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 8,
       "type": "General",
@@ -106,9 +115,10 @@
       "points": 180,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
+      "upgrades": ["giantEagle", "dragon", "chariot"]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 9,
       "type": "Hero",
@@ -117,9 +127,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
+      "upgrades": ["giantEagle", "dragon", "chariot"]
     },
-    "Wizard": {
+    {
+      "id": "wizard",
       "name": "Wizard",
       "code": 10,
       "type": "Wizard",
@@ -128,11 +139,12 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Giant Eagle", "Dragon", "Chariot"]
+      "upgrades": ["giantEagle", "dragon", "chariot"]
     }
-  },
-  "upgrades": {
-    "Giant Eagle": {
+  ],
+  "upgrades": [
+    {
+      "id": "giantEagle",
       "name": "Giant Eagle",
       "code": 0,
       "type": "Monstrous Mount",
@@ -140,7 +152,8 @@
       "points": "+20",
       "max": 1
     },
-    "Dragon": {
+    {
+      "id": "dragon",
       "name": "Dragon",
       "code": 1,
       "type": "Monstrous Mount",
@@ -148,9 +161,10 @@
       "range": "20cm",
       "points": "+100",
       "max": 1,
-      "specialRules": ["Dragons"]
+      "specialRules": ["dragons"]
     },
-    "Chariot": {
+    {
+      "id": "chariot",
       "name": "Chariot",
       "code": 2,
       "type": "Chariot Mount",
@@ -158,22 +172,25 @@
       "points": "+5",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Archers": {
+  "specialRules": [
+    {
+      "id": "archers",
       "name": "Archers",
       "order": 1,
       "text": [
         "High Elf archers add +1 to their dice roll when making Shooting attacks. They will therefore score a hit against targets in the open on a 3 or more, against targets that are defended on a 4 or more, and against fortified targets on a 5 or more."
       ]
     },
-    "Giant Eagles": {
+    {
+      "id": "giantEagles",
       "name": "Giant Eagles",
       "order": 2,
       "text": ["Eagles can fly."]
     },
-    "Dragons": {
+    {
+      "id": "dragons",
       "name": "Dragons",
       "order": 3,
       "text": [
@@ -183,32 +200,36 @@
         "Dragons can make a fiery breath. This applies both to a unit of Dragon Riders and to Dragons ridden by characters that have joined a unit of troops. Dragon fire works as follows. The fire breath has a range of 20cm. Breath can be directed against one target as for normal shooting and has 3 Attacks that are worked out in the usual way at 4+ to hit."
       ]
     },
-    "Elven Bolt Thrower": {
+    {
+      "id": "elvenBoltThrower",
       "name": "Elven Bolt Thrower",
       "order": 4
     },
-    "Wizard": {
+    {
+      "id": "wizard",
       "name": "Wizard",
       "order": 5,
       "text": [
         "High Elf Mages are especially powerful wizards and to represent this can re-roll a failed spell on any dice result except a 1. If a spell is failed because a 1 is rolled then no re-roll is permitted."
       ]
     },
-    "Giant Eagle": {
+    {
+      "id": "giantEagle",
       "name": "Giant Eagle",
       "order": 6,
       "text": [
         "Generals, Wizards and Heroes can ride a Giant Eagle. An Eagle can fly increasing its rider's move from 60 to 100cm. An extra +2 Attacks are added to those of its rider."
       ]
     },
-    "Chariot": {
+    {
+      "id": "chariot",
       "name": "Chariot",
       "order": 7,
       "text": [
         "Generals, Wizards and Heroes can ride Chariots. An extra +1 Attack is added to those of its rider."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Storm of Stone",

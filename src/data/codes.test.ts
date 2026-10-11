@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { armiesById } from './armyIndex';
 import { MAGIC_ITEM_CODE_MIN, magicItems } from './magicItems';
 
+/** A lowercase letter, then letters and digits only. */
+const CAMEL_CASE = /^[a-z][a-zA-Z0-9]*$/;
+
 describe('stable codes', () => {
   it('every unit and army upgrade has a unique numeric code within its army', () => {
     for (const [armyId, army] of Object.entries(armiesById)) {
@@ -31,15 +34,21 @@ describe('stable codes', () => {
     expect(new Set(codes).size).toBe(codes.length);
   });
 
-  it('no entity keeps the old numeric id field', () => {
-    const entities = [
+  it('every entity id is camelCase and matches its key', () => {
+    const records = [
       ...Object.values(armiesById).flatMap((army) => [
-        ...Object.values(army.units),
-        ...Object.values(army.upgrades ?? {}),
+        army.units,
+        army.upgrades ?? {},
+        army.specialRules ?? {},
       ]),
-      ...Object.values(magicItems.upgrades),
+      magicItems.upgrades,
     ];
+    const mismatched = records.flatMap((record) =>
+      Object.entries(record)
+        .filter(([key, entity]) => entity.id !== key || !CAMEL_CASE.test(entity.id))
+        .map(([key, entity]) => `${key} -> ${entity.id}`),
+    );
 
-    expect(entities.filter((entity) => 'id' in entity)).toEqual([]);
+    expect(mismatched).toEqual([]);
   });
 });

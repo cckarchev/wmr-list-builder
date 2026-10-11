@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 7,
-  "units": {
-    "Bannermen": {
+  "units": [
+    {
+      "id": "bannermen",
       "name": "Bannermen",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 50,
       "min": 3
     },
-    "Crossbows": {
+    {
+      "id": "crossbows",
       "name": "Crossbows",
       "code": 1,
       "type": "Infantry",
@@ -26,7 +28,8 @@
       "points": 40,
       "min": 1
     },
-    "Handguns": {
+    {
+      "id": "handguns",
       "name": "Handguns",
       "code": 2,
       "type": "Infantry",
@@ -36,7 +39,8 @@
       "size": 3,
       "points": 50
     },
-    "Terracotta Warriors": {
+    {
+      "id": "terracottaWarriors",
       "name": "Terracotta Warriors",
       "code": 3,
       "type": "Infantry",
@@ -47,7 +51,8 @@
       "points": 30,
       "max": 6
     },
-    "Maneaters": {
+    {
+      "id": "maneaters",
       "name": "Maneaters",
       "code": 4,
       "type": "Infantry",
@@ -58,7 +63,8 @@
       "points": 140,
       "max": 1
     },
-    "Chariots": {
+    {
+      "id": "chariots",
       "name": "Chariots",
       "code": 5,
       "type": "Chariot",
@@ -70,7 +76,8 @@
       "points": 110,
       "max": 1
     },
-    "Imperial Cavalry": {
+    {
+      "id": "imperialCavalry",
       "name": "Imperial Cavalry",
       "code": 6,
       "type": "Cavalry",
@@ -81,7 +88,8 @@
       "points": 90,
       "max": 2
     },
-    "Hu Cavalry": {
+    {
+      "id": "huCavalry",
       "name": "Hu Cavalry",
       "code": 7,
       "type": "Cavalry",
@@ -93,7 +101,8 @@
       "points": 60,
       "max": 3
     },
-    "Rocket Launcher": {
+    {
+      "id": "rocketLauncher",
       "name": "Rocket Launcher",
       "code": 8,
       "type": "Artillery",
@@ -103,9 +112,10 @@
       "size": 1,
       "points": 55,
       "max": 1,
-      "specialRules": ["Stone Thrower"]
+      "specialRules": ["stoneThrower"]
     },
-    "Triple Bows": {
+    {
+      "id": "tripleBows",
       "name": "Triple Bows",
       "code": 9,
       "type": "Artillery",
@@ -115,9 +125,10 @@
       "size": 2,
       "points": 65,
       "max": 1,
-      "specialRules": ["Bolt Thrower"]
+      "specialRules": ["boltThrower"]
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 10,
       "type": "General",
@@ -127,9 +138,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Chariot", "Tiger"]
+      "upgrades": ["chariot", "tiger"]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 11,
       "type": "Hero",
@@ -138,9 +150,10 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Chariot", "Tiger"]
+      "upgrades": ["chariot", "tiger"]
     },
-    "Sorcerer": {
+    {
+      "id": "sorcerer",
       "name": "Sorcerer",
       "code": 12,
       "type": "Wizard",
@@ -148,11 +161,12 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Chariot", "Celestial Dragon", "Qilin"]
+      "upgrades": ["chariot", "celestialDragon", "qilin"]
     }
-  },
-  "upgrades": {
-    "Chariot": {
+  ],
+  "upgrades": [
+    {
+      "id": "chariot",
       "name": "Chariot",
       "code": 0,
       "type": "Chariot Mount",
@@ -160,7 +174,8 @@
       "points": "+10",
       "max": 1
     },
-    "Celestial Dragon": {
+    {
+      "id": "celestialDragon",
       "name": "Celestial Dragon",
       "code": 1,
       "type": "Monstrous Mount",
@@ -168,7 +183,8 @@
       "points": "+100",
       "armyMax": 1
     },
-    "Tiger": {
+    {
+      "id": "tiger",
       "name": "Tiger",
       "code": 2,
       "type": "Special Mount",
@@ -176,7 +192,8 @@
       "points": "+20",
       "max": 1
     },
-    "Qilin": {
+    {
+      "id": "qilin",
       "name": "Qilin",
       "code": 3,
       "type": "Special Mount",
@@ -184,34 +201,38 @@
       "points": "+15",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "**Structure and Discipline:** To reflect their empire's high-quality military organisation and command arrangements, Cathay commanders may issue orders to brigades of up to 6 units instead of the usual 4. However, those 6-unit brigades must include at least 2 units of Bannermen. The 6-unit brigade cannot include chariots, cavalry, or Terracotta Warriors."
   ],
-  "specialRules": {
-    "Handguns": {
+  "specialRules": [
+    {
+      "id": "handguns",
       "name": "Handguns",
       "order": 1,
       "text": [
         "Any or all of the army's Crossbows units can be replaced by Handguns while still counting for the Crossbow min/max value. Their projectiles can pierce armour far easier than a crossbow bolt. Therefore, units hit by Handguns get a -1 penalty for their armour rolls."
       ]
     },
-    "Terracotta Warriors": {
+    {
+      "id": "terracottaWarriors",
       "name": "Terracotta Warriors",
       "order": 2,
       "text": [
         "These warriors are Undead, so cannot act on initiative, are unaffected by terror or enemy within 20cm, and cannot be confused. They can only brigade with themselves and give/receive support only to/from each other. They can only be ordered by Sorcerers, who gain +1 command when doing so."
       ]
     },
-    "Hu Cavalry": {
+    {
+      "id": "huCavalry",
       "name": "Hu Cavalry",
       "order": 3,
       "text": [
         "They have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Rocket Launcher": {
+    {
+      "id": "rocketLauncher",
       "name": "Rocket Launcher",
       "order": 4,
       "text": [
@@ -220,39 +241,45 @@
         "__D6__|__Result__\n-|-\n1|__KABOOM!__ The Rocket Launcher explodes in spectacular manner.\n2-3|__Dud.__ The rocket does only one attack.\n4-5|__Whoosh!__ The rocket overshoots and does D6 attacks on the first unit in the line of fire past the original target, regardless of range. If the result is 1, don't roll for the misfire again. If the target is engaged in combat, the hits are carried over into Combat phase. If no target is behind the victim the rocket leaves the battlefield without causing any damage.\n6|__Big badaboom!__ The rocket does 2D6 attacks instead of the normal 1D6."
       ]
     },
-    "Triple Bows": {
+    {
+      "id": "tripleBows",
       "name": "Triple Bows",
       "order": 5,
       "text": ["Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."]
     },
-    "Celestial Dragon": {
+    {
+      "id": "celestialDragon",
       "name": "Celestial Dragon",
       "order": 6,
       "text": [
         "One Sorcerer per army can be upgraded to become a dragon which flies, gives orders, casts spells, and causes terror. The dragon cannot give orders to Terracotta Warriors."
       ]
     },
-    "Tiger": {
+    {
+      "id": "tiger",
       "name": "Tiger",
       "order": 7,
       "text": ["Tigers cannot be ridden by Sorcerers."]
     },
-    "Qilin": {
+    {
+      "id": "qilin",
       "name": "Qilin",
       "order": 8,
       "text": [
         "Only a Sorcerer can ride a Qilin. Once per battle the Qilin's magical power adds +1 to the dice roll when casting a spell. The player must announce that they are using the Qilin's magic before rolling to see if the spell works."
       ]
     },
-    "Stone Thrower": {
+    {
+      "id": "stoneThrower",
       "name": "Stone Thrower",
       "order": 9
     },
-    "Bolt Thrower": {
+    {
+      "id": "boltThrower",
       "name": "Bolt Thrower",
       "order": 10
     }
-  },
+  ],
   "spells": [
     {
       "name": "Glory of Cathay",

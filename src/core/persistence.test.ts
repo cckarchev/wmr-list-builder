@@ -21,8 +21,8 @@ const maps = buildCodeMaps(loadArmy('empire'));
 const snap: ListSnapshot = {
   name: '',
   gameSize: 2000,
-  units: { Halberdiers: 4, Crossbowmen: 2 },
-  upgrades: { Halberdiers: { Griffon: 1 } },
+  units: { halberdiers: 4, crossbowmen: 2 },
+  upgrades: { halberdiers: { griffon: 1 } },
 };
 
 describe('encode/decode list', () => {
@@ -39,13 +39,13 @@ describe('encode/decode list', () => {
     const dirty: ListSnapshot = {
       name: '',
       gameSize: 1000,
-      units: { Halberdiers: 1, 'Not A Unit': 3 },
+      units: { halberdiers: 1, 'Not A Unit': 3 },
       upgrades: {},
     };
     expect(decodeList(encodeList(dirty, maps), maps)).toEqual({
       name: '',
       gameSize: 1000,
-      units: { Halberdiers: 1 },
+      units: { halberdiers: 1 },
       upgrades: {},
     });
   });
@@ -69,7 +69,7 @@ describe('encode/decode list', () => {
   });
 
   it('returns null for a current wire with malformed upgrade entries', () => {
-    const unitCode = maps.unitCodeById.get('Halberdiers');
+    const unitCode = maps.unitCodeById.get('halberdiers');
     const malformed = btoa(
       JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: {}, up: { [String(unitCode)]: null } }),
     );

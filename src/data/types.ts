@@ -1,6 +1,7 @@
 export type StatValue = string | number;
 
 export interface Unit {
+  id: string;
   name: string;
   code: number;
   type: string;
@@ -33,6 +34,7 @@ export interface Unit {
 }
 
 export interface Upgrade {
+  id: string;
   name: string;
   code: number;
   type: string;
@@ -54,12 +56,14 @@ export interface Upgrade {
 }
 
 export interface SpecialRule {
+  id: string;
   name: string;
   order?: number;
   text?: string[];
 }
 
 export interface MagicItem {
+  id: string;
   name: string;
   code: number;
   type: string;
@@ -72,6 +76,11 @@ export interface MagicItem {
 export interface MagicItemsFile {
   upgrades: Record<string, MagicItem>;
   upgradeConstraints: UpgradeConstraint[];
+}
+
+/** The magic items JSON as stored: items in a list, each carrying its own id. */
+export interface RawMagicItemsFile extends Omit<MagicItemsFile, 'upgrades'> {
+  upgrades: MagicItem[];
 }
 
 export interface Spell {
@@ -116,4 +125,14 @@ export interface ValidationError {
    * such as the points ceiling.
    */
   targets: string[];
+}
+
+/**
+ * An army JSON as stored: units, upgrades and special rules in lists, each
+ * entity carrying its own id. `normalizeArmy` turns it into an `Army`.
+ */
+export interface RawArmy extends Omit<Army, 'units' | 'upgrades' | 'specialRules'> {
+  units: Unit[];
+  upgrades?: Upgrade[];
+  specialRules?: SpecialRule[];
 }

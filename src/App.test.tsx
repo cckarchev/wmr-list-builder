@@ -37,7 +37,7 @@ describe('App routing from the root', () => {
     // matching the standalone Print round-trip assertion above.
     const maps = buildCodeMaps(loadArmy('goblin'));
     const encoded = encodeList(
-      { name: '', gameSize: 2000, units: { Goblins: 9 }, upgrades: {} },
+      { name: '', gameSize: 2000, units: { goblins: 9 }, upgrades: {} },
       maps,
     );
 

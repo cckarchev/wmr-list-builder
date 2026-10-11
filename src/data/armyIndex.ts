@@ -1,6 +1,7 @@
-import type { Army } from './types';
+import { normalizeArmy } from './normalize';
+import type { Army, RawArmy } from './types';
 
-const modules = import.meta.glob<Army>('./armies/*.json', { eager: true, import: 'default' });
+const modules = import.meta.glob<RawArmy>('./armies/*.json', { eager: true, import: 'default' });
 
 /** Captures the file name of an army JSON path, e.g. `./armies/empire.json` -> `empire`. */
 const ARMY_FILE_NAME = /^.*\/(.+)\.json$/;
@@ -13,7 +14,7 @@ export interface ArmyIndexEntry {
 }
 
 export const armiesById: Record<string, Army> = Object.fromEntries(
-  Object.entries(modules).map(([path, army]) => [idFromPath(path), army]),
+  Object.entries(modules).map(([path, raw]) => [idFromPath(path), normalizeArmy(raw)]),
 );
 
 export const armyIndex: ArmyIndexEntry[] = Object.entries(armiesById)

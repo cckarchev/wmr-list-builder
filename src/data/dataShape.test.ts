@@ -54,7 +54,7 @@ describe('data shape after cleanup', () => {
 
   it('keeps order on special rules', () => {
     const empire = armiesById.empire;
-    const handgunners = empire.specialRules?.Handgunners;
+    const handgunners = empire.specialRules?.handgunners;
     expect(handgunners?.order).toBe(1);
   });
 });

@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 3,
-  "units": {
-    "Daemon Hordes": {
+  "units": [
+    {
+      "id": "daemonHordes",
       "name": "Daemon Hordes",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 75,
       "min": 3
     },
-    "Daemon Swarm": {
+    {
+      "id": "daemonSwarm",
       "name": "Daemon Swarm",
       "code": 1,
       "type": "Infantry",
@@ -26,7 +28,8 @@
       "max": 4,
       "noMagic": true
     },
-    "Daemon Cavalry": {
+    {
+      "id": "daemonCavalry",
       "name": "Daemon Cavalry",
       "code": 2,
       "type": "Cavalry",
@@ -37,7 +40,8 @@
       "points": 110,
       "max": 3
     },
-    "Daemon Hounds": {
+    {
+      "id": "daemonHounds",
       "name": "Daemon Hounds",
       "code": 3,
       "type": "Cavalry",
@@ -48,7 +52,8 @@
       "points": 90,
       "max": 2
     },
-    "Daemon Chariots": {
+    {
+      "id": "daemonChariots",
       "name": "Daemon Chariots",
       "code": 4,
       "type": "Chariot",
@@ -59,7 +64,8 @@
       "points": 95,
       "max": 3
     },
-    "Daemon Beasts": {
+    {
+      "id": "daemonBeasts",
       "name": "Daemon Beasts",
       "code": 5,
       "type": "Monster",
@@ -70,7 +76,8 @@
       "points": 200,
       "max": 1
     },
-    "Daemon Flyers": {
+    {
+      "id": "daemonFlyers",
       "name": "Daemon Flyers",
       "code": 6,
       "type": "Monster",
@@ -81,7 +88,8 @@
       "points": 80,
       "max": 1
     },
-    "Greater Daemon": {
+    {
+      "id": "greaterDaemon",
       "name": "Greater Daemon",
       "code": 7,
       "type": "Monster",
@@ -92,7 +100,8 @@
       "points": 280,
       "max": 1
     },
-    "Daemon Overlord": {
+    {
+      "id": "daemonOverlord",
       "name": "Daemon Overlord",
       "code": 8,
       "type": "General",
@@ -103,9 +112,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Daemonic Wings", "Favour of the Gods", "Wizard", "Chariot"]
+      "upgrades": ["daemonicWings", "favourOfTheGods", "wizard", "chariot"]
     },
-    "Daemon Lord Hero": {
+    {
+      "id": "daemonLordHero",
       "name": "Daemon Lord Hero",
       "code": 9,
       "type": "Hero",
@@ -114,9 +124,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Daemonic Wings", "Favour of the Gods", "Chariot"]
+      "upgrades": ["daemonicWings", "favourOfTheGods", "chariot"]
     },
-    "Daemon Sorcerer": {
+    {
+      "id": "daemonSorcerer",
       "name": "Daemon Sorcerer",
       "code": 10,
       "type": "Wizard",
@@ -125,18 +136,20 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Daemonic Wings", "Favour of the Gods", "Chariot"]
+      "upgrades": ["daemonicWings", "favourOfTheGods", "chariot"]
     }
-  },
-  "upgrades": {
-    "Daemonic Wings": {
+  ],
+  "upgrades": [
+    {
+      "id": "daemonicWings",
       "name": "Daemonic Wings",
       "code": 0,
       "type": "Special",
       "points": "+10",
       "max": 1
     },
-    "Favour of the Gods": {
+    {
+      "id": "favourOfTheGods",
       "name": "Favour of the Gods",
       "code": 1,
       "type": "Special",
@@ -144,21 +157,23 @@
       "points": "+50",
       "max": 1
     },
-    "Wizard": {
+    {
+      "id": "wizard",
       "name": "Wizard",
       "code": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
       "addOnUpgrades": [
-        "Ring of Magic",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling",
-        "Wand of Power",
-        "Rod of Repetition"
+        "ringOfMagic",
+        "staffOfSpellbinding",
+        "scrollOfDispelling",
+        "wandOfPower",
+        "rodOfRepetition"
       ]
     },
-    "Chariot": {
+    {
+      "id": "chariot",
       "name": "Chariot",
       "code": 3,
       "type": "Chariot Mount",
@@ -166,29 +181,32 @@
       "points": "+5",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "__Ignore Terror.__ All units ignore the -1 Attack penalty in combat for fighting terrifying troops – you cannot frighten them at all.",
     "__Daemonic Instability.__ At the start of the player's own Command phase, before making any initiatives moves, all friendly Daemon units that have taken at least 1 casualty (i.e. lost at least 1 stand out of 3) must make a ‘Daemonic Instability' test. Roll a D6. If the unit has lost 2 stands and is further away than 20cm from a friendly daemon Wizard (i.e. has only 1 stand remaining from 3) deduct 1 from the roll.",
     "|||\n-|-\n__0-1__|One stand is destroyed – the daemons fade away and are absorbed back into the Realm of Chaos from which they came. Remove one stand from play. If a character is with the unit.and the last stand is removed the character is destroyed too.\n__2-3__|The unit becomes confused - if not already confused the stand becomes confused as it is torn between this world and the next.\n__4-5__|No effect – unless the unit is confused in which case it ceases to be confused as it is favoured with the invigorating power of Chaos.\n__6__|The unit regains one stand. The regained stand is placed directly behind, in front or beside another stand from the same unit, and facing the same direction. If it is impossible to position the stand in this manner, it cannot be added."
   ],
-  "specialRules": {
-    "Daemon Swarm": {
+  "specialRules": [
+    {
+      "id": "daemonSwarm",
       "name": "Daemon Swarm",
       "order": 1,
       "text": [
         "These cannot be driven back by shooting and do not roll for drive backs. A Daemon Swarm cannot be given a magic item."
       ]
     },
-    "Daemon Flyers": {
+    {
+      "id": "daemonFlyers",
       "name": "Daemon Flyers",
       "order": 2,
       "text": [
         "These can fly. Daemon flyers are an exception to the normal conventions for basing monsters in that they face the long edge of the stand in the same way as infantry rather than the short edge as most other monsters."
       ]
     },
-    "Greater Daemon": {
+    {
+      "id": "greaterDaemon",
       "name": "Greater Daemon",
       "order": 3,
       "text": [
@@ -196,28 +214,31 @@
         "Greater Daemons cause terror in their enemies. A Greater Daemon that has accumulated 4-5 hits at the end of the Shooting or Combat phase and is no longer engaged in combat is deemed to have been badly hurt. Once a Greater Daemon is badly hurt accumulated hits are discounted and its Hits and Attacks values are halved for the rest of the battle (to 3 Hits and 4 Attacks)."
       ]
     },
-    "Daemon Overlord": {
+    {
+      "id": "daemonOverlord",
       "name": "Daemon Overlord",
       "order": 4,
       "text": [
         "The Daemon Overlord is the army's General and has the option of having the powers of a Wizard for additional 25 points. If given magical powers the Daemon Overlord can be given a magic item restricted to either a General or a Wizard. Note that the Daemon Overlord is still a General and his command range extends over the whole battlefield as for other Generals."
       ]
     },
-    "Daemonic Wings": {
+    {
+      "id": "daemonicWings",
       "name": "Daemonic Wings",
       "order": 5,
       "text": [
         "Some of the creatures of the deep vaults of hell may have wings, some of them fly on hovering discs and some even have the ability of disappearing and reappearing wherever they want on the battlefield. Daemon characters may be given the ability of flying."
       ]
     },
-    "Favour of the Gods": {
+    {
+      "id": "favourOfTheGods",
       "name": "Favour of the Gods",
       "order": 6,
       "text": [
         "Demon Overlord, Lords or Sorcerers can be given the Favour of the Gods. The character gains then +1 extra Attack and causes terror in its enemies as described in the Warmaster rulebook."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Summon Daemons",

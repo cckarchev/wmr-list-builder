@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 7,
-  "units": {
-    "Bull Ogres": {
+  "units": [
+    {
+      "id": "bullOgres",
       "name": "Bull Ogres",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 105,
       "min": 2
     },
-    "Leadbelchers": {
+    {
+      "id": "leadbelchers",
       "name": "Leadbelchers",
       "code": 1,
       "type": "Infantry",
@@ -27,7 +29,8 @@
       "points": 90,
       "max": 2
     },
-    "Ironguts": {
+    {
+      "id": "ironguts",
       "name": "Ironguts",
       "code": 2,
       "type": "Infantry",
@@ -38,7 +41,8 @@
       "points": 140,
       "max": 2
     },
-    "Yhetees": {
+    {
+      "id": "yhetees",
       "name": "Yhetees",
       "code": 3,
       "type": "Infantry",
@@ -48,7 +52,8 @@
       "points": 90,
       "max": 2
     },
-    "Gnoblars": {
+    {
+      "id": "gnoblars",
       "name": "Gnoblars",
       "code": 4,
       "type": "Infantry",
@@ -59,7 +64,8 @@
       "points": 30,
       "max": 4
     },
-    "Rhinox Riders": {
+    {
+      "id": "rhinoxRiders",
       "name": "Rhinox Riders",
       "code": 5,
       "type": "Cavalry",
@@ -70,7 +76,8 @@
       "points": 200,
       "max": 1
     },
-    "Gorgers": {
+    {
+      "id": "gorgers",
       "name": "Gorgers",
       "code": 6,
       "type": "Infantry",
@@ -81,7 +88,8 @@
       "points": 110,
       "max": 1
     },
-    "Sabretusks": {
+    {
+      "id": "sabretusks",
       "name": "Sabretusks",
       "code": 7,
       "type": "Cavalry",
@@ -91,7 +99,8 @@
       "points": 40,
       "max": 1
     },
-    "Slave Giant": {
+    {
+      "id": "slaveGiant",
       "name": "Slave Giant",
       "code": 8,
       "type": "Monster",
@@ -101,9 +110,10 @@
       "size": 1,
       "points": 135,
       "max": 1,
-      "specialRules": ["Giant"]
+      "specialRules": ["giant"]
     },
-    "Scrap Launcher": {
+    {
+      "id": "scrapLauncher",
       "name": "Scrap Launcher",
       "code": 9,
       "type": "Artillery",
@@ -114,9 +124,10 @@
       "size": 1,
       "points": 75,
       "max": 1,
-      "specialRules": ["Stone Thrower"]
+      "specialRules": ["stoneThrower"]
     },
-    "Tyrant": {
+    {
+      "id": "tyrant",
       "name": "Tyrant",
       "code": 10,
       "type": "General",
@@ -126,9 +137,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Bull Rhinox"]
+      "upgrades": ["bullRhinox"]
     },
-    "Bruiser": {
+    {
+      "id": "bruiser",
       "name": "Bruiser",
       "code": 11,
       "type": "Hero",
@@ -137,9 +149,10 @@
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Bull Rhinox"]
+      "upgrades": ["bullRhinox"]
     },
-    "Butcher": {
+    {
+      "id": "butcher",
       "name": "Butcher",
       "code": 12,
       "type": "Wizard",
@@ -148,11 +161,12 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Bull Rhinox"]
+      "upgrades": ["bullRhinox"]
     }
-  },
-  "upgrades": {
-    "Bull Rhinox": {
+  ],
+  "upgrades": [
+    {
+      "id": "bullRhinox",
       "name": "Bull Rhinox",
       "code": 0,
       "type": "Monstrous Mount",
@@ -160,45 +174,51 @@
       "points": "+65",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Bull Ogres": {
+  "specialRules": [
+    {
+      "id": "bullOgres",
       "name": "Bull Ogres",
       "order": 1,
       "text": [
         "If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. ‘Humans' encompasses all ‘men' including Chaos Warriors and Marauders, but not Dwarfs, Elves etc."
       ]
     },
-    "Leadbelchers": {
+    {
+      "id": "leadbelchers",
       "name": "Leadbelchers",
       "order": 2,
       "text": [
         "Leadbelchers have a shooting range of 15cm. The unit has 2 shooting attacks per stand, it may roll both attacks (per stand) as part of a Stand and Shoot action. Units receiving a shooting attack from Leadbelchers receive a -1 penalty for their armour rolls."
       ]
     },
-    "Yhetees": {
+    {
+      "id": "yhetees",
       "name": "Yhetees",
       "order": 3,
       "text": [
         "If the unit of Yhetees is charging against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. A Yhetee unit can only give support and be supported by other Yhetee units and must pursue retreating enemies where possible and must advance into a combat if they are able to do so."
       ]
     },
-    "Gnoblars": {
+    {
+      "id": "gnoblars",
       "name": "Gnoblars",
       "order": 4,
       "text": [
         "Unit is allowed to shoot as if it had bows but its range is reduced to 15cm. A Gnoblar stand cannot be supported by other kinds of infantry - only by other Gnoblar stands. Note, however, that Gnoblars can support other kinds of infantry as normal. Gnoblars cannot be given magic items. Characters cannot join Gnoblar units."
       ]
     },
-    "Rhinox Riders": {
+    {
+      "id": "rhinoxRiders",
       "name": "Rhinox Riders",
       "order": 5,
       "text": [
         "Units of Rhinox Riders are unaffected by terror. Rhinox Riders receive +1 Attack when charging against an enemy in open in the same way as chariots and monsters."
       ]
     },
-    "Gorgers": {
+    {
+      "id": "gorgers",
       "name": "Gorgers",
       "order": 6,
       "text": [
@@ -209,22 +229,25 @@
         "The infiltrated unit cannot be placed so that it touches an enemy unit. Once deployed, orders can be given to the unit by the including same character that gave the infiltration order. The infiltrating unit is considered to have used its first order to deploy. If the infiltration order is failed the unit is not deployed and cannot infiltrate that turn, it can attempt to infiltrate in a subsequent turn at the same or a different place."
       ]
     },
-    "Giant": {
+    {
+      "id": "giant",
       "name": "Giant",
       "order": 7
     },
-    "Stone Thrower": {
+    {
+      "id": "stoneThrower",
       "name": "Stone Thrower",
       "order": 8
     },
-    "Bull Rhinox": {
+    {
+      "id": "bullRhinox",
       "name": "Bull Rhinox",
       "order": 9,
       "text": [
         "Tyrant, Bruisers and Butchers may ride the Bull Rhinox. A unit that is joined with a character mounted on this huge beast causes terror in enemies."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Tooth Cracker",

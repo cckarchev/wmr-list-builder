@@ -11,7 +11,7 @@ describe('UnitSpells', () => {
   it('renders a Spells trigger for a Wizard and lists spells on click', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
-    renderWithProviders(<UnitSpells unitId="Goblin Shaman" />);
+    renderWithProviders(<UnitSpells unitId="goblinShaman" />);
     await user.click(screen.getByRole('button', { name: 'Spells' }));
     const dialog = screen.getByRole('dialog', { name: 'Spells' });
     // Accordion header: spell name, difficulty-to-cast roll, and range.
@@ -23,7 +23,7 @@ describe('UnitSpells', () => {
   it('toggles a spell to reveal and hide its effect text', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
-    renderWithProviders(<UnitSpells unitId="Goblin Shaman" />);
+    renderWithProviders(<UnitSpells unitId="goblinShaman" />);
     await user.click(screen.getByRole('button', { name: 'Spells' }));
 
     const effect = /invigorating the greenskins/i;
@@ -39,14 +39,14 @@ describe('UnitSpells', () => {
   it('renders spells for a caster-flagged unit that is not type Wizard (Grey Seer)', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('skaven');
-    renderWithProviders(<UnitSpells unitId="Grey Seer" />);
+    renderWithProviders(<UnitSpells unitId="greySeer" />);
     await user.click(screen.getByRole('button', { name: 'Spells' }));
     expect(screen.getByRole('dialog', { name: 'Spells' })).toBeInTheDocument();
   });
 
   it('renders nothing for a non-Wizard unit', () => {
     useArmyStore.getState().setArmy('goblin');
-    const { container } = renderWithProviders(<UnitSpells unitId="Goblins" />);
+    const { container } = renderWithProviders(<UnitSpells unitId="goblins" />);
     expect(container).toBeEmptyDOMElement();
   });
 });

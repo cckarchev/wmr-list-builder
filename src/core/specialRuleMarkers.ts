@@ -1,4 +1,4 @@
-/** Special rules keyed by name; `order` is the rule's footnote number. */
+/** Special rules keyed by id; `order` is the rule's footnote number. */
 export type NumberedRules = Record<string, { order?: number }>;
 
 const byNumber = (a: number, b: number) => a - b;

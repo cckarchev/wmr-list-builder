@@ -34,6 +34,7 @@ const POINTS = 45;
 const THREE_HITS = 3;
 
 const KNIGHTS: Unit = {
+  id: 'knights',
   name: 'Knights',
   code: 1,
   type: 'Cavalry',

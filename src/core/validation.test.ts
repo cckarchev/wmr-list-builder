@@ -42,9 +42,12 @@ const unit = (partial: Partial<UnitState>): UnitState =>
 const upgrade = (partial: Partial<UpgradeState>): UpgradeState =>
   ({ type: 'Infantry', number: 0, ...partial }) as UpgradeState;
 
-/** Names each synthetic item after its key, so messages can quote it. */
+/** Names each synthetic item without a name after its key, so messages can quote it. */
 const named = <T extends { name: string }>(items: Record<string, T>): Record<string, T> => {
-  const entries = Object.entries(items).map(([id, item]) => [id, { ...item, name: id }]);
+  const entries = Object.entries(items).map(([id, item]) => [
+    id,
+    { ...item, name: item.name || id },
+  ]);
 
   return Object.fromEntries(entries);
 };
@@ -59,12 +62,12 @@ describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', 
   it('auto-includes the armyMin General; validation still flags it when absent', () => {
     get().setArmy('goblin');
     // Force limit auto-includes the Warboss at its armyMin, so it is never missing.
-    expect(get().units['Goblin Warboss'].number).toBe(1);
+    expect(get().units.goblinWarboss.number).toBe(1);
     expect(messages()).not.toContain('Minimum of 1 Goblin Warboss per army.');
 
     // The underlying validation logic still flags a missing armyMin unit.
     const absent = validateNamed(
-      { 'Goblin Warboss': unit({ number: 0, armyMin: 1, points: 80 }) },
+      { goblinWarboss: unit({ name: 'Goblin Warboss', number: 0, armyMin: 1, points: 80 }) },
       {},
       DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
@@ -74,12 +77,12 @@ describe('army min / max (real data: goblin Goblin Warboss armyMin/armyMax 1)', 
   it('hard-clamps a unit to its armyMax; validation backstops the logic', () => {
     get().setArmy('goblin');
     // Force limit prevents exceeding armyMax through the store.
-    get().setUnitNumber('Goblin Warboss', 2);
-    expect(get().units['Goblin Warboss'].number).toBe(1);
+    get().setUnitNumber('goblinWarboss', 2);
+    expect(get().units.goblinWarboss.number).toBe(1);
 
     // The underlying validation logic still flags an over-max state.
     const over = validateNamed(
-      { 'Goblin Warboss': unit({ number: 2, armyMax: 1, points: 80 }) },
+      { goblinWarboss: unit({ name: 'Goblin Warboss', number: 2, armyMax: 1, points: 80 }) },
       {},
       DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
@@ -92,7 +95,7 @@ describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () 
     // The store force-includes Goblins at their minimum, so a short count is
     // only reachable through the validation logic directly.
     const errors = validateNamed(
-      { Goblins: unit({ number: 1, min: 4, points: 30 }) },
+      { goblins: unit({ name: 'Goblins', number: 1, min: 4, points: 30 }) },
       {},
       DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
@@ -102,7 +105,7 @@ describe('numeric min scales with the game-size cap (goblin Goblins min 4)', () 
   it('ignores the minimum when the cap is below 1,000', () => {
     get().setArmy('goblin');
     get().setGameSize(UNDER_ONE_STEP_GAME);
-    get().setUnitNumber('Goblins', 1);
+    get().setUnitNumber('goblins', 1);
     expect(messages().some((m) => /Minimum of \d+ Goblins/.test(m))).toBe(false);
   });
 });
@@ -112,7 +115,7 @@ describe('numeric max scales with the game-size cap (goblin Trolls max 4)', () =
     // The store hard-clamps Trolls to max*size, so an over-max count is only
     // reachable through the validation logic directly.
     const errors = validateNamed(
-      { Trolls: unit({ number: 9, max: 4, points: 110, type: 'Monster' }) },
+      { trolls: unit({ name: 'Trolls', number: 9, max: 4, points: 110, type: 'Monster' }) },
       {},
       DEFAULT_GAME_SIZE,
     ).map((e) => e.message);
@@ -124,8 +127,8 @@ describe('homologousUnits (real data: chaos-dwarfs Earthshaker Cannon <-> Death 
   it('sums homologous counts and builds the id sentence', () => {
     get().setArmy('chaos-dwarfs');
     get().setGameSize(SMALLEST_GAME);
-    get().setUnitNumber('Earthshaker Cannon', 1);
-    get().setUnitNumber('Death Rocket', 1); // combined 2 > max 1
+    get().setUnitNumber('earthshakerCannon', 1);
+    get().setUnitNumber('deathRocket', 1); // combined 2 > max 1
     expect(messages()).toContain(
       'Maximum of 1 Earthshaker Cannon or Death Rocket per 1,000 points.',
     );
@@ -135,10 +138,10 @@ describe('homologousUnits (real data: chaos-dwarfs Earthshaker Cannon <-> Death 
 describe('requiredUnits (real data: albion Fenbeast requires Druid)', () => {
   it('flags a Fenbeast taken without a Druid', () => {
     get().setArmy('albion');
-    get().setUnitNumber('Fenbeast', 1);
+    get().setUnitNumber('fenbeast', 1);
     expect(messages()).toContain('Fenbeast must be taken with Druid.');
 
-    get().setUnitNumber('Druid', 1);
+    get().setUnitNumber('druid', 1);
     expect(messages()).not.toContain('Fenbeast must be taken with Druid.');
   });
 });
@@ -146,9 +149,9 @@ describe('requiredUnits (real data: albion Fenbeast requires Druid)', () => {
 describe('magic items cap (real data: empire General, 1 model)', () => {
   it('flags a 1-model General carrying 2 magic items', () => {
     get().setArmy('empire');
-    get().setUnitNumber('General', 1);
-    get().setUnitUpgradeNumber('General', 'Crown of Command', 1); // Device of Power
-    get().setUnitUpgradeNumber('General', 'Sword of Destruction', 1); // Magic Weapon
+    get().setUnitNumber('general', 1);
+    get().setUnitUpgradeNumber('general', 'crownOfCommand', 1); // Device of Power
+    get().setUnitUpgradeNumber('general', 'swordOfDestruction', 1); // Magic Weapon
     expect(messages()).toContain('1 General may only have 1 magic item.');
   });
 });
@@ -156,9 +159,9 @@ describe('magic items cap (real data: empire General, 1 model)', () => {
 describe('mounts cap (real data: goblin Goblin Warboss)', () => {
   it('flags a 1-model General carrying 2 mounts', () => {
     get().setArmy('goblin');
-    get().setUnitNumber('Goblin Warboss', 1);
-    get().setUnitUpgradeNumber('Goblin Warboss', 'Wolf Chariot', 1); // Chariot Mount
-    get().setUnitUpgradeNumber('Goblin Warboss', 'Wyvern', 1); // Monstrous Mount
+    get().setUnitNumber('goblinWarboss', 1);
+    get().setUnitUpgradeNumber('goblinWarboss', 'wolfChariot', 1); // Chariot Mount
+    get().setUnitUpgradeNumber('goblinWarboss', 'wyvern', 1); // Monstrous Mount
     expect(messages()).toContain('1 Goblin Warboss may only have 1 mount.');
   });
 });
@@ -188,11 +191,11 @@ describe('a clean, legal list produces NO errors', () => {
   it('goblin list at a 1,500 cap satisfying every min/max', () => {
     get().setArmy('goblin');
     get().setGameSize(MID_GAME); // size 1; minimums un-scaled
-    get().setUnitNumber('Goblin Warboss', 1); // armyMin/Max 1
-    get().setUnitNumber('Goblins', GOBLIN_MIN);
-    get().setUnitNumber('Wolf Riders', 2); // min 2
-    get().setUnitNumber('Trolls', TROLL_MAX);
-    get().setUnitNumber('Wolf Chariots', WOLF_CHARIOT_MAX); // total 1060 pts, within the cap
+    get().setUnitNumber('goblinWarboss', 1); // armyMin/Max 1
+    get().setUnitNumber('goblins', GOBLIN_MIN);
+    get().setUnitNumber('wolfRiders', 2); // min 2
+    get().setUnitNumber('trolls', TROLL_MAX);
+    get().setUnitNumber('wolfChariots', WOLF_CHARIOT_MAX); // total 1060 pts, within the cap
     expect(useArmyStore.getState().errors).toEqual([]);
     expect(messages()).toEqual([]);
   });
@@ -640,12 +643,12 @@ describe('error attribution (targets)', () => {
   it('attributes a numeric-min error to the offending unit id', () => {
     const minErr = defined(
       validateNamed(
-        { Goblins: unit({ number: 1, min: 4, points: 30 }) },
+        { goblins: unit({ name: 'Goblins', number: 1, min: 4, points: 30 }) },
         {},
         DEFAULT_GAME_SIZE,
       ).find((e) => /Minimum of 8 Goblins/.test(e.message)),
     );
-    expect(minErr.targets).toEqual(['Goblins']);
+    expect(minErr.targets).toEqual(['goblins']);
   });
 
   it('attributes a homologous error to every homologous id', () => {
@@ -718,7 +721,7 @@ describe('setGameSize recomputes errors', () => {
   it('changes scaled minimum errors when the cap changes', () => {
     get().setArmy('goblin');
     get().setGameSize(SMALLEST_GAME); // size 1 -> min 4
-    get().setUnitNumber('Goblins', GOBLIN_MIN); // exactly the minimum at this cap
+    get().setUnitNumber('goblins', GOBLIN_MIN); // exactly the minimum at this cap
     expect(messages().some((m) => /Minimum of \d+ Goblins/.test(m))).toBe(false);
 
     // Raising the cap does NOT auto-adjust the existing list; the soft error

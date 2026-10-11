@@ -3,8 +3,8 @@ import type { SpecialRule } from '@/data/types';
 import { resolveUnitSpecialRules } from './specialRulesForUnit';
 
 const rules: Record<string, SpecialRule> = {
-  goblins: { name: 'Goblins', order: 1, text: ['Goblins are cowardly.'] },
-  boltThrower: { name: 'Bolt Thrower', order: 0, text: ['Ignores armour.'] },
+  goblins: { id: 'goblins', name: 'Goblins', order: 1, text: ['Goblins are cowardly.'] },
+  boltThrower: { id: 'boltThrower', name: 'Bolt Thrower', order: 0, text: ['Ignores armour.'] },
 };
 
 describe('resolveUnitSpecialRules', () => {

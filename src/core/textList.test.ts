@@ -25,8 +25,8 @@ describe('buildTextList', () => {
   it('produces the correct plain-text roster for a goblin army with two unit types', () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 2); // 2 × 30 = 60 pts
-    store.setUnitNumber('Wolf Riders', 1); // 1 × 60 = 60 pts
+    store.setUnitNumber('goblins', 2); // 2 × 30 = 60 pts
+    store.setUnitNumber('wolfRiders', 1); // 1 × 60 = 60 pts
 
     // Goblin force-includes its minimums: 8 Goblins, 4 Wolf Riders, and the
     // Goblin Warboss (armyMin 1). Requested counts below those floors clamp up.
@@ -46,7 +46,7 @@ describe('buildTextList', () => {
   it('includes the label when set', () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 1);
+    store.setUnitNumber('goblins', 1);
     store.setLabel('My Test List');
 
     expect(textListFromStore().startsWith('My Test List\n')).toBe(true);
@@ -55,8 +55,8 @@ describe('buildTextList', () => {
   it('includes upgrade lines when upgrades are used', () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 2);
-    store.setUnitUpgradeNumber('Goblins', 'Squig Herd', 1); // +0 pts
+    store.setUnitNumber('goblins', 2);
+    store.setUnitUpgradeNumber('goblins', 'squigHerd', 1); // +0 pts
 
     expect(textListFromStore()).toContain('Squig Herd');
   });
@@ -64,7 +64,7 @@ describe('buildTextList', () => {
   it('omits the label line when label is empty', () => {
     const store = useArmyStore.getState();
     store.setArmy('goblin');
-    store.setUnitNumber('Goblins', 1);
+    store.setUnitNumber('goblins', 1);
 
     expect(textListFromStore().startsWith('Goblin,')).toBe(true);
   });
@@ -77,6 +77,7 @@ describe('buildTextList names', () => {
   it('lists units and upgrades by display name, not id', () => {
     const usedUnits: Record<string, UsedUnit> = {
       wolfRiders: {
+        id: 'wolfRiders',
         name: 'Wolf Riders',
         code: WOLF_RIDERS_CODE,
         type: 'Cavalry',
@@ -84,7 +85,13 @@ describe('buildTextList names', () => {
         number: 1,
         pointsCost: WOLF_RIDERS_POINTS,
         upgrades: {
-          battleBanner: { name: 'Battle Banner', type: 'Magic Standard', number: 1, pointsCost: 0 },
+          battleBanner: {
+            id: 'battleBanner',
+            name: 'Battle Banner',
+            type: 'Magic Standard',
+            number: 1,
+            pointsCost: 0,
+          },
         },
       },
     };

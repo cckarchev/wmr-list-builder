@@ -3,8 +3,9 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 0,
-  "units": {
-    "Bowmen": {
+  "units": [
+    {
+      "id": "bowmen",
       "name": "Bowmen",
       "code": 0,
       "type": "Infantry",
@@ -15,7 +16,8 @@
       "points": 55,
       "noCount": true
     },
-    "Men-at-arms": {
+    {
+      "id": "menAtArms",
       "name": "Men-at-arms",
       "code": 1,
       "type": "Infantry",
@@ -27,7 +29,8 @@
       "min": 1,
       "noCount": true
     },
-    "Peasants": {
+    {
+      "id": "peasants",
       "name": "Peasants",
       "code": 2,
       "type": "Infantry",
@@ -37,9 +40,10 @@
       "points": 30,
       "max": 4,
       "noCount": true,
-      "upgrades": ["Grail Reliquae"]
+      "upgrades": ["grailReliquae"]
     },
-    "Squires": {
+    {
+      "id": "squires",
       "name": "Squires",
       "code": 3,
       "type": "Cavalry",
@@ -53,7 +57,8 @@
       "max": 4,
       "noCount": true
     },
-    "Knights": {
+    {
+      "id": "knights",
       "name": "Knights",
       "code": 4,
       "type": "Cavalry",
@@ -64,7 +69,8 @@
       "points": 110,
       "min": 1
     },
-    "Grail Knights": {
+    {
+      "id": "grailKnights",
       "name": "Grail Knights",
       "code": 5,
       "type": "Cavalry",
@@ -74,9 +80,10 @@
       "size": 3,
       "points": 120,
       "max": 1,
-      "specialRules": ["Knights"]
+      "specialRules": ["knights"]
     },
-    "Pegasus Knights": {
+    {
+      "id": "pegasusKnights",
       "name": "Pegasus Knights",
       "code": 6,
       "type": "Monster",
@@ -86,9 +93,10 @@
       "size": 3,
       "points": 80,
       "max": 1,
-      "specialRules": ["Knights"]
+      "specialRules": ["knights"]
     },
-    "Trebuchet": {
+    {
+      "id": "trebuchet",
       "name": "Trebuchet",
       "code": 7,
       "type": "Artillery",
@@ -100,7 +108,8 @@
       "max": 1,
       "noCount": true
     },
-    "General": {
+    {
+      "id": "general",
       "name": "General",
       "code": 8,
       "type": "General",
@@ -110,9 +119,10 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Pegasus", "Hippogriff"]
+      "upgrades": ["pegasus", "hippogriff"]
     },
-    "Hero": {
+    {
+      "id": "hero",
       "name": "Hero",
       "code": 9,
       "type": "Hero",
@@ -121,9 +131,10 @@
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Pegasus"]
+      "upgrades": ["pegasus"]
     },
-    "Enchantress": {
+    {
+      "id": "enchantress",
       "name": "Enchantress",
       "code": 10,
       "type": "Wizard",
@@ -132,11 +143,12 @@
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Unicorn", "Pegasus"]
+      "upgrades": ["unicorn", "pegasus"]
     }
-  },
-  "upgrades": {
-    "Unicorn": {
+  ],
+  "upgrades": [
+    {
+      "id": "unicorn",
       "name": "Unicorn",
       "code": 0,
       "type": "Special Mount",
@@ -144,7 +156,8 @@
       "points": "+15",
       "max": 1
     },
-    "Pegasus": {
+    {
+      "id": "pegasus",
       "name": "Pegasus",
       "code": 1,
       "type": "Monstrous Mount",
@@ -152,7 +165,8 @@
       "points": "+15",
       "max": 1
     },
-    "Hippogriff": {
+    {
+      "id": "hippogriff",
       "name": "Hippogriff",
       "code": 2,
       "type": "Monstrous Mount",
@@ -160,46 +174,52 @@
       "points": "+80",
       "max": 1
     },
-    "Grail Reliquae": {
+    {
+      "id": "grailReliquae",
       "name": "Grail Reliquae",
       "code": 3,
       "type": "Special",
       "points": "+60",
       "armyMax": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "The Bretonnian army is essentially an army of Knights and it is the Knights' contribution to the battle that counts - never mind the pot-washers and clod-breakers. To represent this, the Bretonnian army calculates when it must withdraw from the battle in a different way to other armies. Instead of counting all of its units at the start of the game, count only the number of units of Knights, Grail Knights and Pegasus Knights. Once the army has lost a half or more of its units of Knights/Grail Knights/Pegasus Knights it must withdraw."
   ],
-  "specialRules": {
-    "Peasants": {
+  "specialRules": [
+    {
+      "id": "peasants",
       "name": "Peasants",
       "order": 1,
       "text": [
         "A unit of Peasants suffers an additional -1 Command penalty when given an order. However, this penalty is waived if the Peasant unit is part of a brigade that includes at least one non-Peasant unit. Peasants cannot use initiative to charge - though they can use initiative to evade as usual. Peasants are able to make supporting charge. When they charge they receive no bonus attack modifier for doing so."
       ]
     },
-    "Knights": {
+    {
+      "id": "knights",
       "name": "Knights",
       "order": 2,
       "text": [
         "A Knight unit will always use its initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Knights are unaffected by enemy that cause terror in combat and they don't suffer the usual -1 Attack modifier."
       ]
     },
-    "Grail Knights": {
+    {
+      "id": "grailKnights",
       "name": "Grail Knights",
       "order": 3,
       "text": [
         "If the unit of Grail Knights is charging against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters."
       ]
     },
-    "Pegasus Knights": {
+    {
+      "id": "pegasusKnights",
       "name": "Pegasus Knights",
       "order": 4,
       "text": ["Pegasus Knights can fly."]
     },
-    "Trebuchet": {
+    {
+      "id": "trebuchet",
       "name": "Trebuchet",
       "order": 5,
       "text": [
@@ -212,35 +232,39 @@
         "__Shooting Blind:__ If there is no target in sight a Trebuchet may instead shoot at the nearest enemy unit in range it cannot see. When Shooting Blind it always hits on 6+ no matter if the target is in the open, defended or even fortified."
       ]
     },
-    "Unicorn": {
+    {
+      "id": "unicorn",
       "name": "Unicorn",
       "order": 6,
       "text": [
         "Only an Enchantress can ride a Unicorn. The Unicorn adds +1 to the Enchantress's Attacks. Once per battle the Unicorn's magical power adds +1 to the dice roll when casting a spell. The player must announce that he is using the Unicorn's magic before rolling to see if the spell works."
       ]
     },
-    "Pegasus": {
+    {
+      "id": "pegasus",
       "name": "Pegasus",
       "order": 7,
       "text": [
         "The Pegasus can be ridden by a General, Hero or Enchantress and adds +1 Attack to the rider as well as allowing the character to fly."
       ]
     },
-    "Hippogriff": {
+    {
+      "id": "hippogriff",
       "name": "Hippogriff",
       "order": 8,
       "text": [
         "A single General or Hero can ride a Hippogriff. A Hippogriff can fly, increasing its rider‘s move from 60 to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Hippogriff rider causes terror in its enemies."
       ]
     },
-    "Grail Reliquae": {
+    {
+      "id": "grailReliquae",
       "name": "Grail Reliquae",
       "order": 9,
       "text": [
         "This sacred item can be given to one unit of Peasants only in a whole army. This unit and all Peasants units touching it become Grail Pilgrims (for as long as they keep contact). Grail Pilgrims are immune to terror, don't get the -1 Command and get +1 Attack (they still keep the restriction that they get no +1 Attacks for charging in the open), they have to attack by initiative and cannot be driven back or confused. Before taking any specific action with a Peasant unit check if they are still touching the unit carrying the Grail Reliquae. If they do so they count as Grail Pilgrims - if not they are simple Peasants."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Shield of Combat",

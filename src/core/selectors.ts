@@ -13,6 +13,12 @@ const COUNTABLE_UNITS = [
   'Monster',
 ];
 
+/**
+ * Special rule id that the unit count treats specially. No Revolution army
+ * uses it today; the logic is kept from the original getters.js port.
+ */
+const SKIRMISH_RULE_ID = 'skirmish';
+
 /** Port of getters.js `pointsCost`: Σ over units of unit.pointsCost. */
 export const pointsCost = (state: Pick<ArmyState, 'units'>): number =>
   Object.values(state.units).reduce((sum, unit) => sum + +unit.pointsCost, 0);
@@ -39,7 +45,7 @@ export const unitCount = (units: Record<string, UnitState>): number => {
       count += unit.number;
     }
 
-    if (unit.specialRules?.includes('Skirmish')) {
+    if (unit.specialRules?.includes(SKIRMISH_RULE_ID)) {
       skirmishCount += unit.number;
 
       if (!unit.armour) {
