@@ -13,12 +13,6 @@ const COUNTABLE_UNITS = [
   'Monster',
 ];
 
-/**
- * Special rule id that the unit count treats specially. No Revolution army
- * uses it today; the logic is kept from the original getters.js port.
- */
-const SKIRMISH_RULE_ID = 'skirmish';
-
 /** Port of getters.js `pointsCost`: Σ over units of unit.pointsCost. */
 export const pointsCost = (state: Pick<ArmyState, 'units'>): number =>
   Object.values(state.units).reduce((sum, unit) => sum + +unit.pointsCost, 0);
@@ -30,31 +24,19 @@ export const POINTS_PER_ARMY_SIZE = 1000;
 export const armySize = (points: number): number =>
   Math.max(1, Math.floor(points / POINTS_PER_ARMY_SIZE));
 
-/** Port of getters.js `unitCount`, including the Skirmish logic. */
+/** Units that count toward the break point: every countable type, except `noCount` units. */
 export const unitCount = (units: Record<string, UnitState>): number => {
   let count = 0;
-  let skirmishCount = 0;
-  let unarmouredSkirmishCount = 0;
 
   for (const unit of Object.values(units)) {
-    if (!COUNTABLE_UNITS.includes(unit.type)) {
-      continue;
-    }
+    const counts = COUNTABLE_UNITS.includes(unit.type) && !unit.noCount;
 
-    if (!unit.noCount) {
+    if (counts) {
       count += unit.number;
-    }
-
-    if (unit.specialRules?.includes(SKIRMISH_RULE_ID)) {
-      skirmishCount += unit.number;
-
-      if (!unit.armour) {
-        unarmouredSkirmishCount += unit.number;
-      }
     }
   }
 
-  return skirmishCount > count - skirmishCount ? count : count - unarmouredSkirmishCount;
+  return count;
 };
 
 /** Units an army can lose before it must withdraw: half its countable units, rounded up. */

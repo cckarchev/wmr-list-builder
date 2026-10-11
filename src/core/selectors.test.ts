@@ -23,6 +23,8 @@ const THREE_STEPS = 3000;
 const ADDED_HALBERDIERS = 3;
 /** An odd count, so the break point has to round up. */
 const GOBLIN_STANDS = 5;
+const SPEARMEN_STANDS = 4;
+const SCOUT_STANDS = 2;
 
 /** Build a minimal units map keyed in insertion order, each unit named after its key. */
 const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
@@ -72,6 +74,21 @@ describe('unitCount', () => {
     // Adding a counted unit does.
     get().setUnitNumber('halberdiers', get().units.halberdiers.number + ADDED_HALBERDIERS);
     expect(unitCount(get().units)).toBe(before + ADDED_HALBERDIERS);
+  });
+
+  it('sums every countable unit, whatever its special rules', () => {
+    const units = {
+      spearmen: { type: 'Infantry', number: SPEARMEN_STANDS } as UnitState,
+      scouts: {
+        type: 'Infantry',
+        number: SCOUT_STANDS,
+        specialRules: ['skirmish'],
+      } as UnitState,
+      general: { type: 'General', number: 1 } as UnitState,
+      skirmishers: { type: 'Infantry', number: 1, noCount: true } as UnitState,
+    };
+
+    expect(unitCount(units)).toBe(SPEARMEN_STANDS + SCOUT_STANDS);
   });
 });
 
