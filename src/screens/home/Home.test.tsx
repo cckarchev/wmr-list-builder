@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { armyIndex } from '@/data/armyIndex';
 import { defined } from '@/test/defined';
 import { renderWithProviders } from '@/test/renderWithProviders';
+import { FACTION_TAGLINES } from './army-card/factionTaglines';
 import { Home } from './Home';
 
 /** Dark Elves, High Elves and Wood Elves. */
@@ -36,6 +37,14 @@ describe('Home', () => {
     const link = screen.getByRole('link', { name: defined(goblinEntry, 'goblinEntry').name });
 
     expect(link).toHaveAttribute('href', '/build/goblin');
+  });
+
+  it('describes each army link with its tagline', () => {
+    renderWithProviders(<Home />);
+
+    const link = screen.getByRole('link', { name: 'Goblin' });
+
+    expect(link).toHaveAccessibleDescription(FACTION_TAGLINES.goblin);
   });
 
   it('filters the armies by the search query', async () => {

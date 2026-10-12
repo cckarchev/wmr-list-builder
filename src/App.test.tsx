@@ -59,6 +59,14 @@ describe('App routing from the root', () => {
     expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
   });
 
+  it('shows the army picker at root when ?army= names an inherited object key', () => {
+    renderWithProviders(<App />, {
+      routerProps: { initialEntries: ['/?army=constructor'] },
+    });
+
+    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
+  });
+
   it('navigates Home → Build when an army is chosen', async () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
@@ -81,6 +89,14 @@ describe('App routing for build and print', () => {
   it('redirects an unknown army id back to Home', () => {
     renderWithProviders(<App />, {
       routerProps: { initialEntries: ['/build/does-not-exist'] },
+    });
+
+    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
+  });
+
+  it('redirects an army id that is an inherited object key back to Home', () => {
+    renderWithProviders(<App />, {
+      routerProps: { initialEntries: ['/build/constructor'] },
     });
 
     expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
@@ -142,5 +158,16 @@ describe('App routing for build and print', () => {
     });
 
     expect(screen.getByRole('link', { name: /back/i })).toHaveAttribute('href', '/build/goblin');
+  });
+});
+
+describe('App routing to About', () => {
+  it('shows the About page at "/about", reachable from the footer', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
+
+    await user.click(screen.getByRole('link', { name: 'About' }));
+
+    expect(screen.getByRole('heading', { name: 'About', level: 1 })).toBeInTheDocument();
   });
 });

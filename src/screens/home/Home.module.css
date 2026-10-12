@@ -1,6 +1,9 @@
 @import '@/theme/breakpoints.css';
 
 .page {
+  /* A flex item in the Layout shell: auto margins would otherwise shrink it
+     to its content instead of filling up to the max width. */
+  width: 100%;
   max-width: var(--layout-max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--page-gutter);

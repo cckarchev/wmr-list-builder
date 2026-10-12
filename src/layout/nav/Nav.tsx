@@ -18,8 +18,10 @@ export const Nav = () => {
   return (
     <header className={classNames(styles.bar, 'no-print')}>
       <Link className={styles.brand} to="/">
-        Warmaster <span className={styles.brandMark}>Revolution</span>{' '}
-        <span className={styles.toolName}>· List Builder</span>
+        <span className={styles.brandName}>
+          Warmaster <span className={styles.brandMark}>Revolution</span>
+        </span>
+        <span className={styles.toolName}>List Builder</span>
       </Link>
       {backTo && (
         <Link className={styles.action} to={backTo}>

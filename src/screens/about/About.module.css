@@ -1,0 +1,64 @@
+@import '@/theme/breakpoints.css';
+
+.page {
+  /* A flex item in the Layout shell: auto margins would otherwise shrink it
+     to its content instead of filling up to the max width. */
+  width: 100%;
+  max-width: var(--prose-max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--page-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-body);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xxl);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  line-height: var(--leading-tight);
+  color: var(--color-text-strong);
+}
+
+@media (--phone) {
+  .heading {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.subheading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-accent);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-left: var(--space-lg);
+}
+
+.page a {
+  color: var(--color-teal-bright);
+}
+
+.page a:hover {
+  color: var(--color-accent);
+}
+
+.page a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

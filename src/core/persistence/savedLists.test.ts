@@ -67,4 +67,20 @@ describe('named lists', () => {
   it('returns [] for an army with no saved lists', () => {
     expect(listSavedNames(ARMY)).toEqual([]);
   });
+
+  it('saves and loads a list named like an inherited object key', () => {
+    saveNamedList(ARMY, '__proto__', named('__proto__'));
+    saveNamedList(ARMY, 'constructor', named('constructor'));
+
+    expect(listSavedNames(ARMY)).toEqual(['__proto__', 'constructor']);
+    expect(loadNamedList(ARMY, '__proto__')?.name).toBe('__proto__');
+    expect(loadNamedList(ARMY, 'constructor')?.name).toBe('constructor');
+  });
+
+  it('finds no list under an inherited object key that was never saved', () => {
+    saveNamedList(ARMY, 'My List', named('My List'));
+
+    expect(loadNamedList(ARMY, 'constructor')).toBeNull();
+    expect(listSavedNames(ARMY)).toEqual(['My List']);
+  });
 });

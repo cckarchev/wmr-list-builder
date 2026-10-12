@@ -1,8 +1,8 @@
-import { armiesById } from './armyIndex';
+import { findArmy } from './armyIndex';
 import type { Army } from './types';
 
 export const loadArmy = (id: string): Army => {
-  const army = armiesById[id];
+  const army = findArmy(id);
 
   if (!army) {
     throw new Error(`Unknown army id: ${id}`);

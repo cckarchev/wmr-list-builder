@@ -1,0 +1,50 @@
+.bar {
+  margin-top: auto;
+  background: var(--color-bg-deep);
+  border-top: var(--border-divider);
+}
+
+/* The edition and disclaimer on the left, About vertically centered beside
+   them and pushed to the right; centered to the page width like the nav and
+   the screens. */
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding: var(--space-md) var(--page-gutter);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}
+
+.text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.edition {
+  font-family: var(--font-mono);
+}
+
+.about {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-button);
+  color: var(--color-text-body);
+  text-decoration: none;
+}
+
+.about:hover {
+  color: var(--color-accent);
+}
+
+.about:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

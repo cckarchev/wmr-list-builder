@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 import { Navigate, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
 import { ARMY_PARAM } from '@/core/share-link/shareLink';
-import { armiesById } from '@/data/armyIndex';
+import { findArmy } from '@/data/armyIndex';
 import { Layout } from '@/layout/Layout';
+import { About } from '@/screens/about/About';
 import { Build } from '@/screens/build/Build';
 import { Home } from '@/screens/home/Home';
 import { Print } from '@/screens/print/Print';
@@ -11,7 +12,7 @@ import { Print } from '@/screens/print/Print';
 const RequireArmy = ({ children }: { children: ReactNode }) => {
   const { armyId } = useParams<{ armyId: string }>();
 
-  if (!armyId || !armiesById[armyId]) {
+  if (!armyId || !findArmy(armyId)) {
     return <Navigate to="/" replace />;
   }
 
@@ -26,7 +27,7 @@ const Root = () => {
   const [searchParams] = useSearchParams();
   const armyId = searchParams.get(ARMY_PARAM);
 
-  if (armyId && armiesById[armyId]) {
+  if (armyId && findArmy(armyId)) {
     return <Build />;
   }
 
@@ -53,6 +54,7 @@ export const App = () => (
           </RequireArmy>
         }
       />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   </Routes>

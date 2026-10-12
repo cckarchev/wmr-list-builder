@@ -25,6 +25,9 @@
   /* Fainter accent wash behind a whole card that is in the list, such as a
      selected roster unit; strong enough to scan for, quiet enough to read on. */
   --color-bg-selected: rgb(var(--rgb-accent) / 0.06);
+  /* Large decorative emblem at a card's edge, such as a faction on the army
+     picker; it turns full accent on hover. */
+  --color-accent-watermark: rgb(var(--rgb-accent) / 0.55);
   /* Recessed well that frames a block inside a card, such as a unit stat
      line; darkens whatever card background sits behind it. */
   --color-bg-inset: rgb(var(--rgb-black) / 0.25);
@@ -153,11 +156,35 @@
   /* Max content width for centered page containers; beyond this the layout
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
+  /* Max width for a page of running text, such as About, so lines stay a
+     comfortable length to read. */
+  --prose-max-width: 760px;
 
   /* Inline space between the screen edge and page content, shared by the nav,
      the Build header and every screen's body so their edges line up. Widened
      from the tablet breakpoint up, below. */
   --page-gutter: var(--space-lg);
+
+  /* Height of the top nav bar, which the two-line brand lockup fills. */
+  --nav-height: 64px;
+
+  /* Size of the faction emblem watermark on an army card, big enough that the
+     card edge crops it, how far it hangs past the right edge, and the
+     slice left inside the card. */
+  --emblem-watermark-size: 112px;
+  --emblem-watermark-overhang: var(--space-md);
+  --emblem-watermark-visible: calc(var(--emblem-watermark-size) - var(--emblem-watermark-overhang));
+
+  /* Vertical padding of the Build header title strip. */
+  --header-strip-padding-y: var(--space-xs);
+
+  /* The Build header title: the army name (xl at tight leading) over the
+     list name (sm at body leading), and the emblem beside them, which also
+     spans the strip padding above and below so it fills the whole strip. */
+  --title-name-height: calc(var(--font-size-xl) * var(--leading-tight));
+  --title-list-height: calc(var(--font-size-sm) * var(--leading-body));
+  --title-text-height: calc(var(--title-name-height) + var(--space-xxs) + var(--title-list-height));
+  --emblem-title-size: calc(var(--title-text-height) + 2 * var(--header-strip-padding-y));
 
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy

@@ -1,3 +1,4 @@
 .page {
-  min-height: 100dvh;
+  /* Fills the Layout shell below the nav, so the footer stays at the bottom. */
+  flex: 1 0 auto;
 }

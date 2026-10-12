@@ -26,6 +26,12 @@ describe('indexById', () => {
   it('throws on a duplicate id, naming the list and the id', () => {
     expect(() => indexById([goblins, goblins], 'units')).toThrow(/units.*goblins/);
   });
+
+  it('takes an id that is an inherited object key as new, not as a duplicate', () => {
+    const constructorRule = { id: 'constructor', name: 'Constructor', text: [] };
+
+    expect(indexById([constructorRule], 'special rules').constructor).toBe(constructorRule);
+  });
 });
 
 describe('normalizeArmy', () => {

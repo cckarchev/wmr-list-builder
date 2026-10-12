@@ -6,29 +6,28 @@
   gap: var(--space-sm);
   /* Fixed height so the bar never reflows when the right-hand action chip
      appears or changes between screens. */
-  min-height: 64px;
+  min-height: var(--nav-height);
   padding: var(--space-xs) var(--page-gutter);
   background: var(--color-bg-deep);
   border-bottom: var(--border-divider);
 }
 
+/* Two-line lockup: the game name over the tool name, sized to fit inside
+   the bar height and padding without making it taller. */
 .brand {
-  font-family: var(--font-display);
-  font-size: var(--font-size-md);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
-  color: var(--color-text-strong);
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
   text-decoration: none;
 }
 
-.brand:hover {
-  color: var(--color-accent);
-}
-
-.brand:focus-visible,
-.action:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
+.brandName {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-text-strong);
 }
 
 .brandMark {
@@ -36,13 +35,31 @@
 }
 
 .toolName {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-body);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
   color: var(--color-text-dim);
+  transition: color var(--duration-fast);
+}
+
+/* Hover lifts the tool name only, so the two-tone game name keeps its
+   contrast. */
+.brand:hover .toolName {
+  color: var(--color-text-body);
 }
 
 @media (--phone) {
   .toolName {
     display: none;
   }
+}
+
+.brand:focus-visible,
+.action:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Right-hand action chip: on Print, back to the army's roster. */

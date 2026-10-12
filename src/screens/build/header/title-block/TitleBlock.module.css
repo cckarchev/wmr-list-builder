@@ -5,6 +5,24 @@
      word beside them. Alone on a line it can still shrink and wrap. */
   flex: 1 1 auto;
   min-width: 0;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* As tall as the whole title strip while the name and list name each fit on
+   one line: it bleeds through the strip padding above and below, so it fills
+   the bar without making it taller. */
+.emblem {
+  flex-shrink: 0;
+  width: var(--emblem-title-size);
+  height: var(--emblem-title-size);
+  margin-block: calc(-1 * var(--header-strip-padding-y));
+  color: var(--color-accent);
+}
+
+.text {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: var(--space-xxs);
 }
@@ -13,6 +31,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-xl);
+  line-height: var(--leading-tight);
   color: var(--color-accent);
 }
 
@@ -23,6 +42,7 @@
   max-width: 100%;
   color: var(--color-text-dim);
   font-size: var(--font-size-sm);
+  line-height: var(--leading-body);
 }
 
 .listNameText {
