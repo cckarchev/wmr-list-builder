@@ -61,23 +61,21 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
     >
       {selected && <CornerBrackets accent={bracketColor} />}
       <div className={styles.top}>
-        <div className={styles.main}>
-          <div className={styles.nameRow}>
-            <span className={styles.name}>{unit.name}</span>
-            {showType && <span className={styles.typeTag}>{unit.type}</span>}
-          </div>
-          <div className={styles.stats}>
-            <StatLine
-              attack={unit.attack}
-              range={unit.range}
-              hits={unit.hits}
-              armour={unit.armour}
-              command={unit.command}
-              size={unit.size}
-              points={unit.points}
-              character={isCharacter(unit.type)}
-            />
-          </div>
+        <div className={styles.nameRow}>
+          <span className={styles.name}>{unit.name}</span>
+          {showType && <span className={styles.typeTag}>{unit.type}</span>}
+        </div>
+        <div className={styles.stats}>
+          <StatLine
+            attack={unit.attack}
+            range={unit.range}
+            hits={unit.hits}
+            armour={unit.armour}
+            command={unit.command}
+            size={unit.size}
+            points={unit.points}
+            character={isCharacter(unit.type)}
+          />
         </div>
         <CardControls unitId={unitId} unit={unit} />
       </div>

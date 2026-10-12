@@ -40,22 +40,28 @@
   border-color: var(--color-error);
 }
 
+/* Two rows by two columns: the name and the stepper share the first row,
+   centered on each other; the stat line and the meta line under the stepper
+   ("= 1234 pts · max 8") share the second. CardControls places its own two
+   pieces into this grid. The row gap is the tight stepper-to-meta spacing;
+   the stats add their own margin on top of it. */
 .top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-sm);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xxs);
+  align-items: start;
 }
 
-/* Left column: name and stat line stacked tightly. Keeping the stats here (next
-   to the name rather than below the whole header row) means the taller
-   right-hand controls column no longer pushes the stats down. */
-.main {
+.nameRow {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
   min-width: 0;
-  flex: 1;
 }
 
 /* The stat line sits in a recessed band, so the numbers read as one block
@@ -63,39 +69,24 @@
    action pills; on a wide card it hugs the columns, on a narrow one (below)
    it spans the content width. */
 .stats {
-  align-self: flex-start;
+  grid-row: 2;
+  grid-column: 1;
+  justify-self: start;
+  margin-top: var(--space-xs);
   padding: var(--space-xs);
   background: var(--color-bg-inset);
 }
 
-/* On a narrow card the controls column (stepper, "= 1234 pts · min 12") leaves
-   too little room for six stat columns beside it, even more so with a long
-   attack such as "1/2 per stand". So below 600px the stat line drops under the
-   name and controls and takes the card's full width. `display: contents` lifts
-   the name row and the stats into the grid of `.top`. Keep in step with the
-   same query in StatLine.module.css. */
+/* On a narrow card the controls column leaves too little room for six stat
+   columns beside it, even more so with a long attack such as "1/2 per stand".
+   So below 600px the stat line drops under the meta line and takes the card's
+   full width. Keep in step with the same query in StatLine.module.css. */
 @container (width < 600px) {
-  .top {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-
-  .main {
-    display: contents;
-  }
-
   .stats {
-    grid-row: 2;
+    grid-row: 3;
     grid-column: 1 / -1;
+    justify-self: stretch;
   }
-}
-
-.nameRow {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  min-width: 0;
 }
 
 .name {

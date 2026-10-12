@@ -30,7 +30,15 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
 
   return (
     <div className={styles.controls}>
-      <Stepper value={unit.number} onChange={changeNumber} min={min} max={max} label={unit.name} />
+      <div className={styles.stepper}>
+        <Stepper
+          value={unit.number}
+          onChange={changeNumber}
+          min={min}
+          max={max}
+          label={unit.name}
+        />
+      </div>
       <div className={styles.meta}>
         {selected && <span className={styles.pts}>= {unit.pointsCost} pts</span>}
         {selected && restriction && (
