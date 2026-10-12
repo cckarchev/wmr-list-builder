@@ -1,4 +1,5 @@
-import { breakPoint, globalErrors, pointsCost, unitCount } from '@/core/selectors';
+import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
+import { globalErrors } from '@/core/validation/errorTargets';
 import { useArmyStore } from '@/store/useArmyStore';
 import { GameSizeStepper } from './game-size-stepper/GameSizeStepper';
 import { LoadWarning } from './load-warning/LoadWarning';

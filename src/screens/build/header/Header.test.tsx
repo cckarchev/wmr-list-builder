@@ -1,7 +1,7 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { breakPoint } from '@/core/selectors';
+import { breakPoint } from '@/core/army-state/armyTotals';
 import { useArmyStore } from '@/store/useArmyStore';
 import { markClean } from '@/test/markClean';
 import { renderWithProviders } from '@/test/renderWithProviders';

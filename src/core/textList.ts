@@ -1,4 +1,5 @@
-import { breakPoint, type UsedUnit, unitCount } from './selectors';
+import { breakPoint, unitCount } from '@/core/army-state/armyTotals';
+import type { UsedUnit } from '@/core/army-state/usedUnits';
 
 interface TextListParams {
   armyName: string;

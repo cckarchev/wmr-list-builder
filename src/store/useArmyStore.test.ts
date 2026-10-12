@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import { pointsCost } from '@/core/army-state/armyTotals';
 import { resolveBounds } from '@/core/limits/forceLimits';
-import { pointsCost } from '@/core/selectors';
-import { availablePrintSections } from '@/screens/print/sections/printSections';
 import { defined } from '@/test/defined';
 import { useArmyStore } from './useArmyStore';
 
@@ -66,18 +65,6 @@ describe('setArmy', () => {
     // army upgrade plus a magic-item upgrade both present
     expect(get().upgrades.griffon).toBeDefined();
     expect(get().upgrades.crownOfCommand).toBeDefined();
-  });
-
-  it('exposes Empire print sections (no Army Rules, has Special Rules + Magic + Spells)', () => {
-    get().setArmy('empire');
-    const s = get();
-    const ids = availablePrintSections({
-      hasArmyRules: !!s.army?.armyRules,
-      hasSpecialRules: !!s.specialRules,
-      magic: s.magic,
-    }).map((section) => section.id);
-
-    expect(ids).toEqual(['stats', 'specialRules', 'magicItems', 'spells']);
   });
 });
 

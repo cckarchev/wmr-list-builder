@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SMALLEST_GAME } from '@/test/gameSizes';
-import { get, messages, unit, upgrade, validateNamed } from './validationFixtures';
+import { get, messages, unit, upgrade, validateNamed } from './fixtures';
 
 beforeEach(() => {
   get().reset();

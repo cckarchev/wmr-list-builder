@@ -1,4 +1,4 @@
-import type { RosterGroup } from './selectors';
+import type { RosterGroup } from './groupRosterUnits';
 
 interface RosterNarrowing {
   /** Show only the group with this label, or every group when null. */

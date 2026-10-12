@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { UnitState } from '@/core/army-state/types';
+import type { UsedUnit } from '@/core/army-state/usedUnits';
 import { classNames } from '@/core/lib/classNames';
-import type { UsedUnit } from '@/core/selectors';
 import type { NumberedRules } from '@/core/special-rules/specialRuleMarkers';
 import styles from './StatTable.module.css';
 import { type StatKind, StatRow } from './stat-row/StatRow';

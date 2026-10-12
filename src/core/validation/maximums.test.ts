@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { SMALLEST_GAME } from '@/test/gameSizes';
-import { get, unit, validateNamed } from './validationFixtures';
+import { get, unit, validateNamed } from './fixtures';
 
 beforeEach(() => {
   get().reset();

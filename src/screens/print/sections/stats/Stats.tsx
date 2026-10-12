@@ -1,10 +1,6 @@
-import {
-  breakPoint,
-  usedUnits as getUsedUnits,
-  isCharacter,
-  pointsCost,
-  unitCount,
-} from '@/core/selectors';
+import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
+import { isCharacter } from '@/core/army-state/unitTypes';
+import { usedUnits as getUsedUnits } from '@/core/army-state/usedUnits';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './Stats.module.css';
 import { StatTable } from './stat-table/StatTable';

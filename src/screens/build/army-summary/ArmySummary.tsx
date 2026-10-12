@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { breakPoint, groupRosterUnits, pointsCost, unitCount } from '@/core/selectors';
+import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
+import { groupRosterUnits } from '@/core/roster/groupRosterUnits';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './ArmySummary.module.css';
 import { SummaryRow } from './summary-row/SummaryRow';

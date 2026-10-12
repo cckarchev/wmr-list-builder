@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import { pointsCost } from '@/core/army-state/armyTotals';
+import { usedUnits as getUsedUnits, type UsedUnit } from '@/core/army-state/usedUnits';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
-import { usedUnits as getUsedUnits, pointsCost, type UsedUnit } from './selectors';
 import { buildTextList } from './textList';
 
 beforeEach(() => {

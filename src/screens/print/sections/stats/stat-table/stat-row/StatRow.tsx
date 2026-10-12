@@ -1,8 +1,8 @@
 import { resolveUpgradePoints } from '@/core/army-state/pricing';
 import type { UnitState, UpgradeState } from '@/core/army-state/types';
+import type { UsedUnit } from '@/core/army-state/usedUnits';
 import { classNames } from '@/core/lib/classNames';
 import { formatStat } from '@/core/lib/formatStat';
-import type { UsedUnit } from '@/core/selectors';
 import { type NumberedRules, specialRuleMarkers } from '@/core/special-rules/specialRuleMarkers';
 import styles from './StatRow.module.css';
 

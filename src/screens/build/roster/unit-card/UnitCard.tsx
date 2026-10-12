@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { CornerBrackets } from '@/components/corner-brackets/CornerBrackets';
 import { StatLine } from '@/components/stat-line/StatLine';
-import { errorsForTarget, isCharacter } from '@/core/selectors';
+import { isCharacter } from '@/core/army-state/unitTypes';
+import { errorsForTarget } from '@/core/validation/errorTargets';
 import { useArmyStore } from '@/store/useArmyStore';
 import { unitDomId, upgradesPanelId } from '../../shared/domIds';
 import { CardControls } from './card-controls/CardControls';

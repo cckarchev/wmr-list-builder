@@ -1,6 +1,6 @@
 import type { UpgradeState } from '@/core/army-state/types';
+import { UNIT_TYPES } from '@/core/army-state/unitTypes';
 import { isMountType } from '@/core/army-state/upgradeTypes';
-import { UNIT_TYPES } from '@/core/selectors';
 import { MAGIC_ITEM_TYPES } from '@/data/magicItems';
 import type { Rule, ValidatableItem } from './types';
 

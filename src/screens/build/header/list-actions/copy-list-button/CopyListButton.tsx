@@ -1,4 +1,5 @@
-import { usedUnits as getUsedUnits, pointsCost } from '@/core/selectors';
+import { pointsCost } from '@/core/army-state/armyTotals';
+import { usedUnits as getUsedUnits } from '@/core/army-state/usedUnits';
 import { buildTextList } from '@/core/textList';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopyButton } from '../shared/copy-button/CopyButton';

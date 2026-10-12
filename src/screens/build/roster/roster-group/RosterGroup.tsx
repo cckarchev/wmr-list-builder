@@ -1,4 +1,4 @@
-import type { RosterGroup as RosterGroupData } from '@/core/selectors';
+import type { RosterGroup as RosterGroupData } from '@/core/roster/groupRosterUnits';
 import { groupPanelId } from '../../shared/domIds';
 import { UnitCard } from '../unit-card/UnitCard';
 import styles from './RosterGroup.module.css';

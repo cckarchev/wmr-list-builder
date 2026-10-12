@@ -1,6 +1,6 @@
+import { pointsCost } from '@/core/army-state/armyTotals';
 import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types';
 import { armySize } from '@/core/limits/armySize';
-import { pointsCost } from '@/core/selectors';
 import type { ValidationError } from '@/data/types';
 import { namesOf } from './namesOf';
 import { itemErrors } from './rules/rules';

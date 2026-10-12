@@ -44,7 +44,7 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 ## Project layout
 
     src/
-      core/        Pure logic: validation, force limits, selectors, persistence (ports of the original logic)
+      core/        Pure logic: validation, force limits, army totals, roster grouping, persistence (ports of the original logic)
       data/        Warmaster Revolution army JSON + loaders and types
       store/       Zustand store and store-bound hooks
       theme/       Design tokens + global styles (dark UI; light @media print)

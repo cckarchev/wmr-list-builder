@@ -1,4 +1,4 @@
-import { groupUpgradeIds } from '@/core/groupUpgrades';
+import { groupUpgradeIds } from '@/core/roster/groupUpgrades';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './UpgradesPanel.module.css';
 import { UpgradeRow } from './upgrade-row/UpgradeRow';

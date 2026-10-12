@@ -1,6 +1,6 @@
-import { getEmbedBase } from '@/core/embed';
 import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
-import { buildShareUrl } from '@/core/shareLink';
+import { getEmbedBase } from '@/core/share-link/embed';
+import { buildShareUrl } from '@/core/share-link/shareLink';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useListSnapshot } from '@/store/useListSnapshot';
 import { CopyButton } from '../shared/copy-button/CopyButton';

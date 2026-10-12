@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { SMALLEST_GAME } from '@/test/gameSizes';
-import { get, messages, unit, validateNamed } from './validationFixtures';
+import { get, messages, unit, validateNamed } from './fixtures';
 
 /** Below one army-size step, where numeric minimums are not enforced. */
 const UNDER_ONE_STEP_GAME = 800;

@@ -5,7 +5,7 @@ import { defined } from '@/test/defined';
 import { SMALLEST_GAME } from '@/test/gameSizes';
 import { toSentence } from './toSentence';
 import { validate } from './validation';
-import { get, messages, unit, upgrade, validateNamed } from './validationFixtures';
+import { get, messages, unit, upgrade, validateNamed } from './fixtures';
 
 beforeEach(() => {
   get().reset();

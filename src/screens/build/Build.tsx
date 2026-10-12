@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { ARMY_PARAM, LIST_PARAM } from '@/core/shareLink';
+import { ARMY_PARAM, LIST_PARAM } from '@/core/share-link/shareLink';
 import { useElementHeight } from '@/hooks/useElementHeight';
 import { useArmyStore } from '@/store/useArmyStore';
 import { ArmySummary } from './army-summary/ArmySummary';
