@@ -84,11 +84,11 @@ export const FACTION_ICON_PATHS: Record<string, string> = {
 /** Armies whose icon is flipped horizontally, purely because it looks better that way. */
 export const MIRRORED_FACTION_ICONS: ReadonlySet<string> = new Set([
   'araby',
+  'cathay',
   'kislev',
   'lizardmen',
-  'skaven',
-  'cathay',
   'ogre-kingdoms',
+  'skaven',
 ]);
 
 /** Whether the army has an emblem, so callers can skip its sized wrapper. */
