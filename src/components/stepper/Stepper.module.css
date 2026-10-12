@@ -1,8 +1,14 @@
+/* The frame is shared by both buttons: teal like the pill buttons while either
+   can still be pressed, the disabled grey once neither can. */
 .stepper {
   display: inline-flex;
   align-items: stretch;
-  border: var(--border-default);
+  border: var(--border-width) solid var(--color-border-disabled);
   border-radius: var(--radius);
+}
+
+.stepper:has(.step:enabled) {
+  border-color: var(--color-ghost-border);
 }
 
 .step {

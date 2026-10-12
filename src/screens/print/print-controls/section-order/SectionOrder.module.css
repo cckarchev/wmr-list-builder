@@ -1,16 +1,11 @@
 /* The trigger sits after the section chips, so it takes their type but a dashed
-   outline and the arrows' teal: an action on the chips, not another chip.
-   Doubled class to win over the PillButton whatever order the sheets load in. */
+   outline: an action on the chips, not another chip. Doubled class to win over
+   the PillButton whatever order the sheets load in. */
 .trigger.trigger {
   gap: var(--space-xxs);
   border-style: dashed;
-  color: var(--color-teal-bright);
   font-family: var(--font-mono);
   letter-spacing: var(--tracking-label);
-}
-
-.trigger.trigger:hover {
-  background: var(--color-ghost-bg);
 }
 
 .list {
