@@ -1,13 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import type { UpgradeState } from '@/core/army-state/types';
+import { taken, upgradeOfType } from './fixtures';
 import { kindFullHint } from './kindFullHint';
-
-const upgradeOfType = (id: string, type: string): UpgradeState => ({
-  id,
-  name: id,
-  type,
-  number: 0,
-});
 
 const upgrades: Record<string, UpgradeState> = {
   crown: upgradeOfType('crown', 'Device of Power'),
@@ -15,8 +9,6 @@ const upgrades: Record<string, UpgradeState> = {
   wyvern: upgradeOfType('wyvern', 'Monstrous Mount'),
   drummer: upgradeOfType('drummer', 'Command'),
 };
-
-const taken = (number: number): UnitUpgradeEntry => ({ number, pointsCost: 0 });
 
 const ONE_STAND = 1;
 const TWO_STANDS = 2;

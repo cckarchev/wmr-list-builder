@@ -1,3 +1,4 @@
+import { countOf } from '@/core/lib/quantities';
 import {
   countOfKind,
   MAGIC_ITEM_KIND,
@@ -17,9 +18,7 @@ const upgradeCap =
       return undefined;
     }
 
-    const plural = item.number > 1 ? 's' : '';
-
-    return `${item.number} ${label} may only have ${item.number} ${kind.noun}${plural}.`;
+    return `${item.number} ${label} may only have ${countOf(item.number, kind.noun)}.`;
   };
 
 export const magicItemCap = upgradeCap(MAGIC_ITEM_KIND);

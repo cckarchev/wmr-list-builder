@@ -1,14 +1,18 @@
-/* The frame is shared by both buttons: teal like the pill buttons while either
-   can still be pressed, the disabled grey once neither can. */
+/* The frame and the dividers inside it are shared by both buttons: teal like
+   the pill buttons while either can still be pressed, the disabled grey once
+   neither can. --stepper-edge carries that color to every edge, including
+   those of controls that compose the stepper. */
 .stepper {
+  --stepper-edge: var(--color-border-disabled);
+
   display: inline-flex;
   align-items: stretch;
-  border: var(--border-width) solid var(--color-border-disabled);
+  border: var(--border-width) solid var(--stepper-edge);
   border-radius: var(--radius);
 }
 
 .stepper:has(.step:enabled) {
-  border-color: var(--color-ghost-border);
+  --stepper-edge: var(--color-ghost-border);
 }
 
 .step {
@@ -49,8 +53,7 @@
   justify-content: center;
   min-width: 2.5ch;
   padding: 0 var(--space-xs);
-  border-left: var(--border-default);
-  border-right: var(--border-default);
+  border-inline: var(--border-width) solid var(--stepper-edge);
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);

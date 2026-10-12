@@ -33,13 +33,21 @@
   white-space: nowrap;
 }
 
-/* The up and down arrows as one segmented control, drawn like the Stepper. */
+/* The up and down arrows as one segmented control, drawn like the Stepper:
+   frame and divider teal while either arrow can be pressed, grey once
+   neither can. */
 .arrows {
+  --arrows-edge: var(--color-border-disabled);
+
   flex: none;
   display: inline-flex;
   align-items: stretch;
-  border: var(--border-default);
+  border: var(--border-width) solid var(--arrows-edge);
   border-radius: var(--radius);
+}
+
+.arrows:has(.arrow:enabled) {
+  --arrows-edge: var(--color-ghost-border);
 }
 
 .arrow {
@@ -61,7 +69,7 @@
 }
 
 .arrow + .arrow {
-  border-left: var(--border-default);
+  border-left: var(--border-width) solid var(--arrows-edge);
 }
 
 .arrow:hover:not(:disabled) {

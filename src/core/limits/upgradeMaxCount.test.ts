@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { upgradeMaxCount } from './upgradeMaxCount';
+import { armyAllowanceLeft, upgradeMaxCount } from './upgradeMaxCount';
 
 const STANDS = 3;
 const NONE = 0;
@@ -78,5 +78,26 @@ describe('upgradeMaxCount', () => {
     });
 
     expect(max).toBe(NONE);
+  });
+});
+
+describe('armyAllowanceLeft', () => {
+  it('is undefined for an upgrade with no army limit', () => {
+    expect(armyAllowanceLeft({ taken: NONE, armyTotal: NONE })).toBeUndefined();
+  });
+
+  it("leaves what other units have not spent, this unit's share included", () => {
+    const armyMax = 2;
+    const taken = 1;
+    const armyTotal = 2;
+
+    expect(armyAllowanceLeft({ taken, armyTotal, armyMax })).toBe(1);
+  });
+
+  it('never goes below none once other units overspend', () => {
+    const armyMax = 1;
+    const overspent = 2;
+
+    expect(armyAllowanceLeft({ taken: NONE, armyTotal: overspent, armyMax })).toBe(NONE);
   });
 });

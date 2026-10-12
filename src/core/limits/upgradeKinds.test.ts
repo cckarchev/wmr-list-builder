@@ -1,13 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import type { UpgradeState } from '@/core/army-state/types';
+import { taken, upgradeOfType } from './fixtures';
 import { countOfKind, MAGIC_ITEM_KIND, MOUNT_KIND, sameKindTakenAlongside } from './upgradeKinds';
-
-const upgradeOfType = (id: string, type: string): UpgradeState => ({
-  id,
-  name: id,
-  type,
-  number: 0,
-});
 
 const upgrades: Record<string, UpgradeState> = {
   banner: upgradeOfType('banner', 'Magic Standard'),
@@ -16,8 +10,6 @@ const upgrades: Record<string, UpgradeState> = {
   wyvern: upgradeOfType('wyvern', 'Monstrous Mount'),
   drummer: upgradeOfType('drummer', 'Command'),
 };
-
-const taken = (number: number): UnitUpgradeEntry => ({ number, pointsCost: 0 });
 
 describe('countOfKind', () => {
   it('sums the carried counts of every upgrade of the kind', () => {

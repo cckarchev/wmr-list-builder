@@ -1,3 +1,4 @@
+import { countOf } from '@/core/lib/quantities';
 import { countOfKind, kindOf, type SameKindInput } from './upgradeKinds';
 
 interface KindFullInput extends SameKindInput {
@@ -29,7 +30,5 @@ export const kindFullHint = ({
     return undefined;
   }
 
-  const plural = carriedOfKind > 1 ? 's' : '';
-
-  return `Already carries ${carriedOfKind} ${kind.noun}${plural}`;
+  return `Already carries ${countOf(carriedOfKind, kind.noun)}`;
 };

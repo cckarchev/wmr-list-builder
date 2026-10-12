@@ -44,12 +44,6 @@
   --color-text-body: rgb(var(--rgb-text) / 0.82);
   --color-text-dim: rgb(var(--rgb-text) / 0.62);
 
-  /* Disabled controls drop their color for a flat grey, text and edge alike,
-     so "can't press" reads at a glance instead of as a fainter version of
-     the live color. */
-  --color-disabled: rgb(var(--rgb-text) / 0.3);
-  --color-border-disabled: rgb(var(--rgb-white) / 0.1);
-
   /* Control-edge alphas are likewise bumped so panels, steppers and dividers
      actually read as bordered controls against the near-black surfaces. */
   --color-border-divider: rgb(var(--rgb-white) / 0.14);
@@ -57,6 +51,12 @@
   --color-border-hover: rgb(var(--rgb-white) / 0.34);
   --color-border-focus: rgb(var(--rgb-teal) / 0.85);
   --color-border-accent: rgb(var(--rgb-accent) / 0.7);
+
+  /* Disabled controls drop their color for a flat grey, text and edge alike,
+     so "can't press" reads at a glance instead of as a fainter version of
+     the live color. */
+  --color-disabled: rgb(var(--rgb-text) / 0.3);
+  --color-border-disabled: rgb(var(--rgb-white) / 0.1);
 
   /* Border widths: the default edge, and a strong rule such as a table head,
      an indented row or the accent edge on home cards. */
