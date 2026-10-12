@@ -6,14 +6,14 @@
   gap: var(--space-sm);
   /* Fixed height so the bar never reflows when the right-hand action chip
      appears or changes between screens. */
-  min-height: 64px;
+  min-height: var(--nav-height);
   padding: var(--space-xs) var(--page-gutter);
   background: var(--color-bg-deep);
   border-bottom: var(--border-divider);
 }
 
-/* Two-line lockup: the game name over the tool name, sized to fill the bar
-   without making it taller. */
+/* Two-line lockup: the game name over the tool name, sized to fit inside
+   the bar height and padding without making it taller. */
 .brand {
   display: inline-flex;
   flex-direction: column;
@@ -28,12 +28,6 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
   color: var(--color-text-strong);
-}
-
-.brand:focus-visible,
-.action:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
 }
 
 .brandMark {
@@ -60,6 +54,12 @@
   .toolName {
     display: none;
   }
+}
+
+.brand:focus-visible,
+.action:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Right-hand action chip: on Print, back to the army's roster. */

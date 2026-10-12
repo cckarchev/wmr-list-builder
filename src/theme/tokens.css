@@ -165,6 +165,9 @@
      from the tablet breakpoint up, below. */
   --page-gutter: var(--space-lg);
 
+  /* Height of the top nav bar, which the two-line brand lockup fills. */
+  --nav-height: 64px;
+
   /* Size of the faction emblem watermark on an army card, big enough that the
      card edge crops it, how far it hangs past the right edge, and the
      slice left inside the card. */
