@@ -6,7 +6,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
   padding: var(--space-lg);
   /* Keeps the text clear of the emblem's visible slice, plus a gap. */
   padding-right: calc(var(--emblem-watermark-visible) + var(--space-sm));
@@ -57,7 +56,8 @@
   color: var(--color-accent);
 }
 
-/* Stacks the name over its tagline. */
+/* Stacks the name over its tagline. Positioned, and after the emblem in the
+   DOM, so it paints above the absolutely positioned emblem. */
 .text {
   position: relative;
   display: flex;

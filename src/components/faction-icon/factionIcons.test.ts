@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { armyIndex } from '@/data/armyIndex';
-import { FACTION_ICON_PATHS, MIRRORED_FACTION_ICONS } from './factionIcons';
+import { FACTION_ICON_PATHS, hasFactionIcon, MIRRORED_FACTION_ICONS } from './factionIcons';
 
 describe('faction icons', () => {
   it('has an icon for every army', () => {
@@ -20,5 +20,10 @@ describe('faction icons', () => {
     const unknown = [...MIRRORED_FACTION_ICONS].filter((id) => !(id in FACTION_ICON_PATHS));
 
     expect(unknown).toEqual([]);
+  });
+
+  it('knows which armies have an icon', () => {
+    expect(hasFactionIcon('goblin')).toBe(true);
+    expect(hasFactionIcon('not-an-army')).toBe(false);
   });
 });

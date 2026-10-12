@@ -9,8 +9,9 @@
   gap: var(--space-sm);
 }
 
-/* As tall as the whole title strip: it bleeds through the strip padding
-   above and below, so it fills the bar without making it taller. */
+/* As tall as the whole title strip while the name and list name each fit on
+   one line: it bleeds through the strip padding above and below, so it fills
+   the bar without making it taller. */
 .emblem {
   flex-shrink: 0;
   width: var(--emblem-title-size);

@@ -5,3 +5,12 @@
   flex-direction: column;
   min-height: 100dvh;
 }
+
+/* Plain block flow on paper: flex items break across printed pages
+   unreliably in some browsers. */
+@media print {
+  .shell {
+    display: block;
+    min-height: 0;
+  }
+}

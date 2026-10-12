@@ -25,4 +25,10 @@ describe('Footer', () => {
 
     expect(screen.getByRole('contentinfo')).toHaveTextContent('not endorsed by Games Workshop');
   });
+
+  it('is left off the printed page', () => {
+    renderWithProviders(<Footer />);
+
+    expect(screen.getByRole('contentinfo')).toHaveClass('no-print');
+  });
 });

@@ -41,6 +41,7 @@ describe('Home', () => {
 
   it('describes each army link with its tagline', () => {
     renderWithProviders(<Home />);
+
     const link = screen.getByRole('link', { name: 'Goblin' });
 
     expect(link).toHaveAccessibleDescription(FACTION_TAGLINES.goblin);

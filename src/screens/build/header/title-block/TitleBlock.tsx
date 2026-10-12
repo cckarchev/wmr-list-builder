@@ -1,4 +1,5 @@
 import { FactionIcon } from '@/components/faction-icon/FactionIcon';
+import { hasFactionIcon } from '@/components/faction-icon/factionIcons';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useIsDirty } from '@/store/useIsDirty';
 import styles from './TitleBlock.module.css';
@@ -9,12 +10,13 @@ export const TitleBlock = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const listName = useArmyStore((s) => s.label);
   const isDirty = useIsDirty();
+  const emblemArmyId = armyId !== null && hasFactionIcon(armyId) ? armyId : null;
 
   return (
     <div className={styles.block}>
-      {armyId && (
-        <span className={styles.emblem} aria-hidden="true">
-          <FactionIcon armyId={armyId} />
+      {emblemArmyId && (
+        <span className={styles.emblem}>
+          <FactionIcon armyId={emblemArmyId} />
         </span>
       )}
       <div className={styles.text}>

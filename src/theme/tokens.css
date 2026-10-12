@@ -165,8 +165,8 @@
      from the tablet breakpoint up, below. */
   --page-gutter: var(--space-lg);
 
-  /* Size of the faction emblem watermark on an army card, taller than the
-     card so its edges crop it, how far it hangs past the right edge, and the
+  /* Size of the faction emblem watermark on an army card, big enough that the
+     card edge crops it, how far it hangs past the right edge, and the
      slice left inside the card. */
   --emblem-watermark-size: 112px;
   --emblem-watermark-overhang: var(--space-md);

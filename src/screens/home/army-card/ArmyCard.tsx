@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { Link } from 'react-router-dom';
 import { FactionIcon } from '@/components/faction-icon/FactionIcon';
+import { hasFactionIcon } from '@/components/faction-icon/factionIcons';
 import styles from './ArmyCard.module.css';
 import { FACTION_TAGLINES } from './factionTaglines';
 
@@ -25,9 +26,11 @@ export const ArmyCard = ({ id, name }: ArmyCardProps) => {
       aria-labelledby={nameId}
       aria-describedby={describedBy}
     >
-      <span className={styles.emblem} aria-hidden="true">
-        <FactionIcon armyId={id} />
-      </span>
+      {hasFactionIcon(id) && (
+        <span className={styles.emblem}>
+          <FactionIcon armyId={id} />
+        </span>
+      )}
       <span className={styles.text}>
         <span id={nameId} className={styles.name}>
           {name}
