@@ -106,13 +106,15 @@
 }
 
 /* "Legible font" option: every face on the sheet, headings and figures
-   included, switches to the legible typeface. */
+   included, switches to the legible typeface, scaled to the body font's
+   x-height so it does not print smaller than the default. */
 .document[data-legible-font] {
   --font-display: var(--font-legible);
   --font-body: var(--font-legible);
   --font-mono: var(--font-legible);
 
   font-family: var(--font-body);
+  font-size-adjust: var(--font-legible-size-adjust);
 }
 
 /* "Page per section" option: each section after the first starts a new page,

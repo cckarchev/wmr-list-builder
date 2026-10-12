@@ -107,6 +107,10 @@
   /* The print sheet's "Legible font" option: distinct letterforms (b/d, I/l/1,
      O/0) for dyslexic and low-vision readers. */
   --font-legible: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  /* Inter's x-height as a fraction of its size (1118 / 2048 units). The legible
+     face has a shorter x-height, so it reads smaller at the same size; scaling it
+     to this ratio keeps its lowercase as tall as the body font's. */
+  --font-legible-size-adjust: 0.546;
 
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
