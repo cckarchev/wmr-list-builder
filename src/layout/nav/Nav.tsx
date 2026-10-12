@@ -3,6 +3,9 @@ import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import { classNames } from '@/core/lib/classNames';
 import styles from './Nav.module.css';
 
+/** The chevron on the Back link. */
+const BACK_CARET_SIZE = 10;
+
 export const Nav = () => {
   const { pathname } = useLocation();
   const [section, armyId] = pathname.split('/').filter(Boolean);
@@ -21,7 +24,7 @@ export const Nav = () => {
       {backTo && (
         <Link className={styles.action} to={backTo}>
           <span className={styles.backMark}>
-            <ChevronMark size={10} color="currentColor" />
+            <ChevronMark size={BACK_CARET_SIZE} color="currentColor" />
           </span>
           Back
         </Link>

@@ -4,6 +4,8 @@ import styles from './RosterFilters.module.css';
 
 const PANEL_ID = 'roster-filters';
 
+const CARET_SIZE = 12;
+
 interface RosterFiltersProps {
   /** All available roster type labels, used to render the type chips. */
   types: string[];
@@ -61,7 +63,7 @@ export const RosterFilters = ({
             onClick={onToggleFiltersOpen}
           >
             <span className={styles.caret}>
-              <ChevronMark size={12} />
+              <ChevronMark size={CARET_SIZE} />
             </span>
             {filtersLabel}
           </button>

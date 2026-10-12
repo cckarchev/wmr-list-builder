@@ -49,6 +49,7 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
       store/       Zustand store and store-bound hooks
       theme/       Design tokens + global styles (dark UI; light @media print)
       components/  Shared UI primitives, one folder per component
+      hooks/       Shared React hooks: popup dismissal, Escape key, element size
       layout/      App shell: layout, nav, scroll restoration
       screens/     home/ (army picker), build/ (roster), print/ (selectable sections)
 
@@ -87,7 +88,7 @@ the rest (share link, copy as text, print, reset) live under the **More** overfl
   reconstructs the roster with no server involved.
 - **Copy** writes a plain-text version of the list to the clipboard.
 
-Encoding, decoding, and the saved-list storage live in `src/store/persistence.ts`.
+Encoding, decoding, and the saved-list storage live in `src/core/persistence/`.
 
 ## Building a roster
 

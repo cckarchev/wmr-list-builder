@@ -11,6 +11,8 @@ import styles from './UnitSpells.module.css';
 /** Shown in the range column for spells without a range. */
 const NO_RANGE = '–';
 
+const CARET_SIZE = 11;
+
 interface UnitSpellsProps {
   unitId: string;
 }
@@ -52,7 +54,7 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
                 onClick={() => toggle(i)}
               >
                 <span className={styles.caret}>
-                  <ChevronMark size={11} color="currentColor" />
+                  <ChevronMark size={CARET_SIZE} color="currentColor" />
                 </span>
                 <span className={styles.name}>{spell.name}</span>
                 <span className={styles.roll}>{spell.roll}+</span>

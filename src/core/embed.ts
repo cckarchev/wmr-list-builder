@@ -3,6 +3,9 @@
 // at startup (see initEmbed call in main.tsx) so it survives in-app navigation,
 // which drops query params. The Share button uses it to emit a cckarchev link.
 
+/** Query param carrying the embedding page's base URL. */
+export const EMBED_PARAM = 'embed';
+
 const ALLOWED_HOSTS = new Set(['cckarchev.ar', 'www.cckarchev.ar']);
 
 /**
@@ -36,7 +39,7 @@ const validate = (raw: string): string | null => {
 };
 
 export const initEmbed = (search: string = window.location.search): void => {
-  const raw = new URLSearchParams(search).get('embed');
+  const raw = new URLSearchParams(search).get(EMBED_PARAM);
 
   embedBase = raw ? validate(raw) : null;
 };
