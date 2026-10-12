@@ -1,4 +1,4 @@
-import { Icon } from '@/components/Icon';
+import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import styles from './SavedListItem.module.css';
 
 interface SavedListItemProps {
@@ -24,7 +24,7 @@ export const SavedListItem = ({ name, gameSize, onLoad, onDelete }: SavedListIte
         aria-label={`delete ${name}`}
         onClick={() => onDelete(name)}
       >
-        <Icon name="trash" size={14} />
+        <Icon name="trash" size={INLINE_ICON_SIZE} />
       </button>
     </div>
   </div>

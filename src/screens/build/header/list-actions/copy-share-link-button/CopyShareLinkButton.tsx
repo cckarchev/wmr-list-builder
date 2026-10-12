@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { getEmbedBase } from '@/core/embed';
 import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
+import { ARMY_PARAM, LIST_PARAM } from '@/core/shareLink';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopiedBubble } from '../shared/copied-bubble/CopiedBubble';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
@@ -29,12 +30,12 @@ export const CopyShareLinkButton = () => {
       // recipient lands on cckarchev (which re-embeds the iframe with the list).
       const embedUrl = new URL(base);
 
-      embedUrl.searchParams.set('army', armyId);
-      embedUrl.searchParams.set('list', encoded);
+      embedUrl.searchParams.set(ARMY_PARAM, armyId);
+      embedUrl.searchParams.set(LIST_PARAM, encoded);
 
       url = embedUrl.toString();
     } else {
-      url = `${window.location.origin}/build/${armyId}?list=${encoded}`;
+      url = `${window.location.origin}/build/${armyId}?${LIST_PARAM}=${encoded}`;
     }
 
     copy(url);

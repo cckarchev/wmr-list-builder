@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
-import { Icon } from '@/components/Icon';
+import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import { Markdown } from '@/components/Markdown';
 import { Popover } from '@/components/popover/Popover';
 import { toggleMember } from '@/core/lib/sets';
@@ -33,7 +33,7 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
       label="Spells"
       trigger={
         <>
-          <Icon name="magic" size={14} />
+          <Icon name="magic" size={INLINE_ICON_SIZE} />
           Spells
         </>
       }

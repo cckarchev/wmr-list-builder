@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { ARMY_PARAM, LIST_PARAM } from '@/core/shareLink';
 import { useElementHeight } from '@/hooks/useElementHeight';
 import { useArmyStore } from '@/store/useArmyStore';
 import { ArmySummary } from './army-summary/ArmySummary';
@@ -15,9 +16,9 @@ export const Build = () => {
 
   // Embedded query-only links (/?army=<id>) carry the army in the query string;
   // the /build/:armyId route carries it in the path. Accept either.
-  const armyId = paramArmyId ?? searchParams.get('army') ?? undefined;
+  const armyId = paramArmyId ?? searchParams.get(ARMY_PARAM) ?? undefined;
 
-  usePersistedList(armyId, searchParams.get('list'));
+  usePersistedList(armyId, searchParams.get(LIST_PARAM));
 
   // The sticky header grows and shrinks (e.g. when global errors appear), so
   // keep measuring it. It is observed directly, not through a wrapper, so no

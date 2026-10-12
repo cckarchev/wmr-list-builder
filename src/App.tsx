@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Navigate, Route, Routes, useParams, useSearchParams } from 'react-router-dom';
+import { ARMY_PARAM } from '@/core/shareLink';
 import { armiesById } from '@/data/armyIndex';
 import { Layout } from '@/layout/Layout';
 import { Build } from '@/screens/build/Build';
@@ -23,7 +24,7 @@ const RequireArmy = ({ children }: { children: ReactNode }) => {
  */
 const Root = () => {
   const [searchParams] = useSearchParams();
-  const armyId = searchParams.get('army');
+  const armyId = searchParams.get(ARMY_PARAM);
 
   if (armyId && armiesById[armyId]) {
     return <Build />;

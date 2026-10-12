@@ -1,4 +1,4 @@
-import { Icon } from '@/components/Icon';
+import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
 import { resolveUnitSpecialRules } from '@/core/special-rules/specialRulesForUnit';
 import { useArmyStore } from '@/store/useArmyStore';
@@ -27,7 +27,7 @@ export const UnitRules = ({ unitId }: UnitRulesProps) => {
       label={`${unit.name} special rules`}
       trigger={
         <>
-          <Icon name="rules" size={14} />
+          <Icon name="rules" size={INLINE_ICON_SIZE} />
           Rules
         </>
       }

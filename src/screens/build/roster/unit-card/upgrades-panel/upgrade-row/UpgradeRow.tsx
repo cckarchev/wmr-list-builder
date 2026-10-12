@@ -1,4 +1,4 @@
-import { Icon } from '@/components/Icon';
+import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
@@ -86,7 +86,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
         {rules.length > 0 && (
           <Popover
             label={`${upgrade.name} special rules`}
-            trigger={<Icon name="rules" size={14} />}
+            trigger={<Icon name="rules" size={INLINE_ICON_SIZE} />}
             wide
           >
             <RuleList rules={rules} />

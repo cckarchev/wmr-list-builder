@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { Icon } from '@/components/Icon';
+import { LIST_PARAM } from '@/core/shareLink';
 import { useArmyStore } from '@/store/useArmyStore';
 
 export const ResetListButton = () => {
@@ -24,10 +25,10 @@ export const ResetListButton = () => {
 
     // Drop the shared ?list= blob so a reload (or a re-share) starts from the
     // reset roster instead of re-applying the old link.
-    if (searchParams.has('list')) {
+    if (searchParams.has(LIST_PARAM)) {
       const next = new URLSearchParams(searchParams);
 
-      next.delete('list');
+      next.delete(LIST_PARAM);
 
       setSearchParams(next, { replace: true });
     }
