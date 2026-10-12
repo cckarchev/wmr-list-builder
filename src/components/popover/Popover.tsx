@@ -1,8 +1,8 @@
 import { type ReactNode, useEffect, useId, useRef } from 'react';
 import { PillButton } from '@/components/pill-button/PillButton';
 import { useDismissible } from '@/hooks/useDismissible';
+import { useViewportShift } from '@/hooks/useViewportShift';
 import styles from './Popover.module.css';
-import { useViewportShift } from './useViewportShift';
 
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
