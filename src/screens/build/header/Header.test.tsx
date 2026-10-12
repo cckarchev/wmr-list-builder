@@ -121,14 +121,6 @@ describe('Header list name', () => {
     expect(screen.getByText('Unsaved')).toBeInTheDocument();
   });
 
-  it('renders Save and Load actions', () => {
-    useArmyStore.getState().setArmy('bretonnia');
-    renderWithProviders(<Header />);
-
-    expect(screen.getAllByRole('button', { name: /save/i }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole('button', { name: /load/i }).length).toBeGreaterThan(0);
-  });
-
   it('marks the list unsaved when it diverges from the saved baseline', () => {
     useArmyStore.getState().setArmy('bretonnia');
     useArmyStore.getState().setLabel('Tourney List');

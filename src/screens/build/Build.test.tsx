@@ -32,9 +32,9 @@ describe('Build screen', () => {
 
   it('renders the Goblins unit in the roster', async () => {
     renderBuild('/build/goblin');
-    const matches = await screen.findAllByText('Goblins');
+    const roster = await screen.findByRole('region', { name: 'Roster' });
 
-    expect(matches.length).toBeGreaterThan(0);
+    expect(within(roster).getByText('Goblins')).toBeInTheDocument();
   });
 
   it('updates total points when a unit stepper is incremented', async () => {
