@@ -1,14 +1,13 @@
-/**
- * Coverage checks for a record keyed by army id, such as the faction icons or
- * taglines: which armies it misses, and which of its keys name no army.
- */
+// Coverage checks for a record keyed by army id, such as the faction icons or
+// taglines.
+
+/** The armies the record has no entry for. */
 export const armyIdsMissingFrom = (
   record: Record<string, unknown>,
   armyIds: readonly string[],
-): string[] => {
-  return armyIds.filter((id) => !(id in record));
-};
+): string[] => armyIds.filter((id) => !(id in record));
 
+/** The record's keys that name no army. */
 export const orphanArmyIds = (
   record: Record<string, unknown>,
   armyIds: readonly string[],
