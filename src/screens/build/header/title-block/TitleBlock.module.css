@@ -15,7 +15,7 @@
   flex-shrink: 0;
   width: var(--emblem-title-size);
   height: var(--emblem-title-size);
-  margin-block: calc(-1 * var(--space-xs));
+  margin-block: calc(-1 * var(--header-strip-padding-y));
   color: var(--color-accent);
 }
 

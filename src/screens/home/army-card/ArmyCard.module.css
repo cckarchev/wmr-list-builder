@@ -8,9 +8,8 @@
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-lg);
-  /* Keeps the text clear of the emblem's visible slice: its size, less the
-     part that hangs past the edge, plus a gap. */
-  padding-right: calc(var(--emblem-watermark-size) - var(--space-md) + var(--space-sm));
+  /* Keeps the text clear of the emblem's visible slice, plus a gap. */
+  padding-right: calc(var(--emblem-watermark-visible) + var(--space-sm));
   border-radius: var(--radius);
   border: var(--border-default);
   border-left: var(--border-width-strong) solid var(--color-border-default);
@@ -44,7 +43,7 @@
   position: absolute;
   top: 50%;
   /* Hangs past the right edge so the emblem reads as cropped. */
-  right: calc(-1 * var(--space-md));
+  right: calc(-1 * var(--emblem-watermark-overhang));
   display: inline-flex;
   width: var(--emblem-watermark-size);
   height: var(--emblem-watermark-size);

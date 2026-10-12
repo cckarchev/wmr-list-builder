@@ -166,8 +166,14 @@
   --page-gutter: var(--space-lg);
 
   /* Size of the faction emblem watermark on an army card, taller than the
-     card so its edges crop it. */
+     card so its edges crop it, how far it hangs past the right edge, and the
+     slice left inside the card. */
   --emblem-watermark-size: 112px;
+  --emblem-watermark-overhang: var(--space-md);
+  --emblem-watermark-visible: calc(var(--emblem-watermark-size) - var(--emblem-watermark-overhang));
+
+  /* Vertical padding of the Build header title strip. */
+  --header-strip-padding-y: var(--space-xs);
 
   /* The Build header title: the army name (xl at tight leading) over the
      list name (sm at body leading), and the emblem beside them, which also
@@ -175,7 +181,7 @@
   --title-name-height: calc(var(--font-size-xl) * var(--leading-tight));
   --title-list-height: calc(var(--font-size-sm) * var(--leading-body));
   --title-text-height: calc(var(--title-name-height) + var(--space-xxs) + var(--title-list-height));
-  --emblem-title-size: calc(var(--title-text-height) + 2 * var(--space-xs));
+  --emblem-title-size: calc(var(--title-text-height) + 2 * var(--header-strip-padding-y));
 
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy
