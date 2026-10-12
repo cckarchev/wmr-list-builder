@@ -58,6 +58,16 @@
   flex: 1;
 }
 
+/* The stat line sits in a recessed band, so the numbers read as one block
+   apart from the name and controls. Its edge lines up with the name and the
+   action pills; on a wide card it hugs the columns, on a narrow one (below)
+   it spans the content width. */
+.stats {
+  align-self: flex-start;
+  padding: var(--space-xs);
+  background: var(--color-bg-inset);
+}
+
 /* On a narrow card the controls column (stepper, "= 1234 pts · min 12") leaves
    too little room for six stat columns beside it, even more so with a long
    attack such as "1/2 per stand". So below 600px the stat line drops under the

@@ -25,6 +25,9 @@
   /* Fainter accent wash behind a whole card that is in the list, such as a
      selected roster unit; strong enough to scan for, quiet enough to read on. */
   --color-bg-selected: rgb(var(--rgb-accent) / 0.06);
+  /* Recessed well that frames a block inside a card, such as a unit stat
+     line; darkens whatever card background sits behind it. */
+  --color-bg-inset: rgb(var(--rgb-black) / 0.25);
   /* Alternate-row shading for printed tables. */
   --color-bg-stripe: rgb(var(--rgb-white) / 0.06);
   /* Backdrop that dims the page behind a modal dialog. */
