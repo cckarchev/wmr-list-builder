@@ -28,7 +28,7 @@
 }
 
 .step:disabled {
-  opacity: var(--opacity-disabled);
+  color: var(--color-disabled);
   cursor: not-allowed;
 }
 

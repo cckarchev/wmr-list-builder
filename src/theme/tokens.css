@@ -44,6 +44,12 @@
   --color-text-body: rgb(var(--rgb-text) / 0.82);
   --color-text-dim: rgb(var(--rgb-text) / 0.62);
 
+  /* Disabled controls drop their color for a flat grey, text and edge alike,
+     so "can't press" reads at a glance instead of as a fainter version of
+     the live color. */
+  --color-disabled: rgb(var(--rgb-text) / 0.3);
+  --color-border-disabled: rgb(var(--rgb-white) / 0.1);
+
   /* Control-edge alphas are likewise bumped so panels, steppers and dividers
      actually read as bordered controls against the near-black surfaces. */
   --color-border-divider: rgb(var(--rgb-white) / 0.14);
@@ -131,9 +137,8 @@
   --leading-tight: 1.1;
   --leading-condensed: 1.35;
 
-  /* Hover feedback and disabled state for filled and stepped controls. */
+  /* Hover feedback for filled controls. */
   --opacity-hover: 0.9;
-  --opacity-disabled: 0.4;
 
   /* Duration for every hover, expand and reveal transition. Dropped to zero
      below for people who ask the system for reduced motion. */
