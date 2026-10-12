@@ -4,8 +4,9 @@
   border-top: var(--border-divider);
 }
 
-/* The edition and disclaimer on the left, About centered beside them on the
-   right; centered to the page width like the nav and the screens. */
+/* The edition and disclaimer on the left, About vertically centered beside
+   them and pushed to the right; centered to the page width like the nav and
+   the screens. */
 .inner {
   display: flex;
   align-items: center;

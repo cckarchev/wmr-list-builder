@@ -1,10 +1,12 @@
 import { FACTION_ICON_PATHS, MIRRORED_FACTION_ICONS } from './factionIcons';
 
-/** The view box every game-icons.net icon is drawn on. */
-const VIEW_BOX = '0 0 512 512';
+/** The side of the square every game-icons.net icon is drawn on. */
+const ICON_SIZE = 512;
 
-/** Flips a path left to right across the 512-wide view box. */
-const MIRROR_TRANSFORM = 'matrix(-1 0 0 1 512 0)';
+const VIEW_BOX = `0 0 ${ICON_SIZE} ${ICON_SIZE}`;
+
+/** Flips a path left to right across the view box. */
+const MIRROR_TRANSFORM = `matrix(-1 0 0 1 ${ICON_SIZE} 0)`;
 
 interface FactionIconProps {
   armyId: string;

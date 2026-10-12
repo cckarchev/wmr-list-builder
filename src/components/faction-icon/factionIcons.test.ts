@@ -1,19 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { armyIndex } from '@/data/armyIndex';
+import { armyIdsMissingFrom, orphanArmyIds } from '@/test/armyKeyedRecord';
 import { FACTION_ICON_PATHS, hasFactionIcon, MIRRORED_FACTION_ICONS } from './factionIcons';
+
+const ARMY_IDS = armyIndex.map(({ id }) => id);
 
 describe('faction icons', () => {
   it('has an icon for every army', () => {
-    const missing = armyIndex.map(({ id }) => id).filter((id) => !(id in FACTION_ICON_PATHS));
-
-    expect(missing).toEqual([]);
+    expect(armyIdsMissingFrom(FACTION_ICON_PATHS, ARMY_IDS)).toEqual([]);
   });
 
   it('has no icon for an army that does not exist', () => {
-    const armyIds = new Set(armyIndex.map(({ id }) => id));
-    const orphans = Object.keys(FACTION_ICON_PATHS).filter((id) => !armyIds.has(id));
-
-    expect(orphans).toEqual([]);
+    expect(orphanArmyIds(FACTION_ICON_PATHS, ARMY_IDS)).toEqual([]);
   });
 
   it('only mirrors armies that have an icon', () => {

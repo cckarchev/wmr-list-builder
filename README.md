@@ -50,8 +50,8 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
       theme/       Design tokens + global styles (dark UI; light @media print)
       components/  Shared UI primitives, one folder per component
       hooks/       Shared React hooks: popup dismissal, Escape key, element size
-      layout/      App shell: layout, nav, scroll restoration
-      screens/     home/ (army picker), build/ (roster), print/ (selectable sections)
+      layout/      App shell: layout, nav, footer, scroll restoration
+      screens/     home/ (army picker), build/ (roster), print/ (selectable sections), about/ (edition, links, credits)
 
 Each screen folder mirrors its component tree: a component with private children keeps
 them in subfolders beside it. Imports inside one area are relative; imports that leave

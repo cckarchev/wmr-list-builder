@@ -1,18 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { armyIndex } from '@/data/armyIndex';
+import { armyIdsMissingFrom, orphanArmyIds } from '@/test/armyKeyedRecord';
 import { FACTION_TAGLINES } from './factionTaglines';
+
+const ARMY_IDS = armyIndex.map(({ id }) => id);
 
 describe('faction taglines', () => {
   it('has a tagline for every army', () => {
-    const missing = armyIndex.map(({ id }) => id).filter((id) => !(id in FACTION_TAGLINES));
-
-    expect(missing).toEqual([]);
+    expect(armyIdsMissingFrom(FACTION_TAGLINES, ARMY_IDS)).toEqual([]);
   });
 
   it('has no tagline for an army that does not exist', () => {
-    const armyIds = new Set(armyIndex.map(({ id }) => id));
-    const orphans = Object.keys(FACTION_TAGLINES).filter((id) => !armyIds.has(id));
-
-    expect(orphans).toEqual([]);
+    expect(orphanArmyIds(FACTION_TAGLINES, ARMY_IDS)).toEqual([]);
   });
 });
