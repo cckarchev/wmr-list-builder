@@ -1,3 +1,4 @@
+import { ownValue } from '@/core/lib/ownValue';
 import { FACTION_ICON_PATHS, MIRRORED_FACTION_ICONS } from './factionIcons';
 
 /** The side of the square every game-icons.net icon is drawn on. */
@@ -17,7 +18,7 @@ interface FactionIconProps {
  * nothing for an unknown army. The container sets the size.
  */
 export const FactionIcon = ({ armyId }: FactionIconProps) => {
-  const path = FACTION_ICON_PATHS[armyId];
+  const path = ownValue(FACTION_ICON_PATHS, armyId);
 
   if (!path) {
     return null;

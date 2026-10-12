@@ -15,7 +15,9 @@ describe('faction icons', () => {
   });
 
   it('only mirrors armies that have an icon', () => {
-    const unknown = [...MIRRORED_FACTION_ICONS].filter((id) => !(id in FACTION_ICON_PATHS));
+    const unknown = [...MIRRORED_FACTION_ICONS].filter(
+      (id) => !Object.hasOwn(FACTION_ICON_PATHS, id),
+    );
 
     expect(unknown).toEqual([]);
   });
@@ -23,5 +25,6 @@ describe('faction icons', () => {
   it('knows which armies have an icon', () => {
     expect(hasFactionIcon('goblin')).toBe(true);
     expect(hasFactionIcon('not-an-army')).toBe(false);
+    expect(hasFactionIcon('constructor')).toBe(false);
   });
 });

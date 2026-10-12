@@ -13,6 +13,12 @@ describe('FactionIcon', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  it('renders nothing for an inherited object key', () => {
+    const { container } = render(<FactionIcon armyId="constructor" />);
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('renders a decorative svg for a known army', () => {
     const { container } = render(<FactionIcon armyId={UNMIRRORED_ARMY} />);
 

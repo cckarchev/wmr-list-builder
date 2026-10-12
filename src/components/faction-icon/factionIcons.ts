@@ -92,4 +92,5 @@ export const MIRRORED_FACTION_ICONS: ReadonlySet<string> = new Set([
 ]);
 
 /** Whether the army has an emblem, so callers can skip its sized wrapper. */
-export const hasFactionIcon = (armyId: string): boolean => armyId in FACTION_ICON_PATHS;
+export const hasFactionIcon = (armyId: string): boolean =>
+  Object.hasOwn(FACTION_ICON_PATHS, armyId);

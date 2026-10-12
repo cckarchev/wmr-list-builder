@@ -6,25 +6,28 @@ import { readJson, removeItem, writeJson } from './storage';
 const SAVED_PREFIX = 'wmr:saved:';
 
 /**
- * Read + parse the per-army map of named lists. Returns {} on any failure
- * (storage blocked, missing key, corrupt JSON) so callers stay thin.
+ * Read + parse the per-army map of named lists. Returns an empty map on any
+ * failure (storage blocked, missing key, corrupt JSON) so callers stay thin.
+ * A Map rather than the stored object, because list names are typed by the
+ * user: on a plain object "constructor" would read as an inherited value and
+ * "__proto__" could not be stored at all.
  */
-const readSavedMap = (armyId: string): Record<string, string> => {
+const readSavedMap = (armyId: string): Map<string, string> => {
   const parsed = readJson(SAVED_PREFIX + armyId);
   const isMap = parsed && typeof parsed === 'object' && !Array.isArray(parsed);
 
   if (isMap) {
-    return parsed as Record<string, string>;
+    return new Map(Object.entries(parsed as Record<string, string>));
   }
 
-  return {};
+  return new Map();
 };
 
-const writeSavedMap = (armyId: string, map: Record<string, string>): void => {
-  const hasLists = Object.keys(map).length > 0;
+const writeSavedMap = (armyId: string, map: Map<string, string>): void => {
+  const hasLists = map.size > 0;
 
   if (hasLists) {
-    writeJson(SAVED_PREFIX + armyId, map);
+    writeJson(SAVED_PREFIX + armyId, Object.fromEntries(map));
   } else {
     removeItem(SAVED_PREFIX + armyId);
   }
@@ -34,7 +37,7 @@ export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot):
   try {
     const map = readSavedMap(armyId);
 
-    map[name] = encodeListFor(armyId, snap);
+    map.set(name, encodeListFor(armyId, snap));
     writeSavedMap(armyId, map);
   } catch {
     // unknown army / storage blocked: degrade to no-op
@@ -43,7 +46,7 @@ export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot):
 
 export const loadNamedList = (armyId: string, name: string): ListSnapshot | null => {
   try {
-    const encoded = readSavedMap(armyId)[name];
+    const encoded = readSavedMap(armyId).get(name);
 
     if (!encoded) {
       return null;
@@ -60,7 +63,7 @@ const byName = (a: string, b: string): number =>
   a.localeCompare(b, undefined, { sensitivity: 'base' });
 
 export const listSavedNames = (armyId: string): string[] =>
-  Object.keys(readSavedMap(armyId)).sort(byName);
+  [...readSavedMap(armyId).keys()].sort(byName);
 
 export interface SavedListSummary {
   name: string;
@@ -75,13 +78,13 @@ export const listSavedSummaries = (armyId: string): SavedListSummary[] => {
   try {
     const map = readSavedMap(armyId);
     const maps = codeMapsFor(armyId);
-    const summarize = (name: string): SavedListSummary => {
-      const gameSize = decodeList(map[name], maps)?.gameSize ?? 0;
+    const summarize = ([name, encoded]: [string, string]): SavedListSummary => {
+      const gameSize = decodeList(encoded, maps)?.gameSize ?? 0;
 
       return { name, gameSize };
     };
 
-    return Object.keys(map).sort(byName).map(summarize);
+    return [...map.entries()].map(summarize).sort((a, b) => byName(a.name, b.name));
   } catch {
     return [];
   }
@@ -90,10 +93,10 @@ export const listSavedSummaries = (armyId: string): SavedListSummary[] => {
 export const deleteNamedList = (armyId: string, name: string): void => {
   const map = readSavedMap(armyId);
 
-  if (!(name in map)) {
+  if (!map.has(name)) {
     return;
   }
 
-  delete map[name];
+  map.delete(name);
   writeSavedMap(armyId, map);
 };

@@ -11,7 +11,7 @@ export const indexById = <T extends { id: string }>(
   const indexed: Record<string, T> = {};
 
   for (const entity of entities) {
-    if (entity.id in indexed) {
+    if (Object.hasOwn(indexed, entity.id)) {
       throw new Error(`Duplicate id in ${label}: ${entity.id}`);
     }
 

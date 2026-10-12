@@ -5,7 +5,7 @@
 export const armyIdsMissingFrom = (
   record: Record<string, unknown>,
   armyIds: readonly string[],
-): string[] => armyIds.filter((id) => !(id in record));
+): string[] => armyIds.filter((id) => !Object.hasOwn(record, id));
 
 /** The record's keys that name no army. */
 export const orphanArmyIds = (

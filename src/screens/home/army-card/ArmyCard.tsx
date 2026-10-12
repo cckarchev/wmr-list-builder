@@ -2,6 +2,7 @@ import { useId } from 'react';
 import { Link } from 'react-router-dom';
 import { FactionIcon } from '@/components/faction-icon/FactionIcon';
 import { hasFactionIcon } from '@/components/faction-icon/factionIcons';
+import { ownValue } from '@/core/lib/ownValue';
 import styles from './ArmyCard.module.css';
 import { FACTION_TAGLINES } from './factionTaglines';
 
@@ -11,7 +12,7 @@ interface ArmyCardProps {
 }
 
 export const ArmyCard = ({ id, name }: ArmyCardProps) => {
-  const tagline = FACTION_TAGLINES[id];
+  const tagline = ownValue(FACTION_TAGLINES, id);
   const nameId = useId();
   const taglineId = useId();
 
