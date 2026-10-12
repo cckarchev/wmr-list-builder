@@ -21,6 +21,7 @@ describe('groupUpgradeIds', () => {
       ['War Boar', 'Special Mount'],
     ]);
     const groups = groupUpgradeIds(['Wolf Chariot', 'Wyvern', 'War Boar'], upgrades);
+
     expect(groups).toEqual([
       { label: 'Mounts', upgradeIds: ['Wolf Chariot', 'Wyvern', 'War Boar'] },
     ]);
@@ -33,6 +34,7 @@ describe('groupUpgradeIds', () => {
       ['Squig Herd', 'Infantry'],
     ]);
     const groups = groupUpgradeIds(['Battle Banner', 'Sword of Might', 'Squig Herd'], upgrades);
+
     expect(groups.map((g) => g.label)).toEqual(['Magic Standard', 'Magic Weapon', 'Infantry']);
   });
 
@@ -43,6 +45,7 @@ describe('groupUpgradeIds', () => {
       ['Wolf Chariot', 'Chariot Mount'],
     ]);
     const groups = groupUpgradeIds(['Wyvern', 'Battle Banner', 'Wolf Chariot'], upgrades);
+
     expect(groups).toEqual([
       { label: 'Mounts', upgradeIds: ['Wyvern', 'Wolf Chariot'] },
       { label: 'Magic Standard', upgradeIds: ['Battle Banner'] },
@@ -52,6 +55,7 @@ describe('groupUpgradeIds', () => {
   it('skips ids missing from the upgrades map', () => {
     const upgrades = upgradesOf([['Wyvern', 'Monstrous Mount']]);
     const groups = groupUpgradeIds(['Wyvern', 'Ghost'], upgrades);
+
     expect(groups).toEqual([{ label: 'Mounts', upgradeIds: ['Wyvern'] }]);
   });
 });

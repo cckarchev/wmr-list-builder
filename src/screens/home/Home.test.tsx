@@ -9,6 +9,7 @@ describe('Home', () => {
   it('renders one link per army', () => {
     renderWithProviders(<Home />);
     const links = screen.getAllByRole('link');
+
     expect(links).toHaveLength(armyIndex.length);
   });
 
@@ -23,8 +24,11 @@ describe('Home', () => {
   it('links point to /build/:id', () => {
     renderWithProviders(<Home />);
     const goblinEntry = armyIndex.find((a) => a.id === 'goblin');
+
     expect(goblinEntry).toBeDefined();
+
     const link = screen.getByRole('link', { name: defined(goblinEntry, 'goblinEntry').name });
+
     expect(link).toHaveAttribute('href', '/build/goblin');
   });
 });

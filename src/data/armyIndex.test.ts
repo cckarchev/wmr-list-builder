@@ -16,6 +16,7 @@ describe('army index', () => {
   });
   it('is sorted by name', () => {
     const names = armyIndex.map((a) => a.name);
+
     expect([...names].sort((x, y) => x.localeCompare(y))).toEqual(names);
   });
   it('throws on unknown id', () => {

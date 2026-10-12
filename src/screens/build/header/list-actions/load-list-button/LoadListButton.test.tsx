@@ -24,6 +24,7 @@ describe('LoadListButton', () => {
     const user = userEvent.setup();
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
+
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
   });
 
@@ -32,6 +33,7 @@ describe('LoadListButton', () => {
     seed('Saved A', MID_GAME);
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
+
     expect(screen.getByText(/1500 pts/)).toBeInTheDocument();
   });
 
@@ -42,6 +44,7 @@ describe('LoadListButton', () => {
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /^Saved A$/ }));
+
     expect(useArmyStore.getState().gameSize).toBe(MID_GAME);
   });
 
@@ -52,8 +55,11 @@ describe('LoadListButton', () => {
     renderWithProviders(<LoadListButton />);
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /^Saved B$/ }));
+
     expect(screen.getByText(/unsaved changes/i)).toBeInTheDocument();
+
     await user.click(screen.getByRole('button', { name: /^replace$/i }));
+
     expect(useArmyStore.getState().gameSize).toBe(ODD_GAME);
   });
 
@@ -64,6 +70,7 @@ describe('LoadListButton', () => {
     await user.click(screen.getByRole('button', { name: /load/i }));
     await user.click(screen.getByRole('button', { name: /delete Saved C/i }));
     await user.click(screen.getByRole('button', { name: /^delete$/i }));
+
     expect(screen.queryByRole('button', { name: /^Saved C$/ })).not.toBeInTheDocument();
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
   });

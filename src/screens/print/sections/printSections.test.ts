@@ -8,6 +8,7 @@ describe('availablePrintSections', () => {
       hasSpecialRules: false,
       magic: false,
     }).map((s) => s.id);
+
     expect(ids).toEqual(['stats']);
   });
 
@@ -17,6 +18,7 @@ describe('availablePrintSections', () => {
       hasSpecialRules: true,
       magic: true,
     }).map((s) => s.id);
+
     expect(ids).toEqual(['stats', 'armyRules', 'specialRules', 'magicItems', 'spells']);
   });
 
@@ -26,6 +28,7 @@ describe('availablePrintSections', () => {
       hasSpecialRules: true,
       magic: false,
     }).map((s) => s.id);
+
     expect(ids).toEqual(['stats', 'specialRules']);
   });
 });

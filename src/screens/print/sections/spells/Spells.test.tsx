@@ -15,6 +15,7 @@ describe('Spells print section', () => {
     renderSpells();
     // Header lines combine name, cast roll, and range on one line.
     const headers = screen.getAllByText(/· \d+\+ to cast · Range /);
+
     expect(headers.length).toBeGreaterThan(0);
   });
 

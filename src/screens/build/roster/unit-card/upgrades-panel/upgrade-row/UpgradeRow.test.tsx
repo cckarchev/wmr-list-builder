@@ -49,6 +49,7 @@ describe('UpgradeRow', () => {
 
     await user.click(screen.getByRole('button', { name: 'Battle Banner special rules' }));
     const dialog = screen.getByRole('dialog', { name: 'Battle Banner special rules' });
+
     expect(within(dialog).getByText(/increases the Attacks value/i)).toBeInTheDocument();
   });
 });

@@ -7,6 +7,7 @@ describe('ChevronMark', () => {
   it('renders an aria-hidden svg containing a path', () => {
     const { container } = render(<ChevronMark />);
     const svg = container.querySelector('svg');
+
     expect(svg).not.toBeNull();
     expect(svg).toHaveAttribute('aria-hidden', 'true');
     expect(container.querySelector('path')).not.toBeNull();
@@ -15,12 +16,14 @@ describe('ChevronMark', () => {
   it('applies the given size to the svg', () => {
     const { container } = render(<ChevronMark size={20} />);
     const svg = defined(container.querySelector('svg'), 'svg');
+
     expect(svg).toHaveAttribute('width', '20');
     expect(svg).toHaveAttribute('height', '20');
   });
 
   it('applies an explicit stroke color to the path', () => {
     const { container } = render(<ChevronMark color="#ff0000" />);
+
     expect(container.querySelector('path')).toHaveAttribute('stroke', '#ff0000');
   });
 });

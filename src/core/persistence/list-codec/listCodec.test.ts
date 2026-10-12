@@ -22,6 +22,7 @@ describe('encode/decode list', () => {
 
   it('preserves the list name', () => {
     const named = { ...snap, name: 'My Big List' };
+
     expect(decodeList(encodeList(named, maps), maps)?.name).toBe('My Big List');
   });
 
@@ -32,6 +33,7 @@ describe('encode/decode list', () => {
       units: { halberdiers: 1, 'Not A Unit': 3 },
       upgrades: {},
     };
+
     expect(decodeList(encodeList(dirty, maps), maps)).toEqual({
       name: '',
       gameSize: 1000,
@@ -45,6 +47,7 @@ describe('encode/decode list', () => {
     const nameBased = btoa(
       JSON.stringify({ v: 1, n: '', g: snap.gameSize, u: snap.units, up: snap.upgrades }),
     );
+
     expect(idBased.length).toBeLessThan(nameBased.length);
   });
 
@@ -55,6 +58,7 @@ describe('encode/decode list', () => {
 
   it('returns null for a wrong version', () => {
     const bad = btoa(JSON.stringify({ v: 99, n: '', g: 2000, u: {}, up: {} }));
+
     expect(decodeList(bad, maps)).toBeNull();
   });
 
@@ -71,12 +75,14 @@ describe('encode/decode list', () => {
 describe('decodeShare', () => {
   it('reports ok with the snapshot for a valid blob', () => {
     const r = decodeShare(encodeList(snap, maps), maps);
+
     expect(r).toEqual({ ok: true, snapshot: snap });
   });
 
   it('reports ok for a genuinely empty shared list', () => {
     const empty = { name: '', gameSize: 1500, units: {}, upgrades: {} };
     const r = decodeShare(encodeList(empty, maps), maps);
+
     expect(r).toEqual({ ok: true, snapshot: empty });
   });
 
@@ -87,12 +93,14 @@ describe('decodeShare', () => {
 
   it('reports not-ok for a wrong version', () => {
     const bad = btoa(JSON.stringify({ v: 99, n: '', g: 2000, u: {}, up: {} }));
+
     expect(decodeShare(bad, maps)).toEqual({ ok: false });
   });
 
   it('reports not-ok when units were present but none resolve (wrong army)', () => {
     // ids 900/901 exist in no army's unit map → all dropped.
     const wrongArmy = btoa(JSON.stringify({ v: 1, n: '', g: 2000, u: { 900: 2, 901: 1 }, up: {} }));
+
     expect(decodeShare(wrongArmy, maps)).toEqual({ ok: false });
   });
 });

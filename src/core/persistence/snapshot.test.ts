@@ -11,6 +11,7 @@ describe('snapshotOf', () => {
         knights: { number: 0, upgrades: {} },
       },
     } as never;
+
     expect(snapshotOf(state)).toEqual({
       name: '',
       gameSize: 2000,

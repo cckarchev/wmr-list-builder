@@ -44,6 +44,7 @@ describe('pointsCost', () => {
     get().setUnitNumber('goblins', 10);
     // The selector sums every unit's cost, including auto-included minimums.
     const total = Object.values(get().units).reduce((sum, u) => sum + u.pointsCost, 0);
+
     expect(pointsCost(get())).toBe(total);
   });
 });
@@ -54,9 +55,12 @@ describe('unitCount', () => {
     const before = unitCount(get().units);
     // Adding a noCount unit (Skirmishers) does not change the count.
     get().setUnitNumber('skirmishers', get().units.skirmishers.number + 2);
+
     expect(unitCount(get().units)).toBe(before);
+
     // Adding a counted unit does.
     get().setUnitNumber('halberdiers', get().units.halberdiers.number + ADDED_HALBERDIERS);
+
     expect(unitCount(get().units)).toBe(before + ADDED_HALBERDIERS);
   });
 
@@ -85,6 +89,7 @@ describe('breakPoint', () => {
     get().setArmy('goblin');
     get().setUnitNumber('goblins', GOBLIN_STANDS); // counted units
     const count = unitCount(get().units);
+
     expect(breakPoint(get().units)).toBe(Math.ceil(count / 2));
   });
 
@@ -108,6 +113,7 @@ describe('errorsForTarget / globalErrors', () => {
       'too few A',
       'A or B issue',
     ]);
+
     expect(errorsForTarget(errors, 'B').map((e) => e.message)).toEqual(['A or B issue']);
     expect(errorsForTarget(errors, 'C')).toEqual([]);
   });
@@ -126,8 +132,10 @@ describe('usedUnits', () => {
     // Only units with number > 0 are returned (Halberdiers auto-includes at its min).
     expect(used.halberdiers).toBeDefined();
     expect(Object.values(used).every((u) => u.number > 0)).toBe(true);
+
     // used upgrade merges the global upgrade record with the unit entry
     const banner = defined(used.halberdiers.upgrades, 'upgrades').battleBanner;
+
     expect(banner.number).toBe(1);
     expect(banner.type).toBe('Magic Standard'); // from the global record
   });
@@ -149,6 +157,7 @@ describe('groupRosterUnits', () => {
 
   it('groups characters first, then troop types in canonical order', () => {
     const groups = groupRosterUnits(units);
+
     expect(groups.map((g) => g.label)).toEqual([
       'Characters',
       'Infantry',
@@ -163,17 +172,20 @@ describe('groupRosterUnits', () => {
   it('folds General/Hero/Wizard into one Characters group, preserving order', () => {
     const groups = groupRosterUnits(units);
     const characters = groups.find((g) => g.label === 'Characters');
+
     expect(characters?.unitIds).toEqual(['Goblin Warboss', 'Goblin Bigboss', 'Shaman']);
   });
 
   it('preserves existing order within a troop group', () => {
     const groups = groupRosterUnits(units);
     const infantry = groups.find((g) => g.label === 'Infantry');
+
     expect(infantry?.unitIds).toEqual(['Goblins', 'Spider Riders']);
   });
 
   it('filters by a case-insensitive name query, dropping now-empty groups', () => {
     const groups = groupRosterUnits(units, 'wolf');
+
     expect(groups.map((g) => g.label)).toEqual(['Cavalry', 'Chariot']);
     expect(groups.flatMap((g) => g.unitIds)).toEqual(['Wolf Riders', 'Wolf Chariots']);
   });
@@ -194,6 +206,7 @@ describe('groupRosterUnits', () => {
 
   it('ignores surrounding whitespace in the query', () => {
     const groups = groupRosterUnits(units, '  giant  ');
+
     expect(groups.map((g) => g.label)).toEqual(['Monster']);
   });
 });
@@ -208,6 +221,7 @@ describe('groupRosterUnits with mandatory units', () => {
     const infantry = groupRosterUnits(mandatoryUnits, '', DEFAULT_GAME_SIZE).find(
       (g) => g.label === 'Infantry',
     );
+
     expect(infantry?.unitIds).toEqual(['goblinHorde', 'goblins', 'spiderRiders']);
   });
 
@@ -217,6 +231,7 @@ describe('groupRosterUnits with mandatory units', () => {
       goblinHorde: { type: 'Infantry', armyMin: 1 } as UnitState,
     };
     const infantry = groupRosterUnits(mandatoryUnits).find((g) => g.label === 'Infantry');
+
     expect(infantry?.unitIds).toEqual(['goblins', 'goblinHorde']);
   });
 });

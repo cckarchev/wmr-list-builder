@@ -26,12 +26,14 @@ describe('Build screen', () => {
 
   it('renders the army name "Goblin"', async () => {
     renderBuild('/build/goblin');
+
     expect(await screen.findByText('Goblin')).toBeInTheDocument();
   });
 
   it('renders the Goblins unit in the roster', async () => {
     renderBuild('/build/goblin');
     const matches = await screen.findAllByText('Goblins');
+
     expect(matches.length).toBeGreaterThan(0);
   });
 
@@ -59,6 +61,7 @@ describe('Build screen', () => {
 
     // And another.
     await user.click(increaseBtn);
+
     expect(pointsTotal.textContent).toBe('620');
   });
 });
@@ -80,6 +83,7 @@ describe('inline validation', () => {
 
     // The error renders inline (attributed to the Goblin Warboss row)...
     expect(screen.getByText(/may only have 1 mount/i)).toBeInTheDocument();
+
     // ...and the old detached bottom list is gone.
     expect(screen.queryByRole('list', { name: /validation errors/i })).not.toBeInTheDocument();
 
@@ -96,6 +100,7 @@ describe('inline validation', () => {
     await screen.findByText('Goblin');
 
     const bar = screen.getByTestId('points-bar');
+
     expect(within(bar).getByText(/points over the 500 cap/i)).toBeInTheDocument();
   });
 });
@@ -112,10 +117,13 @@ describe('min/max in plain language', () => {
 
     // Goblins carry min 4 per 1,000 pts; at the default 2,000-pt game that's 8+.
     expect(screen.getByText('8+')).toBeInTheDocument();
+
     // ...with the full rule available in a tooltip bubble.
     expect(screen.getByText('min 4 per 1,000 pts (≈ 8+ at this size)')).toBeInTheDocument();
+
     // The Goblin Warboss is armyMin 1 / armyMax 1 → a bare "1" badge + rule.
     expect(screen.getByText('exactly 1 per army')).toBeInTheDocument();
+
     // The cryptic raw token form is gone.
     expect(screen.queryByText(/min\/max:/)).not.toBeInTheDocument();
   });
@@ -132,6 +140,7 @@ describe('roster organization', () => {
     await screen.findByText('Goblin');
 
     const roster = screen.getByRole('region', { name: 'Roster' });
+
     expect(within(roster).getByRole('heading', { name: 'Characters' })).toBeInTheDocument();
     expect(within(roster).getByRole('heading', { name: 'Monster' })).toBeInTheDocument();
   });
@@ -146,11 +155,13 @@ describe('roster organization', () => {
     await user.type(box, 'giant');
 
     const roster = screen.getByRole('region', { name: 'Roster' });
+
     expect(within(roster).getByText('Giant')).toBeInTheDocument();
     expect(within(roster).queryByText('Wolf Riders')).not.toBeInTheDocument();
 
     await user.clear(box);
     await user.type(box, 'zzz');
+
     expect(within(roster).getByText(/No units match/i)).toBeInTheDocument();
   });
 
@@ -171,6 +182,7 @@ describe('roster organization', () => {
 
     // Toggling it off restores the full roster.
     await user.click(cavalryChip);
+
     expect(within(roster).getByRole('heading', { name: 'Monster' })).toBeInTheDocument();
   });
 });
@@ -212,6 +224,7 @@ describe('corrupt shared list', () => {
     renderBuild('/build/goblin?list=notjson');
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/couldn.t be loaded/i);
+
     const bar = screen.getByTestId('points-bar');
     // 560 = goblin default force-minimum; neither the corrupt blob nor the saved
     // 20-Goblins list was applied.
@@ -229,7 +242,9 @@ describe('corrupt shared list', () => {
     renderBuild(`/build/goblin?list=${blob}`);
 
     await screen.findByText('Goblin');
+
     expect(screen.queryByRole('alert')).toBeNull();
+
     const bar = screen.getByTestId('points-bar');
     // Goblins raised to 20 → points differ from the 560 default, proving the
     // shared list was applied.
@@ -250,6 +265,7 @@ describe('persistence', () => {
 
     await user.click(screen.getAllByRole('button', { name: /increase Goblins/i })[0]);
     const afterAdd = screen.getByTestId('points-total').textContent;
+
     expect(afterAdd).not.toBe('0');
 
     first.unmount();
@@ -257,6 +273,7 @@ describe('persistence', () => {
 
     renderBuild('/build/goblin');
     await screen.findByText('Goblin');
+
     expect(screen.getByTestId('points-total').textContent).toBe(afterAdd);
   });
 });

@@ -20,6 +20,7 @@ describe('SaveListButton', () => {
     await user.clear(input);
     await user.type(input, 'My Tourney List');
     await user.click(screen.getByRole('button', { name: /^save list$/i }));
+
     expect(listSavedNames('bretonnia')).toEqual(['My Tourney List']);
     expect(useArmyStore.getState().label).toBe('My Tourney List');
     expect(useArmyStore.getState().savedBaseline).not.toBeNull();
@@ -31,6 +32,7 @@ describe('SaveListButton', () => {
     await user.click(screen.getByRole('button', { name: /save/i }));
     await user.clear(screen.getByLabelText(/list name/i));
     await user.click(screen.getByRole('button', { name: /^save list$/i }));
+
     expect(listSavedNames('bretonnia')).toEqual([]);
     expect(screen.getByText(/enter a name/i)).toBeInTheDocument();
   });
@@ -45,8 +47,11 @@ describe('SaveListButton', () => {
     // second save of the same name should prompt to overwrite
     await user.click(screen.getByRole('button', { name: /save/i }));
     await user.click(screen.getByRole('button', { name: /^save list$/i }));
+
     expect(screen.getByText(/already exists/i)).toBeInTheDocument();
+
     await user.click(screen.getByRole('button', { name: /overwrite/i }));
+
     expect(listSavedNames('bretonnia')).toEqual(['Existing']);
   });
 });

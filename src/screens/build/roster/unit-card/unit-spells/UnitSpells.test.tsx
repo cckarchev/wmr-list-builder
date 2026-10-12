@@ -27,12 +27,15 @@ describe('UnitSpells', () => {
     await user.click(screen.getByRole('button', { name: 'Spells' }));
 
     const effect = /invigorating the greenskins/i;
+
     expect(screen.queryByText(effect)).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /Waaagh!/ }));
+
     expect(screen.getByText(effect)).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /Waaagh!/ }));
+
     expect(screen.queryByText(effect)).not.toBeInTheDocument();
   });
 
@@ -41,12 +44,14 @@ describe('UnitSpells', () => {
     useArmyStore.getState().setArmy('skaven');
     renderWithProviders(<UnitSpells unitId="greySeer" />);
     await user.click(screen.getByRole('button', { name: 'Spells' }));
+
     expect(screen.getByRole('dialog', { name: 'Spells' })).toBeInTheDocument();
   });
 
   it('renders nothing for a non-Wizard unit', () => {
     useArmyStore.getState().setArmy('goblin');
     const { container } = renderWithProviders(<UnitSpells unitId="goblins" />);
+
     expect(container).toBeEmptyDOMElement();
   });
 });

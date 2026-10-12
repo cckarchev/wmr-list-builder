@@ -36,9 +36,11 @@ describe('CopyShareLinkButton', () => {
 
     const url = writeText.mock.calls[0][0] as string;
     const parsed = new URL(url);
+
     expect(parsed.origin + parsed.pathname).toBe(
       'https://www.cckarchev.ar/juegos/warmaster/list-builder/',
     );
+
     expect(parsed.searchParams.get('army')).toBe('empire');
     expect(parsed.searchParams.get('list')).toBeTruthy();
   });

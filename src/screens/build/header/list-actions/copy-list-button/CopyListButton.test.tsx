@@ -34,7 +34,9 @@ describe('CopyListButton', () => {
     await user.click(screen.getByRole('button', { name: 'Copy' }));
 
     expect(mockWriteText).toHaveBeenCalledOnce();
+
     const text = mockWriteText.mock.calls[0][0] as string;
+
     expect(text).toContain('Goblin');
   });
 
@@ -75,6 +77,7 @@ describe('CopyListButton', () => {
 
   it('is disabled when no army is loaded', () => {
     renderWithProviders(<CopyListButton />);
+
     expect(screen.getByRole('button', { name: 'Copy' })).toBeDisabled();
   });
 });

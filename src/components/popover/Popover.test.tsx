@@ -16,10 +16,12 @@ const setup = () =>
 describe('Popover', () => {
   it('is closed initially', () => {
     setup();
+
     expect(screen.getByRole('button', { name: 'Goblins special rules' })).toHaveAttribute(
       'aria-expanded',
       'false',
     );
+
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
@@ -27,6 +29,7 @@ describe('Popover', () => {
     const user = userEvent.setup();
     setup();
     await user.click(screen.getByRole('button', { name: 'Goblins special rules' }));
+
     expect(screen.getByRole('dialog', { name: 'Goblins special rules' })).toBeInTheDocument();
     expect(screen.getByText('Goblins are cowardly.')).toBeInTheDocument();
   });
@@ -36,6 +39,7 @@ describe('Popover', () => {
     setup();
     await user.click(screen.getByRole('button', { name: 'Goblins special rules' }));
     await user.click(screen.getByRole('button', { name: 'outside' }));
+
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
@@ -44,6 +48,7 @@ describe('Popover', () => {
     setup();
     await user.click(screen.getByRole('button', { name: 'Goblins special rules' }));
     await user.keyboard('{Escape}');
+
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

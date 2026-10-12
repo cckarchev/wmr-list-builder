@@ -45,8 +45,10 @@ describe('setArmy', () => {
       // Each unit auto-includes at its resolved hard minimum (armyMin plus any
       // point-scaled min at the default cap).
       const floor = resolveBounds(unit, state.gameSize).min;
+
       expect(unit.number).toBe(floor);
       expect(unit.pointsCost).toBe(floor * +unit.points);
+
       expectedTotal += unit.pointsCost;
     }
 
@@ -74,6 +76,7 @@ describe('setArmy', () => {
       hasSpecialRules: !!s.specialRules,
       magic: s.magic,
     }).map((section) => section.id);
+
     expect(ids).toEqual(['stats', 'specialRules', 'magicItems', 'spells']);
   });
 });
@@ -95,6 +98,7 @@ describe('upgradeConstraints auto-attach', () => {
     get().setArmy('empire');
     // Skirmishers are noMagic -> no Battle Banner
     const skirmisherUpgrades = get().units.skirmishers.upgrades;
+
     expect(skirmisherUpgrades && 'battleBanner' in skirmisherUpgrades).toBeFalsy();
   });
 });
@@ -106,8 +110,10 @@ describe('setUnitNumber', () => {
 
     expect(get().units.goblins.number).toBe(GOBLINS_ABOVE_FLOOR);
     expect(get().units.goblins.pointsCost).toBe(GOBLINS_ABOVE_FLOOR * GOBLIN_POINTS);
+
     // The total sums every unit's cost, including auto-included minimums.
     const total = Object.values(get().units).reduce((sum, u) => sum + u.pointsCost, 0);
+
     expect(pointsCost(get())).toBe(total);
   });
 
@@ -115,6 +121,7 @@ describe('setUnitNumber', () => {
     get().setArmy('goblin');
     get().setUnitNumber('goblins', NEGATIVE_COUNT);
     const floor = resolveBounds(get().units.goblins, get().gameSize).min;
+
     expect(get().units.goblins.number).toBe(floor);
   });
 });
@@ -170,6 +177,7 @@ describe('clamping and cascades', () => {
     get().setArmy('empire');
     get().setUnitNumber('halberdiers', startingStands);
     get().setUnitUpgradeNumber('halberdiers', 'battleBanner', startingStands);
+
     expect(get().upgrades.battleBanner.number).toBe(startingStands);
 
     get().setUnitNumber('halberdiers', HALBERDIER_FLOOR);
@@ -187,6 +195,7 @@ describe('print items + label', () => {
   it('setLabel updates the label', () => {
     get().setArmy('empire');
     get().setLabel('My List');
+
     expect(get().label).toBe('My List');
   });
 });
@@ -204,6 +213,7 @@ describe('applyList', () => {
     get().applyList(list);
 
     const s = get();
+
     expect(s.gameSize).toBe(list.gameSize);
     expect(s.units.knights.number).toBe(list.units.knights);
     expect(s.units.unknownUnit).toBeUndefined();
@@ -219,6 +229,7 @@ describe('applyList', () => {
 
     get().setArmy('empire');
     get().applyList(first);
+
     expect(get().units.halberdiers.number).toBe(first.units.halberdiers);
     expect(get().units.halberdiers.upgrades?.battleBanner?.number).toBe(1);
 
@@ -230,7 +241,9 @@ describe('applyList', () => {
     });
 
     const s = get();
+
     expect(s.units.knights.number).toBe(2);
+
     // Halberdiers (and its upgrade) were in the first list but not the second;
     // they must not carry over.
     expect(s.units.halberdiers.upgrades?.battleBanner?.number ?? 0).toBe(0);
@@ -241,6 +254,7 @@ describe('applyList', () => {
 describe('force limits', () => {
   it('locks the General at 1 (armyMin == armyMax == 1)', () => {
     get().setArmy('goblin');
+
     expect(get().units.goblinWarboss.number).toBe(1);
 
     get().setUnitNumber('goblinWarboss', 0); // try to remove
@@ -254,14 +268,18 @@ describe('force limits', () => {
 describe('loadWarning', () => {
   it('setLoadWarning sets it and setArmy clears it', () => {
     get().setLoadWarning('boom');
+
     expect(get().loadWarning).toBe('boom');
+
     get().setArmy('empire');
+
     expect(get().loadWarning).toBeNull();
   });
 
   it('reset clears it', () => {
     get().setLoadWarning('boom');
     get().reset();
+
     expect(get().loadWarning).toBeNull();
   });
 });
@@ -269,13 +287,20 @@ describe('loadWarning', () => {
 describe('savedBaseline', () => {
   it('tracks savedBaseline and clears it on setArmy/reset', () => {
     get().setArmy('bretonnia');
+
     expect(get().savedBaseline).toBeNull();
+
     get().setSavedBaseline('abc');
+
     expect(get().savedBaseline).toBe('abc');
+
     get().setArmy('bretonnia');
+
     expect(get().savedBaseline).toBeNull();
+
     get().setSavedBaseline('xyz');
     get().reset();
+
     expect(get().savedBaseline).toBeNull();
   });
 });

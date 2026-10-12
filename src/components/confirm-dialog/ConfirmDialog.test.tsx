@@ -13,11 +13,13 @@ const baseProps = {
 describe('ConfirmDialog', () => {
   it('renders nothing when closed', () => {
     render(<ConfirmDialog open={false} {...baseProps} />);
+
     expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
   });
 
   it('shows the title and message when open', () => {
     render(<ConfirmDialog open {...baseProps} />);
+
     expect(screen.getByRole('alertdialog')).toBeInTheDocument();
     expect(screen.getByText('Reset army?')).toBeInTheDocument();
     expect(screen.getByText('All units will be cleared.')).toBeInTheDocument();
@@ -28,6 +30,7 @@ describe('ConfirmDialog', () => {
     const user = userEvent.setup();
     render(<ConfirmDialog open {...baseProps} onConfirm={onConfirm} confirmLabel="Reset" />);
     await user.click(screen.getByRole('button', { name: /reset/i }));
+
     expect(onConfirm).toHaveBeenCalledTimes(1);
   });
 
@@ -36,6 +39,7 @@ describe('ConfirmDialog', () => {
     const user = userEvent.setup();
     render(<ConfirmDialog open {...baseProps} onCancel={onCancel} />);
     await user.click(screen.getByRole('button', { name: /cancel/i }));
+
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
@@ -44,6 +48,7 @@ describe('ConfirmDialog', () => {
     const user = userEvent.setup();
     render(<ConfirmDialog open {...baseProps} onCancel={onCancel} />);
     await user.keyboard('{Escape}');
+
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
@@ -52,8 +57,11 @@ describe('ConfirmDialog', () => {
     render(<ConfirmDialog open {...baseProps} onCancel={onCancel} />);
     const card = screen.getByRole('alertdialog');
     fireEvent.click(card);
+
     expect(onCancel).not.toHaveBeenCalled();
+
     fireEvent.click(card.parentElement as HTMLElement);
+
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });

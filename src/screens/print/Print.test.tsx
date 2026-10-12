@@ -20,6 +20,7 @@ describe('Print screen', () => {
 
   it('shows the faction as the document title when the list is unnamed', async () => {
     renderPrint('/print/goblin');
+
     expect(await screen.findByRole('heading', { level: 1, name: 'Goblin' })).toBeInTheDocument();
   });
 
@@ -27,6 +28,7 @@ describe('Print screen', () => {
     useArmyStore.getState().setArmy('goblin');
     useArmyStore.getState().setLabel('My List');
     renderPrint('/print/goblin');
+
     expect(
       await screen.findByRole('heading', { level: 1, name: 'Goblin · My List' }),
     ).toBeInTheDocument();
@@ -35,12 +37,14 @@ describe('Print screen', () => {
   it('renders a Stats section toggle', async () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
+
     expect(screen.getByRole('checkbox', { name: /stats/i })).toBeInTheDocument();
   });
 
   it('splits characters and units via column headers (no ruleset noise)', async () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
+
     expect(screen.getByText('Character', { selector: 'th' })).toBeInTheDocument();
     expect(screen.getByText('Troop', { selector: 'th' })).toBeInTheDocument();
     expect(screen.queryByText(/warmaster revolution/i)).not.toBeInTheDocument();
@@ -51,6 +55,7 @@ describe('Print screen', () => {
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
     const twoColumn = screen.getByRole('checkbox', { name: /two columns/i });
     const spellFluff = screen.getByRole('checkbox', { name: /spell fluff/i });
+
     expect(twoColumn).not.toBeChecked();
     expect(spellFluff).not.toBeChecked();
   });
@@ -59,12 +64,14 @@ describe('Print screen', () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
     const spellsHeadings = screen.getAllByText('Spells');
+
     expect(spellsHeadings.some((el) => el.tagName === 'H3')).toBe(true);
   });
 
   it('does not render a Text List section', async () => {
     renderPrint('/print/goblin');
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
+
     expect(screen.queryByRole('checkbox', { name: /text list/i })).not.toBeInTheDocument();
   });
 });

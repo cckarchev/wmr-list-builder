@@ -16,8 +16,11 @@ describe('OverflowMenu', () => {
     const user = userEvent.setup();
     renderMenu();
     const trigger = screen.getByRole('button', { name: /more/i });
+
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
     await user.click(trigger);
+
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('menu')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Child Action' })).toBeInTheDocument();
@@ -28,8 +31,11 @@ describe('OverflowMenu', () => {
     renderMenu();
     const trigger = screen.getByRole('button', { name: /more/i });
     await user.click(trigger);
+
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
     await user.keyboard('{Escape}');
+
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
@@ -38,8 +44,11 @@ describe('OverflowMenu', () => {
     renderMenu();
     const trigger = screen.getByRole('button', { name: /more/i });
     await user.click(trigger);
+
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
     await user.click(document.body);
+
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 });

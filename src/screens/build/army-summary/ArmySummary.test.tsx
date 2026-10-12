@@ -15,6 +15,7 @@ describe('ArmySummary', () => {
     useArmyStore.getState().setArmy('goblin');
     useArmyStore.setState({ units: {} });
     renderWithProviders(<ArmySummary />);
+
     expect(screen.getByText(/no units selected/i)).toBeInTheDocument();
   });
 
@@ -22,6 +23,7 @@ describe('ArmySummary', () => {
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<ArmySummary />);
     const region = screen.getByRole('complementary', { name: 'Your Army' });
+
     expect(within(region).getByText('Goblins')).toBeInTheDocument();
   });
 
@@ -32,6 +34,7 @@ describe('ArmySummary', () => {
     store.setUnitUpgradeNumber('goblins', 'squigHerd', 2);
     renderWithProviders(<ArmySummary />);
     const region = screen.getByRole('complementary', { name: 'Your Army' });
+
     expect(within(region).getByText('Squig Herd')).toBeInTheDocument();
     expect(within(region).getByText('×2')).toBeInTheDocument();
   });
@@ -48,6 +51,7 @@ describe('ArmySummary', () => {
       </>,
     );
     await user.click(screen.getByRole('button', { name: /Goblins/ }));
+
     expect(scrollSpy).toHaveBeenCalled();
   });
 });
