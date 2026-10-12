@@ -26,6 +26,12 @@
   composes: eyebrow from '@/theme/typography.module.css';
 }
 
+/* Columns are too narrow for the label tracking: "ARMOUR" would cross the
+   divider. Scoped to win over the composed eyebrow whatever the load order. */
+.cell .label {
+  letter-spacing: var(--tracking-caps);
+}
+
 .figure {
   font-family: var(--font-mono);
   font-size: var(--font-size-md);

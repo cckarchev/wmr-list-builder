@@ -45,8 +45,8 @@ export const CopyButton = ({
         <Icon name={icon} />
         {children}
       </Button>
-      {status === 'copied' && <CopyBubble>{copiedMessage}</CopyBubble>}
-      {status === 'failed' && <CopyBubble>Copy failed</CopyBubble>}
+      {status === 'copied' && <CopyBubble tone="success">{copiedMessage}</CopyBubble>}
+      {status === 'failed' && <CopyBubble tone="error">Copy failed</CopyBubble>}
     </PopupAnchor>
   );
 };

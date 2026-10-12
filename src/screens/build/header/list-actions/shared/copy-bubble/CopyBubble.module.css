@@ -13,6 +13,13 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
   font-size: var(--font-size-xs);
-  color: var(--color-success);
   font-weight: 500;
+}
+
+.bubble[data-tone='success'] {
+  color: var(--color-success);
+}
+
+.bubble[data-tone='error'] {
+  color: var(--color-error);
 }
