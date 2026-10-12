@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon, type IconName } from '@/components/Icon';
-import { CopiedBubble } from '../copied-bubble/CopiedBubble';
+import { CopyBubble } from '../copy-bubble/CopyBubble';
 import { PopupAnchor } from '../popup-anchor/PopupAnchor';
 import { useCopyFeedback } from '../useCopyFeedback';
 
@@ -45,8 +45,8 @@ export const CopyButton = ({
         <Icon name={icon} />
         {children}
       </Button>
-      {status === 'copied' && <CopiedBubble>{copiedMessage}</CopiedBubble>}
-      {status === 'failed' && <CopiedBubble>Copy failed</CopiedBubble>}
+      {status === 'copied' && <CopyBubble>{copiedMessage}</CopyBubble>}
+      {status === 'failed' && <CopyBubble>Copy failed</CopyBubble>}
     </PopupAnchor>
   );
 };
