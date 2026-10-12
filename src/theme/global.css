@@ -43,7 +43,7 @@ a {
    more compact sheet. Applies to both the preview and the print output. */
 .print-document.condensed section {
   margin-bottom: var(--space-xs);
-  padding-bottom: var(--print-gap-condensed);
+  padding-bottom: var(--space-xxs);
 }
 
 .print-document.condensed h3 {
@@ -51,7 +51,7 @@ a {
 }
 
 .print-document.condensed dt {
-  margin-top: var(--print-gap-condensed);
+  margin-top: var(--space-xxs);
 }
 
 .print-document.condensed dd {
@@ -109,12 +109,12 @@ a {
      tighten the cells, and let the text columns wrap instead of forcing a
      single nowrap line that runs off the paper. */
   .print-document table {
-    font-size: var(--font-size-print-table);
+    font-size: var(--font-size-print);
   }
 
   .print-document th,
   .print-document td {
-    padding: var(--print-cell-padding-y) var(--print-cell-padding-x) !important;
+    padding: var(--print-cell-padding-y) var(--space-xxs) !important;
     white-space: normal !important;
   }
 
@@ -133,11 +133,11 @@ a {
   /* "Smaller font" option, print sizing: text sections and the stat table. */
   .print-document.font-small dl,
   .print-document.font-small p {
-    font-size: var(--font-size-print-small-text);
+    font-size: var(--font-size-print);
   }
 
   .print-document.font-small table {
-    font-size: var(--font-size-print-small-table);
+    font-size: var(--font-size-print-small);
   }
 }
 /* biome-ignore-end lint/complexity/noImportantStyles: print block ends here. */

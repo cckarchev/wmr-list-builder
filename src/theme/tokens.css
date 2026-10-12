@@ -44,11 +44,10 @@
   --color-border-focus: rgb(var(--rgb-teal) / 0.85);
   --color-border-accent: rgb(var(--rgb-accent) / 0.7);
 
-  /* Border widths: the default edge, a strong rule such as a table head or an
-     indented row, and the thick accent edge on home cards. */
+  /* Border widths: the default edge, and a strong rule such as a table head,
+     an indented row or the accent edge on home cards. */
   --border-width: 1px;
   --border-width-strong: 2px;
-  --border-width-accent: 3px;
 
   /* Full border shorthands for the two edges every panel and divider uses. */
   --border-default: var(--border-width) solid var(--color-border-default);
@@ -56,7 +55,6 @@
 
   /* Ghost / teal-outline interactive states, such as the ghost Button. */
   --color-ghost-border: rgb(var(--rgb-teal) / 0.6);
-  --color-ghost-border-hover: rgb(var(--rgb-teal) / 0.9);
   --color-ghost-bg: rgb(var(--rgb-teal) / 0.1);
 
   /* Semantic */
@@ -90,10 +88,9 @@
   --font-size-xxl: 40px;
 
   /* Printed sheet sizes: the stat table shrinks to fit the page, and the
-     "Smaller font" option shrinks text and table further on paper. */
-  --font-size-print-table: 10px;
-  --font-size-print-small-text: 11px;
-  --font-size-print-small-table: 8px;
+     "Smaller font" option sets text at that size and the table smaller still. */
+  --font-size-print: 10px;
+  --font-size-print-small: 8px;
 
   --font-display: 'Oswald', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -104,16 +101,14 @@
   --font-weight-bold: 700;
 
   --tracking-label: 0.2em;
-  --tracking-label-wide: 0.28em;
   --tracking-button: 0.12em;
   /* Light tracking for uppercase text that is not a label, such as page and
      card titles, the brand and pill buttons. */
   --tracking-caps: 0.04em;
 
-  /* Line heights for running text. Body follows the WCAG text spacing
-     guidance; the printed sheet runs a little looser for paper. */
+  /* Line height for running text, on screen and on paper, following the WCAG
+     text spacing guidance. */
   --leading-body: 1.5;
-  --leading-print: 1.6;
   /* Tighter steps: none centers a glyph in its box, tight sets display
      titles, condensed is the "Condensed" print option. */
   --leading-none: 1;
@@ -138,20 +133,16 @@
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
 
-  /* Popup widths: the default for action panels and popovers, and the wide
-     variant for prose-heavy popovers such as special-rule text. */
+  /* Popup widths: narrow for tooltips and the More menu, the default for
+     action panels, popovers and confirm dialogs, and wide for prose-heavy
+     popovers such as special-rule text. */
+  --popup-width-narrow: 220px;
   --popup-width: 320px;
   --popup-width-wide: 520px;
-  /* Narrower popups: confirm dialogs, tooltips and the More menu. */
-  --popup-width-dialog: 380px;
-  --popup-width-tooltip: 220px;
-  --popup-width-menu: 200px;
 
-  /* Printed sheet spacing off the 4px scale: the condensed section gap and
-     the tight table cell padding. */
-  --print-gap-condensed: 6px;
+  /* Vertical padding of printed table cells, tighter than the space scale so
+     the wide stat table fits on the page. */
   --print-cell-padding-y: 1px;
-  --print-cell-padding-x: 3px;
 
   /* Stacking layers, lowest first. Sticky bars sit above popups so an open
      popup scrolls under them, and the modal dialog sits above everything. */

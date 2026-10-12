@@ -37,7 +37,7 @@
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius);
   border: var(--border-default);
-  border-left: var(--border-width-accent) solid var(--color-border-default);
+  border-left: var(--border-width-strong) solid var(--color-border-default);
   background: var(--color-bg-surface);
   color: var(--color-text-body);
   font-family: var(--font-display);

@@ -1,6 +1,6 @@
 .content {
   font-size: var(--font-size-sm);
-  line-height: var(--leading-print);
+  line-height: var(--leading-body);
 }
 
 .content p {

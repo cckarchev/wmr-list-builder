@@ -61,6 +61,6 @@
 }
 
 .button[data-variant='ghost']:hover:not(:disabled) {
-  border-color: var(--color-ghost-border-hover);
+  border-color: var(--color-teal-bright);
   background: var(--color-ghost-bg);
 }

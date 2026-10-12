@@ -15,7 +15,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: var(--z-popup);
-  max-width: var(--popup-width-tooltip);
+  max-width: var(--popup-width-narrow);
   width: max-content;
   padding: var(--space-xxs) var(--space-xs);
   background: var(--color-bg-deep);

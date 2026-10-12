@@ -11,7 +11,7 @@
 
 .card {
   width: 100%;
-  max-width: var(--popup-width-dialog);
+  max-width: var(--popup-width);
   background: var(--color-bg-surface);
   border: var(--border-default);
   border-radius: var(--radius);
