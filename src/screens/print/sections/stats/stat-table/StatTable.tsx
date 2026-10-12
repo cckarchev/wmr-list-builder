@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import type { UnitState } from '@/core/army-state/types';
 import type { UsedUnit } from '@/core/army-state/usedUnits';
-import { classNames } from '@/core/lib/classNames';
 import type { NumberedRules } from '@/core/special-rules/specialRuleMarkers';
 import styles from './StatTable.module.css';
 import { type StatKind, StatRow } from './stat-row/StatRow';
@@ -13,20 +12,10 @@ interface StatTableProps {
   units: Record<string, UnitState>;
   rules: NumberedRules;
   footer?: ReactNode;
-  /** Extra global classes, e.g. the print stylesheet's `character-table`. */
-  className?: string;
 }
 
 /** A stat table: one row per used unit, followed by its upgrades. */
-export const StatTable = ({
-  kind,
-  columns,
-  entries,
-  units,
-  rules,
-  footer,
-  className,
-}: StatTableProps) => {
+export const StatTable = ({ kind, columns, entries, units, rules, footer }: StatTableProps) => {
   const rows = entries.flatMap(([unitId, unit]) => {
     const upgradeRows = Object.entries(unit.upgrades ?? {}).map(([upgradeId, upgrade]) => (
       <StatRow
@@ -46,7 +35,7 @@ export const StatTable = ({
   });
 
   return (
-    <table className={classNames(styles.table, className)} data-kind={kind}>
+    <table className={styles.table} data-kind={kind}>
       <thead>
         <tr>
           {columns.map((column) => (

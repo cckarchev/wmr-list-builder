@@ -5,10 +5,12 @@ import { SpecialRules } from './SpecialRules';
 import { Spells } from './spells/Spells';
 import { Stats } from './stats/Stats';
 
-interface PrintSectionCtx {
+/** What the current list has to print, so empty sections are never offered. */
+export interface PrintSectionCtx {
   hasArmyRules: boolean;
   hasSpecialRules: boolean;
-  magic: boolean;
+  hasMagicItems: boolean;
+  hasSpells: boolean;
 }
 
 export interface PrintSectionDef {
@@ -35,10 +37,10 @@ const PRINT_SECTIONS: PrintSectionDef[] = [
   {
     id: 'magicItems',
     title: 'Magic Items',
-    available: (ctx) => ctx.magic,
+    available: (ctx) => ctx.hasMagicItems,
     render: () => <MagicItems />,
   },
-  { id: 'spells', title: 'Spells', available: (ctx) => ctx.magic, render: () => <Spells /> },
+  { id: 'spells', title: 'Spells', available: (ctx) => ctx.hasSpells, render: () => <Spells /> },
 ];
 
 export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] =>

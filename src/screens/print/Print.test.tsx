@@ -2,6 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { saveList } from '@/core/persistence/currentList';
 import { useArmyStore } from '@/store/useArmyStore';
 import { Print } from './Print';
 
@@ -18,12 +19,15 @@ const GOBLIN_SPELL_FLUFF = /summons the power of Mork/;
 
 const findTitle = () => screen.findByRole('heading', { level: 1, name: 'Goblin' });
 
-const printDocument = (container: HTMLElement): Element | null =>
-  container.querySelector('.print-document');
+const printSheet = () => screen.getByRole('article', { name: 'Print sheet' });
+
+const GAME_SIZE = 2000;
+const SAVED_GOBLINS = 2;
 
 describe('Print screen', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
+    localStorage.clear();
   });
 
   it('shows the faction as the document title when the list is unnamed', async () => {
@@ -84,9 +88,50 @@ describe('Print screen', () => {
   });
 });
 
+describe('opening the print sheet', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('restores the saved list when the print sheet is opened directly', async () => {
+    saveList('goblin', {
+      name: 'Saved List',
+      gameSize: GAME_SIZE,
+      units: { goblins: SAVED_GOBLINS },
+      upgrades: {},
+    });
+    renderPrint('/print/goblin');
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Goblin · Saved List' }),
+    ).toBeInTheDocument();
+  });
+
+  it('names the browser document after the sheet, and restores it on leaving', async () => {
+    const previousTitle = document.title;
+    const { unmount } = renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(document.title).toBe('Goblin');
+
+    unmount();
+
+    expect(document.title).toBe(previousTitle);
+  });
+
+  it('does not offer Magic Items when the list takes none', async () => {
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(screen.queryByRole('checkbox', { name: /magic items/i })).not.toBeInTheDocument();
+  });
+});
+
 describe('print sections', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
+    localStorage.clear();
   });
 
   it('leaves out a section when its checkbox is cleared', async () => {
@@ -124,6 +169,7 @@ describe('print sections', () => {
 describe('print options', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
+    localStorage.clear();
   });
 
   it('hides the title with Hide name', async () => {
@@ -169,14 +215,29 @@ describe('print options', () => {
 
   it('marks the sheet for the smaller font and condensed print styles', async () => {
     const user = userEvent.setup();
-    const { container } = renderPrint('/print/goblin');
+    renderPrint('/print/goblin');
     await findTitle();
 
-    expect(printDocument(container)).not.toHaveClass('font-small', 'condensed');
+    expect(printSheet()).not.toHaveAttribute('data-small-font');
+    expect(printSheet()).not.toHaveAttribute('data-condensed');
 
     await user.click(screen.getByRole('checkbox', { name: /smaller font/i }));
     await user.click(screen.getByRole('checkbox', { name: /condensed/i }));
 
-    expect(printDocument(container)).toHaveClass('font-small', 'condensed');
+    expect(printSheet()).toHaveAttribute('data-small-font');
+    expect(printSheet()).toHaveAttribute('data-condensed');
+  });
+
+  it('remembers the options for the next visit', async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /two columns/i }));
+    unmount();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(screen.getByRole('checkbox', { name: /two columns/i })).toBeChecked();
   });
 });

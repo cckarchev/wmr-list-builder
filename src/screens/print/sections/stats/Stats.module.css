@@ -4,3 +4,11 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-body);
 }
+
+/* On paper the table must paginate, not scroll: some browsers clip a
+   scrolling box to the first page instead of continuing it. */
+@media print {
+  .wrapper {
+    overflow: visible;
+  }
+}

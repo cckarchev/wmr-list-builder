@@ -2,12 +2,12 @@ import type { CSSProperties } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { ARMY_PARAM, LIST_PARAM } from '@/core/share-link/shareLink';
 import { useElementHeight } from '@/hooks/useElementHeight';
+import { usePersistedList } from '@/hooks/usePersistedList';
 import { useArmyStore } from '@/store/useArmyStore';
 import { ArmySummary } from './army-summary/ArmySummary';
 import styles from './Build.module.css';
 import { Header } from './header/Header';
 import { Roster } from './roster/Roster';
-import { usePersistedList } from './usePersistedList';
 
 export const Build = () => {
   const { armyId: paramArmyId } = useParams<{ armyId: string }>();

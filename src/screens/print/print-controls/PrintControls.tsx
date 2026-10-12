@@ -1,7 +1,7 @@
 import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { classNames } from '@/core/lib/classNames';
-import type { PrintOptions } from '../printOptions';
+import type { PrintOptions } from '@/core/print/printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
 import { CheckOption } from './check-option/CheckOption';
 import { OptionGroup } from './option-group/OptionGroup';

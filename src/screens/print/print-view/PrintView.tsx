@@ -1,27 +1,17 @@
-import { classNames } from '@/core/lib/classNames';
-import { useArmyStore } from '@/store/useArmyStore';
-import { type PrintOptions, PrintOptionsContext } from '../printOptions';
+import type { PrintOptions } from '@/core/print/printOptions';
+import { PrintOptionsContext } from '../printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
 import styles from './PrintView.module.css';
 
 interface PrintViewProps {
+  /** The sheet heading, also used as the document title. */
+  title: string;
   sections: PrintSectionDef[];
   selectedIds: ReadonlySet<string>;
   options: PrintOptions;
 }
 
-export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
-  const armyName = useArmyStore((s) => s.army?.name ?? '');
-  const label = useArmyStore((s) => s.label);
-  const title = label ? `${armyName} · ${label}` : armyName;
-
-  // The global print stylesheet keys off these plain class names.
-  const classes = classNames(
-    styles.document,
-    'print-document',
-    options.smallFont && 'font-small',
-    options.condensed && 'condensed',
-  );
+export const PrintView = ({ title, sections, selectedIds, options }: PrintViewProps) => {
   const visibleSections = sections.filter((section) => selectedIds.has(section.id));
 
   // The stats table is too wide to split, so it never flows into two columns.
@@ -29,8 +19,13 @@ export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) =>
 
   return (
     <PrintOptionsContext.Provider value={options}>
-      <div className={classes}>
-        {armyName && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
+      <article
+        className={styles.document}
+        aria-label="Print sheet"
+        data-small-font={options.smallFont || undefined}
+        data-condensed={options.condensed || undefined}
+      >
+        {title && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
         {visibleSections.map((section) => (
           <section
             className={styles.section}
@@ -40,7 +35,7 @@ export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) =>
             {section.render()}
           </section>
         ))}
-      </div>
+      </article>
     </PrintOptionsContext.Provider>
   );
 };

@@ -96,9 +96,10 @@
   --font-size-xxl: 40px;
 
   /* Printed sheet sizes: the stat table shrinks to fit the page, and the
-     "Smaller font" option sets text at that size and the table smaller still. */
+     "Smaller font" option sets text at that size and the table smaller still,
+     though no smaller than stays legible on paper. */
   --font-size-print: 10px;
-  --font-size-print-small: 8px;
+  --font-size-print-small: 9px;
 
   --font-display: 'Oswald', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -164,6 +165,11 @@
   /* Vertical padding of printed table cells, tighter than the space scale so
      the wide stat table fits on the page. */
   --print-cell-padding-y: 1px;
+
+  /* The on-screen print preview: an A4 sheet wide, with the same margin the
+     @page rule in global.css gives the printed page. */
+  --print-sheet-width: 210mm;
+  --print-page-margin: 12mm;
 
   /* Stacking layers, lowest first. Sticky bars sit above popups so an open
      popup scrolls under them, and the modal dialog sits above everything. */

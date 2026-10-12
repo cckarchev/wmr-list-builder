@@ -1,6 +1,29 @@
+@import '@/theme/breakpoints.css';
+
+/* The sheet previews as the paper it prints on: black ink on white, whatever
+   the screen theme. Pointing the theme tokens at the print colors here
+   recolors every section inside without each one knowing about paper. */
 .document {
+  --color-text-strong: var(--color-print-ink);
+  --color-text-body: var(--color-print-ink);
+  --color-text-dim: var(--color-print-ink);
+  --color-border-divider: var(--color-print-rule);
+  --color-bg-stripe: var(--color-print-stripe);
+
+  max-width: var(--print-sheet-width);
   padding: var(--space-md);
+  background: var(--color-print-paper);
   color: var(--color-text-body);
+}
+
+/* From the tablet up, the preview reads as a sheet on a desk: centered, with
+   the printed page margin around the text. */
+@media (--tablet-up) {
+  .document {
+    margin: var(--space-lg) auto;
+    padding: var(--print-page-margin);
+    box-shadow: var(--shadow-panel);
+  }
 }
 
 .title {
@@ -27,13 +50,94 @@
   column-gap: var(--space-lg);
 }
 
-/* Keep a heading glued to the start of its body, and never split a single
-   paragraph across the gap, but let multi-paragraph bodies flow from one
-   column into the next at paragraph boundaries. */
-.section[data-columns] dt {
+/* Page and column breaks: keep a heading glued to the start of its body, and
+   never split a paragraph or a table row, but let long bodies flow on at
+   paragraph and row boundaries. */
+.document h1,
+.document h3,
+.document dt {
   break-after: avoid;
 }
 
-.section[data-columns] p {
+.document p,
+.document tr {
   break-inside: avoid;
+}
+
+/* "Smaller font" option, preview sizing: text sections and the stat table. */
+.document[data-small-font] dl,
+.document[data-small-font] p,
+.document[data-small-font] table {
+  font-size: var(--font-size-xs);
+}
+
+/* "Condensed" option: tighten the vertical spacing throughout for a more
+   compact sheet. Applies to both the preview and the print output. */
+.document[data-condensed] section {
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-xxs);
+}
+
+.document[data-condensed] h3 {
+  margin-bottom: var(--space-xxs);
+}
+
+.document[data-condensed] dt {
+  margin-top: var(--space-xxs);
+}
+
+.document[data-condensed] dd,
+.document[data-condensed] p {
+  margin-bottom: var(--space-xxs);
+  line-height: var(--leading-condensed);
+}
+
+.document[data-condensed] th,
+.document[data-condensed] td {
+  padding-top: var(--print-cell-padding-y);
+  padding-bottom: var(--print-cell-padding-y);
+}
+
+.document[data-condensed] table[data-kind='character'] {
+  margin-bottom: var(--space-sm);
+}
+
+@media print {
+  /* The page margin comes from @page, so the sheet itself drops its own. */
+  .document {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Keep the wide stats table inside the printable page: shrink the type,
+     tighten the cells, and let the text columns wrap instead of forcing a
+     single nowrap line that runs off the paper. The extra `table` in the
+     selectors outranks the stat table's own cell rules whatever order the
+     stylesheets load in. Backgrounds are forced to render so the row stripe
+     survives. */
+  .document table {
+    font-size: var(--font-size-print);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .document table th,
+  .document table td {
+    border-color: var(--color-print-rule);
+    padding: var(--print-cell-padding-y) var(--space-xxs);
+    white-space: normal;
+  }
+
+  /* "Smaller font" option, print sizing: text at the print size, the stat
+     table smaller still. */
+  .document[data-small-font] dl,
+  .document[data-small-font] p {
+    font-size: var(--font-size-print);
+  }
+
+  .document[data-small-font] table {
+    font-size: var(--font-size-print-small);
+  }
 }
