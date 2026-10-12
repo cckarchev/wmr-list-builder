@@ -52,6 +52,27 @@ describe('CopyListButton', () => {
     });
   });
 
+  it('shows "Copy failed" when the clipboard rejects the write', async () => {
+    const user = userEvent.setup();
+    const rejectingWriteText = vi.fn().mockRejectedValue(new Error('denied'));
+
+    // userEvent.setup() installs its own navigator.clipboard stub; replace it.
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: rejectingWriteText },
+      configurable: true,
+      writable: true,
+    });
+    useArmyStore.getState().setArmy('goblin');
+
+    renderWithProviders(<CopyListButton />);
+
+    await user.click(screen.getByRole('button', { name: 'Copy' }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Copy failed')).toBeInTheDocument();
+    });
+  });
+
   it('is disabled when no army is loaded', () => {
     renderWithProviders(<CopyListButton />);
     expect(screen.getByRole('button', { name: 'Copy' })).toBeDisabled();

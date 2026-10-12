@@ -5,7 +5,7 @@ interface CopiedBubbleProps {
   children: ReactNode;
 }
 
-/** Floating "copied" confirmation shown under a copy action. */
+/** Floating feedback, "copied" or "failed", shown under a copy action. */
 export const CopiedBubble = ({ children }: CopiedBubbleProps) => (
   <span className={styles.bubble}>{children}</span>
 );

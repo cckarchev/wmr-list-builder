@@ -8,7 +8,7 @@ import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
 import { useCopyFeedback } from '../shared/useCopyFeedback';
 
 export const CopyListButton = () => {
-  const { copied, copy } = useCopyFeedback();
+  const { status, copy } = useCopyFeedback();
 
   const army = useArmyStore((s) => s.army);
   const units = useArmyStore((s) => s.units);
@@ -48,7 +48,8 @@ export const CopyListButton = () => {
         <Icon name="copy" size={16} />
         Copy
       </Button>
-      {copied && <CopiedBubble>Copied!</CopiedBubble>}
+      {status === 'copied' && <CopiedBubble>Copied!</CopiedBubble>}
+      {status === 'failed' && <CopiedBubble>Copy failed</CopiedBubble>}
     </PopupAnchor>
   );
 };

@@ -30,6 +30,7 @@ describe('buildTextList', () => {
 
     // Goblin force-includes its minimums: 8 Goblins, 4 Wolf Riders, and the
     // Goblin Warboss (armyMin 1). Requested counts below those floors clamp up.
+    // The Warboss is a character, so the totals line counts 12 units, breaking at 6.
     const expected =
       'Goblin, 560 points\n' +
       'Warmaster Revolution\n' +
@@ -38,7 +39,7 @@ describe('buildTextList', () => {
       '240 - 4 Wolf Riders\n' +
       ' 80 - 1 Goblin Warboss\n' +
       '--------------------------------\n' +
-      '560 - 13/7';
+      '560 - 12/6';
 
     expect(textListFromStore()).toBe(expected);
   });
@@ -107,5 +108,48 @@ describe('buildTextList names', () => {
     expect(result).toContain('1 Wolf Riders');
     expect(result).toContain('1 Battle Banner (0)');
     expect(result).not.toContain('wolfRiders');
+  });
+});
+
+const HERD_POINTS = 10;
+const HERD_CODE = 1;
+const WOLF_RIDERS_TAKEN = 3;
+const HERDS_TAKEN = 2;
+const TOTAL_POINTS = WOLF_RIDERS_POINTS * WOLF_RIDERS_TAKEN + HERD_POINTS * HERDS_TAKEN;
+
+describe('buildTextList totals', () => {
+  it('counts only the units that count toward the break point', () => {
+    const usedUnits: Record<string, UsedUnit> = {
+      wolfRiders: {
+        id: 'wolfRiders',
+        name: 'Wolf Riders',
+        code: WOLF_RIDERS_CODE,
+        type: 'Cavalry',
+        points: WOLF_RIDERS_POINTS,
+        number: WOLF_RIDERS_TAKEN,
+        pointsCost: WOLF_RIDERS_POINTS * WOLF_RIDERS_TAKEN,
+      },
+      herd: {
+        id: 'herd',
+        name: 'Herd',
+        code: HERD_CODE,
+        type: 'Infantry',
+        points: HERD_POINTS,
+        number: HERDS_TAKEN,
+        pointsCost: HERD_POINTS * HERDS_TAKEN,
+        noCount: true,
+      },
+    };
+
+    const result = buildTextList({
+      armyName: 'Goblin',
+      label: '',
+      points: TOTAL_POINTS,
+      usedUnits,
+      version: '',
+    });
+
+    // Only the 3 Wolf Riders count: the noCount Herd is left out, so the army breaks at 2.
+    expect(result.endsWith(`${TOTAL_POINTS} - 3/2`)).toBe(true);
   });
 });

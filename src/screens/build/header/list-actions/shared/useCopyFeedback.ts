@@ -1,23 +1,43 @@
 import { useState } from 'react';
 
-/** How long a copy button shows its "Copied" confirmation before resetting. */
-const COPIED_FEEDBACK_MS = 1500;
+/** How long a copy button shows its confirmation or failure before resetting. */
+const FEEDBACK_MS = 1500;
+
+type CopyStatus = 'idle' | 'copied' | 'failed';
+
+/** The clipboard write, rejected when the API is missing (e.g. plain http) or denied. */
+const writeToClipboard = (text: string): Promise<void> => {
+  if (!navigator.clipboard) {
+    return Promise.reject(new Error('Clipboard API unavailable'));
+  }
+
+  return navigator.clipboard.writeText(text);
+};
 
 /**
- * Copies text to the clipboard and raises `copied` for a moment once it
- * lands, so the button can show its confirmation bubble.
+ * Copies text to the clipboard and reports how it went for a moment, so the
+ * button can show a "copied" or "failed" bubble.
  */
 export const useCopyFeedback = () => {
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<CopyStatus>('idle');
 
-  const copy = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-      }, COPIED_FEEDBACK_MS);
-    });
+  const showFor = (result: CopyStatus) => {
+    setStatus(result);
+    setTimeout(() => {
+      setStatus('idle');
+    }, FEEDBACK_MS);
   };
 
-  return { copied, copy };
+  const copy = (text: string) => {
+    writeToClipboard(text).then(
+      () => {
+        showFor('copied');
+      },
+      () => {
+        showFor('failed');
+      },
+    );
+  };
+
+  return { status, copy };
 };

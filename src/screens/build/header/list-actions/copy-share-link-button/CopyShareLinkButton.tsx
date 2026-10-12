@@ -13,7 +13,7 @@ export const CopyShareLinkButton = () => {
   const gameSize = useArmyStore((s) => s.gameSize);
   const units = useArmyStore((s) => s.units);
   const label = useArmyStore((s) => s.label);
-  const { copied, copy } = useCopyFeedback();
+  const { status, copy } = useCopyFeedback();
 
   const handleCopy = () => {
     if (!armyId) {
@@ -52,7 +52,8 @@ export const CopyShareLinkButton = () => {
         <Icon name="share" size={16} />
         Share
       </Button>
-      {copied && <CopiedBubble>Link copied!</CopiedBubble>}
+      {status === 'copied' && <CopiedBubble>Link copied!</CopiedBubble>}
+      {status === 'failed' && <CopiedBubble>Copy failed</CopiedBubble>}
     </PopupAnchor>
   );
 };

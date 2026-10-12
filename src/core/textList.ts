@@ -1,5 +1,4 @@
-import { halfUp } from '@/core/lib/counts';
-import type { UsedUnit } from './selectors';
+import { breakPoint, type UsedUnit, unitCount } from './selectors';
 
 interface TextListParams {
   armyName: string;
@@ -37,9 +36,8 @@ export const buildTextList = ({
 }: TextListParams): string => {
   const pad = String(points).length;
   const units = Object.values(usedUnits);
-  const unitCountTotal = units.reduce((sum, unit) => sum + unit.number, 0);
-  // An army breaks when it loses half its units, rounded up.
-  const breakValue = halfUp(unitCountTotal);
+  const countedUnits = unitCount(usedUnits);
+  const breakAt = breakPoint(usedUnits);
 
   const lines = [
     ...(label ? [label] : []),
@@ -48,7 +46,7 @@ export const buildTextList = ({
     DIVIDER,
     ...units.flatMap((unit) => unitLines(unit, pad)),
     DIVIDER,
-    `${padLeft(points, pad)} - ${unitCountTotal}/${breakValue}`,
+    `${padLeft(points, pad)} - ${countedUnits}/${breakAt}`,
   ];
 
   return lines.join('\n');
