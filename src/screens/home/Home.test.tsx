@@ -38,6 +38,13 @@ describe('Home', () => {
     expect(link).toHaveAttribute('href', '/build/goblin');
   });
 
+  it('describes each army link with its tagline', () => {
+    renderWithProviders(<Home />);
+    const link = screen.getByRole('link', { name: 'Goblin' });
+
+    expect(link).toHaveAccessibleDescription('Endless sneaky swarms and their trolls.');
+  });
+
   it('filters the armies by the search query', async () => {
     const user = userEvent.setup();
     renderWithProviders(<Home />);

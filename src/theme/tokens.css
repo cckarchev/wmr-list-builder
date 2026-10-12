@@ -25,6 +25,9 @@
   /* Fainter accent wash behind a whole card that is in the list, such as a
      selected roster unit; strong enough to scan for, quiet enough to read on. */
   --color-bg-selected: rgb(var(--rgb-accent) / 0.06);
+  /* Large decorative emblem at a card's edge, such as a faction on the army
+     picker; it turns full accent on hover. */
+  --color-accent-watermark: rgb(var(--rgb-accent) / 0.55);
   /* Recessed well that frames a block inside a card, such as a unit stat
      line; darkens whatever card background sits behind it. */
   --color-bg-inset: rgb(var(--rgb-black) / 0.25);
@@ -158,6 +161,10 @@
      the Build header and every screen's body so their edges line up. Widened
      from the tablet breakpoint up, below. */
   --page-gutter: var(--space-lg);
+
+  /* Size of the faction emblem watermark on an army card, taller than the
+     card so its edges crop it. */
+  --emblem-watermark-size: 112px;
 
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy

@@ -1,10 +1,16 @@
 .card {
+  /* Positions the watermark emblem and crops it at the card edge. */
+  position: relative;
+  overflow: hidden;
   /* Fill the grid cell so every card in a row shares its height. */
   height: 100%;
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-lg);
+  /* Keeps the text clear of the emblem's visible slice: its size, less the
+     part that hangs past the edge, plus a gap. */
+  padding-right: calc(var(--emblem-watermark-size) - var(--space-md) + var(--space-sm));
   border-radius: var(--radius);
   border: var(--border-default);
   border-left: var(--border-width-strong) solid var(--color-border-default);
@@ -18,16 +24,6 @@
     box-shadow var(--duration-fast);
 }
 
-.card::after {
-  content: '›';
-  margin-left: auto;
-  font-size: var(--font-size-xl);
-  color: var(--color-text-dim);
-  transition:
-    color var(--duration-fast),
-    transform var(--duration-fast);
-}
-
 .card:hover {
   background: var(--color-bg-tint);
   border-color: var(--color-border-hover);
@@ -37,43 +33,50 @@
   box-shadow: var(--shadow-panel);
 }
 
-.card:hover::after {
-  color: var(--color-accent);
-  transform: translateX(2px);
-}
-
 .card:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
 }
 
-/* A square badge with the faction emblem, the card's visual anchor. It fills
-   with the accent on hover to echo the accent edge. */
+/* The faction emblem, large and cropped by the card's right edge, in a muted
+   accent that turns full accent on hover. */
 .emblem {
+  position: absolute;
+  top: 50%;
+  /* Hangs past the right edge so the emblem reads as cropped. */
+  right: calc(-1 * var(--space-md));
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border: var(--border-width) solid var(--color-border-accent);
-  background: var(--color-bg-accent-tint);
-  color: var(--color-accent);
-  transition:
-    background var(--duration-fast),
-    color var(--duration-fast);
+  width: var(--emblem-watermark-size);
+  height: var(--emblem-watermark-size);
+  color: var(--color-accent-watermark);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: color var(--duration-fast);
 }
 
 .card:hover .emblem {
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
+  color: var(--color-accent);
+}
+
+/* Stacks the name over its tagline. */
+.text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  min-width: 0;
 }
 
 .name {
-  min-width: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
   line-height: var(--leading-tight);
+}
+
+.tagline {
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-condensed);
+  color: var(--color-text-dim);
 }

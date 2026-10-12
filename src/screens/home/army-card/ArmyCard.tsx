@@ -1,20 +1,43 @@
+import { useId } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ArmyCard.module.css';
 import { FactionIcon } from './FactionIcon';
-
-/** Icon size inside the 48px emblem badge, leaving room for the border and padding. */
-const EMBLEM_ICON_SIZE = 32;
+import { FACTION_TAGLINES } from './factionTaglines';
 
 interface ArmyCardProps {
   id: string;
   name: string;
 }
 
-export const ArmyCard = ({ id, name }: ArmyCardProps) => (
-  <Link className={styles.card} to={`/build/${id}`}>
-    <span className={styles.emblem} aria-hidden="true">
-      <FactionIcon armyId={id} size={EMBLEM_ICON_SIZE} />
-    </span>
-    <span className={styles.name}>{name}</span>
-  </Link>
-);
+export const ArmyCard = ({ id, name }: ArmyCardProps) => {
+  const tagline = FACTION_TAGLINES[id];
+  const nameId = useId();
+  const taglineId = useId();
+
+  // The link is named by the army alone; the tagline is its description, so
+  // screen readers announce "Goblin" rather than the whole blurb as the name.
+  const describedBy = tagline ? taglineId : undefined;
+
+  return (
+    <Link
+      className={styles.card}
+      to={`/build/${id}`}
+      aria-labelledby={nameId}
+      aria-describedby={describedBy}
+    >
+      <span className={styles.emblem} aria-hidden="true">
+        <FactionIcon armyId={id} />
+      </span>
+      <span className={styles.text}>
+        <span id={nameId} className={styles.name}>
+          {name}
+        </span>
+        {tagline && (
+          <span id={taglineId} className={styles.tagline}>
+            {tagline}
+          </span>
+        )}
+      </span>
+    </Link>
+  );
+};
