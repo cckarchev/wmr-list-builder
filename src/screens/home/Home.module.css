@@ -1,7 +1,7 @@
 @import '@/theme/breakpoints.css';
 
 .page {
-  max-width: 1100px;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
   padding: var(--space-xl) var(--space-md);
 }
@@ -10,7 +10,7 @@
   font-family: var(--font-display);
   font-size: var(--font-size-xxl);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--tracking-caps);
   color: var(--color-text-strong);
   margin-bottom: var(--space-lg);
 }
@@ -43,14 +43,14 @@
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: var(--tracking-caps);
   line-height: 1.1;
   text-decoration: none;
   transition:
-    transform 0.12s,
-    border-color 0.12s,
-    background 0.12s,
-    box-shadow 0.12s;
+    transform var(--duration-fast),
+    border-color var(--duration-fast),
+    background var(--duration-fast),
+    box-shadow var(--duration-fast);
 }
 
 .card::after {
@@ -58,8 +58,8 @@
   font-size: var(--font-size-xl);
   color: var(--color-text-dim);
   transition:
-    color 0.12s,
-    transform 0.12s;
+    color var(--duration-fast),
+    transform var(--duration-fast);
 }
 
 .card:hover {

@@ -83,6 +83,22 @@
   --tracking-label: 0.2em;
   --tracking-label-wide: 0.28em;
   --tracking-button: 0.12em;
+  /* Light tracking for uppercase text that is not a label, such as page and
+     card titles, the brand and pill buttons. */
+  --tracking-caps: 0.04em;
+
+  /* Line heights for running text. Body follows the WCAG text spacing
+     guidance; the printed sheet runs a little looser for paper. */
+  --leading-body: 1.5;
+  --leading-print: 1.6;
+
+  /* Hover feedback and disabled state for filled and stepped controls. */
+  --opacity-hover: 0.9;
+  --opacity-disabled: 0.4;
+
+  /* Duration for every hover, expand and reveal transition. Dropped to zero
+     below for people who ask the system for reduced motion. */
+  --duration-fast: 0.12s;
 
   --shadow-panel: 0 2px 8px rgb(var(--rgb-black) / 0.35);
 
@@ -99,4 +115,10 @@
   --z-popup: 30;
   --z-sticky: 40;
   --z-dialog: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0s;
+  }
 }

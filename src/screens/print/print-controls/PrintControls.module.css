@@ -45,7 +45,7 @@
 }
 
 .printButton:hover {
-  opacity: 0.85;
+  opacity: var(--opacity-hover);
 }
 
 .printButton:focus-visible {

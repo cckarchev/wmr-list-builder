@@ -9,7 +9,7 @@
   background: var(--color-bg-panel);
   border: var(--border-default);
   border-radius: var(--radius);
-  transition: border-color 0.15s;
+  transition: border-color var(--duration-fast);
 }
 
 /* More interior breathing room on wider screens, where the card has space to

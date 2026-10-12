@@ -15,9 +15,9 @@
   text-decoration: none;
   cursor: pointer;
   transition:
-    opacity 0.15s,
-    border-color 0.15s,
-    background 0.15s;
+    opacity var(--duration-fast),
+    border-color var(--duration-fast),
+    background var(--duration-fast);
 }
 
 .button:focus-visible {
@@ -26,7 +26,7 @@
 }
 
 .button:disabled {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .button[data-variant='primary']:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: var(--opacity-hover);
 }
 
 .button[data-variant='danger'] {
@@ -51,7 +51,7 @@
 }
 
 .button[data-variant='danger']:hover:not(:disabled) {
-  opacity: 0.85;
+  opacity: var(--opacity-hover);
 }
 
 .button[data-variant='ghost'] {

@@ -12,11 +12,11 @@
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--tracking-caps);
   cursor: pointer;
   transition:
-    border-color 0.12s,
-    color 0.12s;
+    border-color var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .pill:hover {

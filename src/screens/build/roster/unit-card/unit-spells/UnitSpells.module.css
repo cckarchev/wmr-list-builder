@@ -57,7 +57,7 @@
   display: inline-flex;
   align-items: center;
   color: var(--color-text-dim);
-  transition: transform 0.12s;
+  transition: transform var(--duration-fast);
 }
 
 .header[aria-expanded='true'] .caret {
@@ -69,7 +69,7 @@
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
   color: var(--color-text-body);
-  line-height: 1.4;
+  line-height: var(--leading-body);
 }
 
 .effect p {

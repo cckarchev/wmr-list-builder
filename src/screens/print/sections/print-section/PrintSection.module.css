@@ -29,5 +29,5 @@
 
 .desc {
   margin: 0;
-  line-height: 1.6;
+  line-height: var(--leading-print);
 }

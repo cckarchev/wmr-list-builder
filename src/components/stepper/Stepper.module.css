@@ -19,8 +19,8 @@
   line-height: 1;
   cursor: pointer;
   transition:
-    background 0.12s,
-    color 0.12s;
+    background var(--duration-fast),
+    color var(--duration-fast);
 }
 
 .step:hover:not(:disabled) {
@@ -28,7 +28,7 @@
 }
 
 .step:disabled {
-  opacity: 0.3;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
