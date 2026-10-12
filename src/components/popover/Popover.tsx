@@ -12,13 +12,22 @@ interface PopoverProps {
   heading: string;
   /** Visible content of the trigger button. */
   trigger: ReactNode;
+  /** Extra class for the trigger, for a popover that sits among other controls. */
+  triggerClassName?: string;
   /** Widen the panel for prose-heavy content (e.g. special-rule text). */
   wide?: boolean;
   /** Panel content shown while open. */
   children: ReactNode;
 }
 
-export const Popover = ({ label, heading, trigger, wide = false, children }: PopoverProps) => {
+export const Popover = ({
+  label,
+  heading,
+  trigger,
+  triggerClassName,
+  wide = false,
+  children,
+}: PopoverProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
@@ -35,6 +44,7 @@ export const Popover = ({ label, heading, trigger, wide = false, children }: Pop
     <div className={styles.wrap} ref={wrapRef}>
       <PillButton
         ref={triggerRef}
+        className={triggerClassName}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}

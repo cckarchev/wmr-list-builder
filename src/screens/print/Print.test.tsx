@@ -323,7 +323,7 @@ describe('Print screen section order', () => {
     const before = sheetHeadings();
     const last = before.at(-1);
 
-    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+    await user.click(screen.getByRole('button', { name: 'Reorder sections' }));
     await user.click(screen.getByRole('button', { name: `Move ${last} up` }));
 
     const after = sheetHeadings();
@@ -337,7 +337,7 @@ describe('Print screen section order', () => {
     renderPrint('/print/goblin');
     await findTitle();
 
-    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+    await user.click(screen.getByRole('button', { name: 'Reorder sections' }));
 
     expect(screen.getByRole('button', { name: 'Move Stats up' })).toBeDisabled();
   });
@@ -347,7 +347,7 @@ describe('Print screen section order', () => {
     const { unmount } = renderPrint('/print/goblin');
     await findTitle();
 
-    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+    await user.click(screen.getByRole('button', { name: 'Reorder sections' }));
     await user.click(screen.getByRole('button', { name: 'Move Stats down' }));
     const moved = sectionChips();
     unmount();

@@ -52,7 +52,7 @@ interface SectionOrderProps {
 }
 
 /**
- * The "Order" popover: each section with arrows to move it up or down the
+ * The "Reorder" popover: each section with arrows to move it up or down the
  * sheet. Arrows rather than dragging, so it works the same with a finger, a
  * mouse or the keyboard.
  */
@@ -85,7 +85,17 @@ export const SectionOrder = ({ sections, onMove }: SectionOrderProps) => {
   const lastIndex = sections.length - 1;
 
   return (
-    <Popover label="Order sections" heading="Section order" trigger="Order">
+    <Popover
+      label="Reorder sections"
+      heading="Reorder sections"
+      triggerClassName={styles.trigger}
+      trigger={
+        <>
+          <span aria-hidden="true">↑↓</span>
+          Reorder
+        </>
+      }
+    >
       <ol className={styles.list} ref={listRef}>
         {sections.map((section, index) => (
           <li className={styles.row} key={section.id}>
