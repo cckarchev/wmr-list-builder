@@ -18,17 +18,46 @@ const poolGroup = (ids: string[], pool: Pool) => ({
   count: totalNumber(ids, pool),
 });
 
-/** Items that count together with this one toward its limits. */
-const homologousGroup = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
+/** The ids sorted by where the pool lists them, so a group reads the same from any member. */
+const inPoolOrder = (ids: string[], pool: Pool): string[] => {
+  const listed = Object.keys(pool);
+  const placeOf = (id: string) => listed.indexOf(id);
+
+  return [...ids].sort((a, b) => placeOf(a) - placeOf(b));
+};
+
+/** The ids an item lists as counting together with it, and the pool they live in. */
+const homologousIds = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
   if (item.homologousUnits) {
-    return poolGroup(item.homologousUnits, units);
+    return { ids: item.homologousUnits, pool: units };
   }
 
   if (item.homologousUpgrades) {
-    return poolGroup(item.homologousUpgrades, upgrades);
+    return { ids: item.homologousUpgrades, pool: upgrades };
   }
 
   return undefined;
+};
+
+/**
+ * The items that count together toward this one's limits, itself included, in
+ * their listed order, and how many of the others are taken.
+ */
+const homologousGroup = (itemId: string, item: ValidatableItem, pools: ArmyPools) => {
+  const homologous = homologousIds(item, pools);
+
+  if (!homologous) {
+    return undefined;
+  }
+
+  const { ids, pool } = homologous;
+  const memberIds = inPoolOrder([itemId, ...ids], pool);
+
+  return {
+    ids: memberIds,
+    names: namesOf(memberIds, pool),
+    othersCount: totalNumber(ids, pool),
+  };
 };
 
 const toRequired = ({ names, count }: ReturnType<typeof poolGroup>): RequiredGroup => ({
@@ -61,17 +90,16 @@ const checkItem = (
   pools: ArmyPools,
   gameSize: number,
 ): ValidationError[] => {
-  const homologous = homologousGroup(item, pools);
-  const homologousIds = homologous?.ids ?? [];
+  const homologous = homologousGroup(itemId, item, pools);
 
   // Homologous items are named together as one group in messages.
-  const label = homologous ? toSentence([item.name, ...homologous.names]) : item.name;
-  const targets = [itemId, ...homologousIds];
+  const label = homologous ? toSentence(homologous.names) : item.name;
+  const targets = homologous?.ids ?? [itemId];
 
   const messages = itemErrors({
     item,
     label,
-    groupNumber: item.number + (homologous?.count ?? 0),
+    groupNumber: item.number + (homologous?.othersCount ?? 0),
     required: requiredGroup(item, pools),
     ...pools,
     gameSize,
@@ -95,6 +123,26 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
 };
 
 /**
+ * One error per message: every member of a homologous group reports the
+ * group's shared limit, all in the same words, so their targets are merged.
+ */
+const mergeRepeated = (errors: ValidationError[]): ValidationError[] => {
+  const byMessage = new Map<string, Set<string>>();
+
+  for (const { message, targets } of errors) {
+    const merged = byMessage.get(message) ?? new Set<string>();
+
+    for (const target of targets) {
+      merged.add(target);
+    }
+
+    byMessage.set(message, merged);
+  }
+
+  return Array.from(byMessage, ([message, targets]) => ({ targets: [...targets], message }));
+};
+
+/**
  * Pure port of the Vue `validate` action (actions.js): checks every
  * unit then every upgrade and returns the accumulated errors, headed by the
  * points-cap error when the list is over.
@@ -112,5 +160,5 @@ export const validate = (
     checkItem(id, upgrade, pools, gameSize),
   );
 
-  return [...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors];
+  return mergeRepeated([...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors]);
 };
