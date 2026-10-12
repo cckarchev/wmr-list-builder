@@ -9,6 +9,16 @@ export interface MinMaxSource {
   max?: number | string;
 }
 
+/** Keyword values the army data puts in `min` and `max`, read by the rules and the badges. */
+export const MIN_MAX_TOKENS = {
+  allOrNone: 'All or None',
+  halfOrAll: 'Half or All',
+  halfOrMore: 'Half or More',
+  halfOrNone: 'Half or None',
+  upToHalf: 'Up to Half',
+  elite: 'elite',
+} as const;
+
 /** Prefix of "As X" tokens, which tie a troop's count to another unit's. */
 export const AS_TOKEN_PREFIX = 'As ';
 
@@ -51,7 +61,7 @@ export const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo
   const { min, max } = troop;
 
   // `elite` lives in the max field and resolves to an absolute cap.
-  if (max === 'elite') {
+  if (max === MIN_MAX_TOKENS.elite) {
     return { kind: 'elite', cap: eliteCap(size) };
   }
 

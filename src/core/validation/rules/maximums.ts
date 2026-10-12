@@ -1,5 +1,6 @@
 import { halfDown, halfUp } from '@/core/lib/counts';
 import { eliteCap } from '@/core/limits/eliteCap';
+import { MIN_MAX_TOKENS } from '@/core/limits/min-max/minMaxInfo';
 import { isAsToken, perRequired, perThousandPoints } from './bounds';
 import type { Rule } from './types';
 
@@ -14,13 +15,13 @@ export const armyMax: Rule = ({ item, label, groupNumber }) => {
 /** `elite`: at most one per 1,000 points after the first. */
 export const eliteMax: Rule = ({ item, label, groupNumber, size }) => {
   const maximum = eliteCap(size);
-  const applies = item.max === 'elite' && groupNumber > maximum;
+  const applies = item.max === MIN_MAX_TOKENS.elite && groupNumber > maximum;
 
   return applies ? perThousandPoints('Maximum', maximum, label, size) : undefined;
 };
 
 export const halfOrNoneMax: Rule = ({ item, label, required }) => {
-  if (item.max !== 'Half or None' || !required) {
+  if (item.max !== MIN_MAX_TOKENS.halfOrNone || !required) {
     return undefined;
   }
 
@@ -30,7 +31,7 @@ export const halfOrNoneMax: Rule = ({ item, label, required }) => {
 };
 
 export const upToHalf: Rule = ({ item, label, required }) => {
-  if (item.max !== 'Up to Half' || !required) {
+  if (item.max !== MIN_MAX_TOKENS.upToHalf || !required) {
     return undefined;
   }
 

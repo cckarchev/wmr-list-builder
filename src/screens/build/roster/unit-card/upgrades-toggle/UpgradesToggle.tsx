@@ -1,8 +1,7 @@
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import { PillButton } from '@/components/pill-button/PillButton';
+import { DISCLOSURE_CARET_SIZE } from '../shared/disclosureCaret';
 import styles from './UpgradesToggle.module.css';
-
-const CARET_SIZE = 11;
 
 interface UpgradesToggleProps {
   open: boolean;
@@ -16,7 +15,7 @@ interface UpgradesToggleProps {
 export const UpgradesToggle = ({ open, panelId, selectedCount, onToggle }: UpgradesToggleProps) => (
   <PillButton aria-expanded={open} aria-controls={panelId} onClick={onToggle}>
     <span className={styles.caret} data-open={open || undefined}>
-      <ChevronMark size={CARET_SIZE} color="currentColor" />
+      <ChevronMark size={DISCLOSURE_CARET_SIZE} color="currentColor" />
     </span>
     Upgrades
     {selectedCount > 0 && <span className={styles.selectedBadge}>({selectedCount})</span>}

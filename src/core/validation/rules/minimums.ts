@@ -1,5 +1,6 @@
 import { halfDown, halfUp } from '@/core/lib/counts';
 import { POINTS_PER_ARMY_SIZE } from '@/core/limits/armySize';
+import { MIN_MAX_TOKENS } from '@/core/limits/min-max/minMaxInfo';
 import { isAsToken, perRequired, perThousandPoints } from './bounds';
 import type { Rule } from './types';
 
@@ -12,7 +13,7 @@ export const armyMin: Rule = ({ item, label, groupNumber }) => {
 };
 
 export const allOrNone: Rule = ({ item, label, required }) => {
-  if (item.min !== 'All or None' || !required) {
+  if (item.min !== MIN_MAX_TOKENS.allOrNone || !required) {
     return undefined;
   }
 
@@ -22,7 +23,7 @@ export const allOrNone: Rule = ({ item, label, required }) => {
 };
 
 export const halfOrAll: Rule = ({ item, label, required }) => {
-  if (item.min !== 'Half or All' || !required) {
+  if (item.min !== MIN_MAX_TOKENS.halfOrAll || !required) {
     return undefined;
   }
 
@@ -37,7 +38,7 @@ export const halfOrAll: Rule = ({ item, label, required }) => {
 };
 
 export const halfOrMore: Rule = ({ item, label, required }) => {
-  if (item.min !== 'Half or More' || !required) {
+  if (item.min !== MIN_MAX_TOKENS.halfOrMore || !required) {
     return undefined;
   }
 
@@ -47,7 +48,7 @@ export const halfOrMore: Rule = ({ item, label, required }) => {
 };
 
 export const halfOrNoneMin: Rule = ({ item, label, required }) => {
-  if (item.min !== 'Half or None' || !required) {
+  if (item.min !== MIN_MAX_TOKENS.halfOrNone || !required) {
     return undefined;
   }
 

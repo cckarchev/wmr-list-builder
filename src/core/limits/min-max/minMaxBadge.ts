@@ -3,6 +3,7 @@ import {
   type EliteInfo,
   isExact,
   linkedUnit,
+  MIN_MAX_TOKENS,
   type MinMaxSource,
   type RateInfo,
   resolveMinMax,
@@ -11,11 +12,11 @@ import {
 
 /** Terse forms of the keyword tokens, for the at-a-glance badge. */
 const TOKEN_BADGES: Record<string, string> = {
-  'All or None': 'all or none',
-  'Half or All': 'half or all',
-  'Half or More': 'half+',
-  'Half or None': 'half or none',
-  'Up to Half': '≤ half',
+  [MIN_MAX_TOKENS.allOrNone]: 'all or none',
+  [MIN_MAX_TOKENS.halfOrAll]: 'half or all',
+  [MIN_MAX_TOKENS.halfOrMore]: 'half+',
+  [MIN_MAX_TOKENS.halfOrNone]: 'half or none',
+  [MIN_MAX_TOKENS.upToHalf]: '≤ half',
 };
 
 /** "2–12", "8+" or "≤4"; a bound that is unset (or zero) is left out. */

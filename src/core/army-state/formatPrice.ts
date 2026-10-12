@@ -1,7 +1,5 @@
+import { MISSING_STAT } from '@/core/lib/formatStat';
 import type { StatValue } from '@/data/types';
-
-/** Shown when an upgrade has no price at all. */
-const NO_PRICE = '–';
 
 /** An upgrade's price label. Variable pricing that cannot be resolved for this unit shows as "?pts". */
 export const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): string => {
@@ -13,5 +11,6 @@ export const formatPrice = (price: StatValue | undefined, hasVariablePrice: bool
     return '?pts';
   }
 
-  return NO_PRICE;
+  // No price at all reads like any other missing stat.
+  return MISSING_STAT;
 };

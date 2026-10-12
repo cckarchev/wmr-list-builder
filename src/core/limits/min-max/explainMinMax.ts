@@ -3,6 +3,7 @@ import {
   type EliteInfo,
   isExact,
   linkedUnit,
+  MIN_MAX_TOKENS,
   type MinMaxSource,
   type RateInfo,
   resolveMinMax,
@@ -11,11 +12,11 @@ import {
 
 /** Plain-language phrasing for the keyword tokens the validation rules enforce. */
 const TOKEN_PHRASES: Record<string, string> = {
-  'All or None': 'all or none of its unit',
-  'Half or All': 'half or all of its unit',
-  'Half or More': 'half or more of its unit',
-  'Half or None': 'half or none of its unit',
-  'Up to Half': 'up to half of its unit',
+  [MIN_MAX_TOKENS.allOrNone]: 'all or none of its unit',
+  [MIN_MAX_TOKENS.halfOrAll]: 'half or all of its unit',
+  [MIN_MAX_TOKENS.halfOrMore]: 'half or more of its unit',
+  [MIN_MAX_TOKENS.halfOrNone]: 'half or none of its unit',
+  [MIN_MAX_TOKENS.upToHalf]: 'up to half of its unit',
 };
 
 /** "min 1 / max 6", leaving out whichever bound is unset. */
