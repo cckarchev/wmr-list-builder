@@ -28,7 +28,8 @@ export const StatLine = ({
   points,
   character = false,
 }: StatLineProps) => {
-  const cells: Array<{ label: string; value: string }> = [];
+  // `shortLabel` replaces the label on a phone, where the columns are narrowest.
+  const cells: Array<{ label: string; shortLabel?: string; value: string }> = [];
 
   // Characters and troops carry disjoint stat sets, so each shows only its own.
   // Characters: Att / Cmd / Size / Pts (no character has Range/Hits/Armour).
@@ -41,7 +42,7 @@ export const StatLine = ({
   } else {
     cells.push({ label: 'Range', value: formatStat(range) });
     cells.push({ label: 'Hits', value: formatStat(hits) });
-    cells.push({ label: 'Armour', value: formatStat(armour) });
+    cells.push({ label: 'Armour', shortLabel: 'Arm', value: formatStat(armour) });
   }
 
   cells.push({ label: 'Size', value: formatStat(size) });
@@ -49,9 +50,16 @@ export const StatLine = ({
 
   return (
     <div className={styles.table}>
-      {cells.map(({ label, value }) => (
+      {cells.map(({ label, shortLabel, value }) => (
         <span className={styles.cell} key={label}>
-          <span className={styles.label}>{label}</span>
+          {shortLabel ? (
+            <span className={styles.label}>
+              <span className={styles.fullLabel}>{label}</span>
+              <span className={styles.shortLabel}>{shortLabel}</span>
+            </span>
+          ) : (
+            <span className={styles.label}>{label}</span>
+          )}
           <span className={styles.figure}>{value}</span>
         </span>
       ))}

@@ -1,3 +1,5 @@
+@import '@/theme/breakpoints.css';
+
 .table {
   display: grid;
   grid-auto-flow: column;
@@ -32,9 +34,40 @@
   letter-spacing: var(--tracking-caps);
 }
 
+.shortLabel {
+  display: none;
+}
+
 .figure {
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);
   font-weight: var(--font-weight-semibold);
+}
+
+/* On a phone the line spans the card, split into equal columns sized for a
+   troop's six stats (Att, Range, Hits, Armour, Size, Pts), the most any unit
+   shows. A character fills the first four, so Att still lines up card to card.
+   Labels drop their tracking and padding, and a long label such as "ARMOUR"
+   switches to its short form ("ARM"), to fit the narrowest column. */
+@media (--phone) {
+  .table {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .cell {
+    padding: 0;
+  }
+
+  .cell .label {
+    letter-spacing: 0;
+  }
+
+  .fullLabel {
+    display: none;
+  }
+
+  .shortLabel {
+    display: inline;
+  }
 }

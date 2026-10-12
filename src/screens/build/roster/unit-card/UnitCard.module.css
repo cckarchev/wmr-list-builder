@@ -52,6 +52,26 @@
   flex: 1;
 }
 
+/* On a phone the controls column leaves too little room for six stat columns
+   beside it, so the stat line drops below the name and controls and takes the
+   card's full width. `display: contents` lifts the name row and the stats into
+   the grid of `.top`. */
+@media (--phone) {
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .main {
+    display: contents;
+  }
+
+  .stats {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+}
+
 .nameRow {
   display: flex;
   align-items: baseline;

@@ -66,16 +66,18 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
             <span className={styles.name}>{unit.name}</span>
             {showType && <span className={styles.typeTag}>{unit.type}</span>}
           </div>
-          <StatLine
-            attack={unit.attack}
-            range={unit.range}
-            hits={unit.hits}
-            armour={unit.armour}
-            command={unit.command}
-            size={unit.size}
-            points={unit.points}
-            character={isCharacter(unit.type)}
-          />
+          <div className={styles.stats}>
+            <StatLine
+              attack={unit.attack}
+              range={unit.range}
+              hits={unit.hits}
+              armour={unit.armour}
+              command={unit.command}
+              size={unit.size}
+              points={unit.points}
+              character={isCharacter(unit.type)}
+            />
+          </div>
         </div>
         <CardControls unitId={unitId} unit={unit} />
       </div>
