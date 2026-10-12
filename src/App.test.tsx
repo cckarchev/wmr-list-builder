@@ -144,3 +144,14 @@ describe('App routing for build and print', () => {
     expect(screen.getByRole('link', { name: /back/i })).toHaveAttribute('href', '/build/goblin');
   });
 });
+
+describe('App routing to About', () => {
+  it('shows the About page at "/about", reachable from the footer', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
+
+    await user.click(screen.getByRole('link', { name: 'About' }));
+
+    expect(screen.getByRole('heading', { name: 'About', level: 1 })).toBeInTheDocument();
+  });
+});

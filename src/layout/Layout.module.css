@@ -1,0 +1,7 @@
+/* A full-height column, so the footer sits at the bottom of the window even
+   when a screen's content is shorter than it. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}

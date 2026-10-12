@@ -156,6 +156,9 @@
   /* Max content width for centered page containers; beyond this the layout
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
+  /* Max width for a page of running text, such as About, so lines stay a
+     comfortable length to read. */
+  --prose-max-width: 760px;
 
   /* Inline space between the screen edge and page content, shared by the nav,
      the Build header and every screen's body so their edges line up. Widened

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useParams, useSearchParams } from 'react-route
 import { ARMY_PARAM } from '@/core/share-link/shareLink';
 import { armiesById } from '@/data/armyIndex';
 import { Layout } from '@/layout/Layout';
+import { About } from '@/screens/about/About';
 import { Build } from '@/screens/build/Build';
 import { Home } from '@/screens/home/Home';
 import { Print } from '@/screens/print/Print';
@@ -53,6 +54,7 @@ export const App = () => (
           </RequireArmy>
         }
       />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   </Routes>
