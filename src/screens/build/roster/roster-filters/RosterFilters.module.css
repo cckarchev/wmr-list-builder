@@ -42,7 +42,6 @@
 }
 
 .toggle:focus-visible,
-.search:focus-visible,
 .chip:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
@@ -69,21 +68,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-}
-
-.search {
-  width: 100%;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--color-bg-surface);
-  border: var(--border-default);
-  border-radius: var(--radius);
-  color: var(--color-text-body);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-}
-
-.search::placeholder {
-  color: var(--color-text-dim);
 }
 
 .chips {

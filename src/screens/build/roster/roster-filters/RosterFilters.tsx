@@ -1,5 +1,5 @@
-import type { ChangeEvent } from 'react';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
+import { SearchInput } from '@/components/search-input/SearchInput';
 import styles from './RosterFilters.module.css';
 
 const PANEL_ID = 'roster-filters';
@@ -38,10 +38,6 @@ export const RosterFilters = ({
   const filtersActive = search.trim() !== '' || activeType !== null;
   const filtersLabel = filtersActive ? 'Filters •' : 'Filters';
 
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    onSearchChange(event.target.value);
-  };
-
   return (
     <>
       <div className={styles.header}>
@@ -71,14 +67,7 @@ export const RosterFilters = ({
       </div>
       {filtersOpen && (
         <div className={styles.panel} id={PANEL_ID}>
-          <input
-            className={styles.search}
-            type="search"
-            placeholder="Search units…"
-            aria-label="Search units"
-            value={search}
-            onChange={handleSearch}
-          />
+          <SearchInput label="Search units" value={search} onChange={onSearchChange} />
           <fieldset className={styles.chips} aria-label="Filter by type">
             {types.map((label) => (
               <button

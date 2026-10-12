@@ -6,6 +6,8 @@ import { useArmyStore } from '@/store/useArmyStore';
 import { renderWithProviders } from '@/test/renderWithProviders';
 import { App } from './App';
 
+const HOME_TITLE = 'Warmaster Revolution Armies';
+
 beforeEach(() => {
   useArmyStore.getState().reset();
   // Build auto-saves to localStorage; clear it so a list applied in one test
@@ -17,7 +19,7 @@ describe('App routing from the root', () => {
   it('shows the Home army picker at "/"', () => {
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
 
-    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
     // The Goblin army card links to its build route.
     const link = screen.getByRole('link', { name: 'Goblin' });
     expect(link).toHaveAttribute('href', '/build/goblin');
@@ -28,7 +30,7 @@ describe('App routing from the root', () => {
 
     // Build screen (not the picker) is shown for the named army.
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: /choose your army/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: HOME_TITLE })).not.toBeInTheDocument();
   });
 
   it('loads a shared list from root query params', async () => {
@@ -54,7 +56,7 @@ describe('App routing from the root', () => {
       routerProps: { initialEntries: ['/?army=does-not-exist'] },
     });
 
-    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
   });
 
   it('navigates Home → Build when an army is chosen', async () => {
@@ -81,7 +83,7 @@ describe('App routing for build and print', () => {
       routerProps: { initialEntries: ['/build/does-not-exist'] },
     });
 
-    expect(screen.getByRole('heading', { name: /choose your army/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
   });
 
   it('renders the Print screen for a valid army', async () => {
