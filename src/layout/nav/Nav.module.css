@@ -12,17 +12,22 @@
   border-bottom: var(--border-divider);
 }
 
+/* Two-line lockup: the game name over the tool name, sized to fill the bar
+   without making it taller. */
 .brand {
-  font-family: var(--font-display);
-  font-size: var(--font-size-md);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
-  color: var(--color-text-strong);
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
   text-decoration: none;
 }
 
-.brand:hover {
-  color: var(--color-accent);
+.brandName {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-text-strong);
 }
 
 .brand:focus-visible,
@@ -36,7 +41,19 @@
 }
 
 .toolName {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-body);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
   color: var(--color-text-dim);
+  transition: color var(--duration-fast);
+}
+
+/* Hover lifts the tool name only, so the two-tone game name keeps its
+   contrast. */
+.brand:hover .toolName {
+  color: var(--color-text-body);
 }
 
 @media (--phone) {
