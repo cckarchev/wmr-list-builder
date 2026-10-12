@@ -87,7 +87,8 @@ export const MIRRORED_FACTION_ICONS: ReadonlySet<string> = new Set([
   'kislev',
   'lizardmen',
   'skaven',
-  'cathay'
+  'cathay',
+  'ogre-kingdoms',
 ]);
 
 /** Whether the army has an emblem, so callers can skip its sized wrapper. */
