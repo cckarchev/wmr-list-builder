@@ -24,6 +24,9 @@ const printSheet = () => screen.getByRole('article', { name: 'Print sheet' });
 const GAME_SIZE = 2000;
 const SAVED_GOBLINS = 2;
 
+/** Enough Goblins to go over the 2,000 points cap. */
+const OVER_CAP_GOBLINS = 100;
+
 describe('Print screen', () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
@@ -163,6 +166,56 @@ describe('print sections', () => {
     await screen.findByRole('heading', { level: 1, name: 'Empire' });
 
     expect(screen.getByRole('checkbox', { name: /stats/i })).toBeChecked();
+  });
+});
+
+describe('Validation section', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('leaves the Validation section off until it is ticked', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+    const validation = screen.getByRole('checkbox', { name: /validation/i });
+
+    expect(validation).not.toBeChecked();
+    expect(within(printSheet()).queryByRole('heading', { name: 'Validation' })).toBeNull();
+
+    await user.click(validation);
+
+    expect(within(printSheet()).getByRole('heading', { name: 'Validation' })).toBeInTheDocument();
+  });
+
+  it('prints that an empty list is valid', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /validation/i }));
+
+    expect(
+      within(printSheet()).getByText('The list is valid at 2,000 points.'),
+    ).toBeInTheDocument();
+  });
+
+  it('prints the list issues in the Validation section', async () => {
+    const user = userEvent.setup();
+    saveList('goblin', {
+      name: '',
+      gameSize: GAME_SIZE,
+      units: { goblins: OVER_CAP_GOBLINS },
+      upgrades: {},
+    });
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /validation/i }));
+
+    expect(within(printSheet()).getByText('1 issue at 2,000 points:')).toBeInTheDocument();
+    expect(within(printSheet()).getByText(/points over the 2,000 cap\./)).toBeInTheDocument();
   });
 });
 

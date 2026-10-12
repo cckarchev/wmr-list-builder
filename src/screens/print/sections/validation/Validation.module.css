@@ -1,0 +1,13 @@
+.summary {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-strong);
+}
+
+.issues {
+  margin: var(--space-xs) 0 0;
+  padding-left: var(--space-lg);
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-body);
+}

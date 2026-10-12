@@ -4,6 +4,7 @@ import { MagicItems } from './MagicItems';
 import { SpecialRules } from './SpecialRules';
 import { Spells } from './spells/Spells';
 import { Stats } from './stats/Stats';
+import { Validation } from './validation/Validation';
 
 /** What the current list has to print, so empty sections are never offered. */
 export interface PrintSectionCtx {
@@ -18,6 +19,8 @@ export interface PrintSectionDef {
   title: string;
   available: (ctx: PrintSectionCtx) => boolean;
   render: () => ReactNode;
+  /** Left out of the sheet until the reader ticks it. */
+  startsOff?: boolean;
 }
 
 const PRINT_SECTIONS: PrintSectionDef[] = [
@@ -41,6 +44,13 @@ const PRINT_SECTIONS: PrintSectionDef[] = [
     render: () => <MagicItems />,
   },
   { id: 'spells', title: 'Spells', available: (ctx) => ctx.hasSpells, render: () => <Spells /> },
+  {
+    id: 'validation',
+    title: 'Validation',
+    available: () => true,
+    render: () => <Validation />,
+    startsOff: true,
+  },
 ];
 
 export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] =>
@@ -48,3 +58,10 @@ export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] 
 
 /** Every section's id in the default print order, whatever the list has. */
 export const PRINT_SECTION_IDS = PRINT_SECTIONS.map((section) => section.id);
+
+/** The ids of the sections a fresh sheet includes: all but those that start off. */
+export const defaultSelectedIds = (sections: PrintSectionDef[]): Set<string> => {
+  const includedIds = sections.filter((section) => !section.startsOff).map((section) => section.id);
+
+  return new Set(includedIds);
+};

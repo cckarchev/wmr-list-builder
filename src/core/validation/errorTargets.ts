@@ -7,3 +7,10 @@ export const errorsForTarget = (errors: ValidationError[], id: string): Validati
 /** List-level errors with no specific target (e.g. the points ceiling). */
 export const globalErrors = (errors: ValidationError[]): ValidationError[] =>
   errors.filter((e) => e.targets.length === 0);
+
+/** Every error's message once, in order: items that count together share one message. */
+export const errorMessages = (errors: ValidationError[]): string[] => {
+  const messages = errors.map((error) => error.message);
+
+  return [...new Set(messages)];
+};
