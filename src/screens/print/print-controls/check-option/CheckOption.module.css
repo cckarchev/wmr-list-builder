@@ -5,6 +5,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  gap: var(--space-xxs);
   padding: var(--space-xxs) var(--space-xs);
   border: var(--border-divider);
   border-radius: var(--radius);
@@ -30,6 +31,19 @@
   background: var(--color-bg-accent-tint);
   color: var(--color-accent);
   border-color: var(--color-border-accent);
+}
+
+/* A check mark, so the state does not rest on color alone. Its slot is always
+   there, so ticking a chip does not change its width. The empty alt text keeps
+   the mark out of the checkbox's accessible name. */
+.option::before {
+  content: '' / '';
+  width: 1ch;
+  text-align: center;
+}
+
+.option:has(.input:checked)::before {
+  content: '✓' / '';
 }
 
 .option:has(.input:focus-visible) {

@@ -1,17 +1,17 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { A4_WIDTH_PX } from '@/core/print/paper';
 import { findTitle, printSheet, renderPrint, resetPrintState } from './renderPrint';
 
 const GOBLIN_SPELL_FLUFF = /summons the power of Mork/;
 
-/** A matchMedia that answers every query with `matches`. */
-const stubMatchMedia = (matches: boolean) => {
-  vi.stubGlobal('matchMedia', () => ({
-    matches,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }));
+/** An iPad in portrait, where the sheet shrinks below A4. */
+const TABLET_PORTRAIT_WIDTH = 768;
+
+/** Lays every element out `width` pixels wide, since jsdom has no layout of its own. */
+const stubSheetWidth = (width: number) => {
+  vi.spyOn(Element.prototype, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 0, width, 0));
 };
 
 beforeEach(resetPrintState);
@@ -114,21 +114,32 @@ describe('print sheet styles', () => {
 
 describe('print page estimate', () => {
   afterEach(() => {
-    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
   });
 
-  it('estimates the page count when the preview is paper sized', async () => {
-    stubMatchMedia(true);
+  it('estimates the page count when the sheet is as wide as A4', async () => {
+    stubSheetWidth(A4_WIDTH_PX);
     renderPrint('/print/goblin');
     await findTitle();
 
     expect(screen.getByText('≈ 1 page')).toBeInTheDocument();
   });
 
-  it('gives no estimate when the preview is too narrow to tell', async () => {
-    stubMatchMedia(false);
+  it('gives no estimate when the sheet is narrower than A4', async () => {
+    stubSheetWidth(TABLET_PORTRAIT_WIDTH);
     renderPrint('/print/goblin');
     await findTitle();
+
+    expect(screen.queryByText(/≈ \d+ pages?/)).not.toBeInTheDocument();
+  });
+
+  it('gives no estimate in two columns, which balance differently on paper', async () => {
+    const user = userEvent.setup();
+    stubSheetWidth(A4_WIDTH_PX);
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /two columns/i }));
 
     expect(screen.queryByText(/≈ \d+ pages?/)).not.toBeInTheDocument();
   });

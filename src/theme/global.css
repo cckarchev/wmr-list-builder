@@ -30,9 +30,11 @@ a {
 
 /* biome-ignore-start lint/complexity/noImportantStyles: hiding screen-only chrome on paper must beat every component's own display rule. */
 @media print {
-  /* Keep in step with --print-page-margin, which the on-screen preview uses
-     to mimic this margin. */
+  /* The sheet is laid out for ISO A4, which the page estimate also assumes.
+     Keep the margin in step with --print-page-margin, which the on-screen
+     preview uses to mimic it, and with core/print/paper.ts. */
   @page {
+    size: A4;
     margin: 12mm;
   }
 

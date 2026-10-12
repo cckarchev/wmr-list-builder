@@ -53,8 +53,9 @@
 }
 
 /* Page and column breaks: keep a heading glued to the start of its body, and
-   never split a paragraph or a table row, but let long bodies flow on at
-   paragraph and row boundaries. */
+   never split a paragraph, a table row, or a definition or list item made of
+   plain text, but let long bodies flow on at their inner paragraphs and rows.
+   The page estimate in usePageBreaks keeps these same blocks whole. */
 .document h1,
 .document h3,
 .document dt {
@@ -62,7 +63,8 @@
 }
 
 .document p,
-.document tr {
+.document tr,
+.document :is(dd, li):not(:has(p, dd, li, tr)) {
   break-inside: avoid;
 }
 
@@ -76,7 +78,9 @@
 
 /* "Condensed" option: tighten the vertical spacing throughout for a more
    compact sheet. Applies to both the preview and the print output. */
-.document[data-condensed] section {
+/* Only the gaps between sections, and not with "Page per section", which
+   drops them altogether. */
+.document[data-condensed]:not([data-page-per-section]) .section:not(:last-of-type) {
   margin-bottom: var(--space-xs);
   padding-bottom: var(--space-xxs);
 }

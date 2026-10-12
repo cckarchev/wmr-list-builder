@@ -1,4 +1,5 @@
 import { countOf, formatPoints } from '@/core/lib/quantities';
+import { errorKey } from '@/core/validation/errorTargets';
 import { useArmyStore } from '@/store/useArmyStore';
 import { PrintHeading, PrintSection } from '../print-section/PrintSection';
 import styles from './Validation.module.css';
@@ -26,8 +27,8 @@ export const Validation = () => {
         {countOf(errors.length, 'issue')} at {points}:
       </p>
       <ul className={styles.issues}>
-        {errors.map(({ message }) => (
-          <li key={message}>{message}</li>
+        {errors.map((error) => (
+          <li key={errorKey(error)}>{error.message}</li>
         ))}
       </ul>
     </PrintSection>

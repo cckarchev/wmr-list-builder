@@ -1,25 +1,8 @@
 import { type RefCallback, useEffect, useState } from 'react';
 import { pageBreaks, type SheetBlock } from '@/core/print/pageBreaks';
+import { A4_PRINTABLE_HEIGHT_PX, isPaperWide } from '@/core/print/paper';
 
-const CSS_PX_PER_INCH = 96;
-const MM_PER_INCH = 25.4;
-
-// An A4 page less the top and bottom margins. Keep the margin in step with
-// --print-page-margin in tokens.css and the @page rule in global.css.
-const A4_HEIGHT_MM = 297;
-const PAGE_MARGIN_MM = 12;
-const MARGINS_PER_PAGE = 2;
-const PRINTABLE_HEIGHT_MM = A4_HEIGHT_MM - PAGE_MARGIN_MM * MARGINS_PER_PAGE;
-const PRINTABLE_HEIGHT_PX = (PRINTABLE_HEIGHT_MM * CSS_PX_PER_INCH) / MM_PER_INCH;
-
-/**
- * The preview is only as wide as the printed page from the tablet up (the
- * --tablet-up custom media). Narrower, the text wraps differently from paper,
- * so its heights say nothing about where the pages break.
- */
-const PAPER_SIZED_QUERY = '(min-width: 768px)';
-
-/** The pieces the printer keeps whole, and the headings it keeps with their body. */
+/** The pieces the printer keeps whole (see the break rules in PrintView.module.css), and the headings it keeps with their body. */
 const BLOCK_SELECTOR = 'h1, h3, dt, dd, p, li, tr';
 const KEEP_WITH_NEXT_SELECTOR = 'h1, h3, dt';
 const FORCED_BREAK = 'page';
@@ -75,44 +58,58 @@ interface PageBreaks<T extends HTMLElement> {
   ref: RefCallback<T>;
   /**
    * Where pages 2, 3, ... begin, in pixels from the top of the sheet's content,
-   * or null when the preview is too narrow to predict them.
+   * or null when the sheet is too narrow to predict them.
    */
   breaks: number[] | null;
 }
 
 /**
+ * Where the pages break, or null when the sheet is narrower than A4: its text
+ * then wraps more than on paper, so its heights say nothing about the pages.
+ * A sheet as wide as A4 only happens from the tablet up, where its padding is
+ * the page margin the breaks are measured from.
+ */
+const measureBreaks = (sheet: HTMLElement): number[] | null => {
+  const width = sheet.getBoundingClientRect().width;
+
+  if (!isPaperWide(width)) {
+    return null;
+  }
+
+  return pageBreaks(measureBlocks(sheet), A4_PRINTABLE_HEIGHT_PX);
+};
+
+/**
  * An estimate of where the printed A4 pages will break, from the on-screen
  * sheet's own layout. Re-measured whenever the sheet changes size, such as when
- * a section or option is toggled.
+ * a section or option is toggled, and whenever its sections are reordered,
+ * which moves them without changing the sheet's height.
  */
 export const usePageBreaks = <T extends HTMLElement>(): PageBreaks<T> => {
   const [sheet, setSheet] = useState<T | null>(null);
   const [breaks, setBreaks] = useState<number[] | null>(null);
 
   useEffect(() => {
-    if (!sheet || !window.matchMedia) {
+    if (!sheet) {
       return;
     }
 
-    const paperSized = window.matchMedia(PAPER_SIZED_QUERY);
-
     const update = () => {
-      const next = paperSized.matches
-        ? pageBreaks(measureBlocks(sheet), PRINTABLE_HEIGHT_PX)
-        : null;
+      const next = measureBreaks(sheet);
 
       setBreaks((current) => (sameBreaks(current, next) ? current : next));
     };
 
-    const observer = new ResizeObserver(update);
+    const resizes = new ResizeObserver(update);
+    const reorders = new MutationObserver(update);
 
     update();
-    observer.observe(sheet);
-    paperSized.addEventListener('change', update);
+    resizes.observe(sheet);
+    reorders.observe(sheet, { childList: true });
 
     return () => {
-      observer.disconnect();
-      paperSized.removeEventListener('change', update);
+      resizes.disconnect();
+      reorders.disconnect();
     };
   }, [sheet]);
 

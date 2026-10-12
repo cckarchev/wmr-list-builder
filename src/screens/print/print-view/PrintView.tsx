@@ -16,7 +16,7 @@ interface PrintViewProps {
   options: PrintOptions;
   /** Attached to the sheet, so its page breaks can be measured. */
   sheetRef?: Ref<HTMLElement>;
-  /** Predicted page starts, in pixels from the top of the sheet's content. */
+  /** Predicted page starts, in pixels from the top of the sheet's content, or null to draw none. */
   breaks?: number[] | null;
 }
 
@@ -48,11 +48,7 @@ export const PrintView = ({
   const visibleSections = sections.filter((section) => selectedIds.has(section.id));
 
   const usesColumns = (section: PrintSectionDef) => options.twoColumn && !section.singleColumn;
-
-  // On screen the columns balance over the whole section, while the printer
-  // fills them a page at a time, so a cut drawn across them would be wrong.
-  const drawsBreaks = !options.twoColumn;
-  const shownBreaks = drawsBreaks ? (breaks ?? []) : [];
+  const shownBreaks = breaks ?? [];
 
   return (
     <PrintOptionsContext.Provider value={options}>

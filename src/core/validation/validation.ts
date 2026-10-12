@@ -3,6 +3,7 @@ import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types
 import { formatPoints } from '@/core/lib/quantities';
 import { armySize } from '@/core/limits/armySize';
 import type { ValidationError } from '@/data/types';
+import { errorKey } from './errorTargets';
 import { namesOf } from './namesOf';
 import { itemErrors } from './rules/rules';
 import type { RequiredGroup, ValidatableItem } from './rules/types';
@@ -123,23 +124,14 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
 };
 
 /**
- * One error per message: every member of a homologous group reports the
- * group's shared limit, all in the same words, so their targets are merged.
+ * Each error once: every member of a homologous group reports the group's
+ * shared limit, in the same words and naming the same items in the same order.
+ * Unrelated items that only share a name keep their own errors.
  */
-const mergeRepeated = (errors: ValidationError[]): ValidationError[] => {
-  const byMessage = new Map<string, Set<string>>();
+const dropRepeated = (errors: ValidationError[]): ValidationError[] => {
+  const byKey = new Map(errors.map((error) => [errorKey(error), error]));
 
-  for (const { message, targets } of errors) {
-    const merged = byMessage.get(message) ?? new Set<string>();
-
-    for (const target of targets) {
-      merged.add(target);
-    }
-
-    byMessage.set(message, merged);
-  }
-
-  return Array.from(byMessage, ([message, targets]) => ({ targets: [...targets], message }));
+  return [...byKey.values()];
 };
 
 /**
@@ -160,5 +152,5 @@ export const validate = (
     checkItem(id, upgrade, pools, gameSize),
   );
 
-  return mergeRepeated([...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors]);
+  return dropRepeated([...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors]);
 };

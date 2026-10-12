@@ -42,7 +42,11 @@ export const Print = () => {
   const { orderedSections, moveSection } = useSectionOrder(sections);
   const { options, toggleOption } = useStoredPrintOptions();
   const { ref: sheetRef, breaks } = usePageBreaks<HTMLElement>();
-  const pageCount = breaks ? breaks.length + 1 : null;
+
+  // Two columns balance over a whole section on screen but fill a page at a
+  // time on paper, so the sheet's layout says nothing about the pages.
+  const shownBreaks = options.twoColumn ? null : breaks;
+  const pageCount = shownBreaks ? shownBreaks.length + 1 : null;
 
   if (!army) {
     return null;
@@ -67,7 +71,7 @@ export const Print = () => {
         selectedIds={selectedIds}
         options={options}
         sheetRef={sheetRef}
-        breaks={breaks}
+        breaks={shownBreaks}
       />
     </main>
   );

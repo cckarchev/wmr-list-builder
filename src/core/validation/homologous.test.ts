@@ -44,6 +44,19 @@ describe('homologous items report a shared limit once', () => {
     expect(errors).toEqual([{ targets: ['u1', 'u2'], message: 'Maximum of 1 U1 or U2 per army.' }]);
   });
 
+  it('keeps apart unrelated items that share a name and break the same rule', () => {
+    const units = {
+      a: unit({ name: 'Handgunners', armyMax: 1, number: 2 }),
+      b: unit({ name: 'Handgunners', armyMax: 1, number: 2 }),
+    };
+    const errors = validateNamed(units, {}, SMALLEST_GAME);
+
+    expect(errors).toEqual([
+      { targets: ['a'], message: 'Maximum of 1 Handgunners per army.' },
+      { targets: ['b'], message: 'Maximum of 1 Handgunners per army.' },
+    ]);
+  });
+
   it('reports the Chaos Dwarf artillery over its shared maximum once', () => {
     get().setArmy('chaos-dwarfs');
     get().setGameSize(DEFAULT_GAME_SIZE);
