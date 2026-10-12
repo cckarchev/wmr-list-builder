@@ -22,6 +22,23 @@ const PAPER_SIZED_QUERY = '(min-width: 768px)';
 /** The pieces the printer keeps whole, and the headings it keeps with their body. */
 const BLOCK_SELECTOR = 'h1, h3, dt, dd, p, li, tr';
 const KEEP_WITH_NEXT_SELECTOR = 'h1, h3, dt';
+const FORCED_BREAK = 'page';
+
+/**
+ * The sheet's children that must start a new page, such as each section with
+ * "Page per section", as empty blocks at their top edge. Their CSS break only
+ * applies in print, but its computed value is there to read on screen too.
+ */
+const forcedBreaks = (sheet: HTMLElement, contentTop: number): SheetBlock[] => {
+  const children = Array.from(sheet.children);
+  const forced = children.filter((child) => getComputedStyle(child).breakBefore === FORCED_BREAK);
+
+  return forced.map((child) => ({
+    top: child.getBoundingClientRect().top - contentTop,
+    height: 0,
+    breakBefore: true,
+  }));
+};
 
 /** Each innermost block on the sheet, measured from the top of its content box. */
 const measureBlocks = (sheet: HTMLElement): SheetBlock[] => {
@@ -32,7 +49,7 @@ const measureBlocks = (sheet: HTMLElement): SheetBlock[] => {
   const elements = Array.from(sheet.querySelectorAll<HTMLElement>(BLOCK_SELECTOR));
   const innermost = elements.filter((element) => !element.querySelector(BLOCK_SELECTOR));
 
-  return innermost.map((element) => {
+  const blocks = innermost.map((element) => {
     const box = element.getBoundingClientRect();
 
     return {
@@ -41,6 +58,8 @@ const measureBlocks = (sheet: HTMLElement): SheetBlock[] => {
       keepWithNext: element.matches(KEEP_WITH_NEXT_SELECTOR),
     };
   });
+
+  return [...blocks, ...forcedBreaks(sheet, contentTop)];
 };
 
 const sameBreaks = (a: number[] | null, b: number[] | null): boolean => {

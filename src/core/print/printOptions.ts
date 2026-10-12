@@ -9,6 +9,10 @@ export interface PrintOptions {
   hideTitle: boolean;
   /** Tighten the spacing (margins/line-height) for a more compact layout. */
   condensed: boolean;
+  /** Start every section on a new page instead of separating them with a rule. */
+  pagePerSection: boolean;
+  /** Set the sheet in a typeface with clearly distinct letters, easier to read for dyslexic readers. */
+  legibleFont: boolean;
 }
 
 export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
@@ -17,4 +21,6 @@ export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
   smallFont: false,
   hideTitle: false,
   condensed: false,
+  pagePerSection: false,
+  legibleFont: false,
 };

@@ -1,5 +1,6 @@
 import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
+import { Tooltip } from '@/components/tooltip/Tooltip';
 import { classNames } from '@/core/lib/classNames';
 import type { PrintOptions } from '@/core/print/printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
@@ -8,6 +9,9 @@ import { OptionGroup } from './option-group/OptionGroup';
 import styles from './PrintControls.module.css';
 
 const PRINT_ICON_SIZE = 18;
+
+const PAGE_COUNT_HINT =
+  'Estimated for A4 at 100% scale. Saving to PDF may break pages differently.';
 
 interface OptionToggle {
   key: keyof PrintOptions;
@@ -20,6 +24,8 @@ const OPTION_TOGGLES: OptionToggle[] = [
   { key: 'twoColumn', label: 'Two columns' },
   { key: 'condensed', label: 'Condensed' },
   { key: 'smallFont', label: 'Smaller font' },
+  { key: 'legibleFont', label: 'Legible font' },
+  { key: 'pagePerSection', label: 'Page per section' },
   { key: 'spellFluff', label: 'Spell fluff', needsMagic: true },
   { key: 'hideTitle', label: 'Hide list name' },
 ];
@@ -90,7 +96,9 @@ export const PrintControls = ({
         </Button>
 
         {pageCount !== null && (
-          <span className={styles.pageCount}>{pageCountLabel(pageCount)}</span>
+          <Tooltip label={PAGE_COUNT_HINT}>
+            <span className={styles.pageCount}>{pageCountLabel(pageCount)}</span>
+          </Tooltip>
         )}
       </div>
     </div>

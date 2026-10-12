@@ -4,6 +4,8 @@ export interface SheetBlock {
   height: number;
   /** A heading that must stay on the same page as the block after it. */
   keepWithNext?: boolean;
+  /** A page must start here, such as at each section with "Page per section". */
+  breakBefore?: boolean;
 }
 
 /**
@@ -11,7 +13,7 @@ export interface SheetBlock {
  * headings right above it move to the new page with it, as long as they do not
  * already start the current page.
  */
-const breakBefore = (blocks: SheetBlock[], index: number, pageStart: number): number => {
+const breakWithHeadings = (blocks: SheetBlock[], index: number, pageStart: number): number => {
   let start = blocks[index].top;
 
   for (let previous = index - 1; previous >= 0; previous--) {
@@ -30,8 +32,9 @@ const breakBefore = (blocks: SheetBlock[], index: number, pageStart: number): nu
 /**
  * The offsets at which pages 2, 3, ... begin, laying the blocks onto pages of
  * `pageHeight` the way the browser does when printing: a block that would cross
- * the page end moves to the next page, taking its heading along, and a block
- * taller than a whole page is cut at each page end.
+ * the page end moves to the next page, taking its heading along, a block
+ * taller than a whole page is cut at each page end, and a forced break always
+ * starts a new page.
  */
 export const pageBreaks = (blocks: SheetBlock[], pageHeight: number): number[] => {
   const ordered = [...blocks].sort((a, b) => a.top - b.top);
@@ -41,12 +44,17 @@ export const pageBreaks = (blocks: SheetBlock[], pageHeight: number): number[] =
   ordered.forEach((block, index) => {
     const bottom = block.top + block.height;
 
+    if (block.breakBefore && block.top > pageStart) {
+      pageStart = block.top;
+      breaks.push(pageStart);
+    }
+
     if (bottom - pageStart <= pageHeight) {
       return;
     }
 
     if (block.top > pageStart) {
-      pageStart = breakBefore(ordered, index, pageStart);
+      pageStart = breakWithHeadings(ordered, index, pageStart);
       breaks.push(pageStart);
     }
 

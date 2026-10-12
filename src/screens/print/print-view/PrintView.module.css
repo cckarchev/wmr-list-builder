@@ -105,6 +105,30 @@
   margin-bottom: var(--space-sm);
 }
 
+/* "Legible font" option: every face on the sheet, headings and figures
+   included, switches to the legible typeface. */
+.document[data-legible-font] {
+  --font-display: var(--font-legible);
+  --font-body: var(--font-legible);
+  --font-mono: var(--font-legible);
+
+  font-family: var(--font-body);
+}
+
+/* "Page per section" option: each section after the first starts a new page,
+   so the rule between sections has nothing left to separate. The forced break
+   only takes effect in print, but the preview reads it back to predict the
+   pages. */
+.document[data-page-per-section] .section {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.document[data-page-per-section] .section + .section {
+  break-before: page;
+}
+
 @media print {
   /* The page margin comes from @page, so the sheet itself drops its own. */
   .document {

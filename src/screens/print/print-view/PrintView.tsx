@@ -63,6 +63,8 @@ export const PrintView = ({
         aria-label="Print sheet"
         data-small-font={options.smallFont || undefined}
         data-condensed={options.condensed || undefined}
+        data-page-per-section={options.pagePerSection || undefined}
+        data-legible-font={options.legibleFont || undefined}
       >
         {title && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
         {visibleSections.map((section) => (

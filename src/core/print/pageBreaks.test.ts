@@ -77,3 +77,29 @@ describe('pageBreaks', () => {
     expect(pageBreaks(blocks, PAGE)).toEqual([crossing.top]);
   });
 });
+
+describe('pageBreaks with forced breaks', () => {
+  it('starts a new page where a block forces one, even with room left', () => {
+    const forced = { top: 300, height: 0, breakBefore: true };
+    const blocks = [{ top: 0, height: 300 }, forced, { top: 300, height: 200 }];
+
+    expect(pageBreaks(blocks, PAGE)).toEqual([forced.top]);
+  });
+
+  it('measures the rest of the sheet from a forced break', () => {
+    const forced = { top: 300, height: 0, breakBefore: true };
+    const crossing = { top: 900, height: 500 };
+    const blocks = [{ top: 0, height: 300 }, forced, { top: 300, height: 600 }, crossing];
+
+    expect(pageBreaks(blocks, PAGE)).toEqual([forced.top, crossing.top]);
+  });
+
+  it('ignores a forced break that already starts its page', () => {
+    const blocks = [
+      { top: 0, height: 0, breakBefore: true },
+      { top: 0, height: 300 },
+    ];
+
+    expect(pageBreaks(blocks, PAGE)).toEqual([]);
+  });
+});

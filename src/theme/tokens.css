@@ -104,6 +104,9 @@
   --font-display: 'Oswald', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* The print sheet's "Legible font" option: distinct letterforms (b/d, I/l/1,
+     O/0) for dyslexic and low-vision readers. */
+  --font-legible: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
 
   --font-weight-medium: 500;
   --font-weight-semibold: 600;

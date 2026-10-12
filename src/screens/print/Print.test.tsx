@@ -242,6 +242,28 @@ describe('print options', () => {
   });
 });
 
+describe('Print screen sheet options', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('marks the sheet for the legible font and page per section styles', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(printSheet()).not.toHaveAttribute('data-legible-font');
+    expect(printSheet()).not.toHaveAttribute('data-page-per-section');
+
+    await user.click(screen.getByRole('checkbox', { name: /legible font/i }));
+    await user.click(screen.getByRole('checkbox', { name: /page per section/i }));
+
+    expect(printSheet()).toHaveAttribute('data-legible-font');
+    expect(printSheet()).toHaveAttribute('data-page-per-section');
+  });
+});
+
 /** A matchMedia that answers every query with `matches`. */
 const stubMatchMedia = (matches: boolean) => {
   vi.stubGlobal('matchMedia', () => ({
