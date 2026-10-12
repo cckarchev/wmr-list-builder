@@ -34,7 +34,6 @@
   transition: opacity var(--duration-fast);
 }
 
-.wrap:hover .bubble,
-.wrap:focus-visible .bubble {
+.wrap[data-open='true'] .bubble {
   opacity: 1;
 }

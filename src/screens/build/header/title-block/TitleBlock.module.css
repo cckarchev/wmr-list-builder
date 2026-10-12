@@ -1,6 +1,9 @@
 .block {
   display: flex;
-  flex: 1;
+  /* Basis auto, not 0: the block claims its full name width, so a long army
+     name pushes the actions onto their own line instead of wrapping word by
+     word beside them. Alone on a line it can still shrink and wrap. */
+  flex: 1 1 auto;
   min-width: 0;
   flex-direction: column;
   gap: var(--space-xxs);

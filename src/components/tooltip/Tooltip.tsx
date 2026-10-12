@@ -1,26 +1,64 @@
-import { type ReactNode, useId } from 'react';
+import { type ReactNode, useId, useRef, useState } from 'react';
+import { useEscapeKey } from '@/hooks/useEscapeKey';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useViewportShift } from '@/hooks/useViewportShift';
 import styles from './Tooltip.module.css';
 
 interface TooltipProps {
-  /** The full text shown in the bubble on hover/focus. */
+  /** The full text shown in the bubble on hover, focus or tap. */
   label: string;
   /** The visible trigger (e.g. a terse badge). */
   children: ReactNode;
 }
 
 /**
- * Lightweight CSS-only tooltip: shows `label` in a bubble above `children` on
- * hover or keyboard focus. The bubble text is always in the DOM (so it's
- * available to assistive tech and tests) and merely revealed via opacity.
+ * Small tooltip: shows `label` in a bubble above `children` on hover, keyboard
+ * focus or a tap, since touch screens have no hover. The bubble text is always
+ * in the DOM (so it's available to assistive tech and tests) and merely
+ * revealed via opacity. It shifts sideways when the trigger sits too close to
+ * a screen edge for the bubble to fit.
  */
 export const Tooltip = ({ label, children }: TooltipProps) => {
   const bubbleId = useId();
+  const wrapRef = useRef<HTMLSpanElement>(null);
+  const bubbleRef = useRef<HTMLSpanElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const offsetX = useViewportShift(bubbleRef, isOpen);
+  const shiftStyle = { translate: `${offsetX}px 0` };
+
+  const open = () => {
+    setIsOpen(true);
+  };
+
+  const close = () => {
+    setIsOpen(false);
+  };
+
+  useEscapeKey(isOpen, close);
+  useOutsideClick(wrapRef, isOpen, close);
 
   return (
-    // biome-ignore lint/a11y/noNoninteractiveTabindex: keyboard users need focus to reveal the bubble.
-    <span className={styles.wrap} tabIndex={0} aria-describedby={bubbleId}>
+    // biome-ignore lint/a11y/noStaticElementInteractions: hover only reveals text already exposed through aria-describedby.
+    <span
+      className={styles.wrap}
+      ref={wrapRef}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: focus reveals the bubble, both from the keyboard and from a tap.
+      tabIndex={0}
+      aria-describedby={bubbleId}
+      data-open={isOpen}
+      onMouseEnter={open}
+      onMouseLeave={close}
+      onFocus={open}
+      onBlur={close}
+    >
       {children}
-      <span className={styles.bubble} id={bubbleId} role="tooltip">
+      <span
+        className={styles.bubble}
+        ref={bubbleRef}
+        id={bubbleId}
+        role="tooltip"
+        style={shiftStyle}
+      >
         {label}
       </span>
     </span>
