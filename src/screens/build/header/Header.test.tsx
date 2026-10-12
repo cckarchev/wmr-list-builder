@@ -24,7 +24,7 @@ describe('Header', () => {
 
   it('shows a break-point stat equal to ceil(units / 2)', () => {
     useArmyStore.getState().setArmy('goblin');
-    useArmyStore.getState().setUnitNumber('Goblins', GOBLIN_STANDS);
+    useArmyStore.getState().setUnitNumber('goblins', GOBLIN_STANDS);
     const expected = breakPoint(useArmyStore.getState().units);
 
     expect(expected).toBeGreaterThan(0);

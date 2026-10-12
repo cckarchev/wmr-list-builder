@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useArmyStore } from '@/store/useArmyStore';
 import { Print } from './Print';
@@ -12,6 +13,13 @@ const renderPrint = (path = '/print/goblin') =>
       </Routes>
     </MemoryRouter>,
   );
+
+const GOBLIN_SPELL_FLUFF = /summons the power of Mork/;
+
+const findTitle = () => screen.findByRole('heading', { level: 1, name: 'Goblin' });
+
+const printDocument = (container: HTMLElement): Element | null =>
+  container.querySelector('.print-document');
 
 describe('Print screen', () => {
   beforeEach(() => {
@@ -73,5 +81,102 @@ describe('Print screen', () => {
     await screen.findByRole('heading', { level: 1, name: 'Goblin' });
 
     expect(screen.queryByRole('checkbox', { name: /text list/i })).not.toBeInTheDocument();
+  });
+});
+
+describe('print sections', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+  });
+
+  it('leaves out a section when its checkbox is cleared', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+    const stats = screen.getByRole('checkbox', { name: /stats/i });
+
+    await user.click(stats);
+
+    expect(stats).not.toBeChecked();
+    expect(screen.queryByText('Character', { selector: 'th' })).not.toBeInTheDocument();
+
+    await user.click(stats);
+
+    expect(screen.getByText('Character', { selector: 'th' })).toBeInTheDocument();
+  });
+
+  it('selects every section again when the army changes', async () => {
+    const user = userEvent.setup();
+    const router = createMemoryRouter([{ path: '/print/:armyId', element: <Print /> }], {
+      initialEntries: ['/print/goblin'],
+    });
+    render(<RouterProvider router={router} />);
+    await findTitle();
+    await user.click(screen.getByRole('checkbox', { name: /stats/i }));
+
+    await act(() => router.navigate('/print/empire'));
+    await screen.findByRole('heading', { level: 1, name: 'Empire' });
+
+    expect(screen.getByRole('checkbox', { name: /stats/i })).toBeChecked();
+  });
+});
+
+describe('print options', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+  });
+
+  it('hides the title with Hide name', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /hide name/i }));
+
+    expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
+  });
+
+  it('shows each spell’s flavor line with Spell fluff', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(screen.queryByText(GOBLIN_SPELL_FLUFF)).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('checkbox', { name: /spell fluff/i }));
+
+    expect(screen.getByText(GOBLIN_SPELL_FLUFF)).toBeInTheDocument();
+  });
+
+  it('flows every section but the stats table into two columns', async () => {
+    const user = userEvent.setup();
+    const { container } = renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('checkbox', { name: /two columns/i }));
+
+    const sections = Array.from(container.querySelectorAll('section'));
+    const statsSection = sections.find((section) => section.querySelector('table'));
+    const otherSections = sections.filter((section) => section !== statsSection);
+
+    expect(statsSection).not.toHaveAttribute('data-columns');
+    expect(otherSections.length).toBeGreaterThan(0);
+
+    for (const section of otherSections) {
+      expect(section).toHaveAttribute('data-columns');
+    }
+  });
+
+  it('marks the sheet for the smaller font and condensed print styles', async () => {
+    const user = userEvent.setup();
+    const { container } = renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(printDocument(container)).not.toHaveClass('font-small', 'condensed');
+
+    await user.click(screen.getByRole('checkbox', { name: /smaller font/i }));
+    await user.click(screen.getByRole('checkbox', { name: /condensed/i }));
+
+    expect(printDocument(container)).toHaveClass('font-small', 'condensed');
   });
 });

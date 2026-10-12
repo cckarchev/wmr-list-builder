@@ -1,8 +1,9 @@
-import { screen } from '@testing-library/react';
+import { renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { saveNamedList } from '@/core/persistence/savedLists';
 import { useArmyStore } from '@/store/useArmyStore';
+import { useIsDirty } from '@/store/useIsDirty';
 import { markClean } from '@/test/markClean';
 import { renderWithProviders } from '@/test/renderWithProviders';
 import { LoadListButton } from './LoadListButton';
@@ -73,6 +74,36 @@ describe('LoadListButton', () => {
 
     expect(screen.queryByRole('button', { name: /^Saved C$/ })).not.toBeInTheDocument();
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
+  });
+});
+
+describe('LoadListButton replacing the current list', () => {
+  it('keeps the current list when replacing is cancelled', async () => {
+    const user = userEvent.setup();
+    const { gameSize } = useArmyStore.getState();
+    seed('Saved B', ODD_GAME);
+    useArmyStore.getState().setSavedBaseline(null); // dirty
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole('button', { name: /load/i }));
+    await user.click(screen.getByRole('button', { name: /^Saved B$/ }));
+    await user.click(screen.getByRole('button', { name: /^cancel$/i }));
+
+    expect(screen.queryByText(/unsaved changes/i)).not.toBeInTheDocument();
+    expect(useArmyStore.getState().gameSize).toBe(gameSize);
+  });
+
+  it('reads as saved right after loading, even when loading raised units to their minimums', async () => {
+    const user = userEvent.setup();
+    // The seeded list has no units, so loading it fills in the force minimums.
+    seed('Saved A', MID_GAME);
+    markClean();
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole('button', { name: /load/i }));
+    await user.click(screen.getByRole('button', { name: /^Saved A$/ }));
+
+    const { result } = renderHook(() => useIsDirty());
+
+    expect(result.current).toBe(false);
   });
 });
 

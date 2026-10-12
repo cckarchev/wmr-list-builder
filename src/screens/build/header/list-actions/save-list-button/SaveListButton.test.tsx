@@ -26,6 +26,28 @@ describe('SaveListButton', () => {
     expect(useArmyStore.getState().savedBaseline).not.toBeNull();
   });
 
+  it('starts the draft from the current list name', async () => {
+    const user = userEvent.setup();
+    useArmyStore.getState().setLabel('Current Name');
+    renderWithProviders(<SaveListButton />);
+    await user.click(screen.getByRole('button', { name: /save/i }));
+
+    expect(screen.getByLabelText(/list name/i)).toHaveValue('Current Name');
+  });
+
+  it('trims surrounding spaces from the saved name', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<SaveListButton />);
+    await user.click(screen.getByRole('button', { name: /save/i }));
+    const input = screen.getByLabelText(/list name/i);
+    await user.clear(input);
+    await user.type(input, '  Spaced Out  ');
+    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+
+    expect(listSavedNames('bretonnia')).toEqual(['Spaced Out']);
+    expect(useArmyStore.getState().label).toBe('Spaced Out');
+  });
+
   it('blocks saving an empty name', async () => {
     const user = userEvent.setup();
     renderWithProviders(<SaveListButton />);

@@ -277,3 +277,70 @@ describe('persistence', () => {
     expect(screen.getByTestId('points-total').textContent).toBe(afterAdd);
   });
 });
+
+describe('roster groups', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('hides a group’s units when its header is collapsed', async () => {
+    const user = userEvent.setup();
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    const cavalryHeader = within(roster).getByRole('button', { name: 'Cavalry', expanded: true });
+
+    await user.click(cavalryHeader);
+
+    expect(cavalryHeader).toHaveAttribute('aria-expanded', 'false');
+    expect(within(roster).queryByText('Wolf Riders')).not.toBeInTheDocument();
+
+    await user.click(cavalryHeader);
+
+    expect(within(roster).getByText('Wolf Riders')).toBeInTheDocument();
+  });
+
+  it('expands a collapsed group when filtering to its type', async () => {
+    const user = userEvent.setup();
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    const roster = screen.getByRole('region', { name: 'Roster' });
+    await user.click(within(roster).getByRole('button', { name: 'Cavalry', expanded: true }));
+    await user.click(within(roster).getByRole('button', { name: /filters/i }));
+    await user.click(within(roster).getByRole('button', { name: 'Cavalry', pressed: false }));
+
+    expect(
+      within(roster).getByRole('button', { name: 'Cavalry', expanded: true }),
+    ).toBeInTheDocument();
+    expect(within(roster).getByText('Wolf Riders')).toBeInTheDocument();
+  });
+});
+
+describe('returning to the loaded army', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('keeps the current list instead of reloading the saved one', async () => {
+    const user = userEvent.setup();
+    const first = renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    await user.click(screen.getAllByRole('button', { name: /increase Goblins/i })[0]);
+    const current = screen.getByTestId('points-total').textContent;
+
+    first.unmount();
+    // A different list in storage must not replace the one still in the store,
+    // as when coming back from the Print screen.
+    saveList('goblin', { name: '', gameSize: 2000, units: { goblins: 20 }, upgrades: {} });
+
+    renderBuild('/build/goblin');
+    await screen.findByText('Goblin');
+
+    expect(screen.getByTestId('points-total').textContent).toBe(current);
+  });
+});

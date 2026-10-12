@@ -9,7 +9,6 @@ const mockWriteText = vi.fn().mockResolvedValue(undefined);
 
 beforeEach(() => {
   useArmyStore.getState().reset();
-  mockWriteText.mockClear();
   Object.defineProperty(navigator, 'clipboard', {
     value: { writeText: mockWriteText },
     configurable: true,
@@ -27,7 +26,7 @@ describe('CopyListButton', () => {
       writable: true,
     });
     useArmyStore.getState().setArmy('goblin');
-    useArmyStore.getState().setUnitNumber('Goblins', 2);
+    useArmyStore.getState().setUnitNumber('goblins', 2);
 
     renderWithProviders(<CopyListButton />);
 
@@ -43,7 +42,7 @@ describe('CopyListButton', () => {
   it('shows "Copied!" after clicking', async () => {
     const user = userEvent.setup();
     useArmyStore.getState().setArmy('goblin');
-    useArmyStore.getState().setUnitNumber('Goblins', 1);
+    useArmyStore.getState().setUnitNumber('goblins', 1);
 
     renderWithProviders(<CopyListButton />);
 
