@@ -23,32 +23,13 @@
   gap: var(--space-sm);
 }
 
-/* Own column on the right: a tall tile with the icon over the label, centered
-   vertically against the stacked toggle groups. */
-.printButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xxs);
+/* Own column on the right: the primary Button as a tall tile, icon over the
+   label, centered vertically against the stacked toggle groups. Scoped under
+   .controls so the layout wins over the Button's own rule whatever order the
+   two stylesheets load in. */
+.controls .printButton {
   flex: none;
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
+  flex-direction: column;
+  gap: var(--space-xxs);
   padding: var(--space-xs) var(--space-md);
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.printButton:hover {
-  opacity: var(--opacity-hover);
-}
-
-.printButton:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-ring-offset);
 }

@@ -9,7 +9,7 @@
   left: 0;
   z-index: var(--z-popup);
   width: max-content;
-  max-width: min(320px, 80vw);
+  max-width: min(var(--popup-width), 80vw);
   max-height: 60vh;
   overflow-y: auto;
   padding: var(--space-sm);
@@ -22,5 +22,5 @@
 
 /* Wider panel for prose-heavy content, such as special-rule text. */
 .panel[data-wide] {
-  max-width: min(520px, 92vw);
+  max-width: min(var(--popup-width-wide), 92vw);
 }

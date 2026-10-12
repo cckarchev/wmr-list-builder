@@ -3,7 +3,7 @@
   top: calc(100% + var(--space-xxs));
   right: 0;
   z-index: var(--z-popup);
-  width: 280px;
+  width: var(--popup-width);
   max-width: calc(100vw - var(--space-md));
   max-height: 60vh;
   overflow-y: auto;
@@ -14,11 +14,6 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
   text-align: left;
-}
-
-/* Slightly wider panel for content with long rows, such as saved lists. */
-.panel[data-wide] {
-  width: 300px;
 }
 
 .heading {

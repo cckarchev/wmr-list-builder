@@ -17,7 +17,6 @@ interface PanelActionProps {
   title: string;
   /** Visible title at the top of the panel. */
   heading: string;
-  wide?: boolean;
   disabled: boolean;
   /** Confirm dialogs, kept inside the anchor so clicks in them don't count as outside. */
   dialogs: ReactNode;
@@ -33,7 +32,6 @@ export const PanelAction = ({
   label,
   title,
   heading,
-  wide = false,
   disabled,
   dialogs,
   children,
@@ -66,7 +64,7 @@ export const PanelAction = ({
         {label}
       </Button>
       {open && (
-        <ActionPanel label={title} heading={heading} wide={wide}>
+        <ActionPanel label={title} heading={heading}>
           {children}
         </ActionPanel>
       )}

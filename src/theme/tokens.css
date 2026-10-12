@@ -110,6 +110,11 @@
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
 
+  /* Popup widths: the default for action panels and popovers, and the wide
+     variant for prose-heavy popovers such as special-rule text. */
+  --popup-width: 320px;
+  --popup-width-wide: 520px;
+
   /* Stacking layers, lowest first. Sticky bars sit above popups so an open
      popup scrolls under them, and the modal dialog sits above everything. */
   --z-popup: 30;

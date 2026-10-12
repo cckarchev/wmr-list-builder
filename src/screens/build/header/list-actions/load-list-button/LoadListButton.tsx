@@ -39,7 +39,6 @@ export const LoadListButton = () => {
       label="Load"
       title="Load list"
       heading="Saved lists"
-      wide
       disabled={!lists.canLoad}
       dialogs={confirmDialogs}
     >

@@ -1,3 +1,4 @@
+import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { classNames } from '@/core/lib/classNames';
 import type { PrintOptions } from '../printOptions';
@@ -73,10 +74,10 @@ export const PrintControls = ({
         </OptionGroup>
       </div>
 
-      <button className={styles.printButton} type="button" onClick={printPage}>
+      <Button className={styles.printButton} type="button" onClick={printPage}>
         <Icon name="print" size={PRINT_ICON_SIZE} />
         Print
-      </button>
+      </Button>
     </div>
   );
 };
