@@ -10,11 +10,15 @@ interface MaxedUpgradeInput {
   upgradeId: string;
 }
 
+/** A unit takes at most one of any upgrade per stand. */
+const STAND_LIMIT_HINT = 'Max 1 per stand';
+
 /**
- * Why a unit can't take more of an upgrade, for the spent stepper: who has it
- * when the army-wide allowance ran out, such as a magic item another unit
- * already carries, or else that the unit has no room left for its kind.
- * Undefined when neither applies.
+ * Why a unit can't take more of an upgrade, for the spent stepper, checking
+ * each limit from the most specific: who has it when other units spent the
+ * army-wide allowance, that the unit has no room left for its kind, that the
+ * unit holds the whole army-wide allowance itself, or that it has one per
+ * stand. Undefined while the unit can still take more.
  */
 export const maxedUpgradeHint = ({
   units,
@@ -24,9 +28,10 @@ export const maxedUpgradeHint = ({
 }: MaxedUpgradeInput): string | undefined => {
   const unit = units[unitId];
   const upgrade = upgrades[upgradeId];
+  const taken = unit.upgrades?.[upgradeId]?.number ?? 0;
 
   const allowanceLeft = armyAllowanceLeft({
-    taken: unit.upgrades?.[upgradeId]?.number ?? 0,
+    taken,
     armyTotal: upgrade.number,
     armyMax: upgrade.armyMax,
   });
@@ -37,5 +42,28 @@ export const maxedUpgradeHint = ({
     return takenByHint(units, upgradeId, unitId);
   }
 
-  return kindFullHint({ carried: unit.upgrades, upgrades, upgradeId, stands: unit.number });
+  const kindFull = kindFullHint({
+    carried: unit.upgrades,
+    upgrades,
+    upgradeId,
+    stands: unit.number,
+  });
+
+  if (kindFull !== undefined) {
+    return kindFull;
+  }
+
+  const armyLimitReached = allowanceLeft !== undefined && taken >= allowanceLeft;
+
+  if (armyLimitReached) {
+    return `Max ${upgrade.armyMax} per army`;
+  }
+
+  const standLimitReached = taken >= unit.number;
+
+  if (standLimitReached) {
+    return STAND_LIMIT_HINT;
+  }
+
+  return undefined;
 };

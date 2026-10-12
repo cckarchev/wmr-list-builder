@@ -10,6 +10,11 @@ interface TooltipProps {
   label: string;
   /** The visible trigger (e.g. a terse badge). */
   children: ReactNode;
+  /**
+   * The bubble's id, when a control inside the trigger should point at the
+   * bubble too, such as a disabled button described by why it is disabled.
+   */
+  id?: string;
 }
 
 /**
@@ -20,8 +25,9 @@ interface TooltipProps {
  * a screen edge for the bubble to fit, and opens below when there is no room
  * above.
  */
-export const Tooltip = ({ label, children }: TooltipProps) => {
-  const bubbleId = useId();
+export const Tooltip = ({ label, children, id }: TooltipProps) => {
+  const ownId = useId();
+  const bubbleId = id ?? ownId;
   const wrapRef = useRef<HTMLSpanElement>(null);
   const bubbleRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useState(false);
