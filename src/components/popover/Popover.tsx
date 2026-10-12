@@ -7,6 +7,8 @@ import { useViewportShift } from './useViewportShift';
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
   label: string;
+  /** Visible title in the bar at the top of the panel. */
+  heading: string;
   /** Visible content of the trigger button. */
   trigger: ReactNode;
   /** Widen the panel for prose-heavy content (e.g. special-rule text). */
@@ -15,7 +17,7 @@ interface PopoverProps {
   children: ReactNode;
 }
 
-export const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
+export const Popover = ({ label, heading, trigger, wide = false, children }: PopoverProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
@@ -51,7 +53,8 @@ export const Popover = ({ label, trigger, wide = false, children }: PopoverProps
           data-wide={wide || undefined}
           style={{ left: offsetX }}
         >
-          {children}
+          <p className={styles.heading}>{heading}</p>
+          <div className={styles.body}>{children}</div>
         </div>
       )}
     </div>

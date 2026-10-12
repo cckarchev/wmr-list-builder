@@ -31,6 +31,7 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
   return (
     <Popover
       label="Spells"
+      heading={`${unit.name} · Spells`}
       trigger={
         <>
           <Icon name="magic" size={INLINE_ICON_SIZE} />

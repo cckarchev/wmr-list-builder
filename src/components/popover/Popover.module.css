@@ -9,10 +9,9 @@
   left: 0;
   z-index: var(--z-popup);
   width: max-content;
-  max-width: min(var(--popup-width), 80vw);
+  max-width: min(var(--popup-width), var(--popup-max-width));
   max-height: var(--popup-max-height);
   overflow-y: auto;
-  padding: var(--space-sm);
   background: var(--color-bg-surface);
   border: var(--border-default);
   border-radius: var(--radius);
@@ -22,5 +21,13 @@
 
 /* Wider panel for prose-heavy content, such as special-rule text. */
 .panel[data-wide] {
-  max-width: min(var(--popup-width-wide), 92vw);
+  max-width: min(var(--popup-width-wide), var(--popup-max-width));
+}
+
+.heading {
+  composes: heading from '@/theme/popup.module.css';
+}
+
+.body {
+  padding: var(--popup-padding);
 }

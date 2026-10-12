@@ -152,8 +152,14 @@
   --popup-width-narrow: 220px;
   --popup-width: 320px;
   --popup-width-wide: 520px;
+  /* Widest any popup gets on a small screen: the viewport less a space-xs
+     margin on each side, the same margin useViewportShift keeps. */
+  --popup-max-width: calc(100vw - 2 * var(--space-xs));
   /* Tallest a popup grows before its content scrolls. */
   --popup-max-height: 60vh;
+  /* Inner padding shared by every popup: popovers, action panels and the
+     confirm dialog, for both the title bar and the body. */
+  --popup-padding: var(--space-md);
 
   /* Vertical padding of printed table cells, tighter than the space scale so
      the wide stat table fits on the page. */

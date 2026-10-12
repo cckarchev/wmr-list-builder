@@ -6,7 +6,7 @@ import { Popover } from './Popover';
 const setup = () =>
   render(
     <div>
-      <Popover label="Goblins special rules" trigger="Rules">
+      <Popover label="Goblins special rules" heading="Goblins · Rules" trigger="Rules">
         <p>Goblins are cowardly.</p>
       </Popover>
       <button type="button">outside</button>
@@ -31,6 +31,7 @@ describe('Popover', () => {
     await user.click(screen.getByRole('button', { name: 'Goblins special rules' }));
 
     expect(screen.getByRole('dialog', { name: 'Goblins special rules' })).toBeInTheDocument();
+    expect(screen.getByText('Goblins · Rules')).toBeInTheDocument();
     expect(screen.getByText('Goblins are cowardly.')).toBeInTheDocument();
   });
 

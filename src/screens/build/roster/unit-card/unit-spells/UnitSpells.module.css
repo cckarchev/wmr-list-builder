@@ -67,7 +67,7 @@
 .effect {
   padding: 0 var(--space-xs) var(--space-xs);
   font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-body);
   line-height: var(--leading-body);
 }

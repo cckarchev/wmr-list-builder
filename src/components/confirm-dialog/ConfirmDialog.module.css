@@ -5,7 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-md);
+  /* The same side margin as every other popup on a small screen. */
+  padding: var(--space-xs);
   background: var(--color-bg-scrim);
 }
 
@@ -20,15 +21,12 @@
 }
 
 .title {
-  composes: eyebrow from '@/theme/typography.module.css';
-  margin: 0;
-  padding: var(--space-sm) var(--space-md) var(--space-xs);
-  border-bottom: var(--border-divider);
+  composes: heading from '@/theme/popup.module.css';
 }
 
 .message {
   margin: 0;
-  padding: var(--space-md);
+  padding: var(--popup-padding);
   font-size: var(--font-size-sm);
   color: var(--color-text-body);
 }
@@ -37,5 +35,5 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-xs);
-  padding: 0 var(--space-md) var(--space-md);
+  padding: 0 var(--popup-padding) var(--popup-padding);
 }

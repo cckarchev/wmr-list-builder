@@ -4,7 +4,7 @@
   right: 0;
   z-index: var(--z-popup);
   width: var(--popup-width);
-  max-width: calc(100vw - var(--space-md));
+  max-width: var(--popup-max-width);
   max-height: var(--popup-max-height);
   overflow-y: auto;
   display: flex;
@@ -22,8 +22,5 @@
 }
 
 .heading {
-  composes: eyebrow from '@/theme/typography.module.css';
-  margin: 0;
-  padding: var(--space-sm) var(--space-sm) var(--space-xs);
-  border-bottom: var(--border-divider);
+  composes: heading from '@/theme/popup.module.css';
 }

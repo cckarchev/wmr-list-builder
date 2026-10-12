@@ -62,6 +62,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
         {rules.length > 0 && (
           <Popover
             label={`${upgrade.name} special rules`}
+            heading={`${upgrade.name} · Rules`}
             trigger={<Icon name="rules" size={INLINE_ICON_SIZE} />}
             wide
           >
