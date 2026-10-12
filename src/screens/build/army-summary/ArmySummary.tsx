@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { breakPoint, groupRosterUnits, pointsCost, unitCount } from '@/core/selectors';
 import { useArmyStore } from '@/store/useArmyStore';
-import { scrollToUnit } from '../shared/scrollToUnit';
 import styles from './ArmySummary.module.css';
+import { SummaryRow } from './summary-row/SummaryRow';
 
 export const ArmySummary = () => {
   const units = useArmyStore((s) => s.units);
@@ -33,36 +33,7 @@ export const ArmySummary = () => {
         {selected.length === 0 ? (
           <p className={styles.empty}>No units selected yet.</p>
         ) : (
-          selected.map((id) => {
-            const chosenUpgrades = Object.entries(units[id].upgrades ?? {}).filter(
-              ([, u]) => u.number > 0,
-            );
-
-            return (
-              <button
-                className={styles.row}
-                key={id}
-                type="button"
-                onClick={() => scrollToUnit(id)}
-              >
-                <span className={styles.rowTop}>
-                  <span>{units[id].name}</span>
-                  <span className={styles.qty}>×{units[id].number}</span>
-                  <span className={styles.pts}>{units[id].pointsCost} pts</span>
-                </span>
-                {chosenUpgrades.length > 0 && (
-                  <span className={styles.upgrades}>
-                    {chosenUpgrades.map(([upgradeId, u]) => (
-                      <span className={styles.upgrade} key={upgradeId}>
-                        <span>{upgrades[upgradeId].name}</span>
-                        {u.number > 1 && <span className={styles.upgradeQty}>×{u.number}</span>}
-                      </span>
-                    ))}
-                  </span>
-                )}
-              </button>
-            );
-          })
+          selected.map((id) => <SummaryRow key={id} id={id} unit={units[id]} upgrades={upgrades} />)
         )}
         <div className={styles.total} data-over={over || undefined}>
           <span>
