@@ -3,7 +3,7 @@ import { minMaxBadge } from './minMaxBadge';
 import type { MinMaxSource } from './minMaxInfo';
 
 export interface MinMaxHint {
-  /** Terse form shown on the row, such as "2–12". */
+  /** Terse form shown on the row, such as "2-12". */
   badge: string;
   /** Full rule shown in the tooltip. */
   rule: string;

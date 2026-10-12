@@ -10,7 +10,7 @@ describe('minMaxBadge', () => {
 
   describe('numeric per-1,000-points constraints (resolved to the game size)', () => {
     it('shows a range for min + max', () => {
-      expect(minMaxBadge({ min: 1, max: 6 }, DEFAULT_GAME_SIZE)).toBe('2–12');
+      expect(minMaxBadge({ min: 1, max: 6 }, DEFAULT_GAME_SIZE)).toBe('2-12');
     });
 
     it('shows max for a max-only constraint', () => {
@@ -22,7 +22,7 @@ describe('minMaxBadge', () => {
     });
 
     it('scales against the game size', () => {
-      expect(minMaxBadge({ min: 1, max: 6 }, SMALLEST_GAME)).toBe('1–6');
+      expect(minMaxBadge({ min: 1, max: 6 }, SMALLEST_GAME)).toBe('1-6');
     });
   });
 
@@ -32,7 +32,7 @@ describe('minMaxBadge', () => {
     });
 
     it('shows a range for differing armyMin/armyMax', () => {
-      expect(minMaxBadge({ armyMin: 1, armyMax: 2 }, DEFAULT_GAME_SIZE)).toBe('1–2');
+      expect(minMaxBadge({ armyMin: 1, armyMax: 2 }, DEFAULT_GAME_SIZE)).toBe('1-2');
     });
 
     it('shows max for an armyMax-only constraint', () => {

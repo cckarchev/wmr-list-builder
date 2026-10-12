@@ -34,7 +34,7 @@ export const StatLine = ({
   // Characters and troops carry disjoint stat sets, so each shows only its own.
   // Characters: Att / Cmd / Size / Pts (no character has Range/Hits/Armour).
   // Troops: Att / Range / Hits / Armour / Size / Pts (no Cmd). Absent stats
-  // within a set still render as "–" so the columns line up across units.
+  // within a set still render as "-" so the columns line up across units.
   cells.push({ label: 'Att', value: formatStat(attack) });
 
   if (character) {

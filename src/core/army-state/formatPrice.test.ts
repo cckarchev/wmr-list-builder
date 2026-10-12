@@ -13,6 +13,6 @@ describe('formatPrice', () => {
   });
 
   it('shows a dash when there is no price at all', () => {
-    expect(formatPrice(undefined, false)).toBe('–');
+    expect(formatPrice(undefined, false)).toBe('-');
   });
 });
