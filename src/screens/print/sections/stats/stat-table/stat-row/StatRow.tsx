@@ -10,6 +10,13 @@ export type StatKind = 'character' | 'unit';
 
 type StatTroop = UsedUnit | UpgradeState;
 
+/** The fields a row shows. Only units carry armour and command, so those stay optional. */
+type RowStats = Pick<
+  UnitState,
+  'number' | 'name' | 'type' | 'attack' | 'range' | 'hits' | 'size' | 'specialRules'
+> &
+  Partial<Pick<UnitState, 'armour' | 'command'>>;
+
 interface StatRowProps {
   /** The troop's id, which also keys its own special rule. */
   id: string;
@@ -22,7 +29,7 @@ interface StatRowProps {
 
 /** One table row: a unit, or one of its upgrades indented under it. */
 export const StatRow = ({ id, troop, kind, rules, parentUnit }: StatRowProps) => {
-  const stats = troop as UnitState & UpgradeState;
+  const stats: RowStats = troop;
   const isUpgrade = parentUnit !== undefined;
   const isUnitTable = kind === 'unit';
   const markers = specialRuleMarkers([id, ...(stats.specialRules ?? [])], rules);
