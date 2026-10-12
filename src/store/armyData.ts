@@ -44,7 +44,7 @@ export const emptyData = (): ArmyData => ({
 });
 
 /**
- * Port of `initializeState` (actions.js 342-396) for the Revolution-only data
+ * Port of `initializeState` (actions.js) for the Revolution-only data
  * layer. Builds the full state object for an army id.
  */
 export const initializeState = (id: string): ArmyData => {

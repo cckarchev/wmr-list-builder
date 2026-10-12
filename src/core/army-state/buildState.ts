@@ -4,8 +4,8 @@ import { NO_STAT, type UnitState, type UnitUpgradeEntry, type UpgradeState } fro
 /**
  * Build the global upgrades map from army upgrades plus (when present)
  * magic-item upgrades, attaching the live `number` field.
- * Port of `SET_UPGRADES` (mutations.js 135-144) combined with the
- * `Object.assign` merge from `initializeState` (actions.js 375).
+ * Port of `SET_UPGRADES` (mutations.js) combined with the
+ * `Object.assign` merge from `initializeState` (actions.js).
  */
 export const buildUpgrades = (
   armyUpgrades: Record<string, Upgrade> | undefined,
@@ -47,7 +47,7 @@ export const constraintApplies = (unit: Unit, constraint: UpgradeConstraint): bo
 
 /**
  * Build the runtime units map from the army units plus the upgrade
- * constraints. Port of `SET_UNITS` (mutations.js 89-128) including the
+ * constraints. Port of `SET_UNITS` (mutations.js) including the
  * upgradeConstraints auto-attach logic.
  */
 export const buildUnits = (

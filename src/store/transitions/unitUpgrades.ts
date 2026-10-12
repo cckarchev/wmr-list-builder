@@ -29,7 +29,7 @@ const syncAddOns = (upgrade: UpgradeState, unitUpgrades: UnitUpgrades, number: n
 };
 
 /**
- * Shared core of `setUnitUpgradeNumber` (actions.js 127-172). Mutates the
+ * Shared core of `setUnitUpgradeNumber` (actions.js). Mutates the
  * provided `unitUpgrades` map and the `upgrades` map (global totals) in place:
  * clamps `number` to [0, unit.number], syncs the add-on upgrades, moves the
  * global total by the delta and prices the unit's entry. The caller recomputes

@@ -47,7 +47,7 @@ const requiredGroup = (
 };
 
 /**
- * Port of `checkValidations` (actions.js 194-340): the errors for one item (a
+ * Port of `checkValidations` (actions.js): the errors for one item (a
  * unit or an upgrade), attributed to it and to its homologous items.
  */
 const checkItem = (
@@ -90,7 +90,7 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
 };
 
 /**
- * Pure port of the Vue `validate` action (actions.js 173-183): checks every
+ * Pure port of the Vue `validate` action (actions.js): checks every
  * unit then every upgrade and returns the accumulated errors, headed by the
  * points-cap error when the list is over.
  */

@@ -20,7 +20,7 @@ import { magicItemCap, mountCap, unitUpgradeCap } from './upgradeCaps';
 
 /**
  * Every rule, in the order their errors are reported. Faithful port of
- * `checkValidations` (actions.js 194-340). The min rules (and likewise the max
+ * `checkValidations` (actions.js). The min rules (and likewise the max
  * rules) each require a different `min` (`max`) value, so at most one of them
  * can fire per item, matching the original else-if chains.
  */

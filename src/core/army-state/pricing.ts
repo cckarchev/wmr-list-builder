@@ -2,7 +2,7 @@ import type { StatValue } from '@/data/types';
 import { NO_STAT, type UnitState, type UpgradeState } from './types';
 
 /**
- * Port of `SET_UNIT_POINTS_COST` (mutations.js 63-74):
+ * Port of `SET_UNIT_POINTS_COST` (mutations.js):
  * unit.number * +unit.points + Σ(its upgrades' pointsCost).
  */
 export const unitPointsCost = (unit: UnitState): number => {
@@ -57,7 +57,7 @@ export const resolveUpgradePoints = (
 
 /**
  * Port of the points calculation in `SET_UNIT_UPGRADE_NUMBER_AND_POINTS_COST`
- * (mutations.js 83-87), including variable pricing via `pointsValue`.
+ * (mutations.js), including variable pricing via `pointsValue`.
  */
 export const unitUpgradePointsCost = (
   upgrade: UpgradeState,
