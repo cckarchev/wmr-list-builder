@@ -34,6 +34,11 @@
   transition: opacity var(--duration-fast);
 }
 
+.wrap[data-placement='below'] .bubble {
+  top: calc(100% + var(--space-xxs));
+  bottom: auto;
+}
+
 .wrap[data-open='true'] .bubble {
   opacity: 1;
 }

@@ -29,18 +29,19 @@ export const Build = () => {
     return null;
   }
 
-  // Parks the desktop summary rail just below the sticky header.
-  const summaryOffset = { '--header-height': `${headerHeight}px` } as CSSProperties;
+  // Parks the desktop summary rail just below the sticky header, and tells
+  // tooltips how much of the top of the screen the header covers.
+  const headerOffset = { '--header-height': `${headerHeight}px` } as CSSProperties;
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} style={headerOffset}>
       <Header ref={headerRef} />
       <div className={styles.summaryMobile}>
         <ArmySummary />
       </div>
       <div className={styles.grid}>
         <Roster />
-        <div className={styles.summaryDesktop} style={summaryOffset}>
+        <div className={styles.summaryDesktop}>
           <ArmySummary />
         </div>
       </div>

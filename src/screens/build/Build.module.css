@@ -43,7 +43,7 @@
   }
 }
 
-/* --header-height is set inline from the measured sticky Header. */
+/* --header-height is set inline on the page from the measured sticky Header. */
 .summaryDesktop {
   display: none;
 }

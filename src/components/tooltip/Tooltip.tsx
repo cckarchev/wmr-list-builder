@@ -3,6 +3,7 @@ import { useEscapeKey } from '@/hooks/useEscapeKey';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useViewportShift } from '@/hooks/useViewportShift';
 import styles from './Tooltip.module.css';
+import { useTooltipPlacement } from './useTooltipPlacement';
 
 interface TooltipProps {
   /** The full text shown in the bubble on hover, focus or tap. */
@@ -16,7 +17,8 @@ interface TooltipProps {
  * focus or a tap, since touch screens have no hover. The bubble text is always
  * in the DOM (so it's available to assistive tech and tests) and merely
  * revealed via opacity. It shifts sideways when the trigger sits too close to
- * a screen edge for the bubble to fit.
+ * a screen edge for the bubble to fit, and opens below when there is no room
+ * above.
  */
 export const Tooltip = ({ label, children }: TooltipProps) => {
   const bubbleId = useId();
@@ -24,6 +26,7 @@ export const Tooltip = ({ label, children }: TooltipProps) => {
   const bubbleRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const offsetX = useViewportShift(bubbleRef, isOpen);
+  const placement = useTooltipPlacement(wrapRef, bubbleRef, isOpen);
   const shiftStyle = { translate: `${offsetX}px 0` };
 
   const open = () => {
@@ -46,6 +49,7 @@ export const Tooltip = ({ label, children }: TooltipProps) => {
       tabIndex={0}
       aria-describedby={bubbleId}
       data-open={isOpen}
+      data-placement={placement}
       onMouseEnter={open}
       onMouseLeave={close}
       onFocus={open}
