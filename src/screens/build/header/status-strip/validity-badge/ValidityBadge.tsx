@@ -15,7 +15,7 @@ export const ValidityBadge = () => {
     );
   }
 
-  // Jump to the first invalid unit shown in "Your Army" (a used unit).
+  // Jump to the first invalid unit shown in "Army Composition" (a used unit).
   const isUsed = (unitId: string) => units[unitId]?.number > 0;
   const firstTarget = errors.flatMap((error) => error.targets).find(isUsed);
   const plural = errors.length === 1 ? '' : 's';
