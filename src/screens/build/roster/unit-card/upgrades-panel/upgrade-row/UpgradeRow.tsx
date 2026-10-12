@@ -2,12 +2,13 @@ import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
+import { formatPrice } from '@/core/army-state/formatPrice';
 import { resolveUpgradePoints } from '@/core/army-state/pricing';
 import { explainMinMax } from '@/core/limits/min-max/explainMinMax';
 import { minMaxBadge } from '@/core/limits/min-max/minMaxBadge';
+import { upgradeMaxCount } from '@/core/limits/upgradeMaxCount';
 import { errorsForTarget } from '@/core/selectors';
 import { resolveUpgradeRules } from '@/core/special-rules/upgradeRules';
-import type { StatValue } from '@/data/types';
 import { useArmyStore } from '@/store/useArmyStore';
 import { InlineErrors } from '../../shared/inline-errors/InlineErrors';
 import { RuleList } from '../../shared/rule-list/RuleList';
@@ -17,22 +18,6 @@ interface UpgradeRowProps {
   unitId: string;
   upgradeId: string;
 }
-
-/** Shown when an upgrade has no price at all. */
-const NO_PRICE = '–';
-
-/** Variable pricing that cannot be resolved for this unit shows as "?pts". */
-const formatPrice = (price: StatValue | undefined, hasVariablePrice: boolean): string => {
-  if (price !== undefined) {
-    return `${price}pts`;
-  }
-
-  if (hasVariablePrice) {
-    return '?pts';
-  }
-
-  return NO_PRICE;
-};
 
 export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const unit = useArmyStore((s) => s.units[unitId]);
@@ -52,19 +37,12 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
   const unitUpgrade = unit.upgrades?.[upgradeId];
   const count = unitUpgrade?.number ?? 0;
 
-  // A unit can't take more of an upgrade than it has stands. On top of that,
-  // upgrades with an army-wide cap (`armyMax`, e.g. Magic Standards = 1 per
-  // army) are hard-limited by how much of that allowance is still unspent
-  // elsewhere. `upgrade.number` is the army-wide total; subtract this unit's
-  // own share to get what the rest of the army has already used.
-  let maxCount = unit.number;
-
-  if (upgrade.armyMax !== undefined) {
-    const usedElsewhere = upgrade.number - count;
-    const armyAllowanceLeft = Math.max(0, upgrade.armyMax - usedElsewhere);
-
-    maxCount = Math.min(maxCount, armyAllowanceLeft);
-  }
+  const maxCount = upgradeMaxCount({
+    stands: unit.number,
+    taken: count,
+    armyTotal: upgrade.number,
+    armyMax: upgrade.armyMax,
+  });
 
   const badge = minMaxBadge(upgrade, gameSize);
   const rule = explainMinMax(upgrade, gameSize);
