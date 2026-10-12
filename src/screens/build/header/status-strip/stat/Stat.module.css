@@ -15,7 +15,7 @@
   /* Match the game size input's box height (padding + border) so every value
      row lines up despite the input being taller than plain text. */
   padding: var(--space-xxs) var(--space-xs);
-  border: 1px solid transparent;
+  border: var(--border-width) solid transparent;
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);

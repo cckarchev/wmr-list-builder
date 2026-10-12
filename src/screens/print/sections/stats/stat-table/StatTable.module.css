@@ -11,11 +11,11 @@
 }
 
 .table th {
-  border-bottom: 2px solid currentColor;
+  border-bottom: var(--border-width-strong) solid currentColor;
 }
 
 .table tfoot td {
-  border-top: 2px solid currentColor;
+  border-top: var(--border-width-strong) solid currentColor;
   font-weight: var(--font-weight-semibold);
 }
 

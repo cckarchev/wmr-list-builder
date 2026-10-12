@@ -16,6 +16,6 @@
   color: inherit;
   cursor: pointer;
   font-size: var(--font-size-sm);
-  line-height: 1;
+  line-height: var(--leading-none);
   padding: 0;
 }

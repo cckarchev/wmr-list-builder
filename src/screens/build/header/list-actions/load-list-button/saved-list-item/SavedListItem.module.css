@@ -61,7 +61,7 @@
   margin-right: var(--space-xs);
   padding: var(--space-xxs);
   background: transparent;
-  border: 1px solid transparent;
+  border: var(--border-width) solid transparent;
   border-radius: var(--radius);
   color: var(--color-text-dim);
   cursor: pointer;

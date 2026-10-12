@@ -44,9 +44,15 @@
   --color-border-focus: rgb(var(--rgb-teal) / 0.85);
   --color-border-accent: rgb(var(--rgb-accent) / 0.7);
 
+  /* Border widths: the default edge, a strong rule such as a table head or an
+     indented row, and the thick accent edge on home cards. */
+  --border-width: 1px;
+  --border-width-strong: 2px;
+  --border-width-accent: 3px;
+
   /* Full border shorthands for the two edges every panel and divider uses. */
-  --border-default: 1px solid var(--color-border-default);
-  --border-divider: 1px solid var(--color-border-divider);
+  --border-default: var(--border-width) solid var(--color-border-default);
+  --border-divider: var(--border-width) solid var(--color-border-divider);
 
   /* Ghost / teal-outline interactive states, such as the ghost Button. */
   --color-ghost-border: rgb(var(--rgb-teal) / 0.6);
@@ -57,6 +63,13 @@
   --color-error: #e05555;
   --color-success: #46af73;
   --color-warning: #d9b770;
+
+  /* Printed sheet: black ink on white paper, grey table rules and a light
+     stripe for alternate rows, whatever the screen theme is. */
+  --color-print-paper: #ffffff;
+  --color-print-ink: #000000;
+  --color-print-rule: #888888;
+  --color-print-stripe: #f0f0f0;
 
   /* 4px-based spacing scale. Names follow the font-size scale. */
   --space-xxs: 4px;
@@ -75,6 +88,12 @@
   --font-size-lg: 20px;
   --font-size-xl: 28px;
   --font-size-xxl: 40px;
+
+  /* Printed sheet sizes: the stat table shrinks to fit the page, and the
+     "Smaller font" option shrinks text and table further on paper. */
+  --font-size-print-table: 10px;
+  --font-size-print-small-text: 11px;
+  --font-size-print-small-table: 8px;
 
   --font-display: 'Oswald', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -95,6 +114,11 @@
      guidance; the printed sheet runs a little looser for paper. */
   --leading-body: 1.5;
   --leading-print: 1.6;
+  /* Tighter steps: none centers a glyph in its box, tight sets display
+     titles, condensed is the "Condensed" print option. */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-condensed: 1.35;
 
   /* Hover feedback and disabled state for filled and stepped controls. */
   --opacity-hover: 0.9;
@@ -118,6 +142,16 @@
      variant for prose-heavy popovers such as special-rule text. */
   --popup-width: 320px;
   --popup-width-wide: 520px;
+  /* Narrower popups: confirm dialogs, tooltips and the More menu. */
+  --popup-width-dialog: 380px;
+  --popup-width-tooltip: 220px;
+  --popup-width-menu: 200px;
+
+  /* Printed sheet spacing off the 4px scale: the condensed section gap and
+     the tight table cell padding. */
+  --print-gap-condensed: 6px;
+  --print-cell-padding-y: 1px;
+  --print-cell-padding-x: 3px;
 
   /* Stacking layers, lowest first. Sticky bars sit above popups so an open
      popup scrolls under them, and the modal dialog sits above everything. */

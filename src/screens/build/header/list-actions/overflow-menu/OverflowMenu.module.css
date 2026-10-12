@@ -3,7 +3,7 @@
   top: calc(100% + var(--space-xxs));
   right: 0;
   z-index: var(--z-popup);
-  min-width: 200px;
+  min-width: var(--popup-width-menu);
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);

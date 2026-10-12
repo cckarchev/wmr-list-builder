@@ -37,14 +37,14 @@
   padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius);
   border: var(--border-default);
-  border-left: 3px solid var(--color-border-default);
+  border-left: var(--border-width-accent) solid var(--color-border-default);
   background: var(--color-bg-surface);
   color: var(--color-text-body);
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
-  line-height: 1.1;
+  line-height: var(--leading-tight);
   text-decoration: none;
   transition:
     transform var(--duration-fast),

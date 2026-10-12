@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--space-xxs);
   padding: var(--space-xxs) var(--space-xs);
-  border-left: 2px solid var(--color-border-divider);
+  border-left: var(--border-width-strong) solid var(--color-border-divider);
 }
 
 .row[data-invalid] {

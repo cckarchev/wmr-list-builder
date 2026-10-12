@@ -9,7 +9,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: var(--font-size-md);
 }
 
 body {
@@ -32,49 +32,49 @@ a {
    (preview). */
 .print-document.font-small dl,
 .print-document.font-small p {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .print-document.font-small table {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 /* "Condensed" print option: tighten the vertical spacing throughout for a
    more compact sheet. Applies to both the preview and the print output. */
 .print-document.condensed section {
-  margin-bottom: 8px;
-  padding-bottom: 6px;
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--print-gap-condensed);
 }
 
 .print-document.condensed h3 {
-  margin-bottom: 4px;
+  margin-bottom: var(--space-xxs);
 }
 
 .print-document.condensed dt {
-  margin-top: 6px;
+  margin-top: var(--print-gap-condensed);
 }
 
 .print-document.condensed dd {
-  line-height: 1.35;
+  line-height: var(--leading-condensed);
 }
 
 .print-document.condensed dd,
 .print-document.condensed p {
-  margin-bottom: 4px;
+  margin-bottom: var(--space-xxs);
 }
 
 .print-document.condensed p {
-  line-height: 1.35;
+  line-height: var(--leading-condensed);
 }
 
 .print-document.condensed th,
 .print-document.condensed td {
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding-top: var(--print-cell-padding-y);
+  padding-bottom: var(--print-cell-padding-y);
 }
 
 .print-document.condensed .character-table {
-  margin-bottom: 12px;
+  margin-bottom: var(--space-sm);
 }
 
 /* biome-ignore-start lint/complexity/noImportantStyles: print output must beat every component class to force ink-saving monochrome. */
@@ -84,8 +84,8 @@ a {
   }
 
   body {
-    background: #ffffff;
-    color: #000000;
+    background: var(--color-print-paper);
+    color: var(--color-print-ink);
   }
 
   .no-print {
@@ -96,25 +96,25 @@ a {
      overriding the app's dark themed colors. */
   .print-document,
   .print-document * {
-    color: #000000 !important;
+    color: var(--color-print-ink) !important;
     background: transparent !important;
   }
 
   .print-document th,
   .print-document td {
-    border-color: #888888 !important;
+    border-color: var(--color-print-rule) !important;
   }
 
   /* Keep the wide stats table inside the printable page: shrink the type,
      tighten the cells, and let the text columns wrap instead of forcing a
      single nowrap line that runs off the paper. */
   .print-document table {
-    font-size: 10px;
+    font-size: var(--font-size-print-table);
   }
 
   .print-document th,
   .print-document td {
-    padding: 1px 3px !important;
+    padding: var(--print-cell-padding-y) var(--print-cell-padding-x) !important;
     white-space: normal !important;
   }
 
@@ -127,17 +127,17 @@ a {
   }
 
   .print-document tbody tr:nth-child(even) td {
-    background: #f0f0f0 !important;
+    background: var(--color-print-stripe) !important;
   }
 
   /* "Smaller font" option, print sizing: text sections and the stat table. */
   .print-document.font-small dl,
   .print-document.font-small p {
-    font-size: 11px;
+    font-size: var(--font-size-print-small-text);
   }
 
   .print-document.font-small table {
-    font-size: 8px;
+    font-size: var(--font-size-print-small-table);
   }
 }
 /* biome-ignore-end lint/complexity/noImportantStyles: print block ends here. */
