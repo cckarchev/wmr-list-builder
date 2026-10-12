@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon, type IconName } from '@/components/Icon';
-import { CopyBubble } from '../copy-bubble/CopyBubble';
 import { PopupAnchor } from '../popup-anchor/PopupAnchor';
-import { useCopyFeedback } from '../useCopyFeedback';
+import { CopyBubble } from './copy-bubble/CopyBubble';
+import { useCopyFeedback } from './useCopyFeedback';
 
 interface CopyButtonProps {
   icon: IconName;

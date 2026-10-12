@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon, type IconName } from '@/components/Icon';
 import type { Dismissible } from '@/hooks/useDismissible';
-import { ActionPanel } from '../action-panel/ActionPanel';
 import { PopupAnchor } from '../popup-anchor/PopupAnchor';
+import { ActionPanel } from './action-panel/ActionPanel';
 
 interface PanelActionProps {
   /** Open state, owned by the caller so its own hooks can close the panel. */
