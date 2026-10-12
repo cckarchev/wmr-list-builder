@@ -75,8 +75,8 @@ export const About = () => {
           <li>
             Faction emblems from <ExternalLink href={GAME_ICONS_URL}>game-icons.net</ExternalLink>{' '}
             by Lorc, Delapouite and Kier Heyl, licensed under{' '}
-            <ExternalLink href={CC_BY_3_URL}>CC BY 3.0</ExternalLink>. Only the background square
-            was removed.
+            <ExternalLink href={CC_BY_3_URL}>CC BY 3.0</ExternalLink>. The background square was
+            removed and some emblems are mirrored.
           </li>
           <li>
             Interface icons from{' '}

@@ -10,13 +10,15 @@ export const TitleBlock = () => {
   const armyId = useArmyStore((s) => s.armyId);
   const listName = useArmyStore((s) => s.label);
   const isDirty = useIsDirty();
-  const emblemArmyId = armyId !== null && hasFactionIcon(armyId) ? armyId : null;
+
+  const hasArmy = armyId !== null;
+  const showEmblem = hasArmy && hasFactionIcon(armyId);
 
   return (
     <div className={styles.block}>
-      {emblemArmyId && (
+      {showEmblem && (
         <span className={styles.emblem}>
-          <FactionIcon armyId={emblemArmyId} />
+          <FactionIcon armyId={armyId} />
         </span>
       )}
       <div className={styles.text}>

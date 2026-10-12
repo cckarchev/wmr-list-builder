@@ -43,6 +43,7 @@ describe('About', () => {
     for (const link of screen.getAllByRole('link')) {
       expect(link).toHaveAttribute('target', '_blank');
       expect(link).toHaveAttribute('rel', 'noreferrer');
+      expect(link).toHaveAccessibleDescription('Opens in a new tab');
     }
   });
 
@@ -52,7 +53,16 @@ describe('About', () => {
     expect(linkTo('game-icons.net')).toBeInTheDocument();
     expect(linkTo('CC BY 3.0')).toBeInTheDocument();
     expect(linkTo('Font Awesome Free')).toBeInTheDocument();
+    expect(linkTo('CC BY 4.0')).toBeInTheDocument();
     expect(screen.getByRole('main')).toHaveTextContent('Lorc, Delapouite and Kier Heyl');
+  });
+
+  it('says how the faction emblems were changed from the originals', () => {
+    renderWithProviders(<About />);
+
+    expect(screen.getByRole('main')).toHaveTextContent(
+      'The background square was removed and some emblems are mirrored.',
+    );
   });
 
   it('carries the Games Workshop disclaimer', () => {
