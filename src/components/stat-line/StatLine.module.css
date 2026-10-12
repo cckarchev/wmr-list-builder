@@ -1,5 +1,3 @@
-@import '@/theme/breakpoints.css';
-
 .table {
   display: grid;
   grid-auto-flow: column;
@@ -46,14 +44,15 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* On a phone the line spans the card, split into equal columns sized for a
-   troop's six stats (Att, Range, Hits, Armour, Size, Pts), the most any unit
-   shows. A character fills the first four, so Att still lines up card to card.
-   A column never shrinks below its content, so a long attack takes the room it
-   needs and wraps at its spaces ("1/2 per stand"). Labels drop their tracking
-   and padding, and a long label such as "ARMOUR" switches to its short form
-   ("ARM"), to fit the narrowest column. */
-@media (--phone) {
+/* On a narrow card (the same 600px container query as UnitCard.module.css)
+   the line sits under the name and controls and spans the card, split into
+   equal columns sized for a troop's six stats (Att, Range, Hits, Armour, Size,
+   Pts), the most any unit shows. A character fills the first four, so Att
+   still lines up card to card. A column never shrinks below its content, so a
+   long attack takes the room it needs and wraps at its spaces ("1/2 per
+   stand"). Labels drop their tracking and padding, and a long label such as
+   "ARMOUR" switches to its short form ("ARM"), to fit the narrowest column. */
+@container (width < 600px) {
   .table {
     grid-template-columns: repeat(6, minmax(min-content, 1fr));
   }

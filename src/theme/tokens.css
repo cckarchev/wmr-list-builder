@@ -22,6 +22,9 @@
   --color-bg-panel: rgb(var(--rgb-panel) / 0.6);
   /* Fill behind active accent controls, such as the selected roster filter. */
   --color-bg-accent-tint: rgb(var(--rgb-accent) / 0.15);
+  /* Fainter accent wash behind a whole card that is in the list, such as a
+     selected roster unit; strong enough to scan for, quiet enough to read on. */
+  --color-bg-selected: rgb(var(--rgb-accent) / 0.06);
   /* Alternate-row shading for printed tables. */
   --color-bg-stripe: rgb(var(--rgb-white) / 0.06);
   /* Backdrop that dims the page behind a modal dialog. */

@@ -26,7 +26,10 @@ describe('UnitCard', () => {
     useArmyStore.getState().setUnitNumber('goblins', 2);
     renderWithProviders(<UnitCard unitId="goblins" />);
 
-    expect(screen.getByText(/pts$/)).toBeInTheDocument();
+    // The total for every model taken, set apart from the per-unit Pts stat.
+    const { pointsCost } = useArmyStore.getState().units.goblins;
+
+    expect(screen.getByText(`= ${pointsCost} pts`)).toBeInTheDocument();
 
     const toggle = screen.getByRole('button', { name: /upgrades/i });
 

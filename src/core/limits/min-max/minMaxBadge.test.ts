@@ -13,12 +13,12 @@ describe('minMaxBadge', () => {
       expect(minMaxBadge({ min: 1, max: 6 }, DEFAULT_GAME_SIZE)).toBe('2–12');
     });
 
-    it('shows ≤ for a max-only constraint', () => {
-      expect(minMaxBadge({ max: 2 }, DEFAULT_GAME_SIZE)).toBe('≤4');
+    it('shows max for a max-only constraint', () => {
+      expect(minMaxBadge({ max: 2 }, DEFAULT_GAME_SIZE)).toBe('max 4');
     });
 
-    it('shows + for a min-only constraint', () => {
-      expect(minMaxBadge({ min: 2 }, DEFAULT_GAME_SIZE)).toBe('4+');
+    it('shows min for a min-only constraint', () => {
+      expect(minMaxBadge({ min: 2 }, DEFAULT_GAME_SIZE)).toBe('min 4');
     });
 
     it('scales against the game size', () => {
@@ -27,26 +27,30 @@ describe('minMaxBadge', () => {
   });
 
   describe('absolute per-army constraints', () => {
-    it('shows a bare count for equal armyMin/armyMax', () => {
-      expect(minMaxBadge({ armyMin: 1, armyMax: 1 }, DEFAULT_GAME_SIZE)).toBe('1');
+    it('shows an exact count for equal armyMin/armyMax', () => {
+      expect(minMaxBadge({ armyMin: 1, armyMax: 1 }, DEFAULT_GAME_SIZE)).toBe('exactly 1');
     });
 
     it('shows a range for differing armyMin/armyMax', () => {
       expect(minMaxBadge({ armyMin: 1, armyMax: 2 }, DEFAULT_GAME_SIZE)).toBe('1–2');
     });
 
-    it('shows ≤ for an armyMax-only constraint', () => {
-      expect(minMaxBadge({ armyMax: 2 }, DEFAULT_GAME_SIZE)).toBe('≤2');
+    it('shows max for an armyMax-only constraint', () => {
+      expect(minMaxBadge({ armyMax: 2 }, DEFAULT_GAME_SIZE)).toBe('max 2');
     });
   });
 
   describe('keyword tokens', () => {
-    it('resolves "elite" to ≤(size − 1)', () => {
-      expect(minMaxBadge({ max: 'elite' }, DEFAULT_GAME_SIZE)).toBe('≤1');
+    it('resolves "elite" to max (size − 1)', () => {
+      expect(minMaxBadge({ max: 'elite' }, DEFAULT_GAME_SIZE)).toBe('max 1');
     });
 
     it('shows a terse form for "Half or None"', () => {
       expect(minMaxBadge({ min: 'Half or None' }, DEFAULT_GAME_SIZE)).toBe('half or none');
+    });
+
+    it('shows "max half" for "Up to Half"', () => {
+      expect(minMaxBadge({ max: 'Up to Half' }, DEFAULT_GAME_SIZE)).toBe('max half');
     });
 
     it('shows "= <unit>" for an "As <unit>" token', () => {
