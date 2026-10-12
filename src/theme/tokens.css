@@ -165,6 +165,9 @@
   /* Size of the faction emblem watermark on an army card, taller than the
      card so its edges crop it. */
   --emblem-watermark-size: 112px;
+  /* Size of the faction emblem beside the army name in the Build header,
+     about as tall as the name and list name stacked. */
+  --emblem-title-size: 48px;
 
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy

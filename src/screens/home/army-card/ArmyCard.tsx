@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { Link } from 'react-router-dom';
+import { FactionIcon } from '@/components/faction-icon/FactionIcon';
 import styles from './ArmyCard.module.css';
-import { FactionIcon } from './FactionIcon';
 import { FACTION_TAGLINES } from './factionTaglines';
 
 interface ArmyCardProps {
