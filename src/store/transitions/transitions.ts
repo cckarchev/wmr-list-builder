@@ -11,19 +11,26 @@ import { validate } from '@/core/validation/validation';
 import type { ArmyData } from '../armyData';
 import { applyUnitUpgradeNumber, capUnitUpgrades, type UnitUpgrades } from './unitUpgrades';
 
-const UNBOUNDED = { min: 0, max: undefined };
+/** Ids the army does not have leave the state as it is. */
+const NO_CHANGE: Partial<ArmyData> = {};
 
 export const withUnitNumber = (
   state: ArmyData,
   unitId: string,
   number: number,
 ): Partial<ArmyData> => {
+  const isKnownUnit = Object.hasOwn(state.units, unitId);
+
+  if (!isKnownUnit) {
+    return NO_CHANGE;
+  }
+
+  const existing = state.units[unitId];
   const units = { ...state.units };
   const upgrades = { ...state.upgrades };
-  const existing = units[unitId];
 
   // Clamp to the unit's resolved hard force limits at the current cap.
-  const { min, max } = existing ? resolveBounds(existing, state.gameSize) : UNBOUNDED;
+  const { min, max } = resolveBounds(existing, state.gameSize);
   const unit: UnitState = { ...existing, number: clamp(toCount(+number), min, max) };
 
   if (unit.upgrades) {
@@ -42,6 +49,13 @@ export const withUnitUpgradeNumber = (
   upgradeId: string,
   number: number,
 ): Partial<ArmyData> => {
+  const isKnownUnit = Object.hasOwn(state.units, unitId);
+  const isKnownUpgrade = Object.hasOwn(state.upgrades, upgradeId);
+
+  if (!isKnownUnit || !isKnownUpgrade) {
+    return NO_CHANGE;
+  }
+
   const units = { ...state.units };
   const upgrades = { ...state.upgrades };
   const unit: UnitState = { ...units[unitId] };

@@ -111,6 +111,25 @@ describe('setUnitNumber', () => {
 
     expect(get().units.goblins.number).toBe(floor);
   });
+
+  it('ignores a unit id the army does not have', () => {
+    get().setArmy('goblin');
+    const before = get().units;
+
+    get().setUnitNumber('notAUnit', GOBLINS_ABOVE_FLOOR);
+
+    expect(get().units).toBe(before);
+    expect(get().units).not.toHaveProperty('notAUnit');
+  });
+
+  it('ignores an id that only exists on the object prototype', () => {
+    get().setArmy('goblin');
+    const before = get().units;
+
+    get().setUnitNumber('toString', GOBLINS_ABOVE_FLOOR);
+
+    expect(get().units).toBe(before);
+  });
 });
 
 describe('setUnitUpgradeNumber - plain +N points', () => {
@@ -127,6 +146,27 @@ describe('setUnitUpgradeNumber - plain +N points', () => {
     expect(banner.pointsCost).toBe(BATTLE_BANNER_POINTS);
     expect(unit.pointsCost).toBe(expectedCost);
     expect(get().upgrades.battleBanner.number).toBe(1); // global total
+  });
+
+  it('ignores a unit id the army does not have', () => {
+    get().setArmy('empire');
+    const before = { units: get().units, upgrades: get().upgrades };
+
+    get().setUnitUpgradeNumber('notAUnit', 'battleBanner', 1);
+
+    expect(get().units).toBe(before.units);
+    expect(get().upgrades).toBe(before.upgrades);
+  });
+
+  it('ignores an upgrade id the army does not have', () => {
+    get().setArmy('empire');
+    get().setUnitNumber('halberdiers', HALBERDIERS_ABOVE_FLOOR);
+    const before = { units: get().units, upgrades: get().upgrades };
+
+    get().setUnitUpgradeNumber('halberdiers', 'notAnUpgrade', 1);
+
+    expect(get().units).toBe(before.units);
+    expect(get().upgrades).toBe(before.upgrades);
   });
 });
 
