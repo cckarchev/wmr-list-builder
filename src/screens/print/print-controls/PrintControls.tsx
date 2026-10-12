@@ -21,7 +21,7 @@ const OPTION_TOGGLES: OptionToggle[] = [
   { key: 'condensed', label: 'Condensed' },
   { key: 'smallFont', label: 'Smaller font' },
   { key: 'spellFluff', label: 'Spell fluff', needsMagic: true },
-  { key: 'hideTitle', label: 'Hide name' },
+  { key: 'hideTitle', label: 'Hide list name' },
 ];
 
 interface PrintControlsProps {

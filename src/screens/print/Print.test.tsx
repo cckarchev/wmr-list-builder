@@ -172,12 +172,12 @@ describe('print options', () => {
     localStorage.clear();
   });
 
-  it('hides the title with Hide name', async () => {
+  it('hides the title with Hide list name', async () => {
     const user = userEvent.setup();
     renderPrint('/print/goblin');
     await findTitle();
 
-    await user.click(screen.getByRole('checkbox', { name: /hide name/i }));
+    await user.click(screen.getByRole('checkbox', { name: /hide list name/i }));
 
     expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
   });
