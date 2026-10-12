@@ -1,36 +1,67 @@
+import type { Ref } from 'react';
 import { classNames } from '@/core/lib/classNames';
-import { useArmyStore } from '@/store/useArmyStore';
-import { type PrintOptions, PrintOptionsContext } from '../printOptions';
+import type { PrintOptions } from '@/core/print/printOptions';
+import { PrintOptionsContext } from '../printOptions';
 import type { PrintSectionDef } from '../sections/printSections';
 import styles from './PrintView.module.css';
 
+/** The first break starts page 2. */
+const FIRST_BROKEN_PAGE = 2;
+
 interface PrintViewProps {
+  /** The sheet heading, also used as the document title. */
+  title: string;
   sections: PrintSectionDef[];
   selectedIds: ReadonlySet<string>;
   options: PrintOptions;
+  /** Attached to the sheet, so its page breaks can be measured. */
+  sheetRef?: Ref<HTMLElement>;
+  /** Predicted page starts, in pixels from the top of the sheet's content, or null to draw none. */
+  breaks?: number[] | null;
 }
 
-export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) => {
-  const armyName = useArmyStore((s) => s.army?.name ?? '');
-  const label = useArmyStore((s) => s.label);
-  const title = label ? `${armyName} · ${label}` : armyName;
+interface PageBreakProps {
+  offset: number;
+  page: number;
+}
 
-  // The global print stylesheet keys off these plain class names.
-  const classes = classNames(
-    styles.document,
-    'print-document',
-    options.smallFont && 'font-small',
-    options.condensed && 'condensed',
-  );
+/** A predicted page cut. Only drawn on the paper-sized preview, where the
+    sheet's padding is the page margin the offset is measured from. */
+const PageBreak = ({ offset, page }: PageBreakProps) => (
+  <div
+    className={classNames(styles.pageBreak, 'no-print')}
+    style={{ top: `calc(var(--print-page-margin) + ${offset}px)` }}
+    aria-hidden="true"
+  >
+    <span className={styles.pageBreakLabel}>Page {page}</span>
+  </div>
+);
+
+export const PrintView = ({
+  title,
+  sections,
+  selectedIds,
+  options,
+  sheetRef,
+  breaks,
+}: PrintViewProps) => {
   const visibleSections = sections.filter((section) => selectedIds.has(section.id));
 
-  // The stats table is too wide to split, so it never flows into two columns.
-  const usesColumns = (section: PrintSectionDef) => options.twoColumn && section.id !== 'stats';
+  const usesColumns = (section: PrintSectionDef) => options.twoColumn && !section.singleColumn;
+  const shownBreaks = breaks ?? [];
 
   return (
     <PrintOptionsContext.Provider value={options}>
-      <div className={classes}>
-        {armyName && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
+      <article
+        className={styles.document}
+        ref={sheetRef}
+        aria-label="Print sheet"
+        data-small-font={options.smallFont || undefined}
+        data-condensed={options.condensed || undefined}
+        data-page-per-section={options.pagePerSection || undefined}
+        data-legible-font={options.legibleFont || undefined}
+      >
+        {title && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
         {visibleSections.map((section) => (
           <section
             className={styles.section}
@@ -40,7 +71,11 @@ export const PrintView = ({ sections, selectedIds, options }: PrintViewProps) =>
             {section.render()}
           </section>
         ))}
-      </div>
+
+        {shownBreaks.map((offset, index) => (
+          <PageBreak key={offset} offset={offset} page={index + FIRST_BROKEN_PAGE} />
+        ))}
+      </article>
     </PrintOptionsContext.Provider>
   );
 };

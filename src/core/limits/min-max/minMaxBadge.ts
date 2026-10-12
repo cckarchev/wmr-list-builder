@@ -16,31 +16,31 @@ const TOKEN_BADGES: Record<string, string> = {
   [MIN_MAX_TOKENS.halfOrAll]: 'half or all',
   [MIN_MAX_TOKENS.halfOrMore]: 'half+',
   [MIN_MAX_TOKENS.halfOrNone]: 'half or none',
-  [MIN_MAX_TOKENS.upToHalf]: '≤ half',
+  [MIN_MAX_TOKENS.upToHalf]: 'max half',
 };
 
-/** "2–12", "8+" or "≤4"; a bound that is unset (or zero) is left out. */
+/** "2-12", "min 8" or "max 4"; a bound that is unset (or zero) is left out. */
 const badgeRange = (low: number | undefined, high: number | undefined): string => {
   if (low && high) {
-    return `${low}–${high}`;
+    return `${low}-${high}`;
   }
 
   if (low) {
-    return `${low}+`;
+    return `min ${low}`;
   }
 
-  return `≤${high}`;
+  return `max ${high}`;
 };
 
 const armyBadge = (info: ArmyInfo): string => {
   if (isExact(info)) {
-    return String(info.min);
+    return `exactly ${info.min}`;
   }
 
   return badgeRange(info.min, info.max);
 };
 
-const eliteBadge = ({ cap }: EliteInfo): string => `≤${cap}`;
+const eliteBadge = ({ cap }: EliteInfo): string => `max ${cap}`;
 
 const tokenBadge = ({ token }: TokenInfo): string => {
   const unit = linkedUnit(token);
@@ -56,7 +56,7 @@ const rateBadge = ({ min, max, size }: RateInfo): string => badgeRange(min * siz
 
 /**
  * Terse badge of a troop's effective min/max at the current game size, e.g.
- * "2–12", "8+", "≤4", "1". The full rule is available via `explainMinMax`
+ * "2-12", "min 8", "max 4", "exactly 1". The full rule is available via `explainMinMax`
  * (typically shown as a tooltip). Returns undefined when unconstrained.
  */
 export const minMaxBadge = (troop: MinMaxSource, gameSize: number): string | undefined => {

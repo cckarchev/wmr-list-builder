@@ -25,6 +25,7 @@ export const UnitRules = ({ unitId }: UnitRulesProps) => {
   return (
     <Popover
       label={`${unit.name} special rules`}
+      heading={`${unit.name} · Rules`}
       trigger={
         <>
           <Icon name="rules" size={INLINE_ICON_SIZE} />

@@ -29,12 +29,27 @@
   text-align: center;
   text-transform: none;
   letter-spacing: normal;
-  opacity: 0;
+  /* Out of the layout while closed: a hidden bubble near a screen edge would
+     still widen the page and add a horizontal scroll. aria-describedby reads
+     the text all the same. */
+  display: none;
   pointer-events: none;
   transition: opacity var(--duration-fast);
 }
 
-.wrap:hover .bubble,
-.wrap:focus-visible .bubble {
+.wrap[data-placement='below'] .bubble {
+  top: calc(100% + var(--space-xxs));
+  bottom: auto;
+}
+
+.wrap[data-open='true'] .bubble {
+  display: block;
   opacity: 1;
+}
+
+/* Fades in from transparent each time it opens. */
+@starting-style {
+  .wrap[data-open='true'] .bubble {
+    opacity: 0;
+  }
 }

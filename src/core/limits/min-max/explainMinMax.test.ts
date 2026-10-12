@@ -10,9 +10,9 @@ describe('explainMinMax', () => {
 
   describe('numeric per-1,000-points constraints', () => {
     it('explains a min + max, scaled to the current game size', () => {
-      // Slingers: min 1 / max 6 per 1,000 pts. At 2,000 pts → 2–12.
+      // Slingers: min 1 / max 6 per 1,000 pts. At 2,000 pts → 2-12.
       expect(explainMinMax({ min: 1, max: 6 }, DEFAULT_GAME_SIZE)).toBe(
-        'min 1 / max 6 per 1,000 pts (≈ 2–12 at this size)',
+        'min 1 / max 6 per 1,000 pts (≈ 2-12 at this size)',
       );
     });
 
@@ -32,7 +32,7 @@ describe('explainMinMax', () => {
 
     it('scales against the game size (1,000 pts → ×1)', () => {
       expect(explainMinMax({ min: 1, max: 6 }, SMALLEST_GAME)).toBe(
-        'min 1 / max 6 per 1,000 pts (≈ 1–6 at this size)',
+        'min 1 / max 6 per 1,000 pts (≈ 1-6 at this size)',
       );
     });
   });

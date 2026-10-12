@@ -61,11 +61,11 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
     >
       {selected && <CornerBrackets accent={bracketColor} />}
       <div className={styles.top}>
-        <div className={styles.main}>
-          <div className={styles.nameRow}>
-            <span className={styles.name}>{unit.name}</span>
-            {showType && <span className={styles.typeTag}>{unit.type}</span>}
-          </div>
+        <div className={styles.nameRow}>
+          <span className={styles.name}>{unit.name}</span>
+          {showType && <span className={styles.typeTag}>{unit.type}</span>}
+        </div>
+        <div className={styles.stats}>
           <StatLine
             attack={unit.attack}
             range={unit.range}

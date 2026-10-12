@@ -14,7 +14,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs) var(--space-md);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--page-gutter);
   /* The header bar is full-bleed; its content is centered to the same width as
      the page body so the title lines up with the roster below. */
   width: 100%;

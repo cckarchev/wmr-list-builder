@@ -1,27 +1,29 @@
 import { decodeListFor, encodeListFor } from './list-codec/listCodec';
 import type { ListSnapshot } from './snapshot';
+import { readItem, writeItem } from './storage';
 
 const PREFIX = 'wmr:list:';
 
 /** Remember the list being built for an army, so a reload picks it back up. */
 export const saveList = (armyId: string, snap: ListSnapshot): void => {
   try {
-    localStorage.setItem(PREFIX + armyId, encodeListFor(armyId, snap));
+    writeItem(PREFIX + armyId, encodeListFor(armyId, snap));
   } catch {
-    // storage blocked (private mode / partitioned iframe): degrade to in-memory
+    // unknown army: nothing to save
   }
 };
 
 export const loadList = (armyId: string): ListSnapshot | null => {
+  const raw = readItem(PREFIX + armyId);
+
+  if (!raw) {
+    return null;
+  }
+
   try {
-    const raw = localStorage.getItem(PREFIX + armyId);
-
-    if (!raw) {
-      return null;
-    }
-
     return decodeListFor(armyId, raw);
   } catch {
+    // unknown army: nothing to restore
     return null;
   }
 };

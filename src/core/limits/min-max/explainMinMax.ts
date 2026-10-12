@@ -34,10 +34,10 @@ const describeBounds = (min?: number, max?: number): string => {
   return parts.join(' / ');
 };
 
-/** The rate scaled to the current game size, e.g. "2–12", "8+" or "up to 4". */
+/** The rate scaled to the current game size, e.g. "2-12", "8+" or "up to 4". */
 const describeRateRange = ({ min, max, size }: RateInfo): string => {
   if (min && max) {
-    return `${min * size}–${max * size}`;
+    return `${min * size}-${max * size}`;
   }
 
   if (min) {
@@ -77,7 +77,7 @@ const explainRate = (info: RateInfo): string => {
 
 /**
  * Full plain-language phrase for a troop's min/max, e.g.
- * "min 1 / max 6 per 1,000 pts (≈ 2–12 at this size)". Used as the hover
+ * "min 1 / max 6 per 1,000 pts (≈ 2-12 at this size)". Used as the hover
  * tooltip. Returns undefined when the troop carries no constraints.
  */
 export const explainMinMax = (troop: MinMaxSource, gameSize: number): string | undefined => {

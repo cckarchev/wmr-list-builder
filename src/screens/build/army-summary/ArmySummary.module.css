@@ -31,12 +31,48 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.caret {
+  display: inline-flex;
+  transition: transform var(--duration-fast);
+}
+
+.heading[aria-expanded='true'] .caret {
+  transform: rotate(90deg);
+}
+
+.peek {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}
+
+.peek[data-over] {
+  color: var(--color-error);
+}
+
+/* Once expanded, the total row inside the body takes over from the peek. */
+.heading[aria-expanded='true'] .peek {
+  display: none;
+}
+
 /* The collapse toggle is only meaningful on mobile; on desktop the body is
-   always shown, so the heading is not interactive there. */
+   always shown, so the heading is not interactive there and drops its caret
+   and peek. */
 @media (--tablet-up) {
   .heading {
     cursor: default;
     pointer-events: none;
+  }
+
+  .caret,
+  .peek {
+    display: none;
   }
 }
 

@@ -1,14 +1,15 @@
 /* The small action control shared by popover triggers and the unit card
-   disclosures (Rules / Spells / Upgrades), so they all read as one kind. */
+   disclosures (Rules / Spells / Upgrades), so they all read as one kind. Teal
+   like the ghost Button and the steppers: the color of anything to press. */
 .pill {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   padding: var(--space-xxs) var(--space-xs);
   background: transparent;
-  border: var(--border-default);
+  border: var(--border-width) solid var(--color-ghost-border);
   border-radius: var(--radius);
-  color: var(--color-text-body);
+  color: var(--color-teal-bright);
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
   text-transform: uppercase;
@@ -16,12 +17,12 @@
   cursor: pointer;
   transition:
     border-color var(--duration-fast),
-    color var(--duration-fast);
+    background var(--duration-fast);
 }
 
 .pill:hover {
-  border-color: var(--color-border-hover);
-  color: var(--color-text-strong);
+  border-color: var(--color-teal-bright);
+  background: var(--color-ghost-bg);
 }
 
 .pill:focus-visible {

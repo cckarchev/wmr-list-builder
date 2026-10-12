@@ -1,0 +1,83 @@
+.card {
+  /* Fill the grid cell so every card in a row shares its height. */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius);
+  border: var(--border-default);
+  border-left: var(--border-width-strong) solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  color: var(--color-text-body);
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast),
+    border-color var(--duration-fast),
+    background var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.card::after {
+  content: '›';
+  margin-left: auto;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-dim);
+  transition:
+    color var(--duration-fast),
+    transform var(--duration-fast);
+}
+
+.card:hover {
+  background: var(--color-bg-tint);
+  border-color: var(--color-border-hover);
+  border-left-color: var(--color-accent);
+  color: var(--color-text-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-panel);
+}
+
+.card:hover::after {
+  color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+.card:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* A square badge with the army's initials, the card's visual anchor. It fills
+   with the accent on hover to echo the accent edge. */
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: var(--border-width) solid var(--color-border-accent);
+  background: var(--color-bg-accent-tint);
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.card:hover .monogram {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.name {
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  line-height: var(--leading-tight);
+}

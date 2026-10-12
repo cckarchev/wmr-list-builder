@@ -1,4 +1,4 @@
-import type { ReactNode, Ref } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import { Button } from '@/components/button/Button';
 import { Icon, type IconName } from '@/components/Icon';
 import type { Dismissible } from '@/hooks/useDismissible';
@@ -24,7 +24,7 @@ interface PanelActionProps {
   /** Panel content shown while open. */
   children: ReactNode;
   /** Attached to the open panel, so the caller can move focus into it. */
-  panelRef?: Ref<HTMLDivElement>;
+  panelRef?: RefObject<HTMLDivElement | null>;
 }
 
 /** A list action whose button toggles a dialog panel below it, such as Save or Load. */
@@ -69,7 +69,7 @@ export const PanelAction = ({
         {label}
       </Button>
       {open && (
-        <ActionPanel ref={panelRef} label={title} heading={heading}>
+        <ActionPanel ref={panelRef} label={title} heading={heading} onClose={close}>
           {children}
         </ActionPanel>
       )}

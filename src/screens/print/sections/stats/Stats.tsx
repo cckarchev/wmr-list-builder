@@ -49,7 +49,6 @@ export const Stats = () => {
           entries={characterEntries}
           units={units}
           rules={rules}
-          className="character-table"
         />
       )}
 

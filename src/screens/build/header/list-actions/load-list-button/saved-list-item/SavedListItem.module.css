@@ -15,7 +15,7 @@
   justify-content: space-between;
   gap: var(--space-sm);
   text-align: left;
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-xs) var(--popup-padding);
   background: transparent;
   border: none;
   color: var(--color-text-body);

@@ -1,0 +1,37 @@
+.bar {
+  composes: heading from '@/theme/popup.module.css';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.title {
+  margin: 0;
+  min-width: 0;
+}
+
+/* A comfortable tap target on a phone. The negative margins give back the
+   padding, so the bar keeps its height and the icon lines up with the
+   popup's content edge. */
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: calc(-1 * var(--space-xs));
+  padding: var(--space-xs);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: color var(--duration-fast);
+}
+
+.close:hover {
+  color: var(--color-text-strong);
+}
+
+.close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

@@ -22,7 +22,7 @@ describe('ArmySummary', () => {
   it('lists selected units with quantity and points', () => {
     useArmyStore.getState().setArmy('goblin');
     renderWithProviders(<ArmySummary />);
-    const region = screen.getByRole('complementary', { name: 'Your Army' });
+    const region = screen.getByRole('complementary', { name: 'Army Composition' });
 
     expect(within(region).getByText('Goblins')).toBeInTheDocument();
   });
@@ -33,10 +33,25 @@ describe('ArmySummary', () => {
     store.setUnitNumber('goblins', GOBLIN_STANDS);
     store.setUnitUpgradeNumber('goblins', 'squigHerd', 2);
     renderWithProviders(<ArmySummary />);
-    const region = screen.getByRole('complementary', { name: 'Your Army' });
+    const region = screen.getByRole('complementary', { name: 'Army Composition' });
 
     expect(within(region).getByText('Squig Herd')).toBeInTheDocument();
     expect(within(region).getByText('×2')).toBeInTheDocument();
+  });
+
+  it('collapses behind a heading that shows the points total', async () => {
+    const user = userEvent.setup();
+    useArmyStore.getState().setArmy('goblin');
+    renderWithProviders(<ArmySummary />);
+    const { gameSize } = useArmyStore.getState();
+    const toggle = screen.getByRole('button', { name: /Army Composition/ });
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(within(toggle).getByText(new RegExp(`/ ${gameSize} pts`))).toBeInTheDocument();
+
+    await user.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('jumps to a unit card when its row is clicked', async () => {

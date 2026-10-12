@@ -25,11 +25,6 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-.button:disabled {
-  opacity: var(--opacity-disabled);
-  cursor: not-allowed;
-}
-
 /* Compact size used for inline action rows. */
 .button[data-size='sm'] {
   padding: var(--space-xs) var(--space-sm);
@@ -63,4 +58,13 @@
 .button[data-variant='ghost']:hover:not(:disabled) {
   border-color: var(--color-teal-bright);
   background: var(--color-ghost-bg);
+}
+
+/* Disabled, whatever the variant: last and with the extra attribute so it
+   outranks each variant's own colors. */
+.button[data-variant]:disabled {
+  background: transparent;
+  color: var(--color-disabled);
+  border-color: var(--color-border-disabled);
+  cursor: not-allowed;
 }

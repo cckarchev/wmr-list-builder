@@ -4,11 +4,14 @@ import { MagicItems } from './MagicItems';
 import { SpecialRules } from './SpecialRules';
 import { Spells } from './spells/Spells';
 import { Stats } from './stats/Stats';
+import { Validation } from './validation/Validation';
 
-interface PrintSectionCtx {
+/** What the current list has to print, so empty sections are never offered. */
+export interface PrintSectionCtx {
   hasArmyRules: boolean;
   hasSpecialRules: boolean;
-  magic: boolean;
+  hasMagicItems: boolean;
+  hasSpells: boolean;
 }
 
 export interface PrintSectionDef {
@@ -16,10 +19,20 @@ export interface PrintSectionDef {
   title: string;
   available: (ctx: PrintSectionCtx) => boolean;
   render: () => ReactNode;
+  /** Left out of the sheet until the reader ticks it. */
+  startsOff?: boolean;
+  /** Too wide to split, so it never flows into two columns. */
+  singleColumn?: boolean;
 }
 
 const PRINT_SECTIONS: PrintSectionDef[] = [
-  { id: 'stats', title: 'Stats', available: () => true, render: () => <Stats /> },
+  {
+    id: 'stats',
+    title: 'Stats',
+    available: () => true,
+    render: () => <Stats />,
+    singleColumn: true,
+  },
   {
     id: 'armyRules',
     title: 'Army Rules',
@@ -35,11 +48,28 @@ const PRINT_SECTIONS: PrintSectionDef[] = [
   {
     id: 'magicItems',
     title: 'Magic Items',
-    available: (ctx) => ctx.magic,
+    available: (ctx) => ctx.hasMagicItems,
     render: () => <MagicItems />,
   },
-  { id: 'spells', title: 'Spells', available: (ctx) => ctx.magic, render: () => <Spells /> },
+  { id: 'spells', title: 'Spells', available: (ctx) => ctx.hasSpells, render: () => <Spells /> },
+  {
+    id: 'validation',
+    title: 'Validation',
+    available: () => true,
+    render: () => <Validation />,
+    startsOff: true,
+  },
 ];
 
 export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] =>
   PRINT_SECTIONS.filter((section) => section.available(ctx));
+
+/** Every section's id in the default print order, whatever the list has. */
+export const PRINT_SECTION_IDS = PRINT_SECTIONS.map((section) => section.id);
+
+/** The ids of the sections a fresh sheet includes: all but those that start off. */
+export const defaultSelectedIds = (sections: PrintSectionDef[]): Set<string> => {
+  const includedIds = sections.filter((section) => !section.startsOff).map((section) => section.id);
+
+  return new Set(includedIds);
+};

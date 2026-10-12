@@ -19,6 +19,12 @@ const SPACE_UNIT_PX = 4;
 /** Custom properties set inline by components rather than defined as tokens. */
 const INLINE_PROPERTIES = new Set(['--header-height']);
 
+/**
+ * Custom properties a control defines on itself to share one value across its
+ * own edges, such as the stepper frame and its dividers.
+ */
+const LOCAL_PROPERTIES = new Set(['--stepper-edge', '--arrows-edge']);
+
 const stylesheetPaths = globSync('src/**/*.css');
 
 /** Components that pass a token as a prop value, such as a bracket color. */
@@ -90,7 +96,10 @@ describe('design tokens', () => {
 
     for (const path of stylesheetPaths) {
       for (const [, name] of readCss(path).matchAll(reference)) {
-        if (!(tokens.has(name) || INLINE_PROPERTIES.has(name))) {
+        const defined =
+          tokens.has(name) || INLINE_PROPERTIES.has(name) || LOCAL_PROPERTIES.has(name);
+
+        if (!defined) {
           missing.push(`${path}: ${name}`);
         }
       }

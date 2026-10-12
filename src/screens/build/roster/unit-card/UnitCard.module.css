@@ -1,6 +1,9 @@
 @import '@/theme/breakpoints.css';
 
+/* The card is a size container, so its layout follows its own width (which
+   depends on the roster column) rather than the viewport's. */
 .card {
+  container-type: inline-size;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -25,39 +28,65 @@
   border-color: var(--color-border-hover);
 }
 
-/* An error outranks selection, so the invalid rule comes last. */
+/* An error outranks selection, so the invalid rule comes last. A selected card
+   also gets a faint accent wash, so the units in the list stand out while
+   scanning the roster. */
 .card[data-selected] {
   border-color: var(--color-border-accent);
+  background: var(--color-bg-selected);
 }
 
 .card[data-invalid] {
   border-color: var(--color-error);
 }
 
+/* Two rows by two columns: the name and the stepper share the first row,
+   centered on each other; the stat line and the meta line under the stepper
+   ("= 1234 pts · max 8") share the second. CardControls places its own two
+   pieces into this grid. The row gap is the tight stepper-to-meta spacing;
+   the stats add their own margin on top of it. */
 .top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-sm);
-}
-
-/* Left column: name and stat line stacked tightly. Keeping the stats here (next
-   to the name rather than below the whole header row) means the taller
-   right-hand controls column no longer pushes the stats down. */
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  min-width: 0;
-  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xxs);
+  align-items: start;
 }
 
 .nameRow {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: center;
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: var(--space-xs);
   min-width: 0;
+}
+
+/* The stat line sits in a recessed band, so the numbers read as one block
+   apart from the name and controls. Its edge lines up with the name and the
+   action pills; on a wide card it hugs the columns, on a narrow one (below)
+   it spans the content width. */
+.stats {
+  grid-row: 2;
+  grid-column: 1;
+  justify-self: start;
+  margin-top: var(--space-xs);
+  padding: var(--space-xs);
+  background: var(--color-bg-inset);
+}
+
+/* On a narrow card the controls column leaves too little room for six stat
+   columns beside it, even more so with a long attack such as "1/2 per stand".
+   So below 600px the stat line drops under the meta line and takes the card's
+   full width. Keep in step with the same query in StatLine.module.css. */
+@container (width < 600px) {
+  .stats {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
 }
 
 .name {
@@ -66,6 +95,12 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--leading-tight);
   color: var(--color-text-strong);
+}
+
+/* Units not in the list step their name down a shade, so the selected ones
+   read first. */
+.card:not([data-selected]) .name {
+  color: var(--color-text-body);
 }
 
 /* The troop/character type as a quiet inline tag after the name. Shown only

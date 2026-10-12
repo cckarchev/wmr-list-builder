@@ -3,7 +3,9 @@ import { Popover } from '@/components/popover/Popover';
 import { Stepper } from '@/components/stepper/Stepper';
 import { formatPrice } from '@/core/army-state/formatPrice';
 import { resolveUpgradePoints } from '@/core/army-state/pricing';
+import { maxedUpgradeHint } from '@/core/limits/maxedUpgradeHint';
 import { minMaxHint } from '@/core/limits/min-max/minMaxHint';
+import { sameKindTakenAlongside } from '@/core/limits/upgradeKinds';
 import { upgradeMaxCount } from '@/core/limits/upgradeMaxCount';
 import { resolveUpgradeRules } from '@/core/special-rules/upgradeRules';
 import { errorsForTarget } from '@/core/validation/errorTargets';
@@ -19,8 +21,10 @@ interface UpgradeRowProps {
 }
 
 export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
-  const unit = useArmyStore((s) => s.units[unitId]);
-  const upgrade = useArmyStore((s) => s.upgrades[upgradeId]);
+  const units = useArmyStore((s) => s.units);
+  const upgrades = useArmyStore((s) => s.upgrades);
+  const unit = units[unitId];
+  const upgrade = upgrades[upgradeId];
   const setUnitUpgradeNumber = useArmyStore((s) => s.setUnitUpgradeNumber);
   const gameSize = useArmyStore((s) => s.gameSize);
   const errors = useArmyStore((s) => s.errors);
@@ -41,7 +45,10 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
     taken: count,
     armyTotal: upgrade.number,
     armyMax: upgrade.armyMax,
+    sameKindTaken: sameKindTakenAlongside({ carried: unit.upgrades, upgrades, upgradeId }),
   });
+
+  const maxedHint = maxedUpgradeHint({ units, upgrades, unitId, upgradeId });
 
   const limit = minMaxHint(upgrade, gameSize);
 
@@ -62,6 +69,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
         {rules.length > 0 && (
           <Popover
             label={`${upgrade.name} special rules`}
+            heading={`${upgrade.name} · Rules`}
             trigger={<Icon name="rules" size={INLINE_ICON_SIZE} />}
             wide
           >
@@ -75,6 +83,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
           onChange={changeCount}
           min={0}
           max={maxCount}
+          maxedHint={maxedHint}
           label={`${upgrade.name} for ${unit.name}`}
         />
       </div>

@@ -12,8 +12,9 @@ interface CardControlsProps {
 }
 
 /**
- * The unit count stepper, with the points cost (when selected) and the model
- * restriction badge underneath.
+ * The unit count stepper, with the total points cost (when selected) and the
+ * model restriction badge underneath. The total reads "= 255 pts" so it is not
+ * mistaken for the per-unit Pts stat.
  */
 export const CardControls = ({ unitId, unit }: CardControlsProps) => {
   const gameSize = useArmyStore((s) => s.gameSize);
@@ -29,9 +30,17 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
 
   return (
     <div className={styles.controls}>
-      <Stepper value={unit.number} onChange={changeNumber} min={min} max={max} label={unit.name} />
+      <div className={styles.stepper}>
+        <Stepper
+          value={unit.number}
+          onChange={changeNumber}
+          min={min}
+          max={max}
+          label={unit.name}
+        />
+      </div>
       <div className={styles.meta}>
-        {selected && <span className={styles.pts}>{unit.pointsCost} pts</span>}
+        {selected && <span className={styles.pts}>= {unit.pointsCost} pts</span>}
         {selected && restriction && (
           <span className={styles.separator} aria-hidden="true">
             ·

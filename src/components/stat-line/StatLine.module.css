@@ -1,10 +1,11 @@
 .table {
   display: grid;
   grid-auto-flow: column;
-  /* Fixed-width columns packed from the left (rather than stretch-to-fill) so a
-     character's shorter row stays compact instead of ballooning, and the Att
-     column lines up card-to-card. */
-  grid-auto-columns: minmax(0, 3.5rem);
+  /* Columns packed from the left (rather than stretch-to-fill) so a character's
+     shorter row stays compact instead of ballooning. They share one width so
+     columns line up card to card, and only grow past it for a long value such
+     as an artillery attack ("1/2+bounce"). */
+  grid-auto-columns: minmax(3.5rem, max-content);
   justify-content: start;
   align-items: end;
 }
@@ -32,9 +33,43 @@
   letter-spacing: var(--tracking-caps);
 }
 
+.shortLabel {
+  display: none;
+}
+
 .figure {
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);
   font-weight: var(--font-weight-semibold);
+}
+
+/* On a narrow card (the same 600px container query as UnitCard.module.css)
+   the line sits under the name and controls and spans the card, split into
+   equal columns sized for a troop's six stats (Att, Range, Hits, Armour, Size,
+   Pts), the most any unit shows. A character fills the first four, so Att
+   still lines up card to card. A column never shrinks below its content, so a
+   long attack takes the room it needs and wraps at its spaces ("1/2 per
+   stand"). Labels drop their tracking and padding, and a long label such as
+   "ARMOUR" switches to its short form ("ARM"), to fit the narrowest column. */
+@container (width < 600px) {
+  .table {
+    grid-template-columns: repeat(6, minmax(min-content, 1fr));
+  }
+
+  .cell {
+    padding: 0;
+  }
+
+  .cell .label {
+    letter-spacing: 0;
+  }
+
+  .fullLabel {
+    display: none;
+  }
+
+  .shortLabel {
+    display: inline;
+  }
 }

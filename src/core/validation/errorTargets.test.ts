@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ValidationError } from '@/data/types';
-import { errorsForTarget, globalErrors } from './errorTargets';
+import { errorKey, errorsForTarget, globalErrors } from './errorTargets';
 
 describe('errorsForTarget / globalErrors', () => {
   const errors: ValidationError[] = [
@@ -21,5 +21,21 @@ describe('errorsForTarget / globalErrors', () => {
 
   it('globalErrors returns only errors with no targets', () => {
     expect(globalErrors(errors).map((e) => e.message)).toEqual(['over cap']);
+  });
+});
+
+describe('errorKey', () => {
+  it('tells apart errors that say the same about different items', () => {
+    const first: ValidationError = {
+      message: 'Maximum of 1 Handgunners per army.',
+      targets: ['a'],
+    };
+    const second: ValidationError = {
+      message: 'Maximum of 1 Handgunners per army.',
+      targets: ['b'],
+    };
+
+    expect(errorKey(first)).not.toBe(errorKey(second));
+    expect(errorKey(first)).toBe(errorKey({ ...first }));
   });
 });

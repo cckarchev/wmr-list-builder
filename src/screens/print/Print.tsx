@@ -1,40 +1,52 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { sheetTitle } from '@/core/print/sheetTitle';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+import { usePersistedList } from '@/hooks/usePersistedList';
 import { useArmyStore } from '@/store/useArmyStore';
+import { usePageBreaks } from './hooks/usePageBreaks';
+import { usePrintSectionCtx } from './hooks/usePrintSectionCtx';
+import { useSectionOrder } from './hooks/useSectionOrder';
+import { useSectionSelection } from './hooks/useSectionSelection';
+import { useStoredPrintOptions } from './hooks/useStoredPrintOptions';
 import styles from './Print.module.css';
 import { PrintControls } from './print-controls/PrintControls';
 import { PrintView } from './print-view/PrintView';
-import { DEFAULT_PRINT_OPTIONS, type PrintOptions } from './printOptions';
 import { availablePrintSections } from './sections/printSections';
-import { useSectionSelection } from './useSectionSelection';
+
+/** Print never reads a share link: it always prints the list kept for this army. */
+const NO_SHARE_CODE = null;
 
 export const Print = () => {
   const { armyId } = useParams<{ armyId: string }>();
   const army = useArmyStore((s) => s.army);
-  const armyIdInStore = useArmyStore((s) => s.armyId);
-  const setArmy = useArmyStore((s) => s.setArmy);
-  const hasArmyRules = useArmyStore((s) => !!s.army?.armyRules);
-  const hasSpecialRules = useArmyStore((s) => !!s.specialRules);
+  const label = useArmyStore((s) => s.label);
   const magic = useArmyStore((s) => s.magic);
 
-  // Load the army when it is missing or a different one is in the store.
-  useEffect(() => {
-    if (armyId && armyIdInStore !== armyId) {
-      setArmy(armyId);
-    }
-  }, [armyId, armyIdInStore, setArmy]);
+  // Opening the sheet directly (a reload, a bookmark) restores the saved list.
+  usePersistedList(armyId, NO_SHARE_CODE);
+
+  const title = sheetTitle(army?.name ?? '', label);
+
+  // Browsers propose the document title as the saved PDF's file name.
+  useDocumentTitle(title);
+
+  const { hasArmyRules, hasSpecialRules, hasMagicItems, hasSpells } = usePrintSectionCtx();
 
   const sections = useMemo(
-    () => availablePrintSections({ hasArmyRules, hasSpecialRules, magic }),
-    [hasArmyRules, hasSpecialRules, magic],
+    () => availablePrintSections({ hasArmyRules, hasSpecialRules, hasMagicItems, hasSpells }),
+    [hasArmyRules, hasSpecialRules, hasMagicItems, hasSpells],
   );
 
   const { selectedIds, toggleSection } = useSectionSelection(sections, army);
-  const [options, setOptions] = useState<PrintOptions>(DEFAULT_PRINT_OPTIONS);
+  const { orderedSections, moveSection } = useSectionOrder(sections);
+  const { options, toggleOption } = useStoredPrintOptions();
+  const { ref: sheetRef, breaks } = usePageBreaks<HTMLElement>();
 
-  const toggleOption = (key: keyof PrintOptions) => {
-    setOptions((previous) => ({ ...previous, [key]: !previous[key] }));
-  };
+  // Two columns balance over a whole section on screen but fill a page at a
+  // time on paper, so the sheet's layout says nothing about the pages.
+  const shownBreaks = options.twoColumn ? null : breaks;
+  const pageCount = shownBreaks ? shownBreaks.length + 1 : null;
 
   if (!army) {
     return null;
@@ -43,15 +55,24 @@ export const Print = () => {
   return (
     <main className={styles.page}>
       <PrintControls
-        sections={sections}
+        sections={orderedSections}
         selectedIds={selectedIds}
         onToggleSection={toggleSection}
+        onMoveSection={moveSection}
         options={options}
         onToggleOption={toggleOption}
         hasMagic={magic}
+        pageCount={pageCount}
       />
 
-      <PrintView sections={sections} selectedIds={selectedIds} options={options} />
+      <PrintView
+        title={title}
+        sections={orderedSections}
+        selectedIds={selectedIds}
+        options={options}
+        sheetRef={sheetRef}
+        breaks={shownBreaks}
+      />
     </main>
   );
 };

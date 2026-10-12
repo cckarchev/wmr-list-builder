@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Markdown } from '@/components/Markdown';
-import { MAGIC_ITEM_TYPES, magicItems } from '@/data/magicItems';
+import { takenMagicItems } from '@/core/print/takenMagicItems';
+import { magicItems } from '@/data/magicItems';
 import { useArmyStore } from '@/store/useArmyStore';
 import {
   DefDesc,
@@ -18,13 +19,7 @@ export const MagicItems = () => {
     return null;
   }
 
-  const isTaken = (id: string) => {
-    const upgrade = upgrades[id];
-
-    return upgrade && upgrade.number > 0 && MAGIC_ITEM_TYPES.has(upgrade.type);
-  };
-
-  const entries = Object.entries(magicItems.upgrades).filter(([id]) => isTaken(id));
+  const entries = takenMagicItems(upgrades, magicItems.upgrades);
 
   if (entries.length === 0) {
     return null;

@@ -1,7 +1,9 @@
 import { pointsCost } from '@/core/army-state/armyTotals';
 import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types';
+import { formatPoints } from '@/core/lib/quantities';
 import { armySize } from '@/core/limits/armySize';
 import type { ValidationError } from '@/data/types';
+import { errorKey } from './errorTargets';
 import { namesOf } from './namesOf';
 import { itemErrors } from './rules/rules';
 import type { RequiredGroup, ValidatableItem } from './rules/types';
@@ -17,17 +19,46 @@ const poolGroup = (ids: string[], pool: Pool) => ({
   count: totalNumber(ids, pool),
 });
 
-/** Items that count together with this one toward its limits. */
-const homologousGroup = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
+/** The ids sorted by where the pool lists them, so a group reads the same from any member. */
+const inPoolOrder = (ids: string[], pool: Pool): string[] => {
+  const listed = Object.keys(pool);
+  const placeOf = (id: string) => listed.indexOf(id);
+
+  return [...ids].sort((a, b) => placeOf(a) - placeOf(b));
+};
+
+/** The ids an item lists as counting together with it, and the pool they live in. */
+const homologousIds = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
   if (item.homologousUnits) {
-    return poolGroup(item.homologousUnits, units);
+    return { ids: item.homologousUnits, pool: units };
   }
 
   if (item.homologousUpgrades) {
-    return poolGroup(item.homologousUpgrades, upgrades);
+    return { ids: item.homologousUpgrades, pool: upgrades };
   }
 
   return undefined;
+};
+
+/**
+ * The items that count together toward this one's limits, itself included, in
+ * their listed order, and how many of the others are taken.
+ */
+const homologousGroup = (itemId: string, item: ValidatableItem, pools: ArmyPools) => {
+  const homologous = homologousIds(item, pools);
+
+  if (!homologous) {
+    return undefined;
+  }
+
+  const { ids, pool } = homologous;
+  const memberIds = inPoolOrder([itemId, ...ids], pool);
+
+  return {
+    ids: memberIds,
+    names: namesOf(memberIds, pool),
+    othersCount: totalNumber(ids, pool),
+  };
 };
 
 const toRequired = ({ names, count }: ReturnType<typeof poolGroup>): RequiredGroup => ({
@@ -60,17 +91,16 @@ const checkItem = (
   pools: ArmyPools,
   gameSize: number,
 ): ValidationError[] => {
-  const homologous = homologousGroup(item, pools);
-  const homologousIds = homologous?.ids ?? [];
+  const homologous = homologousGroup(itemId, item, pools);
 
   // Homologous items are named together as one group in messages.
-  const label = homologous ? toSentence([item.name, ...homologous.names]) : item.name;
-  const targets = [itemId, ...homologousIds];
+  const label = homologous ? toSentence(homologous.names) : item.name;
+  const targets = homologous?.ids ?? [itemId];
 
   const messages = itemErrors({
     item,
     label,
-    groupNumber: item.number + (homologous?.count ?? 0),
+    groupNumber: item.number + (homologous?.othersCount ?? 0),
     required: requiredGroup(item, pools),
     ...pools,
     gameSize,
@@ -88,9 +118,20 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
     return [];
   }
 
-  const cap = gameSize.toLocaleString('en-US');
+  const cap = formatPoints(gameSize);
 
   return [{ targets: [], message: `List is ${excess} points over the ${cap} cap.` }];
+};
+
+/**
+ * Each error once: every member of a homologous group reports the group's
+ * shared limit, in the same words and naming the same items in the same order.
+ * Unrelated items that only share a name keep their own errors.
+ */
+const dropRepeated = (errors: ValidationError[]): ValidationError[] => {
+  const byKey = new Map(errors.map((error) => [errorKey(error), error]));
+
+  return [...byKey.values()];
 };
 
 /**
@@ -111,5 +152,5 @@ export const validate = (
     checkItem(id, upgrade, pools, gameSize),
   );
 
-  return [...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors];
+  return dropRepeated([...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors]);
 };

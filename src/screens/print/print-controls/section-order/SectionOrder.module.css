@@ -1,0 +1,87 @@
+/* The trigger sits after the section chips, so it takes their type but a dashed
+   outline: an action on the chips, not another chip. Doubled class to win over
+   the PillButton whatever order the sheets load in. */
+.trigger.trigger {
+  gap: var(--space-xxs);
+  border-style: dashed;
+  font-family: var(--font-mono);
+  letter-spacing: var(--tracking-label);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.title {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+/* The up and down arrows as one segmented control, drawn like the Stepper:
+   frame and divider teal while either arrow can be pressed, grey once
+   neither can. */
+.arrows {
+  --arrows-edge: var(--color-border-disabled);
+
+  flex: none;
+  display: inline-flex;
+  align-items: stretch;
+  border: var(--border-width) solid var(--arrows-edge);
+  border-radius: var(--radius);
+}
+
+.arrows:has(.arrow:enabled) {
+  --arrows-edge: var(--color-ghost-border);
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-xl);
+  padding: var(--space-xxs) var(--space-xs);
+  background: transparent;
+  border: none;
+  color: var(--color-teal-bright);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  line-height: var(--leading-none);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.arrow + .arrow {
+  border-left: var(--border-width) solid var(--arrows-edge);
+}
+
+.arrow:hover:not(:disabled) {
+  background: var(--color-ghost-bg);
+}
+
+.arrow:disabled {
+  color: var(--color-disabled);
+  cursor: not-allowed;
+}
+
+.arrow:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

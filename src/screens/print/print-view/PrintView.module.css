@@ -1,6 +1,31 @@
+@import '@/theme/breakpoints.css';
+
+/* The sheet previews as the paper it prints on: black ink on white, whatever
+   the screen theme. Pointing the theme tokens at the print colors here
+   recolors every section inside without each one knowing about paper. */
 .document {
+  --color-text-strong: var(--color-print-ink);
+  --color-text-body: var(--color-print-ink);
+  --color-text-dim: var(--color-print-ink);
+  --color-border-divider: var(--color-print-rule);
+  --color-bg-stripe: var(--color-print-stripe);
+
+  /* Anchors the predicted page break lines. */
+  position: relative;
+  max-width: var(--print-sheet-width);
   padding: var(--space-md);
+  background: var(--color-print-paper);
   color: var(--color-text-body);
+}
+
+/* From the tablet up, the preview reads as a sheet on a desk: centered, with
+   the printed page margin around the text. */
+@media (--tablet-up) {
+  .document {
+    margin: var(--space-lg) auto;
+    padding: var(--print-page-margin);
+    box-shadow: var(--shadow-panel);
+  }
 }
 
 .title {
@@ -17,7 +42,7 @@
   border-bottom: 1px dashed var(--color-border-divider);
 }
 
-.section:last-child {
+.section:last-of-type {
   border-bottom: none;
   margin-bottom: 0;
 }
@@ -27,13 +52,151 @@
   column-gap: var(--space-lg);
 }
 
-/* Keep a heading glued to the start of its body, and never split a single
-   paragraph across the gap, but let multi-paragraph bodies flow from one
-   column into the next at paragraph boundaries. */
-.section[data-columns] dt {
+/* Page and column breaks: keep a heading glued to the start of its body, and
+   never split a paragraph, a table row, or a definition or list item made of
+   plain text, but let long bodies flow on at their inner paragraphs and rows.
+   The page estimate in usePageBreaks keeps these same blocks whole. */
+.document h1,
+.document h3,
+.document dt {
   break-after: avoid;
 }
 
-.section[data-columns] p {
+.document p,
+.document tr,
+.document :is(dd, li):not(:has(p, dd, li, tr)) {
   break-inside: avoid;
+}
+
+/* "Smaller font" option on a narrow preview: text sections and the stat
+   table. The paper sizing below takes over from the tablet up and in print. */
+.document[data-small-font] dl,
+.document[data-small-font] p,
+.document[data-small-font] table {
+  font-size: var(--font-size-xs);
+}
+
+/* "Condensed" option: tighten the vertical spacing throughout for a more
+   compact sheet. Applies to both the preview and the print output. */
+/* Only the gaps between sections, and not with "Page per section", which
+   drops them altogether. */
+.document[data-condensed]:not([data-page-per-section]) .section:not(:last-of-type) {
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-xxs);
+}
+
+.document[data-condensed] h3 {
+  margin-bottom: var(--space-xxs);
+}
+
+.document[data-condensed] dt {
+  margin-top: var(--space-xxs);
+}
+
+.document[data-condensed] dd,
+.document[data-condensed] p {
+  margin-bottom: var(--space-xxs);
+  line-height: var(--leading-condensed);
+}
+
+.document[data-condensed] th,
+.document[data-condensed] td {
+  padding-top: var(--print-cell-padding-y);
+  padding-bottom: var(--print-cell-padding-y);
+}
+
+.document[data-condensed] table[data-kind='character'] {
+  margin-bottom: var(--space-sm);
+}
+
+/* "Legible font" option: every face on the sheet, headings and figures
+   included, switches to the legible typeface, scaled to the body font's
+   x-height so it does not print smaller than the default. */
+.document[data-legible-font] {
+  --font-display: var(--font-legible);
+  --font-body: var(--font-legible);
+  --font-mono: var(--font-legible);
+
+  font-family: var(--font-body);
+  font-size-adjust: var(--font-legible-size-adjust);
+}
+
+/* "Page per section" option: each section after the first starts a new page,
+   so the rule between sections has nothing left to separate. The forced break
+   only takes effect in print, but the preview reads it back to predict the
+   pages. */
+.document[data-page-per-section] .section {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.document[data-page-per-section] .section + .section {
+  break-before: page;
+}
+
+@media print {
+  /* The page margin comes from @page, so the sheet itself drops its own. */
+  .document {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+/* Paper-sized preview and print alike: the preview is only worth its name, and
+   only predicts the page breaks, if it lays out like the paper does.
+
+   Keep the wide stats table inside the printable page: shrink the type,
+   tighten the cells, and let the text columns wrap instead of forcing a
+   single nowrap line that runs off the paper. The extra `table` in the
+   selectors outranks the stat table's own cell rules whatever order the
+   stylesheets load in. Backgrounds are forced to render so the row stripe
+   survives. */
+@media (--tablet-up), print {
+  .document table {
+    font-size: var(--font-size-print);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .document table th,
+  .document table td {
+    border-color: var(--color-print-rule);
+    padding: var(--print-cell-padding-y) var(--space-xxs);
+    white-space: normal;
+  }
+
+  /* "Smaller font" option, paper sizing: text at the print size, the stat
+     table smaller still. */
+  .document[data-small-font] dl,
+  .document[data-small-font] p {
+    font-size: var(--font-size-print);
+  }
+
+  .document[data-small-font] table {
+    font-size: var(--font-size-print-small);
+  }
+}
+
+/* Predicted page breaks: a dashed cut across the whole sheet, margins
+   included, labeled with the page that starts below it. Screen only. */
+.pageBreak {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--color-accent);
+  pointer-events: none;
+}
+
+.pageBreakLabel {
+  position: absolute;
+  right: var(--space-xs);
+  bottom: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
