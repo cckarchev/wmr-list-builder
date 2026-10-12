@@ -3,12 +3,17 @@ import { Icon } from '@/components/Icon';
 import { Tooltip } from '@/components/tooltip/Tooltip';
 import { classNames } from '@/core/lib/classNames';
 import type { PrintOptions } from '@/core/print/printOptions';
+import type { OrderStep } from '@/core/print/sectionOrder';
 import type { PrintSectionDef } from '../sections/printSections';
 import { CheckOption } from './check-option/CheckOption';
 import { OptionGroup } from './option-group/OptionGroup';
 import styles from './PrintControls.module.css';
+import { SectionOrder } from './section-order/SectionOrder';
 
 const PRINT_ICON_SIZE = 18;
+
+/** Ordering needs at least two sections to swap. */
+const MIN_ORDERABLE_SECTIONS = 2;
 
 const PAGE_COUNT_HINT =
   'Estimated for A4 at 100% scale. Saving to PDF may break pages differently.';
@@ -31,9 +36,11 @@ const OPTION_TOGGLES: OptionToggle[] = [
 ];
 
 interface PrintControlsProps {
+  /** The sections in their print order. */
   sections: PrintSectionDef[];
   selectedIds: ReadonlySet<string>;
   onToggleSection: (id: string) => void;
+  onMoveSection: (id: string, step: OrderStep) => void;
   options: PrintOptions;
   onToggleOption: (key: keyof PrintOptions) => void;
   hasMagic: boolean;
@@ -56,12 +63,14 @@ export const PrintControls = ({
   sections,
   selectedIds,
   onToggleSection,
+  onMoveSection,
   options,
   onToggleOption,
   hasMagic,
   pageCount,
 }: PrintControlsProps) => {
   const toggles = OPTION_TOGGLES.filter((toggle) => hasMagic || !toggle.needsMagic);
+  const orderable = sections.length >= MIN_ORDERABLE_SECTIONS;
 
   return (
     <div className={classNames(styles.controls, 'no-print')}>
@@ -75,6 +84,8 @@ export const PrintControls = ({
               onToggle={() => onToggleSection(section.id)}
             />
           ))}
+
+          {orderable && <SectionOrder sections={sections} onMove={onMoveSection} />}
         </OptionGroup>
 
         <OptionGroup label="Options">

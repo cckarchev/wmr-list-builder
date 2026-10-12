@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -297,5 +297,64 @@ describe('Print screen page estimate', () => {
     await findTitle();
 
     expect(screen.queryByText(/≈ \d+ pages?/)).not.toBeInTheDocument();
+  });
+});
+
+/** The section headings on the sheet, top to bottom. */
+const sheetHeadings = () =>
+  Array.from(printSheet().querySelectorAll('section h3'), (heading) => heading.textContent);
+
+/** The section toggles, in the order the sheet prints them. */
+const sectionChips = () =>
+  within(screen.getByRole('group', { name: 'Sections' }))
+    .getAllByRole('checkbox')
+    .map((chip) => chip.closest('label')?.textContent);
+
+describe('Print screen section order', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  it('moves a section up the sheet from the Order panel', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+    const before = sheetHeadings();
+    const last = before.at(-1);
+
+    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+    await user.click(screen.getByRole('button', { name: `Move ${last} up` }));
+
+    const after = sheetHeadings();
+
+    expect(after.at(-1)).not.toBe(last);
+    expect(after.at(-2)).toBe(last);
+  });
+
+  it('cannot move the first section up', async () => {
+    const user = userEvent.setup();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+
+    expect(screen.getByRole('button', { name: 'Move Stats up' })).toBeDisabled();
+  });
+
+  it('remembers the order for the next visit', async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderPrint('/print/goblin');
+    await findTitle();
+
+    await user.click(screen.getByRole('button', { name: 'Order sections' }));
+    await user.click(screen.getByRole('button', { name: 'Move Stats down' }));
+    const moved = sectionChips();
+    unmount();
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(moved[0]).not.toBe('Stats');
+    expect(sectionChips()).toEqual(moved);
   });
 });

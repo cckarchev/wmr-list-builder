@@ -45,3 +45,6 @@ const PRINT_SECTIONS: PrintSectionDef[] = [
 
 export const availablePrintSections = (ctx: PrintSectionCtx): PrintSectionDef[] =>
   PRINT_SECTIONS.filter((section) => section.available(ctx));
+
+/** Every section's id in the default print order, whatever the list has. */
+export const PRINT_SECTION_IDS = PRINT_SECTIONS.map((section) => section.id);

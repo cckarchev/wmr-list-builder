@@ -1,0 +1,69 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.title {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+/* The up and down arrows as one segmented control, drawn like the Stepper. */
+.arrows {
+  flex: none;
+  display: inline-flex;
+  align-items: stretch;
+  border: var(--border-default);
+  border-radius: var(--radius);
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-xl);
+  padding: var(--space-xxs) var(--space-xs);
+  background: transparent;
+  border: none;
+  color: var(--color-teal-bright);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  line-height: var(--leading-none);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.arrow + .arrow {
+  border-left: var(--border-default);
+}
+
+.arrow:hover:not(:disabled) {
+  background: var(--color-ghost-bg);
+}
+
+.arrow:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.arrow:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
