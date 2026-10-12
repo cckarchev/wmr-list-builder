@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs) var(--space-md);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--page-gutter);
   border-top: var(--border-divider);
   width: 100%;
   max-width: var(--layout-max-width);

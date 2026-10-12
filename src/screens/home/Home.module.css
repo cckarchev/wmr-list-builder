@@ -3,7 +3,7 @@
 .page {
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--page-gutter);
 }
 
 /* Title on the left, search on the right; they stack on a phone. */
@@ -47,8 +47,8 @@
 .grid {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-lg);
 }
 
 .empty {

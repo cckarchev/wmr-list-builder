@@ -3,10 +3,11 @@
 .table {
   display: grid;
   grid-auto-flow: column;
-  /* Fixed-width columns packed from the left (rather than stretch-to-fill) so a
-     character's shorter row stays compact instead of ballooning, and the Att
-     column lines up card-to-card. */
-  grid-auto-columns: minmax(0, 3.5rem);
+  /* Columns packed from the left (rather than stretch-to-fill) so a character's
+     shorter row stays compact instead of ballooning. They share one width so
+     columns line up card to card, and only grow past it for a long value such
+     as an artillery attack ("1/2+bounce"). */
+  grid-auto-columns: minmax(3.5rem, max-content);
   justify-content: start;
   align-items: end;
 }
@@ -48,11 +49,13 @@
 /* On a phone the line spans the card, split into equal columns sized for a
    troop's six stats (Att, Range, Hits, Armour, Size, Pts), the most any unit
    shows. A character fills the first four, so Att still lines up card to card.
-   Labels drop their tracking and padding, and a long label such as "ARMOUR"
-   switches to its short form ("ARM"), to fit the narrowest column. */
+   A column never shrinks below its content, so a long attack takes the room it
+   needs and wraps at its spaces ("1/2 per stand"). Labels drop their tracking
+   and padding, and a long label such as "ARMOUR" switches to its short form
+   ("ARM"), to fit the narrowest column. */
 @media (--phone) {
   .table {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(min-content, 1fr));
   }
 
   .cell {

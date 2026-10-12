@@ -3,9 +3,8 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  min-height: 80px;
-  padding: var(--space-md);
+  gap: var(--space-lg);
+  padding: var(--space-lg);
   border-radius: var(--radius);
   border: var(--border-default);
   border-left: var(--border-width-strong) solid var(--color-border-default);

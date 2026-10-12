@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-lg);
-  padding: var(--space-md);
+  padding: var(--space-md) var(--page-gutter);
   /* Cap and center the content so it gutters on large screens instead of the
      (now narrower) cards sprawling edge-to-edge. */
   width: 100%;
@@ -34,7 +34,7 @@
   width: 100%;
   max-width: var(--layout-max-width);
   margin-inline: auto;
-  padding: var(--space-md) var(--space-md) 0;
+  padding: var(--space-md) var(--page-gutter) 0;
 }
 
 @media (--tablet-up) {

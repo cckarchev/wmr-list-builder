@@ -2,6 +2,8 @@
  * Design tokens: the single source of truth for every color, size and font in
  * the app. Components read them with var(--token).
  */
+@import './breakpoints.css';
+
 :root {
   /* RGB channels. Compose a color at any opacity with rgb(var(--rgb-x) / 0.5)
      instead of hardcoding rgba() values. */
@@ -133,6 +135,11 @@
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
 
+  /* Inline space between the screen edge and page content, shared by the nav,
+     the Build header and every screen's body so their edges line up. Widened
+     from the tablet breakpoint up, below. */
+  --page-gutter: var(--space-lg);
+
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy
      popovers such as special-rule text. */
@@ -151,6 +158,12 @@
   --z-popup: 30;
   --z-sticky: 40;
   --z-dialog: 100;
+}
+
+@media (--tablet-up) {
+  :root {
+    --page-gutter: var(--space-xl);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

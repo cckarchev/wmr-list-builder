@@ -7,7 +7,7 @@
   /* Fixed height so the bar never reflows when the right-hand action chip
      appears or changes between screens. */
   min-height: 64px;
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--page-gutter);
   background: var(--color-bg-deep);
   border-bottom: var(--border-divider);
 }
