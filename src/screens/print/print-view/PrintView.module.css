@@ -10,6 +10,8 @@
   --color-border-divider: var(--color-print-rule);
   --color-bg-stripe: var(--color-print-stripe);
 
+  /* Anchors the predicted page break lines. */
+  position: relative;
   max-width: var(--print-sheet-width);
   padding: var(--space-md);
   background: var(--color-print-paper);
@@ -40,7 +42,7 @@
   border-bottom: 1px dashed var(--color-border-divider);
 }
 
-.section:last-child {
+.section:last-of-type {
   border-bottom: none;
   margin-bottom: 0;
 }
@@ -64,7 +66,8 @@
   break-inside: avoid;
 }
 
-/* "Smaller font" option, preview sizing: text sections and the stat table. */
+/* "Smaller font" option on a narrow preview: text sections and the stat
+   table. The paper sizing below takes over from the tablet up and in print. */
 .document[data-small-font] dl,
 .document[data-small-font] p,
 .document[data-small-font] table {
@@ -110,13 +113,18 @@
     padding: 0;
     box-shadow: none;
   }
+}
 
-  /* Keep the wide stats table inside the printable page: shrink the type,
-     tighten the cells, and let the text columns wrap instead of forcing a
-     single nowrap line that runs off the paper. The extra `table` in the
-     selectors outranks the stat table's own cell rules whatever order the
-     stylesheets load in. Backgrounds are forced to render so the row stripe
-     survives. */
+/* Paper-sized preview and print alike: the preview is only worth its name, and
+   only predicts the page breaks, if it lays out like the paper does.
+
+   Keep the wide stats table inside the printable page: shrink the type,
+   tighten the cells, and let the text columns wrap instead of forcing a
+   single nowrap line that runs off the paper. The extra `table` in the
+   selectors outranks the stat table's own cell rules whatever order the
+   stylesheets load in. Backgrounds are forced to render so the row stripe
+   survives. */
+@media (--tablet-up), print {
   .document table {
     font-size: var(--font-size-print);
     -webkit-print-color-adjust: exact;
@@ -130,7 +138,7 @@
     white-space: normal;
   }
 
-  /* "Smaller font" option, print sizing: text at the print size, the stat
+  /* "Smaller font" option, paper sizing: text at the print size, the stat
      table smaller still. */
   .document[data-small-font] dl,
   .document[data-small-font] p {
@@ -140,4 +148,25 @@
   .document[data-small-font] table {
     font-size: var(--font-size-print-small);
   }
+}
+
+/* Predicted page breaks: a dashed cut across the whole sheet, margins
+   included, labeled with the page that starts below it. Screen only. */
+.pageBreak {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--color-accent);
+  pointer-events: none;
+}
+
+.pageBreakLabel {
+  position: absolute;
+  right: var(--space-xs);
+  bottom: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
 }

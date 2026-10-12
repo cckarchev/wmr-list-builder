@@ -8,6 +8,7 @@ import styles from './Print.module.css';
 import { PrintControls } from './print-controls/PrintControls';
 import { PrintView } from './print-view/PrintView';
 import { availablePrintSections } from './sections/printSections';
+import { usePageBreaks } from './usePageBreaks';
 import { usePrintSectionCtx } from './usePrintSectionCtx';
 import { useSectionSelection } from './useSectionSelection';
 import { useStoredPrintOptions } from './useStoredPrintOptions';
@@ -38,6 +39,8 @@ export const Print = () => {
 
   const { selectedIds, toggleSection } = useSectionSelection(sections, army);
   const { options, toggleOption } = useStoredPrintOptions();
+  const { ref: sheetRef, breaks } = usePageBreaks<HTMLElement>();
+  const pageCount = breaks ? breaks.length + 1 : null;
 
   if (!army) {
     return null;
@@ -52,9 +55,17 @@ export const Print = () => {
         options={options}
         onToggleOption={toggleOption}
         hasMagic={magic}
+        pageCount={pageCount}
       />
 
-      <PrintView title={title} sections={sections} selectedIds={selectedIds} options={options} />
+      <PrintView
+        title={title}
+        sections={sections}
+        selectedIds={selectedIds}
+        options={options}
+        sheetRef={sheetRef}
+        breaks={breaks}
+      />
     </main>
   );
 };

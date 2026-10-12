@@ -31,7 +31,15 @@ interface PrintControlsProps {
   options: PrintOptions;
   onToggleOption: (key: keyof PrintOptions) => void;
   hasMagic: boolean;
+  /** Estimated printed pages, or null when the preview cannot tell. */
+  pageCount: number | null;
 }
+
+const pageCountLabel = (pageCount: number): string => {
+  const plural = pageCount === 1 ? '' : 's';
+
+  return `≈ ${pageCount} page${plural}`;
+};
 
 const printPage = () => {
   window.print();
@@ -45,6 +53,7 @@ export const PrintControls = ({
   options,
   onToggleOption,
   hasMagic,
+  pageCount,
 }: PrintControlsProps) => {
   const toggles = OPTION_TOGGLES.filter((toggle) => hasMagic || !toggle.needsMagic);
 
@@ -74,10 +83,16 @@ export const PrintControls = ({
         </OptionGroup>
       </div>
 
-      <Button className={styles.printButton} onClick={printPage}>
-        <Icon name="print" size={PRINT_ICON_SIZE} />
-        Print
-      </Button>
+      <div className={styles.printColumn}>
+        <Button className={styles.printButton} onClick={printPage}>
+          <Icon name="print" size={PRINT_ICON_SIZE} />
+          Print
+        </Button>
+
+        {pageCount !== null && (
+          <span className={styles.pageCount}>{pageCountLabel(pageCount)}</span>
+        )}
+      </div>
     </div>
   );
 };

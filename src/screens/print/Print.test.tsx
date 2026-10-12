@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router-dom';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { saveList } from '@/core/persistence/currentList';
 import { useArmyStore } from '@/store/useArmyStore';
 import { Print } from './Print';
@@ -239,5 +239,41 @@ describe('print options', () => {
     await findTitle();
 
     expect(screen.getByRole('checkbox', { name: /two columns/i })).toBeChecked();
+  });
+});
+
+/** A matchMedia that answers every query with `matches`. */
+const stubMatchMedia = (matches: boolean) => {
+  vi.stubGlobal('matchMedia', () => ({
+    matches,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  }));
+};
+
+describe('Print screen page estimate', () => {
+  beforeEach(() => {
+    useArmyStore.getState().reset();
+    localStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('estimates the page count when the preview is paper sized', async () => {
+    stubMatchMedia(true);
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(screen.getByText('≈ 1 page')).toBeInTheDocument();
+  });
+
+  it('gives no estimate when the preview is too narrow to tell', async () => {
+    stubMatchMedia(false);
+    renderPrint('/print/goblin');
+    await findTitle();
+
+    expect(screen.queryByText(/≈ \d+ pages?/)).not.toBeInTheDocument();
   });
 });
