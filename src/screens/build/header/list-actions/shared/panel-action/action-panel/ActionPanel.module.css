@@ -5,7 +5,7 @@
   z-index: var(--z-popup);
   width: var(--popup-width);
   max-width: calc(100vw - var(--space-md));
-  max-height: 60vh;
+  max-height: var(--popup-max-height);
   overflow-y: auto;
   display: flex;
   flex-direction: column;

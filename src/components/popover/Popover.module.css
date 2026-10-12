@@ -10,7 +10,7 @@
   z-index: var(--z-popup);
   width: max-content;
   max-width: min(var(--popup-width), 80vw);
-  max-height: 60vh;
+  max-height: var(--popup-max-height);
   overflow-y: auto;
   padding: var(--space-sm);
   background: var(--color-bg-surface);

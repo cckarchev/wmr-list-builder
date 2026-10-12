@@ -139,6 +139,8 @@
   --popup-width-narrow: 220px;
   --popup-width: 320px;
   --popup-width-wide: 520px;
+  /* Tallest a popup grows before its content scrolls. */
+  --popup-max-height: 60vh;
 
   /* Vertical padding of printed table cells, tighter than the space scale so
      the wide stat table fits on the page. */

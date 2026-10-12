@@ -31,10 +31,7 @@ a {
 /* "Smaller font" print option: shrink the text sections and the stat table
    (preview). */
 .print-document.font-small dl,
-.print-document.font-small p {
-  font-size: var(--font-size-xs);
-}
-
+.print-document.font-small p,
 .print-document.font-small table {
   font-size: var(--font-size-xs);
 }
@@ -54,16 +51,9 @@ a {
   margin-top: var(--space-xxs);
 }
 
-.print-document.condensed dd {
-  line-height: var(--leading-condensed);
-}
-
 .print-document.condensed dd,
 .print-document.condensed p {
   margin-bottom: var(--space-xxs);
-}
-
-.print-document.condensed p {
   line-height: var(--leading-condensed);
 }
 
@@ -100,32 +90,25 @@ a {
     background: transparent !important;
   }
 
+  /* Keep the wide stats table inside the printable page: shrink the type,
+     tighten the cells, and let the text columns wrap instead of forcing a
+     single nowrap line that runs off the paper. Backgrounds are forced to
+     render so the row tint below survives. */
+  .print-document table {
+    font-size: var(--font-size-print);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .print-document th,
   .print-document td {
     border-color: var(--color-print-rule) !important;
-  }
-
-  /* Keep the wide stats table inside the printable page: shrink the type,
-     tighten the cells, and let the text columns wrap instead of forcing a
-     single nowrap line that runs off the paper. */
-  .print-document table {
-    font-size: var(--font-size-print);
-  }
-
-  .print-document th,
-  .print-document td {
     padding: var(--print-cell-padding-y) var(--space-xxs) !important;
     white-space: normal !important;
   }
 
   /* Alternating row tint for readability. The transparent-background rule
-     above wins on specificity, so re-assert the fill more specifically and
-     force backgrounds to render with print-color-adjust. */
-  .print-document table {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
+     above wins on specificity, so re-assert the fill more specifically. */
   .print-document tbody tr:nth-child(even) td {
     background: var(--color-print-stripe) !important;
   }
