@@ -1,0 +1,126 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-md);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+  background: var(--color-bg-base);
+  min-height: 100dvh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+/* "Smaller font" print option: shrink the text sections and the stat table
+   (preview). */
+.print-document.font-small dl,
+.print-document.font-small p,
+.print-document.font-small table {
+  font-size: var(--font-size-xs);
+}
+
+/* "Condensed" print option: tighten the vertical spacing throughout for a
+   more compact sheet. Applies to both the preview and the print output. */
+.print-document.condensed section {
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-xxs);
+}
+
+.print-document.condensed h3 {
+  margin-bottom: var(--space-xxs);
+}
+
+.print-document.condensed dt {
+  margin-top: var(--space-xxs);
+}
+
+.print-document.condensed dd,
+.print-document.condensed p {
+  margin-bottom: var(--space-xxs);
+  line-height: var(--leading-condensed);
+}
+
+.print-document.condensed th,
+.print-document.condensed td {
+  padding-top: var(--print-cell-padding-y);
+  padding-bottom: var(--print-cell-padding-y);
+}
+
+.print-document.condensed .character-table {
+  margin-bottom: var(--space-sm);
+}
+
+/* biome-ignore-start lint/complexity/noImportantStyles: print output must beat every component class to force ink-saving monochrome. */
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  body {
+    background: var(--color-print-paper);
+    color: var(--color-print-ink);
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ink-saving light mode: force the document to crisp monochrome,
+     overriding the app's dark themed colors. */
+  .print-document,
+  .print-document * {
+    color: var(--color-print-ink) !important;
+    background: transparent !important;
+  }
+
+  /* Keep the wide stats table inside the printable page: shrink the type,
+     tighten the cells, and let the text columns wrap instead of forcing a
+     single nowrap line that runs off the paper. Backgrounds are forced to
+     render so the row tint below survives. */
+  .print-document table {
+    font-size: var(--font-size-print);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-document th,
+  .print-document td {
+    border-color: var(--color-print-rule) !important;
+    padding: var(--print-cell-padding-y) var(--space-xxs) !important;
+    white-space: normal !important;
+  }
+
+  /* Alternating row tint for readability. The transparent-background rule
+     above wins on specificity, so re-assert the fill more specifically. */
+  .print-document tbody tr:nth-child(even) td {
+    background: var(--color-print-stripe) !important;
+  }
+
+  /* "Smaller font" option, print sizing: text sections and the stat table. */
+  .print-document.font-small dl,
+  .print-document.font-small p {
+    font-size: var(--font-size-print);
+  }
+
+  .print-document.font-small table {
+    font-size: var(--font-size-print-small);
+  }
+}
+/* biome-ignore-end lint/complexity/noImportantStyles: print block ends here. */

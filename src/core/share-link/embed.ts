@@ -1,0 +1,47 @@
+// The builder is embedded as an iframe on the cckarchev site. The host page
+// passes the parent's own base URL via ?embed=<url-encoded>. We capture it once
+// at startup (see initEmbed call in main.tsx) so it survives in-app navigation,
+// which drops query params. The Share button uses it to emit a cckarchev link.
+
+/** Query param carrying the embedding page's base URL. */
+const EMBED_PARAM = 'embed';
+
+const ALLOWED_HOSTS = new Set(['cckarchev.ar', 'www.cckarchev.ar']);
+
+/**
+ * cckarchev runs on http://localhost:<port> in local dev; allow http for these
+ * loopback hosts so the Share-back link works while testing the embed locally.
+ */
+const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+
+let embedBase: string | null = null;
+
+const validate = (raw: string): string | null => {
+  try {
+    const url = new URL(raw);
+
+    if (url.protocol === 'http:' && DEV_HOSTS.has(url.hostname)) {
+      return raw;
+    }
+
+    if (url.protocol !== 'https:') {
+      return null;
+    }
+
+    if (!ALLOWED_HOSTS.has(url.hostname)) {
+      return null;
+    }
+
+    return raw;
+  } catch {
+    return null;
+  }
+};
+
+export const initEmbed = (search: string = window.location.search): void => {
+  const raw = new URLSearchParams(search).get(EMBED_PARAM);
+
+  embedBase = raw ? validate(raw) : null;
+};
+
+export const getEmbedBase = (): string | null => embedBase;

@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 1,
-  "units": {
-    "Skeletons": {
-      "id": 0,
+  "units": [
+    {
+      "id": "skeletons",
+      "name": "Skeletons",
+      "code": 0,
       "type": "Infantry",
       "attack": 2,
       "hits": 3,
@@ -14,8 +16,10 @@
       "points": 30,
       "min": 2
     },
-    "Skeleton Bowmen": {
-      "id": 1,
+    {
+      "id": "skeletonBowmen",
+      "name": "Skeleton Bowmen",
+      "code": 1,
       "type": "Infantry",
       "attack": "2/1",
       "range": "30cm",
@@ -24,8 +28,10 @@
       "points": 45,
       "min": 2
     },
-    "Skeleton Cavalry": {
-      "id": 2,
+    {
+      "id": "skeletonCavalry",
+      "name": "Skeleton Cavalry",
+      "code": 2,
       "type": "Cavalry",
       "attack": 2,
       "hits": 3,
@@ -33,8 +39,10 @@
       "size": 3,
       "points": 60
     },
-    "Skeleton Chariots": {
-      "id": 3,
+    {
+      "id": "skeletonChariots",
+      "name": "Skeleton Chariots",
+      "code": 3,
       "type": "Chariot",
       "attack": "3/1",
       "range": "30cm",
@@ -44,8 +52,10 @@
       "points": 110,
       "max": 3
     },
-    "Carrion": {
-      "id": 4,
+    {
+      "id": "carrion",
+      "name": "Carrion",
+      "code": 4,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -54,8 +64,10 @@
       "points": 65,
       "max": 1
     },
-    "Bone Giant": {
-      "id": 5,
+    {
+      "id": "boneGiant",
+      "name": "Bone Giant",
+      "code": 5,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -64,8 +76,10 @@
       "points": 110,
       "max": 1
     },
-    "Sphinx": {
-      "id": 6,
+    {
+      "id": "sphinx",
+      "name": "Sphinx",
+      "code": 6,
       "type": "Monster",
       "attack": 4,
       "hits": 6,
@@ -74,8 +88,10 @@
       "points": 135,
       "max": 1
     },
-    "Skull Chukka": {
-      "id": 7,
+    {
+      "id": "skullChukka",
+      "name": "Skull Chukka",
+      "code": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -83,10 +99,12 @@
       "size": 1,
       "points": 85,
       "max": 1,
-      "specialRules": ["Stone Thrower"]
+      "specialRules": ["stoneThrower"]
     },
-    "Bone Thrower": {
-      "id": 8,
+    {
+      "id": "boneThrower",
+      "name": "Bone Thrower",
+      "code": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -94,10 +112,12 @@
       "size": 2,
       "points": 65,
       "max": 1,
-      "specialRules": ["Bolt Thrower"]
+      "specialRules": ["boltThrower"]
     },
-    "Tomb King": {
-      "id": 9,
+    {
+      "id": "tombKing",
+      "name": "Tomb King",
+      "code": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -105,35 +125,41 @@
       "points": 130,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Zombie Dragon", "Liche Chariot"]
+      "upgrades": ["zombieDragon", "licheChariot"]
     },
-    "Liche Priest": {
-      "id": 10,
+    {
+      "id": "lichePriest",
+      "name": "Liche Priest",
+      "code": 10,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 90,
       "max": 2,
-      "upgrades": ["Zombie Dragon", "Liche Chariot"]
+      "upgrades": ["zombieDragon", "licheChariot"]
     }
-  },
-  "upgrades": {
-    "Zombie Dragon": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "zombieDragon",
+      "name": "Zombie Dragon",
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
       "max": 1
     },
-    "Liche Chariot": {
-      "id": 1,
+    {
+      "id": "licheChariot",
+      "name": "Liche Chariot",
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "Undead troops are quite beyond any feelings of revulsion, fear, trepidation or anything else for that matter. They are dead and as such nothing holds any real terror for them. Conversely the spells that bind them to life allow only the most rudimentary or specialised intelligence. The following rules apply to all units.",
@@ -142,56 +168,74 @@
     "Undead units are unaffected by the -1 Combat penalty for fighting terrifying troops.",
     "Undead units are unaffected by the Confusion rule - they cannot become confused for any reason."
   ],
-  "specialRules": {
-    "Carrion": {
+  "specialRules": [
+    {
+      "id": "carrion",
+      "name": "Carrion",
       "order": 1,
       "text": [
         "Carrion can fly. Note that Carrion can always return to a character by homing back at the start of the Command phase. No order is required to do this."
       ]
     },
-    "Bone Giant": {
+    {
+      "id": "boneGiant",
+      "name": "Bone Giant",
       "order": 2,
       "text": [
         "Bone Giants cause terror. When a Tomb King gives an order to a Bone Giant or a brigade that contains a Bone Giant there is a -1 Command penalty. There is no penalty when a Liche-Priest gives an order."
       ]
     },
-    "Sphinx": {
+    {
+      "id": "sphinx",
+      "name": "Sphinx",
       "order": 3,
       "text": [
         "Because the Sphinx has so many hits (6) we must consider the possibility of hurting the Sphinx and reducing its effectiveness in subsequent turns. Therefore, if a Sphinx has accumulated 4-5 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Sphinx is badly hurt all accumulated hits are discounted and its maximum Hits and Attacks are halved for the rest of the battle (to 3 Hits and 2 Attacks). The Sphinx causes terror."
       ]
     },
-    "Skull Chukka": {
+    {
+      "id": "skullChukka",
+      "name": "Skull Chukka",
       "order": 4,
       "text": [
         "The Skull Chukka is a Stone Thrower but with the following additional rule. When a unit is driven back as a result of hits scored by a Skull Chukka, then any dice rolled in respect to those hits will cause Confusion on the roll of 4, 5 or 6 (rather than 6 as normal). Note that if a unit has taken other hits as well it will be necessary to roll the Skull Chukka dice separately. See the Artillery and Machines section of the rulebook for the Stone Thrower rules."
       ]
     },
-    "Bolt Thrower": {
+    {
+      "id": "boltThrower",
+      "name": "Bolt Thrower",
       "order": 5
     },
-    "Tomb King": {
+    {
+      "id": "tombKing",
+      "name": "Tomb King",
       "order": 6,
       "text": [
         "The Tomb King is empowered by the spells cast upon him when buried. He can use this power to increase the Combat Attacks value of all the stands in one unit within 20cm by+1 for the duration of one Combat phase. This ability can only be used once per battle."
       ]
     },
-    "Zombie Dragon": {
+    {
+      "id": "zombieDragon",
+      "name": "Zombie Dragon",
       "order": 7,
       "text": [
         "A Tomb King or Liche Priest can ride a Zombie Dragon. A Dragon can fly increasing its rider's move from 60 to 100cm and it adds +3 Attacks to those of its rider. Zombie Dragons have a special shooting attack - they can belch corrosive breath! This attack can only be used if the Dragon riding character has joined a unit but is not engaged in combat. A character that has not joined a unit cannot use the Breath attack. The corrosive breath has a range of 20cm. It can be directed against one target as normal and has 3 Attacks worked out in the usual way. The Zombie Dragon is a terrifying creature - a unit that has been joined by a Dragon riding character causes terror in its enemies."
       ]
     },
-    "Liche Chariot": {
+    {
+      "id": "licheChariot",
+      "name": "Liche Chariot",
       "order": 8,
       "text": [
         "A Tomb King or Liche priest can ride a chariot. A character riding a chariot adds +1 to his Attacks."
       ]
     },
-    "Stone Thrower": {
+    {
+      "id": "stoneThrower",
+      "name": "Stone Thrower",
       "order": 9
     }
-  },
+  ],
   "spells": [
     {
       "name": "Raise Dead",

@@ -1,0 +1,31 @@
+.left {
+  text-align: left;
+}
+
+/* The name cell lays out as a row so the special-rule marker can be pushed to
+   the cell's right edge, lining the markers into a column that's easy to scan. */
+.nameCell {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+/* Indent attachment (upgrade) names so they read as nested under their parent
+   unit. The indent lives on an inner span because the print stylesheet forces
+   a fixed cell padding that would otherwise wipe a cell-level indent. */
+.name {
+  display: inline-block;
+}
+
+.name[data-indent] {
+  margin-left: var(--space-sm);
+}
+
+/* Special-rule reference markers (e.g. "*1, *3") sit inline right after the
+   unit name, bold and pushed to the cell's right edge, so "this unit has
+   special rules" is obvious while scanning the name column. */
+.special {
+  margin-left: auto;
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}

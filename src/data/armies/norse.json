@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 6,
-  "units": {
-    "Bondsmen": {
-      "id": 0,
+  "units": [
+    {
+      "id": "bondsmen",
+      "name": "Bondsmen",
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -14,8 +16,10 @@
       "points": 60,
       "min": 2
     },
-    "Huscarls": {
-      "id": 1,
+    {
+      "id": "huscarls",
+      "name": "Huscarls",
+      "code": 1,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -25,8 +29,10 @@
       "min": 1,
       "max": 4
     },
-    "Huntsmen": {
-      "id": 2,
+    {
+      "id": "huntsmen",
+      "name": "Huntsmen",
+      "code": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -34,8 +40,10 @@
       "size": 3,
       "points": 55
     },
-    "Berserkers": {
-      "id": 3,
+    {
+      "id": "berserkers",
+      "name": "Berserkers",
+      "code": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -43,8 +51,10 @@
       "points": 70,
       "max": 1
     },
-    "Ulfwerener": {
-      "id": 4,
+    {
+      "id": "ulfwerener",
+      "name": "Ulfwerener",
+      "code": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -54,8 +64,10 @@
       "max": 1,
       "noMagic": true
     },
-    "Hird Horsemen": {
-      "id": 5,
+    {
+      "id": "hirdHorsemen",
+      "name": "Hird Horsemen",
+      "code": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -64,8 +76,10 @@
       "points": 90,
       "max": 4
     },
-    "Storm Giant": {
-      "id": 6,
+    {
+      "id": "stormGiant",
+      "name": "Storm Giant",
+      "code": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -73,10 +87,12 @@
       "size": 1,
       "points": 135,
       "max": 1,
-      "specialRules": ["Giant"]
+      "specialRules": ["giant"]
     },
-    "War Mammoth": {
-      "id": 7,
+    {
+      "id": "warMammoth",
+      "name": "War Mammoth",
+      "code": 7,
       "type": "Monster",
       "attack": 8,
       "hits": 10,
@@ -85,8 +101,10 @@
       "points": 180,
       "max": 1
     },
-    "Valkyries": {
-      "id": 8,
+    {
+      "id": "valkyries",
+      "name": "Valkyries",
+      "code": 8,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -95,8 +113,10 @@
       "points": 80,
       "max": 1
     },
-    "Jarl": {
-      "id": 9,
+    {
+      "id": "jarl",
+      "name": "Jarl",
+      "code": 9,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -104,63 +124,79 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Were Kin"]
+      "upgrades": ["wereKin"]
     },
-    "Hero": {
-      "id": 10,
+    {
+      "id": "hero",
+      "name": "Hero",
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Were Kin"]
+      "upgrades": ["wereKin"]
     },
-    "Shaman": {
-      "id": 11,
+    {
+      "id": "shaman",
+      "name": "Shaman",
+      "code": 11,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Were Kin", "Horn of Resounding"]
+      "upgrades": ["wereKin", "hornOfResounding"]
     }
-  },
-  "upgrades": {
-    "Were Kin": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "wereKin",
+      "name": "Were Kin",
+      "code": 0,
       "type": "Special",
       "attack": "+1",
       "points": "+40",
       "max": 1
     },
-    "Horn of Resounding": {
-      "id": 1,
+    {
+      "id": "hornOfResounding",
+      "name": "Horn of Resounding",
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+20",
       "armyMax": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Berserkers": {
+  "specialRules": [
+    {
+      "id": "berserkers",
+      "name": "Berserkers",
       "order": 1,
       "text": [
         "Such is the eagerness to get into combat that a unit of Berserkers will always use its initiative to charge an enemy if possible and can’t be given orders instead. They’ll never use their initiative to evade. They can’t be driven back by shooting and do not roll for drive backs. If victorious in combat, they must pursue or advance where possible. Berserkers are unaffected by enemies that cause terror in combat, so they do not suffer the usual -1 Attack modifier."
       ]
     },
-    "Ulfwerener": {
+    {
+      "id": "ulfwerener",
+      "name": "Ulfwerener",
       "order": 2,
       "text": [
         "Unlike usual infantry troops, the Ulfwerener are based facing the short edge in the same way as cavalry. In addition they receive an additional +1 Attack modifier when they charge an enemy in the open in the same way as monsters and chariots and have an ability to pursue cavalry and chariots troop types. The Ulfwerener stands can never support or be supported. Because of their rather bestial nature, only characters with the Were Kin Character upgrade may join units of Ulfwerener. Ulfwerener units can not take any magic items."
       ]
     },
-    "Giant": {
+    {
+      "id": "giant",
+      "name": "Giant",
       "order": 3
     },
-    "War Mammoth": {
+    {
+      "id": "warMammoth",
+      "name": "War Mammoth",
       "order": 4,
       "text": [
         "As the Mammoth is so gargantuan, it uses a 40 x 60mm base, with the short edge being the front. It causes terror and may attack troops on ramparts with its trunk in the same manner as a Giant. Alternatively, it may elect to batter a wall section or gateway with its tusks in the same manner as a battering ram.",
@@ -168,25 +204,31 @@
         "If War Mammoth has accumulated 6-9 hits by the end of the Shooting phase or Combat phase and is no longer engaged in combat it is deemed to have been badly hurt. Once a Mammoth is badly hurt then all accumulated hits are discounted and its maximum Hits value and Attacks are halved for the rest of the battle (to 5 Hits and 4 Attacks)."
       ]
     },
-    "Valkyries": {
+    {
+      "id": "valkyries",
+      "name": "Valkyries",
       "order": 5,
       "text": [
         "Valkyries can fly. Valkyries will always use their initiative to charge an enemy if possible and cannot be given orders instead. They will never use their initiative to evade. Valkyries are unaffected by enemy that cause terror in combat and they don’t suffer the usual -1 Attack modifier."
       ]
     },
-    "Were Kin": {
+    {
+      "id": "wereKin",
+      "name": "Were Kin",
       "order": 6,
       "text": [
         "The Were Kin special mount option may be taken by any character in Norse army. It is not actually a mount as such, more an upgrade. A unit that is joined by the character with the Were Kin upgrade causes terror in its enemies. No terrain restriction apply for Were Kin - just treat the character as having +1 extra Attack and causing terror."
       ]
     },
-    "Horn of Resounding": {
+    {
+      "id": "hornOfResounding",
+      "name": "Horn of Resounding",
       "order": 7,
       "text": [
         "A single shaman in the army may be given this chariot upgrade. It gives the shaman +1 Attack if the Horn is used the Shaman inspires the units around him to fight harder. He may add +1 to all of his Command checks for a single turn only."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Aspect of Wulfen",

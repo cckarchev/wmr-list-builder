@@ -1,0 +1,117 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--border-divider);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-strong);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  flex: 0 0 auto;
+  padding: var(--space-xxs) var(--space-xs);
+  background: none;
+  border: var(--border-divider);
+  border-radius: var(--radius);
+  color: var(--color-text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-body);
+}
+
+.toggle:focus-visible,
+.search:focus-visible,
+.chip:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Pressed toggles and chips share the accent treatment. */
+.toggle[aria-pressed='true'],
+.chip[aria-pressed='true'] {
+  background: var(--color-bg-accent-tint);
+  color: var(--color-accent);
+  border-color: var(--color-border-accent);
+}
+
+.caret {
+  display: inline-flex;
+  transition: transform var(--duration-fast);
+}
+
+.toggle[aria-expanded='true'] .caret {
+  transform: rotate(90deg);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.search {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-bg-surface);
+  border: var(--border-default);
+  border-radius: var(--radius);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+}
+
+.search::placeholder {
+  color: var(--color-text-dim);
+}
+
+.chips {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xxs) var(--space-xs);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  background: var(--color-bg-tint);
+  color: var(--color-text-dim);
+  border: var(--border-divider);
+}
+
+.chip:hover {
+  border-color: var(--color-border-hover);
+}

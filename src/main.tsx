@@ -1,21 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './theme/theme';
-import { GlobalStyle } from './theme/GlobalStyle';
-import { initEmbed } from './store/embed';
-import App from './App';
+import { initEmbed } from '@/core/share-link/embed';
+import { App } from './App';
+import '@/theme/global.css';
 
 initEmbed();
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
-  </React.StrictMode>,
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Missing #root element in index.html');
+}
+
+createRoot(rootElement).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
 );

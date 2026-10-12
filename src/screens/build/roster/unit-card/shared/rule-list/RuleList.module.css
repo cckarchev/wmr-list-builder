@@ -1,0 +1,25 @@
+.rule + .rule {
+  margin-top: var(--space-sm);
+}
+
+.name {
+  margin: 0 0 var(--space-xxs);
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-strong);
+}
+
+.text {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: var(--leading-body);
+}
+
+.text p {
+  margin: 0 0 var(--space-xxs);
+}
+
+.text p:last-child {
+  margin-bottom: 0;
+}

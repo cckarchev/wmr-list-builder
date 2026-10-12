@@ -1,0 +1,25 @@
+/* A transient confirmation bubble. Positioned absolutely so it floats over the
+   layout instead of pushing the neighbouring action buttons aside. */
+.bubble {
+  position: absolute;
+  top: calc(100% + var(--space-xxs));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-popup);
+  white-space: nowrap;
+  padding: var(--space-xxs) var(--space-xs);
+  background: var(--color-bg-surface);
+  border: var(--border-default);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.bubble[data-tone='success'] {
+  color: var(--color-success);
+}
+
+.bubble[data-tone='error'] {
+  color: var(--color-error);
+}

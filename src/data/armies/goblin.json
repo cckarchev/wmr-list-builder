@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 1,
-  "units": {
-    "Goblins": {
-      "id": 0,
+  "units": [
+    {
+      "id": "goblins",
+      "name": "Goblins",
+      "code": 0,
       "type": "Infantry",
       "attack": "2/1",
       "range": "15cm",
@@ -13,18 +15,22 @@
       "size": 3,
       "points": 30,
       "min": 4,
-      "upgrades": ["Squig Herd"]
+      "upgrades": ["squigHerd"]
     },
-    "Squig Herd": {
-      "id": 1,
+    {
+      "id": "squigHerd",
+      "name": "Squig Herd",
+      "code": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
       "size": 3,
       "points": 30
     },
-    "Trolls": {
-      "id": 2,
+    {
+      "id": "trolls",
+      "name": "Trolls",
+      "code": 2,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -33,8 +39,10 @@
       "points": 110,
       "max": 4
     },
-    "Wolf Riders": {
-      "id": 3,
+    {
+      "id": "wolfRiders",
+      "name": "Wolf Riders",
+      "code": 3,
       "type": "Cavalry",
       "attack": "2/1",
       "range": "15cm",
@@ -44,8 +52,10 @@
       "points": 60,
       "min": 2
     },
-    "Wolf Chariots": {
-      "id": 4,
+    {
+      "id": "wolfChariots",
+      "name": "Wolf Chariots",
+      "code": 4,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -54,8 +64,10 @@
       "points": 75,
       "max": 4
     },
-    "Pump Wagon": {
-      "id": 5,
+    {
+      "id": "pumpWagon",
+      "name": "Pump Wagon",
+      "code": 5,
       "type": "Chariot",
       "attack": "D6",
       "hits": 3,
@@ -65,8 +77,10 @@
       "max": 2,
       "noCount": true
     },
-    "Giant": {
-      "id": 6,
+    {
+      "id": "giant",
+      "name": "Giant",
+      "code": 6,
       "type": "Monster",
       "attack": 8,
       "hits": 8,
@@ -75,8 +89,10 @@
       "points": 135,
       "max": 1
     },
-    "Doom Diver": {
-      "id": 7,
+    {
+      "id": "doomDiver",
+      "name": "Doom Diver",
+      "code": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -85,8 +101,10 @@
       "points": 80,
       "max": 1
     },
-    "Spear Chukka": {
-      "id": 8,
+    {
+      "id": "spearChukka",
+      "name": "Spear Chukka",
+      "code": 8,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -94,10 +112,12 @@
       "size": 2,
       "points": 65,
       "max": 2,
-      "specialRules": ["Bolt Thrower"]
+      "specialRules": ["boltThrower"]
     },
-    "Goblin Warboss": {
-      "id": 9,
+    {
+      "id": "goblinWarboss",
+      "name": "Goblin Warboss",
+      "code": 9,
       "type": "General",
       "attack": "+1",
       "command": 8,
@@ -105,46 +125,56 @@
       "points": 80,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Wolf Chariot", "Wyvern"]
+      "upgrades": ["wolfChariot", "wyvern"]
     },
-    "Goblin Hero": {
-      "id": 10,
+    {
+      "id": "goblinHero",
+      "name": "Goblin Hero",
+      "code": 10,
       "type": "Hero",
       "attack": "+1",
       "command": 7,
       "size": 1,
       "points": 45,
       "max": 4,
-      "upgrades": ["Wolf Chariot", "Wyvern"]
+      "upgrades": ["wolfChariot", "wyvern"]
     },
-    "Goblin Shaman": {
-      "id": 11,
+    {
+      "id": "goblinShaman",
+      "name": "Goblin Shaman",
+      "code": 11,
       "type": "Wizard",
       "attack": "+0",
       "command": 6,
       "size": 1,
       "points": 30,
       "max": 2,
-      "upgrades": ["Wolf Chariot", "Wyvern"]
+      "upgrades": ["wolfChariot", "wyvern"]
     }
-  },
-  "upgrades": {
-    "Wolf Chariot": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "wolfChariot",
+      "name": "Wolf Chariot",
+      "code": 0,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
       "max": 1
     },
-    "Wyvern": {
-      "id": 1,
+    {
+      "id": "wyvern",
+      "name": "Wyvern",
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
       "max": 1
     },
-    "Squig Herd": {
-      "id": 2,
+    {
+      "id": "squigHerd",
+      "name": "Squig Herd",
+      "code": 2,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -152,28 +182,36 @@
       "points": "+0",
       "max": 2
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Goblins": {
+  "specialRules": [
+    {
+      "id": "goblins",
+      "name": "Goblins",
       "order": 1,
       "text": [
         "A Goblin unit is allowed to shoot as if it had bows but its range is reduced to 15cm. Up to two units per full 1000 points can be replaced by Squig Herd while still counting for the Goblin min/max value. Note that these units still count for min/max value of Squig Herds."
       ]
     },
-    "Trolls": {
+    {
+      "id": "trolls",
+      "name": "Trolls",
       "order": 2,
       "text": [
         "When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round."
       ]
     },
-    "Wolf Riders": {
+    {
+      "id": "wolfRiders",
+      "name": "Wolf Riders",
       "order": 3,
       "text": [
         "The Wolf Riders have only a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Pump Wagon": {
+    {
+      "id": "pumpWagon",
+      "name": "Pump Wagon",
       "order": 4,
       "text": [
         "The Pump Wagon doesn't move in Command phase by initiative or by successful orders. Instead of this it can always move once up to 1D6 x 10cm. This move is automatic, requiring no Command roll, and happens at any time during the Command phase but may not interrupt a character giving orders or units moving (including other Pump Wagons). This gives the Pump Wagon a movement of between 10cm and 60cm each turn.",
@@ -181,25 +219,33 @@
         "A Pump Wagon cannot be driven back by shooting and do not roll for drive backs. Pump Wagons ignore confusion. A Pump Wagon cannot be brigaded with other units; not even another Pump Wagon, and characters cannot join it. The enemy does not gain Victory points for a destroyed Pump Wagon and a Pump Wagon does not count towards the Goblin army‘s break value in any way."
       ]
     },
-    "Giant": {
+    {
+      "id": "giant",
+      "name": "Giant",
       "order": 5
     },
-    "Doom Diver": {
+    {
+      "id": "doomDiver",
+      "name": "Doom Diver",
       "order": 6,
       "text": [
         "The Doom Diver has a range of 60cm and a unit hit by a Doom Diver is allowed to make its normal armour save. Doom Divers shoot at such a high trajectory that they cannot shoot at charging enemies."
       ]
     },
-    "Bolt Thrower": {
+    {
+      "id": "boltThrower",
+      "name": "Bolt Thrower",
       "order": 7
     },
-    "Wyvern": {
+    {
+      "id": "wyvern",
+      "name": "Wyvern",
       "order": 8,
       "text": [
         "Characters may ride Wyverns. A Wyvern can fly increasing its rider's movement from 60cm to 100cm, and it adds +2 Attacks to those of its rider. A unit that includes a Wyvern rider causes terror in its enemies."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Mork Save Uz!",

@@ -1,7 +1,9 @@
 export type StatValue = string | number;
 
 export interface Unit {
-  id: number;
+  id: string;
+  name: string;
+  code: number;
   type: string;
   attack?: StatValue;
   range?: string;
@@ -11,7 +13,7 @@ export interface Unit {
   size?: number;
   points: number;
   /**
-   * Marks a unit that casts the army's spells without being `type: 'Wizard'` —
+   * Marks a unit that casts the army's spells without being `type: 'Wizard'`:
    * e.g. the Skaven Grey Seer or Vampire Lord, who are Generals granted
    * spellcasting by a special rule. Lets the UI show spells without parsing
    * rule text. Wizards don't need this flag; their `type` already implies it.
@@ -32,7 +34,9 @@ export interface Unit {
 }
 
 export interface Upgrade {
-  id: number;
+  id: string;
+  name: string;
+  code: number;
   type: string;
   attack?: StatValue;
   hits?: StatValue;
@@ -52,12 +56,16 @@ export interface Upgrade {
 }
 
 export interface SpecialRule {
+  id: string;
+  name: string;
   order?: number;
   text?: string[];
 }
 
 export interface MagicItem {
-  id: number;
+  id: string;
+  name: string;
+  code: number;
   type: string;
   points: string | Record<string, string>;
   pointsValue?: string;
@@ -68,6 +76,11 @@ export interface MagicItem {
 export interface MagicItemsFile {
   upgrades: Record<string, MagicItem>;
   upgradeConstraints: UpgradeConstraint[];
+}
+
+/** The magic items JSON as stored: items in a list, each carrying its own id. */
+export interface RawMagicItemsFile extends Omit<MagicItemsFile, 'upgrades'> {
+  upgrades: MagicItem[];
 }
 
 export interface Spell {
@@ -112,4 +125,14 @@ export interface ValidationError {
    * such as the points ceiling.
    */
   targets: string[];
+}
+
+/**
+ * An army JSON as stored: units, upgrades and special rules in lists, each
+ * entity carrying its own id. `normalizeArmy` turns it into an `Army`.
+ */
+export interface RawArmy extends Omit<Army, 'units' | 'upgrades' | 'specialRules'> {
+  units: Unit[];
+  upgrades?: Upgrade[];
+  specialRules?: SpecialRule[];
 }

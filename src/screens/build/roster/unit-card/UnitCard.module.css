@@ -1,0 +1,89 @@
+@import '@/theme/breakpoints.css';
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-panel);
+  border: var(--border-default);
+  border-radius: var(--radius);
+  transition: border-color var(--duration-fast);
+}
+
+/* More interior breathing room on wider screens, where the card has space to
+   spare; mobile stays compact. */
+@media (--tablet-up) {
+  .card {
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+  }
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+}
+
+/* An error outranks selection, so the invalid rule comes last. */
+.card[data-selected] {
+  border-color: var(--color-border-accent);
+}
+
+.card[data-invalid] {
+  border-color: var(--color-error);
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+/* Left column: name and stat line stacked tightly. Keeping the stats here (next
+   to the name rather than below the whole header row) means the taller
+   right-hand controls column no longer pushes the stats down. */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+  flex: 1;
+}
+
+.nameRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-strong);
+}
+
+/* The troop/character type as a quiet inline tag after the name. Shown only
+   when it isn't already stated by the section header. */
+.typeTag {
+  composes: eyebrow from '@/theme/typography.module.css';
+}
+
+/* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row
+   of pill controls. Each child renders nothing when it doesn't apply, so when
+   the whole row is empty `:empty` removes it (and its parent gap) entirely. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.actions:empty {
+  display: none;
+}

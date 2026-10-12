@@ -1,0 +1,12 @@
+.content {
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-body);
+}
+
+.content p {
+  margin-bottom: var(--space-sm);
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}

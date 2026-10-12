@@ -1,0 +1,72 @@
+.item + .item {
+  border-top: var(--border-divider);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  text-align: left;
+  padding: var(--space-xs) var(--space-sm);
+  background: transparent;
+  border: none;
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.name:hover {
+  background: var(--color-bg-tint);
+  color: var(--color-text-strong);
+}
+
+.name:focus-visible,
+.delete:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.title {
+  min-width: 0;
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.size {
+  flex-shrink: 0;
+  padding: var(--space-xxs) var(--space-xs);
+  background: var(--color-bg-deep);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}
+
+.delete {
+  display: inline-flex;
+  margin-right: var(--space-xs);
+  padding: var(--space-xxs);
+  background: transparent;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius);
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: var(--color-error);
+}

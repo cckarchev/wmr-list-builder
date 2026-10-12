@@ -1,0 +1,59 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.label {
+  composes: eyebrow from '@/theme/typography.module.css';
+  text-align: center;
+}
+
+/* The Stepper control's bordered −/+ group, wrapping an editable input instead
+   of a read-only value. */
+.stepper {
+  composes: stepper from '@/components/stepper/Stepper.module.css';
+  align-self: center;
+  background: var(--color-bg-panel);
+}
+
+.step {
+  composes: step from '@/components/stepper/Stepper.module.css';
+}
+
+/* No vertical padding, unlike Stepper: the input sets the row height. Scoped
+   under .stepper so it wins over the composed class whatever order the two
+   stylesheets load in. */
+.stepper .step {
+  padding: 0 var(--space-xs);
+}
+
+.input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Sits between the −/+ buttons. Fixed width fits the largest game size
+   ("2000") and keeps Chrome and Firefox in sync: Chrome ignores the size attr
+   and reserves room for the spinner, which is also hidden below. */
+.input {
+  width: 7ch;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-strong);
+  background: transparent;
+  border: none;
+  border-inline: var(--border-default);
+  padding: var(--space-xxs) var(--space-xs);
+  /* Hide the native spinner buttons; stepping is handled by the −/+ buttons. */
+  appearance: textfield;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}

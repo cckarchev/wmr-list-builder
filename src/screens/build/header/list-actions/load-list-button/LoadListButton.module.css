@@ -1,0 +1,6 @@
+.empty {
+  margin: 0;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}

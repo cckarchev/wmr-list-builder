@@ -1,0 +1,7 @@
+/*
+ * Shared media queries. Import this file at the top of any stylesheet that
+ * needs them; it emits no CSS of its own.
+ */
+@custom-media --phone (max-width: 480px);
+@custom-media --below-tablet (max-width: 767.98px);
+@custom-media --tablet-up (min-width: 768px);

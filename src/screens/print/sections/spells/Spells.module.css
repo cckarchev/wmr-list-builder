@@ -1,0 +1,5 @@
+/* Element-qualified so it beats PrintSection's `.desc { margin: 0 }` whatever
+   the order the two stylesheets load in. */
+dd.text {
+  margin-bottom: var(--space-xs);
+}

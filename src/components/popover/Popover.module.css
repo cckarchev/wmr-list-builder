@@ -1,0 +1,26 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-xxs));
+  left: 0;
+  z-index: var(--z-popup);
+  width: max-content;
+  max-width: min(var(--popup-width), 80vw);
+  max-height: var(--popup-max-height);
+  overflow-y: auto;
+  padding: var(--space-sm);
+  background: var(--color-bg-surface);
+  border: var(--border-default);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+  text-align: left;
+}
+
+/* Wider panel for prose-heavy content, such as special-rule text. */
+.panel[data-wide] {
+  max-width: min(var(--popup-width-wide), 92vw);
+}

@@ -1,0 +1,14 @@
+.caret {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--duration-fast);
+}
+
+.caret[data-open] {
+  transform: rotate(90deg);
+}
+
+.selectedBadge {
+  font-family: var(--font-mono);
+  color: var(--color-teal-bright);
+}

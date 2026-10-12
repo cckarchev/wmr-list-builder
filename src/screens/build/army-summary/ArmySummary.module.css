@@ -1,0 +1,75 @@
+@import '@/theme/breakpoints.css';
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--color-bg-surface);
+  border: var(--border-default);
+  border-radius: var(--radius);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  color: var(--color-text-strong);
+  text-align: left;
+  cursor: pointer;
+}
+
+.heading:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* The collapse toggle is only meaningful on mobile; on desktop the body is
+   always shown, so the heading is not interactive there. */
+@media (--tablet-up) {
+  .heading {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+@media (--below-tablet) {
+  .body:not([data-open]) {
+    display: none;
+  }
+}
+
+.empty {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-top: var(--space-xs);
+  border-top: var(--border-divider);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-dim);
+}
+
+.total[data-over] {
+  color: var(--color-error);
+}

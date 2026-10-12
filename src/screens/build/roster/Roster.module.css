@@ -1,0 +1,13 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  /* Allow the grid column to shrink rather than stretch the track. */
+  min-width: 0;
+}
+
+.empty {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dim);
+  font-style: italic;
+}

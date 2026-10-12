@@ -1,0 +1,6 @@
+.wrapper {
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+}

@@ -1,0 +1,21 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  /* No gap between rows so their left rules join into one continuous line. */
+  gap: 0;
+}
+
+.group + .group {
+  margin-top: var(--space-xs);
+}
+
+.groupLabel {
+  composes: eyebrow from '@/theme/typography.module.css';
+  margin: 0 0 var(--space-xxs);
+}

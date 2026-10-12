@@ -12,8 +12,10 @@ It is built as a standalone static site and is meant to be embedded full-bleed i
 
 - **React 19** + **TypeScript**
 - **Vite** (dev server + build)
-- **styled-components** for styling: all visual values come from the design tokens in
-  `src/theme/theme.ts`; no inline styles
+- **CSS Modules** (compiled by Lightning CSS) for styling: each component's
+  `.module.css` lives in its folder, and every visual value comes from the design
+  tokens in `src/theme/tokens.css`. Breakpoints are `@custom-media` queries in
+  `src/theme/breakpoints.css`; variants and states are `data-*` attributes
 - **Zustand** for state (`src/store/`)
 - **React Router** for routing
 - **marked** for rendering Markdown in rule, spell, and magic-item text
@@ -35,20 +37,25 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 | `npm run preview`      | Serve the built `dist/` locally                       |
 | `npm test`             | Run the test suite once                               |
 | `npm run test:watch`   | Run tests in watch mode                               |
-| `npm run lint`         | Lint `src/`                                           |
-| `npm run lint:fix`     | Lint `src/` and auto-fix what it can                  |
+| `npm run lint`         | Lint, format, and import-order check with Biome       |
+| `npm run lint:fix`     | Apply all safe Biome fixes                            |
 | `npm run typecheck`    | Type-check without emitting                           |
-| `npm run format`       | Format the repo with Prettier                         |
-| `npm run format:check` | Check formatting without writing                      |
 
 ## Project layout
 
     src/
+      core/        Pure logic: validation, force limits, army totals, roster grouping, persistence (ports of the original logic)
       data/        Warmaster Revolution army JSON + loaders and types
-      store/       Zustand store, selectors, validation (ports of the original logic)
+      store/       Zustand store and store-bound hooks
       theme/       Design tokens + global styles (dark UI; light @media print)
-      components/  ui/ primitives, army/ build widgets, print/ sheet, layout/ shell
-      screens/     Home (army picker), Build (roster), Print (selectable sections)
+      components/  Shared UI primitives, one folder per component
+      hooks/       Shared React hooks: popup dismissal, Escape key, element size
+      layout/      App shell: layout, nav, scroll restoration
+      screens/     home/ (army picker), build/ (roster), print/ (selectable sections)
+
+Each screen folder mirrors its component tree: a component with private children keeps
+them in subfolders beside it. Imports inside one area are relative; imports that leave
+it use the `@/` alias for `src/`.
 
 Army data lives in `src/data/armies/*.json` and is imported at build time via Vite's
 `import.meta.glob`, so adding an army is just dropping in a JSON file.
@@ -81,7 +88,7 @@ the rest (share link, copy as text, print, reset) live under the **More** overfl
   reconstructs the roster with no server involved.
 - **Copy** writes a plain-text version of the list to the clipboard.
 
-Encoding, decoding, and the saved-list storage live in `src/store/persistence.ts`.
+Encoding, decoding, and the saved-list storage live in `src/core/persistence/`.
 
 ## Building a roster
 

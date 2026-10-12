@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 1,
-  "units": {
-    "Winged Lancers": {
-      "id": 0,
+  "units": [
+    {
+      "id": "wingedLancers",
+      "name": "Winged Lancers",
+      "code": 0,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -14,8 +16,10 @@
       "points": 110,
       "max": 3
     },
-    "Horse Archers": {
-      "id": 1,
+    {
+      "id": "horseArchers",
+      "name": "Horse Archers",
+      "code": 1,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -24,10 +28,12 @@
       "size": 3,
       "points": 75,
       "min": 2,
-      "specialRules": ["Horse Archers, Cossacks"]
+      "specialRules": ["horseArchersCossacks"]
     },
-    "Cossacks": {
-      "id": 2,
+    {
+      "id": "cossacks",
+      "name": "Cossacks",
+      "code": 2,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -36,10 +42,12 @@
       "size": 3,
       "points": 95,
       "max": 2,
-      "specialRules": ["Horse Archers, Cossacks"]
+      "specialRules": ["horseArchersCossacks"]
     },
-    "Bowmen": {
-      "id": 3,
+    {
+      "id": "bowmen",
+      "name": "Bowmen",
+      "code": 3,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -47,8 +55,10 @@
       "size": 3,
       "points": 55
     },
-    "Red Guard": {
-      "id": 4,
+    {
+      "id": "redGuard",
+      "name": "Red Guard",
+      "code": 4,
       "type": "Infantry",
       "attack": "3/1",
       "range": "30cm",
@@ -58,8 +68,10 @@
       "points": 90,
       "max": 1
     },
-    "Axemen": {
-      "id": 5,
+    {
+      "id": "axemen",
+      "name": "Axemen",
+      "code": 5,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -67,10 +79,12 @@
       "size": 3,
       "points": 45,
       "min": 2,
-      "upgrades": ["Bowmen"]
+      "upgrades": ["bowmen"]
     },
-    "Bears": {
-      "id": 6,
+    {
+      "id": "bears",
+      "name": "Bears",
+      "code": 6,
       "type": "Infantry",
       "attack": 5,
       "hits": 4,
@@ -78,8 +92,10 @@
       "points": 90,
       "max": 1
     },
-    "War Wagon": {
-      "id": 7,
+    {
+      "id": "warWagon",
+      "name": "War Wagon",
+      "code": 7,
       "type": "Artillery",
       "attack": "4/4",
       "range": "30cm",
@@ -89,8 +105,10 @@
       "points": 125,
       "max": 1
     },
-    "General": {
-      "id": 8,
+    {
+      "id": "general",
+      "name": "General",
+      "code": 8,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -98,60 +116,72 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Bear", "Tzarina"]
+      "upgrades": ["bear", "tzarina"]
     },
-    "Hero": {
-      "id": 9,
+    {
+      "id": "hero",
+      "name": "Hero",
+      "code": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Bear"]
+      "upgrades": ["bear"]
     },
-    "Shaman": {
-      "id": 10,
+    {
+      "id": "shaman",
+      "name": "Shaman",
+      "code": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Bear", "Yozhin"]
+      "upgrades": ["bear", "yozhin"]
     }
-  },
-  "upgrades": {
-    "Bear": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "bear",
+      "name": "Bear",
+      "code": 0,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+10",
       "max": 1,
-      "specialRules": ["Bear Mount"]
+      "specialRules": ["bearMount"]
     },
-    "Yozhin": {
-      "id": 1,
+    {
+      "id": "yozhin",
+      "name": "Yozhin",
+      "code": 1,
       "type": "Special Mount",
       "attack": "+1",
       "points": "+40",
       "armyMax": 1
     },
-    "Tzarina": {
-      "id": 2,
+    {
+      "id": "tzarina",
+      "name": "Tzarina",
+      "code": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
       "addOnUpgrades": [
-        "Ring of Magic",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling",
-        "Wand of Power",
-        "Rod of Repetition"
+        "ringOfMagic",
+        "staffOfSpellbinding",
+        "scrollOfDispelling",
+        "wandOfPower",
+        "rodOfRepetition"
       ]
     },
-    "Bowmen": {
-      "id": 3,
+    {
+      "id": "bowmen",
+      "name": "Bowmen",
+      "code": 3,
       "type": "Special",
       "attack": "3/1",
       "range": "30cm",
@@ -160,28 +190,36 @@
       "points": "+10",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Winged Lancers": {
+  "specialRules": [
+    {
+      "id": "wingedLancers",
+      "name": "Winged Lancers",
       "order": 1,
       "text": [
         "Winged Lancers receive +1 Attack in the first round of every combat when fighting to the front and are immune to Terror."
       ]
     },
-    "Horse Archers, Cossacks": {
+    {
+      "id": "horseArchersCossacks",
+      "name": "Horse Archers, Cossacks",
       "order": 2,
       "text": [
         "Kislevite Horsemen have a shooting range of 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Red Guard": {
+    {
+      "id": "redGuard",
+      "name": "Red Guard",
       "order": 3,
       "text": [
         "In addition to traditional Kislevite long axes Red Guard is armed with handguns. Count enemy armour values as one worse than normal when shot by a handgun. So an armour value of 3+ counts as 4+, 4+ as 5+, and 5+ as 6+, whilst an armour value of 6+ can't save against a handgun."
       ]
     },
-    "Bears": {
+    {
+      "id": "bears",
+      "name": "Bears",
       "order": 4,
       "text": [
         "Bears are defined as infantry for rules purposes as this gives them the appropriate mobility for such creatures, but they add +1 Attack when they charge an enemy in the open in the same way as monsters and chariots.",
@@ -189,7 +227,9 @@
         "Note that these rules apply only to Bear units - not to characters riding a Bear or Shaman that have transformed in Monster Bear"
       ]
     },
-    "War Wagon": {
+    {
+      "id": "warWagon",
+      "name": "War Wagon",
       "order": 5,
       "text": [
         "The War Wagon consists of a wagon stand and a horse team stand. The unit must always be in one of two formations: a column with the horse team in front of the wagon, or a laager with the horse team placed beside the wagon edge to edge.",
@@ -202,26 +242,32 @@
         "Any Kislev infantry unit with a side edge of one stand touching wholly the short edge of a laagered wagon stand counts as defended for shooting and combat. This advantage applies only in the first round of combat."
       ]
     },
-    "Bear Mount": {
+    {
+      "id": "bearMount",
+      "name": "Bear Mount",
       "order": 6,
       "text": [
         "Generals, Heroes and Shamans can ride a Bear mount. The Bear adds +1 Attack to that of its rider."
       ]
     },
-    "Yozhin": {
+    {
+      "id": "yozhin",
+      "name": "Yozhin",
       "order": 7,
       "text": [
         "This creature lives in swamps near the Praag since the great incursion of Chaos. Yozhin strongly hates any kind of Chaos, being (possibly) chaos-twisted creature itself. Only powerful Shamans may summon Yozhin and make it to fight on their side.",
         "A single Shaman in the army can be assisted by Yozhin. There is no restriction of going into any water/boggy/swamp terrain for him. A unit that has been joined by a Yozhin riding Shaman causes terror in its enemies. Yozhin adds +1 Attack to Shaman's attacks value."
       ]
     },
-    "Tzarina": {
+    {
+      "id": "tzarina",
+      "name": "Tzarina",
       "order": 8,
       "text": [
         "The General may be a Tzarina of the royal blood - perhaps Tzarina Katrina herself. The Tzarina rides a horse-drawn sled - note this is not a chariot! The Tzarina can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle the Tzarina can add +1 to the dice when attempting to cast a spell. The player must announce that the Tzarina's special spell casting bonus is being used before rolling for the spell."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Monster Bear!",

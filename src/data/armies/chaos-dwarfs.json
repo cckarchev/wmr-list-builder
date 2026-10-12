@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 2,
   "order": 3,
-  "units": {
-    "Chaos Dwarfs": {
-      "id": 0,
+  "units": [
+    {
+      "id": "chaosDwarfs",
+      "name": "Chaos Dwarfs",
+      "code": 0,
       "type": "Infantry",
       "attack": 3,
       "hits": 4,
@@ -14,10 +16,12 @@
       "points": 110,
       "min": 2,
       "max": 4,
-      "upgrades": ["Blunderbusses"]
+      "upgrades": ["blunderbusses"]
     },
-    "Blunderbusses": {
-      "id": 1,
+    {
+      "id": "blunderbusses",
+      "name": "Blunderbusses",
+      "code": 1,
       "type": "Infantry",
       "attack": "3/2",
       "range": "15cm",
@@ -27,8 +31,10 @@
       "points": 90,
       "max": 2
     },
-    "Hobgoblins": {
-      "id": 2,
+    {
+      "id": "hobgoblins",
+      "name": "Hobgoblins",
+      "code": 2,
       "type": "Infantry",
       "attack": "3/1",
       "range": "15cm",
@@ -36,8 +42,10 @@
       "size": 3,
       "points": 45
     },
-    "Black Orcs": {
-      "id": 3,
+    {
+      "id": "blackOrcs",
+      "name": "Black Orcs",
+      "code": 3,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -46,8 +54,10 @@
       "points": 110,
       "max": 1
     },
-    "Orc Slaves": {
-      "id": 4,
+    {
+      "id": "orcSlaves",
+      "name": "Orc Slaves",
+      "code": 4,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
@@ -55,8 +65,10 @@
       "points": 40,
       "max": 2
     },
-    "Hobgoblin Wolf Riders": {
-      "id": 5,
+    {
+      "id": "hobgoblinWolfRiders",
+      "name": "Hobgoblin Wolf Riders",
+      "code": 5,
       "type": "Cavalry",
       "attack": "3/1",
       "range": "15cm",
@@ -64,10 +76,12 @@
       "armour": "6+",
       "size": 3,
       "points": 75,
-      "specialRules": ["Hobgoblins"]
+      "specialRules": ["hobgoblins"]
     },
-    "Bull Centaurs": {
-      "id": 6,
+    {
+      "id": "bullCentaurs",
+      "name": "Bull Centaurs",
+      "code": 6,
       "type": "Cavalry",
       "attack": 4,
       "hits": 4,
@@ -76,8 +90,10 @@
       "points": 140,
       "max": 2
     },
-    "Earthshaker Cannon": {
-      "id": 7,
+    {
+      "id": "earthshakerCannon",
+      "name": "Earthshaker Cannon",
+      "code": 7,
       "type": "Artillery",
       "attack": "1/3",
       "range": "60cm",
@@ -86,11 +102,13 @@
       "size": 1,
       "points": 90,
       "max": 1,
-      "specialRules": ["Stone Thrower"],
-      "homologousUnits": ["Death Rocket"]
+      "specialRules": ["stoneThrower"],
+      "homologousUnits": ["deathRocket"]
     },
-    "Death Rocket": {
-      "id": 8,
+    {
+      "id": "deathRocket",
+      "name": "Death Rocket",
+      "code": 8,
       "type": "Artillery",
       "attack": "1/D6",
       "range": "60cm",
@@ -99,11 +117,13 @@
       "size": 1,
       "points": 60,
       "max": 1,
-      "specialRules": ["Stone Thrower"],
-      "homologousUnits": ["Earthshaker Cannon"]
+      "specialRules": ["stoneThrower"],
+      "homologousUnits": ["earthshakerCannon"]
     },
-    "Bolt Thrower": {
-      "id": 9,
+    {
+      "id": "boltThrower",
+      "name": "Bolt Thrower",
+      "code": 9,
       "type": "Artillery",
       "attack": "1/2 per stand",
       "range": "40cm",
@@ -112,8 +132,10 @@
       "points": 65,
       "max": 1
     },
-    "General": {
-      "id": 10,
+    {
+      "id": "general",
+      "name": "General",
+      "code": 10,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -121,60 +143,72 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Great Taurus", "Sorcerer Lord"]
+      "upgrades": ["greatTaurus", "sorcererLord"]
     },
-    "Hero": {
-      "id": 11,
+    {
+      "id": "hero",
+      "name": "Hero",
+      "code": 11,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Great Taurus"]
+      "upgrades": ["greatTaurus"]
     },
-    "Sorcerer": {
-      "id": 12,
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "code": 12,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Great Taurus", "Lammasu"]
+      "upgrades": ["greatTaurus", "lammasu"]
     }
-  },
-  "upgrades": {
-    "Great Taurus": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "greatTaurus",
+      "name": "Great Taurus",
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
       "max": 1
     },
-    "Lammasu": {
-      "id": 1,
+    {
+      "id": "lammasu",
+      "name": "Lammasu",
+      "code": 1,
       "type": "Monstrous Mount",
       "attack": "+1",
       "points": "+35",
       "max": 1
     },
-    "Sorcerer Lord": {
-      "id": 2,
+    {
+      "id": "sorcererLord",
+      "name": "Sorcerer Lord",
+      "code": 2,
       "type": "Special",
       "points": "+25",
       "armyMax": 1,
       "addOnUpgrades": [
-        "Lammasu",
-        "Ring of Magic",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling",
-        "Wand of Power",
-        "Rod of Repetition"
+        "lammasu",
+        "ringOfMagic",
+        "staffOfSpellbinding",
+        "scrollOfDispelling",
+        "wandOfPower",
+        "rodOfRepetition"
       ]
     },
-    "Blunderbusses": {
-      "id": 3,
+    {
+      "id": "blunderbusses",
+      "name": "Blunderbusses",
+      "code": 3,
       "type": "Special",
       "attack": "3/2",
       "range": "15cm",
@@ -184,36 +218,46 @@
       "points": "-20",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Blunderbusses": {
+  "specialRules": [
+    {
+      "id": "blunderbusses",
+      "name": "Blunderbusses",
       "order": 1,
       "text": [
         "Units with Blunderbusses have a shooting range of 15cm. The unit has 2 shooting attacks. Units hit by Blunderbusses get a -1 penalty for their armour rolls. One unit of Blunderbusses per full 1000 points can replace a unit of Warriors while still counting for the Warrior min/max value. Note that this unit still counts for max value of Blunderbusses."
       ]
     },
-    "Hobgoblins": {
+    {
+      "id": "hobgoblins",
+      "name": "Hobgoblins",
       "order": 2,
       "text": [
         "Hobgoblins and Hobgoblin Wolf Riders carry an assortment of smaller ranged arms, so may only shoot up to 15cm and 360° vision – stands in this unit can draw line of sight from all edges for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy.",
         "Hobgoblins and Orcs have a strong hatred so units of Hobgoblins or Hobgoblin Wolf Riders may not brigade with units of Black Orcs or Orc Slaves unless a Chaos Dwarf or Blunderbuss unit is part of the brigade."
       ]
     },
-    "Orc Slaves": {
+    {
+      "id": "orcSlaves",
+      "name": "Orc Slaves",
       "order": 3,
       "text": [
         "Slaves are just that, captives forced to work and fight for their cruel masters' enjoyment. A unit of Slaves suffer an additional -1 Command penalty when given an order. This penalty is waived, however, if the Slaves are brigaded with Black Orcs, Chaos Dwarfs or Blunderbusses."
       ]
     },
-    "Earthshaker Cannon": {
+    {
+      "id": "earthshakerCannon",
+      "name": "Earthshaker Cannon",
       "order": 4,
       "text": [
         "The Earthshaker acts as a Stone Thrower as described in main Rulebook. The exception is that the drive back from the Eartshaker shot causes confusion on rolls of 4+ rather than the usual 6+. In addition the Earthshaker shot causes confusion in units in base contact with the victim unit on rolls of 6 on a D6 (roll for each unit).",
         "The total number of Earthshakers and Death Rockets in the army is limited in the way that only 1 piece of this kind is allowed per 1000 points."
       ]
     },
-    "Death Rocket": {
+    {
+      "id": "deathRocket",
+      "name": "Death Rocket",
       "order": 5,
       "text": [
         "The Death Rocket acts similar to a Stone Thrower as described in the Rulebook, except it shoots D6 times per phase and hits inflicted on the target can be still saved by the armour with a -1 modifier. If the roll for the number of shots comes up a 1, the Death Rocket has misfired and you must roll a D6 against the Death Rocket Misfire chart.",
@@ -222,31 +266,41 @@
         "The total number of Earthshakers and Death Rockets in the army is limited in the way that only 1 piece of this kind is allowed per 1000 points."
       ]
     },
-    "Bolt Thrower": {
+    {
+      "id": "boltThrower",
+      "name": "Bolt Thrower",
       "order": 6
     },
-    "Great Taurus": {
+    {
+      "id": "greatTaurus",
+      "name": "Great Taurus",
       "order": 7,
       "text": [
         "Any character may be mounted on a Great Taurus. This mighty beast is fearsome to face on the battlefield. The Great Taurus causes terror and is able to fly."
       ]
     },
-    "Lammasu": {
+    {
+      "id": "lammasu",
+      "name": "Lammasu",
       "order": 8,
       "text": [
         "The Lammasu is a magical creature trained to serve the Chaos Dwarfs. A Chaos Dwarf Sorcerer may be mounted on a Lammasu. A Lammasu is able to fly. In addition once per turn you can attempt to dispel one hostile spell cast on one friendly unit within 30cm of the Lammasu on a roll of 4+ on a D6. There can only be one Lammasu in the army."
       ]
     },
-    "Sorcerer Lord": {
+    {
+      "id": "sorcererLord",
+      "name": "Sorcerer Lord",
       "order": 9,
       "text": [
         "The General may be true Sorcerer Lord, maybe even one of the living ancestors from Zharr-Naggrund. Sorcerer Lord can cast spells like a Wizard and can carry a magic item restricted to a Wizard if desired. Once during the battle Sorcerer Lord can add +1 to the dice when attempting to cast a spell. The player must announce that the Sorcerer's special spell casting bonus is being used before rolling for the spell."
       ]
     },
-    "Stone Thrower": {
+    {
+      "id": "stoneThrower",
+      "name": "Stone Thrower",
       "order": 10
     }
-  },
+  ],
   "spells": [
     {
       "name": "Flaming Hand",

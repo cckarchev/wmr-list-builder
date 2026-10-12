@@ -1,0 +1,35 @@
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--color-bg-deep);
+  border-bottom: var(--border-default);
+  padding: var(--space-sm) var(--space-md);
+  /* Two columns: the toggle groups stack on the left, the Print button is its
+     own full-height column on the right. The button never shares a line with
+     the wrapping checkboxes, so nothing flows above or below it. */
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-sm);
+}
+
+/* Left column: the Sections and Options groups stacked. Wrapping happens
+   inside this column only, keeping the checkboxes clear of the Print button. */
+.stack {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Own column on the right: the primary Button as a tall tile, icon over the
+   label, centered vertically against the stacked toggle groups. Scoped under
+   .controls so the layout wins over the Button's own rule whatever order the
+   two stylesheets load in. */
+.controls .printButton {
+  flex: none;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  padding: var(--space-xs) var(--space-md);
+}

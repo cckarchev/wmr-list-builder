@@ -1,11 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from './test/renderWithProviders';
-import App from './App';
-import { useArmyStore } from './store/useArmyStore';
-import { encodeList, buildCodeMaps } from './store/persistence';
-import { loadArmy } from './data/loadArmy';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
+import { useArmyStore } from '@/store/useArmyStore';
+import { renderWithProviders } from '@/test/renderWithProviders';
+import { App } from './App';
 
 beforeEach(() => {
   useArmyStore.getState().reset();
@@ -14,7 +13,7 @@ beforeEach(() => {
   localStorage.clear();
 });
 
-describe('App routing', () => {
+describe('App routing from the root', () => {
   it('shows the Home army picker at "/"', () => {
     renderWithProviders(<App />, { routerProps: { initialEntries: ['/'] } });
 
@@ -35,14 +34,15 @@ describe('App routing', () => {
   it('loads a shared list from root query params', async () => {
     // Encode a goblin list with Goblins bumped to 9 (force-min 8 + 1 = 590pts),
     // matching the standalone Print round-trip assertion above.
-    const maps = buildCodeMaps(loadArmy('goblin'));
-    const encoded = encodeList(
-      { name: '', gameSize: 2000, units: { Goblins: 9 }, upgrades: {} },
-      maps,
-    );
+    const encoded = encodeListFor('goblin', {
+      name: '',
+      gameSize: 2000,
+      units: { goblins: 9 },
+      upgrades: {},
+    });
 
     renderWithProviders(<App />, {
-      routerProps: { initialEntries: ['/?army=goblin&list=' + encoded] },
+      routerProps: { initialEntries: [`/?army=goblin&list=${encoded}`] },
     });
 
     const bar = await screen.findByTestId('points-bar');
@@ -67,12 +67,15 @@ describe('App routing', () => {
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
     const inline = within(screen.getByTestId('actions-inline'));
     await user.click(inline.getByRole('button', { name: /more/i }));
-    expect(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' })).toHaveAttribute(
-      'href',
-      '/print/goblin',
-    );
+    expect(
+      within(inline.getByRole('group', { name: /more list actions/i })).getByRole('link', {
+        name: 'Print',
+      }),
+    ).toHaveAttribute('href', '/print/goblin');
   });
+});
 
+describe('App routing for build and print', () => {
   it('redirects an unknown army id back to Home', () => {
     renderWithProviders(<App />, {
       routerProps: { initialEntries: ['/build/does-not-exist'] },
@@ -106,7 +109,11 @@ describe('App routing', () => {
     // Go to Print (under the More menu), then back to the roster via the nav "Back" chip.
     const inline = within(screen.getByTestId('actions-inline'));
     await user.click(inline.getByRole('button', { name: /more/i }));
-    await user.click(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' }));
+    await user.click(
+      within(inline.getByRole('group', { name: /more list actions/i })).getByRole('link', {
+        name: 'Print',
+      }),
+    );
     await screen.findByRole('button', { name: 'Print' });
     await user.click(screen.getByRole('link', { name: /back/i }));
 

@@ -1,0 +1,48 @@
+@import '@/theme/breakpoints.css';
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--color-bg-deep);
+  border-bottom: var(--border-default);
+  box-shadow: var(--shadow-panel);
+}
+
+.titleZone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--space-md);
+  /* The header bar is full-bleed; its content is centered to the same width as
+     the page body so the title lines up with the roster below. */
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* The mobile menu takes over below the tablet breakpoint; the two queries are
+   strict complements, so there is no dead zone at the breakpoint itself. */
+@media (--below-tablet) {
+  .actions[data-layout='inline'] {
+    display: none;
+  }
+}
+
+.actions[data-layout='menu'] {
+  position: relative;
+}
+
+@media (--tablet-up) {
+  .actions[data-layout='menu'] {
+    display: none;
+  }
+}

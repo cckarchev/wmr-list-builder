@@ -1,0 +1,115 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["**", "!package-lock.json"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "css": {
+    "parser": {
+      // Allows `composes` and `:global` in *.module.css.
+      "cssModules": true
+    },
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        "useExhaustiveDependencies": "error"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "noExcessiveLinesPerFunction": {
+          "level": "error",
+          "options": {
+            "skipBlankLines": true
+          }
+        },
+        "noForEach": "error"
+      },
+      "style": {
+        "noDefaultExport": "error",
+        "noMagicNumbers": "error",
+        "noNegationElse": "error",
+        "noNestedTernary": "error",
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrowReturn": "error",
+        "useExplicitLengthCheck": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["camelCase", "PascalCase"]
+          }
+        },
+        "useForOf": "error",
+        "useImportType": "error",
+        "useNamingConvention": "error"
+      },
+      "performance": {
+        "noReExportAll": "error"
+      },
+      "suspicious": {
+        "noConsole": "error",
+        "noEmptyBlockStatements": "error"
+      },
+      // Nursery rules may be renamed or promoted when Biome is upgraded.
+      "nursery": {
+        "useConsistentFunctionStyle": {
+          "level": "error",
+          "options": {
+            "style": "expression"
+          }
+        },
+        "useReactFunctionComponentDefinition": {
+          "level": "error",
+          "options": {
+            "namedComponents": "arrowFunction"
+          }
+        }
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Vite only reads the config from a default export.
+      "includes": ["vite.config.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
+}

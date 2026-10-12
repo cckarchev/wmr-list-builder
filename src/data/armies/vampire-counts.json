@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 1,
   "order": 5,
-  "units": {
-    "Skeletons": {
-      "id": 0,
+  "units": [
+    {
+      "id": "skeletons",
+      "name": "Skeletons",
+      "code": 0,
       "type": "Infantry",
       "attack": 2,
       "hits": 3,
@@ -14,8 +16,10 @@
       "points": 30,
       "min": 2
     },
-    "Zombies": {
-      "id": 1,
+    {
+      "id": "zombies",
+      "name": "Zombies",
+      "code": 1,
       "type": "Infantry",
       "attack": 2,
       "hits": 4,
@@ -23,16 +27,20 @@
       "points": 35,
       "min": 2
     },
-    "Ghouls": {
-      "id": 2,
+    {
+      "id": "ghouls",
+      "name": "Ghouls",
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 3,
       "size": 3,
       "points": 55
     },
-    "Grave Guard": {
-      "id": 3,
+    {
+      "id": "graveGuard",
+      "name": "Grave Guard",
+      "code": 3,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -41,8 +49,10 @@
       "points": 60,
       "max": 4
     },
-    "Ethereal Host": {
-      "id": 4,
+    {
+      "id": "etherealHost",
+      "name": "Ethereal Host",
+      "code": 4,
       "type": "Infantry",
       "attack": 3,
       "hits": 4,
@@ -51,8 +61,10 @@
       "max": 2,
       "noMagic": true
     },
-    "Black Knights": {
-      "id": 5,
+    {
+      "id": "blackKnights",
+      "name": "Black Knights",
+      "code": 5,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -61,8 +73,10 @@
       "points": 110,
       "max": 4
     },
-    "Dire Wolves": {
-      "id": 6,
+    {
+      "id": "direWolves",
+      "name": "Dire Wolves",
+      "code": 6,
       "type": "Cavalry",
       "attack": 2,
       "hits": 3,
@@ -71,8 +85,10 @@
       "max": 4,
       "noMagic": true
     },
-    "Fell Bats": {
-      "id": 7,
+    {
+      "id": "fellBats",
+      "name": "Fell Bats",
+      "code": 7,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -81,8 +97,10 @@
       "points": 65,
       "max": 1
     },
-    "Vampire Lord": {
-      "id": 8,
+    {
+      "id": "vampireLord",
+      "name": "Vampire Lord",
+      "code": 8,
       "type": "General",
       "caster": true,
       "attack": "+2",
@@ -92,52 +110,60 @@
       "armyMin": 1,
       "armyMax": 1,
       "upgrades": [
-        "Winged Nightmare",
-        "Black Coach",
-        "Ring of Magic",
-        "Staff of Spellbinding",
-        "Scroll of Dispelling",
-        "Wand of Power",
-        "Rod of Repetition"
+        "wingedNightmare",
+        "blackCoach",
+        "ringOfMagic",
+        "staffOfSpellbinding",
+        "scrollOfDispelling",
+        "wandOfPower",
+        "rodOfRepetition"
       ]
     },
-    "Vampire": {
-      "id": 9,
+    {
+      "id": "vampire",
+      "name": "Vampire",
+      "code": 9,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 80,
       "max": 2,
-      "upgrades": ["Winged Nightmare", "Black Coach"]
+      "upgrades": ["wingedNightmare", "blackCoach"]
     },
-    "Necromancer": {
-      "id": 10,
+    {
+      "id": "necromancer",
+      "name": "Necromancer",
+      "code": 10,
       "type": "Wizard",
       "attack": "+0",
       "command": 7,
       "size": 1,
       "points": 45,
       "max": 1,
-      "upgrades": ["Winged Nightmare"]
+      "upgrades": ["wingedNightmare"]
     }
-  },
-  "upgrades": {
-    "Winged Nightmare": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "wingedNightmare",
+      "name": "Winged Nightmare",
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+2",
       "points": "+80",
       "max": 1
     },
-    "Black Coach": {
-      "id": 1,
+    {
+      "id": "blackCoach",
+      "name": "Black Coach",
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+40",
       "max": 1
     }
-  },
+  ],
   "magic": true,
   "armyRules": [
     "Undead troops are quite beyond any feelings of revulsion, fear, trepidation or anything else for that matter. They are dead and as such nothing holds any real terror for them. Conversely the spells that bind them to life allow only the most rudimentary or specialised intelligence. The following rules apply to all units except for Ghouls. Ghouls are considered to be ordinary mortal troops and the following rules do not apply to them.",
@@ -146,45 +172,57 @@
     "Undead units are unaffected by the -1 Combat penalty for fighting terrifying troops.",
     "Undead units are unaffected by the Confusion rule - they cannot become confused for any reason."
   ],
-  "specialRules": {
-    "Ethereal Host": {
+  "specialRules": [
+    {
+      "id": "etherealHost",
+      "name": "Ethereal Host",
       "order": 1,
       "text": [
         "Ethereal Host Attacks always inflict a hit on a score of 4+ regardless of whether the enemy is in the open, defended, or fortified. Enemy otherwise count as in the open, defended, or fortified in all respects (e.g. charge bonuses count or don't count depending on status). Ethereal hosts cannot be driven back by shooting and do not roll for drive backs. They cause terror as described in the Warmaster rulebook. Ethereal Hosts cannot have magic items."
       ]
     },
-    "Dire Wolves": {
+    {
+      "id": "direWolves",
+      "name": "Dire Wolves",
       "order": 2,
       "text": [
         "If the unit charges against an enemy in the open it receives an additional +1 Attack modifier in the same way as chariots and monsters. Dire Wolves cannot have magic items."
       ]
     },
-    "Fell Bats": {
+    {
+      "id": "fellBats",
+      "name": "Fell Bats",
       "order": 3,
       "text": [
         "Fell Bats can fly. Although they cannot use initiative they are allowed to home back as described in the Warmaster rulebook. No order is required to home back.",
         "Fell Bats are an exception to the normal rules for basing monsters, in that they are based along the long base edge in the same way as infantry, rather than the short edge like other monsters."
       ]
     },
-    "Vampire Lord": {
+    {
+      "id": "vampireLord",
+      "name": "Vampire Lord",
       "order": 4,
       "text": [
         "These are powerful sorcerers as well as the army's general. They can cast spells in the same way as a wizard."
       ]
     },
-    "Winged Nightmare": {
+    {
+      "id": "wingedNightmare",
+      "name": "Winged Nightmare",
       "order": 5,
       "text": [
         "Any character can ride a Winged Nightmare. A winged Nightmare can fly increasing its rider's move to 100cm and adding +2 to its rider's attacks. A unit joined by a character riding a Nightmare causes terror in its enemies."
       ]
     },
-    "Black Coach": {
+    {
+      "id": "blackCoach",
+      "name": "Black Coach",
       "order": 6,
       "text": [
         "A Vampire Lord or Vampire can be mounted within a Black Coach adding +1 to its occupant's attacks. A unit joined by a character riding in the Black Coach causes terror in its enemies."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Raise Dead",

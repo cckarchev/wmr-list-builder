@@ -1,0 +1,34 @@
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xxs);
+  flex-shrink: 0;
+}
+
+/* The meta line under the stepper: points cost (when selected) and the model
+   restriction. Both are informational, never buttons. Hidden when a unit has
+   neither so the controls column doesn't reserve dead space. */
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+}
+
+.meta:empty {
+  display: none;
+}
+
+.pts {
+  color: var(--color-teal-bright);
+}
+
+.restriction {
+  color: var(--color-text-dim);
+}
+
+.separator {
+  color: var(--color-border-default);
+}

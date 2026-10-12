@@ -1,0 +1,41 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background: var(--color-bg-scrim);
+}
+
+.card {
+  width: 100%;
+  max-width: var(--popup-width);
+  background: var(--color-bg-surface);
+  border: var(--border-default);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+  text-align: left;
+}
+
+.title {
+  composes: eyebrow from '@/theme/typography.module.css';
+  margin: 0;
+  padding: var(--space-sm) var(--space-md) var(--space-xs);
+  border-bottom: var(--border-divider);
+}
+
+.message {
+  margin: 0;
+  padding: var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+  padding: 0 var(--space-md) var(--space-md);
+}

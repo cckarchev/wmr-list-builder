@@ -1,0 +1,82 @@
+@import '@/theme/breakpoints.css';
+
+.page {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xxl);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-text-strong);
+  margin-bottom: var(--space-lg);
+}
+
+@media (--phone) {
+  .heading {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  min-height: 72px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius);
+  border: var(--border-default);
+  border-left: var(--border-width-strong) solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  color: var(--color-text-body);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast),
+    border-color var(--duration-fast),
+    background var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.card::after {
+  content: '›';
+  font-size: var(--font-size-xl);
+  color: var(--color-text-dim);
+  transition:
+    color var(--duration-fast),
+    transform var(--duration-fast);
+}
+
+.card:hover {
+  background: var(--color-bg-tint);
+  border-color: var(--color-border-hover);
+  border-left-color: var(--color-accent);
+  color: var(--color-text-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-panel);
+}
+
+.card:hover::after {
+  color: var(--color-accent);
+  transform: translateX(2px);
+}
+
+.card:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

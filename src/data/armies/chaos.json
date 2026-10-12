@@ -3,9 +3,11 @@
   "version": "Warmaster Revolution",
   "group": 0,
   "order": 2,
-  "units": {
-    "Chaos Warriors": {
-      "id": 0,
+  "units": [
+    {
+      "id": "chaosWarriors",
+      "name": "Chaos Warriors",
+      "code": 0,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -14,8 +16,10 @@
       "points": 140,
       "min": 1
     },
-    "Chaos Marauders": {
-      "id": 1,
+    {
+      "id": "chaosMarauders",
+      "name": "Chaos Marauders",
+      "code": 1,
       "type": "Infantry",
       "attack": 3,
       "hits": 3,
@@ -24,8 +28,10 @@
       "points": 60,
       "min": 1
     },
-    "Ogres": {
-      "id": 2,
+    {
+      "id": "ogres",
+      "name": "Ogres",
+      "code": 2,
       "type": "Infantry",
       "attack": 4,
       "hits": 4,
@@ -34,8 +40,10 @@
       "points": 105,
       "max": 1
     },
-    "Trolls": {
-      "id": 3,
+    {
+      "id": "trolls",
+      "name": "Trolls",
+      "code": 3,
       "type": "Infantry",
       "attack": 5,
       "hits": 3,
@@ -44,8 +52,10 @@
       "points": 110,
       "max": 3
     },
-    "Marauder Horsemen": {
-      "id": 4,
+    {
+      "id": "marauderHorsemen",
+      "name": "Marauder Horsemen",
+      "code": 4,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -54,8 +64,10 @@
       "points": 90,
       "max": 4
     },
-    "Chaos Knights": {
-      "id": 5,
+    {
+      "id": "chaosKnights",
+      "name": "Chaos Knights",
+      "code": 5,
       "type": "Cavalry",
       "attack": 4,
       "hits": 4,
@@ -64,8 +76,10 @@
       "points": 180,
       "max": 2
     },
-    "Chaos Hounds": {
-      "id": 6,
+    {
+      "id": "chaosHounds",
+      "name": "Chaos Hounds",
+      "code": 6,
       "type": "Cavalry",
       "attack": 3,
       "hits": 3,
@@ -73,8 +87,10 @@
       "points": 40,
       "max": 2
     },
-    "Chaos Chariots": {
-      "id": 7,
+    {
+      "id": "chaosChariots",
+      "name": "Chaos Chariots",
+      "code": 7,
       "type": "Chariot",
       "attack": 3,
       "hits": 3,
@@ -83,8 +99,10 @@
       "points": 95,
       "max": 3
     },
-    "Harpies": {
-      "id": 8,
+    {
+      "id": "harpies",
+      "name": "Harpies",
+      "code": 8,
       "type": "Monster",
       "attack": 2,
       "hits": 3,
@@ -93,8 +111,10 @@
       "points": 65,
       "max": 1
     },
-    "Dragon Ogres": {
-      "id": 9,
+    {
+      "id": "dragonOgres",
+      "name": "Dragon Ogres",
+      "code": 9,
       "type": "Monster",
       "attack": 6,
       "hits": 4,
@@ -103,8 +123,10 @@
       "points": 230,
       "max": 1
     },
-    "Chaos Spawn": {
-      "id": 10,
+    {
+      "id": "chaosSpawn",
+      "name": "Chaos Spawn",
+      "code": 10,
       "type": "Monster",
       "attack": "3/3",
       "range": "15cm",
@@ -114,8 +136,10 @@
       "points": 110,
       "max": 2
     },
-    "General": {
-      "id": 11,
+    {
+      "id": "general",
+      "name": "General",
+      "code": 11,
       "type": "General",
       "attack": "+2",
       "command": 9,
@@ -123,70 +147,88 @@
       "points": 125,
       "armyMin": 1,
       "armyMax": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": ["chaosDragon", "chariot"]
     },
-    "Hero": {
-      "id": 12,
+    {
+      "id": "hero",
+      "name": "Hero",
+      "code": 12,
       "type": "Hero",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 80,
       "max": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": ["chaosDragon", "chariot"]
     },
-    "Sorcerer": {
-      "id": 13,
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "code": 13,
       "type": "Wizard",
       "attack": "+1",
       "command": 8,
       "size": 1,
       "points": 90,
       "max": 1,
-      "upgrades": ["Chaos Dragon", "Chariot"]
+      "upgrades": ["chaosDragon", "chariot"]
     }
-  },
-  "upgrades": {
-    "Chaos Dragon": {
-      "id": 0,
+  ],
+  "upgrades": [
+    {
+      "id": "chaosDragon",
+      "name": "Chaos Dragon",
+      "code": 0,
       "type": "Monstrous Mount",
       "attack": "+3",
       "points": "+100",
       "max": 1
     },
-    "Chariot": {
-      "id": 1,
+    {
+      "id": "chariot",
+      "name": "Chariot",
+      "code": 1,
       "type": "Chariot Mount",
       "attack": "+1",
       "points": "+5",
       "max": 1
     }
-  },
+  ],
   "magic": true,
-  "specialRules": {
-    "Ogres": {
+  "specialRules": [
+    {
+      "id": "ogres",
+      "name": "Ogres",
       "order": 1,
       "text": [
         "If an Ogre unit can use its initiative to charge an enemy unit of humans at the start of the Command phase then it must do so. This happens automatically and their commander can do nothing about it. 'Humans' encompasses all 'men' including Chaos Warriors and Marauders, but not Dwarfs, Elves etc."
       ]
     },
-    "Trolls": {
+    {
+      "id": "trolls",
+      "name": "Trolls",
       "order": 2,
       "text": [
         "When trying to issue an order to a unit of Trolls or to a brigade that contains a unit of Trolls, any Command penalty applied for distance between the character and the Troll unit is always doubled. So at 20cm no penalty applies, at 40cm -2, at 60cm -4, and so on. Trolls can regenerate wounds - in each round of combat after whole stands have been removed Trolls automatically regenerate one outstanding hit. If no hits are left over after removing whole stands then regeneration has no effect. Regenerated hits still count towards the combat result for the round."
       ]
     },
-    "Harpies": {
+    {
+      "id": "harpies",
+      "name": "Harpies",
       "order": 3,
       "text": [
         "Harpies are based facing the long edge of the base in the same way as infantry, rather than the short edge like other monsters. Harpies can fly. A unit of harpies cannot be joined by a character."
       ]
     },
-    "Dragon Ogres": {
+    {
+      "id": "dragonOgres",
+      "name": "Dragon Ogres",
       "order": 4,
       "text": ["Dragon Ogres are immune to terror."]
     },
-    "Chaos Spawn": {
+    {
+      "id": "chaosSpawn",
+      "name": "Chaos Spawn",
       "order": 5,
       "text": [
         "Spawn units have -1 Command penalty if not part of a brigade that includes more non-Spawn units than Spawn units. Up to two Spawn units can be included in any brigade and do not count towards the maximum size of that brigade.",
@@ -194,7 +236,9 @@
         "Spawn units have a shooting range of 15cm and 360° vision – the unit can draw line of sight from all edges of its stand for the purpose of evading and shooting, including shooting at charging enemies. Note that this unit still needs Line of Sight from its front edge to charge an enemy."
       ]
     },
-    "Chaos Dragon": {
+    {
+      "id": "chaosDragon",
+      "name": "Chaos Dragon",
       "order": 6,
       "text": [
         "Generals, Wizards and Heroes can ride a Chaos Dragon. The Chaos Dragon can fly, increasing the rider's move from 60 to 100cm, and it adds +3 Attacks to those of its rider. In addition the Dragon has a special shooting attack. It can breathe fire. This special attack can only be used if the rider has joined a unit and is not engaged in combat. A rider that has not joined a unit cannot use the Dragon's fiery breath to attack.",
@@ -202,7 +246,7 @@
         "The Chaos Dragon is a large terrifying creature. A unit that has been joined by a Chaos Dragon causes terror in its enemies and therefore imposes the usual Combat penalty."
       ]
     }
-  },
+  ],
   "spells": [
     {
       "name": "Boon of Chaos",

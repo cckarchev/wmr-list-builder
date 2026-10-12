@@ -1,0 +1,28 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.label {
+  composes: eyebrow from '@/theme/typography.module.css';
+}
+
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Match the game size input's box height (padding + border) so every value
+     row lines up despite the input being taller than plain text. */
+  padding: var(--space-xxs) var(--space-xs);
+  border: var(--border-width) solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  color: var(--color-text-strong);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.value[data-over] {
+  color: var(--color-error);
+}
