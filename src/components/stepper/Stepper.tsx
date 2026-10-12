@@ -1,5 +1,8 @@
 import styles from './Stepper.module.css';
 
+/** How much one press of either button changes the value. */
+const STEP = 1;
+
 interface StepperProps {
   value: number;
   onChange: (value: number) => void;
@@ -13,11 +16,11 @@ export const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
   const atMax = max !== undefined && value >= max;
 
   const decrease = () => {
-    onChange(value - 1);
+    onChange(value - STEP);
   };
 
   const increase = () => {
-    onChange(value + 1);
+    onChange(value + STEP);
   };
 
   return (

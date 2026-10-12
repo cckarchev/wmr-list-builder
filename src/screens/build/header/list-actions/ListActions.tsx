@@ -25,7 +25,7 @@ export const ListActions = () => {
         <CopyListButton />
         {armyId && (
           <ButtonLink to={`/print/${armyId}`} variant="ghost" size="sm">
-            <Icon name="print" size={16} />
+            <Icon name="print" />
             Print
           </ButtonLink>
         )}

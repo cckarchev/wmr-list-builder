@@ -49,7 +49,7 @@ export const CopyShareLinkButton = () => {
         disabled={!armyId}
         title="Copy share link"
       >
-        <Icon name="share" size={16} />
+        <Icon name="share" />
         Share
       </Button>
       {status === 'copied' && <CopiedBubble>Link copied!</CopiedBubble>}

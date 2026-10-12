@@ -35,7 +35,7 @@ export const LoadListButton = () => {
         aria-expanded={open}
         title="Load list"
       >
-        <Icon name="folder" size={16} />
+        <Icon name="folder" />
         Load
       </Button>
       {open && (

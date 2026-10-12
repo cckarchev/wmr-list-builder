@@ -446,7 +446,7 @@ describe('magic-items / mounts caps plural message (synthetic)', () => {
     };
     const upgrades = {
       m1: upgrade({ type: 'Magic Weapon' }),
-      m2: upgrade({ type: 'Holy Item' }),
+      m2: upgrade({ type: 'Device of Power' }),
     };
     expect(validateNamed(units, upgrades, SMALLEST_GAME).map((e) => e.message)).toContain(
       '2 A may only have 2 magic items.',
@@ -632,7 +632,7 @@ describe('independent violations stack on a single item (synthetic)', () => {
     };
     const upgrades = {
       m1: upgrade({ type: 'Magic Weapon' }),
-      m2: upgrade({ type: 'Holy Item' }),
+      m2: upgrade({ type: 'Device of Power' }),
     };
     const msgs = validateNamed(units, upgrades, SMALLEST_GAME).map((e) => e.message);
     expect(msgs).toContain('1 A may only have 1 magic item.');

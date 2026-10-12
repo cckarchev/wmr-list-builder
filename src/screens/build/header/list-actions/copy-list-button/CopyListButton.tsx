@@ -45,7 +45,7 @@ export const CopyListButton = () => {
         disabled={!army}
         title="Copy list as text"
       >
-        <Icon name="copy" size={16} />
+        <Icon name="copy" />
         Copy
       </Button>
       {status === 'copied' && <CopiedBubble>Copied!</CopiedBubble>}

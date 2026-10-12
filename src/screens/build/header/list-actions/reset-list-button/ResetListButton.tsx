@@ -42,7 +42,7 @@ export const ResetListButton = () => {
         disabled={!armyId}
         title="Reset army"
       >
-        <Icon name="reset" size={16} />
+        <Icon name="reset" />
         Reset
       </Button>
       <ConfirmDialog

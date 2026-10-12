@@ -33,7 +33,7 @@ export const SaveListButton = () => {
         aria-expanded={open}
         title="Save list"
       >
-        <Icon name="save" size={16} />
+        <Icon name="save" />
         Save
       </Button>
       {open && (

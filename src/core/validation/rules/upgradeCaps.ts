@@ -1,16 +1,8 @@
 import type { UpgradeState } from '@/core/army-state/types';
 import { isMountType } from '@/core/army-state/upgradeTypes';
 import { UNIT_TYPES } from '@/core/selectors';
+import { MAGIC_ITEM_TYPES } from '@/data/magicItems';
 import type { Rule, ValidatableItem } from './types';
-
-/** Magic-item upgrade types (actions.js MAGIC_ITEM_TYPES). */
-const MAGIC_ITEM_TYPES = [
-  'Device of Power',
-  'Magic Standard',
-  'Magic Weapon',
-  'Holy Item',
-  'Other Item',
-];
 
 /** Sum the per-unit counts of `item`'s upgrades whose type matches `match`. */
 const countUpgradesOfType = (
@@ -39,7 +31,7 @@ const upgradeCap =
     return `${item.number} ${label} may only have ${item.number} ${noun}${plural}.`;
   };
 
-export const magicItemCap = upgradeCap('magic item', (type) => MAGIC_ITEM_TYPES.includes(type));
+export const magicItemCap = upgradeCap('magic item', (type) => MAGIC_ITEM_TYPES.has(type));
 
 export const mountCap = upgradeCap('mount', isMountType);
 
