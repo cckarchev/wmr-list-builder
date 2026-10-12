@@ -9,10 +9,13 @@
   gap: var(--space-sm);
 }
 
+/* As tall as the whole title strip: it bleeds through the strip padding
+   above and below, so it fills the bar without making it taller. */
 .emblem {
   flex-shrink: 0;
   width: var(--emblem-title-size);
   height: var(--emblem-title-size);
+  margin-block: calc(-1 * var(--space-xs));
   color: var(--color-accent);
 }
 
@@ -27,6 +30,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-xl);
+  line-height: var(--leading-tight);
   color: var(--color-accent);
 }
 
@@ -37,6 +41,7 @@
   max-width: 100%;
   color: var(--color-text-dim);
   font-size: var(--font-size-sm);
+  line-height: var(--leading-body);
 }
 
 .listNameText {
