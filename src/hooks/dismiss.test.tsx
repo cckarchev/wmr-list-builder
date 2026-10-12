@@ -87,37 +87,56 @@ describe('useEscapeKey', () => {
   });
 });
 
-const DismissibleProbe = ({ onEscape }: { onEscape?: () => void }) => {
-  const { open, setOpen, ref } = useDismissible<HTMLDivElement>({ onEscape });
+const DismissibleProbe = () => {
+  const { open, setOpen, close, ref, triggerRef } = useDismissible<HTMLDivElement>();
 
   return (
-    <div ref={ref}>
-      <button type="button" onClick={() => setOpen(true)}>
-        open
-      </button>
-      {open && <p>panel</p>}
-    </div>
+    <>
+      <div ref={ref}>
+        <button type="button" ref={triggerRef} onClick={() => setOpen(true)}>
+          open
+        </button>
+        {open && (
+          <button type="button" onClick={close}>
+            done
+          </button>
+        )}
+      </div>
+      <button type="button">elsewhere</button>
+    </>
   );
 };
 
 describe('useDismissible', () => {
-  it('closes on Escape and then runs onEscape', () => {
-    const onEscape = vi.fn();
-    const { getByText, queryByText } = render(<DismissibleProbe onEscape={onEscape} />);
-
-    fireEvent.click(getByText('open'));
-    fireEvent.keyDown(document, { key: 'Escape' });
-
-    expect(queryByText('panel')).toBeNull();
-    expect(onEscape).toHaveBeenCalledTimes(1);
-  });
-
-  it('closes on Escape without an onEscape', () => {
+  it('closes on Escape and returns focus to the trigger', () => {
     const { getByText, queryByText } = render(<DismissibleProbe />);
 
     fireEvent.click(getByText('open'));
+    getByText('done').focus();
     fireEvent.keyDown(document, { key: 'Escape' });
 
-    expect(queryByText('panel')).toBeNull();
+    expect(queryByText('done')).toBeNull();
+    expect(getByText('open')).toHaveFocus();
+  });
+
+  it('returns focus to the trigger when the popup closes itself', () => {
+    const { getByText, queryByText } = render(<DismissibleProbe />);
+
+    fireEvent.click(getByText('open'));
+    fireEvent.click(getByText('done'));
+
+    expect(queryByText('done')).toBeNull();
+    expect(getByText('open')).toHaveFocus();
+  });
+
+  it('leaves focus alone when closed by an outside click', () => {
+    const { getByText, queryByText } = render(<DismissibleProbe />);
+
+    fireEvent.click(getByText('open'));
+    getByText('elsewhere').focus();
+    fireEvent.mouseDown(getByText('elsewhere'));
+
+    expect(queryByText('done')).toBeNull();
+    expect(getByText('elsewhere')).toHaveFocus();
   });
 });

@@ -45,8 +45,11 @@ export const CopyButton = ({
         <Icon name={icon} />
         {children}
       </Button>
-      {status === 'copied' && <CopyBubble tone="success">{copiedMessage}</CopyBubble>}
-      {status === 'failed' && <CopyBubble tone="error">Copy failed</CopyBubble>}
+      {/* Always mounted so screen readers announce the bubble when it appears. */}
+      <span role="status">
+        {status === 'copied' && <CopyBubble tone="success">{copiedMessage}</CopyBubble>}
+        {status === 'failed' && <CopyBubble tone="error">Copy failed</CopyBubble>}
+      </span>
     </PopupAnchor>
   );
 };

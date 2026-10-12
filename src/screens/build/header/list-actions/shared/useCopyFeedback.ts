@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /** How long a copy button shows its confirmation or failure before resetting. */
 const FEEDBACK_MS = 1500;
@@ -20,10 +20,21 @@ const writeToClipboard = (text: string): Promise<void> => {
  */
 export const useCopyFeedback = () => {
   const [status, setStatus] = useState<CopyStatus>('idle');
+  const resetTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // A pending reset must not fire on an unmounted button.
+  useEffect(
+    () => () => {
+      clearTimeout(resetTimer.current);
+    },
+    [],
+  );
 
   const showFor = (result: CopyStatus) => {
+    // A second copy restarts the window instead of being cut short by the first.
+    clearTimeout(resetTimer.current);
     setStatus(result);
-    setTimeout(() => {
+    resetTimer.current = setTimeout(() => {
       setStatus('idle');
     }, FEEDBACK_MS);
   };

@@ -67,10 +67,11 @@ describe('App routing from the root', () => {
     expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
     const inline = within(screen.getByTestId('actions-inline'));
     await user.click(inline.getByRole('button', { name: /more/i }));
-    expect(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' })).toHaveAttribute(
-      'href',
-      '/print/goblin',
-    );
+    expect(
+      within(inline.getByRole('group', { name: /more list actions/i })).getByRole('link', {
+        name: 'Print',
+      }),
+    ).toHaveAttribute('href', '/print/goblin');
   });
 });
 
@@ -108,7 +109,11 @@ describe('App routing for build and print', () => {
     // Go to Print (under the More menu), then back to the roster via the nav "Back" chip.
     const inline = within(screen.getByTestId('actions-inline'));
     await user.click(inline.getByRole('button', { name: /more/i }));
-    await user.click(within(inline.getByRole('menu')).getByRole('link', { name: 'Print' }));
+    await user.click(
+      within(inline.getByRole('group', { name: /more list actions/i })).getByRole('link', {
+        name: 'Print',
+      }),
+    );
     await screen.findByRole('button', { name: 'Print' });
     await user.click(screen.getByRole('link', { name: /back/i }));
 

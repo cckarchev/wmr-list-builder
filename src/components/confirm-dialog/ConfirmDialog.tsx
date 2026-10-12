@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Button } from '@/components/button/Button';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
 import styles from './ConfirmDialog.module.css';
+import { useFocusTrap } from './useFocusTrap';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -28,9 +29,14 @@ export const ConfirmDialog = ({
   const titleId = useId();
   const messageId = useId();
   const backdropRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const confirmRef = useRef<HTMLButtonElement>(null);
 
   useEscapeKey(open, onCancel);
+
+  // Declared before the autofocus below so it records the opener, not the
+  // confirm button.
+  useFocusTrap(cardRef, open);
 
   // These dialogs open from inside popovers whose dismiss-on-outside-click is a
   // native `document` mousedown listener. Swallow mousedown at the backdrop so
@@ -73,6 +79,7 @@ export const ConfirmDialog = ({
     <div className={styles.backdrop} ref={backdropRef} onClick={cancelOnBackdrop}>
       <div
         className={styles.card}
+        ref={cardRef}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}

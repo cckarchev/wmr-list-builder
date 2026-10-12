@@ -18,7 +18,8 @@ interface PanelActionProps {
   /** Visible title at the top of the panel. */
   heading: string;
   disabled: boolean;
-  /** Confirm dialogs, kept inside the anchor so clicks in them don't count as outside. */
+  /** Confirm dialogs the panel opens. They portal to <body>, and their backdrop
+      swallows mousedown so clicking them doesn't close the panel. */
   dialogs: ReactNode;
   /** Panel content shown while open. */
   children: ReactNode;
@@ -36,7 +37,7 @@ export const PanelAction = ({
   dialogs,
   children,
 }: PanelActionProps) => {
-  const { open, setOpen, close, ref } = dismissible;
+  const { open, setOpen, close, ref, triggerRef } = dismissible;
 
   const togglePanel = () => {
     if (open) {
@@ -52,6 +53,7 @@ export const PanelAction = ({
   return (
     <PopupAnchor ref={ref}>
       <Button
+        ref={triggerRef}
         variant="ghost"
         size="sm"
         onClick={togglePanel}

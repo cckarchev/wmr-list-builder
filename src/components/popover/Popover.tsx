@@ -16,19 +16,10 @@ interface PopoverProps {
 }
 
 export const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
-  const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
-  const refocusTrigger = () => {
-    triggerRef.current?.focus();
-  };
-
-  const {
-    open,
-    setOpen,
-    ref: wrapRef,
-  } = useDismissible<HTMLDivElement>({ onEscape: refocusTrigger });
+  const { open, setOpen, ref: wrapRef, triggerRef } = useDismissible<HTMLDivElement>();
   const offsetX = useViewportShift(panelRef, open);
 
   useEffect(() => {

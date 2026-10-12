@@ -60,7 +60,9 @@ describe('useCopyFeedback', () => {
       expect(result.current.status).toBe('failed');
     });
   });
+});
 
+describe('useCopyFeedback timing', () => {
   it('returns to idle after the feedback has shown', async () => {
     vi.useFakeTimers();
     stubClipboard({ writeText: vi.fn().mockResolvedValue(undefined) });
@@ -68,6 +70,38 @@ describe('useCopyFeedback', () => {
 
     await act(async () => {
       result.current.copy('text');
+    });
+
+    expect(result.current.status).toBe('copied');
+
+    act(() => {
+      vi.runAllTimers();
+    });
+
+    expect(result.current.status).toBe('idle');
+  });
+
+  it('restarts the feedback window on a second copy', async () => {
+    const PartOfWindowMs = 1000;
+    vi.useFakeTimers();
+    stubClipboard({ writeText: vi.fn().mockResolvedValue(undefined) });
+    const { result } = renderHook(() => useCopyFeedback());
+
+    await act(async () => {
+      result.current.copy('text');
+    });
+
+    act(() => {
+      vi.advanceTimersByTime(PartOfWindowMs);
+    });
+
+    await act(async () => {
+      result.current.copy('text');
+    });
+
+    // The first copy's window has run out by now, but the second one's has not.
+    act(() => {
+      vi.advanceTimersByTime(PartOfWindowMs);
     });
 
     expect(result.current.status).toBe('copied');

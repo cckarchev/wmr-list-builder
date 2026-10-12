@@ -12,7 +12,7 @@ const renderMenu = () =>
   );
 
 describe('OverflowMenu', () => {
-  it('toggles open and shows its children in a menu', async () => {
+  it('toggles open and shows its children in a panel', async () => {
     const user = userEvent.setup();
     renderMenu();
     const trigger = screen.getByRole('button', { name: /more/i });
@@ -22,21 +22,23 @@ describe('OverflowMenu', () => {
     await user.click(trigger);
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('menu')).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: /more list actions/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Child Action' })).toBeInTheDocument();
   });
 
-  it('closes on Escape', async () => {
+  it('closes on Escape and returns focus to the trigger', async () => {
     const user = userEvent.setup();
     renderMenu();
     const trigger = screen.getByRole('button', { name: /more/i });
     await user.click(trigger);
+    await user.click(screen.getByRole('button', { name: 'Child Action' }));
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
     await user.keyboard('{Escape}');
 
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(trigger).toHaveFocus();
   });
 
   it('closes when clicking outside', async () => {

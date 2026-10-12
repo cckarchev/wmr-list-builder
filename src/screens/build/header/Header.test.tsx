@@ -52,7 +52,7 @@ describe('Header inline actions', () => {
     expect(inline.queryByRole('link', { name: /print/i })).not.toBeInTheDocument();
 
     await user.click(inline.getByRole('button', { name: /more/i }));
-    const menu = within(inline.getByRole('menu'));
+    const menu = within(inline.getByRole('group', { name: /more list actions/i }));
 
     expect(menu.getByRole('button', { name: 'Share' })).toBeInTheDocument();
     expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('Header mobile menu', () => {
 
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
 
-    const menu = within(actions.getByRole('menu'));
+    const menu = within(actions.getByRole('group', { name: /more list actions/i }));
 
     expect(menu.getByRole('button', { name: 'Share' })).toBeInTheDocument();
     expect(menu.getByRole('button', { name: 'Copy' })).toBeInTheDocument();

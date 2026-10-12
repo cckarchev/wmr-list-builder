@@ -65,3 +65,42 @@ describe('ConfirmDialog', () => {
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('ConfirmDialog focus', () => {
+  it('keeps Tab and Shift+Tab inside the dialog', async () => {
+    const user = userEvent.setup();
+    render(<ConfirmDialog open {...baseProps} confirmLabel="Reset" />);
+    const cancel = screen.getByRole('button', { name: /cancel/i });
+    const confirm = screen.getByRole('button', { name: /reset/i });
+
+    expect(confirm).toHaveFocus();
+
+    await user.tab();
+
+    expect(cancel).toHaveFocus();
+
+    await user.tab({ shift: true });
+
+    expect(confirm).toHaveFocus();
+  });
+
+  it('returns focus to what had it before opening', () => {
+    const Host = ({ open }: { open: boolean }) => (
+      <>
+        <button type="button">opener</button>
+        <ConfirmDialog open={open} {...baseProps} />
+      </>
+    );
+    const { rerender } = render(<Host open={false} />);
+    const opener = screen.getByRole('button', { name: 'opener' });
+    opener.focus();
+
+    rerender(<Host open />);
+
+    expect(opener).not.toHaveFocus();
+
+    rerender(<Host open={false} />);
+
+    expect(opener).toHaveFocus();
+  });
+});

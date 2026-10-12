@@ -2,30 +2,33 @@ import { useRef, useState } from 'react';
 import { useEscapeKey } from './useEscapeKey';
 import { useOutsideClick } from './useOutsideClick';
 
-interface DismissibleOptions {
-  /** Runs after the popup closes on Escape, such as returning focus to its trigger. */
-  onEscape?: () => void;
-}
-
 /**
  * Open state for a popup anchored in the element `ref` is attached to. While
  * open, a click outside that element or the Escape key closes it.
+ *
+ * Attach `triggerRef` to the button that opens the popup. Closing on Escape or
+ * through `close` returns focus to it, so keyboard users don't land on <body>
+ * when the popup content unmounts. An outside click leaves focus where the
+ * user put it.
  */
-export const useDismissible = <T extends HTMLElement>({ onEscape }: DismissibleOptions = {}) => {
+export const useDismissible = <T extends HTMLElement>() => {
   const [open, setOpen] = useState(false);
   const ref = useRef<T>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const close = () => setOpen(false);
-
-  const closeOnEscape = () => {
-    close();
-    onEscape?.();
+  const closeInPlace = () => {
+    setOpen(false);
   };
 
-  useOutsideClick(ref, open, close);
-  useEscapeKey(open, closeOnEscape);
+  const close = () => {
+    closeInPlace();
+    triggerRef.current?.focus();
+  };
 
-  return { open, setOpen, close, ref };
+  useOutsideClick(ref, open, closeInPlace);
+  useEscapeKey(open, close);
+
+  return { open, setOpen, close, ref, triggerRef };
 };
 
 /** What `useDismissible` hands back, for components that receive it as a prop. */
