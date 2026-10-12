@@ -1,5 +1,5 @@
-import { armySize } from './armySize';
-import { eliteCap } from './eliteCap';
+import { armySize } from '../armySize';
+import { eliteCap } from '../eliteCap';
 
 /** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */
 export interface MinMaxSource {

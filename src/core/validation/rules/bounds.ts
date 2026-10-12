@@ -1,4 +1,4 @@
-import { AS_TOKEN_PREFIX } from '@/core/limits/minMaxInfo';
+import { AS_TOKEN_PREFIX } from '@/core/limits/min-max/minMaxInfo';
 import type { RequiredGroup } from './types';
 
 type Bound = 'Minimum' | 'Maximum';

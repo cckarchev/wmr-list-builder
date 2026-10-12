@@ -1,9 +1,9 @@
 import { Stepper } from '@/components/stepper/Stepper';
 import { Tooltip } from '@/components/tooltip/Tooltip';
 import type { UnitState } from '@/core/army-state/types';
-import { explainMinMax } from '@/core/limits/explainMinMax';
 import { resolveBounds } from '@/core/limits/forceLimits';
-import { minMaxBadge } from '@/core/limits/minMaxBadge';
+import { explainMinMax } from '@/core/limits/min-max/explainMinMax';
+import { minMaxBadge } from '@/core/limits/min-max/minMaxBadge';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './CardControls.module.css';
 
