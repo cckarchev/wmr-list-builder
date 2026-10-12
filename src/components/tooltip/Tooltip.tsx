@@ -16,7 +16,7 @@ interface TooltipProps {
  * Small tooltip: shows `label` in a bubble above `children` on hover, keyboard
  * focus or a tap, since touch screens have no hover. The bubble text is always
  * in the DOM (so it's available to assistive tech and tests) and merely
- * revealed via opacity. It shifts sideways when the trigger sits too close to
+ * revealed by CSS. It shifts sideways when the trigger sits too close to
  * a screen edge for the bubble to fit, and opens below when there is no room
  * above.
  */
