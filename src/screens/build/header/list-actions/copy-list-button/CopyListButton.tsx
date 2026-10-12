@@ -1,55 +1,42 @@
-import { Button } from '@/components/button/Button';
-import { Icon } from '@/components/Icon';
 import { usedUnits as getUsedUnits, pointsCost } from '@/core/selectors';
 import { buildTextList } from '@/core/textList';
 import { useArmyStore } from '@/store/useArmyStore';
-import { CopiedBubble } from '../shared/copied-bubble/CopiedBubble';
-import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
-import { useCopyFeedback } from '../shared/useCopyFeedback';
+import { CopyButton } from '../shared/copy-button/CopyButton';
 
 export const CopyListButton = () => {
-  const { status, copy } = useCopyFeedback();
-
   const army = useArmyStore((s) => s.army);
   const units = useArmyStore((s) => s.units);
   const upgrades = useArmyStore((s) => s.upgrades);
   const label = useArmyStore((s) => s.label);
   const version = useArmyStore((s) => s.version);
 
-  const handleCopy = () => {
+  const listText = () => {
     if (!army) {
-      return;
+      return undefined;
     }
 
     const state = { units, upgrades };
     const points = pointsCost({ units });
     const used = getUsedUnits(state);
 
-    const text = buildTextList({
+    return buildTextList({
       armyName: army.name,
       label,
       points,
       usedUnits: used,
       version,
     });
-
-    copy(text);
   };
 
   return (
-    <PopupAnchor>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={handleCopy}
-        disabled={!army}
-        title="Copy list as text"
-      >
-        <Icon name="copy" />
-        Copy
-      </Button>
-      {status === 'copied' && <CopiedBubble>Copied!</CopiedBubble>}
-      {status === 'failed' && <CopiedBubble>Copy failed</CopiedBubble>}
-    </PopupAnchor>
+    <CopyButton
+      icon="copy"
+      title="Copy list as text"
+      disabled={!army}
+      getText={listText}
+      copiedMessage="Copied!"
+    >
+      Copy
+    </CopyButton>
   );
 };

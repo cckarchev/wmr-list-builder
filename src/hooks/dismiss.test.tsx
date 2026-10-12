@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { useRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
+import { useDismissible } from './useDismissible';
 import { useEscapeKey } from './useEscapeKey';
 import { useOutsideClick } from './useOutsideClick';
 
@@ -83,5 +84,40 @@ describe('useEscapeKey', () => {
     fireEvent.keyDown(document, { key: 'Escape' });
 
     expect(onDismiss).not.toHaveBeenCalled();
+  });
+});
+
+const DismissibleProbe = ({ onEscape }: { onEscape?: () => void }) => {
+  const { open, setOpen, ref } = useDismissible<HTMLDivElement>({ onEscape });
+
+  return (
+    <div ref={ref}>
+      <button type="button" onClick={() => setOpen(true)}>
+        open
+      </button>
+      {open && <p>panel</p>}
+    </div>
+  );
+};
+
+describe('useDismissible', () => {
+  it('closes on Escape and then runs onEscape', () => {
+    const onEscape = vi.fn();
+    const { getByText, queryByText } = render(<DismissibleProbe onEscape={onEscape} />);
+
+    fireEvent.click(getByText('open'));
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(queryByText('panel')).toBeNull();
+    expect(onEscape).toHaveBeenCalledTimes(1);
+  });
+
+  it('closes on Escape without an onEscape', () => {
+    const { getByText, queryByText } = render(<DismissibleProbe />);
+
+    fireEvent.click(getByText('open'));
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(queryByText('panel')).toBeNull();
   });
 });

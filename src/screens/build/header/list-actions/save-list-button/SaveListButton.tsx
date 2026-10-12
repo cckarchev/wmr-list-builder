@@ -1,60 +1,42 @@
-import { Button } from '@/components/button/Button';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
-import { Icon } from '@/components/Icon';
 import { useDismissible } from '@/hooks/useDismissible';
-import { ActionPanel } from '../shared/action-panel/ActionPanel';
-import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
+import { PanelAction } from '../shared/panel-action/PanelAction';
 import { SaveForm } from './save-form/SaveForm';
 import { useSaveList } from './useSaveList';
 
 export const SaveListButton = () => {
-  const { open, setOpen, close, ref: wrapRef } = useDismissible<HTMLSpanElement>();
-  const save = useSaveList(close);
+  const dismissible = useDismissible<HTMLSpanElement>();
+  const save = useSaveList(dismissible.close);
 
-  const togglePanel = () => {
-    if (open) {
-      close();
-
-      return;
-    }
-
-    save.reset();
-    setOpen(true);
-  };
+  const overwriteDialog = (
+    <ConfirmDialog
+      open={save.confirmingOverwrite}
+      title={`Overwrite "${save.trimmedName}"?`}
+      message="A saved list with this name already exists and will be replaced."
+      confirmLabel="Overwrite"
+      confirmVariant="primary"
+      onConfirm={save.confirmOverwrite}
+      onCancel={save.cancelOverwrite}
+    />
+  );
 
   return (
-    <PopupAnchor ref={wrapRef}>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={togglePanel}
-        disabled={!save.canSave}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        title="Save list"
-      >
-        <Icon name="save" />
-        Save
-      </Button>
-      {open && (
-        <ActionPanel label="Save list" heading="Save list">
-          <SaveForm
-            name={save.draft}
-            error={save.error}
-            onNameChange={save.changeName}
-            onSave={save.requestSave}
-          />
-        </ActionPanel>
-      )}
-      <ConfirmDialog
-        open={save.confirmingOverwrite}
-        title={`Overwrite "${save.trimmedName}"?`}
-        message="A saved list with this name already exists and will be replaced."
-        confirmLabel="Overwrite"
-        confirmVariant="primary"
-        onConfirm={save.confirmOverwrite}
-        onCancel={save.cancelOverwrite}
+    <PanelAction
+      dismissible={dismissible}
+      onOpen={save.reset}
+      icon="save"
+      label="Save"
+      title="Save list"
+      heading="Save list"
+      disabled={!save.canSave}
+      dialogs={overwriteDialog}
+    >
+      <SaveForm
+        name={save.draft}
+        error={save.error}
+        onNameChange={save.changeName}
+        onSave={save.requestSave}
       />
-    </PopupAnchor>
+    </PanelAction>
   );
 };

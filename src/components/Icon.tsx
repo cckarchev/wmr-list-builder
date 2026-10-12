@@ -2,7 +2,7 @@
 // CC BY 4.0 license (https://fontawesome.com/license/free). Inlined as a
 // currentColor component so they inherit the surrounding text color.
 
-type IconName =
+export type IconName =
   | 'print'
   | 'copy'
   | 'share'

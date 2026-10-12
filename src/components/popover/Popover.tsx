@@ -1,7 +1,6 @@
-import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef } from 'react';
 import { PillButton } from '@/components/pill-button/PillButton';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useDismissible } from '@/hooks/useDismissible';
 import styles from './Popover.module.css';
 import { useViewportShift } from './useViewportShift';
 
@@ -17,22 +16,20 @@ interface PopoverProps {
 }
 
 export const Popover = ({ label, trigger, wide = false, children }: PopoverProps) => {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
-  const offsetX = useViewportShift(panelRef, open);
 
-  const close = () => setOpen(false);
-
-  const closeAndRefocus = () => {
-    setOpen(false);
+  const refocusTrigger = () => {
     triggerRef.current?.focus();
   };
 
-  useOutsideClick(wrapRef, open, close);
-  useEscapeKey(open, closeAndRefocus);
+  const {
+    open,
+    setOpen,
+    ref: wrapRef,
+  } = useDismissible<HTMLDivElement>({ onEscape: refocusTrigger });
+  const offsetX = useViewportShift(panelRef, open);
 
   useEffect(() => {
     if (open) {
