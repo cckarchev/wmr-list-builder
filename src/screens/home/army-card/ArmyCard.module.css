@@ -47,9 +47,9 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* A square badge with the army's initials, the card's visual anchor. It fills
+/* A square badge with the faction emblem, the card's visual anchor. It fills
    with the accent on hover to echo the accent edge. */
-.monogram {
+.emblem {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,16 +59,12 @@
   border: var(--border-width) solid var(--color-border-accent);
   background: var(--color-bg-accent-tint);
   color: var(--color-accent);
-  font-family: var(--font-display);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--tracking-caps);
   transition:
     background var(--duration-fast),
     color var(--duration-fast);
 }
 
-.card:hover .monogram {
+.card:hover .emblem {
   background: var(--color-accent);
   color: var(--color-accent-ink);
 }
