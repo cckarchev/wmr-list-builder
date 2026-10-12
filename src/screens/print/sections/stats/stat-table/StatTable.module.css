@@ -16,7 +16,7 @@
 
 .table tfoot td {
   border-top: 2px solid currentColor;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .table tbody tr:nth-child(even) td {

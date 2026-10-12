@@ -47,6 +47,6 @@
   border-right: var(--border-default);
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-strong);
 }

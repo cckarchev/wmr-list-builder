@@ -19,7 +19,7 @@
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
 }
 

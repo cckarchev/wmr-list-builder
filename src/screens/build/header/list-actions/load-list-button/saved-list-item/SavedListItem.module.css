@@ -40,7 +40,7 @@
 
 .title {
   min-width: 0;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

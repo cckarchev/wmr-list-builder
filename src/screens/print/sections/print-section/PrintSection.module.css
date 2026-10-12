@@ -18,7 +18,7 @@
 }
 
 .term {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-strong);
   margin-top: var(--space-sm);
 }

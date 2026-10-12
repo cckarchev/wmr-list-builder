@@ -44,7 +44,7 @@
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-teal-bright);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .range {
