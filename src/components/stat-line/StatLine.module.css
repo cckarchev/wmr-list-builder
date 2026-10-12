@@ -19,7 +19,7 @@
 }
 
 .cell + .cell {
-  border-left: 1px solid var(--color-border-divider);
+  border-left: var(--border-divider);
 }
 
 .label {

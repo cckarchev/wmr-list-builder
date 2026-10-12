@@ -3,11 +3,9 @@
 .bar {
   position: sticky;
   top: 0;
-  /* Above the popover/tooltip layer (z-index 30) so open popovers scroll under
-     the header rather than over it; below ConfirmDialog (z-index 100). */
-  z-index: 40;
+  z-index: var(--z-sticky);
   background: var(--color-bg-deep);
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-default);
   box-shadow: var(--shadow-panel);
 }
 

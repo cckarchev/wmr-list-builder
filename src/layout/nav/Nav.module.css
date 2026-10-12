@@ -9,7 +9,7 @@
   min-height: 64px;
   padding: var(--space-xs) var(--space-md);
   background: var(--color-bg-deep);
-  border-bottom: 1px solid var(--color-border-divider);
+  border-bottom: var(--border-divider);
 }
 
 .brand {
@@ -58,7 +58,7 @@
   letter-spacing: var(--tracking-button);
   color: var(--color-text-body);
   text-decoration: none;
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
 }
 
 .action:hover {

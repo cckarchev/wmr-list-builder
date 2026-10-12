@@ -5,11 +5,7 @@
 }
 
 .label {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-dim);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  composes: eyebrow from '@/theme/typography.module.css';
 }
 
 .value {

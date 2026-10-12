@@ -1,0 +1,10 @@
+/* Shared type treatments, pulled into a component class with `composes`. */
+
+/* The small uppercase mono label that names a field, a group or a panel. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-dim);
+}

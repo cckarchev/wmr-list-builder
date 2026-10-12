@@ -7,7 +7,7 @@
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
   background: var(--color-bg-panel);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
   border-radius: var(--radius);
   transition: border-color 0.15s;
 }
@@ -71,11 +71,7 @@
 /* The troop/character type as a quiet inline tag after the name. Shown only
    when it isn't already stated by the section header. */
 .typeTag {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-dim);
+  composes: eyebrow from '@/theme/typography.module.css';
 }
 
 /* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row

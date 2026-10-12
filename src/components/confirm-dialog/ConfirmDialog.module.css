@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: var(--z-dialog);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,21 +13,17 @@
   width: 100%;
   max-width: 380px;
   background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
   text-align: left;
 }
 
 .title {
+  composes: eyebrow from '@/theme/typography.module.css';
   margin: 0;
   padding: var(--space-sm) var(--space-md) var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-dim);
-  border-bottom: 1px solid var(--color-border-divider);
+  border-bottom: var(--border-divider);
 }
 
 .message {

@@ -44,6 +44,10 @@
   --color-border-focus: rgb(var(--rgb-teal) / 0.85);
   --color-border-accent: rgb(var(--rgb-accent) / 0.7);
 
+  /* Full border shorthands for the two edges every panel and divider uses. */
+  --border-default: 1px solid var(--color-border-default);
+  --border-divider: 1px solid var(--color-border-divider);
+
   /* Ghost / teal-outline interactive states, such as the ghost Button. */
   --color-ghost-border: rgb(var(--rgb-teal) / 0.6);
   --color-ghost-border-hover: rgb(var(--rgb-teal) / 0.9);
@@ -89,4 +93,10 @@
   /* Max content width for centered page containers; beyond this the layout
      gutters rather than letting cards sprawl on large screens. */
   --layout-max-width: 1200px;
+
+  /* Stacking layers, lowest first. Sticky bars sit above popups so an open
+     popup scrolls under them, and the modal dialog sits above everything. */
+  --z-popup: 30;
+  --z-sticky: 40;
+  --z-dialog: 100;
 }

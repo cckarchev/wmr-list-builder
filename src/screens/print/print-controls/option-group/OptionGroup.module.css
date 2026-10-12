@@ -8,6 +8,7 @@
 }
 
 .label {
+  composes: eyebrow from '@/theme/typography.module.css';
   flex: none;
   /* Fixed width lines the "Sections" and "Options" labels into a column and
      starts both sets of toggles at the same x. Wide enough to hold the longest
@@ -16,11 +17,6 @@
   white-space: nowrap;
   /* Nudge down to align with the toggle text on the first row. */
   padding-top: 3px;
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-dim);
 }
 
 .toggles {

@@ -2,7 +2,7 @@
   position: absolute;
   top: calc(100% + var(--space-xxs));
   right: 0;
-  z-index: 30;
+  z-index: var(--z-popup);
   width: 280px;
   max-width: calc(100vw - var(--space-md));
   max-height: 60vh;
@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-default);
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
   text-align: left;
@@ -22,12 +22,8 @@
 }
 
 .heading {
+  composes: eyebrow from '@/theme/typography.module.css';
   margin: 0;
   padding: var(--space-sm) var(--space-sm) var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-dim);
-  border-bottom: 1px solid var(--color-border-divider);
+  border-bottom: var(--border-divider);
 }
