@@ -18,17 +18,13 @@ export const MagicItems = () => {
     return null;
   }
 
-  const allMagicItems = magicItems.upgrades;
+  const isTaken = (id: string) => {
+    const upgrade = upgrades[id];
 
-  const items = Object.fromEntries(
-    Object.entries(allMagicItems).filter(([id]) => {
-      const globalUpgrade = upgrades[id];
+    return upgrade && upgrade.number > 0 && MAGIC_ITEM_TYPES.has(upgrade.type);
+  };
 
-      return globalUpgrade && globalUpgrade.number > 0 && MAGIC_ITEM_TYPES.has(globalUpgrade.type);
-    }),
-  );
-
-  const entries = Object.entries(items);
+  const entries = Object.entries(magicItems.upgrades).filter(([id]) => isTaken(id));
 
   if (entries.length === 0) {
     return null;

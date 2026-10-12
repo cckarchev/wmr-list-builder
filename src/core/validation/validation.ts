@@ -8,39 +8,43 @@ import type { RequiredGroup, ValidatableItem } from './rules/types';
 import { toSentence } from './toSentence';
 import { totalNumber } from './totalNumber';
 
+type Pool = Record<string, { name: string; number: number }>;
+
+/** The listed ids of a pool, with their names and how many are taken in all. */
+const poolGroup = (ids: string[], pool: Pool) => ({
+  ids,
+  names: namesOf(ids, pool),
+  count: totalNumber(ids, pool),
+});
+
 /** Items that count together with this one toward its limits. */
 const homologousGroup = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
   if (item.homologousUnits) {
-    const ids = item.homologousUnits;
-
-    return { ids, names: namesOf(ids, units), count: totalNumber(ids, units) };
+    return poolGroup(item.homologousUnits, units);
   }
 
   if (item.homologousUpgrades) {
-    const ids = item.homologousUpgrades;
-
-    return { ids, names: namesOf(ids, upgrades), count: totalNumber(ids, upgrades) };
+    return poolGroup(item.homologousUpgrades, upgrades);
   }
 
   return undefined;
 };
+
+const toRequired = ({ names, count }: ReturnType<typeof poolGroup>): RequiredGroup => ({
+  count,
+  sentence: toSentence(names),
+});
 
 const requiredGroup = (
   item: ValidatableItem,
   { units, upgrades }: ArmyPools,
 ): RequiredGroup | undefined => {
   if (item.requiredUnits) {
-    return {
-      count: totalNumber(item.requiredUnits, units),
-      sentence: toSentence(namesOf(item.requiredUnits, units)),
-    };
+    return toRequired(poolGroup(item.requiredUnits, units));
   }
 
   if (item.requiredUpgrades) {
-    return {
-      count: totalNumber(item.requiredUpgrades, upgrades),
-      sentence: toSentence(namesOf(item.requiredUpgrades, upgrades)),
-    };
+    return toRequired(poolGroup(item.requiredUpgrades, upgrades));
   }
 
   return undefined;

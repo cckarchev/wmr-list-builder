@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Markdown } from '@/components/Markdown';
+import { spellBlocks } from '@/core/spellBlocks';
 import { useArmyStore } from '@/store/useArmyStore';
 import { usePrintOptions } from '../../printOptions';
 import {
@@ -24,7 +25,7 @@ export const Spells = () => {
       <PrintHeading>Spells</PrintHeading>
       <DefList>
         {spells.map((spell) => {
-          const blocks = spellFluff ? [`*${spell.fluff}*`, ...spell.text] : spell.text;
+          const blocks = spellBlocks(spell, spellFluff);
           const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
             spell.range ?? 'N/A'
           }`;

@@ -1,6 +1,6 @@
 import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
-import { snapshotOf } from '@/core/persistence/snapshot';
 import { useArmyStore } from './useArmyStore';
+import { useListSnapshot } from './useListSnapshot';
 
 /**
  * True when the current list differs from the last Saved/Loaded named list.
@@ -10,9 +10,7 @@ import { useArmyStore } from './useArmyStore';
  */
 export const useIsDirty = (): boolean => {
   const armyId = useArmyStore((s) => s.armyId);
-  const gameSize = useArmyStore((s) => s.gameSize);
-  const units = useArmyStore((s) => s.units);
-  const label = useArmyStore((s) => s.label);
+  const snapshot = useListSnapshot();
   const savedBaseline = useArmyStore((s) => s.savedBaseline);
 
   if (!armyId) {
@@ -23,7 +21,7 @@ export const useIsDirty = (): boolean => {
     return true;
   }
 
-  const encoded = encodeListFor(armyId, snapshotOf({ gameSize, units, label }));
+  const encoded = encodeListFor(armyId, snapshot);
 
   return encoded !== savedBaseline;
 };

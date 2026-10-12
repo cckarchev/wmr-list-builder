@@ -6,6 +6,7 @@ import { Popover } from '@/components/popover/Popover';
 import { formatStat } from '@/core/lib/formatStat';
 import { toggleMember } from '@/core/lib/sets';
 import { isCaster } from '@/core/selectors';
+import { spellBlocks } from '@/core/spellBlocks';
 import { useArmyStore } from '@/store/useArmyStore';
 import { DISCLOSURE_CARET_SIZE } from '../shared/disclosureCaret';
 import styles from './UnitSpells.module.css';
@@ -59,7 +60,7 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
               </button>
               {isOpen && (
                 <div className={styles.effect}>
-                  <Markdown blocks={[`*${spell.fluff}*`, ...spell.text]} />
+                  <Markdown blocks={spellBlocks(spell, true)} />
                 </div>
               )}
             </div>

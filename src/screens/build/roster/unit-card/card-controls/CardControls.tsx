@@ -1,10 +1,9 @@
 import { Stepper } from '@/components/stepper/Stepper';
-import { Tooltip } from '@/components/tooltip/Tooltip';
 import type { UnitState } from '@/core/army-state/types';
 import { resolveBounds } from '@/core/limits/forceLimits';
-import { explainMinMax } from '@/core/limits/min-max/explainMinMax';
-import { minMaxBadge } from '@/core/limits/min-max/minMaxBadge';
+import { minMaxHint } from '@/core/limits/min-max/minMaxHint';
 import { useArmyStore } from '@/store/useArmyStore';
+import { LimitBadge } from '../shared/LimitBadge';
 import styles from './CardControls.module.css';
 
 interface CardControlsProps {
@@ -22,9 +21,7 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
 
   const selected = unit.number > 0;
   const { min, max } = resolveBounds(unit, gameSize);
-  const badge = minMaxBadge(unit, gameSize);
-  const rule = explainMinMax(unit, gameSize);
-  const restriction = badge && rule ? { badge, rule } : undefined;
+  const restriction = minMaxHint(unit, gameSize);
 
   const changeNumber = (count: number) => {
     setUnitNumber(unitId, count);
@@ -40,11 +37,7 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
             ·
           </span>
         )}
-        {restriction && (
-          <Tooltip label={restriction.rule}>
-            <span className={styles.restriction}>{restriction.badge}</span>
-          </Tooltip>
-        )}
+        {restriction && <LimitBadge hint={restriction} className={styles.restriction} />}
       </div>
     </div>
   );

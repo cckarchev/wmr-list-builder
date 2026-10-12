@@ -22,6 +22,8 @@ export const useSaveList = (onSaved: () => void) => {
   const [error, setError] = useState<string | null>(null);
   const [confirmingOverwrite, setConfirmingOverwrite] = useState(false);
 
+  const trimmedName = name.trim();
+
   /** Start a fresh draft from the list's current label. */
   const reset = () => {
     setName(label);
@@ -50,9 +52,7 @@ export const useSaveList = (onSaved: () => void) => {
   };
 
   const requestSave = () => {
-    const trimmed = name.trim();
-
-    if (!trimmed) {
+    if (!trimmedName) {
       setError(EMPTY_NAME_ERROR);
 
       return;
@@ -62,16 +62,14 @@ export const useSaveList = (onSaved: () => void) => {
       return;
     }
 
-    if (listSavedNames(armyId).includes(trimmed)) {
+    if (listSavedNames(armyId).includes(trimmedName)) {
       setConfirmingOverwrite(true);
 
       return;
     }
 
-    commit(trimmed);
+    commit(trimmedName);
   };
-
-  const trimmedName = name.trim();
 
   return {
     canSave: Boolean(armyId),

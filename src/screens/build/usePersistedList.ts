@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { codeMapsFor } from '@/core/persistence/codeMaps';
 import { loadList, saveList } from '@/core/persistence/currentList';
-import { decodeShare } from '@/core/persistence/list-codec/listCodec';
-import { snapshotOf } from '@/core/persistence/snapshot';
+import { decodeShareFor } from '@/core/persistence/list-codec/listCodec';
 import { useArmyStore } from '@/store/useArmyStore';
+import { useListSnapshot } from '@/store/useListSnapshot';
 
 const CORRUPT_SHARE_WARNING = 'This shared list couldn’t be loaded. The link looks corrupted.';
 
@@ -14,9 +13,7 @@ const CORRUPT_SHARE_WARNING = 'This shared list couldn’t be loaded. The link l
  */
 export const usePersistedList = (armyId: string | undefined, shareCode: string | null): void => {
   const armyIdInStore = useArmyStore((s) => s.armyId);
-  const units = useArmyStore((s) => s.units);
-  const gameSize = useArmyStore((s) => s.gameSize);
-  const label = useArmyStore((s) => s.label);
+  const snapshot = useListSnapshot();
   const setArmy = useArmyStore((s) => s.setArmy);
   const applyList = useArmyStore((s) => s.applyList);
   const setLoadWarning = useArmyStore((s) => s.setLoadWarning);
@@ -41,7 +38,7 @@ export const usePersistedList = (armyId: string | undefined, shareCode: string |
       return;
     }
 
-    const result = decodeShare(shareCode, codeMapsFor(armyId));
+    const result = decodeShareFor(armyId, shareCode);
 
     if (result.ok) {
       applyList(result.snapshot);
@@ -52,7 +49,7 @@ export const usePersistedList = (armyId: string | undefined, shareCode: string |
 
   useEffect(() => {
     if (armyIdInStore) {
-      saveList(armyIdInStore, snapshotOf({ gameSize, units, label }));
+      saveList(armyIdInStore, snapshot);
     }
-  }, [armyIdInStore, gameSize, units, label]);
+  }, [armyIdInStore, snapshot]);
 };

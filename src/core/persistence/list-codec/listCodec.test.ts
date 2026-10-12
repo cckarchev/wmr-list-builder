@@ -2,7 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { loadArmy } from '@/data/loadArmy';
 import { buildCodeMaps } from '../codeMaps';
 import type { ListSnapshot } from '../snapshot';
-import { decodeList, decodeShare, encodeList, encodeListFor } from './listCodec';
+import {
+  decodeList,
+  decodeListFor,
+  decodeShare,
+  decodeShareFor,
+  encodeList,
+  encodeListFor,
+} from './listCodec';
 
 const maps = buildCodeMaps(loadArmy('empire'));
 
@@ -108,5 +115,15 @@ describe('decodeShare', () => {
 describe('encodeListFor', () => {
   it('encodes a snapshot with the code maps of the given army', () => {
     expect(encodeListFor('empire', snap)).toBe(encodeList(snap, maps));
+  });
+});
+
+describe('decodeListFor and decodeShareFor', () => {
+  it('decodes a list with the code maps of the given army', () => {
+    expect(decodeListFor('empire', encodeList(snap, maps))).toEqual(snap);
+  });
+
+  it('decodes a share link with the code maps of the given army', () => {
+    expect(decodeShareFor('empire', encodeList(snap, maps))).toEqual({ ok: true, snapshot: snap });
   });
 });

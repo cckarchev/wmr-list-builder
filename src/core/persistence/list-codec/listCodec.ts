@@ -107,6 +107,10 @@ const parseWire = (
 export const decodeList = (s: string, maps: ArmyCodeMaps): ListSnapshot | null =>
   parseWire(s, maps)?.snapshot ?? null;
 
+/** Decode a blob with the code maps of the army with this id. */
+export const decodeListFor = (armyId: string, s: string): ListSnapshot | null =>
+  decodeList(s, codeMapsFor(armyId));
+
 type DecodedShare = { ok: true; snapshot: ListSnapshot } | { ok: false };
 
 /**
@@ -130,3 +134,7 @@ export const decodeShare = (s: string, maps: ArmyCodeMaps): DecodedShare => {
 
   return { ok: true, snapshot: parsed.snapshot };
 };
+
+/** Decode a shared blob with the code maps of the army with this id. */
+export const decodeShareFor = (armyId: string, s: string): DecodedShare =>
+  decodeShare(s, codeMapsFor(armyId));

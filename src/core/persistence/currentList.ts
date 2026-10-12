@@ -1,5 +1,4 @@
-import { codeMapsFor } from './codeMaps';
-import { decodeList, encodeListFor } from './list-codec/listCodec';
+import { decodeListFor, encodeListFor } from './list-codec/listCodec';
 import type { ListSnapshot } from './snapshot';
 
 const PREFIX = 'wmr:list:';
@@ -21,9 +20,7 @@ export const loadList = (armyId: string): ListSnapshot | null => {
       return null;
     }
 
-    const maps = codeMapsFor(armyId);
-
-    return decodeList(raw, maps);
+    return decodeListFor(armyId, raw);
   } catch {
     return null;
   }

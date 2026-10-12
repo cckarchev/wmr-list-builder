@@ -1,16 +1,15 @@
 import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
 import { Popover } from '@/components/popover/Popover';
 import { Stepper } from '@/components/stepper/Stepper';
-import { Tooltip } from '@/components/tooltip/Tooltip';
 import { formatPrice } from '@/core/army-state/formatPrice';
 import { resolveUpgradePoints } from '@/core/army-state/pricing';
-import { explainMinMax } from '@/core/limits/min-max/explainMinMax';
-import { minMaxBadge } from '@/core/limits/min-max/minMaxBadge';
+import { minMaxHint } from '@/core/limits/min-max/minMaxHint';
 import { upgradeMaxCount } from '@/core/limits/upgradeMaxCount';
 import { errorsForTarget } from '@/core/selectors';
 import { resolveUpgradeRules } from '@/core/special-rules/upgradeRules';
 import { useArmyStore } from '@/store/useArmyStore';
 import { InlineErrors } from '../../shared/inline-errors/InlineErrors';
+import { LimitBadge } from '../../shared/LimitBadge';
 import { RuleList } from '../../shared/rule-list/RuleList';
 import styles from './UpgradeRow.module.css';
 
@@ -44,8 +43,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
     armyMax: upgrade.armyMax,
   });
 
-  const badge = minMaxBadge(upgrade, gameSize);
-  const rule = explainMinMax(upgrade, gameSize);
+  const limit = minMaxHint(upgrade, gameSize);
 
   // Resolve points display: pointsValue means variable pricing
   const price = resolveUpgradePoints(upgrade, unit);
@@ -70,11 +68,7 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
             <RuleList rules={rules} />
           </Popover>
         )}
-        {badge && rule && (
-          <Tooltip label={rule}>
-            <span className={styles.limit}>{badge}</span>
-          </Tooltip>
-        )}
+        {limit && <LimitBadge hint={limit} className={styles.limit} />}
         <span className={styles.points}>{pointsDisplay}</span>
         <Stepper
           value={count}
