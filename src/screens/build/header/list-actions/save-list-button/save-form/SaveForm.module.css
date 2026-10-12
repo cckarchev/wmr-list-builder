@@ -12,8 +12,17 @@
   color: var(--color-text-dim);
 }
 
+/* The name field and its Save button on one line; the field takes the room
+   the button leaves. */
+.row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-xs);
+}
+
 .input {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   padding: var(--space-xs);
   background: var(--color-bg-base);
   border: var(--border-default);
@@ -37,4 +46,12 @@
   margin: 0;
   font-size: var(--font-size-xs);
   color: var(--color-error);
+}
+
+/* Where saved lists live, and how to keep one somewhere safer. */
+.storageNote {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-body);
+  color: var(--color-text-dim);
 }

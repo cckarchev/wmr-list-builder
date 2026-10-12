@@ -13,6 +13,7 @@ interface SaveFormProps {
 export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) => {
   // Unique per instance: the inline and the mobile actions each mount a form.
   const nameInputId = useId();
+  const storageNoteId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -30,22 +31,29 @@ export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) =
       <label className={styles.label} htmlFor={nameInputId}>
         List name
       </label>
-      <input
-        className={styles.input}
-        ref={inputRef}
-        id={nameInputId}
-        value={name}
-        onChange={(event) => onNameChange(event.target.value)}
-        onKeyDown={saveOnEnter}
-      />
+      <div className={styles.row}>
+        <input
+          className={styles.input}
+          ref={inputRef}
+          id={nameInputId}
+          value={name}
+          onChange={(event) => onNameChange(event.target.value)}
+          onKeyDown={saveOnEnter}
+          aria-describedby={storageNoteId}
+        />
+        <Button variant="primary" size="sm" onClick={onSave}>
+          Save list
+        </Button>
+      </div>
       {error && (
         <p className={styles.note} role="alert">
           {error}
         </p>
       )}
-      <Button variant="primary" size="sm" onClick={onSave}>
-        Save list
-      </Button>
+      <p className={styles.storageNote} id={storageNoteId}>
+        Lists are kept only in this browser. Clearing its site data deletes them, so use Share to
+        keep a link to a list.
+      </p>
     </div>
   );
 };
