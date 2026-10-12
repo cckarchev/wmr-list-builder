@@ -24,10 +24,6 @@
   max-width: min(var(--popup-width-wide), var(--popup-max-width));
 }
 
-.heading {
-  composes: heading from '@/theme/popup.module.css';
-}
-
 .body {
   padding: var(--popup-padding);
 }

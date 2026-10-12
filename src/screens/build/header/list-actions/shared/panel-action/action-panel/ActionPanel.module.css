@@ -20,7 +20,3 @@
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
 }
-
-.heading {
-  composes: heading from '@/theme/popup.module.css';
-}

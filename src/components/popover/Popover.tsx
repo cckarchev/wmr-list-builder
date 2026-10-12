@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect, useId, useRef } from 'react';
 import { PillButton } from '@/components/pill-button/PillButton';
+import { PopupHeading } from '@/components/popup-heading/PopupHeading';
 import { useDismissible } from '@/hooks/useDismissible';
 import { useViewportShift } from '@/hooks/useViewportShift';
 import styles from './Popover.module.css';
@@ -21,7 +22,7 @@ export const Popover = ({ label, heading, trigger, wide = false, children }: Pop
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
-  const { open, setOpen, ref: wrapRef, triggerRef } = useDismissible<HTMLDivElement>();
+  const { open, setOpen, close, ref: wrapRef, triggerRef } = useDismissible<HTMLDivElement>();
   const offsetX = useViewportShift(panelRef, open);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export const Popover = ({ label, heading, trigger, wide = false, children }: Pop
           data-wide={wide || undefined}
           style={{ left: offsetX }}
         >
-          <p className={styles.heading}>{heading}</p>
+          <PopupHeading onClose={close}>{heading}</PopupHeading>
           <div className={styles.body}>{children}</div>
         </div>
       )}

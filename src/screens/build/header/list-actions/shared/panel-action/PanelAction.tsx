@@ -69,7 +69,7 @@ export const PanelAction = ({
         {label}
       </Button>
       {open && (
-        <ActionPanel ref={panelRef} label={title} heading={heading}>
+        <ActionPanel ref={panelRef} label={title} heading={heading} onClose={close}>
           {children}
         </ActionPanel>
       )}

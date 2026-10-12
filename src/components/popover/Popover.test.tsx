@@ -52,4 +52,15 @@ describe('Popover', () => {
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
+
+  it('closes from its close button and returns focus to the trigger', async () => {
+    const user = userEvent.setup();
+    setup();
+    const trigger = screen.getByRole('button', { name: 'Goblins special rules' });
+    await user.click(trigger);
+    await user.click(screen.getByRole('button', { name: 'Close' }));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
 });

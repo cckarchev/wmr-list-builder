@@ -1,4 +1,5 @@
 import { type ReactNode, type RefObject, useRef } from 'react';
+import { PopupHeading } from '@/components/popup-heading/PopupHeading';
 import { useViewportShift } from '@/hooks/useViewportShift';
 import styles from './ActionPanel.module.css';
 
@@ -7,6 +8,7 @@ interface ActionPanelProps {
   label: string;
   /** Visible title at the top of the panel. */
   heading: string;
+  onClose: () => void;
   children: ReactNode;
   /** Lets the owner move focus to the panel itself, such as after a row is deleted. */
   ref?: RefObject<HTMLDivElement | null>;
@@ -17,7 +19,7 @@ interface ActionPanelProps {
  * only mounts while open, and shifts sideways when its trigger sits too close
  * to a screen edge for the panel to fit, as on a phone.
  */
-export const ActionPanel = ({ label, heading, children, ref }: ActionPanelProps) => {
+export const ActionPanel = ({ label, heading, onClose, children, ref }: ActionPanelProps) => {
   const ownRef = useRef<HTMLDivElement>(null);
   const panelRef = ref ?? ownRef;
   const isOpen = true;
@@ -33,7 +35,7 @@ export const ActionPanel = ({ label, heading, children, ref }: ActionPanelProps)
       tabIndex={-1}
       style={shiftStyle}
     >
-      <p className={styles.heading}>{heading}</p>
+      <PopupHeading onClose={onClose}>{heading}</PopupHeading>
       {children}
     </div>
   );
