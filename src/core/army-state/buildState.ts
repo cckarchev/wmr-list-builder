@@ -22,7 +22,7 @@ export const buildUpgrades = (
   for (const id in merged) {
     const source = merged[id];
 
-    result[id] = { ...(source as UpgradeState), number: 0 };
+    result[id] = { ...source, number: 0 };
   }
 
   return result;

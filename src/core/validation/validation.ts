@@ -101,10 +101,10 @@ export const validate = (
 ): ValidationError[] => {
   const pools = { units, upgrades };
   const unitErrors = Object.entries(units).flatMap(([id, unit]) =>
-    checkItem(id, unit as ValidatableItem, pools, gameSize),
+    checkItem(id, unit, pools, gameSize),
   );
   const upgradeErrors = Object.entries(upgrades).flatMap(([id, upgrade]) =>
-    checkItem(id, upgrade as ValidatableItem, pools, gameSize),
+    checkItem(id, upgrade, pools, gameSize),
   );
 
   return [...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors];
