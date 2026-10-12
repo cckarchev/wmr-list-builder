@@ -6,8 +6,11 @@ import styles from './PrintSection.module.css';
 // Rules, Magic Items, Spells).
 
 interface BlockProps {
-  className?: string;
   children: ReactNode;
+}
+
+interface StyledBlockProps extends BlockProps {
+  className?: string;
 }
 
 /** Outer block for a print sheet section. */
@@ -24,11 +27,9 @@ export const PrintHeading = ({ children }: BlockProps) => (
 export const DefList = ({ children }: BlockProps) => <dl className={styles.list}>{children}</dl>;
 
 /** Definition term (entry name). */
-export const DefTerm = ({ className, children }: BlockProps) => (
-  <dt className={classNames(styles.term, className)}>{children}</dt>
-);
+export const DefTerm = ({ children }: BlockProps) => <dt className={styles.term}>{children}</dt>;
 
 /** Definition description (entry body). */
-export const DefDesc = ({ className, children }: BlockProps) => (
+export const DefDesc = ({ className, children }: StyledBlockProps) => (
   <dd className={classNames(styles.desc, className)}>{children}</dd>
 );

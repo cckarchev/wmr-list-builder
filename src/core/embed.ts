@@ -4,7 +4,7 @@
 // which drops query params. The Share button uses it to emit a cckarchev link.
 
 /** Query param carrying the embedding page's base URL. */
-export const EMBED_PARAM = 'embed';
+const EMBED_PARAM = 'embed';
 
 const ALLOWED_HOSTS = new Set(['cckarchev.ar', 'www.cckarchev.ar']);
 

@@ -19,7 +19,6 @@ export const OverflowMenu = ({ children }: { children: ReactNode }) => {
     <PopupAnchor ref={wrapRef}>
       <Button
         ref={triggerRef}
-        type="button"
         variant="ghost"
         size="sm"
         aria-expanded={open}

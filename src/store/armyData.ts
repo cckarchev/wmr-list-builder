@@ -4,7 +4,7 @@ import { applyForceMinimums } from '@/core/limits/forceLimits';
 import { validate } from '@/core/validation/validation';
 import { loadArmy } from '@/data/loadArmy';
 import { magicItems } from '@/data/magicItems';
-import type { Army, Spell, UpgradeConstraint, ValidationError } from '@/data/types';
+import type { Army, Spell, ValidationError } from '@/data/types';
 
 export const DEFAULT_GAME_SIZE = 2000;
 
@@ -14,7 +14,6 @@ export interface ArmyData {
   army: Army | null;
   units: Record<string, UnitState>;
   upgrades: Record<string, UpgradeState>;
-  upgradeConstraints: UpgradeConstraint[];
   magic: boolean;
   specialRules: Army['specialRules'];
   spells: Spell[] | undefined;
@@ -31,7 +30,6 @@ export const emptyData = (): ArmyData => ({
   army: null,
   units: {},
   upgrades: {},
-  upgradeConstraints: [],
   magic: false,
   specialRules: undefined,
   spells: undefined,
@@ -64,7 +62,6 @@ export const initializeState = (id: string): ArmyData => {
     army,
     units,
     upgrades,
-    upgradeConstraints,
     magic,
     specialRules: army.specialRules,
     spells: army.spells,

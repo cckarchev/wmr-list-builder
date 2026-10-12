@@ -16,7 +16,7 @@ interface ArmyActions {
   reset: () => void;
 }
 
-export type ArmyState = ArmyData & ArmyActions;
+type ArmyState = ArmyData & ArmyActions;
 
 export const useArmyStore = create<ArmyState>((set) => ({
   ...emptyData(),

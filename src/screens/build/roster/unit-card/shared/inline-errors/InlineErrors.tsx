@@ -3,11 +3,12 @@ import styles from './InlineErrors.module.css';
 
 interface InlineErrorsProps {
   errors: ValidationError[];
-  label?: string;
+  /** Accessible name of the list, such as "Goblins errors". */
+  label: string;
 }
 
 /** Renders the validation errors attributed to a single roster row. */
-export const InlineErrors = ({ errors, label = 'Unit errors' }: InlineErrorsProps) => {
+export const InlineErrors = ({ errors, label }: InlineErrorsProps) => {
   if (errors.length === 0) {
     return null;
   }
