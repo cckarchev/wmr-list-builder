@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon';
 import { getEmbedBase } from '@/core/embed';
 import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
 import { snapshotOf } from '@/core/persistence/snapshot';
-import { ARMY_PARAM, LIST_PARAM } from '@/core/shareLink';
+import { buildShareUrl } from '@/core/shareLink';
 import { useArmyStore } from '@/store/useArmyStore';
 import { CopiedBubble } from '../shared/copied-bubble/CopiedBubble';
 import { PopupAnchor } from '../shared/popup-anchor/PopupAnchor';
@@ -22,21 +22,12 @@ export const CopyShareLinkButton = () => {
     }
 
     const encoded = encodeListFor(armyId, snapshotOf({ gameSize, units, label }));
-    const base = getEmbedBase();
-    let url: string;
-
-    if (base) {
-      // Embedded on the cckarchev site: share a link back to that page so the
-      // recipient lands on cckarchev (which re-embeds the iframe with the list).
-      const embedUrl = new URL(base);
-
-      embedUrl.searchParams.set(ARMY_PARAM, armyId);
-      embedUrl.searchParams.set(LIST_PARAM, encoded);
-
-      url = embedUrl.toString();
-    } else {
-      url = `${window.location.origin}/build/${armyId}?${LIST_PARAM}=${encoded}`;
-    }
+    const url = buildShareUrl({
+      armyId,
+      encoded,
+      embedBase: getEmbedBase(),
+      origin: window.location.origin,
+    });
 
     copy(url);
   };
