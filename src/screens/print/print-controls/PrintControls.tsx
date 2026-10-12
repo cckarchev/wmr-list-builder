@@ -74,7 +74,7 @@ export const PrintControls = ({
         </OptionGroup>
       </div>
 
-      <Button className={styles.printButton} type="button" onClick={printPage}>
+      <Button className={styles.printButton} onClick={printPage}>
         <Icon name="print" size={PRINT_ICON_SIZE} />
         Print
       </Button>

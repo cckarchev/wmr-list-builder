@@ -1,8 +1,6 @@
-import { type KeyboardEvent, useEffect, useRef } from 'react';
+import { type KeyboardEvent, useEffect, useId, useRef } from 'react';
 import { Button } from '@/components/button/Button';
 import styles from './SaveForm.module.css';
-
-const NAME_INPUT_ID = 'save-list-name';
 
 interface SaveFormProps {
   name: string;
@@ -13,6 +11,8 @@ interface SaveFormProps {
 
 /** Name field and submit button shown inside the Save panel. */
 export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) => {
+  // Unique per instance: the inline and the mobile actions each mount a form.
+  const nameInputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -27,13 +27,13 @@ export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) =
 
   return (
     <div className={styles.body}>
-      <label className={styles.label} htmlFor={NAME_INPUT_ID}>
+      <label className={styles.label} htmlFor={nameInputId}>
         List name
       </label>
       <input
         className={styles.input}
         ref={inputRef}
-        id={NAME_INPUT_ID}
+        id={nameInputId}
         value={name}
         onChange={(event) => onNameChange(event.target.value)}
         onKeyDown={saveOnEnter}

@@ -14,12 +14,12 @@ const ODD_GAME = 1750;
 const seed = (name: string, gameSize: number) =>
   saveNamedList('bretonnia', name, { name, gameSize, units: {}, upgrades: {} });
 
-describe('LoadListButton', () => {
-  beforeEach(() => {
-    localStorage.clear();
-    useArmyStore.getState().setArmy('bretonnia');
-  });
+beforeEach(() => {
+  localStorage.clear();
+  useArmyStore.getState().setArmy('bretonnia');
+});
 
+describe('LoadListButton', () => {
   it('shows an empty state when nothing is saved', async () => {
     const user = userEvent.setup();
     renderWithProviders(<LoadListButton />);
@@ -73,5 +73,30 @@ describe('LoadListButton', () => {
 
     expect(screen.queryByRole('button', { name: /^Saved C$/ })).not.toBeInTheDocument();
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
+  });
+});
+
+describe('LoadListButton focus and Escape', () => {
+  it('keeps focus in the panel after deleting a list', async () => {
+    const user = userEvent.setup();
+    seed('Saved C', SMALL_GAME);
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole('button', { name: /load/i }));
+    await user.click(screen.getByRole('button', { name: /delete Saved C/i }));
+    await user.click(screen.getByRole('button', { name: /^delete$/i }));
+
+    expect(screen.getByRole('dialog', { name: /load list/i })).toHaveFocus();
+  });
+
+  it('closes only the confirm dialog on Escape, leaving the panel open', async () => {
+    const user = userEvent.setup();
+    seed('Saved C', SMALL_GAME);
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole('button', { name: /load/i }));
+    await user.click(screen.getByRole('button', { name: /delete Saved C/i }));
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: /load list/i })).toBeInTheDocument();
   });
 });

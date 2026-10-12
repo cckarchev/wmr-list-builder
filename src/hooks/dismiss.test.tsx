@@ -85,6 +85,44 @@ describe('useEscapeKey', () => {
 
     expect(onDismiss).not.toHaveBeenCalled();
   });
+
+  it('only calls the most recently activated handler', () => {
+    const onPanel = vi.fn();
+    const onDialog = vi.fn();
+    render(
+      <>
+        <EscapeProbe active onDismiss={onPanel} />
+        <EscapeProbe active onDismiss={onDialog} />
+      </>,
+    );
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(onDialog).toHaveBeenCalledTimes(1);
+    expect(onPanel).not.toHaveBeenCalled();
+  });
+
+  it('hands Escape back to the layer below once the top one deactivates', () => {
+    const onPanel = vi.fn();
+    const onDialog = vi.fn();
+    const { rerender } = render(
+      <>
+        <EscapeProbe active onDismiss={onPanel} />
+        <EscapeProbe active onDismiss={onDialog} />
+      </>,
+    );
+
+    rerender(
+      <>
+        <EscapeProbe active onDismiss={onPanel} />
+        <EscapeProbe active={false} onDismiss={onDialog} />
+      </>,
+    );
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(onPanel).toHaveBeenCalledTimes(1);
+    expect(onDialog).not.toHaveBeenCalled();
+  });
 });
 
 const DismissibleProbe = () => {

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
 import { useDismissible } from '@/hooks/useDismissible';
 import { PanelAction } from '../shared/panel-action/PanelAction';
@@ -7,6 +8,9 @@ import { useSavedLists } from './useSavedLists';
 
 export const LoadListButton = () => {
   const dismissible = useDismissible<HTMLSpanElement>();
+  // Deleting a list unmounts the row that opened the confirm dialog, so focus
+  // falls back to the panel instead of dropping to <body>.
+  const panelRef = useRef<HTMLDivElement>(null);
   const lists = useSavedLists(dismissible.close);
   const isEmpty = lists.saved.length === 0;
 
@@ -27,6 +31,7 @@ export const LoadListButton = () => {
         confirmLabel="Delete"
         onConfirm={lists.confirmDelete}
         onCancel={lists.cancelDelete}
+        fallbackFocusRef={panelRef}
       />
     </>
   );
@@ -41,6 +46,7 @@ export const LoadListButton = () => {
       heading="Saved lists"
       disabled={!lists.canLoad}
       dialogs={confirmDialogs}
+      panelRef={panelRef}
     >
       {isEmpty && <p className={styles.empty}>No saved lists for this army yet.</p>}
       {lists.saved.map(({ name, gameSize }) => (

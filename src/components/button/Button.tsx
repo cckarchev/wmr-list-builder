@@ -17,10 +17,19 @@ type ButtonProps = ButtonStyleProps & ComponentPropsWithRef<'button'>;
 
 type ButtonLinkProps = ButtonStyleProps & LinkProps;
 
-export const Button = ({ variant = 'primary', size = 'md', className, ...props }: ButtonProps) => {
+/** Defaults to type="button", so a Button inside a form never submits it by accident. */
+export const Button = ({
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  className,
+  ...props
+}: ButtonProps) => {
   const classes = classNames(styles.button, className);
 
-  return <button className={classes} data-variant={variant} data-size={size} {...props} />;
+  return (
+    <button className={classes} type={type} data-variant={variant} data-size={size} {...props} />
+  );
 };
 
 /** A router link styled as a Button, for actions that navigate. */

@@ -36,8 +36,13 @@ const wrapTarget = (container: HTMLElement, backwards: boolean): HTMLElement | u
 /**
  * While `active`, keeps Tab and Shift+Tab cycling inside `containerRef`, as a
  * modal promises, and hands focus back to whatever had it once `active` ends.
+ * When that element is gone, focus goes to `fallbackRef` instead.
  */
-export const useFocusTrap = (containerRef: RefObject<HTMLElement | null>, active: boolean) => {
+export const useFocusTrap = (
+  containerRef: RefObject<HTMLElement | null>,
+  active: boolean,
+  fallbackRef?: RefObject<HTMLElement | null>,
+) => {
   useEffect(() => {
     if (!active) {
       return;
@@ -68,10 +73,14 @@ export const useFocusTrap = (containerRef: RefObject<HTMLElement | null>, active
       document.removeEventListener('keydown', keepTabInside);
 
       // The opener may have unmounted with the dialog, such as a row that was
-      // just deleted. Then there is nothing to go back to.
+      // just deleted. Then the fallback, if any, keeps focus off <body>.
       if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
         previouslyFocused.focus();
+
+        return;
       }
+
+      fallbackRef?.current?.focus();
     };
-  }, [active, containerRef]);
+  }, [active, containerRef, fallbackRef]);
 };

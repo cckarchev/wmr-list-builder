@@ -1,4 +1,7 @@
 .group {
+  margin: 0;
+  padding: 0;
+  border: none;
   display: flex;
   /* Top-align the label so it sits on the first line of toggles even when they
      wrap onto multiple rows, rather than floating in the vertical center. */

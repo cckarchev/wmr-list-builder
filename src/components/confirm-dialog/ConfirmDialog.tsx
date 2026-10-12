@@ -1,4 +1,4 @@
-import { type MouseEvent, type ReactNode, useEffect, useId, useRef } from 'react';
+import { type MouseEvent, type ReactNode, type RefObject, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/button/Button';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
@@ -14,6 +14,8 @@ interface ConfirmDialogProps {
   confirmVariant?: 'primary' | 'danger';
   onConfirm: () => void;
   onCancel: () => void;
+  /** Takes focus on close when the control that opened the dialog is gone. */
+  fallbackFocusRef?: RefObject<HTMLElement | null>;
 }
 
 export const ConfirmDialog = ({
@@ -25,6 +27,7 @@ export const ConfirmDialog = ({
   confirmVariant = 'danger',
   onConfirm,
   onCancel,
+  fallbackFocusRef,
 }: ConfirmDialogProps) => {
   const titleId = useId();
   const messageId = useId();
@@ -36,7 +39,7 @@ export const ConfirmDialog = ({
 
   // Declared before the autofocus below so it records the opener, not the
   // confirm button.
-  useFocusTrap(cardRef, open);
+  useFocusTrap(cardRef, open, fallbackFocusRef);
 
   // These dialogs open from inside popovers whose dismiss-on-outside-click is a
   // native `document` mousedown listener. Swallow mousedown at the backdrop so
