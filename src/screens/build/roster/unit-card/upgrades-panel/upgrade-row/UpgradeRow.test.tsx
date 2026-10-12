@@ -26,6 +26,35 @@ describe('UpgradeRow', () => {
     ).toBeDisabled();
   });
 
+  it('names the unit that already carries an army-wide upgrade', () => {
+    const store = useArmyStore.getState();
+    store.setArmy('empire');
+    store.setUnitNumber('halberdiers', HALBERDIER_STANDS);
+    store.setUnitUpgradeNumber('halberdiers', 'battleBanner', 1);
+    store.setUnitNumber('knights', 2);
+
+    renderWithProviders(<UpgradeRow unitId="knights" upgradeId="battleBanner" />);
+
+    expect(screen.getByRole('tooltip', { name: 'Taken by Halberdiers' })).toBeInTheDocument();
+  });
+
+  it('disables a magic item once the unit carries as many as it has stands, and says so', () => {
+    const store = useArmyStore.getState();
+    store.setArmy('empire');
+    // A 1-stand General has room for one magic item, and the Crown takes it.
+    store.setUnitNumber('general', 1);
+    store.setUnitUpgradeNumber('general', 'crownOfCommand', 1);
+
+    renderWithProviders(<UpgradeRow unitId="general" upgradeId="swordOfDestruction" />);
+
+    expect(
+      screen.getByRole('button', { name: 'increase Sword of Destruction for General' }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole('tooltip', { name: 'Already carries 1 magic item' }),
+    ).toBeInTheDocument();
+  });
+
   it('allows increasing a per-unit upgrade up to the unit number', () => {
     const store = useArmyStore.getState();
     store.setArmy('empire');

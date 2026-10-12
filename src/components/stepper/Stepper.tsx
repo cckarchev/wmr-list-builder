@@ -1,3 +1,4 @@
+import { Tooltip } from '@/components/tooltip/Tooltip';
 import styles from './Stepper.module.css';
 
 /** How much one press of either button changes the value. */
@@ -9,9 +10,11 @@ interface StepperProps {
   min?: number;
   max?: number;
   label: string;
+  /** Why the value can't go higher, shown as a tooltip on the spent increase button. */
+  maxedHint?: string;
 }
 
-export const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
+export const Stepper = ({ value, onChange, min, max, label, maxedHint }: StepperProps) => {
   const atMin = min !== undefined && value <= min;
   const atMax = max !== undefined && value >= max;
 
@@ -22,6 +25,22 @@ export const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
   const increase = () => {
     onChange(value + STEP);
   };
+
+  const increaseButton = (
+    <button
+      className={styles.step}
+      disabled={atMax}
+      onClick={increase}
+      aria-label={`increase ${label}`}
+      type="button"
+    >
+      +
+    </button>
+  );
+
+  // A disabled button can't take focus, so the tooltip's own wrapper is what
+  // a tap or the keyboard reaches to read why.
+  const showMaxedHint = atMax && maxedHint !== undefined;
 
   return (
     <div className={styles.stepper}>
@@ -35,15 +54,7 @@ export const Stepper = ({ value, onChange, min, max, label }: StepperProps) => {
         −
       </button>
       <span className={styles.value}>{value}</span>
-      <button
-        className={styles.step}
-        disabled={atMax}
-        onClick={increase}
-        aria-label={`increase ${label}`}
-        type="button"
-      >
-        +
-      </button>
+      {showMaxedHint ? <Tooltip label={maxedHint}>{increaseButton}</Tooltip> : increaseButton}
     </div>
   );
 };

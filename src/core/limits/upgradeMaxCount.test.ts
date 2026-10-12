@@ -45,4 +45,38 @@ describe('upgradeMaxCount', () => {
 
     expect(max).toBe(NONE);
   });
+
+  it('leaves only the stands not already taken by other upgrades of its kind', () => {
+    const sameKindTaken = 2;
+
+    const max = upgradeMaxCount({ stands: STANDS, taken: NONE, armyTotal: NONE, sameKindTaken });
+
+    expect(max).toBe(STANDS - sameKindTaken);
+  });
+
+  it('allows none once other upgrades of its kind fill every stand', () => {
+    const max = upgradeMaxCount({
+      stands: STANDS,
+      taken: NONE,
+      armyTotal: NONE,
+      sameKindTaken: STANDS,
+    });
+
+    expect(max).toBe(NONE);
+  });
+
+  it('applies the tighter of the kind slots and the army limit', () => {
+    const armyMax = 1;
+    const sameKindTaken = STANDS;
+
+    const max = upgradeMaxCount({
+      stands: STANDS,
+      taken: NONE,
+      armyTotal: NONE,
+      armyMax,
+      sameKindTaken,
+    });
+
+    expect(max).toBe(NONE);
+  });
 });
