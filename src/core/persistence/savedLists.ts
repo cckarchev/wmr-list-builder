@@ -1,6 +1,7 @@
 import { codeMapsFor } from './codeMaps';
 import { decodeList, decodeListFor, encodeListFor } from './list-codec/listCodec';
 import type { ListSnapshot } from './snapshot';
+import { readJson, removeItem, writeJson } from './storage';
 
 const SAVED_PREFIX = 'wmr:saved:';
 
@@ -9,37 +10,23 @@ const SAVED_PREFIX = 'wmr:saved:';
  * (storage blocked, missing key, corrupt JSON) so callers stay thin.
  */
 const readSavedMap = (armyId: string): Record<string, string> => {
-  try {
-    const raw = localStorage.getItem(SAVED_PREFIX + armyId);
+  const parsed = readJson(SAVED_PREFIX + armyId);
+  const isMap = parsed && typeof parsed === 'object' && !Array.isArray(parsed);
 
-    if (!raw) {
-      return {};
-    }
-
-    const parsed = JSON.parse(raw) as unknown;
-    const isMap = parsed && typeof parsed === 'object' && !Array.isArray(parsed);
-
-    if (isMap) {
-      return parsed as Record<string, string>;
-    }
-
-    return {};
-  } catch {
-    return {};
+  if (isMap) {
+    return parsed as Record<string, string>;
   }
+
+  return {};
 };
 
 const writeSavedMap = (armyId: string, map: Record<string, string>): void => {
   const hasLists = Object.keys(map).length > 0;
 
-  try {
-    if (hasLists) {
-      localStorage.setItem(SAVED_PREFIX + armyId, JSON.stringify(map));
-    } else {
-      localStorage.removeItem(SAVED_PREFIX + armyId);
-    }
-  } catch {
-    // storage blocked: degrade to no-op
+  if (hasLists) {
+    writeJson(SAVED_PREFIX + armyId, map);
+  } else {
+    removeItem(SAVED_PREFIX + armyId);
   }
 };
 

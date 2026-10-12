@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toggleMember } from '@/core/lib/sets';
-import { defaultSelectedIds, type PrintSectionDef } from './sections/printSections';
+import { defaultSelectedIds, type PrintSectionDef } from '../sections/printSections';
 
 /**
  * Which print sections are included. Starts with every section selected but

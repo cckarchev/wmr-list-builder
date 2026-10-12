@@ -2,6 +2,7 @@ import { Button } from '@/components/button/Button';
 import { Icon } from '@/components/Icon';
 import { Tooltip } from '@/components/tooltip/Tooltip';
 import { classNames } from '@/core/lib/classNames';
+import { countOf } from '@/core/lib/quantities';
 import type { PrintOptions } from '@/core/print/printOptions';
 import type { OrderStep } from '@/core/print/sectionOrder';
 import type { PrintSectionDef } from '../sections/printSections';
@@ -48,11 +49,7 @@ interface PrintControlsProps {
   pageCount: number | null;
 }
 
-const pageCountLabel = (pageCount: number): string => {
-  const plural = pageCount === 1 ? '' : 's';
-
-  return `≈ ${pageCount} page${plural}`;
-};
+const pageCountLabel = (pageCount: number): string => `≈ ${countOf(pageCount, 'page')}`;
 
 const printPage = () => {
   window.print();

@@ -1,4 +1,5 @@
 import { DEFAULT_PRINT_OPTIONS, type PrintOptions } from '@/core/print/printOptions';
+import { readJson, writeJson } from './storage';
 
 const STORAGE_KEY = 'wmr:printOptions';
 
@@ -28,23 +29,7 @@ const sanitize = (stored: unknown): PrintOptions => {
 
 /** Remember the print options, so the next visit to the print sheet starts from them. */
 export const savePrintOptions = (options: PrintOptions): void => {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(options));
-  } catch {
-    // storage blocked (private mode / partitioned iframe): degrade to in-memory
-  }
+  writeJson(STORAGE_KEY, options);
 };
 
-export const loadPrintOptions = (): PrintOptions => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-
-    if (!raw) {
-      return { ...DEFAULT_PRINT_OPTIONS };
-    }
-
-    return sanitize(JSON.parse(raw));
-  } catch {
-    return { ...DEFAULT_PRINT_OPTIONS };
-  }
-};
+export const loadPrintOptions = (): PrintOptions => sanitize(readJson(STORAGE_KEY));

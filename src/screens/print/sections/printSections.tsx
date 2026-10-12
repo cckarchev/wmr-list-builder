@@ -21,10 +21,18 @@ export interface PrintSectionDef {
   render: () => ReactNode;
   /** Left out of the sheet until the reader ticks it. */
   startsOff?: boolean;
+  /** Too wide to split, so it never flows into two columns. */
+  singleColumn?: boolean;
 }
 
 const PRINT_SECTIONS: PrintSectionDef[] = [
-  { id: 'stats', title: 'Stats', available: () => true, render: () => <Stats /> },
+  {
+    id: 'stats',
+    title: 'Stats',
+    available: () => true,
+    render: () => <Stats />,
+    singleColumn: true,
+  },
   {
     id: 'armyRules',
     title: 'Army Rules',

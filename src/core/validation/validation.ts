@@ -1,5 +1,6 @@
 import { pointsCost } from '@/core/army-state/armyTotals';
 import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types';
+import { formatPoints } from '@/core/lib/quantities';
 import { armySize } from '@/core/limits/armySize';
 import type { ValidationError } from '@/data/types';
 import { namesOf } from './namesOf';
@@ -88,7 +89,7 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
     return [];
   }
 
-  const cap = gameSize.toLocaleString('en-US');
+  const cap = formatPoints(gameSize);
 
   return [{ targets: [], message: `List is ${excess} points over the ${cap} cap.` }];
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
 import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
+import { countOf } from '@/core/lib/quantities';
 import { groupRosterUnits } from '@/core/roster/groupRosterUnits';
 import { useArmyStore } from '@/store/useArmyStore';
 import styles from './ArmySummary.module.css';
@@ -52,7 +53,7 @@ export const ArmySummary = () => {
         )}
         <div className={styles.total} data-over={over || undefined}>
           <span>
-            {count} unit{count === 1 ? '' : 's'} · break {breakAt}
+            {countOf(count, 'unit')} · break {breakAt}
           </span>
           <span>
             {total} / {gameSize}

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { loadSectionOrder, saveSectionOrder } from '@/core/persistence/sectionOrder';
 import { completeOrder, moveInOrder, type OrderStep, orderById } from '@/core/print/sectionOrder';
-import { PRINT_SECTION_IDS, type PrintSectionDef } from './sections/printSections';
+import { useStoredState } from '@/hooks/useStoredState';
+import { PRINT_SECTION_IDS, type PrintSectionDef } from '../sections/printSections';
 
 const loadOrder = (): string[] => completeOrder(loadSectionOrder(), PRINT_SECTION_IDS);
 
@@ -11,11 +12,7 @@ const loadOrder = (): string[] => completeOrder(loadSectionOrder(), PRINT_SECTIO
  * this list lacks keeps its place for the next list that has it.
  */
 export const useSectionOrder = (sections: PrintSectionDef[]) => {
-  const [order, setOrder] = useState<string[]>(loadOrder);
-
-  useEffect(() => {
-    saveSectionOrder(order);
-  }, [order]);
+  const [order, setOrder] = useStoredState(loadOrder, saveSectionOrder);
 
   const orderedSections = useMemo(() => orderById(sections, order), [sections, order]);
 

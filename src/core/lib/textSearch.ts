@@ -1,7 +1,7 @@
+import { words } from './words';
+
 /** Combining marks left behind by NFD, e.g. the accent split off "ó". */
 const COMBINING_MARKS = /\p{M}/gu;
-
-const WHITESPACE = /\s+/;
 
 /** Lowercase and strip accents so "Nippón" and "nippon" compare equal. */
 const fold = (text: string): string => {
@@ -16,7 +16,7 @@ const fold = (text: string): string => {
  * somewhere in it, ignoring case and accents. A blank query matches anything.
  */
 export const matchesQuery = (text: string, query: string): boolean => {
-  const terms = fold(query).trim().split(WHITESPACE).filter(Boolean);
+  const terms = words(fold(query));
 
   if (terms.length === 0) {
     return true;

@@ -4,6 +4,8 @@ import type { OrderStep } from '@/core/print/sectionOrder';
 import type { PrintSectionDef } from '../../sections/printSections';
 import styles from './SectionOrder.module.css';
 
+const TITLE = 'Reorder sections';
+
 const UP: OrderStep = -1;
 const DOWN: OrderStep = 1;
 
@@ -86,8 +88,8 @@ export const SectionOrder = ({ sections, onMove }: SectionOrderProps) => {
 
   return (
     <Popover
-      label="Reorder sections"
-      heading="Reorder sections"
+      label={TITLE}
+      heading={TITLE}
       triggerClassName={styles.trigger}
       trigger={
         <>

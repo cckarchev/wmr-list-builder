@@ -1,3 +1,4 @@
+import { countOf } from '@/core/lib/quantities';
 import { useArmyStore } from '@/store/useArmyStore';
 import { scrollToUnit } from '../../../shared/scrollToUnit';
 import styles from './ValidityBadge.module.css';
@@ -18,8 +19,7 @@ export const ValidityBadge = () => {
   // Jump to the first invalid unit shown in "Army Composition" (a used unit).
   const isUsed = (unitId: string) => units[unitId]?.number > 0;
   const firstTarget = errors.flatMap((error) => error.targets).find(isUsed);
-  const plural = errors.length === 1 ? '' : 's';
-  const issueLabel = `${errors.length} issue${plural}`;
+  const issueLabel = countOf(errors.length, 'issue');
 
   const goToFirstError = () => {
     if (!firstTarget) {

@@ -47,8 +47,7 @@ export const PrintView = ({
 }: PrintViewProps) => {
   const visibleSections = sections.filter((section) => selectedIds.has(section.id));
 
-  // The stats table is too wide to split, so it never flows into two columns.
-  const usesColumns = (section: PrintSectionDef) => options.twoColumn && section.id !== 'stats';
+  const usesColumns = (section: PrintSectionDef) => options.twoColumn && !section.singleColumn;
 
   // On screen the columns balance over the whole section, while the printer
   // fills them a page at a time, so a cut drawn across them would be wrong.
