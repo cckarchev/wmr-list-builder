@@ -19,7 +19,7 @@
   padding: var(--space-xxs) var(--space-xs);
   background: transparent;
   border: 1px solid var(--color-error);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   color: var(--color-error);
   cursor: pointer;
 }

@@ -50,7 +50,7 @@
   flex-shrink: 0;
   padding: var(--space-xxs) var(--space-xs);
   background: var(--color-bg-deep);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-dim);
@@ -62,7 +62,7 @@
   padding: var(--space-xxs);
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   color: var(--color-text-dim);
   cursor: pointer;
 }

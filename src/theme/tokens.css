@@ -28,7 +28,6 @@
   /* Brand */
   --color-accent: #d4623e;
   --color-accent-ink: #091418;
-  --color-teal: #1e6b78;
   --color-teal-bright: #2bb3c4;
 
   /* Text alphas run higher than the cckarchev marketing site: a dense builder
@@ -56,7 +55,6 @@
   --color-warning: #d9b770;
 
   /* 4px-based spacing scale. Names follow the font-size scale. */
-  --space-none: 0;
   --space-xxs: 4px;
   --space-xs: 8px;
   --space-sm: 12px;
@@ -65,8 +63,7 @@
   --space-xl: 32px;
 
   /* Sharp corners everywhere, to match the parent site. */
-  --radius-sm: 0;
-  --radius-md: 0;
+  --radius: 0;
 
   --font-size-xs: 12px;
   --font-size-sm: 14px;

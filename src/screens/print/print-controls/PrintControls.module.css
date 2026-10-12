@@ -41,7 +41,7 @@
   background: var(--color-accent);
   color: var(--color-accent-ink);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   cursor: pointer;
   white-space: nowrap;
 }

@@ -21,6 +21,11 @@ const INLINE_PROPERTIES = new Set(['--header-height']);
 
 const stylesheetPaths = globSync('src/**/*.css');
 
+/** Components that pass a token as a prop value, such as a bracket color. */
+const componentPaths = globSync('src/**/*.tsx', { exclude: (path) => path.endsWith('.test.tsx') });
+
+const readComponent = (path: string): string => readFileSync(path, 'utf8');
+
 const parseTokens = (css: string): Map<string, string> => {
   const declaration = /(--[\w-]+):\s*([^;]+);/g;
   const tokens = new Map<string, string>();
@@ -60,7 +65,6 @@ describe('design tokens', () => {
     const steps = spaceSteps();
     const ascending = [...steps].sort((a, b) => a - b);
 
-    expect(tokenValue('--space-none')).toBe('0');
     expect(tokenValue('--space-xxs')).toBe(`${SPACE_UNIT_PX}px`);
     expect(steps).toEqual(ascending);
 
@@ -70,13 +74,7 @@ describe('design tokens', () => {
   });
 
   it('uses sharp (zero) corners to match the parent site', () => {
-    const radii = [...tokens.keys()].filter((name) => name.startsWith('--radius-'));
-
-    expect(radii.length).toBeGreaterThan(0);
-
-    for (const radius of radii) {
-      expect(tokenValue(radius)).toBe('0');
-    }
+    expect(tokenValue('--radius')).toBe('0');
   });
 
   it('draws the focus ring in brand teal so the keyboard indicator reads', () => {
@@ -99,5 +97,16 @@ describe('design tokens', () => {
     }
 
     expect(missing).toEqual([]);
+  });
+
+  it('uses every token it defines somewhere in the styles or components', () => {
+    const reference = /var\((--[\w-]+)/g;
+    const sources = [...stylesheetPaths.map(readCss), ...componentPaths.map(readComponent)];
+    const referencedNames = (source: string): string[] =>
+      [...source.matchAll(reference)].map(([, name]) => name);
+    const used = new Set(sources.flatMap(referencedNames));
+    const unused = [...tokens.keys()].filter((name) => !used.has(name));
+
+    expect(unused).toEqual([]);
   });
 });
