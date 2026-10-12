@@ -23,7 +23,7 @@ export const RosterGroup = ({ group, collapsed, onToggle }: RosterGroupProps) =>
           aria-controls={panelId}
           onClick={() => onToggle(group.label)}
         >
-          <span className={styles.toggleMark} aria-hidden />
+          <span className={styles.toggleMark} aria-hidden="true" />
           {group.label}
         </button>
       </h3>

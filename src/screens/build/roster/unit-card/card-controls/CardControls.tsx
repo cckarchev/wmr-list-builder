@@ -33,7 +33,7 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
       <div className={styles.meta}>
         {selected && <span className={styles.pts}>{unit.pointsCost} pts</span>}
         {selected && restriction && (
-          <span className={styles.separator} aria-hidden>
+          <span className={styles.separator} aria-hidden="true">
             ·
           </span>
         )}
