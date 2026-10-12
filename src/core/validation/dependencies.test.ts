@@ -3,9 +3,9 @@ import type { UnitState } from '@/core/army-state/types';
 import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { defined } from '@/test/defined';
 import { SMALLEST_GAME } from '@/test/gameSizes';
+import { get, messages, unit, upgrade, validateNamed } from './fixtures';
 import { toSentence } from './toSentence';
 import { validate } from './validation';
-import { get, messages, unit, upgrade, validateNamed } from './fixtures';
 
 beforeEach(() => {
   get().reset();

@@ -4,8 +4,8 @@ import { DEFAULT_GAME_SIZE } from '@/store/armyData';
 import { useArmyStore } from '@/store/useArmyStore';
 import { defined } from '@/test/defined';
 import { SMALLEST_GAME } from '@/test/gameSizes';
-import { validate } from './validation';
 import { get, messages, unit, upgrade, validateNamed } from './fixtures';
+import { validate } from './validation';
 
 const MID_GAME = 1500;
 
