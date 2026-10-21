@@ -1,5 +1,4 @@
 import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
-import { getEmbedBase } from '@/core/share-link/embed';
 import { buildShareUrl } from '@/core/share-link/shareLink';
 import { useArmyStore } from '@/store/useArmyStore';
 import { useListSnapshot } from '@/store/useListSnapshot';
@@ -19,7 +18,6 @@ export const CopyShareLinkButton = () => {
     return buildShareUrl({
       armyId,
       encoded,
-      embedBase: getEmbedBase(),
       origin: window.location.origin,
     });
   };

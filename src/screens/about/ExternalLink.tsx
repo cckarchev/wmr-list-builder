@@ -6,7 +6,7 @@ interface ExternalLinkProps {
   children: ReactNode;
 }
 
-/** A link off the site, opened in a new tab so the builder (often embedded) stays put. */
+/** A link off the site, opened in a new tab so the builder stays put. */
 export const ExternalLink = ({ href, children }: ExternalLinkProps) => {
   const hintId = useId();
 

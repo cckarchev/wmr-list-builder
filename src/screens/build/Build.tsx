@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { ARMY_PARAM, LIST_PARAM } from '@/core/share-link/shareLink';
+import { LIST_PARAM } from '@/core/share-link/shareLink';
 import { useElementHeight } from '@/hooks/useElementHeight';
 import { usePersistedList } from '@/hooks/usePersistedList';
 import { useArmyStore } from '@/store/useArmyStore';
@@ -10,13 +10,9 @@ import { Header } from './header/Header';
 import { Roster } from './roster/Roster';
 
 export const Build = () => {
-  const { armyId: paramArmyId } = useParams<{ armyId: string }>();
+  const { armyId } = useParams<{ armyId: string }>();
   const [searchParams] = useSearchParams();
   const army = useArmyStore((s) => s.army);
-
-  // Embedded query-only links (/?army=<id>) carry the army in the query string;
-  // the /build/:armyId route carries it in the path. Accept either.
-  const armyId = paramArmyId ?? searchParams.get(ARMY_PARAM) ?? undefined;
 
   usePersistedList(armyId, searchParams.get(LIST_PARAM));
 

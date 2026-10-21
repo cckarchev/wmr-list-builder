@@ -25,17 +25,8 @@ describe('App routing from the root', () => {
     expect(link).toHaveAttribute('href', '/build/goblin');
   });
 
-  it('renders Build directly at root when ?army= names a valid army', async () => {
-    renderWithProviders(<App />, { routerProps: { initialEntries: ['/?army=goblin'] } });
-
-    // Build screen (not the picker) is shown for the named army.
-    expect(await screen.findByTestId('points-bar')).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: HOME_TITLE })).not.toBeInTheDocument();
-  });
-
-  it('loads a shared list from root query params', async () => {
-    // Encode a goblin list with Goblins bumped to 9 (force-min 8 + 1 = 590pts),
-    // matching the standalone Print round-trip assertion above.
+  it('loads a shared list from the build route', async () => {
+    // Encode a goblin list with Goblins bumped to 9 (force-min 8 + 1 = 590pts).
     const encoded = encodeListFor('goblin', {
       name: '',
       gameSize: 2000,
@@ -44,27 +35,11 @@ describe('App routing from the root', () => {
     });
 
     renderWithProviders(<App />, {
-      routerProps: { initialEntries: [`/?army=goblin&list=${encoded}`] },
+      routerProps: { initialEntries: [`/build/goblin?list=${encoded}`] },
     });
 
     const bar = await screen.findByTestId('points-bar');
     expect(within(bar).getByTestId('points-total').textContent).toBe('590');
-  });
-
-  it('shows the army picker at root when ?army= is unknown', () => {
-    renderWithProviders(<App />, {
-      routerProps: { initialEntries: ['/?army=does-not-exist'] },
-    });
-
-    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
-  });
-
-  it('shows the army picker at root when ?army= names an inherited object key', () => {
-    renderWithProviders(<App />, {
-      routerProps: { initialEntries: ['/?army=constructor'] },
-    });
-
-    expect(screen.getByRole('heading', { name: HOME_TITLE })).toBeInTheDocument();
   });
 
   it('navigates Home → Build when an army is chosen', async () => {

@@ -1,6 +1,6 @@
 /**
  * localStorage access that never throws. Storage can be blocked (private mode,
- * a partitioned iframe) or full, and the app then degrades to keeping
+ * site data disabled) or full, and the app then degrades to keeping
  * everything in memory: reads find nothing and writes do nothing.
  */
 

@@ -5,8 +5,7 @@ army, add units and upgrades, watch points / army size / validation update live,
 the roster to the units you need, then save lists by name, share them with a link, copy
 the list to your clipboard, or print an ink-friendly reference sheet.
 
-It is built as a standalone static site and is meant to be embedded full-bleed in an
-`<iframe>` on the club site.
+It is built as a standalone static site, linked from the club site.
 
 ## Tech stack
 
@@ -65,16 +64,6 @@ Army data lives in `src/data/armies/*.json` and is imported at build time via Vi
 The app is a static SPA. Build it and serve `dist/` on any static host (Cloudflare
 Pages, Netlify, etc.). `public/_redirects` provides the SPA fallback
 (`/*  /index.html  200`) so deep links like `/build/goblin` resolve.
-
-### Embedding
-
-Host elsewhere and embed it on the club site:
-
-```html
-<iframe src="https://your-deploy-url/" style="width:100%;height:100%;border:0"></iframe>
-```
-
-The layout fills its container and uses a dark palette coherent with the club site.
 
 ## Saving & sharing
 
