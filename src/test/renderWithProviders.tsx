@@ -11,6 +11,7 @@ export const renderWithProviders = (
   ui: ReactElement,
   { routerProps, ...options }: RenderWithProvidersOptions = {},
 ) => {
+  // biome-ignore lint/correctness/noComponentHookFactories: RTL reuses this wrapper across rerenders, so state survives.
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <MemoryRouter {...routerProps}>{children}</MemoryRouter>
   );

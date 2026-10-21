@@ -10,6 +10,13 @@ const baseProps = {
   onCancel: vi.fn(),
 };
 
+const FocusHost = ({ open }: { open: boolean }) => (
+  <>
+    <button type="button">opener</button>
+    <ConfirmDialog open={open} {...baseProps} />
+  </>
+);
+
 describe('ConfirmDialog', () => {
   it('renders nothing when closed', () => {
     render(<ConfirmDialog open={false} {...baseProps} />);
@@ -85,21 +92,15 @@ describe('ConfirmDialog focus', () => {
   });
 
   it('returns focus to what had it before opening', () => {
-    const Host = ({ open }: { open: boolean }) => (
-      <>
-        <button type="button">opener</button>
-        <ConfirmDialog open={open} {...baseProps} />
-      </>
-    );
-    const { rerender } = render(<Host open={false} />);
+    const { rerender } = render(<FocusHost open={false} />);
     const opener = screen.getByRole('button', { name: 'opener' });
     opener.focus();
 
-    rerender(<Host open />);
+    rerender(<FocusHost open />);
 
     expect(opener).not.toHaveFocus();
 
-    rerender(<Host open={false} />);
+    rerender(<FocusHost open={false} />);
 
     expect(opener).toHaveFocus();
   });

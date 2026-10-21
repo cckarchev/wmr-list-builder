@@ -29,17 +29,17 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 
 ## Scripts
 
-| Command                | What it does                                          |
-| ---------------------- | ----------------------------------------------------- |
-| `npm run dev`          | Start the Vite dev server                             |
-| `npm run build`        | Type-check and build the production bundle to `dist/` |
-| `npm run preview`      | Serve the built `dist/` locally                       |
-| `npm test`             | Run the test suite once                               |
-| `npm run test:watch`   | Run tests in watch mode                               |
-| `npm run lint`         | Lint, format, and import-order check with Biome       |
-| `npm run lint:fix`     | Apply all safe Biome fixes                            |
-| `npm run typecheck`    | Type-check without emitting                           |
-| `npm run deploy`       | Build and deploy to Cloudflare Workers                |
+| Command              | What it does                                          |
+| -------------------- | ----------------------------------------------------- |
+| `npm run dev`        | Start the Vite dev server                             |
+| `npm run build`      | Type-check and build the production bundle to `dist/` |
+| `npm run preview`    | Serve the built `dist/` locally                       |
+| `npm test`           | Run the test suite once                               |
+| `npm run test:watch` | Run tests in watch mode                               |
+| `npm run lint`       | Lint, format, and import-order check with Biome       |
+| `npm run lint:fix`   | Apply all safe Biome fixes                            |
+| `npm run typecheck`  | Type-check without emitting                           |
+| `npm run deploy`     | Build and deploy to Cloudflare Workers                |
 
 ## Project layout
 
@@ -74,7 +74,6 @@ links like `/build/goblin` resolve), and attaches the custom domain
 
 The roster header groups the list-management controls. **Save** and **Load** sit inline;
 the rest (share link, copy as text, print, reset) live under the **More** overflow menu.
-
 - **Save / Load** keep named lists per army in `localStorage`, so you can come back to a
   build later.
 - **Share link** encodes the whole list into a compact `?list=` query parameter (a
