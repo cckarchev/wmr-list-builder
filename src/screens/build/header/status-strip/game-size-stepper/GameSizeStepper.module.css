@@ -5,20 +5,20 @@
 }
 
 .label {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
   text-align: center;
 }
 
 /* The Stepper control's bordered −/+ group, wrapping an editable input instead
    of a read-only value. */
 .stepper {
-  composes: stepper from '@/components/stepper/Stepper.module.css';
+  composes: stepper from "@/components/stepper/Stepper.module.css";
   align-self: center;
   background: var(--color-bg-panel);
 }
 
 .step {
-  composes: step from '@/components/stepper/Stepper.module.css';
+  composes: step from "@/components/stepper/Stepper.module.css";
 }
 
 /* No vertical padding, unlike Stepper: the input sets the row height. Scoped

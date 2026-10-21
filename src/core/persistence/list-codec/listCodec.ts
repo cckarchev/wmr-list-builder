@@ -1,7 +1,7 @@
-import { type ArmyCodeMaps, codeMapsFor } from '../codeMaps';
-import type { ListSnapshot } from '../snapshot';
-import { fromBase64Url, toBase64Url } from './base64Url';
-import { remapKeys } from './remapKeys';
+import { type ArmyCodeMaps, codeMapsFor } from "../codeMaps";
+import type { ListSnapshot } from "../snapshot";
+import { fromBase64Url, toBase64Url } from "./base64Url";
+import { remapKeys } from "./remapKeys";
 
 const VERSION = 1;
 
@@ -52,7 +52,7 @@ const readWire = (s: string): Wire | null => {
 
   try {
     const wire = JSON.parse(fromBase64Url(s)) as Wire;
-    const isCurrent = wire.v === VERSION && typeof wire.g === 'number';
+    const isCurrent = wire.v === VERSION && typeof wire.g === "number";
 
     return isCurrent ? wire : null;
   } catch {
@@ -73,7 +73,7 @@ const wireToSnapshot = (wire: Wire, maps: ArmyCodeMaps): ListSnapshot => {
     upgrades[id] = remapKeys(ups, upgradeId);
   }
 
-  return { name: wire.n ?? '', gameSize: wire.g, units, upgrades };
+  return { name: wire.n ?? "", gameSize: wire.g, units, upgrades };
 };
 
 /**
@@ -104,8 +104,10 @@ const parseWire = (
   }
 };
 
-export const decodeList = (s: string, maps: ArmyCodeMaps): ListSnapshot | null =>
-  parseWire(s, maps)?.snapshot ?? null;
+export const decodeList = (
+  s: string,
+  maps: ArmyCodeMaps,
+): ListSnapshot | null => parseWire(s, maps)?.snapshot ?? null;
 
 /** Decode a blob with the code maps of the army with this id. */
 export const decodeListFor = (armyId: string, s: string): ListSnapshot | null =>
@@ -126,7 +128,8 @@ export const decodeShare = (s: string, maps: ArmyCodeMaps): DecodedShare => {
     return { ok: false };
   }
 
-  const isWrongArmy = parsed.encodedUnitCount > 0 && isEmpty(parsed.snapshot.units);
+  const isWrongArmy =
+    parsed.encodedUnitCount > 0 && isEmpty(parsed.snapshot.units);
 
   if (isWrongArmy) {
     return { ok: false };

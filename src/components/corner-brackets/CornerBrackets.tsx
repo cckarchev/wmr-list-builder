@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties } from "react";
 
 /** Length of each bracket arm, in pixels. */
 const SIZE = 14;
@@ -16,10 +16,10 @@ interface CornerBracketsProps {
 
 export const CornerBrackets = ({ accent }: CornerBracketsProps) => {
   const base: CSSProperties = {
-    position: 'absolute',
+    position: "absolute",
     width: SIZE,
     height: SIZE,
-    pointerEvents: 'none',
+    pointerEvents: "none",
   };
   const line = `${THICKNESS}px solid ${accent}`;
 
@@ -28,22 +28,46 @@ export const CornerBrackets = ({ accent }: CornerBracketsProps) => {
       <span
         data-testid="corner-bracket"
         aria-hidden="true"
-        style={{ ...base, top: INSET, left: INSET, borderTop: line, borderLeft: line }}
+        style={{
+          ...base,
+          top: INSET,
+          left: INSET,
+          borderTop: line,
+          borderLeft: line,
+        }}
       />
       <span
         data-testid="corner-bracket"
         aria-hidden="true"
-        style={{ ...base, top: INSET, right: INSET, borderTop: line, borderRight: line }}
+        style={{
+          ...base,
+          top: INSET,
+          right: INSET,
+          borderTop: line,
+          borderRight: line,
+        }}
       />
       <span
         data-testid="corner-bracket"
         aria-hidden="true"
-        style={{ ...base, bottom: INSET, left: INSET, borderBottom: line, borderLeft: line }}
+        style={{
+          ...base,
+          bottom: INSET,
+          left: INSET,
+          borderBottom: line,
+          borderLeft: line,
+        }}
       />
       <span
         data-testid="corner-bracket"
         aria-hidden="true"
-        style={{ ...base, bottom: INSET, right: INSET, borderBottom: line, borderRight: line }}
+        style={{
+          ...base,
+          bottom: INSET,
+          right: INSET,
+          borderBottom: line,
+          borderRight: line,
+        }}
       />
     </>
   );

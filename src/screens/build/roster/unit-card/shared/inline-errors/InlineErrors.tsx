@@ -1,5 +1,5 @@
-import type { ValidationError } from '@/data/types';
-import styles from './InlineErrors.module.css';
+import type { ValidationError } from "@/data/types";
+import styles from "./InlineErrors.module.css";
 
 interface InlineErrorsProps {
   errors: ValidationError[];

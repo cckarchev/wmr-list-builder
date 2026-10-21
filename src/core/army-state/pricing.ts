@@ -1,5 +1,5 @@
-import type { StatValue } from '@/data/types';
-import { NO_STAT, type UnitState, type UpgradeState } from './types';
+import type { StatValue } from "@/data/types";
+import { NO_STAT, type UnitState, type UpgradeState } from "./types";
 
 /**
  * Port of `SET_UNIT_POINTS_COST` (mutations.js):
@@ -12,7 +12,10 @@ export const unitPointsCost = (unit: UnitState): number => {
     return base;
   }
 
-  return Object.values(unit.upgrades).reduce((sum, u) => sum + u.pointsCost, base);
+  return Object.values(unit.upgrades).reduce(
+    (sum, u) => sum + u.pointsCost,
+    base,
+  );
 };
 
 /** Minimal shape needed to price an upgrade, satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
@@ -40,7 +43,7 @@ export const resolveUpgradePoints = (
   unit?: object,
 ): StatValue | undefined => {
   const { points, pointsValue } = upgrade;
-  const isPriceTable = typeof points === 'object';
+  const isPriceTable = typeof points === "object";
 
   if (pointsValue === undefined) {
     return isPriceTable ? undefined : points;

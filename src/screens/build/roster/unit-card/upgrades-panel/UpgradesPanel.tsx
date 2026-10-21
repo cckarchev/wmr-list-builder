@@ -1,7 +1,7 @@
-import { groupUpgradeIds } from '@/core/roster/groupUpgrades';
-import { useArmyStore } from '@/store/useArmyStore';
-import styles from './UpgradesPanel.module.css';
-import { UpgradeRow } from './upgrade-row/UpgradeRow';
+import { groupUpgradeIds } from "@/core/roster/groupUpgrades";
+import { useArmyStore } from "@/store/useArmyStore";
+import styles from "./UpgradesPanel.module.css";
+import { UpgradeRow } from "./upgrade-row/UpgradeRow";
 
 interface UpgradesPanelProps {
   id: string;
@@ -10,7 +10,11 @@ interface UpgradesPanelProps {
 }
 
 /** A unit's available upgrades, grouped by category. */
-export const UpgradesPanel = ({ id, unitId, upgradeIds }: UpgradesPanelProps) => {
+export const UpgradesPanel = ({
+  id,
+  unitId,
+  upgradeIds,
+}: UpgradesPanelProps) => {
   const upgrades = useArmyStore((s) => s.upgrades);
   const groups = groupUpgradeIds(upgradeIds, upgrades);
 

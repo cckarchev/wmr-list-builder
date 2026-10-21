@@ -2,7 +2,7 @@
  * Design tokens: the single source of truth for every color, size and font in
  * the app. Components read them with var(--token).
  */
-@import './breakpoints.css';
+@import "./breakpoints.css";
 
 :root {
   /* RGB channels. Compose a color at any opacity with rgb(var(--rgb-x) / 0.5)
@@ -110,12 +110,12 @@
   --font-size-print: 10px;
   --font-size-print-small: 9px;
 
-  --font-display: 'Oswald', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: "Oswald", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   /* The print sheet's "Legible font" option: distinct letterforms (b/d, I/l/1,
      O/0) for dyslexic and low-vision readers. */
-  --font-legible: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-legible: "Atkinson Hyperlegible Next", system-ui, sans-serif;
   /* Inter's x-height as a fraction of its size (1118 / 2048 units). The legible
      face has a shorter x-height, so it reads smaller at the same size; scaling it
      to this ratio keeps its lowercase as tall as the body font's. */
@@ -173,7 +173,10 @@
      slice left inside the card. */
   --emblem-watermark-size: 112px;
   --emblem-watermark-overhang: var(--space-md);
-  --emblem-watermark-visible: calc(var(--emblem-watermark-size) - var(--emblem-watermark-overhang));
+  --emblem-watermark-visible: calc(
+    var(--emblem-watermark-size) -
+    var(--emblem-watermark-overhang)
+  );
 
   /* Vertical padding of the Build header title strip. */
   --header-strip-padding-y: var(--space-xs);
@@ -183,8 +186,16 @@
      spans the strip padding above and below so it fills the whole strip. */
   --title-name-height: calc(var(--font-size-xl) * var(--leading-tight));
   --title-list-height: calc(var(--font-size-sm) * var(--leading-body));
-  --title-text-height: calc(var(--title-name-height) + var(--space-xxs) + var(--title-list-height));
-  --emblem-title-size: calc(var(--title-text-height) + 2 * var(--header-strip-padding-y));
+  --title-text-height: calc(
+    var(--title-name-height) +
+    var(--space-xxs) +
+    var(--title-list-height)
+  );
+  --emblem-title-size: calc(
+    var(--title-text-height) +
+    2 *
+    var(--header-strip-padding-y)
+  );
 
   /* Popup widths: narrow for tooltips and the More menu, the default for
      action panels, popovers and confirm dialogs, and wide for prose-heavy

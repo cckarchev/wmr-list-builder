@@ -1,5 +1,5 @@
-import { Tooltip } from '@/components/tooltip/Tooltip';
-import type { MinMaxHint } from '@/core/limits/min-max/minMaxHint';
+import { Tooltip } from "@/components/tooltip/Tooltip";
+import type { MinMaxHint } from "@/core/limits/min-max/minMaxHint";
 
 interface LimitBadgeProps {
   hint: MinMaxHint;

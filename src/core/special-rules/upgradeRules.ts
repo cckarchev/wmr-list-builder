@@ -1,7 +1,7 @@
-import type { UpgradeState } from '@/core/army-state/types';
-import type { SpecialRule } from '@/data/types';
-import { byRuleOrder } from './ruleOrder';
-import type { ResolvedRule } from './specialRulesForUnit';
+import type { UpgradeState } from "@/core/army-state/types";
+import type { SpecialRule } from "@/data/types";
+import { byRuleOrder } from "./ruleOrder";
+import type { ResolvedRule } from "./specialRulesForUnit";
 
 /**
  * Resolve the rule text shown for an upgrade. Upgrades carry rule text from two
@@ -12,7 +12,7 @@ import type { ResolvedRule } from './specialRulesForUnit';
  */
 export const resolveUpgradeRules = (
   upgradeId: string,
-  upgrade: Pick<UpgradeState, 'name' | 'text' | 'specialRules'>,
+  upgrade: Pick<UpgradeState, "name" | "text" | "specialRules">,
   allRules: Record<string, SpecialRule> | undefined,
 ): ResolvedRule[] => {
   const resolved: ResolvedRule[] = [];

@@ -1,7 +1,7 @@
-import type { UpgradeState } from '@/core/army-state/types';
-import { MAGIC_ITEM_TYPES } from '@/data/magicItems';
+import type { UpgradeState } from "@/core/army-state/types";
+import { MAGIC_ITEM_TYPES } from "@/data/magicItems";
 
-type TakenUpgrade = Pick<UpgradeState, 'number' | 'type'>;
+type TakenUpgrade = Pick<UpgradeState, "number" | "type">;
 
 /** The magic items in `catalog` that the list takes at least once, in catalog order. */
 export const takenMagicItems = <Item>(

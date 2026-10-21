@@ -1,9 +1,9 @@
-import type { ReactNode, RefObject } from 'react';
-import { Button } from '@/components/button/Button';
-import { Icon, type IconName } from '@/components/Icon';
-import type { Dismissible } from '@/hooks/useDismissible';
-import { PopupAnchor } from '../popup-anchor/PopupAnchor';
-import { ActionPanel } from './action-panel/ActionPanel';
+import type { ReactNode, RefObject } from "react";
+import { Button } from "@/components/button/Button";
+import { Icon, type IconName } from "@/components/Icon";
+import type { Dismissible } from "@/hooks/useDismissible";
+import { PopupAnchor } from "../popup-anchor/PopupAnchor";
+import { ActionPanel } from "./action-panel/ActionPanel";
 
 interface PanelActionProps {
   /** Open state, owned by the caller so its own hooks can close the panel. */
@@ -69,7 +69,12 @@ export const PanelAction = ({
         {label}
       </Button>
       {open && (
-        <ActionPanel ref={panelRef} label={title} heading={heading} onClose={close}>
+        <ActionPanel
+          ref={panelRef}
+          label={title}
+          heading={heading}
+          onClose={close}
+        >
           {children}
         </ActionPanel>
       )}

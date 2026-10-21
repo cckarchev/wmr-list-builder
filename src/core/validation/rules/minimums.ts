@@ -1,8 +1,8 @@
-import { halfDown, halfUp } from '@/core/lib/counts';
-import { POINTS_PER_ARMY_SIZE } from '@/core/limits/armySize';
-import { MIN_MAX_TOKENS } from '@/core/limits/min-max/minMaxInfo';
-import { isAsToken, perRequired, perThousandPoints } from './bounds';
-import type { Rule } from './types';
+import { halfDown, halfUp } from "@/core/lib/counts";
+import { POINTS_PER_ARMY_SIZE } from "@/core/limits/armySize";
+import { MIN_MAX_TOKENS } from "@/core/limits/min-max/minMaxInfo";
+import { isAsToken, perRequired, perThousandPoints } from "./bounds";
+import type { Rule } from "./types";
 
 export const armyMin: Rule = ({ item, label, groupNumber }) => {
   if (item.armyMin === undefined || groupNumber >= item.armyMin) {
@@ -19,7 +19,9 @@ export const allOrNone: Rule = ({ item, label, required }) => {
 
   const isPartial = item.number > 0 && item.number < required.count;
 
-  return isPartial ? perRequired('Minimum', required.count, label, required) : undefined;
+  return isPartial
+    ? perRequired("Minimum", required.count, label, required)
+    : undefined;
 };
 
 export const halfOrAll: Rule = ({ item, label, required }) => {
@@ -28,7 +30,8 @@ export const halfOrAll: Rule = ({ item, label, required }) => {
   }
 
   const belowHalf = item.number > 0 && item.number < halfDown(required.count);
-  const betweenHalfAndAll = item.number > halfUp(required.count) && item.number < required.count;
+  const betweenHalfAndAll =
+    item.number > halfUp(required.count) && item.number < required.count;
 
   if (!belowHalf && !betweenHalfAndAll) {
     return undefined;
@@ -44,7 +47,9 @@ export const halfOrMore: Rule = ({ item, label, required }) => {
 
   const minimum = halfDown(required.count);
 
-  return item.number < minimum ? perRequired('Minimum', minimum, label, required) : undefined;
+  return item.number < minimum
+    ? perRequired("Minimum", minimum, label, required)
+    : undefined;
 };
 
 export const halfOrNoneMin: Rule = ({ item, label, required }) => {
@@ -55,7 +60,9 @@ export const halfOrNoneMin: Rule = ({ item, label, required }) => {
   const minimum = halfDown(required.count);
   const isBelowHalf = item.number > 0 && item.number < minimum;
 
-  return isBelowHalf ? perRequired('Minimum', minimum, label, required) : undefined;
+  return isBelowHalf
+    ? perRequired("Minimum", minimum, label, required)
+    : undefined;
 };
 
 export const asManyMin: Rule = ({ item, label, required }) => {
@@ -65,13 +72,23 @@ export const asManyMin: Rule = ({ item, label, required }) => {
 
   const isShort = item.number < required.count;
 
-  return isShort ? perRequired('Minimum', required.count, label, required) : undefined;
+  return isShort
+    ? perRequired("Minimum", required.count, label, required)
+    : undefined;
 };
 
 /** Numeric minimums scale per 1,000 points and only apply from 1,000 points up. */
-export const scaledMin: Rule = ({ item, label, groupNumber, gameSize, size }) => {
+export const scaledMin: Rule = ({
+  item,
+  label,
+  groupNumber,
+  gameSize,
+  size,
+}) => {
   const minimum = Number(item.min) * size;
   const applies = gameSize >= POINTS_PER_ARMY_SIZE && groupNumber < minimum;
 
-  return applies ? perThousandPoints('Minimum', minimum, label, size) : undefined;
+  return applies
+    ? perThousandPoints("Minimum", minimum, label, size)
+    : undefined;
 };

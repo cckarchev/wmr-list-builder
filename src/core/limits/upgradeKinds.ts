@@ -1,7 +1,7 @@
-import type { UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
-import { UNIT_TYPES } from '@/core/army-state/unitTypes';
-import { isMountType } from '@/core/army-state/upgradeTypes';
-import { MAGIC_ITEM_TYPES } from '@/data/magicItems';
+import type { UnitUpgradeEntry, UpgradeState } from "@/core/army-state/types";
+import { UNIT_TYPES } from "@/core/army-state/unitTypes";
+import { isMountType } from "@/core/army-state/upgradeTypes";
+import { MAGIC_ITEM_TYPES } from "@/data/magicItems";
 
 /**
  * A kind of upgrade a unit may carry at most one of per model, whatever the
@@ -14,17 +14,17 @@ export interface UpgradeKind {
 }
 
 export const MAGIC_ITEM_KIND: UpgradeKind = {
-  noun: 'magic item',
+  noun: "magic item",
   matches: (type) => MAGIC_ITEM_TYPES.has(type),
 };
 
 export const MOUNT_KIND: UpgradeKind = {
-  noun: 'mount',
+  noun: "mount",
   matches: isMountType,
 };
 
 export const UNIT_UPGRADE_KIND: UpgradeKind = {
-  noun: 'upgrade',
+  noun: "upgrade",
   matches: (type) => UNIT_TYPES.includes(type),
 };
 
@@ -60,7 +60,11 @@ export interface SameKindInput {
  * takes up one of the unit's per-model slots for that kind. Zero for an
  * upgrade of no capped kind.
  */
-export const sameKindTakenAlongside = ({ carried, upgrades, upgradeId }: SameKindInput): number => {
+export const sameKindTakenAlongside = ({
+  carried,
+  upgrades,
+  upgradeId,
+}: SameKindInput): number => {
   const kind = kindOf(upgrades[upgradeId].type);
 
   if (!kind) {

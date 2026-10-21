@@ -37,7 +37,7 @@
 }
 
 .toggle::after {
-  content: '';
+  content: "";
   flex: 1;
   height: var(--border-width);
   background: var(--color-border-divider);
@@ -59,7 +59,7 @@
 
 .toggleMark::before,
 .toggleMark::after {
-  content: '';
+  content: "";
   position: absolute;
   background: var(--color-accent);
 }
@@ -81,6 +81,6 @@
   transition: transform var(--duration-fast);
 }
 
-.toggle[aria-expanded='false'] .toggleMark::after {
+.toggle[aria-expanded="false"] .toggleMark::after {
   transform: translateX(-50%) scaleY(1);
 }

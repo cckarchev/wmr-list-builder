@@ -1,6 +1,6 @@
-import type { UnitState } from '@/core/army-state/types';
+import type { UnitState } from "@/core/army-state/types";
 
-const listFormat = new Intl.ListFormat('en', { type: 'conjunction' });
+const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
 
 /**
  * Says which other units carry an upgrade, such as a magic item that only one

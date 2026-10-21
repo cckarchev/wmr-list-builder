@@ -1,8 +1,8 @@
-import { decodeListFor, encodeListFor } from './list-codec/listCodec';
-import type { ListSnapshot } from './snapshot';
-import { readItem, writeItem } from './storage';
+import { decodeListFor, encodeListFor } from "./list-codec/listCodec";
+import type { ListSnapshot } from "./snapshot";
+import { readItem, writeItem } from "./storage";
 
-const PREFIX = 'wmr:list:';
+const PREFIX = "wmr:list:";
 
 /** Remember the list being built for an army, so a reload picks it back up. */
 export const saveList = (armyId: string, snap: ListSnapshot): void => {

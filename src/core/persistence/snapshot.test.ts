@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
-import { snapshotOf } from './snapshot';
+import { describe, expect, it } from "vitest";
+import { snapshotOf } from "./snapshot";
 
-describe('snapshotOf', () => {
-  it('captures only non-zero counts', () => {
+describe("snapshotOf", () => {
+  it("captures only non-zero counts", () => {
     const state = {
-      label: '',
+      label: "",
       gameSize: 2000,
       units: {
         general: { number: 1, upgrades: { sword: { number: 1 } } },
@@ -13,7 +13,7 @@ describe('snapshotOf', () => {
     } as never;
 
     expect(snapshotOf(state)).toEqual({
-      name: '',
+      name: "",
       gameSize: 2000,
       units: { general: 1 },
       upgrades: { general: { sword: 1 } },

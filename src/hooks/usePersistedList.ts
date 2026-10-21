@@ -1,17 +1,21 @@
-import { useEffect } from 'react';
-import { loadList, saveList } from '@/core/persistence/currentList';
-import { decodeShareFor } from '@/core/persistence/list-codec/listCodec';
-import { useArmyStore } from '@/store/useArmyStore';
-import { useListSnapshot } from '@/store/useListSnapshot';
+import { useEffect } from "react";
+import { loadList, saveList } from "@/core/persistence/currentList";
+import { decodeShareFor } from "@/core/persistence/list-codec/listCodec";
+import { useArmyStore } from "@/store/useArmyStore";
+import { useListSnapshot } from "@/store/useListSnapshot";
 
-const CORRUPT_SHARE_WARNING = 'This shared list couldn’t be loaded. The link looks corrupted.';
+const CORRUPT_SHARE_WARNING =
+  "This shared list couldn’t be loaded. The link looks corrupted.";
 
 /**
  * Restores the list when switching to `armyId`, from a `?list=` share link
  * (`shareCode`) or else from localStorage, then auto-saves every change.
  * Returning to the same army (e.g. back from Print) keeps the current list.
  */
-export const usePersistedList = (armyId: string | undefined, shareCode: string | null): void => {
+export const usePersistedList = (
+  armyId: string | undefined,
+  shareCode: string | null,
+): void => {
   const armyIdInStore = useArmyStore((s) => s.armyId);
   const snapshot = useListSnapshot();
   const setArmy = useArmyStore((s) => s.setArmy);

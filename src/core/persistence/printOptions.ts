@@ -1,12 +1,17 @@
-import { DEFAULT_PRINT_OPTIONS, type PrintOptions } from '@/core/print/printOptions';
-import { readJson, writeJson } from './storage';
+import {
+  DEFAULT_PRINT_OPTIONS,
+  type PrintOptions,
+} from "@/core/print/printOptions";
+import { readJson, writeJson } from "./storage";
 
-const STORAGE_KEY = 'wmr:printOptions';
+const STORAGE_KEY = "wmr:printOptions";
 
-const OPTION_KEYS = Object.keys(DEFAULT_PRINT_OPTIONS) as (keyof PrintOptions)[];
+const OPTION_KEYS = Object.keys(
+  DEFAULT_PRINT_OPTIONS,
+) as (keyof PrintOptions)[];
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === 'object' && value !== null;
+  typeof value === "object" && value !== null;
 
 /** Keeps the known boolean options from a stored value, defaulting the rest. */
 const sanitize = (stored: unknown): PrintOptions => {
@@ -19,7 +24,7 @@ const sanitize = (stored: unknown): PrintOptions => {
   for (const key of OPTION_KEYS) {
     const value = stored[key];
 
-    if (typeof value === 'boolean') {
+    if (typeof value === "boolean") {
       options[key] = value;
     }
   }
@@ -32,4 +37,5 @@ export const savePrintOptions = (options: PrintOptions): void => {
   writeJson(STORAGE_KEY, options);
 };
 
-export const loadPrintOptions = (): PrintOptions => sanitize(readJson(STORAGE_KEY));
+export const loadPrintOptions = (): PrintOptions =>
+  sanitize(readJson(STORAGE_KEY));

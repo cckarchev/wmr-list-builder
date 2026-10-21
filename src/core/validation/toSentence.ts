@@ -1,5 +1,5 @@
-const CONNECTOR = ', ';
-const LAST_CONNECTOR = ' or ';
+const CONNECTOR = ", ";
+const LAST_CONNECTOR = " or ";
 
 /** Joins names as prose: "A, B or C". */
 export const toSentence = (items: string[]): string => {

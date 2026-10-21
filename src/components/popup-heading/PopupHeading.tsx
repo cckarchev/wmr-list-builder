@@ -1,5 +1,5 @@
-import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
-import styles from './PopupHeading.module.css';
+import { Icon, INLINE_ICON_SIZE } from "@/components/Icon";
+import styles from "./PopupHeading.module.css";
 
 interface PopupHeadingProps {
   /** Visible title of the popup. */
@@ -15,7 +15,12 @@ interface PopupHeadingProps {
 export const PopupHeading = ({ children, onClose }: PopupHeadingProps) => (
   <div className={styles.bar}>
     <p className={styles.title}>{children}</p>
-    <button className={styles.close} type="button" aria-label="Close" onClick={onClose}>
+    <button
+      className={styles.close}
+      type="button"
+      aria-label="Close"
+      onClick={onClose}
+    >
       <Icon name="close" size={INLINE_ICON_SIZE} />
     </button>
   </div>

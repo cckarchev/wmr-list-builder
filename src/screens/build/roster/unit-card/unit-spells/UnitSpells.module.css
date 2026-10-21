@@ -60,7 +60,7 @@
   transition: transform var(--duration-fast);
 }
 
-.header[aria-expanded='true'] .caret {
+.header[aria-expanded="true"] .caret {
   transform: rotate(90deg);
 }
 

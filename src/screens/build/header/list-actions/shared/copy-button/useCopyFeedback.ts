@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 /** How long a copy button shows its confirmation or failure before resetting. */
 const FEEDBACK_MS = 1500;
 
-type CopyStatus = 'idle' | 'copied' | 'failed';
+type CopyStatus = "idle" | "copied" | "failed";
 
 /** The clipboard write, rejected when the API is missing (e.g. plain http) or denied. */
 const writeToClipboard = (text: string): Promise<void> => {
   if (!navigator.clipboard) {
-    return Promise.reject(new Error('Clipboard API unavailable'));
+    return Promise.reject(new Error("Clipboard API unavailable"));
   }
 
   return navigator.clipboard.writeText(text);
@@ -19,7 +19,7 @@ const writeToClipboard = (text: string): Promise<void> => {
  * button can show a "copied" or "failed" bubble.
  */
 export const useCopyFeedback = () => {
-  const [status, setStatus] = useState<CopyStatus>('idle');
+  const [status, setStatus] = useState<CopyStatus>("idle");
   const resetTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // A pending reset must not fire on an unmounted button.
@@ -35,17 +35,17 @@ export const useCopyFeedback = () => {
     clearTimeout(resetTimer.current);
     setStatus(result);
     resetTimer.current = setTimeout(() => {
-      setStatus('idle');
+      setStatus("idle");
     }, FEEDBACK_MS);
   };
 
   const copy = (text: string) => {
     writeToClipboard(text).then(
       () => {
-        showFor('copied');
+        showFor("copied");
       },
       () => {
-        showFor('failed');
+        showFor("failed");
       },
     );
   };

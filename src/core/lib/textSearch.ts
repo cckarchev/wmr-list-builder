@@ -1,12 +1,12 @@
-import { words } from './words';
+import { words } from "./words";
 
 /** Combining marks left behind by NFD, e.g. the accent split off "ó". */
 const COMBINING_MARKS = /\p{M}/gu;
 
 /** Lowercase and strip accents so "Nippón" and "nippon" compare equal. */
 const fold = (text: string): string => {
-  const decomposed = text.normalize('NFD');
-  const unaccented = decomposed.replace(COMBINING_MARKS, '');
+  const decomposed = text.normalize("NFD");
+  const unaccented = decomposed.replace(COMBINING_MARKS, "");
 
   return unaccented.toLowerCase();
 };

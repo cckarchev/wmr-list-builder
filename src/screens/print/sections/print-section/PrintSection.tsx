@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import { classNames } from '@/core/lib/classNames';
-import styles from './PrintSection.module.css';
+import type { ReactNode } from "react";
+import { classNames } from "@/core/lib/classNames";
+import styles from "./PrintSection.module.css";
 
 // Shared building blocks for the print-sheet sections (Army Rules, Special
 // Rules, Magic Items, Spells).
@@ -24,10 +24,14 @@ export const PrintHeading = ({ children }: BlockProps) => (
 );
 
 /** Definition list of name/description entries. */
-export const DefList = ({ children }: BlockProps) => <dl className={styles.list}>{children}</dl>;
+export const DefList = ({ children }: BlockProps) => (
+  <dl className={styles.list}>{children}</dl>
+);
 
 /** Definition term (entry name). */
-export const DefTerm = ({ children }: BlockProps) => <dt className={styles.term}>{children}</dt>;
+export const DefTerm = ({ children }: BlockProps) => (
+  <dt className={styles.term}>{children}</dt>
+);
 
 /** Definition description (entry body). */
 export const DefDesc = ({ className, children }: StyledBlockProps) => (

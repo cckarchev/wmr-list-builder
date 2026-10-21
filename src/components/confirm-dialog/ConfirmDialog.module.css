@@ -21,7 +21,7 @@
 }
 
 .title {
-  composes: heading from '@/theme/popup.module.css';
+  composes: heading from "@/theme/popup.module.css";
 }
 
 .message {

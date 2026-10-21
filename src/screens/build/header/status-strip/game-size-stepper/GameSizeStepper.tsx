@@ -1,6 +1,6 @@
-import type { ChangeEvent } from 'react';
-import { useArmyStore } from '@/store/useArmyStore';
-import styles from './GameSizeStepper.module.css';
+import type { ChangeEvent } from "react";
+import { useArmyStore } from "@/store/useArmyStore";
+import styles from "./GameSizeStepper.module.css";
 
 /**
  * Game size is adjusted in fixed point increments; the −/+ buttons step by
@@ -8,7 +8,7 @@ import styles from './GameSizeStepper.module.css';
  */
 const GAME_SIZE_STEP = 500;
 
-const INPUT_ID = 'game-size';
+const INPUT_ID = "game-size";
 
 export const GameSizeStepper = () => {
   const gameSize = useArmyStore((s) => s.gameSize);

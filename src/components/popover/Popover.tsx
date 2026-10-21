@@ -1,9 +1,9 @@
-import { type ReactNode, useEffect, useId, useRef } from 'react';
-import { PillButton } from '@/components/pill-button/PillButton';
-import { PopupHeading } from '@/components/popup-heading/PopupHeading';
-import { useDismissible } from '@/hooks/useDismissible';
-import { useViewportShift } from '@/hooks/useViewportShift';
-import styles from './Popover.module.css';
+import { type ReactNode, useEffect, useId, useRef } from "react";
+import { PillButton } from "@/components/pill-button/PillButton";
+import { PopupHeading } from "@/components/popup-heading/PopupHeading";
+import { useDismissible } from "@/hooks/useDismissible";
+import { useViewportShift } from "@/hooks/useViewportShift";
+import styles from "./Popover.module.css";
 
 interface PopoverProps {
   /** Accessible name shared by the trigger button and the dialog panel. */
@@ -31,7 +31,13 @@ export const Popover = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
-  const { open, setOpen, close, ref: wrapRef, triggerRef } = useDismissible<HTMLDivElement>();
+  const {
+    open,
+    setOpen,
+    close,
+    ref: wrapRef,
+    triggerRef,
+  } = useDismissible<HTMLDivElement>();
   const offsetX = useViewportShift(panelRef, open);
 
   useEffect(() => {

@@ -245,7 +245,9 @@
       "id": "tripleBows",
       "name": "Triple Bows",
       "order": 5,
-      "text": ["Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."]
+      "text": [
+        "Triple Bows are Bolt Throwers as described in the main rulebook (p.75)."
+      ]
     },
     {
       "id": "celestialDragon",

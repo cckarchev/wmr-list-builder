@@ -1,8 +1,8 @@
-import { takenMagicItems } from '@/core/print/takenMagicItems';
-import { collectUsedSpecialRules } from '@/core/special-rules/usedSpecialRules';
-import { magicItems } from '@/data/magicItems';
-import { useArmyStore } from '@/store/useArmyStore';
-import type { PrintSectionCtx } from '../sections/printSections';
+import { takenMagicItems } from "@/core/print/takenMagicItems";
+import { collectUsedSpecialRules } from "@/core/special-rules/usedSpecialRules";
+import { magicItems } from "@/data/magicItems";
+import { useArmyStore } from "@/store/useArmyStore";
+import type { PrintSectionCtx } from "../sections/printSections";
 
 /** Reads from the store which print sections have anything to show for the current list. */
 export const usePrintSectionCtx = (): PrintSectionCtx => {
@@ -13,7 +13,11 @@ export const usePrintSectionCtx = (): PrintSectionCtx => {
       return false;
     }
 
-    const usedRules = collectUsedSpecialRules(s.specialRules, s.units, s.upgrades);
+    const usedRules = collectUsedSpecialRules(
+      s.specialRules,
+      s.units,
+      s.upgrades,
+    );
 
     return Object.keys(usedRules).length > 0;
   });

@@ -1,17 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { useArmyStore } from '@/store/useArmyStore';
-import { Spells } from './Spells';
+import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it } from "vitest";
+import { useArmyStore } from "@/store/useArmyStore";
+import { Spells } from "./Spells";
 
 const renderSpells = () => render(<Spells />);
 
-describe('Spells print section', () => {
+describe("Spells print section", () => {
   beforeEach(() => {
     useArmyStore.getState().reset();
   });
 
-  it('renders each spell as a single header line with roll and range', () => {
-    useArmyStore.getState().setArmy('goblin');
+  it("renders each spell as a single header line with roll and range", () => {
+    useArmyStore.getState().setArmy("goblin");
     renderSpells();
     const spellCount = useArmyStore.getState().spells?.length;
     // Header lines combine name, cast roll, and range on one line.
@@ -21,10 +21,10 @@ describe('Spells print section', () => {
     expect(headers).toHaveLength(spellCount ?? 0);
   });
 
-  it('does not render the italic flavor line as emphasized text', () => {
-    useArmyStore.getState().setArmy('goblin');
+  it("does not render the italic flavor line as emphasized text", () => {
+    useArmyStore.getState().setArmy("goblin");
     const { container } = renderSpells();
     // The leading `*...*` flavor line would render as <em>; it must be stripped.
-    expect(container.querySelector('em')).toBeNull();
+    expect(container.querySelector("em")).toBeNull();
   });
 });

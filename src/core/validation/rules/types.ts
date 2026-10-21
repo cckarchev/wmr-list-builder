@@ -1,4 +1,8 @@
-import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import type {
+  UnitState,
+  UnitUpgradeEntry,
+  UpgradeState,
+} from "@/core/army-state/types";
 
 /**
  * Structural superset of the fields the rules read off an "item".

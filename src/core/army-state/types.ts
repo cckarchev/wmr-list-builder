@@ -1,7 +1,7 @@
-import type { StatValue, Unit } from '@/data/types';
+import type { StatValue, Unit } from "@/data/types";
 
 /** Stat placeholder the army data uses for a missing value, e.g. no armour. */
-export const NO_STAT = '-';
+export const NO_STAT = "-";
 
 /**
  * Runtime per-unit upgrade entry. Mirrors the Vue store's
@@ -17,7 +17,7 @@ export interface UnitUpgradeEntry {
  * string[] which the store converts into a keyed map) plus the live fields
  * the Vue store attaches in `SET_UNITS`: `number` and `pointsCost`.
  */
-export interface UnitState extends Omit<Unit, 'upgrades'> {
+export interface UnitState extends Omit<Unit, "upgrades"> {
   number: number;
   pointsCost: number;
   upgrades?: Record<string, UnitUpgradeEntry>;

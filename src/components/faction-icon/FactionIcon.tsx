@@ -1,5 +1,5 @@
-import { ownValue } from '@/core/lib/ownValue';
-import { FACTION_ICON_PATHS, MIRRORED_FACTION_ICONS } from './factionIcons';
+import { ownValue } from "@/core/lib/ownValue";
+import { FACTION_ICON_PATHS, MIRRORED_FACTION_ICONS } from "./factionIcons";
 
 /** The side of the square every game-icons.net icon is drawn on. */
 const ICON_SIZE = 512;
@@ -24,10 +24,18 @@ export const FactionIcon = ({ armyId }: FactionIconProps) => {
     return null;
   }
 
-  const transform = MIRRORED_FACTION_ICONS.has(armyId) ? MIRROR_TRANSFORM : undefined;
+  const transform = MIRRORED_FACTION_ICONS.has(armyId)
+    ? MIRROR_TRANSFORM
+    : undefined;
 
   return (
-    <svg width="100%" height="100%" viewBox={VIEW_BOX} fill="currentColor" aria-hidden="true">
+    <svg
+      width="100%"
+      height="100%"
+      viewBox={VIEW_BOX}
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d={path} transform={transform} />
     </svg>
   );

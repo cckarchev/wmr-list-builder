@@ -1,5 +1,5 @@
-import type { ChangeEvent } from 'react';
-import styles from './SearchInput.module.css';
+import type { ChangeEvent } from "react";
+import styles from "./SearchInput.module.css";
 
 interface SearchInputProps {
   /** Accessible name, also shown as the placeholder. */

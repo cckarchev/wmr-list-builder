@@ -1,19 +1,19 @@
 /// <reference types="vitest/config" />
 
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/',
+  base: "/",
   plugins: [react()],
   resolve: {
     tsconfigPaths: true,
   },
   css: {
-    transformer: 'lightningcss',
+    transformer: "lightningcss",
     lightningcss: {
       cssModules: {
-        pattern: '[local]_[hash]',
+        pattern: "[local]_[hash]",
       },
       drafts: {
         customMedia: true,
@@ -21,12 +21,12 @@ export default defineConfig({
     },
   },
   build: {
-    cssMinify: 'lightningcss',
+    cssMinify: "lightningcss",
   },
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    include: ["src/**/*.{test,spec}.{ts,tsx}"],
   },
 });

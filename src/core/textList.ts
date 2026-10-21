@@ -1,5 +1,5 @@
-import { breakPoint, unitCount } from '@/core/army-state/armyTotals';
-import type { UsedUnit } from '@/core/army-state/usedUnits';
+import { breakPoint, unitCount } from "@/core/army-state/armyTotals";
+import type { UsedUnit } from "@/core/army-state/usedUnits";
 
 interface TextListParams {
   armyName: string;
@@ -9,16 +9,18 @@ interface TextListParams {
   version: string;
 }
 
-const DIVIDER = '--------------------------------';
+const DIVIDER = "--------------------------------";
 
-const padLeft = (value: string | number, width: number): string => String(value).padStart(width);
+const padLeft = (value: string | number, width: number): string =>
+  String(value).padStart(width);
 
 /** One unit line plus a line per upgrade it carries. */
 const unitLines = (unit: UsedUnit, pad: number): string[] => {
   const unitLine = `${padLeft(unit.pointsCost, pad)} - ${unit.number} ${unit.name}`;
   const upgrades = Object.values(unit.upgrades ?? {});
   const upgradeLines = upgrades.map(
-    (upgrade) => `${padLeft(' ', pad)} - ${upgrade.number} ${upgrade.name} (${upgrade.pointsCost})`,
+    (upgrade) =>
+      `${padLeft(" ", pad)} - ${upgrade.number} ${upgrade.name} (${upgrade.pointsCost})`,
   );
 
   return [unitLine, ...upgradeLines];
@@ -50,5 +52,5 @@ export const buildTextList = ({
     `${padLeft(points, pad)} - ${countedUnits}/${breakAt}`,
   ];
 
-  return lines.join('\n');
+  return lines.join("\n");
 };

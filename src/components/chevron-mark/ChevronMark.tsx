@@ -1,4 +1,4 @@
-import styles from './ChevronMark.module.css';
+import styles from "./ChevronMark.module.css";
 
 /** Stroke width in viewBox units, so it scales with the mark. */
 const STROKE_WIDTH = 2.4;
@@ -10,7 +10,7 @@ interface ChevronMarkProps {
 }
 
 export const ChevronMark = ({ color, size }: ChevronMarkProps) => {
-  const stroke = color ?? 'currentColor';
+  const stroke = color ?? "currentColor";
   // An explicit color also overrides the class color, so 'currentColor' inherits.
   const style = color ? { color } : undefined;
 

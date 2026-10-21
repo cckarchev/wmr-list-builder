@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
+import { useState } from "react";
+import { encodeListFor } from "@/core/persistence/list-codec/listCodec";
 import {
   deleteNamedList,
   listSavedSummaries,
   loadNamedList,
   type SavedListSummary,
-} from '@/core/persistence/savedLists';
-import { snapshotOf } from '@/core/persistence/snapshot';
-import { useArmyStore } from '@/store/useArmyStore';
-import { useIsDirty } from '@/store/useIsDirty';
+} from "@/core/persistence/savedLists";
+import { snapshotOf } from "@/core/persistence/snapshot";
+import { useArmyStore } from "@/store/useArmyStore";
+import { useIsDirty } from "@/store/useIsDirty";
 
 /**
  * The army's saved lists, plus loading and deleting them with the matching

@@ -1,5 +1,5 @@
-import { armySize } from '../armySize';
-import { eliteCap } from '../eliteCap';
+import { armySize } from "../armySize";
+import { eliteCap } from "../eliteCap";
 
 /** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */
 export interface MinMaxSource {
@@ -11,16 +11,16 @@ export interface MinMaxSource {
 
 /** Keyword values the army data puts in `min` and `max`, read by the rules and the badges. */
 export const MIN_MAX_TOKENS = {
-  allOrNone: 'All or None',
-  halfOrAll: 'Half or All',
-  halfOrMore: 'Half or More',
-  halfOrNone: 'Half or None',
-  upToHalf: 'Up to Half',
-  elite: 'elite',
+  allOrNone: "All or None",
+  halfOrAll: "Half or All",
+  halfOrMore: "Half or More",
+  halfOrNone: "Half or None",
+  upToHalf: "Up to Half",
+  elite: "elite",
 } as const;
 
 /** Prefix of "As X" tokens, which tie a troop's count to another unit's. */
-export const AS_TOKEN_PREFIX = 'As ';
+export const AS_TOKEN_PREFIX = "As ";
 
 /**
  * Structured reading of a troop's min/max constraints, resolved against the
@@ -29,15 +29,15 @@ export const AS_TOKEN_PREFIX = 'As ';
  * one place. Mirrors the rules enforced in validation/rules.
  */
 type MinMaxInfo =
-  | { kind: 'army'; min?: number; max?: number }
-  | { kind: 'elite'; cap: number }
-  | { kind: 'token'; token: string }
-  | { kind: 'rate'; min: number; max: number; size: number };
+  | { kind: "army"; min?: number; max?: number }
+  | { kind: "elite"; cap: number }
+  | { kind: "token"; token: string }
+  | { kind: "rate"; min: number; max: number; size: number };
 
-export type ArmyInfo = Extract<MinMaxInfo, { kind: 'army' }>;
-export type EliteInfo = Extract<MinMaxInfo, { kind: 'elite' }>;
-export type TokenInfo = Extract<MinMaxInfo, { kind: 'token' }>;
-export type RateInfo = Extract<MinMaxInfo, { kind: 'rate' }>;
+export type ArmyInfo = Extract<MinMaxInfo, { kind: "army" }>;
+export type EliteInfo = Extract<MinMaxInfo, { kind: "elite" }>;
+export type TokenInfo = Extract<MinMaxInfo, { kind: "token" }>;
+export type RateInfo = Extract<MinMaxInfo, { kind: "rate" }>;
 
 /** The unit an "As X" token ties the troop to, or undefined for keyword tokens. */
 export const linkedUnit = (token: string): string | undefined => {
@@ -49,12 +49,16 @@ export const linkedUnit = (token: string): string | undefined => {
 };
 
 /** An absolute per-army count with matching bounds, e.g. "exactly 1". */
-export const isExact = ({ min, max }: ArmyInfo): boolean => Boolean(min) && min === max;
+export const isExact = ({ min, max }: ArmyInfo): boolean =>
+  Boolean(min) && min === max;
 
-export const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo | undefined => {
+export const resolveMinMax = (
+  troop: MinMaxSource,
+  gameSize: number,
+): MinMaxInfo | undefined => {
   // Absolute per-army counts take precedence.
   if (troop.armyMin || troop.armyMax) {
-    return { kind: 'army', min: troop.armyMin, max: troop.armyMax };
+    return { kind: "army", min: troop.armyMin, max: troop.armyMax };
   }
 
   const size = armySize(gameSize);
@@ -62,16 +66,16 @@ export const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo
 
   // `elite` lives in the max field and resolves to an absolute cap.
   if (max === MIN_MAX_TOKENS.elite) {
-    return { kind: 'elite', cap: eliteCap(size) };
+    return { kind: "elite", cap: eliteCap(size) };
   }
 
   // Other keyword tokens are relative to the unit being upgraded.
-  if (typeof min === 'string') {
-    return { kind: 'token', token: min };
+  if (typeof min === "string") {
+    return { kind: "token", token: min };
   }
 
-  if (typeof max === 'string') {
-    return { kind: 'token', token: max };
+  if (typeof max === "string") {
+    return { kind: "token", token: max };
   }
 
   // Numeric per-1,000-points scaling.
@@ -82,5 +86,5 @@ export const resolveMinMax = (troop: MinMaxSource, gameSize: number): MinMaxInfo
     return undefined;
   }
 
-  return { kind: 'rate', min: minN, max: maxN, size };
+  return { kind: "rate", min: minN, max: maxN, size };
 };

@@ -1,10 +1,12 @@
-import { act, renderHook, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useCopyFeedback } from './useCopyFeedback';
+import { act, renderHook, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { useCopyFeedback } from "./useCopyFeedback";
 
 /** Swap `navigator.clipboard` for the given stub, or remove it with `undefined`. */
-const stubClipboard = (clipboard: { writeText: (text: string) => Promise<void> } | undefined) => {
-  Object.defineProperty(navigator, 'clipboard', {
+const stubClipboard = (
+  clipboard: { writeText: (text: string) => Promise<void> } | undefined,
+) => {
+  Object.defineProperty(navigator, "clipboard", {
     value: clipboard,
     configurable: true,
     writable: true,
@@ -15,80 +17,82 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-describe('useCopyFeedback', () => {
-  it('starts idle', () => {
+describe("useCopyFeedback", () => {
+  it("starts idle", () => {
     const { result } = renderHook(() => useCopyFeedback());
 
-    expect(result.current.status).toBe('idle');
+    expect(result.current.status).toBe("idle");
   });
 
-  it('reports copied once the clipboard write lands', async () => {
+  it("reports copied once the clipboard write lands", async () => {
     stubClipboard({ writeText: vi.fn().mockResolvedValue(undefined) });
     const { result } = renderHook(() => useCopyFeedback());
 
     act(() => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
     await waitFor(() => {
-      expect(result.current.status).toBe('copied');
+      expect(result.current.status).toBe("copied");
     });
   });
 
-  it('reports failed when the clipboard write is rejected', async () => {
-    stubClipboard({ writeText: vi.fn().mockRejectedValue(new Error('denied')) });
+  it("reports failed when the clipboard write is rejected", async () => {
+    stubClipboard({
+      writeText: vi.fn().mockRejectedValue(new Error("denied")),
+    });
     const { result } = renderHook(() => useCopyFeedback());
 
     act(() => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
     await waitFor(() => {
-      expect(result.current.status).toBe('failed');
+      expect(result.current.status).toBe("failed");
     });
   });
 
-  it('reports failed when the clipboard is unavailable', async () => {
+  it("reports failed when the clipboard is unavailable", async () => {
     stubClipboard(undefined);
     const { result } = renderHook(() => useCopyFeedback());
 
     act(() => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
     await waitFor(() => {
-      expect(result.current.status).toBe('failed');
+      expect(result.current.status).toBe("failed");
     });
   });
 });
 
-describe('useCopyFeedback timing', () => {
-  it('returns to idle after the feedback has shown', async () => {
+describe("useCopyFeedback timing", () => {
+  it("returns to idle after the feedback has shown", async () => {
     vi.useFakeTimers();
     stubClipboard({ writeText: vi.fn().mockResolvedValue(undefined) });
     const { result } = renderHook(() => useCopyFeedback());
 
     await act(async () => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
-    expect(result.current.status).toBe('copied');
+    expect(result.current.status).toBe("copied");
 
     act(() => {
       vi.runAllTimers();
     });
 
-    expect(result.current.status).toBe('idle');
+    expect(result.current.status).toBe("idle");
   });
 
-  it('restarts the feedback window on a second copy', async () => {
+  it("restarts the feedback window on a second copy", async () => {
     const PartOfWindowMs = 1000;
     vi.useFakeTimers();
     stubClipboard({ writeText: vi.fn().mockResolvedValue(undefined) });
     const { result } = renderHook(() => useCopyFeedback());
 
     await act(async () => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
     act(() => {
@@ -96,7 +100,7 @@ describe('useCopyFeedback timing', () => {
     });
 
     await act(async () => {
-      result.current.copy('text');
+      result.current.copy("text");
     });
 
     // The first copy's window has run out by now, but the second one's has not.
@@ -104,12 +108,12 @@ describe('useCopyFeedback timing', () => {
       vi.advanceTimersByTime(PartOfWindowMs);
     });
 
-    expect(result.current.status).toBe('copied');
+    expect(result.current.status).toBe("copied");
 
     act(() => {
       vi.runAllTimers();
     });
 
-    expect(result.current.status).toBe('idle');
+    expect(result.current.status).toBe("idle");
   });
 });

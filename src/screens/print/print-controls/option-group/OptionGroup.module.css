@@ -11,7 +11,7 @@
 }
 
 .label {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
   flex: none;
   /* Fixed width lines the "Sections" and "Options" labels into a column and
      starts both sets of toggles at the same x. Wide enough to hold the longest

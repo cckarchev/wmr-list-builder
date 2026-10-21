@@ -1,15 +1,15 @@
-import { Fragment } from 'react';
-import { Markdown } from '@/components/Markdown';
-import { takenMagicItems } from '@/core/print/takenMagicItems';
-import { magicItems } from '@/data/magicItems';
-import { useArmyStore } from '@/store/useArmyStore';
+import { Fragment } from "react";
+import { Markdown } from "@/components/Markdown";
+import { takenMagicItems } from "@/core/print/takenMagicItems";
+import { magicItems } from "@/data/magicItems";
+import { useArmyStore } from "@/store/useArmyStore";
 import {
   DefDesc,
   DefList,
   DefTerm,
   PrintHeading,
   PrintSection,
-} from './print-section/PrintSection';
+} from "./print-section/PrintSection";
 
 export const MagicItems = () => {
   const upgrades = useArmyStore((s) => s.upgrades);

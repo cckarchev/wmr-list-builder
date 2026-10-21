@@ -1,13 +1,17 @@
-import { useState } from 'react';
-import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
-import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
-import { countOf } from '@/core/lib/quantities';
-import { groupRosterUnits } from '@/core/roster/groupRosterUnits';
-import { useArmyStore } from '@/store/useArmyStore';
-import styles from './ArmySummary.module.css';
-import { SummaryRow } from './summary-row/SummaryRow';
+import { useState } from "react";
+import { ChevronMark } from "@/components/chevron-mark/ChevronMark";
+import {
+  breakPoint,
+  pointsCost,
+  unitCount,
+} from "@/core/army-state/armyTotals";
+import { countOf } from "@/core/lib/quantities";
+import { groupRosterUnits } from "@/core/roster/groupRosterUnits";
+import { useArmyStore } from "@/store/useArmyStore";
+import styles from "./ArmySummary.module.css";
+import { SummaryRow } from "./summary-row/SummaryRow";
 
-const TITLE = 'Army Composition';
+const TITLE = "Army Composition";
 const CARET_SIZE = 12;
 
 export const ArmySummary = () => {
@@ -18,7 +22,7 @@ export const ArmySummary = () => {
 
   // List selected units in the same grouped order as the roster (Characters
   // first, then troop types; mandatory units floated to the top of each group).
-  const selected = groupRosterUnits(units, '', gameSize)
+  const selected = groupRosterUnits(units, "", gameSize)
     .flatMap((g) => g.unitIds)
     .filter((id) => units[id].number > 0);
   const total = pointsCost({ units });
@@ -32,7 +36,12 @@ export const ArmySummary = () => {
 
   return (
     <aside className={styles.aside} aria-label={TITLE}>
-      <button className={styles.heading} type="button" aria-expanded={open} onClick={toggleOpen}>
+      <button
+        className={styles.heading}
+        type="button"
+        aria-expanded={open}
+        onClick={toggleOpen}
+      >
         <span className={styles.title}>
           <span className={styles.caret}>
             <ChevronMark size={CARET_SIZE} />
@@ -49,11 +58,13 @@ export const ArmySummary = () => {
         {selected.length === 0 ? (
           <p className={styles.empty}>No units selected yet.</p>
         ) : (
-          selected.map((id) => <SummaryRow key={id} id={id} unit={units[id]} upgrades={upgrades} />)
+          selected.map((id) => (
+            <SummaryRow key={id} id={id} unit={units[id]} upgrades={upgrades} />
+          ))
         )}
         <div className={styles.total} data-over={over || undefined}>
           <span>
-            {countOf(count, 'unit')} · break {breakAt}
+            {countOf(count, "unit")} · break {breakAt}
           </span>
           <span>
             {total} / {gameSize}

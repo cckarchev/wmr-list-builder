@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Button } from '@/components/button/Button';
-import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
-import { Icon } from '@/components/Icon';
-import { LIST_PARAM } from '@/core/share-link/shareLink';
-import { useArmyStore } from '@/store/useArmyStore';
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Button } from "@/components/button/Button";
+import { ConfirmDialog } from "@/components/confirm-dialog/ConfirmDialog";
+import { Icon } from "@/components/Icon";
+import { LIST_PARAM } from "@/core/share-link/shareLink";
+import { useArmyStore } from "@/store/useArmyStore";
 
 export const ResetListButton = () => {
   const armyId = useArmyStore((s) => s.armyId);

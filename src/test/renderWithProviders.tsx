@@ -1,8 +1,8 @@
-import { type RenderOptions, render } from '@testing-library/react';
-import type { ReactElement, ReactNode } from 'react';
-import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
+import { type RenderOptions, render } from "@testing-library/react";
+import type { ReactElement, ReactNode } from "react";
+import { MemoryRouter, type MemoryRouterProps } from "react-router-dom";
 
-interface RenderWithProvidersOptions extends Omit<RenderOptions, 'wrapper'> {
+interface RenderWithProvidersOptions extends Omit<RenderOptions, "wrapper"> {
   routerProps?: MemoryRouterProps;
 }
 

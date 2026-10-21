@@ -1,9 +1,16 @@
-import { type MouseEvent, type ReactNode, type RefObject, useEffect, useId, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { Button } from '@/components/button/Button';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import styles from './ConfirmDialog.module.css';
-import { useFocusTrap } from './useFocusTrap';
+import {
+  type MouseEvent,
+  type ReactNode,
+  type RefObject,
+  useEffect,
+  useId,
+  useRef,
+} from "react";
+import { createPortal } from "react-dom";
+import { Button } from "@/components/button/Button";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import styles from "./ConfirmDialog.module.css";
+import { useFocusTrap } from "./useFocusTrap";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -11,7 +18,7 @@ interface ConfirmDialogProps {
   message: ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
-  confirmVariant?: 'primary' | 'danger';
+  confirmVariant?: "primary" | "danger";
   onConfirm: () => void;
   onCancel: () => void;
   /** Takes focus on close when the control that opened the dialog is gone. */
@@ -22,9 +29,9 @@ export const ConfirmDialog = ({
   open,
   title,
   message,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
-  confirmVariant = 'danger',
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
+  confirmVariant = "danger",
   onConfirm,
   onCancel,
   fallbackFocusRef,
@@ -53,9 +60,9 @@ export const ConfirmDialog = ({
 
     const stop = (e: globalThis.MouseEvent) => e.stopPropagation();
 
-    el.addEventListener('mousedown', stop);
+    el.addEventListener("mousedown", stop);
 
-    return () => el.removeEventListener('mousedown', stop);
+    return () => el.removeEventListener("mousedown", stop);
   }, [open]);
 
   useEffect(() => {
@@ -79,7 +86,11 @@ export const ConfirmDialog = ({
     // backdrop click is only a pointer convenience.
     // biome-ignore lint/a11y/noStaticElementInteractions: pointer-only dismiss, see above.
     // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard dismiss is the Escape listener.
-    <div className={styles.backdrop} ref={backdropRef} onClick={cancelOnBackdrop}>
+    <div
+      className={styles.backdrop}
+      ref={backdropRef}
+      onClick={cancelOnBackdrop}
+    >
       <div
         className={styles.card}
         ref={cardRef}
@@ -98,7 +109,12 @@ export const ConfirmDialog = ({
           <Button variant="ghost" size="sm" onClick={onCancel}>
             {cancelLabel}
           </Button>
-          <Button ref={confirmRef} variant={confirmVariant} size="sm" onClick={onConfirm}>
+          <Button
+            ref={confirmRef}
+            variant={confirmVariant}
+            size="sm"
+            onClick={onConfirm}
+          >
             {confirmLabel}
           </Button>
         </div>

@@ -8,15 +8,15 @@ import {
   type RateInfo,
   resolveMinMax,
   type TokenInfo,
-} from './minMaxInfo';
+} from "./minMaxInfo";
 
 /** Plain-language phrasing for the keyword tokens the validation rules enforce. */
 const TOKEN_PHRASES: Record<string, string> = {
-  [MIN_MAX_TOKENS.allOrNone]: 'all or none of its unit',
-  [MIN_MAX_TOKENS.halfOrAll]: 'half or all of its unit',
-  [MIN_MAX_TOKENS.halfOrMore]: 'half or more of its unit',
-  [MIN_MAX_TOKENS.halfOrNone]: 'half or none of its unit',
-  [MIN_MAX_TOKENS.upToHalf]: 'up to half of its unit',
+  [MIN_MAX_TOKENS.allOrNone]: "all or none of its unit",
+  [MIN_MAX_TOKENS.halfOrAll]: "half or all of its unit",
+  [MIN_MAX_TOKENS.halfOrMore]: "half or more of its unit",
+  [MIN_MAX_TOKENS.halfOrNone]: "half or none of its unit",
+  [MIN_MAX_TOKENS.upToHalf]: "up to half of its unit",
 };
 
 /** "min 1 / max 6", leaving out whichever bound is unset. */
@@ -31,7 +31,7 @@ const describeBounds = (min?: number, max?: number): string => {
     parts.push(`max ${max}`);
   }
 
-  return parts.join(' / ');
+  return parts.join(" / ");
 };
 
 /** The rate scaled to the current game size, e.g. "2-12", "8+" or "up to 4". */
@@ -80,17 +80,20 @@ const explainRate = (info: RateInfo): string => {
  * "min 1 / max 6 per 1,000 pts (≈ 2-12 at this size)". Used as the hover
  * tooltip. Returns undefined when the troop carries no constraints.
  */
-export const explainMinMax = (troop: MinMaxSource, gameSize: number): string | undefined => {
+export const explainMinMax = (
+  troop: MinMaxSource,
+  gameSize: number,
+): string | undefined => {
   const info = resolveMinMax(troop, gameSize);
 
   switch (info?.kind) {
-    case 'army':
+    case "army":
       return explainArmy(info);
-    case 'elite':
+    case "elite":
       return explainElite(info);
-    case 'token':
+    case "token":
       return explainToken(info);
-    case 'rate':
+    case "rate":
       return explainRate(info);
     default:
       return undefined;

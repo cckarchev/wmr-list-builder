@@ -1,16 +1,16 @@
-import type { UnitState } from '@/core/army-state/types';
-import { isCharacter } from '@/core/army-state/unitTypes';
-import { matchesQuery } from '@/core/lib/textSearch';
-import { resolveBounds } from '@/core/limits/forceLimits';
+import type { UnitState } from "@/core/army-state/types";
+import { isCharacter } from "@/core/army-state/unitTypes";
+import { matchesQuery } from "@/core/lib/textSearch";
+import { resolveBounds } from "@/core/limits/forceLimits";
 
 const TROOP_TYPE_ORDER = [
-  'Infantry',
-  'Cavalry',
-  'Chariot',
-  'Monster',
-  'Artillery',
-  'Machine',
-  'Special',
+  "Infantry",
+  "Cavalry",
+  "Chariot",
+  "Monster",
+  "Artillery",
+  "Machine",
+  "Special",
 ];
 
 export interface RosterGroup {
@@ -28,7 +28,7 @@ export interface RosterGroup {
  */
 export const groupRosterUnits = (
   units: Record<string, UnitState>,
-  query = '',
+  query = "",
   gameSize?: number,
 ): RosterGroup[] => {
   const matches = (id: string) => matchesQuery(units[id].name, query);
@@ -58,8 +58,12 @@ export const groupRosterUnits = (
       return ids;
     }
 
-    const mandatory = ids.filter((id) => resolveBounds(units[id], gameSize).min > 0);
-    const rest = ids.filter((id) => resolveBounds(units[id], gameSize).min === 0);
+    const mandatory = ids.filter(
+      (id) => resolveBounds(units[id], gameSize).min > 0,
+    );
+    const rest = ids.filter(
+      (id) => resolveBounds(units[id], gameSize).min === 0,
+    );
 
     return [...mandatory, ...rest];
   };
@@ -67,7 +71,10 @@ export const groupRosterUnits = (
   const groups: RosterGroup[] = [];
 
   if (characters.length > 0) {
-    groups.push({ label: 'Characters', unitIds: sortMandatoryFirst(characters) });
+    groups.push({
+      label: "Characters",
+      unitIds: sortMandatoryFirst(characters),
+    });
   }
 
   for (const type of TROOP_TYPE_ORDER) {

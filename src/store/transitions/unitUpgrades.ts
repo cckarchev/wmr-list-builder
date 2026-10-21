@@ -1,6 +1,10 @@
-import { unitUpgradePointsCost } from '@/core/army-state/pricing';
-import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
-import { clamp } from '@/core/lib/counts';
+import { unitUpgradePointsCost } from "@/core/army-state/pricing";
+import type {
+  UnitState,
+  UnitUpgradeEntry,
+  UpgradeState,
+} from "@/core/army-state/types";
+import { clamp } from "@/core/lib/counts";
 
 export type UnitUpgrades = Record<string, UnitUpgradeEntry>;
 
@@ -10,7 +14,11 @@ const emptyEntry = (): UnitUpgradeEntry => ({ number: 0, pointsCost: 0 });
  * `addOnUpgrades` come and go with their upgrade: removed from the unit when
  * the upgrade drops to zero, added when it is first taken.
  */
-const syncAddOns = (upgrade: UpgradeState, unitUpgrades: UnitUpgrades, number: number): void => {
+const syncAddOns = (
+  upgrade: UpgradeState,
+  unitUpgrades: UnitUpgrades,
+  number: number,
+): void => {
   const addOns = upgrade.addOnUpgrades ?? [];
 
   if (number <= 0) {
@@ -74,7 +82,13 @@ export const capUnitUpgrades = (
     const taken = unitUpgrades[upgradeId]?.number ?? 0;
 
     if (taken > unit.number) {
-      applyUnitUpgradeNumber(upgrades, unit, unitUpgrades, upgradeId, unit.number);
+      applyUnitUpgradeNumber(
+        upgrades,
+        unit,
+        unitUpgrades,
+        upgradeId,
+        unit.number,
+      );
     }
   }
 

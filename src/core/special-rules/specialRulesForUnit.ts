@@ -1,6 +1,6 @@
-import type { UnitState } from '@/core/army-state/types';
-import type { SpecialRule } from '@/data/types';
-import { byRuleOrder } from './ruleOrder';
+import type { UnitState } from "@/core/army-state/types";
+import type { SpecialRule } from "@/data/types";
+import { byRuleOrder } from "./ruleOrder";
 
 export interface ResolvedRule {
   id: string;
@@ -14,7 +14,7 @@ export interface ResolvedRule {
  */
 export const resolveUnitSpecialRules = (
   unitId: string,
-  unit: Pick<UnitState, 'specialRules'>,
+  unit: Pick<UnitState, "specialRules">,
   allRules: Record<string, SpecialRule> | undefined,
 ): ResolvedRule[] => {
   if (!allRules) {
@@ -24,5 +24,7 @@ export const resolveUnitSpecialRules = (
   const candidates = [unitId, ...(unit.specialRules ?? [])];
   const ids = [...new Set(candidates)].filter((id) => allRules[id]);
 
-  return ids.map((id) => ({ id, rule: allRules[id] })).sort((a, b) => byRuleOrder(a.rule, b.rule));
+  return ids
+    .map((id) => ({ id, rule: allRules[id] }))
+    .sort((a, b) => byRuleOrder(a.rule, b.rule));
 };

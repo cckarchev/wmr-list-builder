@@ -1,7 +1,7 @@
-import { type ReactNode, type RefObject, useRef } from 'react';
-import { PopupHeading } from '@/components/popup-heading/PopupHeading';
-import { useViewportShift } from '@/hooks/useViewportShift';
-import styles from './ActionPanel.module.css';
+import { type ReactNode, type RefObject, useRef } from "react";
+import { PopupHeading } from "@/components/popup-heading/PopupHeading";
+import { useViewportShift } from "@/hooks/useViewportShift";
+import styles from "./ActionPanel.module.css";
 
 interface ActionPanelProps {
   /** Accessible name of the dialog. */
@@ -19,7 +19,13 @@ interface ActionPanelProps {
  * only mounts while open, and shifts sideways when its trigger sits too close
  * to a screen edge for the panel to fit, as on a phone.
  */
-export const ActionPanel = ({ label, heading, onClose, children, ref }: ActionPanelProps) => {
+export const ActionPanel = ({
+  label,
+  heading,
+  onClose,
+  children,
+  ref,
+}: ActionPanelProps) => {
   const ownRef = useRef<HTMLDivElement>(null);
   const panelRef = ref ?? ownRef;
   const isOpen = true;

@@ -1,6 +1,6 @@
-import { Markdown } from '@/components/Markdown';
-import type { ResolvedRule } from '@/core/special-rules/specialRulesForUnit';
-import styles from './RuleList.module.css';
+import { Markdown } from "@/components/Markdown";
+import type { ResolvedRule } from "@/core/special-rules/specialRulesForUnit";
+import styles from "./RuleList.module.css";
 
 interface RuleListProps {
   rules: ResolvedRule[];

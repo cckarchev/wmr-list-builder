@@ -1,4 +1,4 @@
-@import '@/theme/breakpoints.css';
+@import "@/theme/breakpoints.css";
 
 /* The card is a size container, so its layout follows its own width (which
    depends on the roster column) rather than the viewport's. */
@@ -106,7 +106,7 @@
 /* The troop/character type as a quiet inline tag after the name. Shown only
    when it isn't already stated by the section header. */
 .typeTag {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
 }
 
 /* Holds the Rules/Spells popovers and the Upgrades toggle as one consistent row

@@ -1,6 +1,6 @@
-import { readJson, writeJson } from './storage';
+import { readJson, writeJson } from "./storage";
 
-const STORAGE_KEY = 'wmr:printSectionOrder';
+const STORAGE_KEY = "wmr:printSectionOrder";
 
 /** Remember the order of the print sections, so the next sheet prints them the same way. */
 export const saveSectionOrder = (order: readonly string[]): void => {
@@ -15,5 +15,5 @@ export const loadSectionOrder = (): string[] => {
     return [];
   }
 
-  return stored.filter((id): id is string => typeof id === 'string');
+  return stored.filter((id): id is string => typeof id === "string");
 };

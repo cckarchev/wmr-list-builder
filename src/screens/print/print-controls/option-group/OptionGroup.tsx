@@ -1,5 +1,5 @@
-import { type ReactNode, useId } from 'react';
-import styles from './OptionGroup.module.css';
+import { type ReactNode, useId } from "react";
+import styles from "./OptionGroup.module.css";
 
 interface OptionGroupProps {
   label: string;

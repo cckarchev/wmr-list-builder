@@ -1,6 +1,6 @@
-import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
-import { useArmyStore } from './useArmyStore';
-import { useListSnapshot } from './useListSnapshot';
+import { encodeListFor } from "@/core/persistence/list-codec/listCodec";
+import { useArmyStore } from "./useArmyStore";
+import { useListSnapshot } from "./useListSnapshot";
 
 /**
  * True when the current list differs from the last Saved/Loaded named list.

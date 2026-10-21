@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
-import { Button } from '@/components/button/Button';
-import { Icon, type IconName } from '@/components/Icon';
-import { PopupAnchor } from '../popup-anchor/PopupAnchor';
-import { CopyBubble } from './copy-bubble/CopyBubble';
-import { useCopyFeedback } from './useCopyFeedback';
+import type { ReactNode } from "react";
+import { Button } from "@/components/button/Button";
+import { Icon, type IconName } from "@/components/Icon";
+import { PopupAnchor } from "../popup-anchor/PopupAnchor";
+import { CopyBubble } from "./copy-bubble/CopyBubble";
+import { useCopyFeedback } from "./useCopyFeedback";
 
 interface CopyButtonProps {
   icon: IconName;
@@ -41,14 +41,24 @@ export const CopyButton = ({
 
   return (
     <PopupAnchor>
-      <Button variant="ghost" size="sm" onClick={handleCopy} disabled={disabled} title={title}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={handleCopy}
+        disabled={disabled}
+        title={title}
+      >
         <Icon name={icon} />
         {children}
       </Button>
       {/* Always mounted so screen readers announce the bubble when it appears. */}
       <span role="status">
-        {status === 'copied' && <CopyBubble tone="success">{copiedMessage}</CopyBubble>}
-        {status === 'failed' && <CopyBubble tone="error">Copy failed</CopyBubble>}
+        {status === "copied" && (
+          <CopyBubble tone="success">{copiedMessage}</CopyBubble>
+        )}
+        {status === "failed" && (
+          <CopyBubble tone="error">Copy failed</CopyBubble>
+        )}
       </span>
     </PopupAnchor>
   );

@@ -1,6 +1,11 @@
-import type { ArmyPools, UnitState, UnitUpgradeEntry, UpgradeState } from './types';
+import type {
+  ArmyPools,
+  UnitState,
+  UnitUpgradeEntry,
+  UpgradeState,
+} from "./types";
 
-export type UsedUnit = Omit<UnitState, 'upgrades'> & {
+export type UsedUnit = Omit<UnitState, "upgrades"> & {
   upgrades?: Record<string, UpgradeState & UnitUpgradeEntry>;
 };
 
@@ -16,11 +21,17 @@ export const usedUnits = (state: ArmyPools): Record<string, UsedUnit> =>
       if (upgrades) {
         used.upgrades = Object.keys(upgrades)
           .filter((upgradeId) => upgrades[upgradeId].number > 0)
-          .reduce<Record<string, UpgradeState & UnitUpgradeEntry>>((upAcc, upgradeId) => {
-            upAcc[upgradeId] = { ...state.upgrades[upgradeId], ...upgrades[upgradeId] };
+          .reduce<Record<string, UpgradeState & UnitUpgradeEntry>>(
+            (upAcc, upgradeId) => {
+              upAcc[upgradeId] = {
+                ...state.upgrades[upgradeId],
+                ...upgrades[upgradeId],
+              };
 
-            return upAcc;
-          }, {});
+              return upAcc;
+            },
+            {},
+          );
       }
 
       acc[unitId] = used;

@@ -1,11 +1,15 @@
-import { breakPoint, pointsCost, unitCount } from '@/core/army-state/armyTotals';
-import { globalErrors } from '@/core/validation/errorTargets';
-import { useArmyStore } from '@/store/useArmyStore';
-import { GameSizeStepper } from './game-size-stepper/GameSizeStepper';
-import { LoadWarning } from './load-warning/LoadWarning';
-import styles from './StatusStrip.module.css';
-import { Stat } from './stat/Stat';
-import { ValidityBadge } from './validity-badge/ValidityBadge';
+import {
+  breakPoint,
+  pointsCost,
+  unitCount,
+} from "@/core/army-state/armyTotals";
+import { globalErrors } from "@/core/validation/errorTargets";
+import { useArmyStore } from "@/store/useArmyStore";
+import { GameSizeStepper } from "./game-size-stepper/GameSizeStepper";
+import { LoadWarning } from "./load-warning/LoadWarning";
+import styles from "./StatusStrip.module.css";
+import { Stat } from "./stat/Stat";
+import { ValidityBadge } from "./validity-badge/ValidityBadge";
 
 /** Game size, list totals, validity and list-wide messages. */
 export const StatusStrip = () => {

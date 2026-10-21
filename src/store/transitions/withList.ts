@@ -1,6 +1,10 @@
-import type { ListSnapshot } from '@/core/persistence/snapshot';
-import { type ArmyData, initializeState } from '../armyData';
-import { withGameSize, withUnitNumber, withUnitUpgradeNumber } from './transitions';
+import type { ListSnapshot } from "@/core/persistence/snapshot";
+import { type ArmyData, initializeState } from "../armyData";
+import {
+  withGameSize,
+  withUnitNumber,
+  withUnitUpgradeNumber,
+} from "./transitions";
 
 const withSnapshotUnits = (state: ArmyData, snap: ListSnapshot): ArmyData => {
   let next = state;
@@ -14,7 +18,10 @@ const withSnapshotUnits = (state: ArmyData, snap: ListSnapshot): ArmyData => {
   return next;
 };
 
-const withSnapshotUpgrades = (state: ArmyData, snap: ListSnapshot): ArmyData => {
+const withSnapshotUpgrades = (
+  state: ArmyData,
+  snap: ListSnapshot,
+): ArmyData => {
   let next = state;
 
   for (const [unitId, unitUpgrades] of Object.entries(snap.upgrades)) {
@@ -22,10 +29,15 @@ const withSnapshotUpgrades = (state: ArmyData, snap: ListSnapshot): ArmyData => 
       continue;
     }
 
-    const knownUpgrades = Object.entries(unitUpgrades).filter(([id]) => next.upgrades[id]);
+    const knownUpgrades = Object.entries(unitUpgrades).filter(
+      ([id]) => next.upgrades[id],
+    );
 
     for (const [upgradeId, count] of knownUpgrades) {
-      next = { ...next, ...withUnitUpgradeNumber(next, unitId, upgradeId, count) };
+      next = {
+        ...next,
+        ...withUnitUpgradeNumber(next, unitId, upgradeId, count),
+      };
     }
   }
 
@@ -37,9 +49,16 @@ const withSnapshotUpgrades = (state: ArmyData, snap: ListSnapshot): ArmyData => 
  * a previously loaded list don't carry over into this one (the snapshot only
  * carries non-zero entries, so anything omitted must be reset, not left as-is).
  */
-export const withList = (state: ArmyData, snap: ListSnapshot): Partial<ArmyData> => {
+export const withList = (
+  state: ArmyData,
+  snap: ListSnapshot,
+): Partial<ArmyData> => {
   const fresh = state.armyId ? initializeState(state.armyId) : state;
-  const baseline: ArmyData = { ...state, units: fresh.units, upgrades: fresh.upgrades };
+  const baseline: ArmyData = {
+    ...state,
+    units: fresh.units,
+    upgrades: fresh.upgrades,
+  };
   const sized: ArmyData = {
     ...baseline,
     ...withGameSize(baseline, snap.gameSize),

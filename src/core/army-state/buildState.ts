@@ -1,5 +1,10 @@
-import type { MagicItem, Unit, Upgrade, UpgradeConstraint } from '@/data/types';
-import { NO_STAT, type UnitState, type UnitUpgradeEntry, type UpgradeState } from './types';
+import type { MagicItem, Unit, Upgrade, UpgradeConstraint } from "@/data/types";
+import {
+  NO_STAT,
+  type UnitState,
+  type UnitUpgradeEntry,
+  type UpgradeState,
+} from "./types";
 
 /**
  * Build the global upgrades map from army upgrades plus (when present)
@@ -11,7 +16,9 @@ export const buildUpgrades = (
   armyUpgrades: Record<string, Upgrade> | undefined,
   magicUpgrades: Record<string, MagicItem> | undefined,
 ): Record<string, UpgradeState> => {
-  const merged: Record<string, Upgrade | MagicItem> = { ...(armyUpgrades || {}) };
+  const merged: Record<string, Upgrade | MagicItem> = {
+    ...(armyUpgrades || {}),
+  };
 
   if (magicUpgrades) {
     Object.assign(merged, magicUpgrades);
@@ -33,13 +40,17 @@ export const buildUpgrades = (
  * the unit's type, armour and hits must match, and magic constraints skip
  * units that cannot take magic items.
  */
-export const constraintApplies = (unit: Unit, constraint: UpgradeConstraint): boolean => {
+export const constraintApplies = (
+  unit: Unit,
+  constraint: UpgradeConstraint,
+): boolean => {
   if (unit.noMagic && constraint.magic) {
     return false;
   }
 
   const typeMatches = constraint.unitType.includes(unit.type);
-  const armourMatches = constraint.unitArmour?.includes(unit.armour || NO_STAT) ?? true;
+  const armourMatches =
+    constraint.unitArmour?.includes(unit.armour || NO_STAT) ?? true;
   const hitsMatch = constraint.unitHits?.includes(unit.hits ?? NO_STAT) ?? true;
 
   return typeMatches && armourMatches && hitsMatch;
@@ -64,20 +75,25 @@ export const buildUnits = (
 
     // A unit with neither its own upgrades nor attached ones gets no upgrades map.
     const hasUpgrades = source.upgrades !== undefined || attached.length > 0;
-    const upgradeIds = hasUpgrades ? [...(source.upgrades ?? []), ...attached] : undefined;
+    const upgradeIds = hasUpgrades
+      ? [...(source.upgrades ?? []), ...attached]
+      : undefined;
 
     const unit: UnitState = {
-      ...(source as Omit<Unit, 'upgrades'>),
+      ...(source as Omit<Unit, "upgrades">),
       number: 0,
       pointsCost: 0,
     };
 
     if (upgradeIds) {
-      unit.upgrades = upgradeIds.reduce<Record<string, UnitUpgradeEntry>>((acc, id) => {
-        acc[id] = { number: 0, pointsCost: 0 };
+      unit.upgrades = upgradeIds.reduce<Record<string, UnitUpgradeEntry>>(
+        (acc, id) => {
+          acc[id] = { number: 0, pointsCost: 0 };
 
-        return acc;
-      }, {});
+          return acc;
+        },
+        {},
+      );
     }
 
     result[unitId] = unit;

@@ -1,17 +1,18 @@
-import { Markdown } from '@/components/Markdown';
-import { byRuleOrder } from '@/core/special-rules/ruleOrder';
-import { collectUsedSpecialRules } from '@/core/special-rules/usedSpecialRules';
-import type { SpecialRule } from '@/data/types';
-import { useArmyStore } from '@/store/useArmyStore';
+import { Markdown } from "@/components/Markdown";
+import { byRuleOrder } from "@/core/special-rules/ruleOrder";
+import { collectUsedSpecialRules } from "@/core/special-rules/usedSpecialRules";
+import type { SpecialRule } from "@/data/types";
+import { useArmyStore } from "@/store/useArmyStore";
 import {
   DefDesc,
   DefList,
   DefTerm,
   PrintHeading,
   PrintSection,
-} from './print-section/PrintSection';
+} from "./print-section/PrintSection";
 
-const byOrder = ([, a]: [string, SpecialRule], [, b]: [string, SpecialRule]) => byRuleOrder(a, b);
+const byOrder = ([, a]: [string, SpecialRule], [, b]: [string, SpecialRule]) =>
+  byRuleOrder(a, b);
 
 export const SpecialRules = () => {
   const allSpecialRules = useArmyStore((s) => s.specialRules);
@@ -35,7 +36,7 @@ export const SpecialRules = () => {
       <DefList>
         {sorted.flatMap(([id, rule]) => [
           <DefTerm key={`dt_${id}`}>
-            {rule.order == null ? '' : `${rule.order}. `}
+            {rule.order == null ? "" : `${rule.order}. `}
             {rule.name}
           </DefTerm>,
           <DefDesc key={`dd_${id}`}>

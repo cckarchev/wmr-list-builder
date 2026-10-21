@@ -13,7 +13,11 @@ export interface SheetBlock {
  * headings right above it move to the new page with it, as long as they do not
  * already start the current page.
  */
-const breakWithHeadings = (blocks: SheetBlock[], index: number, pageStart: number): number => {
+const breakWithHeadings = (
+  blocks: SheetBlock[],
+  index: number,
+  pageStart: number,
+): number => {
   let start = blocks[index].top;
 
   for (let previous = index - 1; previous >= 0; previous--) {
@@ -36,7 +40,10 @@ const breakWithHeadings = (blocks: SheetBlock[], index: number, pageStart: numbe
  * taller than a whole page is cut at each page end, and a forced break always
  * starts a new page.
  */
-export const pageBreaks = (blocks: SheetBlock[], pageHeight: number): number[] => {
+export const pageBreaks = (
+  blocks: SheetBlock[],
+  pageHeight: number,
+): number[] => {
   const ordered = [...blocks].sort((a, b) => a.top - b.top);
   const breaks: number[] = [];
   let pageStart = 0;

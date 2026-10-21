@@ -1,10 +1,10 @@
-import { Stepper } from '@/components/stepper/Stepper';
-import type { UnitState } from '@/core/army-state/types';
-import { resolveBounds } from '@/core/limits/forceLimits';
-import { minMaxHint } from '@/core/limits/min-max/minMaxHint';
-import { useArmyStore } from '@/store/useArmyStore';
-import { LimitBadge } from '../shared/LimitBadge';
-import styles from './CardControls.module.css';
+import { Stepper } from "@/components/stepper/Stepper";
+import type { UnitState } from "@/core/army-state/types";
+import { resolveBounds } from "@/core/limits/forceLimits";
+import { minMaxHint } from "@/core/limits/min-max/minMaxHint";
+import { useArmyStore } from "@/store/useArmyStore";
+import { LimitBadge } from "../shared/LimitBadge";
+import styles from "./CardControls.module.css";
 
 interface CardControlsProps {
   unitId: string;
@@ -40,13 +40,17 @@ export const CardControls = ({ unitId, unit }: CardControlsProps) => {
         />
       </div>
       <div className={styles.meta}>
-        {selected && <span className={styles.pts}>= {unit.pointsCost} pts</span>}
+        {selected && (
+          <span className={styles.pts}>= {unit.pointsCost} pts</span>
+        )}
         {selected && restriction && (
           <span className={styles.separator} aria-hidden="true">
             ·
           </span>
         )}
-        {restriction && <LimitBadge hint={restriction} className={styles.restriction} />}
+        {restriction && (
+          <LimitBadge hint={restriction} className={styles.restriction} />
+        )}
       </div>
     </div>
   );

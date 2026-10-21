@@ -37,13 +37,13 @@
    there, so ticking a chip does not change its width. The empty alt text keeps
    the mark out of the checkbox's accessible name. */
 .option::before {
-  content: '' / '';
+  content: "" / "";
   width: 1ch;
   text-align: center;
 }
 
 .option:has(.input:checked)::before {
-  content: '✓' / '';
+  content: "✓" / "";
 }
 
 .option:has(.input:focus-visible) {

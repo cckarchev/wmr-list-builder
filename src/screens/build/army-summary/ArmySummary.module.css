@@ -1,4 +1,4 @@
-@import '@/theme/breakpoints.css';
+@import "@/theme/breakpoints.css";
 
 .aside {
   display: flex;
@@ -42,7 +42,7 @@
   transition: transform var(--duration-fast);
 }
 
-.heading[aria-expanded='true'] .caret {
+.heading[aria-expanded="true"] .caret {
   transform: rotate(90deg);
 }
 
@@ -57,7 +57,7 @@
 }
 
 /* Once expanded, the total row inside the body takes over from the peek. */
-.heading[aria-expanded='true'] .peek {
+.heading[aria-expanded="true"] .peek {
   display: none;
 }
 

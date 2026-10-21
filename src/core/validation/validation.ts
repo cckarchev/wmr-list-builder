@@ -1,14 +1,18 @@
-import { pointsCost } from '@/core/army-state/armyTotals';
-import type { ArmyPools, UnitState, UpgradeState } from '@/core/army-state/types';
-import { formatPoints } from '@/core/lib/quantities';
-import { armySize } from '@/core/limits/armySize';
-import type { ValidationError } from '@/data/types';
-import { errorKey } from './errorTargets';
-import { namesOf } from './namesOf';
-import { itemErrors } from './rules/rules';
-import type { RequiredGroup, ValidatableItem } from './rules/types';
-import { toSentence } from './toSentence';
-import { totalNumber } from './totalNumber';
+import { pointsCost } from "@/core/army-state/armyTotals";
+import type {
+  ArmyPools,
+  UnitState,
+  UpgradeState,
+} from "@/core/army-state/types";
+import { formatPoints } from "@/core/lib/quantities";
+import { armySize } from "@/core/limits/armySize";
+import type { ValidationError } from "@/data/types";
+import { errorKey } from "./errorTargets";
+import { namesOf } from "./namesOf";
+import { itemErrors } from "./rules/rules";
+import type { RequiredGroup, ValidatableItem } from "./rules/types";
+import { toSentence } from "./toSentence";
+import { totalNumber } from "./totalNumber";
 
 type Pool = Record<string, { name: string; number: number }>;
 
@@ -28,7 +32,10 @@ const inPoolOrder = (ids: string[], pool: Pool): string[] => {
 };
 
 /** The ids an item lists as counting together with it, and the pool they live in. */
-const homologousIds = (item: ValidatableItem, { units, upgrades }: ArmyPools) => {
+const homologousIds = (
+  item: ValidatableItem,
+  { units, upgrades }: ArmyPools,
+) => {
   if (item.homologousUnits) {
     return { ids: item.homologousUnits, pool: units };
   }
@@ -44,7 +51,11 @@ const homologousIds = (item: ValidatableItem, { units, upgrades }: ArmyPools) =>
  * The items that count together toward this one's limits, itself included, in
  * their listed order, and how many of the others are taken.
  */
-const homologousGroup = (itemId: string, item: ValidatableItem, pools: ArmyPools) => {
+const homologousGroup = (
+  itemId: string,
+  item: ValidatableItem,
+  pools: ArmyPools,
+) => {
   const homologous = homologousIds(item, pools);
 
   if (!homologous) {
@@ -61,7 +72,10 @@ const homologousGroup = (itemId: string, item: ValidatableItem, pools: ArmyPools
   };
 };
 
-const toRequired = ({ names, count }: ReturnType<typeof poolGroup>): RequiredGroup => ({
+const toRequired = ({
+  names,
+  count,
+}: ReturnType<typeof poolGroup>): RequiredGroup => ({
   count,
   sentence: toSentence(names),
 });
@@ -111,7 +125,10 @@ const checkItem = (
 };
 
 /** List-level points ceiling, attributed to no unit in particular. */
-const overCapError = (units: Record<string, UnitState>, gameSize: number): ValidationError[] => {
+const overCapError = (
+  units: Record<string, UnitState>,
+  gameSize: number,
+): ValidationError[] => {
   const excess = pointsCost({ units }) - gameSize;
 
   if (excess <= 0) {
@@ -120,7 +137,9 @@ const overCapError = (units: Record<string, UnitState>, gameSize: number): Valid
 
   const cap = formatPoints(gameSize);
 
-  return [{ targets: [], message: `List is ${excess} points over the ${cap} cap.` }];
+  return [
+    { targets: [], message: `List is ${excess} points over the ${cap} cap.` },
+  ];
 };
 
 /**
@@ -152,5 +171,9 @@ export const validate = (
     checkItem(id, upgrade, pools, gameSize),
   );
 
-  return dropRepeated([...overCapError(units, gameSize), ...unitErrors, ...upgradeErrors]);
+  return dropRepeated([
+    ...overCapError(units, gameSize),
+    ...unitErrors,
+    ...upgradeErrors,
+  ]);
 };

@@ -1,4 +1,4 @@
-import type { Army, MagicItemsFile, RawArmy, RawMagicItemsFile } from './types';
+import type { Army, MagicItemsFile, RawArmy, RawMagicItemsFile } from "./types";
 
 /**
  * Key a list of entities by their id, keeping list order. Throws on a
@@ -46,7 +46,9 @@ export const normalizeArmy = (raw: RawArmy): Army => {
 };
 
 /** Turn the stored magic items (a list) into a record by id. */
-export const normalizeMagicItems = (raw: RawMagicItemsFile): MagicItemsFile => ({
+export const normalizeMagicItems = (
+  raw: RawMagicItemsFile,
+): MagicItemsFile => ({
   ...raw,
-  upgrades: indexById(raw.upgrades, 'magic items'),
+  upgrades: indexById(raw.upgrades, "magic items"),
 });

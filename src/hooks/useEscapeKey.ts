@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent } from 'react';
+import { useEffect, useEffectEvent } from "react";
 
 type EscapeHandler = () => void;
 
@@ -11,7 +11,7 @@ const handlerStack: EscapeHandler[] = [];
 const dispatchEscape = (event: KeyboardEvent) => {
   const topHandler = handlerStack.at(-1);
 
-  if (event.key !== 'Escape' || !topHandler) {
+  if (event.key !== "Escape" || !topHandler) {
     return;
   }
 
@@ -20,7 +20,7 @@ const dispatchEscape = (event: KeyboardEvent) => {
 
 const pushHandler = (handler: EscapeHandler) => {
   if (handlerStack.length === 0) {
-    document.addEventListener('keydown', dispatchEscape);
+    document.addEventListener("keydown", dispatchEscape);
   }
 
   handlerStack.push(handler);
@@ -34,7 +34,7 @@ const removeHandler = (handler: EscapeHandler) => {
   }
 
   if (handlerStack.length === 0) {
-    document.removeEventListener('keydown', dispatchEscape);
+    document.removeEventListener("keydown", dispatchEscape);
   }
 };
 

@@ -10,7 +10,12 @@ interface AbovePlacement {
 }
 
 /** Whether a bubble opened above its trigger stays fully visible. */
-export const fitsAbove = ({ triggerTop, bubbleHeight, gap, topInset }: AbovePlacement): boolean => {
+export const fitsAbove = ({
+  triggerTop,
+  bubbleHeight,
+  gap,
+  topInset,
+}: AbovePlacement): boolean => {
   const bubbleTop = triggerTop - gap - bubbleHeight;
 
   return bubbleTop >= topInset;

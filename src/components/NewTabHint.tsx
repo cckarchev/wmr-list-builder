@@ -1,5 +1,5 @@
 /** Read out after the link's name, so the new tab is not a silent context change. */
-const NEW_TAB_HINT = 'Opens in a new tab';
+const NEW_TAB_HINT = "Opens in a new tab";
 
 interface NewTabHintProps {
   /** Referenced by the link's aria-describedby. */

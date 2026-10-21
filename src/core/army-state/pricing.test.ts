@@ -1,33 +1,33 @@
-import { describe, expect, it } from 'vitest';
-import { resolveUpgradePoints } from './pricing';
+import { describe, expect, it } from "vitest";
+import { resolveUpgradePoints } from "./pricing";
 
 const FLAT_PRICE = 25;
 
-describe('resolveUpgradePoints', () => {
-  it('returns a flat scalar price for fixed-price upgrades', () => {
+describe("resolveUpgradePoints", () => {
+  it("returns a flat scalar price for fixed-price upgrades", () => {
     expect(resolveUpgradePoints({ points: FLAT_PRICE })).toBe(FLAT_PRICE);
-    expect(resolveUpgradePoints({ points: '15' })).toBe('15');
+    expect(resolveUpgradePoints({ points: "15" })).toBe("15");
   });
 
-  it('returns undefined for a fixed-price upgrade with no price', () => {
+  it("returns undefined for a fixed-price upgrade with no price", () => {
     expect(resolveUpgradePoints({})).toBeUndefined();
   });
 
-  it('looks up the price by the unit stat named in pointsValue', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30', '4': '40' } };
+  it("looks up the price by the unit stat named in pointsValue", () => {
+    const upgrade = { pointsValue: "size", points: { "3": "30", "4": "40" } };
 
-    expect(resolveUpgradePoints(upgrade, { size: 3 })).toBe('30');
-    expect(resolveUpgradePoints(upgrade, { size: 4 })).toBe('40');
+    expect(resolveUpgradePoints(upgrade, { size: 3 })).toBe("30");
+    expect(resolveUpgradePoints(upgrade, { size: 4 })).toBe("40");
   });
 
-  it('returns undefined when the unit stat has no matching price entry', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30' } };
+  it("returns undefined when the unit stat has no matching price entry", () => {
+    const upgrade = { pointsValue: "size", points: { "3": "30" } };
 
     expect(resolveUpgradePoints(upgrade, { size: 9 })).toBeUndefined();
   });
 
-  it('returns undefined for a variable-price upgrade with no unit context', () => {
-    const upgrade = { pointsValue: 'size', points: { '3': '30' } };
+  it("returns undefined for a variable-price upgrade with no unit context", () => {
+    const upgrade = { pointsValue: "size", points: { "3": "30" } };
 
     expect(resolveUpgradePoints(upgrade)).toBeUndefined();
   });

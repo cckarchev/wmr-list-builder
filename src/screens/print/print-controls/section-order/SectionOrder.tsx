@@ -1,10 +1,10 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { Popover } from '@/components/popover/Popover';
-import type { OrderStep } from '@/core/print/sectionOrder';
-import type { PrintSectionDef } from '../../sections/printSections';
-import styles from './SectionOrder.module.css';
+import { useLayoutEffect, useRef, useState } from "react";
+import { Popover } from "@/components/popover/Popover";
+import type { OrderStep } from "@/core/print/sectionOrder";
+import type { PrintSectionDef } from "../../sections/printSections";
+import styles from "./SectionOrder.module.css";
 
-const TITLE = 'Reorder sections';
+const TITLE = "Reorder sections";
 
 const UP: OrderStep = -1;
 const DOWN: OrderStep = 1;
@@ -22,12 +22,13 @@ interface MoveButtonProps {
 }
 
 const ARROWS: Record<OrderStep, { glyph: string; direction: string }> = {
-  [UP]: { glyph: '↑', direction: 'up' },
-  [DOWN]: { glyph: '↓', direction: 'down' },
+  [UP]: { glyph: "↑", direction: "up" },
+  [DOWN]: { glyph: "↓", direction: "down" },
 };
 
 /** A selector for one row's arrow button, so focus can follow the moved row. */
-const arrowSelector = ({ id, step }: Move): string => `[data-id="${id}"][data-step="${step}"]`;
+const arrowSelector = ({ id, step }: Move): string =>
+  `[data-id="${id}"][data-step="${step}"]`;
 
 const MoveButton = ({ section, step, disabled, onMove }: MoveButtonProps) => {
   const { glyph, direction } = ARROWS[step];
@@ -71,9 +72,16 @@ export const SectionOrder = ({ sections, onMove }: SectionOrderProps) => {
       return;
     }
 
-    const opposite: Move = { id: lastMove.id, step: lastMove.step === UP ? DOWN : UP };
-    const pressed = list.querySelector<HTMLButtonElement>(arrowSelector(lastMove));
-    const fallback = list.querySelector<HTMLButtonElement>(arrowSelector(opposite));
+    const opposite: Move = {
+      id: lastMove.id,
+      step: lastMove.step === UP ? DOWN : UP,
+    };
+    const pressed = list.querySelector<HTMLButtonElement>(
+      arrowSelector(lastMove),
+    );
+    const fallback = list.querySelector<HTMLButtonElement>(
+      arrowSelector(opposite),
+    );
     const target = pressed && !pressed.disabled ? pressed : fallback;
 
     target?.focus();
@@ -104,7 +112,12 @@ export const SectionOrder = ({ sections, onMove }: SectionOrderProps) => {
             <span className={styles.title}>{section.title}</span>
 
             <span className={styles.arrows}>
-              <MoveButton section={section} step={UP} disabled={index === 0} onMove={move} />
+              <MoveButton
+                section={section}
+                step={UP}
+                disabled={index === 0}
+                onMove={move}
+              />
               <MoveButton
                 section={section}
                 step={DOWN}

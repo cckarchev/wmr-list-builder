@@ -6,7 +6,11 @@ export const toCount = (value: number): number => {
 };
 
 /** Keep `value` within [min, max]; an undefined `max` leaves it unbounded above. */
-export const clamp = (value: number, min: number, max: number | undefined): number => {
+export const clamp = (
+  value: number,
+  min: number,
+  max: number | undefined,
+): number => {
   if (value < min) {
     return min;
   }

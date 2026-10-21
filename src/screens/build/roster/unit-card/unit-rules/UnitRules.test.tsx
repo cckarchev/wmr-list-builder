@@ -1,25 +1,27 @@
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { useArmyStore } from '@/store/useArmyStore';
-import { renderWithProviders } from '@/test/renderWithProviders';
-import { UnitRules } from './UnitRules';
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it } from "vitest";
+import { useArmyStore } from "@/store/useArmyStore";
+import { renderWithProviders } from "@/test/renderWithProviders";
+import { UnitRules } from "./UnitRules";
 
 beforeEach(() => useArmyStore.getState().reset());
 
-describe('UnitRules', () => {
-  it('renders a Rules trigger for a unit that has rules and shows text on click', async () => {
+describe("UnitRules", () => {
+  it("renders a Rules trigger for a unit that has rules and shows text on click", async () => {
     const user = userEvent.setup();
-    useArmyStore.getState().setArmy('goblin');
+    useArmyStore.getState().setArmy("goblin");
     renderWithProviders(<UnitRules unitId="spearChukka" />);
-    const trigger = screen.getByRole('button', { name: 'Spear Chukka special rules' });
+    const trigger = screen.getByRole("button", {
+      name: "Spear Chukka special rules",
+    });
     await user.click(trigger);
 
-    expect(screen.getByRole('dialog')).toHaveTextContent(/Bolt Thrower/i);
+    expect(screen.getByRole("dialog")).toHaveTextContent(/Bolt Thrower/i);
   });
 
-  it('renders nothing for a unit without special rules', () => {
-    useArmyStore.getState().setArmy('goblin');
+  it("renders nothing for a unit without special rules", () => {
+    useArmyStore.getState().setArmy("goblin");
     const { container } = renderWithProviders(<UnitRules unitId="squigHerd" />);
 
     expect(container).toBeEmptyDOMElement();

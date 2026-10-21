@@ -1,6 +1,7 @@
-import { type RefObject, useEffect, useId, useRef } from 'react';
-import { Tooltip } from '@/components/tooltip/Tooltip';
-import styles from './Stepper.module.css';
+import { useId } from "react";
+import { Tooltip } from "@/components/tooltip/Tooltip";
+import styles from "./Stepper.module.css";
+import { useFocusHandOff } from "./useFocusHandOff";
 
 /** How much one press of either button changes the value. */
 const STEP = 1;
@@ -15,38 +16,33 @@ interface StepperProps {
   maxedHint?: string;
 }
 
-export const Stepper = ({ value, onChange, min, max, label, maxedHint }: StepperProps) => {
+export const Stepper = ({
+  value,
+  onChange,
+  min,
+  max,
+  label,
+  maxedHint,
+}: StepperProps) => {
   const hintId = useId();
-  const decreaseRef = useRef<HTMLButtonElement>(null);
-  const increaseRef = useRef<HTMLButtonElement>(null);
-  const focusAfterRender = useRef<RefObject<HTMLButtonElement | null> | undefined>(undefined);
+  const { decreaseRef, increaseRef, handOffToIncrease, handOffToDecrease } =
+    useFocusHandOff();
 
-  const isAtMin = (candidate: number): boolean => min !== undefined && candidate <= min;
+  const isAtMin = (candidate: number): boolean =>
+    min !== undefined && candidate <= min;
 
-  const isAtMax = (candidate: number): boolean => max !== undefined && candidate >= max;
+  const isAtMax = (candidate: number): boolean =>
+    max !== undefined && candidate >= max;
 
   const atMin = isAtMin(value);
   const atMax = isAtMax(value);
-
-  // A press that reaches an end disables the button it came from, which
-  // would drop keyboard focus to the page, so focus moves to the other
-  // button. That waits for the render with the new value: the other button
-  // may only just have been enabled by it.
-  useEffect(() => {
-    const target = focusAfterRender.current?.current;
-    focusAfterRender.current = undefined;
-
-    if (target && !target.disabled) {
-      target.focus();
-    }
-  });
 
   const decrease = () => {
     const next = value - STEP;
     onChange(next);
 
     if (isAtMin(next)) {
-      focusAfterRender.current = increaseRef;
+      handOffToIncrease();
     }
   };
 
@@ -55,7 +51,7 @@ export const Stepper = ({ value, onChange, min, max, label, maxedHint }: Stepper
     onChange(next);
 
     if (isAtMax(next)) {
-      focusAfterRender.current = decreaseRef;
+      handOffToDecrease();
     }
   };
 

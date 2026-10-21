@@ -1,13 +1,21 @@
-import { useState } from 'react';
-import { toggleMember } from '@/core/lib/sets';
-import { defaultSelectedIds, type PrintSectionDef } from '../sections/printSections';
+import { useState } from "react";
+import { toggleMember } from "@/core/lib/sets";
+import {
+  defaultSelectedIds,
+  type PrintSectionDef,
+} from "../sections/printSections";
 
 /**
  * Which print sections are included. Starts with every section selected but
  * those that start off, and resets to that whenever `resetKey` (the loaded army) changes.
  */
-export const useSectionSelection = (sections: PrintSectionDef[], resetKey: unknown) => {
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => defaultSelectedIds(sections));
+export const useSectionSelection = (
+  sections: PrintSectionDef[],
+  resetKey: unknown,
+) => {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() =>
+    defaultSelectedIds(sections),
+  );
   const [selectionKey, setSelectionKey] = useState(resetKey);
 
   // Adjusting state during render (React's recommended pattern) instead of in

@@ -1,4 +1,4 @@
-import { type RefCallback, useEffect, useState } from 'react';
+import { type RefCallback, useEffect, useState } from "react";
 
 interface ElementHeight<T extends HTMLElement> {
   /** Attach to the element to measure. */

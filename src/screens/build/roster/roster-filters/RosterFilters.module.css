@@ -48,8 +48,8 @@
 }
 
 /* Pressed toggles and chips share the accent treatment. */
-.toggle[aria-pressed='true'],
-.chip[aria-pressed='true'] {
+.toggle[aria-pressed="true"],
+.chip[aria-pressed="true"] {
   background: var(--color-bg-accent-tint);
   color: var(--color-accent);
   border-color: var(--color-border-accent);
@@ -60,7 +60,7 @@
   transition: transform var(--duration-fast);
 }
 
-.toggle[aria-expanded='true'] .caret {
+.toggle[aria-expanded="true"] .caret {
   transform: rotate(90deg);
 }
 

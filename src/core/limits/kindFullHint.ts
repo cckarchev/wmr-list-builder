@@ -1,5 +1,5 @@
-import { countOf } from '@/core/lib/quantities';
-import { countOfKind, kindOf, type SameKindInput } from './upgradeKinds';
+import { countOf } from "@/core/lib/quantities";
+import { countOfKind, kindOf, type SameKindInput } from "./upgradeKinds";
 
 interface KindFullInput extends SameKindInput {
   /** Stands in the unit: one slot per stand for each kind. */

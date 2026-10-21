@@ -1,4 +1,4 @@
-import type { RosterGroup } from './groupRosterUnits';
+import type { RosterGroup } from "./groupRosterUnits";
 
 interface RosterNarrowing {
   /** Show only the group with this label, or every group when null. */
@@ -14,7 +14,8 @@ export const narrowRosterGroups = (
   groups: RosterGroup[],
   { activeType, selectedOnly, countOf }: RosterNarrowing,
 ): RosterGroup[] => {
-  const matchesType = (group: RosterGroup) => activeType === null || group.label === activeType;
+  const matchesType = (group: RosterGroup) =>
+    activeType === null || group.label === activeType;
   const isSelected = (unitId: string) => countOf(unitId) > 0;
 
   const narrowUnits = (group: RosterGroup): RosterGroup => {
