@@ -38,6 +38,7 @@ npm-debug.log*
 # Deploy
 .netlify
 .vercel
+.wrangler
 
 # Superpowers specs/plans (local working docs)
 /docs

@@ -39,6 +39,7 @@ Vite serves the app and prints the local URL (default <http://localhost:5173/>).
 | `npm run lint`         | Lint, format, and import-order check with Biome       |
 | `npm run lint:fix`     | Apply all safe Biome fixes                            |
 | `npm run typecheck`    | Type-check without emitting                           |
+| `npm run deploy`       | Build and deploy to Cloudflare Workers                |
 
 ## Project layout
 
@@ -61,9 +62,13 @@ Army data lives in `src/data/armies/*.json` and is imported at build time via Vi
 
 ## Deployment
 
-The app is a static SPA. Build it and serve `dist/` on any static host (Cloudflare
-Pages, Netlify, etc.). `public/_redirects` provides the SPA fallback
-(`/*  /index.html  200`) so deep links like `/build/goblin` resolve.
+The site runs on Cloudflare Workers as static assets only, with no Worker script.
+`wrangler.jsonc` serves `dist/`, falls back to `index.html` for the app's routes (so deep
+links like `/build/goblin` resolve), and attaches the custom domain
+`wmr-list-builder.cckarchev.ar`.
+
+`npm run deploy` builds and uploads it with the project's own Wrangler. Log in once with
+`npx wrangler login` on an account that holds the `cckarchev.ar` zone.
 
 ## Saving & sharing
 
