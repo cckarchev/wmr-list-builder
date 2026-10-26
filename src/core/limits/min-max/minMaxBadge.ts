@@ -60,8 +60,9 @@ const rateBadge = ({ min, max, size }: RateInfo): string =>
 
 /**
  * Terse badge of a troop's effective min/max at the current game size, e.g.
- * "2-12", "min 8", "max 4", "exactly 1". The full rule is available via `explainMinMax`
- * (typically shown as a tooltip). Returns undefined when unconstrained.
+ * "2-12", "min 8", "max 4", "exactly 1". The full rule is available via
+ * `explainMinMax` (typically shown as a tooltip). Returns undefined when
+ * unconstrained.
  */
 export const minMaxBadge = (
   troop: MinMaxSource,

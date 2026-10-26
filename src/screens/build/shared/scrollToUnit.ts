@@ -2,7 +2,10 @@ import { unitDomId } from "./domIds";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
-/** Smooth scrolling animates, so it gives way to an instant jump under reduced motion. */
+/**
+ * Smooth scrolling animates, so it gives way to an instant jump under reduced
+ * motion.
+ */
 const scrollBehavior = (): ScrollBehavior => {
   const prefersReducedMotion =
     window.matchMedia?.(REDUCED_MOTION_QUERY).matches ?? false;

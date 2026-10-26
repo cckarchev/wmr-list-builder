@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 
-/** How long a copy button shows its confirmation or failure before resetting. */
+/**
+ * How long a copy button shows its confirmation or failure before resetting.
+ */
 const FEEDBACK_MS = 1500;
 
 type CopyStatus = "idle" | "copied" | "failed";
 
-/** The clipboard write, rejected when the API is missing (e.g. plain http) or denied. */
+/**
+ * The clipboard write, rejected when the API is missing (e.g. plain http) or
+ * denied.
+ */
 const writeToClipboard = (text: string): Promise<void> => {
   if (!navigator.clipboard) {
     return Promise.reject(new Error("Clipboard API unavailable"));
@@ -31,7 +36,8 @@ export const useCopyFeedback = () => {
   );
 
   const showFor = (result: CopyStatus) => {
-    // A second copy restarts the window instead of being cut short by the first.
+    // A second copy restarts the window instead of being cut short by the
+    // first.
     clearTimeout(resetTimer.current);
     setStatus(result);
     resetTimer.current = setTimeout(() => {

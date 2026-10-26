@@ -6,7 +6,9 @@ interface RenderWithProvidersOptions extends Omit<RenderOptions, "wrapper"> {
   routerProps?: MemoryRouterProps;
 }
 
-/** Renders inside a MemoryRouter, for components that use router hooks or links. */
+/**
+ * Renders inside a MemoryRouter, for components that use router hooks or links.
+ */
 export const renderWithProviders = (
   ui: ReactElement,
   { routerProps, ...options }: RenderWithProvidersOptions = {},

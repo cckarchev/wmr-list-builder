@@ -18,7 +18,10 @@ export const unitPointsCost = (unit: UnitState): number => {
   );
 };
 
-/** Minimal shape needed to price an upgrade, satisfied by army `Upgrade`, `MagicItem`, and `UpgradeState`. */
+/**
+ * Minimal shape needed to price an upgrade, satisfied by army `Upgrade`,
+ * `MagicItem`, and `UpgradeState`.
+ */
 interface PricedUpgrade {
   points?: StatValue | Record<string, string>;
   pointsValue?: string;

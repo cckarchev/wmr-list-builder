@@ -19,7 +19,8 @@ beforeEach(() => {
 describe("CopyListButton", () => {
   it("calls navigator.clipboard.writeText with a string containing the army name", async () => {
     const user = userEvent.setup();
-    // userEvent.setup() installs its own navigator.clipboard stub; re-assert our mock.
+    // userEvent.setup() installs its own navigator.clipboard stub; re-assert
+    // our mock.
     Object.defineProperty(navigator, "clipboard", {
       value: { writeText: mockWriteText },
       configurable: true,

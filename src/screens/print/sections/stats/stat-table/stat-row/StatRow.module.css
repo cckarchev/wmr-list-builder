@@ -3,7 +3,8 @@
 }
 
 /* The name cell lays out as a row so the special-rule marker can be pushed to
-   the cell's right edge, lining the markers into a column that's easy to scan. */
+   the cell's right edge, lining the markers into a column that's easy to
+   scan. */
 .nameCell {
   display: flex;
   align-items: baseline;

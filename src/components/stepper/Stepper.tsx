@@ -12,7 +12,10 @@ interface StepperProps {
   min?: number;
   max?: number;
   label: string;
-  /** Why the value can't go higher, shown as a tooltip on the spent increase button. */
+  /**
+   * Why the value can't go higher, shown as a tooltip on the spent increase
+   * button.
+   */
   maxedHint?: string;
 }
 

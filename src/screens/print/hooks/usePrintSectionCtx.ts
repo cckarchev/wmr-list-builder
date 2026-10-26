@@ -4,7 +4,10 @@ import { magicItems } from "@/data/magicItems";
 import { useArmyStore } from "@/store/useArmyStore";
 import type { PrintSectionCtx } from "../sections/printSections";
 
-/** Reads from the store which print sections have anything to show for the current list. */
+/**
+ * Reads from the store which print sections have anything to show for the
+ * current list.
+ */
 export const usePrintSectionCtx = (): PrintSectionCtx => {
   const hasArmyRules = useArmyStore((s) => !!s.army?.armyRules);
 

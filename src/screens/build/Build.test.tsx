@@ -53,7 +53,8 @@ describe("Build screen", () => {
     expect(pointsTotal.textContent).toBe("560");
 
     // Add one more Goblins unit (30 pts each), taking them from 8 to 9. Goblins
-    // is auto-included, so it has a stepper in both columns; use the roster one.
+    // is auto-included, so it has a stepper in both columns; use the roster
+    // one.
     const increaseBtn = screen.getAllByRole("button", {
       name: "increase Goblins",
     })[0];
@@ -121,7 +122,8 @@ describe("min/max in plain language", () => {
     renderBuild("/build/goblin");
     await screen.findByText("Goblin");
 
-    // Goblins carry min 4 per 1,000 pts; at the default 2,000-pt game that's min 8.
+    // Goblins carry min 4 per 1,000 pts; at the default 2,000-pt game that's
+    // min 8.
     expect(screen.getByText("min 8")).toBeInTheDocument();
 
     // ...with the full rule available in a tooltip bubble.
@@ -129,7 +131,8 @@ describe("min/max in plain language", () => {
       screen.getByText("min 4 per 1,000 pts (≈ 8+ at this size)"),
     ).toBeInTheDocument();
 
-    // The Goblin Warboss is armyMin 1 / armyMax 1 → an "exactly 1" badge + rule.
+    // The Goblin Warboss is armyMin 1 / armyMax 1 → an "exactly 1" badge +
+    // rule.
     expect(screen.getByText("exactly 1 per army")).toBeInTheDocument();
 
     // The cryptic raw token form is gone.
@@ -256,8 +259,8 @@ describe("corrupt shared list", () => {
     );
 
     const bar = screen.getByTestId("points-bar");
-    // 560 = goblin default force-minimum; neither the corrupt blob nor the saved
-    // 20-Goblins list was applied.
+    // 560 = goblin default force-minimum; neither the corrupt blob nor the
+    // saved 20-Goblins list was applied.
     expect(within(bar).getByTestId("points-total").textContent).toBe("560");
   });
 

@@ -74,7 +74,9 @@ export const availablePrintSections = (
 /** Every section's id in the default print order, whatever the list has. */
 export const PRINT_SECTION_IDS = PRINT_SECTIONS.map((section) => section.id);
 
-/** The ids of the sections a fresh sheet includes: all but those that start off. */
+/**
+ * The ids of the sections a fresh sheet includes: all but those that start off.
+ */
 export const defaultSelectedIds = (
   sections: PrintSectionDef[],
 ): Set<string> => {

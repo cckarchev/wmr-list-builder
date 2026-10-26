@@ -4,7 +4,9 @@ import { groupRosterUnits } from "@/core/roster/groupRosterUnits";
 import { narrowRosterGroups } from "@/core/roster/narrowRosterGroups";
 import { useArmyStore } from "@/store/useArmyStore";
 
-/** Filter, search and collapse state for the roster, plus the groups it shows. */
+/**
+ * Filter, search and collapse state for the roster, plus the groups it shows.
+ */
 export const useRosterView = () => {
   const units = useArmyStore((s) => s.units);
   const gameSize = useArmyStore((s) => s.gameSize);

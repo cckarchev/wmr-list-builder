@@ -3,7 +3,8 @@
   "extends": ["@cckarchev/shared/biome"],
   "linter": {
     "rules": {
-      // Kept local until the shared preset settles on file and naming conventions.
+      // Kept local until the shared preset settles on file and naming
+      // conventions.
       "style": {
         "useFilenamingConvention": {
           "level": "error",

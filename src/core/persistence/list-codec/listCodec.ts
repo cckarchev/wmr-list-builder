@@ -44,7 +44,10 @@ export const encodeList = (snap: ListSnapshot, maps: ArmyCodeMaps): string => {
 export const encodeListFor = (armyId: string, snap: ListSnapshot): string =>
   encodeList(snap, codeMapsFor(armyId));
 
-/** The wire inside an encoded blob, or null when it is unparseable or the wrong shape. */
+/**
+ * The wire inside an encoded blob, or null when it is unparseable or the wrong
+ * shape.
+ */
 const readWire = (s: string): Wire | null => {
   if (!s) {
     return null;
@@ -77,11 +80,11 @@ const wireToSnapshot = (wire: Wire, maps: ArmyCodeMaps): ListSnapshot => {
 };
 
 /**
- * Shared parse/map core for both the localStorage decoder and the share decoder.
- * Returns null only when the blob is unparseable or the wire is the wrong shape;
- * `encodedUnitCount` is the number of unit entries the wire carried (before
- * mapping), so callers can tell "wrong army" (had entries, none resolved) apart
- * from "genuinely empty".
+ * Shared parse/map core for both the localStorage decoder and the share
+ * decoder. Returns null only when the blob is unparseable or the wire is the
+ * wrong shape; `encodedUnitCount` is the number of unit entries the wire
+ * carried (before mapping), so callers can tell "wrong army" (had entries, none
+ * resolved) apart from "genuinely empty".
  */
 const parseWire = (
   s: string,

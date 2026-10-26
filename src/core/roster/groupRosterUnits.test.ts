@@ -3,7 +3,10 @@ import type { UnitState } from "@/core/army-state/types";
 import { DEFAULT_GAME_SIZE } from "@/store/armyData";
 import { groupRosterUnits } from "./groupRosterUnits";
 
-/** Build a minimal units map keyed in insertion order, each unit named after its key. */
+/**
+ * Build a minimal units map keyed in insertion order, each unit named after its
+ * key.
+ */
 const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
   const map: Record<string, UnitState> = {};
 
@@ -14,7 +17,7 @@ const unitsOf = (entries: [string, string][]): Record<string, UnitState> => {
   return map;
 };
 
-const units = unitsOf([
+const goblinUnits = unitsOf([
   ["Goblin Warboss", "General"],
   ["Goblin Bigboss", "Hero"],
   ["Shaman", "Wizard"],
@@ -29,7 +32,7 @@ const units = unitsOf([
 
 describe("groupRosterUnits ordering", () => {
   it("groups characters first, then troop types in canonical order", () => {
-    const groups = groupRosterUnits(units);
+    const groups = groupRosterUnits(goblinUnits);
 
     expect(groups.map((g) => g.label)).toEqual([
       "Characters",
@@ -43,7 +46,7 @@ describe("groupRosterUnits ordering", () => {
   });
 
   it("folds General/Hero/Wizard into one Characters group, preserving order", () => {
-    const groups = groupRosterUnits(units);
+    const groups = groupRosterUnits(goblinUnits);
     const characters = groups.find((g) => g.label === "Characters");
 
     expect(characters?.unitIds).toEqual([
@@ -54,7 +57,7 @@ describe("groupRosterUnits ordering", () => {
   });
 
   it("preserves existing order within a troop group", () => {
-    const groups = groupRosterUnits(units);
+    const groups = groupRosterUnits(goblinUnits);
     const infantry = groups.find((g) => g.label === "Infantry");
 
     expect(infantry?.unitIds).toEqual(["Goblins", "Spider Riders"]);
@@ -63,7 +66,7 @@ describe("groupRosterUnits ordering", () => {
 
 describe("groupRosterUnits filtering", () => {
   it("filters by a case-insensitive name query, dropping now-empty groups", () => {
-    const groups = groupRosterUnits(units, "wolf");
+    const groups = groupRosterUnits(goblinUnits, "wolf");
 
     expect(groups.map((g) => g.label)).toEqual(["Cavalry", "Chariot"]);
     expect(groups.flatMap((g) => g.unitIds)).toEqual([
@@ -85,11 +88,11 @@ describe("groupRosterUnits filtering", () => {
   });
 
   it("returns no groups when the query matches nothing", () => {
-    expect(groupRosterUnits(units, "dragon")).toEqual([]);
+    expect(groupRosterUnits(goblinUnits, "dragon")).toEqual([]);
   });
 
   it("ignores surrounding whitespace in the query", () => {
-    const groups = groupRosterUnits(units, "  giant  ");
+    const groups = groupRosterUnits(goblinUnits, "  giant  ");
 
     expect(groups.map((g) => g.label)).toEqual(["Monster"]);
   });

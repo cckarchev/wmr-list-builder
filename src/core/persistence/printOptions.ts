@@ -32,7 +32,10 @@ const sanitize = (stored: unknown): PrintOptions => {
   return options;
 };
 
-/** Remember the print options, so the next visit to the print sheet starts from them. */
+/**
+ * Remember the print options, so the next visit to the print sheet starts from
+ * them.
+ */
 export const savePrintOptions = (options: PrintOptions): void => {
   writeJson(STORAGE_KEY, options);
 };

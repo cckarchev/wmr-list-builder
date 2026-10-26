@@ -9,7 +9,10 @@ export type UsedUnit = Omit<UnitState, "upgrades"> & {
   upgrades?: Record<string, UpgradeState & UnitUpgradeEntry>;
 };
 
-/** Port of getters.js `usedUnits`: units with number > 0, with used upgrades merged. */
+/**
+ * Port of getters.js `usedUnits`: units with number > 0, with used upgrades
+ * merged.
+ */
 export const usedUnits = (state: ArmyPools): Record<string, UsedUnit> =>
   Object.keys(state.units).reduce<Record<string, UsedUnit>>((acc, unitId) => {
     const unit = state.units[unitId];

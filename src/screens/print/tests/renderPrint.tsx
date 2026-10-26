@@ -21,7 +21,10 @@ export const findTitle = () =>
 export const printSheet = () =>
   screen.getByRole("article", { name: "Print sheet" });
 
-/** A fresh store and nothing saved, so no test sees another's list, options or order. */
+/**
+ * A fresh store and nothing saved, so no test sees another's list, options or
+ * order.
+ */
 export const resetPrintState = () => {
   useArmyStore.getState().reset();
   localStorage.clear();

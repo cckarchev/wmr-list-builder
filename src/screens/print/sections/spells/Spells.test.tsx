@@ -24,7 +24,8 @@ describe("Spells print section", () => {
   it("does not render the italic flavor line as emphasized text", () => {
     useArmyStore.getState().setArmy("goblin");
     const { container } = renderSpells();
-    // The leading `*...*` flavor line would render as <em>; it must be stripped.
+    // The leading `*...*` flavor line would render as <em>; it must be
+    // stripped.
     expect(container.querySelector("em")).toBeNull();
   });
 });

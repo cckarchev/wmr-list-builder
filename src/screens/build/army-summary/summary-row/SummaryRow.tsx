@@ -9,7 +9,10 @@ interface SummaryRowProps {
   upgrades: Record<string, UpgradeState>;
 }
 
-/** One selected unit with its taken upgrades; clicking it scrolls the roster there. */
+/**
+ * One selected unit with its taken upgrades; clicking it scrolls the roster
+ * there.
+ */
 export const SummaryRow = ({ id, unit, upgrades }: SummaryRowProps) => {
   const chosenUpgrades = Object.entries(unit.upgrades ?? {}).filter(
     ([, u]) => u.number > 0,

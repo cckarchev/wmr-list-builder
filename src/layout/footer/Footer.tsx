@@ -3,7 +3,9 @@ import { classNames } from "@/core/lib/classNames";
 import { WMR_EDITION } from "@/data/wmrEdition";
 import styles from "./Footer.module.css";
 
-/** The rules edition the lists follow, a link to About and the short disclaimer. */
+/**
+ * The rules edition the lists follow, a link to About and the short disclaimer.
+ */
 export const Footer = () => {
   const { compendiumVersion, armiesVersion } = WMR_EDITION;
 

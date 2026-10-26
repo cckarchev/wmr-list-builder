@@ -116,7 +116,7 @@ describe("error attribution (targets)", () => {
   });
 });
 
-const quoted = (
+const messagesFor = (
   units: Record<string, UnitState>,
   upgrades: Record<string, UpgradeState> = {},
 ) => validate(units, upgrades, DEFAULT_GAME_SIZE).map((e) => e.message);
@@ -127,7 +127,9 @@ describe("messages quote display names in minimums and limits", () => {
       goblins: unit({ name: "Goblins", number: 1, min: GOBLIN_MIN }),
     };
 
-    expect(quoted(units)).toContain("Minimum of 8 Goblins per 2,000 points.");
+    expect(messagesFor(units)).toContain(
+      "Minimum of 8 Goblins per 2,000 points.",
+    );
   });
 
   it("names every homologous item in a shared limit", () => {
@@ -141,7 +143,7 @@ describe("messages quote display names in minimums and limits", () => {
       rocket: unit({ name: "Death Rocket", number: 1 }),
     };
 
-    expect(quoted(units)).toContain(
+    expect(messagesFor(units)).toContain(
       "Maximum of 1 Earthshaker Cannon or Death Rocket per army.",
     );
   });
@@ -157,7 +159,7 @@ describe("messages quote display names in minimums and limits", () => {
       knights: unit({ name: "Grail Knights", number: 2 }),
     };
 
-    expect(quoted(units)).toContain(
+    expect(messagesFor(units)).toContain(
       "Minimum of 2 Banner Bearers per 2 Grail Knights.",
     );
   });
@@ -174,7 +176,7 @@ describe("messages quote display names in unit relations", () => {
       halberdiers: unit({ name: "Halberdiers", number: 0 }),
     };
 
-    expect(quoted(units)).toContain(
+    expect(messagesFor(units)).toContain(
       "1 Detachment requires at least 1 Halberdiers.",
     );
   });
@@ -193,7 +195,7 @@ describe("messages quote display names in unit relations", () => {
       horn: upgrade({ name: "Battle Horn", number: 1 }),
     };
 
-    expect(quoted(units, upgrades)).toEqual(
+    expect(messagesFor(units, upgrades)).toEqual(
       expect.arrayContaining([
         "Fenbeast must be taken with Druid.",
         "War Banner cannot be taken with Battle Horn.",

@@ -3,7 +3,10 @@ import { DEFAULT_GAME_SIZE } from "@/store/armyData";
 import { SMALLEST_GAME } from "@/test/gameSizes";
 import { get, messages, unit, upgrade, validateNamed } from "./fixtures";
 
-/** Two of each artillery piece, over the two they may take between them at 2,000 points. */
+/**
+ * Two of each artillery piece, over the two they may take between them at 2,000
+ * points.
+ */
 const ARTILLERY_EACH = 2;
 
 beforeEach(() => {

@@ -8,9 +8,9 @@ interface PopupHeadingProps {
 }
 
 /**
- * The title bar at the top of a popup, with a close button on the right. Tapping
- * outside or pressing Escape also closes a popup, but neither is obvious on a
- * phone, so the button makes the way out visible.
+ * The title bar at the top of a popup, with a close button on the right.
+ * Tapping outside or pressing Escape also closes a popup, but neither is
+ * obvious on a phone, so the button makes the way out visible.
  */
 export const PopupHeading = ({ children, onClose }: PopupHeadingProps) => (
   <div className={styles.bar}>

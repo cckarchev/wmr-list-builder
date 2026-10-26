@@ -5,7 +5,10 @@ import {
 import type { PrintOptions } from "@/core/print/printOptions";
 import { useStoredState } from "@/hooks/useStoredState";
 
-/** The print options, starting from the last ones used and saved on every change. */
+/**
+ * The print options, starting from the last ones used and saved on every
+ * change.
+ */
 export const useStoredPrintOptions = () => {
   const [options, setOptions] = useStoredState(
     loadPrintOptions,

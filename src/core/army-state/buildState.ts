@@ -73,7 +73,8 @@ export const buildUnits = (
       .filter((constraint) => constraintApplies(source, constraint))
       .flatMap((constraint) => constraint.upgrades);
 
-    // A unit with neither its own upgrades nor attached ones gets no upgrades map.
+    // A unit with neither its own upgrades nor attached ones gets no upgrades
+    // map.
     const hasUpgrades = source.upgrades !== undefined || attached.length > 0;
     const upgradeIds = hasUpgrades
       ? [...(source.upgrades ?? []), ...attached]

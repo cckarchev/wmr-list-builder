@@ -29,7 +29,9 @@ export const removeItem = (key: string): void => {
   }
 };
 
-/** The parsed stored value, or undefined when it is missing, corrupt or blocked. */
+/**
+ * The parsed stored value, or undefined when it is missing, corrupt or blocked.
+ */
 export const readJson = (key: string): unknown => {
   const raw = readItem(key);
 

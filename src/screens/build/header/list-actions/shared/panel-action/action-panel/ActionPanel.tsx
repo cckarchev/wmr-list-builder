@@ -10,7 +10,10 @@ interface ActionPanelProps {
   heading: string;
   onClose: () => void;
   children: ReactNode;
-  /** Lets the owner move focus to the panel itself, such as after a row is deleted. */
+  /**
+   * Lets the owner move focus to the panel itself, such as after a row is
+   * deleted.
+   */
   ref?: RefObject<HTMLDivElement | null>;
 }
 

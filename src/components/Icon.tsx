@@ -37,7 +37,10 @@ const PATHS: Record<IconName, string> = {
 
 const DEFAULT_ICON_SIZE = 16;
 
-/** Smaller size for icons set inside compact controls, such as a card's rules button. */
+/**
+ * Smaller size for icons set inside compact controls, such as a card's rules
+ * button.
+ */
 export const INLINE_ICON_SIZE = 14;
 
 interface IconProps {

@@ -12,7 +12,9 @@ interface PopoverProps {
   heading: string;
   /** Visible content of the trigger button. */
   trigger: ReactNode;
-  /** Extra class for the trigger, for a popover that sits among other controls. */
+  /**
+   * Extra class for the trigger, for a popover that sits among other controls.
+   */
   triggerClassName?: string;
   /** Widen the panel for prose-heavy content (e.g. special-rule text). */
   wide?: boolean;

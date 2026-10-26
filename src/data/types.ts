@@ -78,7 +78,9 @@ export interface MagicItemsFile {
   upgradeConstraints: UpgradeConstraint[];
 }
 
-/** The magic items JSON as stored: items in a list, each carrying its own id. */
+/**
+ * The magic items JSON as stored: items in a list, each carrying its own id.
+ */
 export interface RawMagicItemsFile extends Omit<MagicItemsFile, "upgrades"> {
   upgrades: MagicItem[];
 }

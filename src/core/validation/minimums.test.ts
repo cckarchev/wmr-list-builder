@@ -13,7 +13,8 @@ beforeEach(() => {
 describe("army min (real data: goblin Goblin Warboss armyMin 1)", () => {
   it("auto-includes the armyMin General; validation still flags it when absent", () => {
     get().setArmy("goblin");
-    // Force limit auto-includes the Warboss at its armyMin, so it is never missing.
+    // Force limit auto-includes the Warboss at its armyMin, so it is never
+    // missing.
     expect(get().units.goblinWarboss.number).toBe(1);
     expect(messages()).not.toContain("Minimum of 1 Goblin Warboss per army.");
 
@@ -122,7 +123,8 @@ describe("keyword min branches (synthetic - not present in Revolution data)", ()
 
 describe("min 'Half or All' second branch (synthetic - the > ceil(req/2) sub-condition)", () => {
   it("flags a count between half and all (not exactly half, not all)", () => {
-    // req = 4 -> ceil(4/2) = 2; number 3 is > 2 and < 4 -> violates "half or all".
+    // req = 4 -> ceil(4/2) = 2; number 3 is > 2 and < 4 -> violates "half or
+    // all".
     const units = {
       a: unit({ min: "Half or All", number: 3, requiredUnits: ["b"] }),
       b: unit({ number: 4 }),

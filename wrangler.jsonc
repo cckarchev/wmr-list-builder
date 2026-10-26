@@ -2,12 +2,14 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "wmr-list-builder",
   "compatibility_date": "2026-10-21",
-  // Static assets only, no Worker script: unknown paths fall back to index.html for client-side routing.
+  // Static assets only, no Worker script: unknown paths fall back to index.html
+  // for client-side routing.
   "assets": {
     "directory": "./dist/",
     "not_found_handling": "single-page-application"
   },
-  // Branch and pull request builds deploy as Previews of this Worker; they need no settings of their own.
+  // Branch and pull request builds deploy as Previews of this Worker; they need
+  // no settings of their own.
   "previews": {},
   "routes": [
     {

@@ -28,7 +28,8 @@ export const StatLine = ({
   points,
   character = false,
 }: StatLineProps) => {
-  // `shortLabel` replaces the label on a phone, where the columns are narrowest.
+  // `shortLabel` replaces the label on a phone, where the columns are
+  // narrowest.
   const cells: Array<{ label: string; shortLabel?: string; value: string }> =
     [];
 

@@ -14,7 +14,9 @@ import { PrintControls } from "./print-controls/PrintControls";
 import { PrintView } from "./print-view/PrintView";
 import { availablePrintSections } from "./sections/printSections";
 
-/** Print never reads a share link: it always prints the list kept for this army. */
+/**
+ * Print never reads a share link: it always prints the list kept for this army.
+ */
 const NO_SHARE_CODE = null;
 
 export const Print = () => {

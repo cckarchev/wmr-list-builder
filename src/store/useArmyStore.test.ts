@@ -71,7 +71,8 @@ describe("setArmy", () => {
 describe("upgradeConstraints auto-attach", () => {
   it("attaches magic-item upgrades to an eligible unit", () => {
     get().setArmy("empire");
-    // General (type "General") gets Crown of Command from the magic-item constraints
+    // General (type "General") gets Crown of Command from the magic-item
+    // constraints
     expect(
       Object.keys(defined(get().units.general.upgrades, "upgrades")),
     ).toContain("crownOfCommand");

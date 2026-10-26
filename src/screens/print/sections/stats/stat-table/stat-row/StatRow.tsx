@@ -13,7 +13,10 @@ export type StatKind = "character" | "unit";
 
 type StatTroop = UsedUnit | UpgradeState;
 
-/** The fields a row shows. Only units carry armour and command, so those stay optional. */
+/**
+ * The fields a row shows. Only units carry armour and command, so those stay
+ * optional.
+ */
 type RowStats = Pick<
   UnitState,
   | "number"

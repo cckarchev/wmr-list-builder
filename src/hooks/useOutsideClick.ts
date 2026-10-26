@@ -1,6 +1,8 @@
 import { type RefObject, useEffect, useEffectEvent } from "react";
 
-/** While `active`, calls `onOutside` on any mousedown outside `ref`'s element. */
+/**
+ * While `active`, calls `onOutside` on any mousedown outside `ref`'s element.
+ */
 export const useOutsideClick = (
   ref: RefObject<HTMLElement | null>,
   active: boolean,

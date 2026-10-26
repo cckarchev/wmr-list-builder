@@ -9,7 +9,9 @@ interface ShareUrlInput {
   origin: string;
 }
 
-/** The link the Share button copies: this app's build route carrying the list. */
+/**
+ * The link the Share button copies: this app's build route carrying the list.
+ */
 export const buildShareUrl = ({
   armyId,
   encoded,

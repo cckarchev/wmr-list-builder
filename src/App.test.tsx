@@ -50,7 +50,8 @@ describe("App routing from the root", () => {
 
     await user.click(screen.getByRole("link", { name: "Goblin" }));
 
-    // Build screen shows the points bar and a Print action (under the More menu).
+    // Build screen shows the points bar and a Print action (under the More
+    // menu).
     expect(await screen.findByTestId("points-bar")).toBeInTheDocument();
     const inline = within(screen.getByTestId("actions-inline"));
     await user.click(inline.getByRole("button", { name: /more/i }));
@@ -117,17 +118,20 @@ describe("App routing for print", () => {
     });
 
     await screen.findByText("Goblin");
-    // Goblins auto-includes, so it has a stepper in both columns; use the roster one.
+    // Goblins auto-includes, so it has a stepper in both columns; use the
+    // roster one.
     await user.click(
       screen.getAllByRole("button", { name: "increase Goblins" })[0],
     );
-    // Force-included goblin base (560) + 30 for taking Goblins from 8 to 9 = 590.
+    // Force-included goblin base (560) + 30 for taking Goblins from 8 to 9 =
+    // 590.
     expect(
       within(screen.getByTestId("points-bar")).getByTestId("points-total")
         .textContent,
     ).toBe("590");
 
-    // Go to Print (under the More menu), then back to the roster via the nav "Back" chip.
+    // Go to Print (under the More menu), then back to the roster via the nav
+    // "Back" chip.
     const inline = within(screen.getByTestId("actions-inline"));
     await user.click(inline.getByRole("button", { name: /more/i }));
     await user.click(

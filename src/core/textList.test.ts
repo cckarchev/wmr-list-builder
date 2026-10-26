@@ -34,7 +34,8 @@ describe("buildTextList", () => {
 
     // Goblin force-includes its minimums: 8 Goblins, 4 Wolf Riders, and the
     // Goblin Warboss (armyMin 1). Requested counts below those floors clamp up.
-    // The Warboss is a character, so the totals line counts 12 units, breaking at 6.
+    // The Warboss is a character, so the totals line counts 12 units, breaking
+    // at 6.
     const expected =
       "Goblin, 560 points\n" +
       "Warmaster Revolution\n" +
@@ -154,7 +155,8 @@ describe("buildTextList totals", () => {
       version: "",
     });
 
-    // Only the 3 Wolf Riders count: the noCount Herd is left out, so the army breaks at 2.
+    // Only the 3 Wolf Riders count: the noCount Herd is left out, so the army
+    // breaks at 2.
     expect(result.endsWith(`${TOTAL_POINTS} - 3/2`)).toBe(true);
   });
 });

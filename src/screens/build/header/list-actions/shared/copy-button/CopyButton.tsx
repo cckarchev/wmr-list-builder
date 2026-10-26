@@ -10,7 +10,10 @@ interface CopyButtonProps {
   /** Tooltip naming what gets copied. */
   title: string;
   disabled: boolean;
-  /** Builds the text to copy, or returns undefined when there is nothing to copy yet. */
+  /**
+   * Builds the text to copy, or returns undefined when there is nothing to copy
+   * yet.
+   */
   getText: () => string | undefined;
   /** Bubble shown once the copy succeeds. */
   copiedMessage: string;
@@ -18,7 +21,10 @@ interface CopyButtonProps {
   children: ReactNode;
 }
 
-/** A list action that copies text to the clipboard and confirms it with a bubble. */
+/**
+ * A list action that copies text to the clipboard and confirms it with a
+ * bubble.
+ */
 export const CopyButton = ({
   icon,
   title,
@@ -51,7 +57,8 @@ export const CopyButton = ({
         <Icon name={icon} />
         {children}
       </Button>
-      {/* Always mounted so screen readers announce the bubble when it appears. */}
+      {/* Always mounted so screen readers announce the bubble when it
+          appears. */}
       <span role="status">
         {status === "copied" && (
           <CopyBubble tone="success">{copiedMessage}</CopyBubble>

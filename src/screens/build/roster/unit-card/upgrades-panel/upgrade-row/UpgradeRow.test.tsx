@@ -13,10 +13,12 @@ describe("UpgradeRow army-wide upgrades", () => {
   it("disables the increase button once an army-wide upgrade (armyMax) is used up elsewhere", () => {
     const store = useArmyStore.getState();
     store.setArmy("empire");
-    // Battle Banner is a Magic Standard: armyMax 1 per army. Spend it on one unit.
+    // Battle Banner is a Magic Standard: armyMax 1 per army. Spend it on one
+    // unit.
     store.setUnitNumber("halberdiers", HALBERDIER_STANDS);
     store.setUnitUpgradeNumber("halberdiers", "battleBanner", 1);
-    // A second eligible unit has stands free, but the army-wide allowance is gone.
+    // A second eligible unit has stands free, but the army-wide allowance is
+    // gone.
     store.setUnitNumber("knights", 2);
 
     renderWithProviders(

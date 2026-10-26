@@ -7,7 +7,8 @@ import {
 
 /**
  * Which print sections are included. Starts with every section selected but
- * those that start off, and resets to that whenever `resetKey` (the loaded army) changes.
+ * those that start off, and resets to that whenever `resetKey` (the loaded
+ * army) changes.
  */
 export const useSectionSelection = (
   sections: PrintSectionDef[],

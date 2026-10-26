@@ -4,7 +4,10 @@ import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { Stepper } from "./Stepper";
 
-/** A Stepper that holds its own value, so a press re-renders it like a real caller. */
+/**
+ * A Stepper that holds its own value, so a press re-renders it like a real
+ * caller.
+ */
 const LiveStepper = ({
   start,
   min,

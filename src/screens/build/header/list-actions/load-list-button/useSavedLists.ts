@@ -48,7 +48,8 @@ export const useSavedLists = (onLoaded: () => void) => {
     applyList(snap);
 
     // Re-encode the applied state so the baseline matches what the store holds
-    // (applyList clamps to force limits, so it may differ from the raw snapshot).
+    // (applyList clamps to force limits, so it may differ from the raw
+    // snapshot).
     const { gameSize, units } = useArmyStore.getState();
     const appliedSnapshot = snapshotOf({ gameSize, units, label: name });
 

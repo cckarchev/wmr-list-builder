@@ -11,7 +11,8 @@ interface ChevronMarkProps {
 
 export const ChevronMark = ({ color, size }: ChevronMarkProps) => {
   const stroke = color ?? "currentColor";
-  // An explicit color also overrides the class color, so 'currentColor' inherits.
+  // An explicit color also overrides the class color, so 'currentColor'
+  // inherits.
   const style = color ? { color } : undefined;
 
   return (

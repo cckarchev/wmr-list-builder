@@ -20,8 +20,8 @@ interface UnitCardProps {
   unitId: string;
   /**
    * The roster section the card sits under. When the section is already labeled
-   * with the unit's type (e.g. an "Infantry" section), we omit the type tag from
-   * the card to avoid the redundant repetition.
+   * with the unit's type (e.g. an "Infantry" section), we omit the type tag
+   * from the card to avoid the redundant repetition.
    */
   groupLabel?: string;
 }

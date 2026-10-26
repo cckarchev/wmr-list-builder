@@ -10,7 +10,9 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
 
-/** The element Tab should land on next, or undefined to let the browser move on. */
+/**
+ * The element Tab should land on next, or undefined to let the browser move on.
+ */
 const wrapTarget = (
   container: HTMLElement,
   backwards: boolean,

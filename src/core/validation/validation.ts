@@ -23,7 +23,10 @@ const poolGroup = (ids: string[], pool: Pool) => ({
   count: totalNumber(ids, pool),
 });
 
-/** The ids sorted by where the pool lists them, so a group reads the same from any member. */
+/**
+ * The ids sorted by where the pool lists them, so a group reads the same from
+ * any member.
+ */
 const inPoolOrder = (ids: string[], pool: Pool): string[] => {
   const listed = Object.keys(pool);
   const placeOf = (id: string) => listed.indexOf(id);
@@ -31,7 +34,10 @@ const inPoolOrder = (ids: string[], pool: Pool): string[] => {
   return [...ids].sort((a, b) => placeOf(a) - placeOf(b));
 };
 
-/** The ids an item lists as counting together with it, and the pool they live in. */
+/**
+ * The ids an item lists as counting together with it, and the pool they live
+ * in.
+ */
 const homologousIds = (
   item: ValidatableItem,
   { units, upgrades }: ArmyPools,

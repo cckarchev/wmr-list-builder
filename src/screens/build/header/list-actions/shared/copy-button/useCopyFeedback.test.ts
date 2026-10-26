@@ -2,7 +2,9 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useCopyFeedback } from "./useCopyFeedback";
 
-/** Swap `navigator.clipboard` for the given stub, or remove it with `undefined`. */
+/**
+ * Swap `navigator.clipboard` for the given stub, or remove it with `undefined`.
+ */
 const stubClipboard = (
   clipboard: { writeText: (text: string) => Promise<void> } | undefined,
 ) => {

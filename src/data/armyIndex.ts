@@ -7,7 +7,10 @@ const modules = import.meta.glob<RawArmy>("./armies/*.json", {
   import: "default",
 });
 
-/** Captures the file name of an army JSON path, e.g. `./armies/empire.json` -> `empire`. */
+/**
+ * Captures the file name of an army JSON path, e.g. `./armies/empire.json` ->
+ * `empire`.
+ */
 const ARMY_FILE_NAME = /^.*\/(.+)\.json$/;
 
 const idFromPath = (path: string): string => path.replace(ARMY_FILE_NAME, "$1");
@@ -24,7 +27,10 @@ export const armiesById: Record<string, Army> = Object.fromEntries(
   ]),
 );
 
-/** The army with this id, or undefined for an id that names no army, such as one from a URL. */
+/**
+ * The army with this id, or undefined for an id that names no army, such as one
+ * from a URL.
+ */
 export const findArmy = (id: string): Army | undefined =>
   ownValue(armiesById, id);
 

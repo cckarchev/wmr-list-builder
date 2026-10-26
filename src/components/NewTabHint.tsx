@@ -1,4 +1,7 @@
-/** Read out after the link's name, so the new tab is not a silent context change. */
+/**
+ * Read out after the link's name, so the new tab is not a silent context
+ * change.
+ */
 const NEW_TAB_HINT = "Opens in a new tab";
 
 interface NewTabHintProps {

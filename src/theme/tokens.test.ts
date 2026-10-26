@@ -4,8 +4,8 @@ import { describe, expect, it } from "vitest";
 
 const COMMENT = /\/\*[\s\S]*?\*\//g;
 
-// Vitest stubs out imported CSS, so the stylesheets are read from disk. Comments
-// are dropped so example tokens in them don't count as references.
+// Vitest stubs out imported CSS, so the stylesheets are read from disk.
+// Comments are dropped so example tokens in them don't count as references.
 const readCss = (path: string): string => {
   const css = readFileSync(path, "utf8");
 

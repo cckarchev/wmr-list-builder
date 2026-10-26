@@ -1,7 +1,9 @@
 import { armySize } from "../armySize";
 import { eliteCap } from "../eliteCap";
 
-/** Minimal shape carrying min/max constraints, satisfied by units and upgrades. */
+/**
+ * Minimal shape carrying min/max constraints, satisfied by units and upgrades.
+ */
 export interface MinMaxSource {
   armyMin?: number;
   armyMax?: number;
@@ -9,7 +11,10 @@ export interface MinMaxSource {
   max?: number | string;
 }
 
-/** Keyword values the army data puts in `min` and `max`, read by the rules and the badges. */
+/**
+ * Keyword values the army data puts in `min` and `max`, read by the rules and
+ * the badges.
+ */
 export const MIN_MAX_TOKENS = {
   allOrNone: "All or None",
   halfOrAll: "Half or All",
@@ -39,7 +44,9 @@ export type EliteInfo = Extract<MinMaxInfo, { kind: "elite" }>;
 export type TokenInfo = Extract<MinMaxInfo, { kind: "token" }>;
 export type RateInfo = Extract<MinMaxInfo, { kind: "rate" }>;
 
-/** The unit an "As X" token ties the troop to, or undefined for keyword tokens. */
+/**
+ * The unit an "As X" token ties the troop to, or undefined for keyword tokens.
+ */
 export const linkedUnit = (token: string): string | undefined => {
   if (!token.startsWith(AS_TOKEN_PREFIX)) {
     return undefined;

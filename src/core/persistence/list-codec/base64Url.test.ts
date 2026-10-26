@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { fromBase64Url, toBase64Url } from "./base64Url";
 
-// "??>" encodes to "Pz8+" and "???" to "Pz8/", which hit both url-unsafe characters.
+// "??>" encodes to "Pz8+" and "???" to "Pz8/", which hit both url-unsafe
+// characters.
 const PLUS_SOURCE = "??>";
 const SLASH_SOURCE = "???";
 

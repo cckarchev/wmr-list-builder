@@ -2,7 +2,10 @@ import { type RefCallback, useEffect, useState } from "react";
 import { pageBreaks, type SheetBlock } from "@/core/print/pageBreaks";
 import { A4_PRINTABLE_HEIGHT_PX, isPaperWide } from "@/core/print/paper";
 
-/** The pieces the printer keeps whole (see the break rules in PrintView.module.css), and the headings it keeps with their body. */
+/**
+ * The pieces the printer keeps whole (see the break rules in
+ * PrintView.module.css), and the headings it keeps with their body.
+ */
 const BLOCK_SELECTOR = "h1, h3, dt, dd, p, li, tr";
 const KEEP_WITH_NEXT_SELECTOR = "h1, h3, dt";
 const FORCED_BREAK = "page";
@@ -25,7 +28,9 @@ const forcedBreaks = (sheet: HTMLElement, contentTop: number): SheetBlock[] => {
   }));
 };
 
-/** Each innermost block on the sheet, measured from the top of its content box. */
+/**
+ * Each innermost block on the sheet, measured from the top of its content box.
+ */
 const measureBlocks = (sheet: HTMLElement): SheetBlock[] => {
   const sheetTop = sheet.getBoundingClientRect().top;
   const paddingTop = Number.parseFloat(getComputedStyle(sheet).paddingTop) || 0;

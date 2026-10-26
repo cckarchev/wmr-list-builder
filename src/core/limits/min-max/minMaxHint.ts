@@ -9,7 +9,10 @@ export interface MinMaxHint {
   rule: string;
 }
 
-/** A troop's min/max as a badge plus its explanation, or undefined when unconstrained. */
+/**
+ * A troop's min/max as a badge plus its explanation, or undefined when
+ * unconstrained.
+ */
 export const minMaxHint = (
   troop: MinMaxSource,
   gameSize: number,

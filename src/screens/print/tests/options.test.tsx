@@ -14,7 +14,10 @@ const GOBLIN_SPELL_FLUFF = /summons the power of Mork/;
 /** An iPad in portrait, where the sheet shrinks below A4. */
 const TABLET_PORTRAIT_WIDTH = 768;
 
-/** Lays every element out `width` pixels wide, since jsdom has no layout of its own. */
+/**
+ * Lays every element out `width` pixels wide, since jsdom has no layout of its
+ * own.
+ */
 const stubSheetWidth = (width: number) => {
   vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue(
     new DOMRect(0, 0, width, 0),

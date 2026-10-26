@@ -27,7 +27,10 @@ interface PanelActionProps {
   panelRef?: RefObject<HTMLDivElement | null>;
 }
 
-/** A list action whose button toggles a dialog panel below it, such as Save or Load. */
+/**
+ * A list action whose button toggles a dialog panel below it, such as Save or
+ * Load.
+ */
 export const PanelAction = ({
   dismissible,
   onOpen,

@@ -77,7 +77,9 @@ export const asManyMin: Rule = ({ item, label, required }) => {
     : undefined;
 };
 
-/** Numeric minimums scale per 1,000 points and only apply from 1,000 points up. */
+/**
+ * Numeric minimums scale per 1,000 points and only apply from 1,000 points up.
+ */
 export const scaledMin: Rule = ({
   item,
   label,

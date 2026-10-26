@@ -16,7 +16,10 @@ interface PrintViewProps {
   options: PrintOptions;
   /** Attached to the sheet, so its page breaks can be measured. */
   sheetRef?: Ref<HTMLElement>;
-  /** Predicted page starts, in pixels from the top of the sheet's content, or null to draw none. */
+  /**
+   * Predicted page starts, in pixels from the top of the sheet's content, or
+   * null to draw none.
+   */
   breaks?: number[] | null;
 }
 

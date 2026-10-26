@@ -22,7 +22,10 @@ const UPGRADE_UNIT_REFERENCE_FIELDS = [
   "prohibitedUnits",
 ] as const;
 
-/** Every reference in an army that does not resolve, as readable `owner.field -> id` lines. */
+/**
+ * Every reference in an army that does not resolve, as readable `owner.field ->
+ * id` lines.
+ */
 const danglingReferences = (army: Army): string[] => {
   const unitIds = new Set(Object.keys(army.units));
   const magicIds = army.magic ? Object.keys(magicItems.upgrades) : [];

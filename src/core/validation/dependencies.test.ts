@@ -78,7 +78,8 @@ describe("augendUnits (real data: empire Detachment augends Halberdiers/Handgunn
 // prohibitedUnits / prohibitedUpgrades are ABSENT from every Revolution army
 // JSON (verified by grep), so the branches that read them are reachable only
 // via synthetic state. They also exercise the upgrades loop in `validate`,
-// which no real-data test reaches (every Revolution constraint lives on a unit).
+// which no real-data test reaches (every Revolution constraint lives on a
+// unit).
 // ---------------------------------------------------------------------------
 describe("homologousUpgrades (synthetic - not present in Revolution data)", () => {
   it("sums homologous upgrade counts and builds the id sentence", () => {

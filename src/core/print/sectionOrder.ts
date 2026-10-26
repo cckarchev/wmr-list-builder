@@ -19,7 +19,10 @@ export const completeOrder = (
   return [...kept, ...missing];
 };
 
-/** The items sorted by their id's place in `order`; ids it lacks go last, as they came. */
+/**
+ * The items sorted by their id's place in `order`; ids it lacks go last, as
+ * they came.
+ */
 export const orderById = <T extends { id: string }>(
   items: readonly T[],
   order: readonly string[],

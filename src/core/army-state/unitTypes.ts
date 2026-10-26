@@ -1,4 +1,7 @@
-/** Troop types: the units that count toward the break point and can be upgrades of other units. */
+/**
+ * Troop types: the units that count toward the break point and can be upgrades
+ * of other units.
+ */
 export const UNIT_TYPES = [
   "Artillery",
   "Cavalry",
@@ -11,7 +14,10 @@ export const UNIT_TYPES = [
 
 const CHARACTER_TYPES = ["General", "Hero", "Wizard"];
 
-/** A character is a General, Hero, or Wizard (the units that carry a Command value). */
+/**
+ * A character is a General, Hero, or Wizard (the units that carry a Command
+ * value).
+ */
 export const isCharacter = (type: string): boolean =>
   CHARACTER_TYPES.includes(type);
 

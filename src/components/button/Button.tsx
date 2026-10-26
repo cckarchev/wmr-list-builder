@@ -17,7 +17,10 @@ type ButtonProps = ButtonStyleProps & ComponentPropsWithRef<"button">;
 
 type ButtonLinkProps = ButtonStyleProps & LinkProps;
 
-/** Defaults to type="button", so a Button inside a form never submits it by accident. */
+/**
+ * Defaults to type="button", so a Button inside a form never submits it by
+ * accident.
+ */
 export const Button = ({
   variant = "primary",
   size = "md",

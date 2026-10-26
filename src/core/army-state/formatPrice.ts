@@ -1,7 +1,10 @@
 import { MISSING_STAT } from "@/core/lib/formatStat";
 import type { StatValue } from "@/data/types";
 
-/** An upgrade's price label. Variable pricing that cannot be resolved for this unit shows as "?pts". */
+/**
+ * An upgrade's price label. Variable pricing that cannot be resolved for this
+ * unit shows as "?pts".
+ */
 export const formatPrice = (
   price: StatValue | undefined,
   hasVariablePrice: boolean,

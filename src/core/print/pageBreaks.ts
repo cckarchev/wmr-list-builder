@@ -1,10 +1,15 @@
-/** A piece of the sheet the printer will not split, measured from the sheet's top. */
+/**
+ * A piece of the sheet the printer will not split, measured from the sheet's
+ * top.
+ */
 export interface SheetBlock {
   top: number;
   height: number;
   /** A heading that must stay on the same page as the block after it. */
   keepWithNext?: boolean;
-  /** A page must start here, such as at each section with "Page per section". */
+  /**
+   * A page must start here, such as at each section with "Page per section".
+   */
   breakBefore?: boolean;
 }
 

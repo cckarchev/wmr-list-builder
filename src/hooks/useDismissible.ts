@@ -31,7 +31,9 @@ export const useDismissible = <T extends HTMLElement>() => {
   return { open, setOpen, close, ref, triggerRef };
 };
 
-/** What `useDismissible` hands back, for components that receive it as a prop. */
+/**
+ * What `useDismissible` hands back, for components that receive it as a prop.
+ */
 export type Dismissible<T extends HTMLElement> = ReturnType<
   typeof useDismissible<T>
 >;

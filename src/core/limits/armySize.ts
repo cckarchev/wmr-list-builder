@@ -1,4 +1,6 @@
-/** Points in one army-size step; per-1,000-point limits scale with each step. */
+/**
+ * Points in one army-size step; per-1,000-point limits scale with each step.
+ */
 export const POINTS_PER_ARMY_SIZE = 1000;
 
 /** The smallest army size, which even a list under 1,000 points gets. */

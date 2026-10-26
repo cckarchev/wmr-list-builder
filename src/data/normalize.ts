@@ -33,7 +33,9 @@ const indexOptional = <T extends { id: string }>(
   return indexById(entities, label);
 };
 
-/** Turn a stored army (entity lists) into the runtime `Army` (records by id). */
+/**
+ * Turn a stored army (entity lists) into the runtime `Army` (records by id).
+ */
 export const normalizeArmy = (raw: RawArmy): Army => {
   const label = raw.name;
 

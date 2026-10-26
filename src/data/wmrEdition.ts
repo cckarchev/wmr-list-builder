@@ -22,5 +22,7 @@ export const WMR_COMPENDIUM_PDF_URL =
 export const WMR_ARMIES_PDF_URL =
   "https://drive.google.com/file/d/1jS81OufTxnx-W850E66LboTVSGQEokoN/view";
 
-/** A fan-made web edition of the same rules and lists, easier to read online. */
+/**
+ * A fan-made web edition of the same rules and lists, easier to read online.
+ */
 export const WARMASTER_INFO_URL = "https://warmaster.info/";

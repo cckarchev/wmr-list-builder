@@ -1,6 +1,9 @@
 import type { ArmyPools } from "@/core/army-state/types";
 
-/** A list reduced to what is worth storing: its name, game size and chosen counts. */
+/**
+ * A list reduced to what is worth storing: its name, game size and chosen
+ * counts.
+ */
 export interface ListSnapshot {
   name: string;
   gameSize: number;

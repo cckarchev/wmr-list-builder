@@ -36,7 +36,9 @@ export interface RequiredGroup {
 /** Everything a rule needs to judge one item. */
 export interface RuleContext {
   item: ValidatableItem;
-  /** How the item is named in messages: its id, or its whole homologous group. */
+  /**
+   * How the item is named in messages: its id, or its whole homologous group.
+   */
   label: string;
   /** The item's count plus its homologous items' counts. */
   groupNumber: number;
