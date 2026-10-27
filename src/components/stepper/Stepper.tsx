@@ -89,7 +89,8 @@ export const Stepper = ({
       >
         −
       </button>
-      <span className={styles.value}>{value}</span>
+      {/* An <output> is a status, so a screen reader reads each new value. */}
+      <output className={styles.value}>{value}</output>
       {showMaxedHint ? (
         <Tooltip label={maxedHint} id={hintId}>
           {increaseButton}

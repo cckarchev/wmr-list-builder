@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ConfirmDialog } from "@/components/confirm-dialog/ConfirmDialog";
 import { useDismissible } from "@/hooks/useDismissible";
 import { PanelAction } from "../shared/panel-action/PanelAction";
@@ -13,6 +13,14 @@ export const LoadListButton = () => {
   const panelRef = useRef<HTMLDivElement>(null);
   const lists = useSavedLists(dismissible.close);
   const isEmpty = lists.saved.length === 0;
+
+  // The panel has no field to focus, unlike Save, so it takes the focus
+  // itself and a screen reader announces it as it opens.
+  useEffect(() => {
+    if (dismissible.open) {
+      panelRef.current?.focus();
+    }
+  }, [dismissible.open]);
 
   const confirmDialogs = (
     <>

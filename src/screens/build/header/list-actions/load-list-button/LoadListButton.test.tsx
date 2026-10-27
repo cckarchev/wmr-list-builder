@@ -29,6 +29,15 @@ describe("LoadListButton", () => {
     expect(screen.getByText(/no saved lists/i)).toBeInTheDocument();
   });
 
+  it("moves the focus into the panel when it opens", async () => {
+    const user = userEvent.setup();
+    seed("Saved A", MID_GAME);
+    renderWithProviders(<LoadListButton />);
+    await user.click(screen.getByRole("button", { name: /load/i }));
+
+    expect(screen.getByRole("dialog", { name: "Load list" })).toHaveFocus();
+  });
+
   it("shows each saved list game size", async () => {
     const user = userEvent.setup();
     seed("Saved A", MID_GAME);
