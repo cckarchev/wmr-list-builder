@@ -1,4 +1,4 @@
-@import "@/theme/breakpoints.css";
+@import "@cckarchev/shared/breakpoints.css";
 
 .page {
   /* A flex item in the Layout shell: auto margins would otherwise shrink it

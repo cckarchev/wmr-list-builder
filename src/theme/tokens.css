@@ -3,7 +3,7 @@
  * (fonts.css and tokens.css, imported in main.tsx); this file only adds what
  * is specific to this app. Components read them with var(--token).
  */
-@import "./breakpoints.css";
+@import "@cckarchev/shared/breakpoints.css";
 
 :root {
   /* Fainter accent wash behind a whole card that is in the list, such as a
