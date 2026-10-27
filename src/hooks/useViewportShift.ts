@@ -1,8 +1,12 @@
+import { SPACE } from "@cckarchev/shared/tokens";
 import { type RefObject, useLayoutEffect, useRef, useState } from "react";
 import { viewportShift } from "@/core/lib/viewportShift";
 
-/** Minimum gap kept between the panel and the viewport edges. */
-const VIEWPORT_MARGIN = 8;
+/**
+ * Minimum gap kept between the panel and the viewport edges, the same
+ * space-xs margin that --popup-max-width leaves on each side.
+ */
+const VIEWPORT_MARGIN = SPACE.xs;
 
 /**
  * Horizontal offset that keeps an open panel on screen. The panel anchors to
