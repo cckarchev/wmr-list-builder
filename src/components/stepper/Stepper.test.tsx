@@ -161,4 +161,13 @@ describe("Stepper focus", () => {
       screen.getByRole("button", { name: "increase Trolls" }),
     ).toHaveFocus();
   });
+
+  it("shows the value in a status, so a screen reader reads each change", async () => {
+    const user = userEvent.setup();
+    render(<LiveStepper start={2} />);
+
+    await user.click(screen.getByRole("button", { name: "increase Trolls" }));
+
+    expect(screen.getByRole("status")).toHaveTextContent("3");
+  });
 });
