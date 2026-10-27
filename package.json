@@ -2,28 +2,33 @@
   "name": "wmr-list-builder",
   "version": "4.0.0",
   "private": true,
+  "description": "Roster builder for Warmaster Revolution.",
   "type": "module",
+  "engines": {
+    "node": ">=24.21.0"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint": "biome check",
-    "lint:fix": "biome check --write",
+    "deploy": "npm run verify && wrangler deploy",
+    "verify": "npm run check && npm run typecheck && npm test && npm run build",
+    "check": "biome check",
+    "check:fix": "biome check --write",
     "typecheck": "tsc -b --noEmit",
-    "deploy": "npm run build && wrangler deploy"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "marked": "^18.1.1",
+    "marked": "^18.1.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-router-dom": "^7.18.4",
-    "zustand": "^5.0.15"
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.2",
-    "@cckarchev/shared": "github:cckarchev/cck-shared#v1.2.0",
+    "@biomejs/biome": "2.6.3",
+    "@cckarchev/shared": "github:cckarchev/cck-shared#v1.3.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.8",
@@ -35,6 +40,10 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5",
-    "wrangler": "4.151.3"
+    "wrangler": "^4.153.0"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "workerd": true
   }
 }
