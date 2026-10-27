@@ -7,7 +7,7 @@
   justify-content: center;
   /* The same side margin as every other popup on a small screen. */
   padding: var(--space-xs);
-  background: var(--color-bg-scrim);
+  background: var(--color-surface-scrim);
 }
 
 .card {

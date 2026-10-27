@@ -2,10 +2,10 @@
    outline: an action on the chips, not another chip. Doubled class to win over
    the PillButton whatever order the sheets load in. */
 .trigger.trigger {
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
   border-style: dashed;
   font-family: var(--font-mono);
-  letter-spacing: var(--tracking-label);
+  letter-spacing: var(--tracking-lg);
 }
 
 .list {
@@ -26,8 +26,8 @@
 .title {
   flex: 1;
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  letter-spacing: var(--tracking-label);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--tracking-lg);
   text-transform: uppercase;
   color: var(--color-text-body);
   white-space: nowrap;
@@ -42,12 +42,12 @@
   flex: none;
   display: inline-flex;
   align-items: stretch;
-  border: var(--border-width) solid var(--arrows-edge);
+  border: var(--border-width-thin) solid var(--arrows-edge);
   border-radius: var(--radius);
 }
 
 .arrows:has(.arrow:enabled) {
-  --arrows-edge: var(--color-ghost-border);
+  --arrows-edge: var(--color-secondary-border);
 }
 
 .arrow {
@@ -55,13 +55,13 @@
   align-items: center;
   justify-content: center;
   min-width: var(--space-xl);
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: transparent;
   border: none;
-  color: var(--color-teal-bright);
+  color: var(--color-teal);
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
-  line-height: var(--leading-none);
+  line-height: var(--leading-solid);
   cursor: pointer;
   transition:
     background var(--duration-fast),
@@ -69,11 +69,11 @@
 }
 
 .arrow + .arrow {
-  border-left: var(--border-width) solid var(--arrows-edge);
+  border-left: var(--border-width-thin) solid var(--arrows-edge);
 }
 
 .arrow:hover:not(:disabled) {
-  background: var(--color-ghost-bg);
+  background: var(--color-secondary-tint);
 }
 
 .arrow:disabled {

@@ -11,20 +11,20 @@
 
 .bubble {
   position: absolute;
-  bottom: calc(100% + var(--space-xxs));
+  bottom: calc(100% + var(--space-2xs));
   left: 50%;
   transform: translateX(-50%);
   z-index: var(--z-popup);
   max-width: var(--popup-width-narrow);
   width: max-content;
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: var(--color-bg-deep);
   color: var(--color-text-body);
   border: var(--border-default);
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
   font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   line-height: var(--leading-body);
   text-align: center;
   text-transform: none;
@@ -38,7 +38,7 @@
 }
 
 .wrap[data-placement="below"] .bubble {
-  top: calc(100% + var(--space-xxs));
+  top: calc(100% + var(--space-2xs));
   bottom: auto;
 }
 

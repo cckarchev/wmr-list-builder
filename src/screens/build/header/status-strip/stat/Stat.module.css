@@ -1,7 +1,7 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 .label {
@@ -14,12 +14,12 @@
   justify-content: center;
   /* Match the game size input's box height (padding + border) so every value
      row lines up despite the input being taller than plain text. */
-  padding: var(--space-xxs) var(--space-xs);
-  border: var(--border-width) solid transparent;
+  padding: var(--space-2xs) var(--space-xs);
+  border: var(--border-width-thin) solid transparent;
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-regular);
   text-align: center;
 }
 

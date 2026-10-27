@@ -18,6 +18,14 @@ Awesome Free
 (https://fontawesome.com), licensed under CC BY 4.0
 (https://fontawesome.com/license/free).
 
+Fonts
+-----
+The interface fonts (Big Noodle Titling, Barlow and JetBrains Mono) are
+self-hosted through @cckarchev/shared, which carries their notices. The print
+sheet's legible font, Atkinson Hyperlegible Next in src/theme/fonts/, is
+licensed under the SIL Open Font License 1.1 (https://openfontlicense.org),
+with its license file next to it.
+
 Disclaimer
 ----------
 This website is completely unofficial and in no way endorsed by Games Workshop

@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { globSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 
 const COMMENT = /\/\*[\s\S]*?\*\//g;
@@ -12,9 +13,9 @@ const readCss = (path: string): string => {
   return css.replace(COMMENT, "");
 };
 
-const tokensCss = readCss("src/theme/tokens.css");
-
-const SPACE_UNIT_PX = 4;
+const SHARED_TOKENS_PATH = createRequire(import.meta.url).resolve(
+  "@cckarchev/shared/tokens.css",
+);
 
 /** Custom properties set inline by components rather than defined as tokens. */
 const INLINE_PROPERTIES = new Set(["--header-height"]);
@@ -45,51 +46,12 @@ const parseTokens = (css: string): Map<string, string> => {
   return tokens;
 };
 
-const tokens = parseTokens(tokensCss);
-
-const tokenValue = (name: string): string => {
-  const value = tokens.get(name);
-
-  if (value === undefined) {
-    throw new Error(`Missing token ${name}`);
-  }
-
-  return value;
-};
-
-const spaceSteps = (): number[] => {
-  const names = [...tokens.keys()].filter((name) =>
-    name.startsWith("--space-"),
-  );
-
-  return names.map((name) => Number.parseInt(tokenValue(name), 10));
-};
+const sharedTokens = parseTokens(readCss(SHARED_TOKENS_PATH));
+const appTokens = parseTokens(readCss("src/theme/tokens.css"));
 
 describe("design tokens", () => {
-  it("exposes the CCK-coherent accent and dark base", () => {
-    expect(tokenValue("--color-accent")).toBe("#d4623e");
-    expect(tokenValue("--color-bg-base")).toBe("#0a1a22");
-  });
-
-  it("uses a 4px-based space scale ordered from smallest to largest", () => {
-    const steps = spaceSteps();
-    const ascending = [...steps].sort((a, b) => a - b);
-
-    expect(tokenValue("--space-xxs")).toBe(`${SPACE_UNIT_PX}px`);
-    expect(steps).toEqual(ascending);
-
-    for (const step of steps) {
-      expect(step % SPACE_UNIT_PX).toBe(0);
-    }
-  });
-
   it("uses sharp (zero) corners to match the parent site", () => {
-    expect(tokenValue("--radius")).toBe("0");
-  });
-
-  it("draws the focus ring in brand teal so the keyboard indicator reads", () => {
-    expect(tokenValue("--focus-ring")).toContain("var(--color-border-focus)");
-    expect(tokenValue("--color-border-focus")).toContain("var(--rgb-teal)");
+    expect(appTokens.get("--radius")).toBe("0");
   });
 
   it("defines every token the stylesheets reference", () => {
@@ -101,7 +63,8 @@ describe("design tokens", () => {
     for (const path of stylesheetPaths) {
       for (const [, name] of readCss(path).matchAll(reference)) {
         const defined =
-          tokens.has(name) ||
+          sharedTokens.has(name) ||
+          appTokens.has(name) ||
           INLINE_PROPERTIES.has(name) ||
           LOCAL_PROPERTIES.has(name);
 
@@ -114,7 +77,9 @@ describe("design tokens", () => {
     expect(missing).toEqual([]);
   });
 
-  it("uses every token it defines somewhere in the styles or components", () => {
+  // Overrides of shared tokens, such as the reduced-motion duration, are
+  // exempt.
+  it("uses every token it adds somewhere in the styles or components", () => {
     const reference = /var\((--[\w-]+)/g;
     const sources = [
       ...stylesheetPaths.map(readCss),
@@ -123,7 +88,10 @@ describe("design tokens", () => {
     const referencedNames = (source: string): string[] =>
       [...source.matchAll(reference)].map(([, name]) => name);
     const used = new Set(sources.flatMap(referencedNames));
-    const unused = [...tokens.keys()].filter((name) => !used.has(name));
+    const added = [...appTokens.keys()].filter(
+      (name) => !sharedTokens.has(name),
+    );
+    const unused = added.filter((name) => !used.has(name));
 
     expect(unused).toEqual([]);
   });

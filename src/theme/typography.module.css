@@ -3,8 +3,8 @@
 /* The small uppercase mono label that names a field, a group or a panel. */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  letter-spacing: var(--tracking-lg);
   color: var(--color-text-dim);
 }

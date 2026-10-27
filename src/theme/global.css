@@ -1,5 +1,15 @@
 @import "./tokens.css";
 
+/* The print sheet's legible face, the latin subset of the variable font. The
+   interface fonts come from @cckarchev/shared/fonts.css. */
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("./fonts/atkinson-hyperlegible-next.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {

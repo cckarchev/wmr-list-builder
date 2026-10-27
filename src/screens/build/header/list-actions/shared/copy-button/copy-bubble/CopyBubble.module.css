@@ -2,18 +2,18 @@
    layout instead of pushing the neighbouring action buttons aside. */
 .bubble {
   position: absolute;
-  top: calc(100% + var(--space-xxs));
+  top: calc(100% + var(--space-2xs));
   left: 50%;
   transform: translateX(-50%);
   z-index: var(--z-popup);
   white-space: nowrap;
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: var(--color-bg-surface);
   border: var(--border-default);
   border-radius: var(--radius);
   box-shadow: var(--shadow-panel);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
 }
 
 .bubble[data-tone="success"] {

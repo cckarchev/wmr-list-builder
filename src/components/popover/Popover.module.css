@@ -5,7 +5,7 @@
 
 .panel {
   position: absolute;
-  top: calc(100% + var(--space-xxs));
+  top: calc(100% + var(--space-2xs));
   left: 0;
   z-index: var(--z-popup);
   width: max-content;

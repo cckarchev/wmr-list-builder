@@ -4,13 +4,13 @@
   justify-content: center;
   gap: var(--space-xs);
   padding: var(--space-sm) var(--space-lg);
-  border: var(--border-width) solid transparent;
+  border: var(--border-width-thin) solid transparent;
   border-radius: var(--radius);
   font-family: var(--font-display);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-button);
+  letter-spacing: var(--tracking-md);
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
@@ -36,7 +36,7 @@
 }
 
 .button[data-variant="primary"]:hover:not(:disabled) {
-  opacity: var(--opacity-hover);
+  opacity: var(--alpha-80);
 }
 
 .button[data-variant="danger"] {
@@ -46,18 +46,18 @@
 }
 
 .button[data-variant="danger"]:hover:not(:disabled) {
-  opacity: var(--opacity-hover);
+  opacity: var(--alpha-80);
 }
 
 .button[data-variant="ghost"] {
   background: transparent;
-  color: var(--color-teal-bright);
-  border-color: var(--color-ghost-border);
+  color: var(--color-teal);
+  border-color: var(--color-secondary-border);
 }
 
 .button[data-variant="ghost"]:hover:not(:disabled) {
-  border-color: var(--color-teal-bright);
-  background: var(--color-ghost-bg);
+  border-color: var(--color-teal);
+  background: var(--color-secondary-tint);
 }
 
 /* Disabled, whatever the variant: last and with the extra attribute so it

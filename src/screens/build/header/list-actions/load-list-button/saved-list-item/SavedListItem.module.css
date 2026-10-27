@@ -48,20 +48,20 @@
 
 .size {
   flex-shrink: 0;
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: var(--color-bg-deep);
   border-radius: var(--radius);
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }
 
 .delete {
   display: inline-flex;
   margin-right: var(--space-xs);
-  padding: var(--space-xxs);
+  padding: var(--space-2xs);
   background: transparent;
-  border: var(--border-width) solid transparent;
+  border: var(--border-width-thin) solid transparent;
   border-radius: var(--radius);
   color: var(--color-text-dim);
   cursor: pointer;

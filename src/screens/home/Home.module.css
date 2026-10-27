@@ -23,10 +23,9 @@
 
 .heading {
   font-family: var(--font-display);
-  font-size: var(--font-size-xxl);
+  font-size: var(--font-size-2xl);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-solid);
   color: var(--color-text-strong);
 }
 

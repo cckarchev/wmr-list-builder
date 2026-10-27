@@ -48,7 +48,7 @@
 
 .peek {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }
 
@@ -79,7 +79,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 @media (--below-tablet) {
@@ -102,7 +102,7 @@
   padding-top: var(--space-xs);
   border-top: var(--border-divider);
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }
 

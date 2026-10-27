@@ -2,5 +2,5 @@
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
-  color: var(--color-teal-bright);
+  color: var(--color-teal);
 }
