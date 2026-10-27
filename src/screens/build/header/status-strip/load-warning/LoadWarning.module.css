@@ -5,7 +5,7 @@
   gap: var(--space-xs);
   margin: 0;
   font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-warning);
 }
 
@@ -16,6 +16,6 @@
   color: inherit;
   cursor: pointer;
   font-size: var(--font-size-sm);
-  line-height: var(--leading-none);
+  line-height: var(--leading-solid);
   padding: 0;
 }

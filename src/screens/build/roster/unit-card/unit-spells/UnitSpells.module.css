@@ -1,7 +1,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 .spell {
@@ -42,14 +42,14 @@
 
 .roll {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-teal-bright);
+  font-size: var(--font-size-sm);
+  color: var(--color-teal);
   font-weight: var(--font-weight-semibold);
 }
 
 .range {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }
 
@@ -73,7 +73,7 @@
 }
 
 .effect p {
-  margin: 0 0 var(--space-xxs);
+  margin: 0 0 var(--space-2xs);
 }
 
 .effect p:last-child {

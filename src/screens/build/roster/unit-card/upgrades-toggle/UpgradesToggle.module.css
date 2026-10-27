@@ -10,5 +10,5 @@
 
 .selectedBadge {
   font-family: var(--font-mono);
-  color: var(--color-teal-bright);
+  color: var(--color-teal);
 }

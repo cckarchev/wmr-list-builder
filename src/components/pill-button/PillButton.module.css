@@ -5,15 +5,14 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: transparent;
-  border: var(--border-width) solid var(--color-ghost-border);
+  border: var(--border-width-thin) solid var(--color-secondary-border);
   border-radius: var(--radius);
-  color: var(--color-teal-bright);
+  color: var(--color-teal);
   font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
   cursor: pointer;
   transition:
     border-color var(--duration-fast),
@@ -21,8 +20,8 @@
 }
 
 .pill:hover {
-  border-color: var(--color-teal-bright);
-  background: var(--color-ghost-bg);
+  border-color: var(--color-teal);
+  background: var(--color-secondary-tint);
 }
 
 .pill:focus-visible {

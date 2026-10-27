@@ -24,14 +24,14 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 .armyName {
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--font-size-xl);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-solid);
   color: var(--color-accent);
 }
 
@@ -58,6 +58,6 @@
 
 .unsavedDot {
   flex-shrink: 0;
-  margin-left: var(--space-xxs);
+  margin-left: var(--space-2xs);
   color: var(--color-warning);
 }

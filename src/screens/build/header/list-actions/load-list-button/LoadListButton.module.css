@@ -1,6 +1,6 @@
 .empty {
   margin: 0;
   padding: var(--space-xs) var(--popup-padding);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }

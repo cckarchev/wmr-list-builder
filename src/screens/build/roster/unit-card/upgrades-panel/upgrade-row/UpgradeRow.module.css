@@ -1,9 +1,9 @@
 .row {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
-  padding: var(--space-xxs) var(--space-xs);
-  border-left: var(--border-width-strong) solid var(--color-border-divider);
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+  border-left: var(--border-width-thick) solid var(--color-border-divider);
 }
 
 .row[data-invalid] {
@@ -30,7 +30,7 @@
 
 .points {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
   white-space: nowrap;
   /* Fixed width, right-aligned, so a shorter cost (e.g. +5pts vs +30pts)
@@ -41,6 +41,6 @@
 
 .limit {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-dim);
 }

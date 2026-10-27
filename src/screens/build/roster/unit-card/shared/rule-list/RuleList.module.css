@@ -3,7 +3,7 @@
 }
 
 .name {
-  margin: 0 0 var(--space-xxs);
+  margin: 0 0 var(--space-2xs);
   font-family: var(--font-display);
   font-size: var(--font-size-md);
   color: var(--color-text-strong);
@@ -17,7 +17,7 @@
 }
 
 .text p {
-  margin: 0 0 var(--space-xxs);
+  margin: 0 0 var(--space-2xs);
 }
 
 .text p:last-child {

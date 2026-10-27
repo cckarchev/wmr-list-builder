@@ -1,84 +1,21 @@
 /*
- * Design tokens: the single source of truth for every color, size and font in
- * the app. Components read them with var(--token).
+ * App tokens. The palette, scales and fonts come from @cckarchev/shared
+ * (fonts.css and tokens.css, imported in main.tsx); this file only adds what
+ * is specific to this app. Components read them with var(--token).
  */
 @import "./breakpoints.css";
 
 :root {
-  /* RGB channels. Compose a color at any opacity with rgb(var(--rgb-x) / 0.5)
-     instead of hardcoding rgba() values. */
-  --rgb-text: 243 247 248;
-  --rgb-white: 255 255 255;
-  --rgb-black: 0 0 0;
-  --rgb-accent: 212 98 62;
-  --rgb-teal: 43 179 196;
-  --rgb-panel: 13 26 31;
-
-  /* Backgrounds */
-  --color-bg-base: #0a1a22;
-  --color-bg-surface: #0d1f28;
-  --color-bg-tint: #15303a;
-  --color-bg-deep: #070e12;
-  --color-bg-panel: rgb(var(--rgb-panel) / 0.6);
-  /* Fill behind active accent controls, such as the selected roster filter. */
-  --color-bg-accent-tint: rgb(var(--rgb-accent) / 0.15);
   /* Fainter accent wash behind a whole card that is in the list, such as a
      selected roster unit; strong enough to scan for, quiet enough to read
      on. */
-  --color-bg-selected: rgb(var(--rgb-accent) / 0.06);
+  --color-bg-selected: rgb(var(--rgb-accent) / var(--alpha-5));
   /* Large decorative emblem at a card's edge, such as a faction on the army
      picker; it turns full accent on hover. */
-  --color-accent-watermark: rgb(var(--rgb-accent) / 0.55);
+  --color-accent-watermark: rgb(var(--rgb-accent) / var(--alpha-50));
   /* Recessed well that frames a block inside a card, such as a unit stat
      line; darkens whatever card background sits behind it. */
-  --color-bg-inset: rgb(var(--rgb-black) / 0.25);
-  /* Alternate-row shading for printed tables. */
-  --color-bg-stripe: rgb(var(--rgb-white) / 0.06);
-  /* Backdrop that dims the page behind a modal dialog. */
-  --color-bg-scrim: rgb(var(--rgb-black) / 0.6);
-
-  /* Brand */
-  --color-accent: #d4623e;
-  --color-accent-ink: #091418;
-  --color-teal-bright: #2bb3c4;
-
-  /* Text alphas run higher than the cckarchev marketing site: a dense builder
-     with small mono labels needs more contrast than a sparse landing page. */
-  --color-text-strong: rgb(var(--rgb-text) / 1);
-  --color-text-body: rgb(var(--rgb-text) / 0.82);
-  --color-text-dim: rgb(var(--rgb-text) / 0.62);
-
-  /* Control-edge alphas are likewise bumped so panels, steppers and dividers
-     actually read as bordered controls against the near-black surfaces. */
-  --color-border-divider: rgb(var(--rgb-white) / 0.14);
-  --color-border-default: rgb(var(--rgb-white) / 0.22);
-  --color-border-hover: rgb(var(--rgb-white) / 0.34);
-  --color-border-focus: rgb(var(--rgb-teal) / 0.85);
-  --color-border-accent: rgb(var(--rgb-accent) / 0.7);
-
-  /* Disabled controls drop their color for a flat grey, text and edge alike,
-     so "can't press" reads at a glance instead of as a fainter version of
-     the live color. */
-  --color-disabled: rgb(var(--rgb-text) / 0.3);
-  --color-border-disabled: rgb(var(--rgb-white) / 0.1);
-
-  /* Border widths: the default edge, and a strong rule such as a table head,
-     an indented row or the accent edge on home cards. */
-  --border-width: 1px;
-  --border-width-strong: 2px;
-
-  /* Full border shorthands for the two edges every panel and divider uses. */
-  --border-default: var(--border-width) solid var(--color-border-default);
-  --border-divider: var(--border-width) solid var(--color-border-divider);
-
-  /* Ghost / teal-outline interactive states, such as the ghost Button. */
-  --color-ghost-border: rgb(var(--rgb-teal) / 0.6);
-  --color-ghost-bg: rgb(var(--rgb-teal) / 0.1);
-
-  /* Semantic */
-  --color-error: #e05555;
-  --color-success: #46af73;
-  --color-warning: #d9b770;
+  --color-surface-inset: rgb(var(--rgb-black) / var(--alpha-20));
 
   /* Printed sheet: black ink on white paper, grey table rules and a light
      stripe for alternate rows, whatever the screen theme is. */
@@ -87,23 +24,8 @@
   --color-print-rule: #888888;
   --color-print-stripe: #f0f0f0;
 
-  /* 4px-based spacing scale. Names follow the font-size scale. */
-  --space-xxs: 4px;
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-
   /* Sharp corners everywhere, to match the parent site. */
   --radius: 0;
-
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 20px;
-  --font-size-xl: 28px;
-  --font-size-xxl: 40px;
 
   /* Printed sheet sizes: the stat table shrinks to fit the page, and the
      "Smaller font" option sets text at that size and the table smaller still,
@@ -111,48 +33,16 @@
   --font-size-print: 10px;
   --font-size-print-small: 9px;
 
-  --font-display: "Oswald", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   /* The print sheet's "Legible font" option: distinct letterforms (b/d, I/l/1,
      O/0) for dyslexic and low-vision readers. */
   --font-legible: "Atkinson Hyperlegible Next", system-ui, sans-serif;
-  /* Inter's x-height as a fraction of its size (1118 / 2048 units). The legible
-     face has a shorter x-height, so it reads smaller at the same size; scaling
-     it to this ratio keeps its lowercase as tall as the body font's. */
-  --font-legible-size-adjust: 0.546;
+  /* Barlow's x-height as a fraction of its size, as the browser renders it.
+     The legible face has a shorter x-height, so it reads smaller at the same
+     size; scaling it to this ratio keeps its lowercase as tall as the body
+     font's. */
+  --font-legible-size-adjust: 0.516;
 
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  --tracking-label: 0.2em;
-  --tracking-button: 0.12em;
-  /* Light tracking for uppercase text that is not a label, such as page and
-     card titles, the brand and pill buttons. */
-  --tracking-caps: 0.04em;
-
-  /* Line height for running text, on screen and on paper, following the WCAG
-     text spacing guidance. */
-  --leading-body: 1.5;
-  /* Tighter steps: none centers a glyph in its box, tight sets display
-     titles, condensed is the "Condensed" print option. */
-  --leading-none: 1;
-  --leading-tight: 1.1;
-  --leading-condensed: 1.35;
-
-  /* Hover feedback for filled controls. */
-  --opacity-hover: 0.9;
-
-  /* Duration for every hover, expand and reveal transition. Dropped to zero
-     below for people who ask the system for reduced motion. */
-  --duration-fast: 0.12s;
-
-  --shadow-panel: 0 2px 8px rgb(var(--rgb-black) / 0.35);
-
-  /* Shared keyboard focus indicator for every interactive control. */
-  --focus-ring: 2px solid var(--color-border-focus);
-  --focus-ring-offset: 2px;
+  --shadow-panel: 0 2px 8px rgb(var(--rgb-black) / var(--alpha-30));
 
   /* Max content width for centered page containers; beyond this the layout
      gutters rather than letting cards sprawl on large screens. */
@@ -185,11 +75,11 @@
   /* The Build header title: the army name (xl at tight leading) over the
      list name (sm at body leading), and the emblem beside them, which also
      spans the strip padding above and below so it fills the whole strip. */
-  --title-name-height: calc(var(--font-size-xl) * var(--leading-tight));
+  --title-name-height: calc(var(--font-size-xl) * var(--leading-solid));
   --title-list-height: calc(var(--font-size-sm) * var(--leading-body));
   --title-text-height: calc(
     var(--title-name-height) +
-    var(--space-xxs) +
+    var(--space-2xs) +
     var(--title-list-height)
   );
   --emblem-title-size: calc(
@@ -235,6 +125,8 @@
   }
 }
 
+/* Every hover, expand and reveal transition drops to zero for people who ask
+   the system for reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-fast: 0s;

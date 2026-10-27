@@ -2,7 +2,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 .item {
@@ -11,12 +11,12 @@
   gap: var(--space-xs);
   color: var(--color-error);
   font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   line-height: var(--leading-body);
 }
 
 .marker {
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
 }

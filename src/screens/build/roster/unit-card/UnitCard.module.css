@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  background: var(--color-bg-panel);
+  background: var(--color-surface-panel);
   border: var(--border-default);
   border-radius: var(--radius);
   transition: border-color var(--duration-fast);
@@ -49,7 +49,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: var(--space-sm);
-  row-gap: var(--space-xxs);
+  row-gap: var(--space-2xs);
   align-items: start;
 }
 
@@ -74,7 +74,7 @@
   justify-self: start;
   margin-top: var(--space-xs);
   padding: var(--space-xs);
-  background: var(--color-bg-inset);
+  background: var(--color-surface-inset);
 }
 
 /* On a narrow card the controls column leaves too little room for six stat
@@ -93,7 +93,7 @@
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-solid);
   color: var(--color-text-strong);
 }
 

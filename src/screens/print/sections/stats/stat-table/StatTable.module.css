@@ -6,21 +6,21 @@
 
 .table th,
 .table td {
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   white-space: nowrap;
 }
 
 .table th {
-  border-bottom: var(--border-width-strong) solid currentColor;
+  border-bottom: var(--border-width-thick) solid currentColor;
 }
 
 .table tfoot td {
-  border-top: var(--border-width-strong) solid currentColor;
+  border-top: var(--border-width-thick) solid currentColor;
   font-weight: var(--font-weight-semibold);
 }
 
 .table tbody tr:nth-child(even) td {
-  background: var(--color-bg-stripe);
+  background: var(--color-surface-faint);
 }
 
 /* Characters (General/Hero/Wizard) have fewer columns than the unit table, so

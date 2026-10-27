@@ -17,16 +17,15 @@
 .brand {
   display: inline-flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
   text-decoration: none;
 }
 
 .brandName {
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-solid);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
   color: var(--color-text-strong);
 }
 
@@ -36,10 +35,10 @@
 
 .toolName {
   font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   line-height: var(--leading-body);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  letter-spacing: var(--tracking-lg);
   color: var(--color-text-dim);
   transition: color var(--duration-fast);
 }
@@ -68,11 +67,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-xxs) var(--space-sm);
+  padding: var(--space-2xs) var(--space-sm);
   font-family: var(--font-display);
   font-size: var(--font-size-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-button);
+  letter-spacing: var(--tracking-md);
   color: var(--color-text-body);
   text-decoration: none;
   border: var(--border-default);

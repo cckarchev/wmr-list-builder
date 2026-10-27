@@ -12,8 +12,10 @@ It is built as a standalone static site, linked from the club site.
 - **React 19** + **TypeScript**
 - **Vite** (dev server + build)
 - **CSS Modules** (compiled by Lightning CSS) for styling: each component's
-  `.module.css` lives in its folder, and every visual value comes from the design
-  tokens in `src/theme/tokens.css`. Breakpoints are `@custom-media` queries in
+  `.module.css` lives in its folder, and every visual value comes from the club's
+  shared tokens and self-hosted fonts in
+  [`@cckarchev/shared`](https://github.com/cckarchev/cck-shared), plus the
+  app tokens in `src/theme/tokens.css`. Breakpoints are `@custom-media` queries in
   `src/theme/breakpoints.css`; variants and states are `data-*` attributes
 - **Zustand** for state (`src/store/`)
 - **React Router** for routing

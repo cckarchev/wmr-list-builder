@@ -1,7 +1,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: var(--space-2xs);
 }
 
 .label {
@@ -14,7 +14,7 @@
 .stepper {
   composes: stepper from "@/components/stepper/Stepper.module.css";
   align-self: center;
-  background: var(--color-bg-panel);
+  background: var(--color-surface-panel);
 }
 
 .step {
@@ -42,12 +42,12 @@
   text-align: center;
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-regular);
   color: var(--color-text-strong);
   background: transparent;
   border: none;
-  border-inline: var(--border-width) solid var(--stepper-edge);
-  padding: var(--space-xxs) var(--space-xs);
+  border-inline: var(--border-width-thin) solid var(--stepper-edge);
+  padding: var(--space-2xs) var(--space-xs);
   /* Hide the native spinner buttons; stepping is handled by the −/+ buttons. */
   appearance: textfield;
 }

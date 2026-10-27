@@ -7,12 +7,12 @@
 
   display: inline-flex;
   align-items: stretch;
-  border: var(--border-width) solid var(--stepper-edge);
+  border: var(--border-width-thin) solid var(--stepper-edge);
   border-radius: var(--radius);
 }
 
 .stepper:has(.step:enabled) {
-  --stepper-edge: var(--color-ghost-border);
+  --stepper-edge: var(--color-secondary-border);
 }
 
 .step {
@@ -20,13 +20,13 @@
   align-items: center;
   justify-content: center;
   min-width: var(--space-xl);
-  padding: var(--space-xxs) var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   background: transparent;
   border: none;
-  color: var(--color-teal-bright);
+  color: var(--color-teal);
   font-family: var(--font-mono);
   font-size: var(--font-size-lg);
-  line-height: var(--leading-none);
+  line-height: var(--leading-solid);
   cursor: pointer;
   transition:
     background var(--duration-fast),
@@ -34,7 +34,7 @@
 }
 
 .step:hover:not(:disabled) {
-  background: var(--color-ghost-bg);
+  background: var(--color-secondary-tint);
 }
 
 .step:disabled {
@@ -53,7 +53,7 @@
   justify-content: center;
   min-width: 2.5ch;
   padding: 0 var(--space-xs);
-  border-inline: var(--border-width) solid var(--stepper-edge);
+  border-inline: var(--border-width-thin) solid var(--stepper-edge);
   font-family: var(--font-mono);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
