@@ -1,7 +1,7 @@
 .controls {
   position: sticky;
   top: 0;
-  z-index: var(--z-sticky);
+  z-index: var(--layer-bar);
   background: var(--color-bg-deep);
   border-bottom: var(--border-default);
   padding: var(--space-sm) var(--space-md);

@@ -5,7 +5,7 @@
   top: calc(100% + var(--space-2xs));
   left: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-popup);
+  z-index: var(--layer-popover);
   white-space: nowrap;
   padding: var(--space-2xs) var(--space-xs);
   background: var(--color-bg-surface);

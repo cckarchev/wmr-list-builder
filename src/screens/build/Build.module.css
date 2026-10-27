@@ -12,6 +12,14 @@
   overflow-x: clip;
 }
 
+/* The content is its own stacking context, so the popovers inside it scroll
+   under the sticky Header. */
+.grid,
+.summaryMobile {
+  position: relative;
+  z-index: var(--layer-content);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;

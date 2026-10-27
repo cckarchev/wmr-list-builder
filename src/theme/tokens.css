@@ -111,12 +111,6 @@
      @page rule in global.css gives the printed page. */
   --print-sheet-width: 210mm;
   --print-page-margin: 12mm;
-
-  /* Stacking layers, lowest first. Sticky bars sit above popups so an open
-     popup scrolls under them, and the modal dialog sits above everything. */
-  --z-popup: 30;
-  --z-sticky: 40;
-  --z-dialog: 100;
 }
 
 @media (--tablet-up) {
