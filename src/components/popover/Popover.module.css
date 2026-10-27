@@ -7,7 +7,7 @@
   position: absolute;
   top: calc(100% + var(--space-2xs));
   left: 0;
-  z-index: var(--z-popup);
+  z-index: var(--layer-popover);
   width: max-content;
   max-width: min(var(--popup-width), var(--popup-max-width));
   max-height: var(--popup-max-height);
