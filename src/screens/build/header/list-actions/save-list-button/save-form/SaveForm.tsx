@@ -1,6 +1,6 @@
-import { type KeyboardEvent, useEffect, useId, useRef } from 'react';
-import { Button } from '@/components/button/Button';
-import styles from './SaveForm.module.css';
+import { type KeyboardEvent, useEffect, useId, useRef } from "react";
+import { Button } from "@/components/button/Button";
+import styles from "./SaveForm.module.css";
 
 interface SaveFormProps {
   name: string;
@@ -10,7 +10,12 @@ interface SaveFormProps {
 }
 
 /** Name field and submit button shown inside the Save panel. */
-export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) => {
+export const SaveForm = ({
+  name,
+  error,
+  onNameChange,
+  onSave,
+}: SaveFormProps) => {
   // Unique per instance: the inline and the mobile actions each mount a form.
   const nameInputId = useId();
   const storageNoteId = useId();
@@ -21,7 +26,7 @@ export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) =
   }, []);
 
   const saveOnEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       onSave();
     }
   };
@@ -51,8 +56,8 @@ export const SaveForm = ({ name, error, onNameChange, onSave }: SaveFormProps) =
         </p>
       )}
       <p className={styles.storageNote} id={storageNoteId}>
-        Lists are kept only in this browser. Clearing its site data deletes them, so use Share to
-        keep a link to a list.
+        Lists are kept only in this browser. Clearing its site data deletes
+        them, so use Share to keep a link to a list.
       </p>
     </div>
   );

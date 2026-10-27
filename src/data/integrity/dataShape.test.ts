@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { armiesById } from '@/data/armyIndex';
-import { magicItems } from '@/data/magicItems';
+import { describe, expect, it } from "vitest";
+import { armiesById } from "@/data/armyIndex";
+import { magicItems } from "@/data/magicItems";
 
 const armies = Object.entries(armiesById);
 
@@ -14,8 +14,8 @@ const noEmpty = (arr: string[] | undefined, label: string) => {
   });
 };
 
-describe('data shape after cleanup', () => {
-  it('no text/armyRules array contains empty-string separators', () => {
+describe("data shape after cleanup", () => {
+  it("no text/armyRules array contains empty-string separators", () => {
     for (const [id, army] of armies) {
       noEmpty(army.armyRules, `${id} armyRules`);
 
@@ -33,32 +33,37 @@ describe('data shape after cleanup', () => {
     }
   });
 
-  it('every spell has a non-empty fluff and no fluff asterisks', () => {
+  it("every spell has a non-empty fluff and no fluff asterisks", () => {
     for (const [id, army] of armies) {
       for (const spell of army.spells ?? []) {
-        expect(spell.fluff?.trim().length, `${id} ${spell.name} fluff`).toBeGreaterThan(0);
-        expect(spell.fluff, `${id} ${spell.name} fluff asterisks`).not.toMatch(/^\*|\*$/);
+        expect(
+          spell.fluff?.trim().length,
+          `${id} ${spell.name} fluff`,
+        ).toBeGreaterThan(0);
+        expect(spell.fluff, `${id} ${spell.name} fluff asterisks`).not.toMatch(
+          /^\*|\*$/,
+        );
       }
     }
   });
 
-  it('no order field on units, upgrades, or magic items', () => {
+  it("no order field on units, upgrades, or magic items", () => {
     for (const [id, army] of armies) {
       for (const [name, unit] of Object.entries(army.units)) {
-        expect('order' in unit, `${id} unit ${name}`).toBe(false);
+        expect("order" in unit, `${id} unit ${name}`).toBe(false);
       }
 
       for (const [name, up] of Object.entries(army.upgrades ?? {})) {
-        expect('order' in up, `${id} upgrade ${name}`).toBe(false);
+        expect("order" in up, `${id} upgrade ${name}`).toBe(false);
       }
     }
 
     for (const [name, item] of Object.entries(magicItems.upgrades)) {
-      expect('order' in item, `magic item ${name}`).toBe(false);
+      expect("order" in item, `magic item ${name}`).toBe(false);
     }
   });
 
-  it('keeps order on special rules', () => {
+  it("keeps order on special rules", () => {
     const empire = armiesById.empire;
     const handgunners = empire.specialRules?.handgunners;
 
@@ -66,11 +71,11 @@ describe('data shape after cleanup', () => {
   });
 });
 
-describe('display names', () => {
+describe("display names", () => {
   const hasName = (entity: { name?: unknown }) =>
-    typeof entity.name === 'string' && entity.name.trim().length > 0;
+    typeof entity.name === "string" && entity.name.trim().length > 0;
 
-  it('every unit, upgrade and special rule has a name', () => {
+  it("every unit, upgrade and special rule has a name", () => {
     for (const [id, army] of armies) {
       const entities = [
         ...Object.values(army.units),
@@ -82,7 +87,7 @@ describe('display names', () => {
     }
   });
 
-  it('every magic item has a name', () => {
+  it("every magic item has a name", () => {
     expect(Object.values(magicItems.upgrades).every(hasName)).toBe(true);
   });
 });

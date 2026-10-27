@@ -2,7 +2,7 @@
 
 /* The title bar at the top of a popup: an eyebrow label over a divider. */
 .heading {
-  composes: eyebrow from './typography.module.css';
+  composes: eyebrow from "./typography.module.css";
   margin: 0;
   padding: var(--space-sm) var(--popup-padding) var(--space-xs);
   border-bottom: var(--border-divider);

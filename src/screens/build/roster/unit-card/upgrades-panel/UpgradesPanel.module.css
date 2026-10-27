@@ -16,6 +16,6 @@
 }
 
 .groupLabel {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
   margin: 0 0 var(--space-xxs);
 }

@@ -1,15 +1,15 @@
-import { Button } from '@/components/button/Button';
-import { Icon } from '@/components/Icon';
-import { Tooltip } from '@/components/tooltip/Tooltip';
-import { classNames } from '@/core/lib/classNames';
-import { countOf } from '@/core/lib/quantities';
-import type { PrintOptions } from '@/core/print/printOptions';
-import type { OrderStep } from '@/core/print/sectionOrder';
-import type { PrintSectionDef } from '../sections/printSections';
-import { CheckOption } from './check-option/CheckOption';
-import { OptionGroup } from './option-group/OptionGroup';
-import styles from './PrintControls.module.css';
-import { SectionOrder } from './section-order/SectionOrder';
+import { Button } from "@/components/button/Button";
+import { Icon } from "@/components/Icon";
+import { Tooltip } from "@/components/tooltip/Tooltip";
+import { classNames } from "@/core/lib/classNames";
+import { countOf } from "@/core/lib/quantities";
+import type { PrintOptions } from "@/core/print/printOptions";
+import type { OrderStep } from "@/core/print/sectionOrder";
+import type { PrintSectionDef } from "../sections/printSections";
+import { CheckOption } from "./check-option/CheckOption";
+import { OptionGroup } from "./option-group/OptionGroup";
+import styles from "./PrintControls.module.css";
+import { SectionOrder } from "./section-order/SectionOrder";
 
 const PRINT_ICON_SIZE = 18;
 
@@ -17,7 +17,7 @@ const PRINT_ICON_SIZE = 18;
 const MIN_ORDERABLE_SECTIONS = 2;
 
 const PAGE_COUNT_HINT =
-  'Estimated for A4 at 100% scale. Saving to PDF may break pages differently.';
+  "Estimated for A4 at 100% scale. Saving to PDF may break pages differently.";
 
 interface OptionToggle {
   key: keyof PrintOptions;
@@ -27,13 +27,13 @@ interface OptionToggle {
 }
 
 const OPTION_TOGGLES: OptionToggle[] = [
-  { key: 'twoColumn', label: 'Two columns' },
-  { key: 'condensed', label: 'Condensed' },
-  { key: 'smallFont', label: 'Smaller font' },
-  { key: 'legibleFont', label: 'Legible font' },
-  { key: 'pagePerSection', label: 'Page per section' },
-  { key: 'spellFluff', label: 'Spell fluff', needsMagic: true },
-  { key: 'hideTitle', label: 'Hide list name' },
+  { key: "twoColumn", label: "Two columns" },
+  { key: "condensed", label: "Condensed" },
+  { key: "smallFont", label: "Smaller font" },
+  { key: "legibleFont", label: "Legible font" },
+  { key: "pagePerSection", label: "Page per section" },
+  { key: "spellFluff", label: "Spell fluff", needsMagic: true },
+  { key: "hideTitle", label: "Hide list name" },
 ];
 
 interface PrintControlsProps {
@@ -49,7 +49,8 @@ interface PrintControlsProps {
   pageCount: number | null;
 }
 
-const pageCountLabel = (pageCount: number): string => `≈ ${countOf(pageCount, 'page')}`;
+const pageCountLabel = (pageCount: number): string =>
+  `≈ ${countOf(pageCount, "page")}`;
 
 const printPage = () => {
   window.print();
@@ -66,11 +67,13 @@ export const PrintControls = ({
   hasMagic,
   pageCount,
 }: PrintControlsProps) => {
-  const toggles = OPTION_TOGGLES.filter((toggle) => hasMagic || !toggle.needsMagic);
+  const toggles = OPTION_TOGGLES.filter(
+    (toggle) => hasMagic || !toggle.needsMagic,
+  );
   const orderable = sections.length >= MIN_ORDERABLE_SECTIONS;
 
   return (
-    <div className={classNames(styles.controls, 'no-print')}>
+    <div className={classNames(styles.controls, "no-print")}>
       <div className={styles.stack}>
         <OptionGroup label="Sections">
           {sections.map((section) => (
@@ -82,7 +85,9 @@ export const PrintControls = ({
             />
           ))}
 
-          {orderable && <SectionOrder sections={sections} onMove={onMoveSection} />}
+          {orderable && (
+            <SectionOrder sections={sections} onMove={onMoveSection} />
+          )}
         </OptionGroup>
 
         <OptionGroup label="Options">
@@ -105,7 +110,9 @@ export const PrintControls = ({
 
         {pageCount !== null && (
           <Tooltip label={PAGE_COUNT_HINT}>
-            <span className={styles.pageCount}>{pageCountLabel(pageCount)}</span>
+            <span className={styles.pageCount}>
+              {pageCountLabel(pageCount)}
+            </span>
           </Tooltip>
         )}
       </div>

@@ -1,5 +1,5 @@
-import { useArmyStore } from '@/store/useArmyStore';
-import styles from './LoadWarning.module.css';
+import { useArmyStore } from "@/store/useArmyStore";
+import styles from "./LoadWarning.module.css";
 
 /** Dismissible notice shown when a list could not be restored. */
 export const LoadWarning = () => {

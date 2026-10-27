@@ -1,5 +1,5 @@
 .bar {
-  composes: heading from '@/theme/popup.module.css';
+  composes: heading from "@/theme/popup.module.css";
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,4 +1,4 @@
-@import '@/theme/breakpoints.css';
+@import "@/theme/breakpoints.css";
 
 /* The sheet previews as the paper it prints on: black ink on white, whatever
    the screen theme. Pointing the theme tokens at the print colors here
@@ -80,7 +80,8 @@
    compact sheet. Applies to both the preview and the print output. */
 /* Only the gaps between sections, and not with "Page per section", which
    drops them altogether. */
-.document[data-condensed]:not([data-page-per-section]) .section:not(:last-of-type) {
+.document[data-condensed]:not([data-page-per-section])
+  .section:not(:last-of-type) {
   margin-bottom: var(--space-xs);
   padding-bottom: var(--space-xxs);
 }
@@ -105,7 +106,7 @@
   padding-bottom: var(--print-cell-padding-y);
 }
 
-.document[data-condensed] table[data-kind='character'] {
+.document[data-condensed] table[data-kind="character"] {
   margin-bottom: var(--space-sm);
 }
 

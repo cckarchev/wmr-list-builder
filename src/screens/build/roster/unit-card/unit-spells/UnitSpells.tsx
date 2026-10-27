@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
-import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
-import { Markdown } from '@/components/Markdown';
-import { Popover } from '@/components/popover/Popover';
-import { isCaster } from '@/core/army-state/unitTypes';
-import { formatStat } from '@/core/lib/formatStat';
-import { toggleMember } from '@/core/lib/sets';
-import { spellBlocks } from '@/core/spellBlocks';
-import { useArmyStore } from '@/store/useArmyStore';
-import { DISCLOSURE_CARET_SIZE } from '../shared/disclosureCaret';
-import styles from './UnitSpells.module.css';
+import { useState } from "react";
+import { ChevronMark } from "@/components/chevron-mark/ChevronMark";
+import { Icon, INLINE_ICON_SIZE } from "@/components/Icon";
+import { Markdown } from "@/components/Markdown";
+import { Popover } from "@/components/popover/Popover";
+import { isCaster } from "@/core/army-state/unitTypes";
+import { formatStat } from "@/core/lib/formatStat";
+import { toggleMember } from "@/core/lib/sets";
+import { spellBlocks } from "@/core/spellBlocks";
+import { useArmyStore } from "@/store/useArmyStore";
+import { DISCLOSURE_CARET_SIZE } from "../shared/disclosureCaret";
+import styles from "./UnitSpells.module.css";
 
 interface UnitSpellsProps {
   unitId: string;
@@ -53,7 +53,10 @@ export const UnitSpells = ({ unitId }: UnitSpellsProps) => {
                 onClick={() => toggle(i)}
               >
                 <span className={styles.caret}>
-                  <ChevronMark size={DISCLOSURE_CARET_SIZE} color="currentColor" />
+                  <ChevronMark
+                    size={DISCLOSURE_CARET_SIZE}
+                    color="currentColor"
+                  />
                 </span>
                 <span className={styles.name}>{spell.name}</span>
                 <span className={styles.roll}>{spell.roll}+</span>

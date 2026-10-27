@@ -1,4 +1,8 @@
-import type { UnitState, UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import type {
+  UnitState,
+  UnitUpgradeEntry,
+  UpgradeState,
+} from "@/core/army-state/types";
 
 /**
  * Structural superset of the fields the rules read off an "item".
@@ -32,7 +36,9 @@ export interface RequiredGroup {
 /** Everything a rule needs to judge one item. */
 export interface RuleContext {
   item: ValidatableItem;
-  /** How the item is named in messages: its id, or its whole homologous group. */
+  /**
+   * How the item is named in messages: its id, or its whole homologous group.
+   */
   label: string;
   /** The item's count plus its homologous items' counts. */
   groupNumber: number;

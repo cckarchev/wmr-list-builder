@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
-import { useEscapeKey } from './useEscapeKey';
-import { useOutsideClick } from './useOutsideClick';
+import { useRef, useState } from "react";
+import { useEscapeKey } from "./useEscapeKey";
+import { useOutsideClick } from "./useOutsideClick";
 
 /**
  * Open state for a popup anchored in the element `ref` is attached to. While
@@ -31,5 +31,9 @@ export const useDismissible = <T extends HTMLElement>() => {
   return { open, setOpen, close, ref, triggerRef };
 };
 
-/** What `useDismissible` hands back, for components that receive it as a prop. */
-export type Dismissible<T extends HTMLElement> = ReturnType<typeof useDismissible<T>>;
+/**
+ * What `useDismissible` hands back, for components that receive it as a prop.
+ */
+export type Dismissible<T extends HTMLElement> = ReturnType<
+  typeof useDismissible<T>
+>;

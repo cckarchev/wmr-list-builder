@@ -1,10 +1,13 @@
-import { FactionIcon } from '@/components/faction-icon/FactionIcon';
-import { hasFactionIcon } from '@/components/faction-icon/factionIcons';
-import { useArmyStore } from '@/store/useArmyStore';
-import { useIsDirty } from '@/store/useIsDirty';
-import styles from './TitleBlock.module.css';
+import { FactionIcon } from "@/components/faction-icon/FactionIcon";
+import { hasFactionIcon } from "@/components/faction-icon/factionIcons";
+import { useArmyStore } from "@/store/useArmyStore";
+import { useIsDirty } from "@/store/useIsDirty";
+import styles from "./TitleBlock.module.css";
 
-/** The faction emblem and army name, with the saved list's name and its unsaved marker below. */
+/**
+ * The faction emblem and army name, with the saved list's name and its unsaved
+ * marker below.
+ */
 export const TitleBlock = () => {
   const army = useArmyStore((s) => s.army);
   const armyId = useArmyStore((s) => s.armyId);

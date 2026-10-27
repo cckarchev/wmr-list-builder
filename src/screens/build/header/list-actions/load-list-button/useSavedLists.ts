@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
+import { useState } from "react";
+import { encodeListFor } from "@/core/persistence/list-codec/listCodec";
 import {
   deleteNamedList,
   listSavedSummaries,
   loadNamedList,
   type SavedListSummary,
-} from '@/core/persistence/savedLists';
-import { snapshotOf } from '@/core/persistence/snapshot';
-import { useArmyStore } from '@/store/useArmyStore';
-import { useIsDirty } from '@/store/useIsDirty';
+} from "@/core/persistence/savedLists";
+import { snapshotOf } from "@/core/persistence/snapshot";
+import { useArmyStore } from "@/store/useArmyStore";
+import { useIsDirty } from "@/store/useIsDirty";
 
 /**
  * The army's saved lists, plus loading and deleting them with the matching
@@ -48,7 +48,8 @@ export const useSavedLists = (onLoaded: () => void) => {
     applyList(snap);
 
     // Re-encode the applied state so the baseline matches what the store holds
-    // (applyList clamps to force limits, so it may differ from the raw snapshot).
+    // (applyList clamps to force limits, so it may differ from the raw
+    // snapshot).
     const { gameSize, units } = useArmyStore.getState();
     const appliedSnapshot = snapshotOf({ gameSize, units, label: name });
 

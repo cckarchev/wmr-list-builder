@@ -1,6 +1,6 @@
-import { loadArmy } from '@/data/loadArmy';
-import { magicItems } from '@/data/magicItems';
-import type { Army } from '@/data/types';
+import { loadArmy } from "@/data/loadArmy";
+import { magicItems } from "@/data/magicItems";
+import type { Army } from "@/data/types";
 
 export interface ArmyCodeMaps {
   unitCodeById: Map<string, number>;
@@ -11,8 +11,9 @@ export interface ArmyCodeMaps {
 
 /**
  * Build id<->code lookups for a single army. Upgrade lookups include the army's
- * own upgrades plus the shared magic items (codes from MAGIC_ITEM_CODE_MIN up); unselected entries
- * simply never appear in an encoded list, so including all of them is harmless.
+ * own upgrades plus the shared magic items (codes from MAGIC_ITEM_CODE_MIN up);
+ * unselected entries simply never appear in an encoded list, so including all
+ * of them is harmless.
  */
 export const buildCodeMaps = (army: Army): ArmyCodeMaps => {
   const unitCodeById = new Map<string, number>();
@@ -39,4 +40,5 @@ export const buildCodeMaps = (army: Army): ArmyCodeMaps => {
 };
 
 /** The code maps of the army with this id. Throws for an unknown army. */
-export const codeMapsFor = (armyId: string): ArmyCodeMaps => buildCodeMaps(loadArmy(armyId));
+export const codeMapsFor = (armyId: string): ArmyCodeMaps =>
+  buildCodeMaps(loadArmy(armyId));

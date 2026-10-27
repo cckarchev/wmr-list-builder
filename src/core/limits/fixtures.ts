@@ -1,4 +1,4 @@
-import type { UnitUpgradeEntry, UpgradeState } from '@/core/army-state/types';
+import type { UnitUpgradeEntry, UpgradeState } from "@/core/army-state/types";
 
 // Shared setup for the limits test files that build upgrades by type.
 
@@ -11,4 +11,7 @@ export const upgradeOfType = (id: string, type: string): UpgradeState => ({
 });
 
 /** A unit's entry for an upgrade it carries `number` of. */
-export const taken = (number: number): UnitUpgradeEntry => ({ number, pointsCost: 0 });
+export const taken = (number: number): UnitUpgradeEntry => ({
+  number,
+  pointsCost: 0,
+});

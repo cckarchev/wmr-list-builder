@@ -1,8 +1,8 @@
-import { ChevronMark } from '@/components/chevron-mark/ChevronMark';
-import { SearchInput } from '@/components/search-input/SearchInput';
-import styles from './RosterFilters.module.css';
+import { ChevronMark } from "@/components/chevron-mark/ChevronMark";
+import { SearchInput } from "@/components/search-input/SearchInput";
+import styles from "./RosterFilters.module.css";
 
-const PANEL_ID = 'roster-filters';
+const PANEL_ID = "roster-filters";
 
 const CARET_SIZE = 12;
 
@@ -35,8 +35,8 @@ export const RosterFilters = ({
   selectedOnly,
   onToggleSelectedOnly,
 }: RosterFiltersProps) => {
-  const filtersActive = search.trim() !== '' || activeType !== null;
-  const filtersLabel = filtersActive ? 'Filters •' : 'Filters';
+  const filtersActive = search.trim() !== "" || activeType !== null;
+  const filtersLabel = filtersActive ? "Filters •" : "Filters";
 
   return (
     <>
@@ -67,7 +67,11 @@ export const RosterFilters = ({
       </div>
       {filtersOpen && (
         <div className={styles.panel} id={PANEL_ID}>
-          <SearchInput label="Search units" value={search} onChange={onSearchChange} />
+          <SearchInput
+            label="Search units"
+            value={search}
+            onChange={onSearchChange}
+          />
           <fieldset className={styles.chips} aria-label="Filter by type">
             {types.map((label) => (
               <button

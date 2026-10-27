@@ -1,16 +1,16 @@
-import { Fragment } from 'react';
-import { Markdown } from '@/components/Markdown';
-import { spellBlocks } from '@/core/spellBlocks';
-import { useArmyStore } from '@/store/useArmyStore';
-import { usePrintOptions } from '../../printOptions';
+import { Fragment } from "react";
+import { Markdown } from "@/components/Markdown";
+import { spellBlocks } from "@/core/spellBlocks";
+import { useArmyStore } from "@/store/useArmyStore";
+import { usePrintOptions } from "../../printOptions";
 import {
   DefDesc,
   DefList,
   DefTerm,
   PrintHeading,
   PrintSection,
-} from '../print-section/PrintSection';
-import styles from './Spells.module.css';
+} from "../print-section/PrintSection";
+import styles from "./Spells.module.css";
 
 export const Spells = () => {
   const spells = useArmyStore((s) => s.spells);
@@ -27,7 +27,7 @@ export const Spells = () => {
         {spells.map((spell) => {
           const blocks = spellBlocks(spell, spellFluff);
           const header = `${spell.name.toUpperCase()} · ${spell.roll}+ to cast · Range ${
-            spell.range ?? 'N/A'
+            spell.range ?? "N/A"
           }`;
 
           return (

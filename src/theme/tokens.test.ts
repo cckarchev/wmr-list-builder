@@ -1,36 +1,38 @@
 /// <reference types="node" />
-import { globSync, readFileSync } from 'node:fs';
-import { describe, expect, it } from 'vitest';
+import { globSync, readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
 
 const COMMENT = /\/\*[\s\S]*?\*\//g;
 
-// Vitest stubs out imported CSS, so the stylesheets are read from disk. Comments
-// are dropped so example tokens in them don't count as references.
+// Vitest stubs out imported CSS, so the stylesheets are read from disk.
+// Comments are dropped so example tokens in them don't count as references.
 const readCss = (path: string): string => {
-  const css = readFileSync(path, 'utf8');
+  const css = readFileSync(path, "utf8");
 
-  return css.replace(COMMENT, '');
+  return css.replace(COMMENT, "");
 };
 
-const tokensCss = readCss('src/theme/tokens.css');
+const tokensCss = readCss("src/theme/tokens.css");
 
 const SPACE_UNIT_PX = 4;
 
 /** Custom properties set inline by components rather than defined as tokens. */
-const INLINE_PROPERTIES = new Set(['--header-height']);
+const INLINE_PROPERTIES = new Set(["--header-height"]);
 
 /**
  * Custom properties a control defines on itself to share one value across its
  * own edges, such as the stepper frame and its dividers.
  */
-const LOCAL_PROPERTIES = new Set(['--stepper-edge', '--arrows-edge']);
+const LOCAL_PROPERTIES = new Set(["--stepper-edge", "--arrows-edge"]);
 
-const stylesheetPaths = globSync('src/**/*.css');
+const stylesheetPaths = globSync("src/**/*.css");
 
 /** Components that pass a token as a prop value, such as a bracket color. */
-const componentPaths = globSync('src/**/*.tsx', { exclude: (path) => path.endsWith('.test.tsx') });
+const componentPaths = globSync("src/**/*.tsx", {
+  exclude: (path) => path.endsWith(".test.tsx"),
+});
 
-const readComponent = (path: string): string => readFileSync(path, 'utf8');
+const readComponent = (path: string): string => readFileSync(path, "utf8");
 
 const parseTokens = (css: string): Map<string, string> => {
   const declaration = /(--[\w-]+):\s*([^;]+);/g;
@@ -56,22 +58,24 @@ const tokenValue = (name: string): string => {
 };
 
 const spaceSteps = (): number[] => {
-  const names = [...tokens.keys()].filter((name) => name.startsWith('--space-'));
+  const names = [...tokens.keys()].filter((name) =>
+    name.startsWith("--space-"),
+  );
 
   return names.map((name) => Number.parseInt(tokenValue(name), 10));
 };
 
-describe('design tokens', () => {
-  it('exposes the CCK-coherent accent and dark base', () => {
-    expect(tokenValue('--color-accent')).toBe('#d4623e');
-    expect(tokenValue('--color-bg-base')).toBe('#0a1a22');
+describe("design tokens", () => {
+  it("exposes the CCK-coherent accent and dark base", () => {
+    expect(tokenValue("--color-accent")).toBe("#d4623e");
+    expect(tokenValue("--color-bg-base")).toBe("#0a1a22");
   });
 
-  it('uses a 4px-based space scale ordered from smallest to largest', () => {
+  it("uses a 4px-based space scale ordered from smallest to largest", () => {
     const steps = spaceSteps();
     const ascending = [...steps].sort((a, b) => a - b);
 
-    expect(tokenValue('--space-xxs')).toBe(`${SPACE_UNIT_PX}px`);
+    expect(tokenValue("--space-xxs")).toBe(`${SPACE_UNIT_PX}px`);
     expect(steps).toEqual(ascending);
 
     for (const step of steps) {
@@ -79,16 +83,16 @@ describe('design tokens', () => {
     }
   });
 
-  it('uses sharp (zero) corners to match the parent site', () => {
-    expect(tokenValue('--radius')).toBe('0');
+  it("uses sharp (zero) corners to match the parent site", () => {
+    expect(tokenValue("--radius")).toBe("0");
   });
 
-  it('draws the focus ring in brand teal so the keyboard indicator reads', () => {
-    expect(tokenValue('--focus-ring')).toContain('var(--color-border-focus)');
-    expect(tokenValue('--color-border-focus')).toContain('var(--rgb-teal)');
+  it("draws the focus ring in brand teal so the keyboard indicator reads", () => {
+    expect(tokenValue("--focus-ring")).toContain("var(--color-border-focus)");
+    expect(tokenValue("--color-border-focus")).toContain("var(--rgb-teal)");
   });
 
-  it('defines every token the stylesheets reference', () => {
+  it("defines every token the stylesheets reference", () => {
     const reference = /var\((--[\w-]+)/g;
     const missing: string[] = [];
 
@@ -97,7 +101,9 @@ describe('design tokens', () => {
     for (const path of stylesheetPaths) {
       for (const [, name] of readCss(path).matchAll(reference)) {
         const defined =
-          tokens.has(name) || INLINE_PROPERTIES.has(name) || LOCAL_PROPERTIES.has(name);
+          tokens.has(name) ||
+          INLINE_PROPERTIES.has(name) ||
+          LOCAL_PROPERTIES.has(name);
 
         if (!defined) {
           missing.push(`${path}: ${name}`);
@@ -108,9 +114,12 @@ describe('design tokens', () => {
     expect(missing).toEqual([]);
   });
 
-  it('uses every token it defines somewhere in the styles or components', () => {
+  it("uses every token it defines somewhere in the styles or components", () => {
     const reference = /var\((--[\w-]+)/g;
-    const sources = [...stylesheetPaths.map(readCss), ...componentPaths.map(readComponent)];
+    const sources = [
+      ...stylesheetPaths.map(readCss),
+      ...componentPaths.map(readComponent),
+    ];
     const referencedNames = (source: string): string[] =>
       [...source.matchAll(reference)].map(([, name]) => name);
     const used = new Set(sources.flatMap(referencedNames));

@@ -27,7 +27,7 @@
    let it size to its content and sit centered with gutters on either side
    rather than stretching full width. The min-width keeps a short roster (brief
    character names) from collapsing into a cramped sliver. */
-.table[data-kind='character'] {
+.table[data-kind="character"] {
   width: auto;
   min-width: 60%;
   margin: 0 auto var(--space-lg);

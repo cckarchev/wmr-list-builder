@@ -26,36 +26,36 @@
 }
 
 /* Compact size used for inline action rows. */
-.button[data-size='sm'] {
+.button[data-size="sm"] {
   padding: var(--space-xs) var(--space-sm);
 }
 
-.button[data-variant='primary'] {
+.button[data-variant="primary"] {
   background: var(--color-accent);
   color: var(--color-accent-ink);
 }
 
-.button[data-variant='primary']:hover:not(:disabled) {
+.button[data-variant="primary"]:hover:not(:disabled) {
   opacity: var(--opacity-hover);
 }
 
-.button[data-variant='danger'] {
+.button[data-variant="danger"] {
   background: transparent;
   color: var(--color-error);
   border-color: var(--color-error);
 }
 
-.button[data-variant='danger']:hover:not(:disabled) {
+.button[data-variant="danger"]:hover:not(:disabled) {
   opacity: var(--opacity-hover);
 }
 
-.button[data-variant='ghost'] {
+.button[data-variant="ghost"] {
   background: transparent;
   color: var(--color-teal-bright);
   border-color: var(--color-ghost-border);
 }
 
-.button[data-variant='ghost']:hover:not(:disabled) {
+.button[data-variant="ghost"]:hover:not(:disabled) {
   border-color: var(--color-teal-bright);
   background: var(--color-ghost-bg);
 }

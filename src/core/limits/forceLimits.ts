@@ -1,6 +1,6 @@
-import { unitPointsCost } from '@/core/army-state/pricing';
-import type { UnitState } from '@/core/army-state/types';
-import { armySize, POINTS_PER_ARMY_SIZE } from './armySize';
+import { unitPointsCost } from "@/core/army-state/pricing";
+import type { UnitState } from "@/core/army-state/types";
+import { armySize, POINTS_PER_ARMY_SIZE } from "./armySize";
 
 interface Bounds {
   min: number;
@@ -8,7 +8,10 @@ interface Bounds {
 }
 
 /** Fields the force-limit resolver reads off a unit. */
-type Limited = Pick<UnitState, 'armyMin' | 'armyMax' | 'min' | 'max' | 'homologousUnits'>;
+type Limited = Pick<
+  UnitState,
+  "armyMin" | "armyMax" | "min" | "max" | "homologousUnits"
+>;
 
 /**
  * Resolve a unit's HARD force limits at the given game-size cap.
@@ -28,11 +31,11 @@ export const resolveBounds = (unit: Limited, gameSize: number): Bounds => {
   if (!unit.homologousUnits) {
     const size = armySize(gameSize);
 
-    if (typeof unit.min === 'number' && gameSize >= POINTS_PER_ARMY_SIZE) {
+    if (typeof unit.min === "number" && gameSize >= POINTS_PER_ARMY_SIZE) {
       min = Math.max(min, unit.min * size);
     }
 
-    if (typeof unit.max === 'number') {
+    if (typeof unit.max === "number") {
       const scaledMax = unit.max * size;
 
       max = max === undefined ? scaledMax : Math.min(max, scaledMax);

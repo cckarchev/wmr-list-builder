@@ -1,16 +1,16 @@
-import type { UnitState } from '@/core/army-state/types';
-import { isCharacter } from '@/core/army-state/unitTypes';
-import { matchesQuery } from '@/core/lib/textSearch';
-import { resolveBounds } from '@/core/limits/forceLimits';
+import type { UnitState } from "@/core/army-state/types";
+import { isCharacter } from "@/core/army-state/unitTypes";
+import { matchesQuery } from "@/core/lib/textSearch";
+import { resolveBounds } from "@/core/limits/forceLimits";
 
 const TROOP_TYPE_ORDER = [
-  'Infantry',
-  'Cavalry',
-  'Chariot',
-  'Monster',
-  'Artillery',
-  'Machine',
-  'Special',
+  "Infantry",
+  "Cavalry",
+  "Chariot",
+  "Monster",
+  "Artillery",
+  "Machine",
+  "Special",
 ];
 
 export interface RosterGroup {
@@ -22,13 +22,13 @@ export interface RosterGroup {
  * Group roster units for display: a single "Characters" group
  * (General/Hero/Wizard) first, then troop groups in canonical type order.
  * Within each group, mandatory units (those with a resolved minimum > 0 at the
- * given `gameSize`) are floated to the top; order is otherwise stable, following
- * the units map. An optional `query` filters by unit display name (see
- * `matchesQuery`); groups left empty by the filter are dropped.
+ * given `gameSize`) are floated to the top; order is otherwise stable,
+ * following the units map. An optional `query` filters by unit display name
+ * (see `matchesQuery`); groups left empty by the filter are dropped.
  */
 export const groupRosterUnits = (
   units: Record<string, UnitState>,
-  query = '',
+  query = "",
   gameSize?: number,
 ): RosterGroup[] => {
   const matches = (id: string) => matchesQuery(units[id].name, query);
@@ -58,8 +58,12 @@ export const groupRosterUnits = (
       return ids;
     }
 
-    const mandatory = ids.filter((id) => resolveBounds(units[id], gameSize).min > 0);
-    const rest = ids.filter((id) => resolveBounds(units[id], gameSize).min === 0);
+    const mandatory = ids.filter(
+      (id) => resolveBounds(units[id], gameSize).min > 0,
+    );
+    const rest = ids.filter(
+      (id) => resolveBounds(units[id], gameSize).min === 0,
+    );
 
     return [...mandatory, ...rest];
   };
@@ -67,7 +71,10 @@ export const groupRosterUnits = (
   const groups: RosterGroup[] = [];
 
   if (characters.length > 0) {
-    groups.push({ label: 'Characters', unitIds: sortMandatoryFirst(characters) });
+    groups.push({
+      label: "Characters",
+      unitIds: sortMandatoryFirst(characters),
+    });
   }
 
   for (const type of TROOP_TYPE_ORDER) {

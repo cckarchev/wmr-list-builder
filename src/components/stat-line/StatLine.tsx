@@ -1,6 +1,6 @@
-import { formatStat } from '@/core/lib/formatStat';
-import type { StatValue } from '@/data/types';
-import styles from './StatLine.module.css';
+import { formatStat } from "@/core/lib/formatStat";
+import type { StatValue } from "@/data/types";
+import styles from "./StatLine.module.css";
 
 interface StatLineProps {
   attack?: StatValue;
@@ -28,25 +28,31 @@ export const StatLine = ({
   points,
   character = false,
 }: StatLineProps) => {
-  // `shortLabel` replaces the label on a phone, where the columns are narrowest.
-  const cells: Array<{ label: string; shortLabel?: string; value: string }> = [];
+  // `shortLabel` replaces the label on a phone, where the columns are
+  // narrowest.
+  const cells: Array<{ label: string; shortLabel?: string; value: string }> =
+    [];
 
   // Characters and troops carry disjoint stat sets, so each shows only its own.
   // Characters: Att / Cmd / Size / Pts (no character has Range/Hits/Armour).
   // Troops: Att / Range / Hits / Armour / Size / Pts (no Cmd). Absent stats
   // within a set still render as "-" so the columns line up across units.
-  cells.push({ label: 'Att', value: formatStat(attack) });
+  cells.push({ label: "Att", value: formatStat(attack) });
 
   if (character) {
-    cells.push({ label: 'Cmd', value: formatStat(command) });
+    cells.push({ label: "Cmd", value: formatStat(command) });
   } else {
-    cells.push({ label: 'Range', value: formatStat(range) });
-    cells.push({ label: 'Hits', value: formatStat(hits) });
-    cells.push({ label: 'Armour', shortLabel: 'Arm', value: formatStat(armour) });
+    cells.push({ label: "Range", value: formatStat(range) });
+    cells.push({ label: "Hits", value: formatStat(hits) });
+    cells.push({
+      label: "Armour",
+      shortLabel: "Arm",
+      value: formatStat(armour),
+    });
   }
 
-  cells.push({ label: 'Size', value: formatStat(size) });
-  cells.push({ label: 'Pts', value: formatStat(points) });
+  cells.push({ label: "Size", value: formatStat(size) });
+  cells.push({ label: "Pts", value: formatStat(points) });
 
   return (
     <div className={styles.table}>

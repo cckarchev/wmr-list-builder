@@ -3,7 +3,10 @@ interface ArmyAllowanceInput {
   taken: number;
   /** How many of the upgrade the whole army has, this unit included. */
   armyTotal: number;
-  /** Army-wide cap, such as Magic Standards at 1 per army, if the upgrade has one. */
+  /**
+   * Army-wide cap, such as Magic Standards at 1 per army, if the upgrade has
+   * one.
+   */
   armyMax?: number;
 }
 

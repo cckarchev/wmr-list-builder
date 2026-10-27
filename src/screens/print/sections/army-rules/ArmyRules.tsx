@@ -1,7 +1,7 @@
-import { Markdown } from '@/components/Markdown';
-import { useArmyStore } from '@/store/useArmyStore';
-import { PrintHeading, PrintSection } from '../print-section/PrintSection';
-import styles from './ArmyRules.module.css';
+import { Markdown } from "@/components/Markdown";
+import { useArmyStore } from "@/store/useArmyStore";
+import { PrintHeading, PrintSection } from "../print-section/PrintSection";
+import styles from "./ArmyRules.module.css";
 
 export const ArmyRules = () => {
   const army = useArmyStore((s) => s.army);

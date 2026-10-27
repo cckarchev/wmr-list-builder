@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { encodeListFor } from '@/core/persistence/list-codec/listCodec';
-import { listSavedNames, saveNamedList } from '@/core/persistence/savedLists';
-import { snapshotOf } from '@/core/persistence/snapshot';
-import { useArmyStore } from '@/store/useArmyStore';
+import { useState } from "react";
+import { encodeListFor } from "@/core/persistence/list-codec/listCodec";
+import { listSavedNames, saveNamedList } from "@/core/persistence/savedLists";
+import { snapshotOf } from "@/core/persistence/snapshot";
+import { useArmyStore } from "@/store/useArmyStore";
 
-const EMPTY_NAME_ERROR = 'Enter a name for this list.';
+const EMPTY_NAME_ERROR = "Enter a name for this list.";
 
 /**
  * Draft name, validation and overwrite confirmation for saving the current
@@ -18,7 +18,7 @@ export const useSaveList = (onSaved: () => void) => {
   const setLabel = useArmyStore((s) => s.setLabel);
   const setSavedBaseline = useArmyStore((s) => s.setSavedBaseline);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [confirmingOverwrite, setConfirmingOverwrite] = useState(false);
 

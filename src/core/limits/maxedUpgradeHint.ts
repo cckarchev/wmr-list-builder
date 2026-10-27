@@ -1,7 +1,7 @@
-import type { UnitState, UpgradeState } from '@/core/army-state/types';
-import { kindFullHint } from './kindFullHint';
-import { takenByHint } from './takenByHint';
-import { armyAllowanceLeft } from './upgradeMaxCount';
+import type { UnitState, UpgradeState } from "@/core/army-state/types";
+import { kindFullHint } from "./kindFullHint";
+import { takenByHint } from "./takenByHint";
+import { armyAllowanceLeft } from "./upgradeMaxCount";
 
 interface MaxedUpgradeInput {
   units: Record<string, UnitState>;
@@ -11,7 +11,7 @@ interface MaxedUpgradeInput {
 }
 
 /** A unit takes at most one of any upgrade per stand. */
-const STAND_LIMIT_HINT = 'Max 1 per stand';
+const STAND_LIMIT_HINT = "Max 1 per stand";
 
 /**
  * Why a unit can't take more of an upgrade, for the spent stepper, checking
@@ -53,7 +53,8 @@ export const maxedUpgradeHint = ({
     return kindFull;
   }
 
-  const armyLimitReached = allowanceLeft !== undefined && taken >= allowanceLeft;
+  const armyLimitReached =
+    allowanceLeft !== undefined && taken >= allowanceLeft;
 
   if (armyLimitReached) {
     return `Max ${upgrade.armyMax} per army`;

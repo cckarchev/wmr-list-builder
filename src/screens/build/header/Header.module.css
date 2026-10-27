@@ -1,4 +1,4 @@
-@import '@/theme/breakpoints.css';
+@import "@/theme/breakpoints.css";
 
 .bar {
   position: sticky;
@@ -32,17 +32,17 @@
 /* The mobile menu takes over below the tablet breakpoint; the two queries are
    strict complements, so there is no dead zone at the breakpoint itself. */
 @media (--below-tablet) {
-  .actions[data-layout='inline'] {
+  .actions[data-layout="inline"] {
     display: none;
   }
 }
 
-.actions[data-layout='menu'] {
+.actions[data-layout="menu"] {
   position: relative;
 }
 
 @media (--tablet-up) {
-  .actions[data-layout='menu'] {
+  .actions[data-layout="menu"] {
     display: none;
   }
 }

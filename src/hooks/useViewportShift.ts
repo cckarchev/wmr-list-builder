@@ -1,5 +1,5 @@
-import { type RefObject, useLayoutEffect, useRef, useState } from 'react';
-import { viewportShift } from '@/core/lib/viewportShift';
+import { type RefObject, useLayoutEffect, useRef, useState } from "react";
+import { viewportShift } from "@/core/lib/viewportShift";
 
 /** Minimum gap kept between the panel and the viewport edges. */
 const VIEWPORT_MARGIN = 8;
@@ -41,10 +41,10 @@ export const useViewportShift = (
     };
 
     place();
-    window.addEventListener('resize', place);
+    window.addEventListener("resize", place);
 
     return () => {
-      window.removeEventListener('resize', place);
+      window.removeEventListener("resize", place);
       appliedRef.current = 0;
       setOffsetX(0);
     };

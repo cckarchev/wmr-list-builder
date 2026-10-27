@@ -1,18 +1,25 @@
-import { type RefObject, useEffect } from 'react';
+import { type RefObject, useEffect } from "react";
 
 /** Elements a keyboard user can Tab to. */
 const FOCUSABLE_SELECTOR = [
-  'a[href]',
-  'button:not(:disabled)',
-  'input:not(:disabled)',
-  'select:not(:disabled)',
-  'textarea:not(:disabled)',
+  "a[href]",
+  "button:not(:disabled)",
+  "input:not(:disabled)",
+  "select:not(:disabled)",
+  "textarea:not(:disabled)",
   '[tabindex]:not([tabindex="-1"])',
-].join(', ');
+].join(", ");
 
-/** The element Tab should land on next, or undefined to let the browser move on. */
-const wrapTarget = (container: HTMLElement, backwards: boolean): HTMLElement | undefined => {
-  const focusables = Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+/**
+ * The element Tab should land on next, or undefined to let the browser move on.
+ */
+const wrapTarget = (
+  container: HTMLElement,
+  backwards: boolean,
+): HTMLElement | undefined => {
+  const focusables = Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+  );
   const first = focusables.at(0);
   const last = focusables.at(-1);
   const current = document.activeElement;
@@ -53,7 +60,7 @@ export const useFocusTrap = (
     const keepTabInside = (event: KeyboardEvent) => {
       const container = containerRef.current;
 
-      if (event.key !== 'Tab' || !container) {
+      if (event.key !== "Tab" || !container) {
         return;
       }
 
@@ -67,14 +74,17 @@ export const useFocusTrap = (
       target.focus();
     };
 
-    document.addEventListener('keydown', keepTabInside);
+    document.addEventListener("keydown", keepTabInside);
 
     return () => {
-      document.removeEventListener('keydown', keepTabInside);
+      document.removeEventListener("keydown", keepTabInside);
 
       // The opener may have unmounted with the dialog, such as a row that was
       // just deleted. Then the fallback, if any, keeps focus off <body>.
-      if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
+      if (
+        previouslyFocused instanceof HTMLElement &&
+        previouslyFocused.isConnected
+      ) {
         previouslyFocused.focus();
 
         return;

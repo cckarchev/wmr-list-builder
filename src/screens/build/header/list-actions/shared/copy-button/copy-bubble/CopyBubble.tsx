@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
-import styles from './CopyBubble.module.css';
+import type { ReactNode } from "react";
+import styles from "./CopyBubble.module.css";
 
-type CopyBubbleTone = 'success' | 'error';
+type CopyBubbleTone = "success" | "error";
 
 interface CopyBubbleProps {
   /** Colors the message as a confirmation or as a failure. */

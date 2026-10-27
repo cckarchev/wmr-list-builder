@@ -1,10 +1,10 @@
-import { buildUnits, buildUpgrades } from '@/core/army-state/buildState';
-import type { UnitState, UpgradeState } from '@/core/army-state/types';
-import { applyForceMinimums } from '@/core/limits/forceLimits';
-import { validate } from '@/core/validation/validation';
-import { loadArmy } from '@/data/loadArmy';
-import { magicItems } from '@/data/magicItems';
-import type { Army, Spell, ValidationError } from '@/data/types';
+import { buildUnits, buildUpgrades } from "@/core/army-state/buildState";
+import type { UnitState, UpgradeState } from "@/core/army-state/types";
+import { applyForceMinimums } from "@/core/limits/forceLimits";
+import { validate } from "@/core/validation/validation";
+import { loadArmy } from "@/data/loadArmy";
+import { magicItems } from "@/data/magicItems";
+import type { Army, Spell, ValidationError } from "@/data/types";
 
 export const DEFAULT_GAME_SIZE = 2000;
 
@@ -15,7 +15,7 @@ export interface ArmyData {
   units: Record<string, UnitState>;
   upgrades: Record<string, UpgradeState>;
   magic: boolean;
-  specialRules: Army['specialRules'];
+  specialRules: Army["specialRules"];
   spells: Spell[] | undefined;
   version: string;
   label: string;
@@ -33,8 +33,8 @@ export const emptyData = (): ArmyData => ({
   magic: false,
   specialRules: undefined,
   spells: undefined,
-  version: '',
-  label: '',
+  version: "",
+  label: "",
   errors: [],
   gameSize: DEFAULT_GAME_SIZE,
   loadWarning: null,
@@ -53,8 +53,14 @@ export const initializeState = (id: string): ArmyData => {
   const upgradeConstraints = [...armyConstraints, ...magicConstraints];
 
   // upgrades are needed by units, so build them first
-  const upgrades = buildUpgrades(army.upgrades, magic ? magicItems.upgrades : undefined);
-  const units = applyForceMinimums(buildUnits(army.units, upgradeConstraints), DEFAULT_GAME_SIZE);
+  const upgrades = buildUpgrades(
+    army.upgrades,
+    magic ? magicItems.upgrades : undefined,
+  );
+  const units = applyForceMinimums(
+    buildUnits(army.units, upgradeConstraints),
+    DEFAULT_GAME_SIZE,
+  );
 
   return {
     ...emptyData(),

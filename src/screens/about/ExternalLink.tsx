@@ -1,5 +1,5 @@
-import { type ReactNode, useId } from 'react';
-import { NewTabHint } from '@/components/NewTabHint';
+import { type ReactNode, useId } from "react";
+import { NewTabHint } from "@/components/NewTabHint";
 
 interface ExternalLinkProps {
   href: string;

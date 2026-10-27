@@ -1,8 +1,8 @@
-import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
-import { Popover } from '@/components/popover/Popover';
-import { resolveUnitSpecialRules } from '@/core/special-rules/specialRulesForUnit';
-import { useArmyStore } from '@/store/useArmyStore';
-import { RuleList } from '../shared/rule-list/RuleList';
+import { Icon, INLINE_ICON_SIZE } from "@/components/Icon";
+import { Popover } from "@/components/popover/Popover";
+import { resolveUnitSpecialRules } from "@/core/special-rules/specialRulesForUnit";
+import { useArmyStore } from "@/store/useArmyStore";
+import { RuleList } from "../shared/rule-list/RuleList";
 
 interface UnitRulesProps {
   unitId: string;

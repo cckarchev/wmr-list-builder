@@ -62,7 +62,12 @@
       "armour": "-/6+",
       "size": "+1",
       "points": 20,
-      "augendUnits": ["halberdiers", "handgunners", "crossbowmen", "flagellants"],
+      "augendUnits": [
+        "halberdiers",
+        "handgunners",
+        "crossbowmen",
+        "flagellants"
+      ],
       "noCount": true,
       "noMagic": true
     },

@@ -1,10 +1,10 @@
-import type { UnitState, UpgradeState } from '@/core/army-state/types';
-import type { SpecialRule } from '@/data/types';
-import { resolveUnitSpecialRules } from './specialRulesForUnit';
+import type { UnitState, UpgradeState } from "@/core/army-state/types";
+import type { SpecialRule } from "@/data/types";
+import { resolveUnitSpecialRules } from "./specialRulesForUnit";
 
-type TakenUnit = Pick<UnitState, 'number' | 'specialRules'>;
+type TakenUnit = Pick<UnitState, "number" | "specialRules">;
 
-type TakenUpgrade = Pick<UpgradeState, 'number' | 'specialRules'>;
+type TakenUpgrade = Pick<UpgradeState, "number" | "specialRules">;
 
 /** The rules that apply to any taken unit or upgrade, keyed by rule id. */
 export const collectUsedSpecialRules = (
@@ -22,7 +22,11 @@ export const collectUsedSpecialRules = (
 
   for (const [unitId, unit] of Object.entries(units)) {
     if (unit.number > 0) {
-      for (const { id } of resolveUnitSpecialRules(unitId, unit, allSpecialRules)) {
+      for (const { id } of resolveUnitSpecialRules(
+        unitId,
+        unit,
+        allSpecialRules,
+      )) {
         addRule(id);
       }
     }

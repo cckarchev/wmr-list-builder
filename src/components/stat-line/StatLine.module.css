@@ -24,7 +24,7 @@
 }
 
 .label {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
 }
 
 /* Columns are too narrow for the label tracking: "ARMOUR" would cross the

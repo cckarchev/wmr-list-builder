@@ -1,9 +1,9 @@
-import { type ReactNode, useId, useRef, useState } from 'react';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { useViewportShift } from '@/hooks/useViewportShift';
-import styles from './Tooltip.module.css';
-import { useTooltipPlacement } from './useTooltipPlacement';
+import { type ReactNode, useId, useRef, useState } from "react";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useViewportShift } from "@/hooks/useViewportShift";
+import styles from "./Tooltip.module.css";
+import { useTooltipPlacement } from "./useTooltipPlacement";
 
 interface TooltipProps {
   /** The full text shown in the bubble on hover, focus or tap. */

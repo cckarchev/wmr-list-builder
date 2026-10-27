@@ -1,5 +1,5 @@
-import { findArmy } from './armyIndex';
-import type { Army } from './types';
+import { findArmy } from "./armyIndex";
+import type { Army } from "./types";
 
 export const loadArmy = (id: string): Army => {
   const army = findArmy(id);

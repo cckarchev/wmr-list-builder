@@ -1,9 +1,9 @@
-import type { Ref } from 'react';
-import { classNames } from '@/core/lib/classNames';
-import type { PrintOptions } from '@/core/print/printOptions';
-import { PrintOptionsContext } from '../printOptions';
-import type { PrintSectionDef } from '../sections/printSections';
-import styles from './PrintView.module.css';
+import type { Ref } from "react";
+import { classNames } from "@/core/lib/classNames";
+import type { PrintOptions } from "@/core/print/printOptions";
+import { PrintOptionsContext } from "../printOptions";
+import type { PrintSectionDef } from "../sections/printSections";
+import styles from "./PrintView.module.css";
 
 /** The first break starts page 2. */
 const FIRST_BROKEN_PAGE = 2;
@@ -16,7 +16,10 @@ interface PrintViewProps {
   options: PrintOptions;
   /** Attached to the sheet, so its page breaks can be measured. */
   sheetRef?: Ref<HTMLElement>;
-  /** Predicted page starts, in pixels from the top of the sheet's content, or null to draw none. */
+  /**
+   * Predicted page starts, in pixels from the top of the sheet's content, or
+   * null to draw none.
+   */
   breaks?: number[] | null;
 }
 
@@ -29,7 +32,7 @@ interface PageBreakProps {
     sheet's padding is the page margin the offset is measured from. */
 const PageBreak = ({ offset, page }: PageBreakProps) => (
   <div
-    className={classNames(styles.pageBreak, 'no-print')}
+    className={classNames(styles.pageBreak, "no-print")}
     style={{ top: `calc(var(--print-page-margin) + ${offset}px)` }}
     aria-hidden="true"
   >
@@ -45,9 +48,12 @@ export const PrintView = ({
   sheetRef,
   breaks,
 }: PrintViewProps) => {
-  const visibleSections = sections.filter((section) => selectedIds.has(section.id));
+  const visibleSections = sections.filter((section) =>
+    selectedIds.has(section.id),
+  );
 
-  const usesColumns = (section: PrintSectionDef) => options.twoColumn && !section.singleColumn;
+  const usesColumns = (section: PrintSectionDef) =>
+    options.twoColumn && !section.singleColumn;
   const shownBreaks = breaks ?? [];
 
   return (
@@ -61,7 +67,9 @@ export const PrintView = ({
         data-page-per-section={options.pagePerSection || undefined}
         data-legible-font={options.legibleFont || undefined}
       >
-        {title && !options.hideTitle && <h1 className={styles.title}>{title}</h1>}
+        {title && !options.hideTitle && (
+          <h1 className={styles.title}>{title}</h1>
+        )}
         {visibleSections.map((section) => (
           <section
             className={styles.section}
@@ -73,7 +81,11 @@ export const PrintView = ({
         ))}
 
         {shownBreaks.map((offset, index) => (
-          <PageBreak key={offset} offset={offset} page={index + FIRST_BROKEN_PAGE} />
+          <PageBreak
+            key={offset}
+            offset={offset}
+            page={index + FIRST_BROKEN_PAGE}
+          />
         ))}
       </article>
     </PrintOptionsContext.Provider>

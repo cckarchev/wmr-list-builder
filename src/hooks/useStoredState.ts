@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
 /**
  * State that starts from what `load` finds and is handed to `save` on every

@@ -1,10 +1,10 @@
-import { useRef } from 'react';
-import { ConfirmDialog } from '@/components/confirm-dialog/ConfirmDialog';
-import { useDismissible } from '@/hooks/useDismissible';
-import { PanelAction } from '../shared/panel-action/PanelAction';
-import styles from './LoadListButton.module.css';
-import { SavedListItem } from './saved-list-item/SavedListItem';
-import { useSavedLists } from './useSavedLists';
+import { useRef } from "react";
+import { ConfirmDialog } from "@/components/confirm-dialog/ConfirmDialog";
+import { useDismissible } from "@/hooks/useDismissible";
+import { PanelAction } from "../shared/panel-action/PanelAction";
+import styles from "./LoadListButton.module.css";
+import { SavedListItem } from "./saved-list-item/SavedListItem";
+import { useSavedLists } from "./useSavedLists";
 
 export const LoadListButton = () => {
   const dismissible = useDismissible<HTMLSpanElement>();
@@ -26,7 +26,7 @@ export const LoadListButton = () => {
       />
       <ConfirmDialog
         open={lists.pendingDelete !== null}
-        title={`Delete "${lists.pendingDelete ?? ''}"?`}
+        title={`Delete "${lists.pendingDelete ?? ""}"?`}
         message="This saved list will be removed permanently."
         confirmLabel="Delete"
         onConfirm={lists.confirmDelete}
@@ -48,7 +48,9 @@ export const LoadListButton = () => {
       dialogs={confirmDialogs}
       panelRef={panelRef}
     >
-      {isEmpty && <p className={styles.empty}>No saved lists for this army yet.</p>}
+      {isEmpty && (
+        <p className={styles.empty}>No saved lists for this army yet.</p>
+      )}
       {lists.saved.map(({ name, gameSize }) => (
         <SavedListItem
           key={name}

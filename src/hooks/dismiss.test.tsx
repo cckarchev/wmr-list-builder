@@ -1,9 +1,9 @@
-import { fireEvent, render } from '@testing-library/react';
-import { useRef } from 'react';
-import { describe, expect, it, vi } from 'vitest';
-import { useDismissible } from './useDismissible';
-import { useEscapeKey } from './useEscapeKey';
-import { useOutsideClick } from './useOutsideClick';
+import { fireEvent, render } from "@testing-library/react";
+import { useRef } from "react";
+import { describe, expect, it, vi } from "vitest";
+import { useDismissible } from "./useDismissible";
+import { useEscapeKey } from "./useEscapeKey";
+import { useOutsideClick } from "./useOutsideClick";
 
 interface ProbeProps {
   active: boolean;
@@ -29,64 +29,66 @@ const EscapeProbe = ({ active, onDismiss }: ProbeProps) => {
   return <div>probe</div>;
 };
 
-describe('useOutsideClick', () => {
-  it('calls the handler on a mousedown outside the element', () => {
+describe("useOutsideClick", () => {
+  it("calls the handler on a mousedown outside the element", () => {
     const onDismiss = vi.fn();
     const { getByText } = render(<OutsideProbe active onDismiss={onDismiss} />);
 
-    fireEvent.mouseDown(getByText('outside'));
+    fireEvent.mouseDown(getByText("outside"));
 
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it('ignores a mousedown inside the element', () => {
+  it("ignores a mousedown inside the element", () => {
     const onDismiss = vi.fn();
     const { getByText } = render(<OutsideProbe active onDismiss={onDismiss} />);
 
-    fireEvent.mouseDown(getByText('inside'));
+    fireEvent.mouseDown(getByText("inside"));
 
     expect(onDismiss).not.toHaveBeenCalled();
   });
 
-  it('does nothing while inactive', () => {
+  it("does nothing while inactive", () => {
     const onDismiss = vi.fn();
-    const { getByText } = render(<OutsideProbe active={false} onDismiss={onDismiss} />);
+    const { getByText } = render(
+      <OutsideProbe active={false} onDismiss={onDismiss} />,
+    );
 
-    fireEvent.mouseDown(getByText('outside'));
+    fireEvent.mouseDown(getByText("outside"));
 
     expect(onDismiss).not.toHaveBeenCalled();
   });
 });
 
-describe('useEscapeKey', () => {
-  it('calls the handler when Escape is pressed', () => {
+describe("useEscapeKey", () => {
+  it("calls the handler when Escape is pressed", () => {
     const onDismiss = vi.fn();
     render(<EscapeProbe active onDismiss={onDismiss} />);
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, { key: "Escape" });
 
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it('ignores other keys', () => {
+  it("ignores other keys", () => {
     const onDismiss = vi.fn();
     render(<EscapeProbe active onDismiss={onDismiss} />);
 
-    fireEvent.keyDown(document, { key: 'Enter' });
+    fireEvent.keyDown(document, { key: "Enter" });
 
     expect(onDismiss).not.toHaveBeenCalled();
   });
 
-  it('does nothing while inactive', () => {
+  it("does nothing while inactive", () => {
     const onDismiss = vi.fn();
     render(<EscapeProbe active={false} onDismiss={onDismiss} />);
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, { key: "Escape" });
 
     expect(onDismiss).not.toHaveBeenCalled();
   });
 
-  it('only calls the most recently activated handler', () => {
+  it("only calls the most recently activated handler", () => {
     const onPanel = vi.fn();
     const onDialog = vi.fn();
     render(
@@ -96,13 +98,13 @@ describe('useEscapeKey', () => {
       </>,
     );
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, { key: "Escape" });
 
     expect(onDialog).toHaveBeenCalledTimes(1);
     expect(onPanel).not.toHaveBeenCalled();
   });
 
-  it('hands Escape back to the layer below once the top one deactivates', () => {
+  it("hands Escape back to the layer below once the top one deactivates", () => {
     const onPanel = vi.fn();
     const onDialog = vi.fn();
     const { rerender } = render(
@@ -118,7 +120,7 @@ describe('useEscapeKey', () => {
         <EscapeProbe active={false} onDismiss={onDialog} />
       </>,
     );
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, { key: "Escape" });
 
     expect(onPanel).toHaveBeenCalledTimes(1);
     expect(onDialog).not.toHaveBeenCalled();
@@ -126,7 +128,8 @@ describe('useEscapeKey', () => {
 });
 
 const DismissibleProbe = () => {
-  const { open, setOpen, close, ref, triggerRef } = useDismissible<HTMLDivElement>();
+  const { open, setOpen, close, ref, triggerRef } =
+    useDismissible<HTMLDivElement>();
 
   return (
     <>
@@ -145,36 +148,36 @@ const DismissibleProbe = () => {
   );
 };
 
-describe('useDismissible', () => {
-  it('closes on Escape and returns focus to the trigger', () => {
+describe("useDismissible", () => {
+  it("closes on Escape and returns focus to the trigger", () => {
     const { getByText, queryByText } = render(<DismissibleProbe />);
 
-    fireEvent.click(getByText('open'));
-    getByText('done').focus();
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.click(getByText("open"));
+    getByText("done").focus();
+    fireEvent.keyDown(document, { key: "Escape" });
 
-    expect(queryByText('done')).toBeNull();
-    expect(getByText('open')).toHaveFocus();
+    expect(queryByText("done")).toBeNull();
+    expect(getByText("open")).toHaveFocus();
   });
 
-  it('returns focus to the trigger when the popup closes itself', () => {
+  it("returns focus to the trigger when the popup closes itself", () => {
     const { getByText, queryByText } = render(<DismissibleProbe />);
 
-    fireEvent.click(getByText('open'));
-    fireEvent.click(getByText('done'));
+    fireEvent.click(getByText("open"));
+    fireEvent.click(getByText("done"));
 
-    expect(queryByText('done')).toBeNull();
-    expect(getByText('open')).toHaveFocus();
+    expect(queryByText("done")).toBeNull();
+    expect(getByText("open")).toHaveFocus();
   });
 
-  it('leaves focus alone when closed by an outside click', () => {
+  it("leaves focus alone when closed by an outside click", () => {
     const { getByText, queryByText } = render(<DismissibleProbe />);
 
-    fireEvent.click(getByText('open'));
-    getByText('elsewhere').focus();
-    fireEvent.mouseDown(getByText('elsewhere'));
+    fireEvent.click(getByText("open"));
+    getByText("elsewhere").focus();
+    fireEvent.mouseDown(getByText("elsewhere"));
 
-    expect(queryByText('done')).toBeNull();
-    expect(getByText('elsewhere')).toHaveFocus();
+    expect(queryByText("done")).toBeNull();
+    expect(getByText("elsewhere")).toHaveFocus();
   });
 });

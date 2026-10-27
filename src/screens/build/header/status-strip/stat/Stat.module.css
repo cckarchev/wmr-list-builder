@@ -5,7 +5,7 @@
 }
 
 .label {
-  composes: eyebrow from '@/theme/typography.module.css';
+  composes: eyebrow from "@/theme/typography.module.css";
 }
 
 .value {

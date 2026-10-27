@@ -1,12 +1,12 @@
-import { countOf } from '@/core/lib/quantities';
+import { countOf } from "@/core/lib/quantities";
 import {
   countOfKind,
   MAGIC_ITEM_KIND,
   MOUNT_KIND,
   UNIT_UPGRADE_KIND,
   type UpgradeKind,
-} from '@/core/limits/upgradeKinds';
-import type { Rule } from './types';
+} from "@/core/limits/upgradeKinds";
+import type { Rule } from "./types";
 
 /** An item cannot carry more upgrades of a kind than it has models. */
 const upgradeCap =

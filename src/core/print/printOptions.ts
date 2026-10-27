@@ -1,7 +1,11 @@
 export interface PrintOptions {
-  /** Show each spell's italic flavor line (off by default to save space/ink). */
+  /**
+   * Show each spell's italic flavor line (off by default to save space/ink).
+   */
   spellFluff: boolean;
-  /** Flow the text sections (everything but the stat table) into two columns. */
+  /**
+   * Flow the text sections (everything but the stat table) into two columns.
+   */
   twoColumn: boolean;
   /** Shrink the type across the sheet to fit more on the page. */
   smallFont: boolean;
@@ -9,9 +13,14 @@ export interface PrintOptions {
   hideTitle: boolean;
   /** Tighten the spacing (margins/line-height) for a more compact layout. */
   condensed: boolean;
-  /** Start every section on a new page instead of separating them with a rule. */
+  /**
+   * Start every section on a new page instead of separating them with a rule.
+   */
   pagePerSection: boolean;
-  /** Set the sheet in a typeface with clearly distinct letters, easier to read for dyslexic readers. */
+  /**
+   * Set the sheet in a typeface with clearly distinct letters, easier to read
+   * for dyslexic readers.
+   */
   legibleFont: boolean;
 }
 

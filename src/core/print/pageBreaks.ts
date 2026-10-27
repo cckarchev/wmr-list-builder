@@ -1,10 +1,15 @@
-/** A piece of the sheet the printer will not split, measured from the sheet's top. */
+/**
+ * A piece of the sheet the printer will not split, measured from the sheet's
+ * top.
+ */
 export interface SheetBlock {
   top: number;
   height: number;
   /** A heading that must stay on the same page as the block after it. */
   keepWithNext?: boolean;
-  /** A page must start here, such as at each section with "Page per section". */
+  /**
+   * A page must start here, such as at each section with "Page per section".
+   */
   breakBefore?: boolean;
 }
 
@@ -13,7 +18,11 @@ export interface SheetBlock {
  * headings right above it move to the new page with it, as long as they do not
  * already start the current page.
  */
-const breakWithHeadings = (blocks: SheetBlock[], index: number, pageStart: number): number => {
+const breakWithHeadings = (
+  blocks: SheetBlock[],
+  index: number,
+  pageStart: number,
+): number => {
   let start = blocks[index].top;
 
   for (let previous = index - 1; previous >= 0; previous--) {
@@ -36,7 +45,10 @@ const breakWithHeadings = (blocks: SheetBlock[], index: number, pageStart: numbe
  * taller than a whole page is cut at each page end, and a forced break always
  * starts a new page.
  */
-export const pageBreaks = (blocks: SheetBlock[], pageHeight: number): number[] => {
+export const pageBreaks = (
+  blocks: SheetBlock[],
+  pageHeight: number,
+): number[] => {
   const ordered = [...blocks].sort((a, b) => a.top - b.top);
   const breaks: number[] = [];
   let pageStart = 0;

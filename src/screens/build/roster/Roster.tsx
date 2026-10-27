@@ -1,7 +1,7 @@
-import styles from './Roster.module.css';
-import { RosterFilters } from './roster-filters/RosterFilters';
-import { RosterGroup } from './roster-group/RosterGroup';
-import { useRosterView } from './useRosterView';
+import styles from "./Roster.module.css";
+import { RosterFilters } from "./roster-filters/RosterFilters";
+import { RosterGroup } from "./roster-group/RosterGroup";
+import { useRosterView } from "./useRosterView";
 
 /** The army's units, grouped by type, with search and filter controls. */
 export const Roster = () => {
@@ -11,7 +11,9 @@ export const Roster = () => {
   return (
     <section className={styles.section} aria-label="Roster">
       <RosterFilters {...filters} />
-      {isEmpty && <p className={styles.empty}>No units match the current filters.</p>}
+      {isEmpty && (
+        <p className={styles.empty}>No units match the current filters.</p>
+      )}
       {groups.map((group) => (
         <RosterGroup
           key={group.label}

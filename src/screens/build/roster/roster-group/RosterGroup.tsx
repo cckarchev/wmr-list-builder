@@ -1,7 +1,7 @@
-import type { RosterGroup as RosterGroupData } from '@/core/roster/groupRosterUnits';
-import { groupPanelId } from '../../shared/domIds';
-import { UnitCard } from '../unit-card/UnitCard';
-import styles from './RosterGroup.module.css';
+import type { RosterGroup as RosterGroupData } from "@/core/roster/groupRosterUnits";
+import { groupPanelId } from "../../shared/domIds";
+import { UnitCard } from "../unit-card/UnitCard";
+import styles from "./RosterGroup.module.css";
 
 interface RosterGroupProps {
   group: RosterGroupData;
@@ -10,7 +10,11 @@ interface RosterGroupProps {
 }
 
 /** A collapsible roster section: the type heading and its unit cards. */
-export const RosterGroup = ({ group, collapsed, onToggle }: RosterGroupProps) => {
+export const RosterGroup = ({
+  group,
+  collapsed,
+  onToggle,
+}: RosterGroupProps) => {
   const panelId = groupPanelId(group.label);
 
   return (

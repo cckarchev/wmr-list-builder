@@ -1,5 +1,5 @@
 /** Query param carrying an encoded list in a share link. */
-export const LIST_PARAM = 'list';
+export const LIST_PARAM = "list";
 
 interface ShareUrlInput {
   armyId: string;
@@ -9,6 +9,12 @@ interface ShareUrlInput {
   origin: string;
 }
 
-/** The link the Share button copies: this app's build route carrying the list. */
-export const buildShareUrl = ({ armyId, encoded, origin }: ShareUrlInput): string =>
+/**
+ * The link the Share button copies: this app's build route carrying the list.
+ */
+export const buildShareUrl = ({
+  armyId,
+  encoded,
+  origin,
+}: ShareUrlInput): string =>
   `${origin}/build/${armyId}?${LIST_PARAM}=${encoded}`;

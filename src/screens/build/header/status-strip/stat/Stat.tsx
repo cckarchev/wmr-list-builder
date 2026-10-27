@@ -1,4 +1,4 @@
-import styles from './Stat.module.css';
+import styles from "./Stat.module.css";
 
 interface StatProps {
   label: string;
@@ -12,7 +12,11 @@ interface StatProps {
 export const Stat = ({ label, value, over = false, testId }: StatProps) => (
   <div className={styles.stat}>
     <span className={styles.label}>{label}</span>
-    <span className={styles.value} data-over={over || undefined} data-testid={testId}>
+    <span
+      className={styles.value}
+      data-over={over || undefined}
+      data-testid={testId}
+    >
       {value}
     </span>
   </div>

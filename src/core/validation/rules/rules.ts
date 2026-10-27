@@ -4,8 +4,15 @@ import {
   prohibitedUpgrades,
   requiredUnits,
   requiredUpgrades,
-} from './dependencies';
-import { armyMax, asManyMax, eliteMax, halfOrNoneMax, scaledMax, upToHalf } from './maximums';
+} from "./dependencies";
+import {
+  armyMax,
+  asManyMax,
+  eliteMax,
+  halfOrNoneMax,
+  scaledMax,
+  upToHalf,
+} from "./maximums";
 import {
   allOrNone,
   armyMin,
@@ -14,9 +21,9 @@ import {
   halfOrMore,
   halfOrNoneMin,
   scaledMin,
-} from './minimums';
-import type { Rule, RuleContext } from './types';
-import { magicItemCap, mountCap, unitUpgradeCap } from './upgradeCaps';
+} from "./minimums";
+import type { Rule, RuleContext } from "./types";
+import { magicItemCap, mountCap, unitUpgradeCap } from "./upgradeCaps";
 
 /**
  * Every rule, in the order their errors are reported. Faithful port of

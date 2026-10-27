@@ -16,10 +16,10 @@
   font-weight: var(--font-weight-medium);
 }
 
-.bubble[data-tone='success'] {
+.bubble[data-tone="success"] {
   color: var(--color-success);
 }
 
-.bubble[data-tone='error'] {
+.bubble[data-tone="error"] {
   color: var(--color-error);
 }

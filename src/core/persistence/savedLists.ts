@@ -1,9 +1,13 @@
-import { codeMapsFor } from './codeMaps';
-import { decodeList, decodeListFor, encodeListFor } from './list-codec/listCodec';
-import type { ListSnapshot } from './snapshot';
-import { readJson, removeItem, writeJson } from './storage';
+import { codeMapsFor } from "./codeMaps";
+import {
+  decodeList,
+  decodeListFor,
+  encodeListFor,
+} from "./list-codec/listCodec";
+import type { ListSnapshot } from "./snapshot";
+import { readJson, removeItem, writeJson } from "./storage";
 
-const SAVED_PREFIX = 'wmr:saved:';
+const SAVED_PREFIX = "wmr:saved:";
 
 /**
  * Read + parse the per-army map of named lists. Returns an empty map on any
@@ -14,7 +18,7 @@ const SAVED_PREFIX = 'wmr:saved:';
  */
 const readSavedMap = (armyId: string): Map<string, string> => {
   const parsed = readJson(SAVED_PREFIX + armyId);
-  const isMap = parsed && typeof parsed === 'object' && !Array.isArray(parsed);
+  const isMap = parsed && typeof parsed === "object" && !Array.isArray(parsed);
 
   if (isMap) {
     return new Map(Object.entries(parsed as Record<string, string>));
@@ -33,7 +37,11 @@ const writeSavedMap = (armyId: string, map: Map<string, string>): void => {
   }
 };
 
-export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot): void => {
+export const saveNamedList = (
+  armyId: string,
+  name: string,
+  snap: ListSnapshot,
+): void => {
   try {
     const map = readSavedMap(armyId);
 
@@ -44,7 +52,10 @@ export const saveNamedList = (armyId: string, name: string, snap: ListSnapshot):
   }
 };
 
-export const loadNamedList = (armyId: string, name: string): ListSnapshot | null => {
+export const loadNamedList = (
+  armyId: string,
+  name: string,
+): ListSnapshot | null => {
   try {
     const encoded = readSavedMap(armyId).get(name);
 
@@ -60,7 +71,7 @@ export const loadNamedList = (armyId: string, name: string): ListSnapshot | null
 
 /** Case-insensitive alphabetical order for list names. */
 const byName = (a: string, b: string): number =>
-  a.localeCompare(b, undefined, { sensitivity: 'base' });
+  a.localeCompare(b, undefined, { sensitivity: "base" });
 
 export const listSavedNames = (armyId: string): string[] =>
   [...readSavedMap(armyId).keys()].sort(byName);
@@ -84,7 +95,9 @@ export const listSavedSummaries = (armyId: string): SavedListSummary[] => {
       return { name, gameSize };
     };
 
-    return [...map.entries()].map(summarize).sort((a, b) => byName(a.name, b.name));
+    return [...map.entries()]
+      .map(summarize)
+      .sort((a, b) => byName(a.name, b.name));
   } catch {
     return [];
   }

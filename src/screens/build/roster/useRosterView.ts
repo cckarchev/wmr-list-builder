@@ -1,15 +1,17 @@
-import { useState } from 'react';
-import { toggleMember, withoutMember } from '@/core/lib/sets';
-import { groupRosterUnits } from '@/core/roster/groupRosterUnits';
-import { narrowRosterGroups } from '@/core/roster/narrowRosterGroups';
-import { useArmyStore } from '@/store/useArmyStore';
+import { useState } from "react";
+import { toggleMember, withoutMember } from "@/core/lib/sets";
+import { groupRosterUnits } from "@/core/roster/groupRosterUnits";
+import { narrowRosterGroups } from "@/core/roster/narrowRosterGroups";
+import { useArmyStore } from "@/store/useArmyStore";
 
-/** Filter, search and collapse state for the roster, plus the groups it shows. */
+/**
+ * Filter, search and collapse state for the roster, plus the groups it shows.
+ */
 export const useRosterView = () => {
   const units = useArmyStore((s) => s.units);
   const gameSize = useArmyStore((s) => s.gameSize);
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [activeType, setActiveType] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedOnly, setSelectedOnly] = useState(false);

@@ -56,7 +56,7 @@
 }
 
 .upgrade::before {
-  content: '+';
+  content: "+";
   color: var(--color-border-default);
 }
 

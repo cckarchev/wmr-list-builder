@@ -1,6 +1,6 @@
-import type { UnitState, UpgradeState } from '@/core/army-state/types';
-import { scrollToUnit } from '../../shared/scrollToUnit';
-import styles from './SummaryRow.module.css';
+import type { UnitState, UpgradeState } from "@/core/army-state/types";
+import { scrollToUnit } from "../../shared/scrollToUnit";
+import styles from "./SummaryRow.module.css";
 
 interface SummaryRowProps {
   id: string;
@@ -9,9 +9,14 @@ interface SummaryRowProps {
   upgrades: Record<string, UpgradeState>;
 }
 
-/** One selected unit with its taken upgrades; clicking it scrolls the roster there. */
+/**
+ * One selected unit with its taken upgrades; clicking it scrolls the roster
+ * there.
+ */
 export const SummaryRow = ({ id, unit, upgrades }: SummaryRowProps) => {
-  const chosenUpgrades = Object.entries(unit.upgrades ?? {}).filter(([, u]) => u.number > 0);
+  const chosenUpgrades = Object.entries(unit.upgrades ?? {}).filter(
+    ([, u]) => u.number > 0,
+  );
 
   const scrollToRosterCard = () => {
     scrollToUnit(id);
@@ -29,7 +34,9 @@ export const SummaryRow = ({ id, unit, upgrades }: SummaryRowProps) => {
           {chosenUpgrades.map(([upgradeId, u]) => (
             <span className={styles.upgrade} key={upgradeId}>
               <span>{upgrades[upgradeId].name}</span>
-              {u.number > 1 && <span className={styles.upgradeQty}>×{u.number}</span>}
+              {u.number > 1 && (
+                <span className={styles.upgradeQty}>×{u.number}</span>
+              )}
             </span>
           ))}
         </span>

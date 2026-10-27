@@ -1,6 +1,9 @@
-import type { ArmyPools } from '@/core/army-state/types';
+import type { ArmyPools } from "@/core/army-state/types";
 
-/** A list reduced to what is worth storing: its name, game size and chosen counts. */
+/**
+ * A list reduced to what is worth storing: its name, game size and chosen
+ * counts.
+ */
 export interface ListSnapshot {
   name: string;
   gameSize: number;
@@ -9,7 +12,7 @@ export interface ListSnapshot {
 }
 
 export const snapshotOf = (
-  state: Pick<ArmyPools, 'units'> & { gameSize: number; label: string },
+  state: Pick<ArmyPools, "units"> & { gameSize: number; label: string },
 ): ListSnapshot => {
   const units: Record<string, number> = {};
   const upgrades: Record<string, Record<string, number>> = {};

@@ -1,19 +1,19 @@
-import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
-import { Popover } from '@/components/popover/Popover';
-import { Stepper } from '@/components/stepper/Stepper';
-import { formatPrice } from '@/core/army-state/formatPrice';
-import { resolveUpgradePoints } from '@/core/army-state/pricing';
-import { maxedUpgradeHint } from '@/core/limits/maxedUpgradeHint';
-import { minMaxHint } from '@/core/limits/min-max/minMaxHint';
-import { sameKindTakenAlongside } from '@/core/limits/upgradeKinds';
-import { upgradeMaxCount } from '@/core/limits/upgradeMaxCount';
-import { resolveUpgradeRules } from '@/core/special-rules/upgradeRules';
-import { errorsForTarget } from '@/core/validation/errorTargets';
-import { useArmyStore } from '@/store/useArmyStore';
-import { InlineErrors } from '../../shared/inline-errors/InlineErrors';
-import { LimitBadge } from '../../shared/LimitBadge';
-import { RuleList } from '../../shared/rule-list/RuleList';
-import styles from './UpgradeRow.module.css';
+import { Icon, INLINE_ICON_SIZE } from "@/components/Icon";
+import { Popover } from "@/components/popover/Popover";
+import { Stepper } from "@/components/stepper/Stepper";
+import { formatPrice } from "@/core/army-state/formatPrice";
+import { resolveUpgradePoints } from "@/core/army-state/pricing";
+import { maxedUpgradeHint } from "@/core/limits/maxedUpgradeHint";
+import { minMaxHint } from "@/core/limits/min-max/minMaxHint";
+import { sameKindTakenAlongside } from "@/core/limits/upgradeKinds";
+import { upgradeMaxCount } from "@/core/limits/upgradeMaxCount";
+import { resolveUpgradeRules } from "@/core/special-rules/upgradeRules";
+import { errorsForTarget } from "@/core/validation/errorTargets";
+import { useArmyStore } from "@/store/useArmyStore";
+import { InlineErrors } from "../../shared/inline-errors/InlineErrors";
+import { LimitBadge } from "../../shared/LimitBadge";
+import { RuleList } from "../../shared/rule-list/RuleList";
+import styles from "./UpgradeRow.module.css";
 
 interface UpgradeRowProps {
   unitId: string;
@@ -45,7 +45,11 @@ export const UpgradeRow = ({ unitId, upgradeId }: UpgradeRowProps) => {
     taken: count,
     armyTotal: upgrade.number,
     armyMax: upgrade.armyMax,
-    sameKindTaken: sameKindTakenAlongside({ carried: unit.upgrades, upgrades, upgradeId }),
+    sameKindTaken: sameKindTakenAlongside({
+      carried: unit.upgrades,
+      upgrades,
+      upgradeId,
+    }),
   });
 
   const maxedHint = maxedUpgradeHint({ units, upgrades, unitId, upgradeId });

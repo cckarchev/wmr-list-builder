@@ -7,7 +7,10 @@ const NOT_FOUND = -1;
  * A full order of `ids` from a stored one: the stored ids it still knows, in
  * their stored order and once each, then any it lacks in their default order.
  */
-export const completeOrder = (stored: readonly string[], ids: readonly string[]): string[] => {
+export const completeOrder = (
+  stored: readonly string[],
+  ids: readonly string[],
+): string[] => {
   const known = new Set(ids);
   const kept = [...new Set(stored)].filter((id) => known.has(id));
   const keptIds = new Set(kept);
@@ -16,7 +19,10 @@ export const completeOrder = (stored: readonly string[], ids: readonly string[])
   return [...kept, ...missing];
 };
 
-/** The items sorted by their id's place in `order`; ids it lacks go last, as they came. */
+/**
+ * The items sorted by their id's place in `order`; ids it lacks go last, as
+ * they came.
+ */
 export const orderById = <T extends { id: string }>(
   items: readonly T[],
   order: readonly string[],

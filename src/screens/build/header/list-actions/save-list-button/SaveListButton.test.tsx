@@ -1,79 +1,79 @@
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { listSavedNames } from '@/core/persistence/savedLists';
-import { useArmyStore } from '@/store/useArmyStore';
-import { renderWithProviders } from '@/test/renderWithProviders';
-import { SaveListButton } from './SaveListButton';
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it } from "vitest";
+import { listSavedNames } from "@/core/persistence/savedLists";
+import { useArmyStore } from "@/store/useArmyStore";
+import { renderWithProviders } from "@/test/renderWithProviders";
+import { SaveListButton } from "./SaveListButton";
 
-describe('SaveListButton', () => {
+describe("SaveListButton", () => {
   beforeEach(() => {
     localStorage.clear();
-    useArmyStore.getState().setArmy('bretonnia');
+    useArmyStore.getState().setArmy("bretonnia");
   });
 
-  it('saves under a typed name and marks the list clean', async () => {
+  it("saves under a typed name and marks the list clean", async () => {
     const user = userEvent.setup();
     renderWithProviders(<SaveListButton />);
-    await user.click(screen.getByRole('button', { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
     const input = screen.getByLabelText(/list name/i);
     await user.clear(input);
-    await user.type(input, 'My Tourney List');
-    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+    await user.type(input, "My Tourney List");
+    await user.click(screen.getByRole("button", { name: /^save list$/i }));
 
-    expect(listSavedNames('bretonnia')).toEqual(['My Tourney List']);
-    expect(useArmyStore.getState().label).toBe('My Tourney List');
+    expect(listSavedNames("bretonnia")).toEqual(["My Tourney List"]);
+    expect(useArmyStore.getState().label).toBe("My Tourney List");
     expect(useArmyStore.getState().savedBaseline).not.toBeNull();
   });
 
-  it('starts the draft from the current list name', async () => {
+  it("starts the draft from the current list name", async () => {
     const user = userEvent.setup();
-    useArmyStore.getState().setLabel('Current Name');
+    useArmyStore.getState().setLabel("Current Name");
     renderWithProviders(<SaveListButton />);
-    await user.click(screen.getByRole('button', { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
 
-    expect(screen.getByLabelText(/list name/i)).toHaveValue('Current Name');
+    expect(screen.getByLabelText(/list name/i)).toHaveValue("Current Name");
   });
 
-  it('trims surrounding spaces from the saved name', async () => {
+  it("trims surrounding spaces from the saved name", async () => {
     const user = userEvent.setup();
     renderWithProviders(<SaveListButton />);
-    await user.click(screen.getByRole('button', { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
     const input = screen.getByLabelText(/list name/i);
     await user.clear(input);
-    await user.type(input, '  Spaced Out  ');
-    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+    await user.type(input, "  Spaced Out  ");
+    await user.click(screen.getByRole("button", { name: /^save list$/i }));
 
-    expect(listSavedNames('bretonnia')).toEqual(['Spaced Out']);
-    expect(useArmyStore.getState().label).toBe('Spaced Out');
+    expect(listSavedNames("bretonnia")).toEqual(["Spaced Out"]);
+    expect(useArmyStore.getState().label).toBe("Spaced Out");
   });
 
-  it('blocks saving an empty name', async () => {
+  it("blocks saving an empty name", async () => {
     const user = userEvent.setup();
     renderWithProviders(<SaveListButton />);
-    await user.click(screen.getByRole('button', { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
     await user.clear(screen.getByLabelText(/list name/i));
-    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+    await user.click(screen.getByRole("button", { name: /^save list$/i }));
 
-    expect(listSavedNames('bretonnia')).toEqual([]);
+    expect(listSavedNames("bretonnia")).toEqual([]);
     expect(screen.getByText(/enter a name/i)).toBeInTheDocument();
   });
 
-  it('asks to confirm before overwriting an existing name', async () => {
+  it("asks to confirm before overwriting an existing name", async () => {
     const user = userEvent.setup();
-    useArmyStore.getState().setLabel('Existing');
+    useArmyStore.getState().setLabel("Existing");
     renderWithProviders(<SaveListButton />);
     // first save creates "Existing"
-    await user.click(screen.getByRole('button', { name: /save/i }));
-    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /^save list$/i }));
     // second save of the same name should prompt to overwrite
-    await user.click(screen.getByRole('button', { name: /save/i }));
-    await user.click(screen.getByRole('button', { name: /^save list$/i }));
+    await user.click(screen.getByRole("button", { name: /save/i }));
+    await user.click(screen.getByRole("button", { name: /^save list$/i }));
 
     expect(screen.getByText(/already exists/i)).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /overwrite/i }));
+    await user.click(screen.getByRole("button", { name: /overwrite/i }));
 
-    expect(listSavedNames('bretonnia')).toEqual(['Existing']);
+    expect(listSavedNames("bretonnia")).toEqual(["Existing"]);
   });
 });

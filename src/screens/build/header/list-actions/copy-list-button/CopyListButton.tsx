@@ -1,8 +1,8 @@
-import { pointsCost } from '@/core/army-state/armyTotals';
-import { usedUnits as getUsedUnits } from '@/core/army-state/usedUnits';
-import { buildTextList } from '@/core/textList';
-import { useArmyStore } from '@/store/useArmyStore';
-import { CopyButton } from '../shared/copy-button/CopyButton';
+import { pointsCost } from "@/core/army-state/armyTotals";
+import { usedUnits as getUsedUnits } from "@/core/army-state/usedUnits";
+import { buildTextList } from "@/core/textList";
+import { useArmyStore } from "@/store/useArmyStore";
+import { CopyButton } from "../shared/copy-button/CopyButton";
 
 export const CopyListButton = () => {
   const army = useArmyStore((s) => s.army);

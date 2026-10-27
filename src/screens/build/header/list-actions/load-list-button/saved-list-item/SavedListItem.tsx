@@ -1,5 +1,5 @@
-import { Icon, INLINE_ICON_SIZE } from '@/components/Icon';
-import styles from './SavedListItem.module.css';
+import { Icon, INLINE_ICON_SIZE } from "@/components/Icon";
+import styles from "./SavedListItem.module.css";
 
 interface SavedListItemProps {
   name: string;
@@ -9,10 +9,19 @@ interface SavedListItemProps {
 }
 
 /** One saved list in the Load panel: load it by name, or delete it. */
-export const SavedListItem = ({ name, gameSize, onLoad, onDelete }: SavedListItemProps) => (
+export const SavedListItem = ({
+  name,
+  gameSize,
+  onLoad,
+  onDelete,
+}: SavedListItemProps) => (
   <div className={styles.item}>
     <div className={styles.row}>
-      <button className={styles.name} type="button" onClick={() => onLoad(name)}>
+      <button
+        className={styles.name}
+        type="button"
+        onClick={() => onLoad(name)}
+      >
         <span className={styles.title}>{name}</span>
         <span className={styles.size} aria-hidden="true">
           {gameSize} pts

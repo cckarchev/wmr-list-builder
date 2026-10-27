@@ -4,5 +4,5 @@ type ClassName = string | undefined | false;
 export const classNames = (...names: ClassName[]): string => {
   const present = names.filter((name): name is string => Boolean(name));
 
-  return present.join(' ');
+  return present.join(" ");
 };

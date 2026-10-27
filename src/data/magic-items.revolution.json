@@ -254,12 +254,22 @@
     },
     {
       "unitType": ["General", "Hero", "Wizard"],
-      "upgrades": ["swordOfDestruction", "swordOfFate", "swordOfCleaving", "swordOfMight"],
+      "upgrades": [
+        "swordOfDestruction",
+        "swordOfFate",
+        "swordOfCleaving",
+        "swordOfMight"
+      ],
       "magic": true
     },
     {
       "unitType": ["General"],
-      "upgrades": ["crownOfCommand", "helmOfDominion", "orbOfMajesty", "sceptreOfSovereignty"],
+      "upgrades": [
+        "crownOfCommand",
+        "helmOfDominion",
+        "orbOfMajesty",
+        "sceptreOfSovereignty"
+      ],
       "magic": true
     },
     {

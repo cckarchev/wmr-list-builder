@@ -78,8 +78,10 @@ export interface MagicItemsFile {
   upgradeConstraints: UpgradeConstraint[];
 }
 
-/** The magic items JSON as stored: items in a list, each carrying its own id. */
-export interface RawMagicItemsFile extends Omit<MagicItemsFile, 'upgrades'> {
+/**
+ * The magic items JSON as stored: items in a list, each carrying its own id.
+ */
+export interface RawMagicItemsFile extends Omit<MagicItemsFile, "upgrades"> {
   upgrades: MagicItem[];
 }
 
@@ -131,7 +133,8 @@ export interface ValidationError {
  * An army JSON as stored: units, upgrades and special rules in lists, each
  * entity carrying its own id. `normalizeArmy` turns it into an `Army`.
  */
-export interface RawArmy extends Omit<Army, 'units' | 'upgrades' | 'specialRules'> {
+export interface RawArmy
+  extends Omit<Army, "units" | "upgrades" | "specialRules"> {
   units: Unit[];
   upgrades?: Upgrade[];
   specialRules?: SpecialRule[];

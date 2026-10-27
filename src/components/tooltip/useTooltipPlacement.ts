@@ -1,10 +1,10 @@
-import { type RefObject, useLayoutEffect, useState } from 'react';
-import { fitsAbove } from '@/core/lib/fitsAbove';
+import { type RefObject, useLayoutEffect, useState } from "react";
+import { fitsAbove } from "@/core/lib/fitsAbove";
 
-export type TooltipPlacement = 'above' | 'below';
+export type TooltipPlacement = "above" | "below";
 
 /** Set by the Build screen to the measured height of its sticky header. */
-const TOP_INSET_PROPERTY = '--header-height';
+const TOP_INSET_PROPERTY = "--header-height";
 const NO_INSET = 0;
 
 const readTopInset = (element: HTMLElement): number => {
@@ -24,7 +24,7 @@ export const useTooltipPlacement = (
   bubbleRef: RefObject<HTMLElement | null>,
   open: boolean,
 ): TooltipPlacement => {
-  const [placement, setPlacement] = useState<TooltipPlacement>('above');
+  const [placement, setPlacement] = useState<TooltipPlacement>("above");
 
   useLayoutEffect(() => {
     const trigger = triggerRef.current;
@@ -43,10 +43,10 @@ export const useTooltipPlacement = (
       topInset: readTopInset(trigger),
     });
 
-    setPlacement(isRoomAbove ? 'above' : 'below');
+    setPlacement(isRoomAbove ? "above" : "below");
 
     return () => {
-      setPlacement('above');
+      setPlacement("above");
     };
   }, [open, triggerRef, bubbleRef]);
 

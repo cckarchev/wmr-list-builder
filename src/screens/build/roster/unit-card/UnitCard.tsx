@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { CornerBrackets } from '@/components/corner-brackets/CornerBrackets';
-import { StatLine } from '@/components/stat-line/StatLine';
-import { isCharacter } from '@/core/army-state/unitTypes';
-import { errorsForTarget } from '@/core/validation/errorTargets';
-import { useArmyStore } from '@/store/useArmyStore';
-import { unitDomId, upgradesPanelId } from '../../shared/domIds';
-import { CardControls } from './card-controls/CardControls';
-import { InlineErrors } from './shared/inline-errors/InlineErrors';
-import styles from './UnitCard.module.css';
-import { UnitRules } from './unit-rules/UnitRules';
-import { UnitSpells } from './unit-spells/UnitSpells';
-import { UpgradesPanel } from './upgrades-panel/UpgradesPanel';
-import { UpgradesToggle } from './upgrades-toggle/UpgradesToggle';
+import { useState } from "react";
+import { CornerBrackets } from "@/components/corner-brackets/CornerBrackets";
+import { StatLine } from "@/components/stat-line/StatLine";
+import { isCharacter } from "@/core/army-state/unitTypes";
+import { errorsForTarget } from "@/core/validation/errorTargets";
+import { useArmyStore } from "@/store/useArmyStore";
+import { unitDomId, upgradesPanelId } from "../../shared/domIds";
+import { CardControls } from "./card-controls/CardControls";
+import { InlineErrors } from "./shared/inline-errors/InlineErrors";
+import styles from "./UnitCard.module.css";
+import { UnitRules } from "./unit-rules/UnitRules";
+import { UnitSpells } from "./unit-spells/UnitSpells";
+import { UpgradesPanel } from "./upgrades-panel/UpgradesPanel";
+import { UpgradesToggle } from "./upgrades-toggle/UpgradesToggle";
 
-const VALID_BRACKETS = 'var(--color-border-accent)';
-const INVALID_BRACKETS = 'var(--color-error)';
+const VALID_BRACKETS = "var(--color-border-accent)";
+const INVALID_BRACKETS = "var(--color-error)";
 
 interface UnitCardProps {
   unitId: string;
   /**
    * The roster section the card sits under. When the section is already labeled
-   * with the unit's type (e.g. an "Infantry" section), we omit the type tag from
-   * the card to avoid the redundant repetition.
+   * with the unit's type (e.g. an "Infantry" section), we omit the type tag
+   * from the card to avoid the redundant repetition.
    */
   groupLabel?: string;
 }
@@ -43,7 +43,9 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
 
   const unitUpgrades = Object.values(unit.upgrades ?? {});
   const upgradeIds = Object.keys(unit.upgrades ?? {});
-  const takenUpgrades = unitUpgrades.filter((upgrade) => upgrade.number > 0).length;
+  const takenUpgrades = unitUpgrades.filter(
+    (upgrade) => upgrade.number > 0,
+  ).length;
   const hasUpgrades = selected && upgradeIds.length > 0;
   const showUpgrades = hasUpgrades && upgradesOpen;
   const panelId = upgradesPanelId(unitId);
@@ -91,8 +93,12 @@ export const UnitCard = ({ unitId, groupLabel }: UnitCardProps) => {
           />
         )}
       </div>
-      {selected && <InlineErrors errors={unitErrors} label={`${unit.name} errors`} />}
-      {showUpgrades && <UpgradesPanel id={panelId} unitId={unitId} upgradeIds={upgradeIds} />}
+      {selected && (
+        <InlineErrors errors={unitErrors} label={`${unit.name} errors`} />
+      )}
+      {showUpgrades && (
+        <UpgradesPanel id={panelId} unitId={unitId} upgradeIds={upgradeIds} />
+      )}
     </div>
   );
 };

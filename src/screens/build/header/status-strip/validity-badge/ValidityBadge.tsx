@@ -1,7 +1,7 @@
-import { countOf } from '@/core/lib/quantities';
-import { useArmyStore } from '@/store/useArmyStore';
-import { scrollToUnit } from '../../../shared/scrollToUnit';
-import styles from './ValidityBadge.module.css';
+import { countOf } from "@/core/lib/quantities";
+import { useArmyStore } from "@/store/useArmyStore";
+import { scrollToUnit } from "../../../shared/scrollToUnit";
+import styles from "./ValidityBadge.module.css";
 
 /** "Valid", or the issue count as a button that jumps to the first bad unit. */
 export const ValidityBadge = () => {
@@ -19,7 +19,7 @@ export const ValidityBadge = () => {
   // Jump to the first invalid unit shown in "Army Composition" (a used unit).
   const isUsed = (unitId: string) => units[unitId]?.number > 0;
   const firstTarget = errors.flatMap((error) => error.targets).find(isUsed);
-  const issueLabel = countOf(errors.length, 'issue');
+  const issueLabel = countOf(errors.length, "issue");
 
   const goToFirstError = () => {
     if (!firstTarget) {

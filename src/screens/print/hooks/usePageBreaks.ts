@@ -1,11 +1,14 @@
-import { type RefCallback, useEffect, useState } from 'react';
-import { pageBreaks, type SheetBlock } from '@/core/print/pageBreaks';
-import { A4_PRINTABLE_HEIGHT_PX, isPaperWide } from '@/core/print/paper';
+import { type RefCallback, useEffect, useState } from "react";
+import { pageBreaks, type SheetBlock } from "@/core/print/pageBreaks";
+import { A4_PRINTABLE_HEIGHT_PX, isPaperWide } from "@/core/print/paper";
 
-/** The pieces the printer keeps whole (see the break rules in PrintView.module.css), and the headings it keeps with their body. */
-const BLOCK_SELECTOR = 'h1, h3, dt, dd, p, li, tr';
-const KEEP_WITH_NEXT_SELECTOR = 'h1, h3, dt';
-const FORCED_BREAK = 'page';
+/**
+ * The pieces the printer keeps whole (see the break rules in
+ * PrintView.module.css), and the headings it keeps with their body.
+ */
+const BLOCK_SELECTOR = "h1, h3, dt, dd, p, li, tr";
+const KEEP_WITH_NEXT_SELECTOR = "h1, h3, dt";
+const FORCED_BREAK = "page";
 
 /**
  * The sheet's children that must start a new page, such as each section with
@@ -14,7 +17,9 @@ const FORCED_BREAK = 'page';
  */
 const forcedBreaks = (sheet: HTMLElement, contentTop: number): SheetBlock[] => {
   const children = Array.from(sheet.children);
-  const forced = children.filter((child) => getComputedStyle(child).breakBefore === FORCED_BREAK);
+  const forced = children.filter(
+    (child) => getComputedStyle(child).breakBefore === FORCED_BREAK,
+  );
 
   return forced.map((child) => ({
     top: child.getBoundingClientRect().top - contentTop,
@@ -23,14 +28,20 @@ const forcedBreaks = (sheet: HTMLElement, contentTop: number): SheetBlock[] => {
   }));
 };
 
-/** Each innermost block on the sheet, measured from the top of its content box. */
+/**
+ * Each innermost block on the sheet, measured from the top of its content box.
+ */
 const measureBlocks = (sheet: HTMLElement): SheetBlock[] => {
   const sheetTop = sheet.getBoundingClientRect().top;
   const paddingTop = Number.parseFloat(getComputedStyle(sheet).paddingTop) || 0;
   const contentTop = sheetTop + paddingTop;
 
-  const elements = Array.from(sheet.querySelectorAll<HTMLElement>(BLOCK_SELECTOR));
-  const innermost = elements.filter((element) => !element.querySelector(BLOCK_SELECTOR));
+  const elements = Array.from(
+    sheet.querySelectorAll<HTMLElement>(BLOCK_SELECTOR),
+  );
+  const innermost = elements.filter(
+    (element) => !element.querySelector(BLOCK_SELECTOR),
+  );
 
   const blocks = innermost.map((element) => {
     const box = element.getBoundingClientRect();
@@ -50,7 +61,9 @@ const sameBreaks = (a: number[] | null, b: number[] | null): boolean => {
     return a === b;
   }
 
-  return a.length === b.length && a.every((offset, index) => offset === b[index]);
+  return (
+    a.length === b.length && a.every((offset, index) => offset === b[index])
+  );
 };
 
 interface PageBreaks<T extends HTMLElement> {

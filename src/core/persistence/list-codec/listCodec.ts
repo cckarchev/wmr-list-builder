@@ -1,7 +1,7 @@
-import { type ArmyCodeMaps, codeMapsFor } from '../codeMaps';
-import type { ListSnapshot } from '../snapshot';
-import { fromBase64Url, toBase64Url } from './base64Url';
-import { remapKeys } from './remapKeys';
+import { type ArmyCodeMaps, codeMapsFor } from "../codeMaps";
+import type { ListSnapshot } from "../snapshot";
+import { fromBase64Url, toBase64Url } from "./base64Url";
+import { remapKeys } from "./remapKeys";
 
 const VERSION = 1;
 
@@ -44,7 +44,10 @@ export const encodeList = (snap: ListSnapshot, maps: ArmyCodeMaps): string => {
 export const encodeListFor = (armyId: string, snap: ListSnapshot): string =>
   encodeList(snap, codeMapsFor(armyId));
 
-/** The wire inside an encoded blob, or null when it is unparseable or the wrong shape. */
+/**
+ * The wire inside an encoded blob, or null when it is unparseable or the wrong
+ * shape.
+ */
 const readWire = (s: string): Wire | null => {
   if (!s) {
     return null;
@@ -52,7 +55,7 @@ const readWire = (s: string): Wire | null => {
 
   try {
     const wire = JSON.parse(fromBase64Url(s)) as Wire;
-    const isCurrent = wire.v === VERSION && typeof wire.g === 'number';
+    const isCurrent = wire.v === VERSION && typeof wire.g === "number";
 
     return isCurrent ? wire : null;
   } catch {
@@ -73,15 +76,15 @@ const wireToSnapshot = (wire: Wire, maps: ArmyCodeMaps): ListSnapshot => {
     upgrades[id] = remapKeys(ups, upgradeId);
   }
 
-  return { name: wire.n ?? '', gameSize: wire.g, units, upgrades };
+  return { name: wire.n ?? "", gameSize: wire.g, units, upgrades };
 };
 
 /**
- * Shared parse/map core for both the localStorage decoder and the share decoder.
- * Returns null only when the blob is unparseable or the wire is the wrong shape;
- * `encodedUnitCount` is the number of unit entries the wire carried (before
- * mapping), so callers can tell "wrong army" (had entries, none resolved) apart
- * from "genuinely empty".
+ * Shared parse/map core for both the localStorage decoder and the share
+ * decoder. Returns null only when the blob is unparseable or the wire is the
+ * wrong shape; `encodedUnitCount` is the number of unit entries the wire
+ * carried (before mapping), so callers can tell "wrong army" (had entries, none
+ * resolved) apart from "genuinely empty".
  */
 const parseWire = (
   s: string,
@@ -104,8 +107,10 @@ const parseWire = (
   }
 };
 
-export const decodeList = (s: string, maps: ArmyCodeMaps): ListSnapshot | null =>
-  parseWire(s, maps)?.snapshot ?? null;
+export const decodeList = (
+  s: string,
+  maps: ArmyCodeMaps,
+): ListSnapshot | null => parseWire(s, maps)?.snapshot ?? null;
 
 /** Decode a blob with the code maps of the army with this id. */
 export const decodeListFor = (armyId: string, s: string): ListSnapshot | null =>
@@ -126,7 +131,8 @@ export const decodeShare = (s: string, maps: ArmyCodeMaps): DecodedShare => {
     return { ok: false };
   }
 
-  const isWrongArmy = parsed.encodedUnitCount > 0 && isEmpty(parsed.snapshot.units);
+  const isWrongArmy =
+    parsed.encodedUnitCount > 0 && isEmpty(parsed.snapshot.units);
 
   if (isWrongArmy) {
     return { ok: false };

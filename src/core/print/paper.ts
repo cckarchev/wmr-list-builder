@@ -23,4 +23,5 @@ export const A4_PRINTABLE_HEIGHT_PX = mmToPx(PRINTABLE_HEIGHT_MM);
  * Whether an on-screen sheet `width` pixels wide is as wide as A4, so its text
  * wraps as it will on paper. A narrower sheet wraps more and runs longer.
  */
-export const isPaperWide = (width: number): boolean => width >= A4_WIDTH_PX - ROUNDING_TOLERANCE_PX;
+export const isPaperWide = (width: number): boolean =>
+  width >= A4_WIDTH_PX - ROUNDING_TOLERANCE_PX;
