@@ -5,43 +5,40 @@ army, add units and upgrades, watch points / army size / validation update live,
 the roster to the units you need, then save lists by name, share them with a link, copy
 the list to your clipboard, or print an ink-friendly reference sheet.
 
-It is built as a standalone static site, linked from the club site.
+It is built as a standalone static site, linked from the club site and live at
+[wmr-list-builder.cckarchev.ar](https://wmr-list-builder.cckarchev.ar).
 
-## Tech stack
+## Stack
 
 - **React 19** + **TypeScript**
 - **Vite** (dev server + build)
-- **CSS Modules** (compiled by Lightning CSS) for styling: each component's
-  `.module.css` lives in its folder, and every visual value comes from the club's
-  shared tokens and self-hosted fonts in
-  [`@cckarchev/shared`](https://github.com/cckarchev/cck-shared), plus the
-  app tokens in `src/theme/tokens.css`. Breakpoints are `@custom-media` queries in
-  `src/theme/breakpoints.css`; variants and states are `data-*` attributes
-- **Zustand** for state (`src/store/`)
-- **React Router** for routing
+- **CSS Modules** (compiled by Lightning CSS), styled with the club's shared tokens
+  (see Design system): each component's `.module.css` lives in its folder.
+  Breakpoints are `@custom-media` queries in `src/theme/breakpoints.css`; variants
+  and states are `data-*` attributes
+- **Zustand** for state (`src/store/`) and **React Router** for routing
 - **marked** for rendering Markdown in rule, spell, and magic-item text
-- **Vitest** + **React Testing Library** for tests
+- **Vitest** + **React Testing Library** for tests, and **Biome** for lint and format,
+  from the shared preset in [`@cckarchev/shared`](https://github.com/cckarchev/cck-shared)
+- **[Cloudflare Workers](https://workers.cloudflare.com)** with static assets, via Wrangler, deploy
 
-## Getting started
+## Commands
 
-    $ npm install
-    $ npm run dev
+Requires Node 24.21 or later (`.node-version`).
 
-Vite serves the app and prints the local URL (default <http://localhost:5173/>).
-
-## Scripts
-
-| Command              | What it does                                          |
-| -------------------- | ----------------------------------------------------- |
-| `npm run dev`        | Start the Vite dev server                             |
-| `npm run build`      | Type-check and build the production bundle to `dist/` |
-| `npm run preview`    | Serve the built `dist/` locally                       |
-| `npm test`           | Run the test suite once                               |
-| `npm run test:watch` | Run tests in watch mode                               |
-| `npm run lint`       | Lint, format, and import-order check with Biome       |
-| `npm run lint:fix`   | Apply all safe Biome fixes                            |
-| `npm run typecheck`  | Type-check without emitting                           |
-| `npm run deploy`     | Build and deploy to Cloudflare Workers                |
+| Command              | What it does                                        |
+| :------------------- | :-------------------------------------------------- |
+| `npm install`        | Install dependencies                                |
+| `npm run dev`        | Dev server at `localhost:5173`                      |
+| `npm run build`      | Production build to `dist/`                         |
+| `npm run preview`    | Preview the local build                             |
+| `npm run verify`     | Check, type check, test and build, as CI does       |
+| `npm run deploy`     | `verify`, then deploy with Wrangler (manual deploy) |
+| `npm run check`      | Biome lint and format check                         |
+| `npm run check:fix`  | Biome lint and format with autofix                  |
+| `npm run typecheck`  | Type check without emitting                         |
+| `npm test`           | Run the unit tests (Vitest)                         |
+| `npm run test:watch` | Run the unit tests in watch mode                    |
 
 ## Project layout
 
@@ -61,16 +58,6 @@ it use the `@/` alias for `src/`.
 
 Army data lives in `src/data/armies/*.json` and is imported at build time via Vite's
 `import.meta.glob`, so adding an army is just dropping in a JSON file.
-
-## Deployment
-
-The site runs on Cloudflare Workers as static assets only, with no Worker script.
-`wrangler.jsonc` serves `dist/`, falls back to `index.html` for the app's routes (so deep
-links like `/build/goblin` resolve), and attaches the custom domain
-`wmr-list-builder.cckarchev.ar`.
-
-`npm run deploy` builds and uploads it with the project's own Wrangler. Log in once with
-`npx wrangler login` on an account that holds the `cckarchev.ar` zone.
 
 ## Saving & sharing
 
@@ -96,6 +83,24 @@ The Print screen (the **Print** button on a roster) offers per-section checkboxe
 optional label. Output is forced to a light, monochrome layout via `@media print` to save
 ink/toner.
 
+## Deploy
+
+The site runs on Cloudflare Workers as static assets only, with no Worker script.
+`wrangler.jsonc` serves `dist/`, falls back to `index.html` for the app's routes (so deep
+links like `/build/goblin` resolve), and attaches the custom domain
+`wmr-list-builder.cckarchev.ar`.
+
+`npm run deploy` verifies, builds and uploads it with the project's own Wrangler. Log in once with
+`npx wrangler login` on an account that holds the `cckarchev.ar` zone.
+
+## Design system
+
+The UI follows the club's design system: dark-only theme, sharp corners, orange
+accent over a near-black base, and a light monochrome layout for print. The palette,
+scales and fonts come from [`@cckarchev/shared`](https://github.com/cckarchev/cck-shared)
+(`fonts.css` and `tokens.css`, imported in `src/main.tsx`). `src/theme/tokens.css` only
+adds the tokens specific to this app.
+
 ## Credits
 
 This project was initially based on [dsusco/wm-selector](https://github.com/dsusco/wm-selector),
@@ -109,4 +114,4 @@ Warmaster and all associated names, races, and army lists are trademarks of Game
 Limited. No challenge to their status is intended. All such material is used without
 permission for non-commercial, fan use only.
 
-See [NOTICE](NOTICE) for the full credit and disclaimer.
+See [NOTICE](NOTICE) for the full notice.

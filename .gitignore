@@ -1,46 +1,33 @@
 # Dependencies
-node_modules
+node_modules/
 
 # Build output
-/dist
-dist-ssr
-
-# TypeScript incremental build cache
+dist/
 *.tsbuildinfo
 
-# Test / coverage
-/coverage
-
-# Vite / local
-*.local
+# Test coverage
+coverage/
 
 # Logs
-logs
 *.log
-npm-debug.log*
 
-# Env files
+# Environment and local secrets
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+.dev.vars
+*.local
 
-# Editor / OS
-.DS_Store
-.idea
+# Cloudflare local state
+.wrangler/
+
+# Local working docs, not published
+docs/
+.superpowers/
+
+# Editors and OS
 .vscode/*
 !.vscode/extensions.json
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Deploy
-.netlify
-.vercel
-.wrangler
-
-# Superpowers specs/plans (local working docs)
-/docs
-
-.superpowers/
+!.vscode/launch.json
+.idea/
+.DS_Store
