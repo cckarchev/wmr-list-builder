@@ -1,4 +1,4 @@
-@import "@/theme/breakpoints.css";
+@import "@cckarchev/shared/breakpoints.css";
 
 /* The sheet previews as the paper it prints on: black ink on white, whatever
    the screen theme. Pointing the theme tokens at the print colors here

@@ -14,7 +14,8 @@ It is built as a standalone static site, linked from the club site and live at
 - **Vite** (dev server + build)
 - **CSS Modules** (compiled by Lightning CSS), styled with the club's shared tokens
   (see Design system): each component's `.module.css` lives in its folder.
-  Breakpoints are `@custom-media` queries in `src/theme/breakpoints.css`; variants
+  Breakpoints are the shared `@custom-media` queries from
+  `@cckarchev/shared/breakpoints.css`; variants
   and states are `data-*` attributes
 - **Zustand** for state (`src/store/`) and **React Router** for routing
 - **marked** for rendering Markdown in rule, spell, and magic-item text

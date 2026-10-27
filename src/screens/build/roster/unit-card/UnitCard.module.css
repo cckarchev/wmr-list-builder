@@ -1,4 +1,4 @@
-@import "@/theme/breakpoints.css";
+@import "@cckarchev/shared/breakpoints.css";
 
 /* The card is a size container, so its layout follows its own width (which
    depends on the roster column) rather than the viewport's. */
